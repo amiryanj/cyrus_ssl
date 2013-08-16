@@ -10,12 +10,14 @@
 
 #include "../thirdparty/serialib/serialib.h"
 #include "../general.h"
+#include "../tools/SSLException.h"
+using namespace std;
 
-class SerialConnection {
+class RobotSerialConnection {
 public:
-	SerialConnection(const char * serialPortName, unsigned int baudrate);
+	RobotSerialConnection(const char * serialPortName, unsigned int baudrate) throw(SSLException);
 	void sendRobotData(int robotID, SSLRobotPacket &packet);
-	virtual ~SerialConnection();
+	virtual ~RobotSerialConnection();
 private:
 	serialib lib;
 };

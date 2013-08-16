@@ -4,23 +4,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/physical/RobotSerialConnection.cpp \
-../src/physical/SSLReferee.cpp \
-../src/physical/SSLVision.cpp 
+../src/tools/MulticastListener.cpp \
+../src/tools/SSLException.cpp \
+../src/tools/SSLListener.cpp 
 
 OBJS += \
-./src/physical/RobotSerialConnection.o \
-./src/physical/SSLReferee.o \
-./src/physical/SSLVision.o 
+./src/tools/MulticastListener.o \
+./src/tools/SSLException.o \
+./src/tools/SSLListener.o 
 
 CPP_DEPS += \
-./src/physical/RobotSerialConnection.d \
-./src/physical/SSLReferee.d \
-./src/physical/SSLVision.d 
+./src/tools/MulticastListener.d \
+./src/tools/SSLException.d \
+./src/tools/SSLListener.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/physical/%.o: ../src/physical/%.cpp
+src/tools/%.o: ../src/tools/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross G++ Compiler'
 	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"

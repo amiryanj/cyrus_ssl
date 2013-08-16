@@ -4,23 +4,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/physical/RobotSerialConnection.cpp \
-../src/physical/SSLReferee.cpp \
-../src/physical/SSLVision.cpp 
+../src/thirdparty/socket/IPPacket.cpp \
+../src/thirdparty/socket/MulticastReciever.cpp \
+../src/thirdparty/socket/PracticalSocket.cpp 
 
 OBJS += \
-./src/physical/RobotSerialConnection.o \
-./src/physical/SSLReferee.o \
-./src/physical/SSLVision.o 
+./src/thirdparty/socket/IPPacket.o \
+./src/thirdparty/socket/MulticastReciever.o \
+./src/thirdparty/socket/PracticalSocket.o 
 
 CPP_DEPS += \
-./src/physical/RobotSerialConnection.d \
-./src/physical/SSLReferee.d \
-./src/physical/SSLVision.d 
+./src/thirdparty/socket/IPPacket.d \
+./src/thirdparty/socket/MulticastReciever.d \
+./src/thirdparty/socket/PracticalSocket.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/physical/%.o: ../src/physical/%.cpp
+src/thirdparty/socket/%.o: ../src/thirdparty/socket/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross G++ Compiler'
 	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"

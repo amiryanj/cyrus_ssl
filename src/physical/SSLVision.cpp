@@ -7,12 +7,16 @@
 
 #include "SSLVision.h"
 
-SSLVision::SSLVision() {
-	wrapper.ParseFromArray(NULL,0);
-
+SSLVision::SSLVision(string address, int port) : MulticastListener(address,port){
 }
 
 SSLVision::~SSLVision() {
-	// TODO Auto-generated destructor stub
 }
 
+void SSLVision::parse(IPPacket &packet){
+	wrapper.Clear();
+	wrapper.ParseFromArray(packet.buffer,packet.length);
+}
+void SSLVision::updateWorldModel(void* data){
+	//TODO: update world model from wrapper
+}

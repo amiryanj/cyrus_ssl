@@ -23,8 +23,11 @@ C_UPPER_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+src/tools \
 src/thirdparty/sslvision/cpp \
+src/thirdparty/socket \
 src/thirdparty/serialib \
+src/thirdparty/referee/cpp \
 src/physical \
 src/definition \
 src \

@@ -8,8 +8,11 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/tools/subdir.mk
 -include src/thirdparty/sslvision/cpp/subdir.mk
+-include src/thirdparty/socket/subdir.mk
 -include src/thirdparty/serialib/subdir.mk
+-include src/thirdparty/referee/cpp/subdir.mk
 -include src/physical/subdir.mk
 -include src/definition/subdir.mk
 -include src/subdir.mk

@@ -5,19 +5,21 @@
  *      Author: mostafa
  */
 
-#include "SerialConnection.h"
+#include "RobotSerialConnection.h"
 
 
-SerialConnection::SerialConnection(const char * serialPortName, unsigned int baudrate)
+RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)
+  throw(SSLException)
 {
 
     if (lib.Open(serialPortName,baudrate) != 1)
     {
-        std::cerr << "device " << serialPortName <<" failed to open" << std::endl;
+    	throw SSLException("failed to open serial device");
+        //std::cerr << "device " << serialPortName <<" failed to open" << std::endl;
     }
 }
 
-void SerialConnection::sendRobotData(int robotID, SSLRobotPacket &packet)
+void RobotSerialConnection::sendRobotData(int robotID, SSLRobotPacket &packet)
 {
     unsigned char byteArray[7];
     //start byte
@@ -46,6 +48,6 @@ void SerialConnection::sendRobotData(int robotID, SSLRobotPacket &packet)
     lib.Write(byteArray,7);
 }
 
-SerialConnection::~SerialConnection(){
+RobotSerialConnection::~RobotSerialConnection(){
 	lib.Close();
 }

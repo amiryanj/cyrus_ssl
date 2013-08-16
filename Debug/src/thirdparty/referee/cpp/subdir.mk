@@ -3,24 +3,18 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-CPP_SRCS += \
-../src/physical/RobotSerialConnection.cpp \
-../src/physical/SSLReferee.cpp \
-../src/physical/SSLVision.cpp 
+CC_SRCS += \
+../src/thirdparty/referee/cpp/referee.pb.cc 
 
 OBJS += \
-./src/physical/RobotSerialConnection.o \
-./src/physical/SSLReferee.o \
-./src/physical/SSLVision.o 
+./src/thirdparty/referee/cpp/referee.pb.o 
 
-CPP_DEPS += \
-./src/physical/RobotSerialConnection.d \
-./src/physical/SSLReferee.d \
-./src/physical/SSLVision.d 
+CC_DEPS += \
+./src/thirdparty/referee/cpp/referee.pb.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-src/physical/%.o: ../src/physical/%.cpp
+src/thirdparty/referee/cpp/%.o: ../src/thirdparty/referee/cpp/%.cc
 	@echo 'Building file: $<'
 	@echo 'Invoking: Cross G++ Compiler'
 	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
