@@ -16,9 +16,7 @@ TARGET = Cyrus2014
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    definition/WorldModel.cpp \
     definition/SSLRobotPacket.cpp \
-    definition/Position.cpp \
     physical/SSLVision.cpp \
     physical/SSLReferee.cpp \
     physical/RobotSerialConnection.cpp \
@@ -33,13 +31,17 @@ SOURCES += main.cpp \
     thirdparty/sslvision/cpp/messages_robocup_ssl_detection.pb.cc \
     tools/SSLListener.cpp \
     tools/SSLException.cpp \
-    tools/MulticastListener.cpp
+    tools/MulticastListener.cpp \
+    definition/SSLWorldModel.cpp \
+    definition/SSLTeam.cpp \
+    definition/SSLRobot.cpp \
+    definition/SSLObject.cpp \
+    definition/SSLBall.cpp \
+    definition/SSLRobotPhysic.cpp \
+    ai/SSLGame.cpp
 
 HEADERS += \
-    definition/WorldModel.h \
     definition/SSLRobotPacket.h \
-    definition/Position.h \
-    definition/Color.h \
     physical/SSLVision.h \
     physical/SSLReferee.h \
     physical/RobotSerialConnection.h \
@@ -55,5 +57,13 @@ HEADERS += \
     tools/SSLListener.h \
     tools/SSLException.h \
     tools/MulticastListener.h \
-    general.h
+    general.h \
+    definition/SSLWorldModel.h \
+    definition/SSLTeam.h \
+    definition/SSLRobot.h \
+    definition/SSLObject.h \
+    definition/SSLBall.h \
+    definition/SSLRobotPhysic.h \
+    definition/Concepts.h \
+    ai/SSLGame.h
 

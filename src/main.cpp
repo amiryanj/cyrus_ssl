@@ -2,13 +2,15 @@
 #include <QApplication>
 #include <QDebug>
 #include <iostream>
+#include "ai/SSLGame.h"
 
 using namespace std;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    cerr << "Program is running ... ";
+    cerr << "Main is running ... ";
+    SSLGame::game->run();
     
     return a.exec();
 }
