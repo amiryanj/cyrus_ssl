@@ -18,7 +18,7 @@ public:
 	SSLVision(string address, int port);
 	virtual ~SSLVision();
 	void parse(IPPacket &packet);
-	void updateWorldModel(void* data);
+    void updateWorldModel();
 };
 
 #endif /* SSLVISION_H_ */

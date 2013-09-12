@@ -17,6 +17,7 @@ void SSLVision::parse(IPPacket &packet){
 	wrapper.Clear();
 	wrapper.ParseFromArray(packet.buffer,packet.length);
 }
-void SSLVision::updateWorldModel(void* data){
+void SSLVision::updateWorldModel()
+{
 	//TODO: update world model from wrapper
 }

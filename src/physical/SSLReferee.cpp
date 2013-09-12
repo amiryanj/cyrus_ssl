@@ -17,6 +17,7 @@ void SSLReferee::parse(IPPacket &packet){
 	referee.Clear();
 	referee.ParseFromArray(packet.buffer,packet.length);
 }
-void SSLReferee::updateWorldModel(void* data){
+void SSLReferee::updateWorldModel(){
 	//TODO update referee object in world model
+
 }

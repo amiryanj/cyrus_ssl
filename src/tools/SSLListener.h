@@ -10,8 +10,7 @@
 
 class SSLListener {
 public:
-	virtual void check()=0;
-	virtual void updateWorldModel(void* data)=0;
+    virtual void check() = 0;
 	virtual ~SSLListener();
 };
 

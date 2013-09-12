@@ -19,6 +19,6 @@ void MulticastListener::check(){
 	IPPacket packet = reciever.read();
 	if (packet.length >0) {
 		parse(packet);
-		updateWorldModel(NULL);
+        updateWorldModel();
 	}
 }

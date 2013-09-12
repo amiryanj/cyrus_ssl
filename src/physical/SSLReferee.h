@@ -18,7 +18,7 @@ public:
 	SSLReferee(string address, int port);
 	virtual ~SSLReferee();
 	void parse(IPPacket &packet);
-	void updateWorldModel(void* data);
+    void updateWorldModel();
 };
 
 #endif /* SSLREFEREE_H_ */
