@@ -1,12 +1,11 @@
+#include "RobotCommandPacket.h"
 
-#include "SSLRobotPacket.h"
-
-SSLRobotPacket::SSLRobotPacket()
+RobotCommandPacket::RobotCommandPacket()
 {
     reset();
 }
 
-SSLRobotPacket::SSLRobotPacket(double v[], double kickPower, bool isForceKick, bool isDribbler)
+RobotCommandPacket::RobotCommandPacket(double v[], double kickPower, bool isForceKick, bool isDribbler)
 {
     this->v[0] = v[0];
     this->v[1] = v[1];
@@ -18,7 +17,7 @@ SSLRobotPacket::SSLRobotPacket(double v[], double kickPower, bool isForceKick, b
     this->isDribbler = isDribbler;
 }
 
-void SSLRobotPacket::reset(){
+void RobotCommandPacket::reset(){
     this->v[0] = 0;
     this->v[1] = 0;
     this->v[2] = 0;

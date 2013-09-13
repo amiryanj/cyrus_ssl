@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    cerr << "Main is running ... ";
+    cerr << "Main is running ... " << "\n";
     SSLGame::game->run();
     
     return a.exec();

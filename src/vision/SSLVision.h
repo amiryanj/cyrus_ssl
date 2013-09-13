@@ -10,10 +10,13 @@
 
 #include "../thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.h"
 #include "../tools/MulticastListener.h"
+#include "../ai/SSLWorldModel.h"
 
 class SSLVision : public MulticastListener{
 private:
 	SSL_WrapperPacket wrapper;
+    SSLWorldModel* world;
+
 public:
 	SSLVision(string address, int port);
 	virtual ~SSLVision();

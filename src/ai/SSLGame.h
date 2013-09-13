@@ -2,7 +2,7 @@
 #define SSLGAME_H
 
 #include "../general.h"
-#include "definition/SSLWorldModel.h"
+#include "../ai/SSLWorldModel.h"
 
 class SSLGame
 {

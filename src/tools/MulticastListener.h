@@ -10,7 +10,7 @@
 
 #include <string>
 #include "../thirdparty/socket/MulticastReciever.h"
-#include "../definition/SSLWorldModel.h"
+#include "../ai/SSLWorldModel.h"
 #include "SSLListener.h"
 
 using namespace std;

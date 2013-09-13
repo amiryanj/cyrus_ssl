@@ -16,8 +16,7 @@ TARGET = Cyrus2014
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    definition/SSLRobotPacket.cpp \
-    physical/SSLVision.cpp \
+    vision/SSLVision.cpp \
     physical/SSLReferee.cpp \
     physical/RobotSerialConnection.cpp \
     thirdparty/referee/cpp/referee.pb.cc \
@@ -32,17 +31,18 @@ SOURCES += main.cpp \
     tools/SSLListener.cpp \
     tools/SSLException.cpp \
     tools/MulticastListener.cpp \
-    definition/SSLWorldModel.cpp \
+    ai/SSLWorldModel.cpp \
     definition/SSLTeam.cpp \
     definition/SSLRobot.cpp \
     definition/SSLObject.cpp \
     definition/SSLBall.cpp \
     definition/SSLRobotPhysic.cpp \
-    ai/SSLGame.cpp
+    ai/SSLGame.cpp \
+    definition/RobotCommandPacket.cpp \
+    vision/RobotFilter.cpp
 
 HEADERS += \
-    definition/SSLRobotPacket.h \
-    physical/SSLVision.h \
+    vision/SSLVision.h \
     physical/SSLReferee.h \
     physical/RobotSerialConnection.h \
     thirdparty/referee/cpp/referee.pb.h \
@@ -58,12 +58,14 @@ HEADERS += \
     tools/SSLException.h \
     tools/MulticastListener.h \
     general.h \
-    definition/SSLWorldModel.h \
+    ai/SSLWorldModel.h \
     definition/SSLTeam.h \
     definition/SSLRobot.h \
     definition/SSLObject.h \
     definition/SSLBall.h \
     definition/SSLRobotPhysic.h \
     definition/Concepts.h \
-    ai/SSLGame.h
+    ai/SSLGame.h \
+    definition/RobotCommandPacket.h \
+    vision/RobotFilter.h
 
