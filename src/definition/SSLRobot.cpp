@@ -1,27 +1,27 @@
 #include "SSLRobot.h"
 #include <iostream>
 #include <math.h>
-#include <QVector3D>
 
 SSLRobot::SSLRobot()
 {
 
 }
 
-QVector3D SSLRobot::localSpeed() const
+Vector3D SSLRobot::localSpeed() const
 {
-    QVector3D local_speed;
-    std::cerr << "doubt in correct calculation of local speed";
+    Vector3D local_speed;
+    //std::cerr << "doubt in correct calculation of local speed";
+
     // forward speed
-    local_speed.setX(speed.x()*cos(orien_radian()) + speed.y()*sin(orien_radian()));
+    local_speed.x = Speed().x * cos(orien()) + Speed().y * sin(orien());
     // lateral speed
-    local_speed.setY(speed.x()*sin(orien_radian()) - speed.y()*cos(orien_radian()));
-    local_speed.setZ(speed.z());
+    local_speed.y = Speed().x * sin(orien()) - Speed().y * cos(orien());
+    local_speed.teta = Speed().teta;
     return local_speed;
 
 }
 
-double SSLRobot::orien_radian() const
+double SSLRobot::orien() const
 {
-    return this->position.z();
+    return this->position_.teta;
 }

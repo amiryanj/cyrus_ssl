@@ -8,15 +8,14 @@ class SSLGame
 {
 public:
     static SSLGame* getInstance();
-    static SSLGame* game;
-
+    SSLWorldModel *world;
     void run();
 
 private:
     SSLGame();
     ~SSLGame();
+    static SSLGame* game;
 
-    SSLWorldModel *world;
     Color ourColor;
     inline Color enemyColor();
     Side ourSide;

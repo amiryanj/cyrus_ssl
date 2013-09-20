@@ -13,7 +13,16 @@ using namespace std;
 #include <math.h>
 #include "definition/RobotCommandPacket.h"
 #include "definition/Concepts.h"
+#include "tools/vector3d.h"
 //#include "definition/Position.h"
+
+typedef double time_sec;
+typedef double time_msec;
+
+typedef double pose_meter;
+typedef double pose_mmeter;
+
+typedef Vector3D point3D;
 
 #define __SERIAL_PORT "/dev/ttyUSB0"
 #define __SERIAL_BAUD 115200

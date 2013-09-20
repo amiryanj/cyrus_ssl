@@ -22,7 +22,7 @@ public:
 	MulticastListener(string addres, int port);
 	virtual ~MulticastListener();
 
-    virtual void updateWorldModel()=0;
+    //virtual void updateWorldModel()=0;
 	virtual void parse(IPPacket& packet)=0;
 
 	void check();

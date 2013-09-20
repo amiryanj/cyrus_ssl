@@ -19,6 +19,10 @@ SSLWorldModel *SSLWorldModel::getInstace()
 
 SSLWorldModel::SSLWorldModel() {
 	// TODO Auto-generated constructor stub
+    for(int i=0; i< NUM_TEAMS; ++i)
+        team[i] = new SSLTeam((Side)i, (Color)i, SSLRobotPhysic());
+
+    ball = new SSLBall();
 
 }
 

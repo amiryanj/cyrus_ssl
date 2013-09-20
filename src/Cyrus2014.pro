@@ -39,7 +39,11 @@ SOURCES += main.cpp \
     definition/SSLRobotPhysic.cpp \
     ai/SSLGame.cpp \
     definition/RobotCommandPacket.cpp \
-    vision/RobotFilter.cpp
+    vision/SSLRobotKalmanFilter.cpp \
+    tools/vector3d.cpp \
+    tools/vector2d.cpp \
+    vision/KalmanModule.cpp \
+    vision/frame.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -67,5 +71,9 @@ HEADERS += \
     definition/Concepts.h \
     ai/SSLGame.h \
     definition/RobotCommandPacket.h \
-    vision/RobotFilter.h
+    vision/SSLRobotKalmanFilter.h \
+    tools/vector3d.h \
+    tools/vector2d.h \
+    vision/KalmanModule.h \
+    vision/frame.h
 

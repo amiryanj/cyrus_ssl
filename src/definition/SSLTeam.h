@@ -1,23 +1,25 @@
 #ifndef SSLTEAM_H
 #define SSLTEAM_H
 
-#include <QList>
-#include <QString>
+#include <vector>
+#include <string>
 #include "SSLRobot.h"
 #include "general.h"
 #include "SSLRobotPhysic.h"
+
+using namespace std;
 
 class SSLTeam
 {
 public:
     //SSLTeam();
-    SSLTeam(Side side, Color color, SSLRobotPhysic physic);
+    SSLTeam(const Side side, const Color color, const SSLRobotPhysic &physic);
     SSLRobot *robot[MAX_ID_NUM];
-    QList<SSLRobot*> inFieldRobots();
-    uint numInFieldRobots();
+    vector<SSLRobot*> inFieldRobots();
+    unsigned int numInFieldRobots();
 
     Color color;
-    QString colorStr;
+    string colorStr;
 
     Side side;
 

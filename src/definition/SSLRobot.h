@@ -1,7 +1,6 @@
 #ifndef SSLROBOT_H
 #define SSLROBOT_H
 
-#include <QVector3D>
 #include "SSLRobotPhysic.h"
 #include "general.h"
 #include "SSLObject.h"
@@ -11,14 +10,14 @@ class SSLRobot : public SSLObject
 public:
     SSLRobot();
 
-    uint id;
+    unsigned int id;
     Color color;
-    QString colorStr;
+    string colorStr;
 
     bool isInField;
 
-    QVector3D localSpeed() const;
-    double orien_radian() const;
+    Vector3D localSpeed() const;
+    double orien() const;
 
     SSLRobotPhysic physic;
 

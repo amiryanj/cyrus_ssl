@@ -1,7 +1,8 @@
 #include "SSLTeam.h"
 
-SSLTeam::SSLTeam(Side side, Color color, SSLRobotPhysic physic)
+SSLTeam::SSLTeam(const Side side, const Color color, const SSLRobotPhysic &physic)
 {
+
     for(int i = 0; i < MAX_ID_NUM; i++ )
     {
         this->robot[i]= new SSLRobot();
@@ -17,17 +18,17 @@ SSLTeam::SSLTeam(Side side, Color color, SSLRobotPhysic physic)
     colorStr = (color == Yellow)? "Yellow" : "Blue";
 }
 
-QList<SSLRobot *> SSLTeam::inFieldRobots()
+vector<SSLRobot *> SSLTeam::inFieldRobots()
 {
-    QList<SSLRobot*> robotList;
+    vector<SSLRobot*> robotList;
     for( int i = 0; i < MAX_ID_NUM ; ++i )
         if(this->robot[i]->isInField == true)
-            robotList.append(robot[i]);
+            robotList.push_back(robot[i]);
     return robotList;
 }
 
 
-uint SSLTeam::numInFieldRobots()
+unsigned int SSLTeam::numInFieldRobots()
 {
     int count=0;
     for(int i=0;i<MAX_ID_NUM;++i)

@@ -1,7 +1,6 @@
 #ifndef SSLBALL_H
 #define SSLBALL_H
 
-#include <QVector2D>
 #include "SSLObject.h"
 
 class SSLBall : public SSLObject

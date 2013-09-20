@@ -12,6 +12,10 @@ class SSLListener {
 public:
     virtual void check() = 0;
 	virtual ~SSLListener();
+
+protected:
+
+
 };
 
 #endif /* SSLLISTENER_H_ */

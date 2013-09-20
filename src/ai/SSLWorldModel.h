@@ -16,7 +16,6 @@ class SSLWorldModel {
 public:
     void updateRobotPosition(int ID, Color color);
     static SSLWorldModel *getInstace();
-    static SSLWorldModel *world;
 
     SSLTeam *team[2];
     SSLBall *ball;
@@ -25,6 +24,7 @@ private:
     SSLWorldModel();
     virtual ~SSLWorldModel();
 
+    static SSLWorldModel *world;
 };
 
 #endif /* SSLWORLDMODEL_H_ */
