@@ -9,9 +9,14 @@
 #define SSLREFEREE_H_
 
 #include "../thirdparty/referee/cpp/referee.pb.h"
-#include "../tools/MulticastListener.h"
+#include "thirdparty/socket/netraw.h"
+#include "tools/SSLListener.h"
+#include "thirdparty/socket/IPPacket.h"
 
-class SSLReferee : public MulticastListener{
+using namespace Net;
+
+class SSLReferee : public SSLListener, public UDP
+{
 private:
 	SSL_Referee referee;
 public:

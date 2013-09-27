@@ -24,12 +24,15 @@ typedef double pose_mmeter;
 
 typedef Vector3D point3D;
 
-#define __SERIAL_PORT "/dev/ttyUSB0"
-#define __SERIAL_BAUD 115200
-#define __SSL_VISION_ADDRESS "224.5.23.2"
-#define __SSL_VISION_PORT 10001
-#define __SSL_REFEREE_ADDRESS "224.5.23.1"
-#define __SSL_REFEREE_PORT 10003
+#define SERIAL_PORT "/dev/ttyUSB0"
+#define SERIAL_BAUD 115200
+
+#define SSL_VISION_ADDRESS      "224.5.23.2"
+#define SSL_VISION_PORT         10002
+#define SSL_REFEREE_ADDRESS     "224.5.23.1"
+#define SSL_REFEREE_PORT        10003
+#define GRSIM_VISION_ADDRESS    "127.0.0.2"
+#define GRSIM_VISION_PORT       10002
 
 
 #define FIELD_WIDTH 4050

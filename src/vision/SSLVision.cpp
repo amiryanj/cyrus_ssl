@@ -6,17 +6,32 @@
  */
 
 #include "SSLVision.h"
+#include <QString>
 
-SSLVision::SSLVision(string address, int port) : MulticastListener(address,port)
+SSLVision::SSLVision(int port, const string address) : UDP(), SSLListener()
 {
-    world = SSLWorldModel::getInstace();
-    now = time(0);
+    filterModule = VisionFilterModule::getInstance();
 }
 
-SSLVision::~SSLVision() {
+SSLVision::~SSLVision()
+{
 }
 
-void SSLVision::parse(IPPacket &packet){
+void SSLVision::check()
+{
+    Address sender_adress;
+    if(this->havePendingData())
+    {
+        packet.length = this->recv(packet.buffer, MAX_BUFFER_SIZE, sender_adress);
+        cerr << "One Packet is received. size = " << packet.length << endl;
+        this->parse(this->packet);
+        updateKalmanModule();
+    }
+
+}
+
+void SSLVision::parse(IPPacket &packet)
+{
 	wrapper.Clear();
     wrapper.ParseFromArray(packet.buffer, packet.length);
 }
@@ -28,18 +43,18 @@ void SSLVision::updateKalmanModule()
     {
         for(int i=0; i< wrapper.detection().robots_blue_size(); i++)
         {
-            SSL_DetectionRobot Robot=wrapper.detection().robots_blue(i);            
-            //uint dataTime = time.currentTime().second()*1000 + time.currentTime().msec();
-            //emit parsedRobotData(blue_color,Robot.robot_id(),
-                //QVector3D(Robot.x(),Robot.y(),Robot.orientation()), dataTime);
+            SSL_DetectionRobot Robot=wrapper.detection().robots_blue(i);
+            tmp_frame.setToCurrentTime();
+            tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+            filterModule->setRobotFrame(Blue, Robot.robot_id(), tmp_frame);
         }
 
         for(int i=0; i< wrapper.detection().robots_yellow_size(); i++)
         {
             SSL_DetectionRobot Robot=wrapper.detection().robots_yellow(i);
-            //uint dataTime = time.currentTime().second()*1000 + time.currentTime().msec();
-            //emit parsedRobotData(yellow_color,Robot.robot_id(),
-                //QVector3D(Robot.x(),Robot.y(),Robot.orientation()), dataTime);
+            tmp_frame.setToCurrentTime();
+            tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+            filterModule->setRobotFrame(Yellow, Robot.robot_id(), tmp_frame);
         }
 
         for(int i=0; i< wrapper.detection().balls_size(); i++)

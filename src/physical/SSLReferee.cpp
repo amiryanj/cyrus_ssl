@@ -7,7 +7,8 @@
 
 #include "SSLReferee.h"
 
-SSLReferee::SSLReferee(string address, int port) : MulticastListener(address,port){
+SSLReferee::SSLReferee(string address, int port) : UDP(), SSLListener()
+{
 }
 
 SSLReferee::~SSLReferee() {

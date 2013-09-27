@@ -7,26 +7,16 @@ SSLRobotKalmanFilter::SSLRobotKalmanFilter()
     filteredSpeed = p_;
 
     setDim(6, 1, 3, 3, 3);
-    // test
-    Vector3D p3D_;
-    p3D_.x = 3.6;
-    p3D_.y = -56.7;
-    setNewFrame(15.3, p3D_);
 
-    runFilter();
+//    runFilter();
 
 }
 
-void SSLRobotKalmanFilter::setNewFrame(const time_msec &time_tag, const Vector3D &pose)
+void SSLRobotKalmanFilter::setNewFrame(const frame &fr)
 {
-    frame temp_frame_;
-    temp_frame_.first = time_tag;
-    temp_frame_.second = pose;
-    rawPositionList.push_front(temp_frame_);
+    rawPositionList.push_front(fr);
     if(rawPositionList.size() > MAX_RAW_DATA_MEMORY)
-    {
         rawPositionList.pop_back();
-    }
 
 }
 
@@ -45,8 +35,8 @@ void SSLRobotKalmanFilter::runFilter()
     if( rawPositionList.size() == 0 )
         return;
 
-    frame last_frame_ = rawPositionList.front();
-    Vector3D lastPosition = last_frame_.second; // point3D
+    frame last_frame = rawPositionList.front();
+    Vector3D lastPosition = last_frame.position; // point3D
 
     if( rawPositionList.size() == 1 )
     {

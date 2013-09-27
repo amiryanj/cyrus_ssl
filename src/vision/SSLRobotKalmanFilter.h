@@ -3,19 +3,18 @@
 
 #include <kalman/ekfilter.hpp>
 #include "../general.h"
-#include <QVector3D>
 #include <list>
+#include "frame.h"
+
 using namespace std;
 
 #define MAX_RAW_DATA_MEMORY 30
 
 class SSLRobotKalmanFilter : public Kalman::EKFilter<double, 1>
 {
-    typedef pair<time_msec, Vector3D> frame;
-
 public:
     SSLRobotKalmanFilter();
-    void setNewFrame(const time_msec &time_tag,const Vector3D &pose);
+    void setNewFrame(const frame &fr);
     bool isEmpty();
     bool isOnField();
 

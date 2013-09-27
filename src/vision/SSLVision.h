@@ -10,21 +10,32 @@
 
 #include <ctime>
 #include "../thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.h"
-#include "../tools/MulticastListener.h"
-#include "../ai/SSLWorldModel.h"
+#include "VisionFilterModule.h"
+#include "frame.h"
+#include <thirdparty/socket/IPPacket.h>
+#include <iostream>
 
-class SSLVision : public MulticastListener{
+using namespace std;
+
+#include "netraw.h"
+using namespace Net;
+
+class SSLVision : public SSLListener, public UDP{
 private:
     SSL_WrapperPacket wrapper;
-    SSLWorldModel* world;
+    VisionFilterModule* filterModule;
 
-    time_t now;
+    frame tmp_frame;
 
 public:
-	SSLVision(string address, int port);
+    SSLVision(int port, const string address);
 	virtual ~SSLVision();
+
+    void check();
 	void parse(IPPacket &packet);
-//    void updateWorldModel();
+
+    IPPacket packet;
+
     void updateKalmanModule();
 };
 

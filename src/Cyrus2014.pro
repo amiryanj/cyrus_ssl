@@ -4,14 +4,18 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 #QT       -= gui
 
 LIBS += -lprotobuf
 
+
 TARGET = Cyrus2014
 #CONFIG   += console
 #CONFIG   -= app_bundle
+
+INCLUDEPATH += thirdparty\
+                thirdparty/socket
 
 TEMPLATE = app
 
@@ -21,8 +25,6 @@ SOURCES += main.cpp \
     physical/RobotSerialConnection.cpp \
     thirdparty/referee/cpp/referee.pb.cc \
     thirdparty/serialib/serialib.cpp \
-    thirdparty/socket/PracticalSocket.cpp \
-    thirdparty/socket/MulticastReciever.cpp \
     thirdparty/socket/IPPacket.cpp \
     thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.cc \
     thirdparty/sslvision/cpp/messages_robocup_ssl_refbox_log.pb.cc \
@@ -30,7 +32,6 @@ SOURCES += main.cpp \
     thirdparty/sslvision/cpp/messages_robocup_ssl_detection.pb.cc \
     tools/SSLListener.cpp \
     tools/SSLException.cpp \
-    tools/MulticastListener.cpp \
     ai/SSLWorldModel.cpp \
     definition/SSLTeam.cpp \
     definition/SSLRobot.cpp \
@@ -42,8 +43,11 @@ SOURCES += main.cpp \
     vision/SSLRobotKalmanFilter.cpp \
     tools/vector3d.cpp \
     tools/vector2d.cpp \
-    vision/KalmanModule.cpp \
-    vision/frame.cpp
+    vision/frame.cpp \
+    vision/VisionFilterModule.cpp \
+    thirdparty/socket/netraw.cpp \
+    soccer/sslpost.cpp \
+    soccer/SSLArrange.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -51,8 +55,6 @@ HEADERS += \
     physical/RobotSerialConnection.h \
     thirdparty/referee/cpp/referee.pb.h \
     thirdparty/serialib/serialib.h \
-    thirdparty/socket/PracticalSocket.h \
-    thirdparty/socket/MulticastReciever.h \
     thirdparty/socket/IPPacket.h \
     thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.h \
     thirdparty/sslvision/cpp/messages_robocup_ssl_refbox_log.pb.h \
@@ -60,7 +62,6 @@ HEADERS += \
     thirdparty/sslvision/cpp/messages_robocup_ssl_detection.pb.h \
     tools/SSLListener.h \
     tools/SSLException.h \
-    tools/MulticastListener.h \
     general.h \
     ai/SSLWorldModel.h \
     definition/SSLTeam.h \
@@ -74,6 +75,11 @@ HEADERS += \
     vision/SSLRobotKalmanFilter.h \
     tools/vector3d.h \
     tools/vector2d.h \
-    vision/KalmanModule.h \
-    vision/frame.h
+    vision/frame.h \
+    vision/VisionFilterModule.h \
+    thirdparty/socket/netraw.h \
+    thirdparty/util.h \
+    soccer/sslpost.h \
+    soccer/SSLArrange.h
+
 
