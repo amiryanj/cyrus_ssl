@@ -28,7 +28,7 @@ private:
     frame tmp_frame;
 
 public:
-    SSLVision(int port, const string address);
+    SSLVision(int port = 0, const string address = "");
 	virtual ~SSLVision();
 
     void check();

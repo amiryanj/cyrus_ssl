@@ -11,7 +11,9 @@
 SSLVision::SSLVision(int port, const string address) : UDP(), SSLListener()
 {
     filterModule = VisionFilterModule::getInstance();
+
 }
+
 
 SSLVision::~SSLVision()
 {
@@ -23,7 +25,7 @@ void SSLVision::check()
     if(this->havePendingData())
     {
         packet.length = this->recv(packet.buffer, MAX_BUFFER_SIZE, sender_adress);
-        cerr << "One Packet is received. size = " << packet.length << endl;
+        cerr << "Vision Packet received . Size = " << packet.length << endl;
         this->parse(this->packet);
         updateKalmanModule();
     }
