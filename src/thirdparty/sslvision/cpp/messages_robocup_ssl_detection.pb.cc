@@ -55,7 +55,7 @@ void protobuf_AssignDesc_messages_5frobocup_5fssl_5fdetection_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSL_DetectionBall));
-  SSL_DetectionRobot_descriptor_ = file-> message_type(1);
+  SSL_DetectionRobot_descriptor_ = file->message_type(1);
   static const int SSL_DetectionRobot_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSL_DetectionRobot, confidence_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSL_DetectionRobot, robot_id_),

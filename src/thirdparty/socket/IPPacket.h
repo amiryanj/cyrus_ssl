@@ -11,14 +11,16 @@
 #include <string>
 using namespace std;
 
+#define MAX_BUFFER_SIZE 4096
+
 struct IPPacket {
 public:
-	/*IPPacket();
-	~IPPacket();*/
-	int length;
+    IPPacket(int packet_size = MAX_BUFFER_SIZE);
+    //~IPPacket();
+    int length;
 	unsigned short int senderPort;
 	string senderAddress;
-	void* buffer;
+    char *buffer;
 };
 
 #endif /* IPPACKET_H_ */

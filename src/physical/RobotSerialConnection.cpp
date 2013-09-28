@@ -19,7 +19,7 @@ RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsign
     }
 }
 
-void RobotSerialConnection::sendRobotData(int robotID, SSLRobotPacket &packet)
+void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packet)
 {
     unsigned char byteArray[7];
     //start byte
