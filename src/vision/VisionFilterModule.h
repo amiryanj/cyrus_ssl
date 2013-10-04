@@ -1,10 +1,11 @@
 #ifndef VISIONFILTERMODULE_H
 #define VISIONFILTERMODULE_H
 
-#include "general.h"
+#include "../general.h"
 #include "tools/SSLListener.h"
 #include "SSLRobotKalmanFilter.h"
 #include "frame.h"
+#include "ai/SSLWorldModel.h"
 
 class VisionFilterModule : public SSLListener
 {
@@ -13,12 +14,14 @@ public:
     void check();
     void setRobotFrame(Color color, unsigned int id, const frame &fr);
 
-protected:    
+private:
     VisionFilterModule();
     SSLRobotKalmanFilter *robotFilter[NUM_TEAMS][MAX_ID_NUM];
 
     static VisionFilterModule* module;
 
+    SSLWorldModel* world;
+    void updateWorldModel();
 
 };
 

@@ -3,3 +3,9 @@
 GoaliePost::GoaliePost()
 {
 }
+
+void GoaliePost::run()
+{
+}
+
+

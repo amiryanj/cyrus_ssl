@@ -12,7 +12,7 @@ public:
 
     unsigned int id;
     Color color;
-    string colorStr;
+    std::string colorStr;
 
     bool isInField;
 

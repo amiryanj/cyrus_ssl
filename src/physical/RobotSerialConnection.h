@@ -11,6 +11,7 @@
 #include "../thirdparty/serialib/serialib.h"
 #include "../general.h"
 #include "../tools/SSLException.h"
+#include "definition/RobotCommandPacket.h"
 using namespace std;
 
 class RobotSerialConnection {

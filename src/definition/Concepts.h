@@ -7,10 +7,10 @@
 
 #ifndef __M_COLOR_H
 #define __M_COLOR_H
-	enum Color {Yellow, Blue};
+    enum Color {Yellow = 0, Blue = 1};
 #endif
 
 #ifndef __M_SIDE_H
 #define __M_SIDE_H
-    enum Side {Left, Right};
+    enum Side {Left = 0, Right = 1};
 #endif

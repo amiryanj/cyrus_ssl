@@ -3,10 +3,10 @@
 
 #include <kalman/ekfilter.hpp>
 #include "../general.h"
-#include <list>
+
 #include "frame.h"
 
-using namespace std;
+//using namespace std;
 
 #define MAX_RAW_DATA_MEMORY 30
 
@@ -18,13 +18,19 @@ public:
     bool isEmpty();
     bool isOnField();
 
+    // main method for updating state vectors
     void runFilter();
+
+    Vector3D getFilteredSpeed() const;
+    Vector3D getFilteredPosition() const;
+
+private:
+    std::list<frame> rawPositionList;
+    double _last_update_time;
+    double _last_interval_time;
 
     Vector3D filteredPosition;
     Vector3D filteredSpeed;
-
-private:
-    list<frame> rawPositionList;
 
 protected:
     void makeA();

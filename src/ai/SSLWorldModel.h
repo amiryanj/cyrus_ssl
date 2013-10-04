@@ -14,7 +14,8 @@
 
 class SSLWorldModel {
 public:
-    void updateRobotPosition(int ID, Color color);
+    void updateRobotState(Color color, int ID, Vector3D position, Vector3D speed);
+    void updateBallState(int ID, Vector3D position, Vector3D speed);
     static SSLWorldModel *getInstace();
 
     SSLTeam *team[2];

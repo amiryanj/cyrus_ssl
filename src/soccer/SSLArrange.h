@@ -1,7 +1,7 @@
 #ifndef SSLARRANGE_H
 #define SSLARRANGE_H
 
-#include "SSLPost.h"
+#include "posts/SSLPost.h"
 #include "general.h"
 
 class SSLArrange

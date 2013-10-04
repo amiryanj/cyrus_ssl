@@ -47,12 +47,13 @@ SOURCES += main.cpp \
     vision/VisionFilterModule.cpp \
     thirdparty/socket/netraw.cpp \
     soccer/SSLArrange.cpp \
-    soccer/SSLPost.cpp \
-    soccer/DefenderPost.cpp \
-    soccer/MidfielderPost.cpp \
-    soccer/AttackerPost.cpp \
+    soccer/posts/SSLPost.cpp \
+    soccer/posts/DefenderPost.cpp \
+    soccer/posts/MidfielderPost.cpp \
+    soccer/posts/AttackerPost.cpp \
+    soccer/posts/GoaliePost.cpp \
     soccer/SSLRole.cpp \
-    soccer/GoaliePost.cpp
+    soccer/SSLPostManager.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -85,11 +86,12 @@ HEADERS += \
     thirdparty/socket/netraw.h \
     thirdparty/util.h \
     soccer/SSLArrange.h \
-    soccer/SSLPost.h \
-    soccer/DefenderPost.h \
-    soccer/MidfielderPost.h \
-    soccer/AttackerPost.h \
+    soccer/posts/SSLPost.h \
+    soccer/posts/DefenderPost.h \
+    soccer/posts/MidfielderPost.h \
+    soccer/posts/AttackerPost.h \
+    soccer/posts/GoaliePost.h \
     soccer/SSLRole.h \
-    soccer/GoaliePost.h
+    soccer/SSLPostManager.h
 
 

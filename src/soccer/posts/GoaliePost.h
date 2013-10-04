@@ -7,6 +7,8 @@ class GoaliePost :  public SSLPost
 {
 public:
     GoaliePost();
+
+    void run();
 };
 
 #endif // GOLAIEPOST_H

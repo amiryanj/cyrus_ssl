@@ -1,16 +1,13 @@
-//#include <QCoreApplication>
-#include <QApplication>
-#include <iostream>
-#include <string>
+//#include <QApplication>
 #include "ai/SSLGame.h"
 #include "vision/SSLVision.h"
-#include "tools/vector3d.h"
+#include "general.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+//    QApplication app(argc, argv);
 
     cerr << "Main is running ... " << endl;
 
@@ -19,8 +16,9 @@ int main(int argc, char *argv[])
     while (true)
     {
         vision->check();
+        VisionFilterModule::getInstance()->check();
     }
 
-    return app.exec();
+//    return app.exec();
 }
 

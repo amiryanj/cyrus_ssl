@@ -30,7 +30,10 @@ SSLWorldModel::~SSLWorldModel() {
 	// TODO Auto-generated destructor stub
 }
 
-void SSLWorldModel::updateRobotPosition(int ID, Color color){
+void SSLWorldModel::updateRobotState(Color color, int ID, Vector3D position, Vector3D speed)
+{
     //TODO not implemented yet
+    this->team[color]->robot[ID]->setPosition(position);
+    this->team[color]->robot[ID]->setSpeed(speed);
 }
 

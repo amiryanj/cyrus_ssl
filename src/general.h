@@ -8,13 +8,16 @@
 #ifndef GENERAL_H_
 #define GENERAL_H_
 
+// -------------- G L O B A L   I N C L U D E S ---------
 #include <iostream>
-using namespace std;
 #include <math.h>
-#include "definition/RobotCommandPacket.h"
+#include <list>
+#include <string>
+//#include <vector>
 #include "definition/Concepts.h"
 #include "tools/vector3d.h"
-//#include "definition/Position.h"
+//using namespace std;
+//-------------------------------------------------------
 
 typedef double time_sec;
 typedef double time_msec;
