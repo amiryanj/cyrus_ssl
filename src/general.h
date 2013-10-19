@@ -10,12 +10,13 @@
 
 // -------------- G L O B A L   I N C L U D E S ---------
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <list>
 #include <string>
-//#include <vector>
+#include <vector>
 #include "definition/Concepts.h"
 #include "tools/vector3d.h"
+#include "tools/vector2d.h"
 //using namespace std;
 //-------------------------------------------------------
 
@@ -26,6 +27,9 @@ typedef double pose_meter;
 typedef double pose_mmeter;
 
 typedef Vector3D point3D;
+
+#define OUR_COLOR   Yellow
+#define OUR_SIDE    Left
 
 #define SERIAL_PORT "/dev/ttyUSB0"
 #define SERIAL_BAUD 115200

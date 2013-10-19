@@ -5,9 +5,16 @@ class Vector2D;
 
 class Vector3D
 {
+    double _x, _y, _teta;
 public:
-    double x, y, teta;
+    void setX(double x_);
+    void setY(double y_);
+    void setTeta(double teta_);
     
+    double X() const;
+    double Y() const;
+    double Teta() const;
+
     Vector3D();
     Vector3D(const Vector3D &vector);
     Vector3D(double nx, double ny, double nteta);
@@ -20,6 +27,8 @@ public:
     double lenght2D();
     void correctTeta();
 
+    Vector2D normalized2D() const;
+
     Vector3D operator -() const;
     Vector3D operator +(const Vector3D &vector) const;
     Vector3D operator -(const Vector3D &vector) const;
@@ -31,7 +40,7 @@ public:
     Vector3D &operator *=(double s);
     Vector3D &operator /=(double s);
 //    double operator *(const Vector3D &vector);
-    Vector2D toVector2D();
+    Vector2D to2D();
 
     static double vector2DMag(const Vector3D  &vector);
     static double distance2D(const Vector3D &a, const Vector3D &b);

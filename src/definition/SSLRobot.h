@@ -5,14 +5,16 @@
 #include "general.h"
 #include "SSLObject.h"
 
-class SSLRobot : public SSLObject
+
+
+class SSLRobot : public SSLObject<Vector3D>
 {
 public:
     SSLRobot();
 
     unsigned int id;
     Color color;
-    std::string colorStr;
+    std::string colorStr();
 
     bool isInField;
 

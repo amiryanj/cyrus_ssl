@@ -6,21 +6,35 @@
 
 enum SSL_OBJECT_TYPE {BALL_OBJECT, ROBOT_OBJECT};
 
+template <class VectorType>
 class SSLObject
 {
 public:
-    SSLObject();
-    Vector3D Position() const;
-    Vector3D Speed() const;
-    void setPosition(const Vector3D &position_);
-    void setSpeed(const Vector3D &speed_);
+    SSLObject() {}
+
+    VectorType Position() const    {
+        return this->_position;
+    }
+
+    VectorType Speed() const    {
+        return this->_speed;
+    }
+
+    void setPosition(const VectorType &position_)   {
+        this->_position = position_;
+    }
+
+    void setSpeed(const VectorType &speed_)     {
+        this->_speed = speed_;
+    }
+        ;
+    double radius;
 
 protected:
-    Vector3D position_;
-    Vector3D speed_;
+    VectorType _position;
+    VectorType _speed;
 
     SSL_OBJECT_TYPE type;
-    double radius;
     double mass;
 
 };

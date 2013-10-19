@@ -12,5 +12,5 @@
 
 #ifndef __M_SIDE_H
 #define __M_SIDE_H
-    enum Side {Left = 0, Right = 1};
+    enum Side {Left = -1, Right = 1};
 #endif

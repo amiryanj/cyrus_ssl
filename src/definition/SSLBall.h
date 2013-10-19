@@ -3,11 +3,10 @@
 
 #include "SSLObject.h"
 
-class SSLBall : public SSLObject
+class SSLBall : public SSLObject<Vector2D>
 {
 public:
     SSLBall();
-
 
 private:
 

@@ -4,129 +4,166 @@
 
 Vector3D::Vector3D()
 {
-    x = y = teta = 0;
+    _x = _y = _teta = 0;
 }
 
 Vector3D::Vector3D(const Vector3D &vector)
 {
-    x = vector.x; y = vector.y; teta = vector.teta;
+    _x = vector._x; _y = vector._y; _teta = vector._teta;
 }
 
 Vector3D::Vector3D(double nx, double ny, double nteta)
 {
-    x = nx;    y = ny;    teta = nteta;
+    _x = nx;    _y = ny;    _teta = nteta;
 }
 
 Vector3D Vector3D::operator =(const Vector3D &vector)
 {
-    x = vector.x; y = vector.y; teta = vector.teta;
+    _x = vector._x; _y = vector._y; _teta = vector._teta;
     return *this;
 }
 
 bool Vector3D::operator ==(const Vector3D &vector)
 {
-    return x == vector.x && y == vector.y && teta == vector.teta;
+    return _x == vector._x && _y == vector._y && _teta == vector._teta;
 }
 
 bool Vector3D::operator !=(const Vector3D &vector)
 {
-    return x != vector.x || y != vector.y || teta != vector.teta;
+    return _x != vector._x || _y != vector._y || _teta != vector._teta;
 }
 
 void Vector3D::setZero()
 {
-    x = y = teta = 0.0;
+    _x = _y = _teta = 0.0;
 }
 
 Vector3D Vector3D::operator -() const
 {
-    return Vector3D(-x, -y, -teta);
+    return Vector3D(-_x, -_y, -_teta);
 }
 
 Vector3D Vector3D::operator +(const Vector3D &vector) const
 {
-    return Vector3D( x + vector.x, y + vector.y, teta + vector.teta);
+    return Vector3D( _x + vector._x, _y + vector._y, _teta + vector._teta);
 }
 
 Vector3D Vector3D::operator -(const Vector3D &vector) const
 {
-    return Vector3D( x - vector.x, y - vector.y, teta - vector.teta);
+    return Vector3D( _x - vector._x, _y - vector._y, _teta - vector._teta);
 }
 
 Vector3D Vector3D::operator *(double s)
 {
-    return Vector3D( x*s, y*s, teta*s);
+    return Vector3D( _x*s, _y*s, _teta*s);
 }
 
 Vector3D Vector3D::operator /(double s)
 {
     double oneOverS = 1.0f / s;
-    return Vector3D( x*oneOverS, y*oneOverS, teta*oneOverS);
+    return Vector3D( _x*oneOverS, _y*oneOverS, _teta*oneOverS);
 }
 
 Vector3D &Vector3D::operator +=(const Vector3D &vector)
 {
-    x += vector.x; y += vector.y; teta += vector.teta;
+    _x += vector._x; _y += vector._y; _teta += vector._teta;
     return *this;
 }
 
 Vector3D &Vector3D::operator -=(const Vector3D &vector)
 {
-    x -= vector.x; y -= vector.y; teta -= vector.teta;
+    _x -= vector._x; _y -= vector._y; _teta -= vector._teta;
     return *this;
 }
 
 Vector3D &Vector3D::operator *=(double s)
 {
-    x *= s; y *= s; teta *= s;
+    _x *= s; _y *= s; _teta *= s;
     return *this;
 }
 
 Vector3D &Vector3D::operator /=(double s)
 {
     double oneOverS = 1.0f / s;
-    x *= oneOverS; y *= oneOverS; teta *= oneOverS;
+    _x *= oneOverS; _y *= oneOverS; _teta *= oneOverS;
     return *this;
 }
 
 void Vector3D::normalize2D()
 {
-    double magSqrd = x*x + y*y;
+    double magSqrd = _x*_x + _y*_y;
     if(magSqrd > 0.0f){
         double oneOverMag = 1.0 / sqrt(magSqrd);
-        x *= oneOverMag;
-        y *= oneOverMag;        
+        _x *= oneOverMag;
+        _y *= oneOverMag;
     }
 }
 
 double Vector3D::lenght2D()
 {
-    return this->toVector2D().lenght();
+    return this->to2D().lenght();
 }
 
 void Vector3D::correctTeta()
 {
-    while(teta > M_PI)
-        teta -= M_PI;
-    while(teta <= -1*M_PI)
-        teta += M_PI;
+    while(_teta > M_PI)
+        _teta -= M_PI;
+    while(_teta <= -1*M_PI)
+        _teta += M_PI;
 }
 
-Vector2D Vector3D::toVector2D()
+Vector2D Vector3D::normalized2D() const
 {
-    Vector2D * v2d = new Vector2D(this->x, this->y);
+    Vector2D __tmp;
+    __tmp.set(this->X(), this->Y());
+
+    return __tmp.normalized();
+}
+
+Vector2D Vector3D::to2D()
+{
+    Vector2D * v2d = new Vector2D(this->X(), this->Y());
     return (*v2d);
 }
 
 double Vector3D::vector2DMag(const Vector3D &vector)
 {
     Vector3D tmp = vector;
-    return Vector2D::vectorMag(tmp.toVector2D());
+    return Vector2D::vectorMag(tmp.to2D());
 }
 
 double Vector3D::distance2D(const Vector3D &a, const Vector3D &b)
 {
     Vector3D tmp_a = a, tmp_b = b;
-    return Vector2D::distance(tmp_a.toVector2D(), tmp_b.toVector2D());
+    return Vector2D::distance(tmp_a.to2D(), tmp_b.to2D());
 }
 
+void Vector3D::setX(double x_)
+{
+    this->_x = x_;
+}
+
+void Vector3D::setY(double y_)
+{
+    this->_y = y_;
+}
+
+void Vector3D::setTeta(double teta_)
+{
+    this->_teta = teta_;
+}
+
+double Vector3D::X() const
+{
+    return this->_x;
+}
+
+double Vector3D::Y() const
+{
+    return this->_y;
+}
+
+double Vector3D::Teta() const
+{
+    return this->_teta;
+}

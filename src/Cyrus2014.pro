@@ -46,14 +46,17 @@ SOURCES += main.cpp \
     vision/frame.cpp \
     vision/VisionFilterModule.cpp \
     thirdparty/socket/netraw.cpp \
-    soccer/SSLArrange.cpp \
-    soccer/posts/SSLPost.cpp \
-    soccer/posts/DefenderPost.cpp \
-    soccer/posts/MidfielderPost.cpp \
-    soccer/posts/AttackerPost.cpp \
-    soccer/posts/GoaliePost.cpp \
-    soccer/SSLRole.cpp \
-    soccer/SSLPostManager.cpp
+    definition/SSLPost.cpp \
+    soccer/SSLPostManager.cpp \
+    ai/SSLAnalyzer.cpp \
+    vision/SSLBallKalmanFilter.cpp \
+    gui/guimodule.cpp \
+    soccer/roles/SSLRole.cpp \
+    soccer/roles/keepgoal.cpp \
+    definition/sslagent.cpp \
+    definition/sslstrategy.cpp \
+    soccer/sslstrategymanager.cpp \
+    soccer/sslrolemanager.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -85,13 +88,16 @@ HEADERS += \
     vision/VisionFilterModule.h \
     thirdparty/socket/netraw.h \
     thirdparty/util.h \
-    soccer/SSLArrange.h \
-    soccer/posts/SSLPost.h \
-    soccer/posts/DefenderPost.h \
-    soccer/posts/MidfielderPost.h \
-    soccer/posts/AttackerPost.h \
-    soccer/posts/GoaliePost.h \
-    soccer/SSLRole.h \
-    soccer/SSLPostManager.h
+    definition/SSLPost.h \
+    soccer/SSLPostManager.h \
+    ai/SSLAnalyzer.h \
+    vision/SSLBallKalmanFilter.h \
+    gui/guimodule.h \
+    soccer/roles/SSLRole.h \
+    soccer/roles/keepgoal.h \
+    definition/sslagent.h \
+    definition/sslstrategy.h \
+    soccer/sslstrategymanager.h \
+    soccer/sslrolemanager.h
 
 
