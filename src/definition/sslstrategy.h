@@ -2,8 +2,7 @@
 #define SSLSTRATEGY_H
 
 #include "general.h"
-#include "definition/SSLPost.h"
-
+#include "soccer/roles/SSLRole.h"
 
 class SSLStrategy
 {
@@ -11,7 +10,7 @@ public:
     SSLStrategy();
 
     std::string name;
-    std::vector<SSLPost> postList;
+    std::vector<SSLRole> postList;
 
 
 };

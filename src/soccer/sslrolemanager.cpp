@@ -1,10 +1,11 @@
 #include "sslrolemanager.h"
+#include "ai/SSLAnalyzer.h"
+#include "ai/SSLGame.h"
 
 SSLRoleManager* SSLRoleManager::manager = NULL;
 
 SSLRoleManager::SSLRoleManager()
-{
-    analyzer = SSLAnalyzer::getInstance();
+{    
 }
 
 SSLRoleManager *SSLRoleManager::getInstance()
@@ -14,8 +15,26 @@ SSLRoleManager *SSLRoleManager::getInstance()
     return manager;
 }
 
-void SSLRoleManager::assignRole(std::vector<SSLAgent*> agents)
+SSLAnalyzer *SSLRoleManager::analyzer()
+{
+    return SSLAnalyzer::getInstance();
+}
+
+SSLGame *SSLRoleManager::game()
+{
+    return SSLGame::getInstance();
+}
+
+void SSLRoleManager::assignRole(const SSLStrategy &strategy, std::vector<SSLAgent*> agents)
 {
     // get nearest player from analyzer
+    SSLTeam* our_team = game()->ourTeam();
+    SSLRobot* nearestRobot = analyzer()->nearestPlayer(our_team);
+    if(nearestRobot != NULL)
+    {
+        SSLAgent *nearestAgent = game()->getAgent(nearestRobot->id);
+    }
+
+
 
 }

@@ -37,7 +37,7 @@ void SSLAnalyzer::updateAllAccessTimes()
             access_time[tm][robot->id] = acc_time;
             access_intercept[tm][robot->id] = acc_int;
             std::cerr << "Access time: robot(" << robot->id << ")" << world->team[tm]->colorStr()
-                     << "=" << acc_time << ", Intercept: x=" << acc_int.X() << "y=" << acc_int.Y() ;
+                  << "=" << acc_time << ", Intercept: x=" << acc_int.X() << "y=" << acc_int.Y() << std::endl;
         }
 }
 
@@ -50,7 +50,7 @@ double SSLAnalyzer::calcAccessTime(SSLRobot *robot, SSLBall *ball)
     double t_lim2 = (robot->physic.max_lin_vel + robot->Speed().lenght2D())
                             /robot->physic.max_lin_acc;
     if(robot->id == 1) // test robot 1
-        { std::cerr << "Time to MAX speed:" << t_lim1 << ", Time to MIN speed" << t_lim2; }
+        { std::cerr << "Time to MAX speed:" << t_lim1 << ", Time to MIN speed" << t_lim2 << std::endl; }
     for(double t_Low=0, t_High=4.0; ; ) // in sec
     {
         double t_range = t_High - t_Low;
@@ -111,7 +111,7 @@ SSLRobot* SSLAnalyzer::nearestPlayer(SSLTeam* team)
     double min_time = 10.00; // max time to get ball
     if( team->numInFieldRobots()==0 )
     {
-        std::cerr << "No robot in team " << team->colorStr() ;
+        std::cerr << "No robot in team " << team->colorStr() << std::endl ;
         return NULL;
     }
 
@@ -126,7 +126,7 @@ SSLRobot* SSLAnalyzer::nearestPlayer(SSLTeam* team)
             nearest = robot;
         }
     }
-    std::cerr << "Nearest Player[" << nearest->colorStr() << "] is:" << nearest->id;
+    std::cerr << "Nearest Player[" << nearest->colorStr() << "] is:" << nearest->id << std::endl;
     return nearest;
 }
 
@@ -137,7 +137,7 @@ double SSLAnalyzer::possessionRatio()
        { min_time[tm] = minAccessTime(world->team[tm]); }
 
 
-    int our_color = SSLGame::getInstance()->ourColor();
+    int our_color = (int) SSLGame::getInstance()->ourColor();
     double p_ratio = min_time[1 - our_color] / min_time[our_color];
     return p_ratio;
 }
@@ -154,7 +154,7 @@ bool SSLAnalyzer::canNearestPlayerShoot(SSLTeam *team, SSLBall *ball)
     bool canShoot = false;
     SSLRobot* robot = nearestPlayer(team);
     if(robot == NULL){
-        std::cerr << "Can not find Nearest Player!!!";
+        std::cerr << "Can not find Nearest Player!!!" << std::endl;
         return false;
     }
     Vector2D distVec = (ball->Position() - robot->Position().to2D());
@@ -162,7 +162,7 @@ bool SSLAnalyzer::canNearestPlayerShoot(SSLTeam *team, SSLBall *ball)
             && (abs(angleForRotate(robot, ball->Position())) < M_PI/6.0 ))
     {
         canShoot = true;
-        std::cerr << "Robot" << robot->id << robot->colorStr() << "now can Kick";
+        std::cerr << "Robot" << robot->id << robot->colorStr() << "now can Kick" << std::endl;
     }
     return canShoot;
 }
@@ -173,7 +173,7 @@ double SSLAnalyzer::angleForRotate(SSLRobot *robot, Vector2D interceptPoint)
     double rot; // = toStandardRadian(robot->orien() - atan2(dist.y, dist.x));
     if(rot > M_PI)
         rot = M_PI - rot;
-    std::cerr << "teta for robot"<< robot->id << "to rotate:" << rot * 180.0/M_PI;
+    std::cerr << "teta for robot"<< robot->id << "to rotate:" << rot * 180.0/M_PI << std::endl;
     return rot;
 }
 std::list<double> SSLAnalyzer::openAnglesToGoal(const Vector2D &point,
@@ -281,7 +281,7 @@ double SSLAnalyzer::totalOpenAngle(const Vector2D &point, Side targetGoalSide, l
     std::list<double> open_angles = openAnglesToGoal(point, targetGoalSide, defenders);
     double totalAngle = 0;
     if(open_angles.size()%2 ==1) {
-        std::cerr << "DANGEROUS ERROR IN CALCULATION OF OPEN ANGLES";
+        std::cerr << "DANGEROUS ERROR IN CALCULATION OF OPEN ANGLES" << std::endl;
         return 0;
     }
     for( int i=0; i < open_angles.size() ; i+=2 ) {
@@ -289,7 +289,7 @@ double SSLAnalyzer::totalOpenAngle(const Vector2D &point, Side targetGoalSide, l
     }
 
     std::cerr << "Total Angle to Goal Side" << targetGoalSide <<
-                "is =" << (totalAngle/M_PI) * 180 << "degree";
+                "is =" << (totalAngle/M_PI) * 180 << "degree" << std::endl;
     return totalAngle;
 }
 

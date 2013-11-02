@@ -37,6 +37,11 @@ void SSLWorldModel::updateRobotState(Color color, int ID, Vector3D position, Vec
     this->team[color]->robot[ID]->setSpeed(speed);
 }
 
+void SSLWorldModel::updateRobotAvailability(Color color, int ID, bool available)
+{
+    this->team[color]->robot[ID]->isInField = available;
+}
+
 void SSLWorldModel::updateBallState(int ID, Vector2D position, Vector2D speed)
 {
     this->ball->setPosition(position);

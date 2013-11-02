@@ -15,6 +15,14 @@ SSLRobotKalmanFilter::SSLRobotKalmanFilter()
 
 void SSLRobotKalmanFilter::setNewFrame(const frame &fr)
 {
+    while(!rawPositionList.empty())
+    {
+        frame listed_fr = rawPositionList.back();
+        if((fr.timeTag - listed_fr.timeTag) > 2.0)
+            rawPositionList.pop_back();
+        else
+            break;
+    }
     rawPositionList.push_front(fr);
     if(rawPositionList.size() > MAX_RAW_DATA_MEMORY)
         rawPositionList.pop_back();

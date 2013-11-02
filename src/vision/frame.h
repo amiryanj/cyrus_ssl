@@ -9,7 +9,7 @@ struct frame
 {
     frame(const Vector3D &pose, const double &time = -1 );
     frame();
-    double timeTag;
+    double timeTag; // unit = second
     Vector3D position;
 
     void setToCurrentTime();

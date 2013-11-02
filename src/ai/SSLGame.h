@@ -8,7 +8,6 @@
 #include "definition/sslstrategy.h"
 
 class SSLStrategyManager;
-class SSLPostManager;
 class SSLRoleManager;
 
 class SSLGame : SSLListener
@@ -22,12 +21,14 @@ public:
     void check();
     ~SSLGame();
 
-    SSLTeam *ourTeam;
+    SSLTeam* ourTeam();
     std::vector<SSLAgent*> agents;
+    SSLAgent* getAgent(unsigned int ID) const;
     SSLStrategy currentStrategy;
 
-    inline Color ourColor() const;
-    inline Side ourSide() const;
+    bool hasAgent();
+    Color ourColor() const;
+    Side ourSide() const;
     inline Color enemyColor() const;
     inline Side enemySide() const;
 
@@ -35,10 +36,9 @@ private:
     Color _ourColor;
     Side _ourSide;
 
-    SSLWorldModel *world;
-    SSLStrategyManager *strategyManager;
-    SSLPostManager *postManager;
-    SSLRoleManager *roleManager;
+    SSLWorldModel *world();
+    SSLStrategyManager *strategyManager();
+    SSLRoleManager *roleManager();
 
 };
 

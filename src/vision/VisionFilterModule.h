@@ -9,6 +9,9 @@
 
 class VisionFilterModule : public SSLListener
 {
+    VisionFilterModule();
+    static VisionFilterModule* module;
+
 public:
     static VisionFilterModule* getInstance();
     void check();
@@ -16,13 +19,10 @@ public:
     void setBallFrame(frame &fr);
 
 private:
-    VisionFilterModule();
     SSLRobotKalmanFilter *robotFilter[NUM_TEAMS][MAX_ID_NUM];
 
-    static VisionFilterModule* module;
-
-    SSLWorldModel* world;
-    void updateWorldModel();
+    void updateWorldRobots();
+    SSLWorldModel* world();
 
 };
 

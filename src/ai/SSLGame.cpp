@@ -1,7 +1,6 @@
 #include "SSLGame.h"
 
 #include "soccer/sslstrategymanager.h"
-#include "soccer/SSLPostManager.h"
 #include "soccer/sslrolemanager.h"
 
 SSLGame* SSLGame::game = NULL;
@@ -15,13 +14,7 @@ SSLGame* SSLGame::getInstance(Color set_our_color, Side set_our_side)
 }
 
 SSLGame::SSLGame(Color ourC, Side ourS)
-{
-    world = SSLWorldModel::getInstance();
-    postManager = SSLPostManager::getInstance();
-    strategyManager = SSLStrategyManager::getInstance();
-    roleManager = SSLRoleManager::getInstance();
-
-    ourTeam = (world->team[0]->color == ourColor())? world->team[0]:world->team[1];
+{    
     SetColor_Side(ourC, ourS);
 }
 
@@ -35,16 +28,32 @@ void SSLGame::check()
 {
     // TODO
 //    cout << "Game is running" << endl;
-    strategyManager->updateStrategy(this->currentStrategy);
-    postManager->assignPost(this->currentStrategy, this->agents);
+    strategyManager()->updateStrategy(this->currentStrategy);
 
-//    roleManager->assignRole(this->agents);
-
+    roleManager()->assignRole(this->currentStrategy, this->agents);
 
 }
 
 SSLGame::~SSLGame()
 {
+}
+
+SSLTeam *SSLGame::ourTeam()
+{
+    return world()->team[_ourColor];
+}
+
+SSLAgent *SSLGame::getAgent(unsigned int ID) const
+{
+    //if(this->)
+    SSLAgent* agent;
+    for(unsigned int i=0; i<this->agents.size(); ++i)
+    {
+        agent = agents.at(i);
+        if(ID == agent->getID())
+            return agent;
+    }
+    return NULL;
 }
 
 Color SSLGame::ourColor() const
@@ -65,4 +74,19 @@ Color SSLGame::enemyColor() const
 Side SSLGame::enemySide() const
 {
     return (_ourSide==Left)? Right:Left;
+}
+
+SSLWorldModel *SSLGame::world()
+{
+    return SSLWorldModel::getInstance();
+}
+
+SSLStrategyManager *SSLGame::strategyManager()
+{
+    return SSLStrategyManager::getInstance();
+}
+
+SSLRoleManager *SSLGame::roleManager()
+{
+    return SSLRoleManager::getInstance();
 }

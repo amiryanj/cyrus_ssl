@@ -46,8 +46,6 @@ SOURCES += main.cpp \
     vision/frame.cpp \
     vision/VisionFilterModule.cpp \
     thirdparty/socket/netraw.cpp \
-    definition/SSLPost.cpp \
-    soccer/SSLPostManager.cpp \
     ai/SSLAnalyzer.cpp \
     vision/SSLBallKalmanFilter.cpp \
     gui/guimodule.cpp \
@@ -88,8 +86,6 @@ HEADERS += \
     vision/VisionFilterModule.h \
     thirdparty/socket/netraw.h \
     thirdparty/util.h \
-    definition/SSLPost.h \
-    soccer/SSLPostManager.h \
     ai/SSLAnalyzer.h \
     vision/SSLBallKalmanFilter.h \
     gui/guimodule.h \

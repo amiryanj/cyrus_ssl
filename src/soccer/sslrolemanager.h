@@ -3,7 +3,10 @@
 
 #include "general.h"
 #include "definition/sslagent.h"
-#include "ai/SSLAnalyzer.h"
+#include "definition/sslstrategy.h"
+
+class SSLGame;
+class SSLAnalyzer;
 
 class SSLRoleManager
 {
@@ -13,10 +16,11 @@ class SSLRoleManager
 public:
     static SSLRoleManager* getInstance();
 
-    void assignRole(std::vector<SSLAgent*> agents);
+    void assignRole(const SSLStrategy &strategy, std::vector<SSLAgent*> agents);
 
 private:
-    SSLAnalyzer *analyzer;
+    SSLAnalyzer* analyzer();
+    SSLGame* game();
 
 };
 

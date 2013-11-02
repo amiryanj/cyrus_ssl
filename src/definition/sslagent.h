@@ -2,18 +2,20 @@
 #define SSLAGENT_H
 
 #include "definition/SSLRobot.h"
-#include "definition/SSLPost.h"
 #include "soccer/roles/SSLRole.h"
+#include "general.h"
 
 class SSLAgent
 {
 public:
     SSLAgent();
     SSLRobot* robot;
-    SSLPost* post;
     SSLRole* role;
 
     bool isNull();
+    int getID() const;
+
+    void run();
 
 
 private:
