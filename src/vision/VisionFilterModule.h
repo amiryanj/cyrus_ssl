@@ -7,13 +7,13 @@
 #include "frame.h"
 #include "ai/SSLWorldModel.h"
 
-class VisionFilterModule : public SSLListener
+class VisionFilter : public SSLListener
 {
-    VisionFilterModule();
-    static VisionFilterModule* module;
+    VisionFilter();
+    static VisionFilter* module;
 
 public:
-    static VisionFilterModule* getInstance();
+    static VisionFilter* getInstance();
     void check();
     void setRobotFrame(Color color, unsigned int id, frame &fr);
     void setBallFrame(frame &fr);

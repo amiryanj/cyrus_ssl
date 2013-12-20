@@ -10,8 +10,7 @@
 
 SSLVision::SSLVision(int port, const string address) : UDP(), SSLListener()
 {
-    filterModule = VisionFilterModule::getInstance();
-
+    filterModule = VisionFilter::getInstance();
 }
 
 
@@ -42,13 +41,15 @@ void SSLVision::updateFilterModule()
 {
 	//TODO: update world model from wrapper    
     if(wrapper.has_detection())
-    {
+    {        
         for(int i=0; i< wrapper.detection().robots_blue_size(); i++)
         {
             SSL_DetectionRobot Robot = wrapper.detection().robots_blue(i);
             _tmp_frame.setToCurrentTime();
             _tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+            _tmp_frame.confidence = Robot.confidence();
             filterModule->setRobotFrame(Blue, Robot.robot_id(), _tmp_frame);
+
         }
 
         for(int i=0; i< wrapper.detection().robots_yellow_size(); i++)
@@ -56,6 +57,7 @@ void SSLVision::updateFilterModule()
             SSL_DetectionRobot Robot = wrapper.detection().robots_yellow(i);
             _tmp_frame.setToCurrentTime();
             _tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+            _tmp_frame.confidence = Robot.confidence();
             filterModule->setRobotFrame(Yellow, Robot.robot_id(), _tmp_frame);
         }
 

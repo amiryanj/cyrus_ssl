@@ -2,7 +2,7 @@
  * WorldModel.h
  *
  *  Created on: Aug 14, 2013
- *      Author: mostafa
+ *      Author: mostafa, javad
  */
 
 #ifndef SSLWORLDMODEL_H_
@@ -11,6 +11,7 @@
 #include "../general.h"
 #include "definition/SSLTeam.h"
 #include "definition/SSLBall.h"
+#include "../tools/stdlist.h"
 
 class SSLWorldModel {
 public:
@@ -19,8 +20,13 @@ public:
     void updateBallState(int ID, Vector2D position, Vector2D speed);
     static SSLWorldModel *getInstance();
 
-    SSLTeam *team[2];
-    SSLBall *ball;
+    SSLTeam* team[2];
+    SSLTeam* getTeam(Color c);
+
+    SSLBall *mainBall();
+    SSLBall* ball; // should be ommited
+    STDVector<SSLBall*> allBalls;
+    STDVector<SSLRobot*> allRobots();
 
 private:
     SSLWorldModel();

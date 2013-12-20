@@ -21,7 +21,7 @@ class SSLVision : public SSLListener, public UDP
 {
 private:
     SSL_WrapperPacket wrapper;
-    VisionFilterModule* filterModule;
+    VisionFilter* filterModule;
 
     void parse(IPPacket &p);
     void updateFilterModule();

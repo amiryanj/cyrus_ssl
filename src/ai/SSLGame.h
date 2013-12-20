@@ -10,6 +10,8 @@
 class SSLStrategyManager;
 class SSLRoleManager;
 
+using namespace SSL;
+
 class SSLGame : SSLListener
 {
     static SSLGame* game;

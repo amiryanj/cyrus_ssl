@@ -5,12 +5,13 @@
 #include "general.h"
 #include "SSLObject.h"
 
-
+#include "SSLTeam.h" //SSLTeam;
 
 class SSLRobot : public SSLObject<Vector3D>
 {
 public:
-    SSLRobot();
+    SSLRobot(SSLTeam* team = 0);
+    SSLTeam* team;
 
     unsigned int id;
     Color color;

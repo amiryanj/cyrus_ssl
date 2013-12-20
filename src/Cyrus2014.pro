@@ -4,11 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+#QT       += core
 #QT       -= gui
 
-LIBS += -lprotobuf
-
+LIBS += -lprotobuf -lboost_system -lBox2D
 
 TARGET = Cyrus2014
 #CONFIG   += console
@@ -20,9 +19,8 @@ INCLUDEPATH += thirdparty\
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    vision/SSLVision.cpp \
-    physical/SSLReferee.cpp \
-    physical/RobotSerialConnection.cpp \
+    vision/SSLVision.cpp \    
+    transmitter/RobotSerialConnection.cpp \
     thirdparty/referee/cpp/referee.pb.cc \
     thirdparty/serialib/serialib.cpp \
     thirdparty/socket/IPPacket.cpp \
@@ -48,18 +46,24 @@ SOURCES += main.cpp \
     thirdparty/socket/netraw.cpp \
     ai/SSLAnalyzer.cpp \
     vision/SSLBallKalmanFilter.cpp \
-    gui/guimodule.cpp \
     soccer/roles/SSLRole.cpp \
     soccer/roles/keepgoal.cpp \
     definition/sslagent.cpp \
     definition/sslstrategy.cpp \
     soccer/sslstrategymanager.cpp \
-    soccer/sslrolemanager.cpp
+    soccer/sslrolemanager.cpp \
+    tools/stdlist.cpp \
+    tools/testboost.cpp \
+    planning/motionplanner.cpp \
+    gui/cpp/ssl_world.pb.cc \
+    gui/cpp/ssl_visualizer.pb.cc \
+    gui/guihandler.cpp \
+    planning/rrtplanner.cpp \
+    planning/obstacle.cpp
 
 HEADERS += \
     vision/SSLVision.h \
-    physical/SSLReferee.h \
-    physical/RobotSerialConnection.h \
+    transmitter/RobotSerialConnection.h \
     thirdparty/referee/cpp/referee.pb.h \
     thirdparty/serialib/serialib.h \
     thirdparty/socket/IPPacket.h \
@@ -88,12 +92,19 @@ HEADERS += \
     thirdparty/util.h \
     ai/SSLAnalyzer.h \
     vision/SSLBallKalmanFilter.h \
-    gui/guimodule.h \
     soccer/roles/SSLRole.h \
     soccer/roles/keepgoal.h \
     definition/sslagent.h \
     definition/sslstrategy.h \
     soccer/sslstrategymanager.h \
-    soccer/sslrolemanager.h
+    soccer/sslrolemanager.h \
+    tools/stdlist.h \
+    tools/testboost.h \
+    planning/motionplanner.h \
+    gui/cpp/ssl_world.pb.h \
+    gui/cpp/ssl_visualizer.pb.h \
+    gui/guihandler.h \
+    planning/rrtplanner.h \
+    planning/obstacle.h
 
 

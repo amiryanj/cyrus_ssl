@@ -9,6 +9,7 @@ public:
                     double max_lin_acc, double max_ang_acc, double max_kick_speed);
     double mass;
     double radius; // mm
+    double frontFlatAngle; // in radian
     double max_lin_vel;
     double max_ang_vel;
     double max_lin_acc;

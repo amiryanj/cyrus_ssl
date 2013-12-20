@@ -28,12 +28,12 @@ SSLGame *SSLRoleManager::game()
 void SSLRoleManager::assignRole(const SSLStrategy &strategy, std::vector<SSLAgent*> agents)
 {
     // get nearest player from analyzer
-    SSLTeam* our_team = game()->ourTeam();
-    SSLRobot* nearestRobot = analyzer()->nearestPlayer(our_team);
-    if(nearestRobot != NULL)
-    {
-        SSLAgent *nearestAgent = game()->getAgent(nearestRobot->id);
-    }
+//    SSLTeam* our_team = game()->ourTeam();
+//    SSLRobot* nearestRobot = analyzer()->nearestPlayer(our_team);
+//    if(nearestRobot != NULL)
+//    {
+//        SSLAgent *nearestAgent = game()->getAgent(nearestRobot->id);
+//    }
 
 
 

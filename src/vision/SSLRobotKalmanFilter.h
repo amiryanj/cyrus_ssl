@@ -25,7 +25,7 @@ public:
     Vector3D getFilteredPosition() const;
 
 private:
-    std::list<frame> rawPositionList;
+    std::vector<frame> rawPositionList;
     double _last_update_time;
     double _last_interval_time;
 

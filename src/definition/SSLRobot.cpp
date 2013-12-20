@@ -4,9 +4,9 @@
 
 #include "SSLTeam.h"
 
-SSLRobot::SSLRobot()
+SSLRobot::SSLRobot(SSLTeam *team)
 {
-
+    this->team = team;
 }
 
 std::string SSLRobot::colorStr()

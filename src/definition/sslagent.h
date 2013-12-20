@@ -4,13 +4,20 @@
 #include "definition/SSLRobot.h"
 #include "soccer/roles/SSLRole.h"
 #include "general.h"
+#include "../planning/rrtplanner.h"
 
 class SSLAgent
 {
 public:
     SSLAgent();
-    SSLRobot* robot;
+    ~SSLAgent();
+
+    SSLRobot* realRobot;
     SSLRole* role;
+
+    Planning::MPState target;
+
+    Planning::RRTPlanner planner;
 
     bool isNull();
     int getID() const;

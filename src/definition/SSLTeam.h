@@ -5,9 +5,11 @@
 #include <string>
 #include "general.h"
 #include "SSLRobotPhysic.h"
-#include "SSLRobot.h"
 
 using namespace std;
+using namespace SSL;
+
+class SSLRobot;
 
 class SSLTeam
 {

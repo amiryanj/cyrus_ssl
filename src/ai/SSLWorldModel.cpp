@@ -2,12 +2,22 @@
  * SSLWorldModel.cpp
  *
  *  Created on: Aug 14, 2013
- *      Author: mostafa
+ *      Author: mostafa, javad
  */
 
 #include "SSLWorldModel.h"
+#include "definition/SSLRobot.h"
 
 SSLWorldModel* SSLWorldModel::world = NULL;
+
+SSLWorldModel::SSLWorldModel() {
+    // TODO Auto-generated constructor stub
+    for(int i=0; i< NUM_TEAMS; ++i)
+        team[i] = new SSLTeam((Side)i, (Color)i, SSLRobotPhysic());
+
+    ball = new SSLBall();
+
+}
 
 SSLWorldModel *SSLWorldModel::getInstance()
 {
@@ -16,15 +26,30 @@ SSLWorldModel *SSLWorldModel::getInstance()
     return world;
 }
 
-
-SSLWorldModel::SSLWorldModel() {
-	// TODO Auto-generated constructor stub
-    for(int i=0; i< NUM_TEAMS; ++i)
-        team[i] = new SSLTeam((Side)i, (Color)i, SSLRobotPhysic());
-
-    ball = new SSLBall();
-
+SSLTeam *SSLWorldModel::getTeam(Color c)
+{
+    return team[c];
 }
+
+SSLBall* SSLWorldModel::mainBall()
+{
+    if(this->allBalls.empty())
+        return NULL;
+    return allBalls[0];
+}
+
+STDVector<SSLRobot *> SSLWorldModel::allRobots()
+{
+    STDVector<SSLRobot*> all_;
+    for(int tm = 1; tm < 2;  ++tm)
+    {
+        for(int i = 0; i< team[tm]->numInFieldRobots(); ++i)
+        {
+            all_.append(team[tm]->inFieldRobots()[i]);
+        }
+    }
+}
+
 
 SSLWorldModel::~SSLWorldModel() {
 	// TODO Auto-generated destructor stub
@@ -39,7 +64,7 @@ void SSLWorldModel::updateRobotState(Color color, int ID, Vector3D position, Vec
 
 void SSLWorldModel::updateRobotAvailability(Color color, int ID, bool available)
 {
-    this->team[color]->robot[ID]->isInField = available;
+    team[color]->robot[ID]->isInField = available;
 }
 
 void SSLWorldModel::updateBallState(int ID, Vector2D position, Vector2D speed)

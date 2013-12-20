@@ -1,11 +1,13 @@
 #include "SSLTeam.h"
 
+#include "SSLRobot.h"
+
 SSLTeam::SSLTeam(const Side side, const Color color, const SSLRobotPhysic &physic)
 {
 
     for(int i = 0; i < MAX_ID_NUM; i++ )
     {
-        this->robot[i]= new SSLRobot();
+        this->robot[i]= new SSLRobot(this);
         robot[i]->id = i;
         robot[i]->color = color;        
         robot[i]->isInField = false;

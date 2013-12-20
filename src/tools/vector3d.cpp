@@ -33,6 +33,13 @@ bool Vector3D::operator !=(const Vector3D &vector)
     return _x != vector._x || _y != vector._y || _teta != vector._teta;
 }
 
+bool Vector3D::isNull() const
+{
+    if(_x == 0 && _y == 0 && _teta == 0)
+        return true;
+    return false;
+}
+
 void Vector3D::setZero()
 {
     _x = _y = _teta = 0.0;
@@ -55,13 +62,13 @@ Vector3D Vector3D::operator -(const Vector3D &vector) const
 
 Vector3D Vector3D::operator *(double s)
 {
-    return Vector3D( _x*s, _y*s, _teta*s);
+    return Vector3D( _x*s, _y*s, _teta*1);
 }
 
 Vector3D Vector3D::operator /(double s)
 {
     double oneOverS = 1.0f / s;
-    return Vector3D( _x*oneOverS, _y*oneOverS, _teta*oneOverS);
+    return Vector3D( _x*oneOverS, _y*oneOverS, _teta*1);
 }
 
 Vector3D &Vector3D::operator +=(const Vector3D &vector)
@@ -78,14 +85,14 @@ Vector3D &Vector3D::operator -=(const Vector3D &vector)
 
 Vector3D &Vector3D::operator *=(double s)
 {
-    _x *= s; _y *= s; _teta *= s;
+    _x *= s; _y *= s; //_teta *= s;
     return *this;
 }
 
 Vector3D &Vector3D::operator /=(double s)
 {
     double oneOverS = 1.0f / s;
-    _x *= oneOverS; _y *= oneOverS; _teta *= oneOverS;
+    _x *= oneOverS; _y *= oneOverS; //_teta *= oneOverS;
     return *this;
 }
 

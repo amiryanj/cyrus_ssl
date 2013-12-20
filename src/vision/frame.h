@@ -7,9 +7,11 @@ using namespace boost::posix_time;
 
 struct frame
 {
-    frame(const Vector3D &pose, const double &time = -1 );
     frame();
+    frame(const Vector3D &pose, const double &time = -1 , double conf = 0);
+    void set(const Vector3D &pose, const double &time = -1, double conf = 0);
     double timeTag; // unit = second
+    double confidence;
     Vector3D position;
 
     void setToCurrentTime();

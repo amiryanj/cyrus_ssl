@@ -22,6 +22,7 @@ public:
     Vector3D operator =(const Vector3D &vector);
     bool operator ==(const Vector3D &vector);
     bool operator !=(const Vector3D &vector);
+    bool isNull() const;
     void setZero();
     void normalize2D();
     double lenght2D();
