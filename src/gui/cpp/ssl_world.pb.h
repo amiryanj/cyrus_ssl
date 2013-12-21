@@ -34,7 +34,7 @@ class vector_3d;
 class ssl_ball;
 class ssl_robot;
 class ssl_team;
-class ssl_world;
+class ssl_world_packet;
 
 enum SideType {
   left_side = 0,
@@ -471,14 +471,14 @@ class ssl_team : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class ssl_world : public ::google::protobuf::Message {
+class ssl_world_packet : public ::google::protobuf::Message {
  public:
-  ssl_world();
-  virtual ~ssl_world();
+  ssl_world_packet();
+  virtual ~ssl_world_packet();
   
-  ssl_world(const ssl_world& from);
+  ssl_world_packet(const ssl_world_packet& from);
   
-  inline ssl_world& operator=(const ssl_world& from) {
+  inline ssl_world_packet& operator=(const ssl_world_packet& from) {
     CopyFrom(from);
     return *this;
   }
@@ -492,17 +492,17 @@ class ssl_world : public ::google::protobuf::Message {
   }
   
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ssl_world& default_instance();
+  static const ssl_world_packet& default_instance();
   
-  void Swap(ssl_world* other);
+  void Swap(ssl_world_packet* other);
   
   // implements Message ----------------------------------------------
   
-  ssl_world* New() const;
+  ssl_world_packet* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const ssl_world& from);
-  void MergeFrom(const ssl_world& from);
+  void CopyFrom(const ssl_world_packet& from);
+  void MergeFrom(const ssl_world_packet& from);
   void Clear();
   bool IsInitialized() const;
   
@@ -553,7 +553,7 @@ class ssl_world : public ::google::protobuf::Message {
   inline ::ssl_team* mutable_yellow_team();
   inline ::ssl_team* release_yellow_team();
   
-  // @@protoc_insertion_point(class_scope:ssl_world)
+  // @@protoc_insertion_point(class_scope:ssl_world_packet)
  private:
   inline void set_has_blue_team();
   inline void clear_has_blue_team();
@@ -574,7 +574,7 @@ class ssl_world : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_ssl_5fworld_2eproto();
   
   void InitAsDefaultInstance();
-  static ssl_world* default_instance_;
+  static ssl_world_packet* default_instance_;
 };
 // ===================================================================
 
@@ -850,56 +850,56 @@ inline void ssl_team::set_color(ColorType value) {
 
 // -------------------------------------------------------------------
 
-// ssl_world
+// ssl_world_packet
 
 // repeated .ssl_ball field_balls = 1;
-inline int ssl_world::field_balls_size() const {
+inline int ssl_world_packet::field_balls_size() const {
   return field_balls_.size();
 }
-inline void ssl_world::clear_field_balls() {
+inline void ssl_world_packet::clear_field_balls() {
   field_balls_.Clear();
 }
-inline const ::ssl_ball& ssl_world::field_balls(int index) const {
+inline const ::ssl_ball& ssl_world_packet::field_balls(int index) const {
   return field_balls_.Get(index);
 }
-inline ::ssl_ball* ssl_world::mutable_field_balls(int index) {
+inline ::ssl_ball* ssl_world_packet::mutable_field_balls(int index) {
   return field_balls_.Mutable(index);
 }
-inline ::ssl_ball* ssl_world::add_field_balls() {
+inline ::ssl_ball* ssl_world_packet::add_field_balls() {
   return field_balls_.Add();
 }
 inline const ::google::protobuf::RepeatedPtrField< ::ssl_ball >&
-ssl_world::field_balls() const {
+ssl_world_packet::field_balls() const {
   return field_balls_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::ssl_ball >*
-ssl_world::mutable_field_balls() {
+ssl_world_packet::mutable_field_balls() {
   return &field_balls_;
 }
 
 // required .ssl_team blue_team = 2;
-inline bool ssl_world::has_blue_team() const {
+inline bool ssl_world_packet::has_blue_team() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void ssl_world::set_has_blue_team() {
+inline void ssl_world_packet::set_has_blue_team() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void ssl_world::clear_has_blue_team() {
+inline void ssl_world_packet::clear_has_blue_team() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void ssl_world::clear_blue_team() {
+inline void ssl_world_packet::clear_blue_team() {
   if (blue_team_ != NULL) blue_team_->::ssl_team::Clear();
   clear_has_blue_team();
 }
-inline const ::ssl_team& ssl_world::blue_team() const {
+inline const ::ssl_team& ssl_world_packet::blue_team() const {
   return blue_team_ != NULL ? *blue_team_ : *default_instance_->blue_team_;
 }
-inline ::ssl_team* ssl_world::mutable_blue_team() {
+inline ::ssl_team* ssl_world_packet::mutable_blue_team() {
   set_has_blue_team();
   if (blue_team_ == NULL) blue_team_ = new ::ssl_team;
   return blue_team_;
 }
-inline ::ssl_team* ssl_world::release_blue_team() {
+inline ::ssl_team* ssl_world_packet::release_blue_team() {
   clear_has_blue_team();
   ::ssl_team* temp = blue_team_;
   blue_team_ = NULL;
@@ -907,28 +907,28 @@ inline ::ssl_team* ssl_world::release_blue_team() {
 }
 
 // required .ssl_team yellow_team = 3;
-inline bool ssl_world::has_yellow_team() const {
+inline bool ssl_world_packet::has_yellow_team() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void ssl_world::set_has_yellow_team() {
+inline void ssl_world_packet::set_has_yellow_team() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void ssl_world::clear_has_yellow_team() {
+inline void ssl_world_packet::clear_has_yellow_team() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void ssl_world::clear_yellow_team() {
+inline void ssl_world_packet::clear_yellow_team() {
   if (yellow_team_ != NULL) yellow_team_->::ssl_team::Clear();
   clear_has_yellow_team();
 }
-inline const ::ssl_team& ssl_world::yellow_team() const {
+inline const ::ssl_team& ssl_world_packet::yellow_team() const {
   return yellow_team_ != NULL ? *yellow_team_ : *default_instance_->yellow_team_;
 }
-inline ::ssl_team* ssl_world::mutable_yellow_team() {
+inline ::ssl_team* ssl_world_packet::mutable_yellow_team() {
   set_has_yellow_team();
   if (yellow_team_ == NULL) yellow_team_ = new ::ssl_team;
   return yellow_team_;
 }
-inline ::ssl_team* ssl_world::release_yellow_team() {
+inline ::ssl_team* ssl_world_packet::release_yellow_team() {
   clear_has_yellow_team();
   ::ssl_team* temp = yellow_team_;
   yellow_team_ = NULL;

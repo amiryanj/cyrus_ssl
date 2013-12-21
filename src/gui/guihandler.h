@@ -17,18 +17,27 @@ using namespace google::protobuf;
 
 class GUIHandler : public SSLListener, public Net::UDP
 {
-public:
     GUIHandler();
+    static GUIHandler* instance;
+public:
+    static GUIHandler* getInstance();
+
+    bool openSocket(int port = VISUALIZER_PORT);
 
     void check();
-    void generateWorldPacket();
-    void generateAnalyzerPacket();
-    void generateGamePacket();
-    bool sendPacket(ssl_visualizer_packet* packet);
+
+    ssl_visualizer_packet* generateVisualizerPacket();
+
+    void generateWorldPacket(ssl_world_packet* packet);
+    void generateAnalyzerPacket(ssl_analyzer_packet* packet);
+    void generatePlannerPacket(ssl_planner_packet* packet);
+    void generateDecisionPacket(ssl_decision_packet* packet);
+
+    bool sendPacket(const ssl_visualizer_packet &p);
 
 private:
-    ssl_visualizer_packet visualizer_packet;
-    ssl_world world_packet;
+//    ssl_visualizer_packet visualizer_packet;
+//    ssl_world_packet world_packet;
 
     boost::signals2::mutex mtx_;
 

@@ -24,6 +24,9 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/generated_message_reflection.h>
 #include "ssl_world.pb.h"
+#include "ssl_analyzer.pb.h"
+#include "ssl_decision.pb.h"
+#include "ssl_planner.pb.h"
 // @@protoc_insertion_point(includes)
 
 // Internal implementation detail -- do not call these.
@@ -89,25 +92,58 @@ class ssl_visualizer_packet : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // required .ssl_world world = 1;
-  inline bool has_world() const;
-  inline void clear_world();
-  static const int kWorldFieldNumber = 1;
-  inline const ::ssl_world& world() const;
-  inline ::ssl_world* mutable_world();
-  inline ::ssl_world* release_world();
+  // required .ssl_world_packet world_data = 1;
+  inline bool has_world_data() const;
+  inline void clear_world_data();
+  static const int kWorldDataFieldNumber = 1;
+  inline const ::ssl_world_packet& world_data() const;
+  inline ::ssl_world_packet* mutable_world_data();
+  inline ::ssl_world_packet* release_world_data();
+  
+  // required .ssl_analyzer_packet analyzer_data = 2;
+  inline bool has_analyzer_data() const;
+  inline void clear_analyzer_data();
+  static const int kAnalyzerDataFieldNumber = 2;
+  inline const ::ssl_analyzer_packet& analyzer_data() const;
+  inline ::ssl_analyzer_packet* mutable_analyzer_data();
+  inline ::ssl_analyzer_packet* release_analyzer_data();
+  
+  // required .ssl_decision_packet decision_data = 3;
+  inline bool has_decision_data() const;
+  inline void clear_decision_data();
+  static const int kDecisionDataFieldNumber = 3;
+  inline const ::ssl_decision_packet& decision_data() const;
+  inline ::ssl_decision_packet* mutable_decision_data();
+  inline ::ssl_decision_packet* release_decision_data();
+  
+  // required .ssl_planner_packet planner_data = 4;
+  inline bool has_planner_data() const;
+  inline void clear_planner_data();
+  static const int kPlannerDataFieldNumber = 4;
+  inline const ::ssl_planner_packet& planner_data() const;
+  inline ::ssl_planner_packet* mutable_planner_data();
+  inline ::ssl_planner_packet* release_planner_data();
   
   // @@protoc_insertion_point(class_scope:ssl_visualizer_packet)
  private:
-  inline void set_has_world();
-  inline void clear_has_world();
+  inline void set_has_world_data();
+  inline void clear_has_world_data();
+  inline void set_has_analyzer_data();
+  inline void clear_has_analyzer_data();
+  inline void set_has_decision_data();
+  inline void clear_has_decision_data();
+  inline void set_has_planner_data();
+  inline void clear_has_planner_data();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::ssl_world* world_;
+  ::ssl_world_packet* world_data_;
+  ::ssl_analyzer_packet* analyzer_data_;
+  ::ssl_decision_packet* decision_data_;
+  ::ssl_planner_packet* planner_data_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
   
   friend void  protobuf_AddDesc_ssl_5fvisualizer_2eproto();
   friend void protobuf_AssignDesc_ssl_5fvisualizer_2eproto();
@@ -123,32 +159,119 @@ class ssl_visualizer_packet : public ::google::protobuf::Message {
 
 // ssl_visualizer_packet
 
-// required .ssl_world world = 1;
-inline bool ssl_visualizer_packet::has_world() const {
+// required .ssl_world_packet world_data = 1;
+inline bool ssl_visualizer_packet::has_world_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ssl_visualizer_packet::set_has_world() {
+inline void ssl_visualizer_packet::set_has_world_data() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void ssl_visualizer_packet::clear_has_world() {
+inline void ssl_visualizer_packet::clear_has_world_data() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void ssl_visualizer_packet::clear_world() {
-  if (world_ != NULL) world_->::ssl_world::Clear();
-  clear_has_world();
+inline void ssl_visualizer_packet::clear_world_data() {
+  if (world_data_ != NULL) world_data_->::ssl_world_packet::Clear();
+  clear_has_world_data();
 }
-inline const ::ssl_world& ssl_visualizer_packet::world() const {
-  return world_ != NULL ? *world_ : *default_instance_->world_;
+inline const ::ssl_world_packet& ssl_visualizer_packet::world_data() const {
+  return world_data_ != NULL ? *world_data_ : *default_instance_->world_data_;
 }
-inline ::ssl_world* ssl_visualizer_packet::mutable_world() {
-  set_has_world();
-  if (world_ == NULL) world_ = new ::ssl_world;
-  return world_;
+inline ::ssl_world_packet* ssl_visualizer_packet::mutable_world_data() {
+  set_has_world_data();
+  if (world_data_ == NULL) world_data_ = new ::ssl_world_packet;
+  return world_data_;
 }
-inline ::ssl_world* ssl_visualizer_packet::release_world() {
-  clear_has_world();
-  ::ssl_world* temp = world_;
-  world_ = NULL;
+inline ::ssl_world_packet* ssl_visualizer_packet::release_world_data() {
+  clear_has_world_data();
+  ::ssl_world_packet* temp = world_data_;
+  world_data_ = NULL;
+  return temp;
+}
+
+// required .ssl_analyzer_packet analyzer_data = 2;
+inline bool ssl_visualizer_packet::has_analyzer_data() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ssl_visualizer_packet::set_has_analyzer_data() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ssl_visualizer_packet::clear_has_analyzer_data() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ssl_visualizer_packet::clear_analyzer_data() {
+  if (analyzer_data_ != NULL) analyzer_data_->::ssl_analyzer_packet::Clear();
+  clear_has_analyzer_data();
+}
+inline const ::ssl_analyzer_packet& ssl_visualizer_packet::analyzer_data() const {
+  return analyzer_data_ != NULL ? *analyzer_data_ : *default_instance_->analyzer_data_;
+}
+inline ::ssl_analyzer_packet* ssl_visualizer_packet::mutable_analyzer_data() {
+  set_has_analyzer_data();
+  if (analyzer_data_ == NULL) analyzer_data_ = new ::ssl_analyzer_packet;
+  return analyzer_data_;
+}
+inline ::ssl_analyzer_packet* ssl_visualizer_packet::release_analyzer_data() {
+  clear_has_analyzer_data();
+  ::ssl_analyzer_packet* temp = analyzer_data_;
+  analyzer_data_ = NULL;
+  return temp;
+}
+
+// required .ssl_decision_packet decision_data = 3;
+inline bool ssl_visualizer_packet::has_decision_data() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ssl_visualizer_packet::set_has_decision_data() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ssl_visualizer_packet::clear_has_decision_data() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ssl_visualizer_packet::clear_decision_data() {
+  if (decision_data_ != NULL) decision_data_->::ssl_decision_packet::Clear();
+  clear_has_decision_data();
+}
+inline const ::ssl_decision_packet& ssl_visualizer_packet::decision_data() const {
+  return decision_data_ != NULL ? *decision_data_ : *default_instance_->decision_data_;
+}
+inline ::ssl_decision_packet* ssl_visualizer_packet::mutable_decision_data() {
+  set_has_decision_data();
+  if (decision_data_ == NULL) decision_data_ = new ::ssl_decision_packet;
+  return decision_data_;
+}
+inline ::ssl_decision_packet* ssl_visualizer_packet::release_decision_data() {
+  clear_has_decision_data();
+  ::ssl_decision_packet* temp = decision_data_;
+  decision_data_ = NULL;
+  return temp;
+}
+
+// required .ssl_planner_packet planner_data = 4;
+inline bool ssl_visualizer_packet::has_planner_data() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ssl_visualizer_packet::set_has_planner_data() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ssl_visualizer_packet::clear_has_planner_data() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ssl_visualizer_packet::clear_planner_data() {
+  if (planner_data_ != NULL) planner_data_->::ssl_planner_packet::Clear();
+  clear_has_planner_data();
+}
+inline const ::ssl_planner_packet& ssl_visualizer_packet::planner_data() const {
+  return planner_data_ != NULL ? *planner_data_ : *default_instance_->planner_data_;
+}
+inline ::ssl_planner_packet* ssl_visualizer_packet::mutable_planner_data() {
+  set_has_planner_data();
+  if (planner_data_ == NULL) planner_data_ = new ::ssl_planner_packet;
+  return planner_data_;
+}
+inline ::ssl_planner_packet* ssl_visualizer_packet::release_planner_data() {
+  clear_has_planner_data();
+  ::ssl_planner_packet* temp = planner_data_;
+  planner_data_ = NULL;
   return temp;
 }
 

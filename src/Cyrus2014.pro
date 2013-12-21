@@ -55,11 +55,14 @@ SOURCES += main.cpp \
     tools/stdlist.cpp \
     tools/testboost.cpp \
     planning/motionplanner.cpp \
-    gui/cpp/ssl_world.pb.cc \
-    gui/cpp/ssl_visualizer.pb.cc \
-    gui/guihandler.cpp \
     planning/rrtplanner.cpp \
-    planning/obstacle.cpp
+    planning/obstacle.cpp \
+    gui/guihandler.cpp \
+    gui/cpp/ssl_visualizer.pb.cc \
+    gui/cpp/ssl_world.pb.cc \
+    gui/cpp/ssl_decision.pb.cc \
+    gui/cpp/ssl_planner.pb.cc \
+    gui/cpp/ssl_analyzer.pb.cc
 
 HEADERS += \
     vision/SSLVision.h \
@@ -101,10 +104,13 @@ HEADERS += \
     tools/stdlist.h \
     tools/testboost.h \
     planning/motionplanner.h \
-    gui/cpp/ssl_world.pb.h \
-    gui/cpp/ssl_visualizer.pb.h \
-    gui/guihandler.h \
     planning/rrtplanner.h \
-    planning/obstacle.h
+    planning/obstacle.h \
+    gui/guihandler.h \
+    gui/cpp/ssl_visualizer.pb.h \
+    gui/cpp/ssl_world.pb.h \
+    gui/cpp/ssl_decision.pb.h \
+    gui/cpp/ssl_planner.pb.h \
+    gui/cpp/ssl_analyzer.pb.h
 
 

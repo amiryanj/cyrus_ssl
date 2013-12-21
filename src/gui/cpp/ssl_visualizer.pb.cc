@@ -29,8 +29,11 @@ void protobuf_AssignDesc_ssl_5fvisualizer_2eproto() {
       "ssl_visualizer.proto");
   GOOGLE_CHECK(file != NULL);
   ssl_visualizer_packet_descriptor_ = file->message_type(0);
-  static const int ssl_visualizer_packet_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_visualizer_packet, world_),
+  static const int ssl_visualizer_packet_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_visualizer_packet, world_data_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_visualizer_packet, analyzer_data_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_visualizer_packet, decision_data_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_visualizer_packet, planner_data_),
   };
   ssl_visualizer_packet_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -73,10 +76,18 @@ void protobuf_AddDesc_ssl_5fvisualizer_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::protobuf_AddDesc_ssl_5fworld_2eproto();
+  ::protobuf_AddDesc_ssl_5fanalyzer_2eproto();
+  ::protobuf_AddDesc_ssl_5fdecision_2eproto();
+  ::protobuf_AddDesc_ssl_5fplanner_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\024ssl_visualizer.proto\032\017ssl_world.proto\""
-    "2\n\025ssl_visualizer_packet\022\031\n\005world\030\001 \002(\0132"
-    "\n.ssl_world", 91);
+    "\n\024ssl_visualizer.proto\032\017ssl_world.proto\032"
+    "\022ssl_analyzer.proto\032\022ssl_decision.proto\032"
+    "\021ssl_planner.proto\"\303\001\n\025ssl_visualizer_pa"
+    "cket\022%\n\nworld_data\030\001 \002(\0132\021.ssl_world_pac"
+    "ket\022+\n\ranalyzer_data\030\002 \002(\0132\024.ssl_analyze"
+    "r_packet\022+\n\rdecision_data\030\003 \002(\0132\024.ssl_de"
+    "cision_packet\022)\n\014planner_data\030\004 \002(\0132\023.ss"
+    "l_planner_packet", 296);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ssl_visualizer.proto", &protobuf_RegisterTypes);
   ssl_visualizer_packet::default_instance_ = new ssl_visualizer_packet();
@@ -95,7 +106,10 @@ struct StaticDescriptorInitializer_ssl_5fvisualizer_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int ssl_visualizer_packet::kWorldFieldNumber;
+const int ssl_visualizer_packet::kWorldDataFieldNumber;
+const int ssl_visualizer_packet::kAnalyzerDataFieldNumber;
+const int ssl_visualizer_packet::kDecisionDataFieldNumber;
+const int ssl_visualizer_packet::kPlannerDataFieldNumber;
 #endif  // !_MSC_VER
 
 ssl_visualizer_packet::ssl_visualizer_packet()
@@ -104,7 +118,10 @@ ssl_visualizer_packet::ssl_visualizer_packet()
 }
 
 void ssl_visualizer_packet::InitAsDefaultInstance() {
-  world_ = const_cast< ::ssl_world*>(&::ssl_world::default_instance());
+  world_data_ = const_cast< ::ssl_world_packet*>(&::ssl_world_packet::default_instance());
+  analyzer_data_ = const_cast< ::ssl_analyzer_packet*>(&::ssl_analyzer_packet::default_instance());
+  decision_data_ = const_cast< ::ssl_decision_packet*>(&::ssl_decision_packet::default_instance());
+  planner_data_ = const_cast< ::ssl_planner_packet*>(&::ssl_planner_packet::default_instance());
 }
 
 ssl_visualizer_packet::ssl_visualizer_packet(const ssl_visualizer_packet& from)
@@ -115,7 +132,10 @@ ssl_visualizer_packet::ssl_visualizer_packet(const ssl_visualizer_packet& from)
 
 void ssl_visualizer_packet::SharedCtor() {
   _cached_size_ = 0;
-  world_ = NULL;
+  world_data_ = NULL;
+  analyzer_data_ = NULL;
+  decision_data_ = NULL;
+  planner_data_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -125,7 +145,10 @@ ssl_visualizer_packet::~ssl_visualizer_packet() {
 
 void ssl_visualizer_packet::SharedDtor() {
   if (this != default_instance_) {
-    delete world_;
+    delete world_data_;
+    delete analyzer_data_;
+    delete decision_data_;
+    delete planner_data_;
   }
 }
 
@@ -151,8 +174,17 @@ ssl_visualizer_packet* ssl_visualizer_packet::New() const {
 
 void ssl_visualizer_packet::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_world()) {
-      if (world_ != NULL) world_->::ssl_world::Clear();
+    if (has_world_data()) {
+      if (world_data_ != NULL) world_data_->::ssl_world_packet::Clear();
+    }
+    if (has_analyzer_data()) {
+      if (analyzer_data_ != NULL) analyzer_data_->::ssl_analyzer_packet::Clear();
+    }
+    if (has_decision_data()) {
+      if (decision_data_ != NULL) decision_data_->::ssl_decision_packet::Clear();
+    }
+    if (has_planner_data()) {
+      if (planner_data_ != NULL) planner_data_->::ssl_planner_packet::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -165,12 +197,54 @@ bool ssl_visualizer_packet::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ssl_world world = 1;
+      // required .ssl_world_packet world_data = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_world()));
+               input, mutable_world_data()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_analyzer_data;
+        break;
+      }
+      
+      // required .ssl_analyzer_packet analyzer_data = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_analyzer_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_analyzer_data()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_decision_data;
+        break;
+      }
+      
+      // required .ssl_decision_packet decision_data = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_decision_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_decision_data()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(34)) goto parse_planner_data;
+        break;
+      }
+      
+      // required .ssl_planner_packet planner_data = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_planner_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_planner_data()));
         } else {
           goto handle_uninterpreted;
         }
@@ -196,10 +270,28 @@ bool ssl_visualizer_packet::MergePartialFromCodedStream(
 
 void ssl_visualizer_packet::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .ssl_world world = 1;
-  if (has_world()) {
+  // required .ssl_world_packet world_data = 1;
+  if (has_world_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->world(), output);
+      1, this->world_data(), output);
+  }
+  
+  // required .ssl_analyzer_packet analyzer_data = 2;
+  if (has_analyzer_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->analyzer_data(), output);
+  }
+  
+  // required .ssl_decision_packet decision_data = 3;
+  if (has_decision_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->decision_data(), output);
+  }
+  
+  // required .ssl_planner_packet planner_data = 4;
+  if (has_planner_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->planner_data(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -210,11 +302,32 @@ void ssl_visualizer_packet::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ssl_visualizer_packet::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required .ssl_world world = 1;
-  if (has_world()) {
+  // required .ssl_world_packet world_data = 1;
+  if (has_world_data()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->world(), target);
+        1, this->world_data(), target);
+  }
+  
+  // required .ssl_analyzer_packet analyzer_data = 2;
+  if (has_analyzer_data()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->analyzer_data(), target);
+  }
+  
+  // required .ssl_decision_packet decision_data = 3;
+  if (has_decision_data()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->decision_data(), target);
+  }
+  
+  // required .ssl_planner_packet planner_data = 4;
+  if (has_planner_data()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->planner_data(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -228,11 +341,32 @@ int ssl_visualizer_packet::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .ssl_world world = 1;
-    if (has_world()) {
+    // required .ssl_world_packet world_data = 1;
+    if (has_world_data()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->world());
+          this->world_data());
+    }
+    
+    // required .ssl_analyzer_packet analyzer_data = 2;
+    if (has_analyzer_data()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->analyzer_data());
+    }
+    
+    // required .ssl_decision_packet decision_data = 3;
+    if (has_decision_data()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->decision_data());
+    }
+    
+    // required .ssl_planner_packet planner_data = 4;
+    if (has_planner_data()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->planner_data());
     }
     
   }
@@ -262,8 +396,17 @@ void ssl_visualizer_packet::MergeFrom(const ::google::protobuf::Message& from) {
 void ssl_visualizer_packet::MergeFrom(const ssl_visualizer_packet& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_world()) {
-      mutable_world()->::ssl_world::MergeFrom(from.world());
+    if (from.has_world_data()) {
+      mutable_world_data()->::ssl_world_packet::MergeFrom(from.world_data());
+    }
+    if (from.has_analyzer_data()) {
+      mutable_analyzer_data()->::ssl_analyzer_packet::MergeFrom(from.analyzer_data());
+    }
+    if (from.has_decision_data()) {
+      mutable_decision_data()->::ssl_decision_packet::MergeFrom(from.decision_data());
+    }
+    if (from.has_planner_data()) {
+      mutable_planner_data()->::ssl_planner_packet::MergeFrom(from.planner_data());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -282,17 +425,23 @@ void ssl_visualizer_packet::CopyFrom(const ssl_visualizer_packet& from) {
 }
 
 bool ssl_visualizer_packet::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   
-  if (has_world()) {
-    if (!this->world().IsInitialized()) return false;
+  if (has_world_data()) {
+    if (!this->world_data().IsInitialized()) return false;
+  }
+  if (has_analyzer_data()) {
+    if (!this->analyzer_data().IsInitialized()) return false;
   }
   return true;
 }
 
 void ssl_visualizer_packet::Swap(ssl_visualizer_packet* other) {
   if (other != this) {
-    std::swap(world_, other->world_);
+    std::swap(world_data_, other->world_data_);
+    std::swap(analyzer_data_, other->analyzer_data_);
+    std::swap(decision_data_, other->decision_data_);
+    std::swap(planner_data_, other->planner_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

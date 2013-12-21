@@ -27,9 +27,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* ssl_team_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ssl_team_reflection_ = NULL;
-const ::google::protobuf::Descriptor* ssl_world_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* ssl_world_packet_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  ssl_world_reflection_ = NULL;
+  ssl_world_packet_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* SideType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* ColorType_descriptor_ = NULL;
 
@@ -108,23 +108,23 @@ void protobuf_AssignDesc_ssl_5fworld_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ssl_team));
-  ssl_world_descriptor_ = file->message_type(4);
-  static const int ssl_world_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world, field_balls_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world, blue_team_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world, yellow_team_),
+  ssl_world_packet_descriptor_ = file->message_type(4);
+  static const int ssl_world_packet_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, field_balls_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, blue_team_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, yellow_team_),
   };
-  ssl_world_reflection_ =
+  ssl_world_packet_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
-      ssl_world_descriptor_,
-      ssl_world::default_instance_,
-      ssl_world_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world, _unknown_fields_),
+      ssl_world_packet_descriptor_,
+      ssl_world_packet::default_instance_,
+      ssl_world_packet_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, _unknown_fields_),
       -1,
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(ssl_world));
+      sizeof(ssl_world_packet));
   SideType_descriptor_ = file->enum_type(0);
   ColorType_descriptor_ = file->enum_type(1);
 }
@@ -148,7 +148,7 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ssl_team_descriptor_, &ssl_team::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    ssl_world_descriptor_, &ssl_world::default_instance());
+    ssl_world_packet_descriptor_, &ssl_world_packet::default_instance());
 }
 
 }  // namespace
@@ -162,8 +162,8 @@ void protobuf_ShutdownFile_ssl_5fworld_2eproto() {
   delete ssl_robot_reflection_;
   delete ssl_team::default_instance_;
   delete ssl_team_reflection_;
-  delete ssl_world::default_instance_;
-  delete ssl_world_reflection_;
+  delete ssl_world_packet::default_instance_;
+  delete ssl_world_packet_reflection_;
 }
 
 void protobuf_AddDesc_ssl_5fworld_2eproto() {
@@ -180,24 +180,24 @@ void protobuf_AddDesc_ssl_5fworld_2eproto() {
     "ion\030\001 \002(\0132\n.vector_3d\022\034\n\010velecity\030\002 \002(\0132"
     "\n.vector_3d\"Z\n\010ssl_team\022\032\n\006robots\030\001 \003(\0132"
     "\n.ssl_robot\022\027\n\004side\030\002 \002(\0162\t.SideType\022\031\n\005"
-    "color\030\003 \002(\0162\n.ColorType\"i\n\tssl_world\022\036\n\013"
-    "field_balls\030\001 \003(\0132\t.ssl_ball\022\034\n\tblue_tea"
-    "m\030\002 \002(\0132\t.ssl_team\022\036\n\013yellow_team\030\003 \002(\0132"
-    "\t.ssl_team*)\n\010SideType\022\r\n\tleft_side\020\000\022\016\n"
-    "\nright_side\020\001*-\n\tColorType\022\016\n\nblue_color"
-    "\020\000\022\020\n\014yellow_color\020\001", 500);
+    "color\030\003 \002(\0162\n.ColorType\"p\n\020ssl_world_pac"
+    "ket\022\036\n\013field_balls\030\001 \003(\0132\t.ssl_ball\022\034\n\tb"
+    "lue_team\030\002 \002(\0132\t.ssl_team\022\036\n\013yellow_team"
+    "\030\003 \002(\0132\t.ssl_team*)\n\010SideType\022\r\n\tleft_si"
+    "de\020\000\022\016\n\nright_side\020\001*-\n\tColorType\022\016\n\nblu"
+    "e_color\020\000\022\020\n\014yellow_color\020\001", 507);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ssl_world.proto", &protobuf_RegisterTypes);
   vector_3d::default_instance_ = new vector_3d();
   ssl_ball::default_instance_ = new ssl_ball();
   ssl_robot::default_instance_ = new ssl_robot();
   ssl_team::default_instance_ = new ssl_team();
-  ssl_world::default_instance_ = new ssl_world();
+  ssl_world_packet::default_instance_ = new ssl_world_packet();
   vector_3d::default_instance_->InitAsDefaultInstance();
   ssl_ball::default_instance_->InitAsDefaultInstance();
   ssl_robot::default_instance_->InitAsDefaultInstance();
   ssl_team::default_instance_->InitAsDefaultInstance();
-  ssl_world::default_instance_->InitAsDefaultInstance();
+  ssl_world_packet::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_ssl_5fworld_2eproto);
 }
 
@@ -1354,66 +1354,66 @@ void ssl_team::Swap(ssl_team* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int ssl_world::kFieldBallsFieldNumber;
-const int ssl_world::kBlueTeamFieldNumber;
-const int ssl_world::kYellowTeamFieldNumber;
+const int ssl_world_packet::kFieldBallsFieldNumber;
+const int ssl_world_packet::kBlueTeamFieldNumber;
+const int ssl_world_packet::kYellowTeamFieldNumber;
 #endif  // !_MSC_VER
 
-ssl_world::ssl_world()
+ssl_world_packet::ssl_world_packet()
   : ::google::protobuf::Message() {
   SharedCtor();
 }
 
-void ssl_world::InitAsDefaultInstance() {
+void ssl_world_packet::InitAsDefaultInstance() {
   blue_team_ = const_cast< ::ssl_team*>(&::ssl_team::default_instance());
   yellow_team_ = const_cast< ::ssl_team*>(&::ssl_team::default_instance());
 }
 
-ssl_world::ssl_world(const ssl_world& from)
+ssl_world_packet::ssl_world_packet(const ssl_world_packet& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
-void ssl_world::SharedCtor() {
+void ssl_world_packet::SharedCtor() {
   _cached_size_ = 0;
   blue_team_ = NULL;
   yellow_team_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
-ssl_world::~ssl_world() {
+ssl_world_packet::~ssl_world_packet() {
   SharedDtor();
 }
 
-void ssl_world::SharedDtor() {
+void ssl_world_packet::SharedDtor() {
   if (this != default_instance_) {
     delete blue_team_;
     delete yellow_team_;
   }
 }
 
-void ssl_world::SetCachedSize(int size) const {
+void ssl_world_packet::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* ssl_world::descriptor() {
+const ::google::protobuf::Descriptor* ssl_world_packet::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return ssl_world_descriptor_;
+  return ssl_world_packet_descriptor_;
 }
 
-const ssl_world& ssl_world::default_instance() {
+const ssl_world_packet& ssl_world_packet::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_ssl_5fworld_2eproto();  return *default_instance_;
 }
 
-ssl_world* ssl_world::default_instance_ = NULL;
+ssl_world_packet* ssl_world_packet::default_instance_ = NULL;
 
-ssl_world* ssl_world::New() const {
-  return new ssl_world;
+ssl_world_packet* ssl_world_packet::New() const {
+  return new ssl_world_packet;
 }
 
-void ssl_world::Clear() {
+void ssl_world_packet::Clear() {
   if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
     if (has_blue_team()) {
       if (blue_team_ != NULL) blue_team_->::ssl_team::Clear();
@@ -1427,7 +1427,7 @@ void ssl_world::Clear() {
   mutable_unknown_fields()->Clear();
 }
 
-bool ssl_world::MergePartialFromCodedStream(
+bool ssl_world_packet::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
@@ -1492,7 +1492,7 @@ bool ssl_world::MergePartialFromCodedStream(
 #undef DO_
 }
 
-void ssl_world::SerializeWithCachedSizes(
+void ssl_world_packet::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // repeated .ssl_ball field_balls = 1;
   for (int i = 0; i < this->field_balls_size(); i++) {
@@ -1518,7 +1518,7 @@ void ssl_world::SerializeWithCachedSizes(
   }
 }
 
-::google::protobuf::uint8* ssl_world::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ssl_world_packet::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // repeated .ssl_ball field_balls = 1;
   for (int i = 0; i < this->field_balls_size(); i++) {
@@ -1548,7 +1548,7 @@ void ssl_world::SerializeWithCachedSizes(
   return target;
 }
 
-int ssl_world::ByteSize() const {
+int ssl_world_packet::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
@@ -1586,10 +1586,10 @@ int ssl_world::ByteSize() const {
   return total_size;
 }
 
-void ssl_world::MergeFrom(const ::google::protobuf::Message& from) {
+void ssl_world_packet::MergeFrom(const ::google::protobuf::Message& from) {
   GOOGLE_CHECK_NE(&from, this);
-  const ssl_world* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const ssl_world*>(
+  const ssl_world_packet* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ssl_world_packet*>(
       &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -1598,7 +1598,7 @@ void ssl_world::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void ssl_world::MergeFrom(const ssl_world& from) {
+void ssl_world_packet::MergeFrom(const ssl_world_packet& from) {
   GOOGLE_CHECK_NE(&from, this);
   field_balls_.MergeFrom(from.field_balls_);
   if (from._has_bits_[1 / 32] & (0xffu << (1 % 32))) {
@@ -1612,19 +1612,19 @@ void ssl_world::MergeFrom(const ssl_world& from) {
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
-void ssl_world::CopyFrom(const ::google::protobuf::Message& from) {
+void ssl_world_packet::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ssl_world::CopyFrom(const ssl_world& from) {
+void ssl_world_packet::CopyFrom(const ssl_world_packet& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ssl_world::IsInitialized() const {
+bool ssl_world_packet::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
   
   for (int i = 0; i < field_balls_size(); i++) {
@@ -1639,7 +1639,7 @@ bool ssl_world::IsInitialized() const {
   return true;
 }
 
-void ssl_world::Swap(ssl_world* other) {
+void ssl_world_packet::Swap(ssl_world_packet* other) {
   if (other != this) {
     field_balls_.Swap(&other->field_balls_);
     std::swap(blue_team_, other->blue_team_);
@@ -1650,11 +1650,11 @@ void ssl_world::Swap(ssl_world* other) {
   }
 }
 
-::google::protobuf::Metadata ssl_world::GetMetadata() const {
+::google::protobuf::Metadata ssl_world_packet::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = ssl_world_descriptor_;
-  metadata.reflection = ssl_world_reflection_;
+  metadata.descriptor = ssl_world_packet_descriptor_;
+  metadata.reflection = ssl_world_packet_reflection_;
   return metadata;
 }
 

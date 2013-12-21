@@ -5,6 +5,7 @@
 
 #include "tools/stdlist.h"
 #include "ai/SSLAnalyzer.h"
+#include "gui/guihandler.h"
 
 using namespace std;
 
@@ -23,12 +24,17 @@ int main(int argc, char *argv[])
 
     SSLGame *game = SSLGame::getInstance(Yellow, Right);
 
+    GUIHandler *gui = GUIHandler::getInstance();
+
+
     while (true)
     {
         vision->check();
         filter->check();
         analyzer->check();
         game->check();
+        gui->check();
+        usleep(500000);
     }
 
     //    return app.exec();
