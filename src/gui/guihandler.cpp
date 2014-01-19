@@ -26,7 +26,7 @@ bool GUIHandler::openSocket(int port)
 
     Net::Address multiaddr, interface;
     multiaddr.setHost(VISUALIZER_IP, port);
-    interface.setAny();
+    interface.setAny();   
 
     if(!this->addMulticast(multiaddr, interface))
     {
@@ -90,6 +90,11 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
             robot_packet->mutable_velecity()->set_teta(robot->Speed().Teta());
         }
     }
+    // TO DO : Mohsen
+    /*
+     * write an interfacce to fill packet fields for test purposes
+     */
+
     ssl_ball* ball_packet = packet->mutable_field_balls()->Add();
     ball_packet->mutable_position()->set_x(world()->ball->Position().X());
     ball_packet->mutable_position()->set_y(world()->ball->Position().Y());

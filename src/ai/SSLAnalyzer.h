@@ -3,6 +3,7 @@
 
 #include "../general.h"
 #include "../tools/SSLListener.h"
+#include "robottoballdistance.h"
 #include <vector>
 #include <map>
 
@@ -21,13 +22,11 @@ private:
     SSLAnalyzer();  // default constructor
     static SSLAnalyzer *analyzer;
 
-    double access_time[2][MAX_ID_NUM];
-    Vector2D access_intercept[2][MAX_ID_NUM];
     SSLWorldModel *world();
     
-    void updateAllAccessTimes();
+    void updateDistances();
 
-    double timeToAccessBall(const SSLRobot &robot, const SSLBall &ball, double precison = 0.001);
+    RobotDistTo* distToBall[2][MAX_ID_NUM];
 
 public:
     // return class static object
@@ -36,14 +35,20 @@ public:
     // main function which is called by main thread inherited from SSL-Listener
     void check();
 
-    double minAccessTime(std::vector<SSLRobot*> robots, SSLBall* ball);
+    double getTimeToBall(const SSLRobot& robot);
 
-    SSLRobot* nearestPlayer(std::vector<SSLRobot*> robots);
+    const SSLRobot* nearestPlayerToBall() const; // among all robots
+    const SSLRobot* nearestPlayerToBall(SSL::Color team_color);
+    const SSLRobot* nearestPlayerToBall(std::vector<SSLRobot*> robots);
 
-    bool canKick(const SSLRobot& robot, SSLBall *ball);
-    bool canNearestPlayerShoot(SSLTeam* team, SSLBall *ball);
+    const SSLRobot* nearestPlayerToPoint(Vector2D point); // among all robots
+    const SSLRobot* nearestPlayerToPoint(Vector2D point, SSL::Color team_color);
+    const SSLRobot* nearestPlayerToPoint(const Vector2D &point, std::vector<SSLRobot*> robots);
 
-    double possessionRatio(std::vector<SSLRobot*> robots);
+    bool canKick(const SSLRobot *robot);
+    SSLRobot* inKickPosition(SSL::Color team_color);
+
+    double possessionRatio(SSL::Color team_A, SSL::Color team_B);
 
     std::vector<double> openAnglesToGoal(const Vector2D &point, Side targetGoalSide, std::vector<SSLRobot*> defenders);
 //    std::vector<double> openAnglesToGoal(const Vector2D &point, Side targetGoalSide, std::vector<SSLRobot*> defenders)

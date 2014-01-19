@@ -10,7 +10,7 @@ public:
     double mass;
     double radius; // mm
     double frontFlatAngle; // in radian
-    double max_lin_vel;
+    double max_lin_vel; // meter * sec^-1
     double max_ang_vel;
     double max_lin_acc;
     double max_ang_acc;

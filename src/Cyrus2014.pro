@@ -14,7 +14,7 @@ TARGET = Cyrus2014
 #CONFIG   -= app_bundle
 
 INCLUDEPATH += thirdparty\
-                thirdparty/socket
+               thirdparty/socket
 
 TEMPLATE = app
 
@@ -62,7 +62,12 @@ SOURCES += main.cpp \
     gui/cpp/ssl_world.pb.cc \
     gui/cpp/ssl_decision.pb.cc \
     gui/cpp/ssl_planner.pb.cc \
-    gui/cpp/ssl_analyzer.pb.cc
+    gui/cpp/ssl_analyzer.pb.cc \
+    ai/robottoballdistance.cpp \
+    transmitter/grsimsender.cpp \
+    transmitter/grSim/cpp/grSim_Replacement.pb.cc \
+    transmitter/grSim/cpp/grSim_Packet.pb.cc \
+    transmitter/grSim/cpp/grSim_Commands.pb.cc
 
 HEADERS += \
     vision/SSLVision.h \
@@ -111,6 +116,11 @@ HEADERS += \
     gui/cpp/ssl_world.pb.h \
     gui/cpp/ssl_decision.pb.h \
     gui/cpp/ssl_planner.pb.h \
-    gui/cpp/ssl_analyzer.pb.h
+    gui/cpp/ssl_analyzer.pb.h \
+    ai/robottoballdistance.h \
+    transmitter/grsimsender.h \
+    transmitter/grSim/cpp/grSim_Replacement.pb.h \
+    transmitter/grSim/cpp/grSim_Packet.pb.h \
+    transmitter/grSim/cpp/grSim_Commands.pb.h
 
 

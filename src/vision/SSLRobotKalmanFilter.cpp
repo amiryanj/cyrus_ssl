@@ -18,7 +18,7 @@ void SSLRobotKalmanFilter::setNewFrame(const frame &fr)
     while(!rawPositionList.empty())
     {
         frame listed_fr = rawPositionList.back();
-        if((fr.timeTag - listed_fr.timeTag) > 2.0)
+        if((fr.timeTag - listed_fr.timeTag) > 50.0)
             rawPositionList.pop_back();
         else
             break;
@@ -26,7 +26,7 @@ void SSLRobotKalmanFilter::setNewFrame(const frame &fr)
     std::vector<frame>::iterator it;
     it = rawPositionList.begin();
     rawPositionList.insert(it, fr);
-    std::cout << "Robot Confidence = " <<fr.confidence << std::endl;
+//    std::cout << "Robot Confidence = " <<fr.confidence << std::endl;
     if(rawPositionList.size() > MAX_RAW_DATA_MEMORY)
         rawPositionList.pop_back();
     _last_interval_time = fr.timeTag - _last_update_time;

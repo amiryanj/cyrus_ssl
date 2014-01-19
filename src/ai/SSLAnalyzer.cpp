@@ -9,6 +9,11 @@ SSLAnalyzer* SSLAnalyzer::analyzer = NULL;
 
 SSLAnalyzer::SSLAnalyzer()
 {
+    for(int tm=0; tm<2; tm++)
+        for(int j=0; j<MAX_ID_NUM; j++)
+        {
+            this->distToBall[tm][j] = new RobotDistTo(world()->team[tm]->robot[j], world()->ball);
+        }
 }
 
 SSLAnalyzer* SSLAnalyzer::getInstance()
@@ -26,165 +31,112 @@ SSLWorldModel *SSLAnalyzer::world()
 void SSLAnalyzer::check()
 {
     // TODO check function    
+    updateDistances();
 }
 
-void SSLAnalyzer::updateAllAccessTimes()
+double SSLAnalyzer::getTimeToBall(const SSLRobot &robot)
 {
-    SSLBall* ball = world()->ball;
+    return distToBall[robot.color][robot.id]->getEuclideanTimeToBallSec();
+//    return distToBall[robot.color][robot.id]->getManifoldTimeToBallSec();
+}
+
+void SSLAnalyzer::updateDistances()
+{    
+    RobotDistTo::minTimeToBall = RobotDistTo::minTimeToBallOfTeam[0] = RobotDistTo::minTimeToBallOfTeam[1] = INFINITY;
     for(int tm = 0; tm <= 1; ++tm)
-        for(int i=0; i < world()->team[tm]->numInFieldRobots(); ++i )
+        for(unsigned int i=0; i < world()->team[tm]->numInFieldRobots(); ++i )
         {
-            SSLRobot* robot = world()->team[tm]->inFieldRobots().at(i);
-            double acc_time = timeToAccessBall(*robot, *ball);
-            Vector2D acc_int = ball->Position()+ ball->Speed() * acc_time;
-            access_time[tm][robot->id] = acc_time;
-            access_intercept[tm][robot->id] = acc_int;
-            std::cerr << "Access time: robot(" << robot->id << ")" << world()->team[tm]->colorStr()
-                  << "=" << acc_time << ", Intercept: x=" << acc_int.X() << "y=" << acc_int.Y() << std::endl;
+            distToBall[tm][i]->computeEuclideanToBall();
         }
-}
-
-// this function uses binary search inorder to find a time range
-// in which the robot can access the ball
-//
-//
-
-double SSLAnalyzer::timeToAccessBall(const SSLRobot &robot, const SSLBall &ball, double precison)
-{
-    double t_est = 0;
-    Vector2D intercept;
-    // time which robot can reach its max linear speed
-    double t_lim1 = (robot.physic.max_lin_vel - robot.Speed().lenght2D())
-                            /robot.physic.max_lin_acc;
-    double t_lim2 = (robot.physic.max_lin_vel + robot.Speed().lenght2D())
-                            /robot.physic.max_lin_acc;
-
-    for(double t_Low=0, t_High=4.0; ; ) // in sec
-    {
-        double t_range = t_High - t_Low;
-        Vector2D center0 = robot.Position().to2D() + robot.Speed().to2D() * t_High ;
-        Vector2D center1;
-        double forw_disp, backw_disp, radius;
-
-        if(t_High < t_lim1)
-        {
-            center1 = center0 ;
-            radius = t_High * t_High * robot.physic.max_lin_acc / 2.0;
-        }
-        else if(t_High < t_lim2)
-        {
-            forw_disp = robot.physic.max_lin_acc * (t_lim1 * t_lim1) / 2.0
-                    + robot.physic.max_lin_vel * (t_High - t_lim1) ;
-            backw_disp = robot.physic.max_lin_acc * (t_High * t_High ) / 2.0;
-            radius = (forw_disp + backw_disp)/2.0;
-            center1 = center0 + robot.Speed().normalized2D() * (forw_disp - backw_disp);
-        }
-        else
-        {
-            forw_disp = robot.physic.max_lin_acc * (t_lim1 * t_lim1) / 2.0
-                    + robot.physic.max_lin_vel * (t_High - t_lim1) ;
-            backw_disp = robot.physic.max_lin_acc * (t_lim2 * t_lim2 ) / 2.0
-                    + robot.physic.max_lin_vel * (t_High - t_lim2) ;
-            radius = (forw_disp + backw_disp)/2.0;
-            center1 = center0 + robot.Speed().normalized2D() * (forw_disp - backw_disp);
-        }
-
-//        QRegion region(1000.0*(center1.x()-radius/2),1000.0*(center1.y()-radius/2),
-//                               1000.0*2.0*radius, 1000.0*2.0* radius, QRegion::Ellipse);
-
-//        Vector2D point = (1000.0*(ball.position + t_High * ball.speed).toPoint());
-//        if(!region.contains(point))
-        if(!((ball.Position() + ball.Speed() * t_High - center1).lenght()
-                            <= radius + robot.physic.radius + ball.radius))
-
-             t_Low = t_High;
-
-        t_High = t_Low + t_range/2.0 ;
-        if((t_High - t_Low) < 2 * precison )  // precision = 1 ms
-        {
-            t_est = (t_High + t_Low)/2;
-            intercept = ball.Position() + ball.Speed() * t_est;
-            break;
-        }
-    }
-
-    return t_est;
 }
 
 // this function looks for the nearest robot that is able to possess ball among a list of robots
-SSLRobot* SSLAnalyzer::nearestPlayer(std::vector<SSLRobot*> robots)
+const SSLRobot *SSLAnalyzer::nearestPlayerToBall() const
 {
-//    SSLRobot* nearest;
-//    double min_time = 10.00; // max time to get ball
-//    if( team->numInFieldRobots()==0 )
-//    {
-//        std::cerr << "No robot in team " << team->colorStr() << std::endl ;
-//        return NULL;
-//    }
+    return RobotDistTo::nearestRobotToBall;
+}
 
-//    for(int i=0; i < team->numInFieldRobots(); ++i)
-//    {
-//        SSLRobot* robot = team->inFieldRobots().at(i);
-//        //double acc_time = calcAccessTime(robot, worldModel->ball);
-//        double acc_time = access_time[(int)team->color][robot->id];
-//        if( acc_time < min_time)
-//        {
-//            min_time = acc_time;
-//            nearest = robot;
-//        }
-//    }
-//    std::cerr << "Nearest Player[" << nearest->colorStr() << "] is:" << nearest->id << std::endl;
-    //    return nearest;
+const SSLRobot *SSLAnalyzer::nearestPlayerToBall(Color team_color)
+{
+    return RobotDistTo::nearestRobotToBallOfTeam[team_color];
+}
+
+const SSLRobot *SSLAnalyzer::nearestPlayerToBall(vector<SSLRobot*> robots)
+{
+    double min_time = INFINITY;
+    const SSLRobot* nearest;
+
+    for(unsigned int i=0; i<robots.size(); i++)
+    {
+        SSLRobot* robot = robots.at(i);
+        double tmp_time = distToBall[robot->color][robot->id]->getEuclideanTimeToBallSec();
+        if(tmp_time < min_time) {
+            min_time = tmp_time;
+            nearest = robot;
+        }
+    }
+    return nearest;
+}
+
+const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(Vector2D point)
+{
+    return nearestPlayerToPoint(point, world()->allRobots());
+}
+
+const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(Vector2D point, Color team_color)
+{
+    return nearestPlayerToPoint(point, world()->team[team_color]->inFieldRobots());
+}
+
+const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(const Vector2D &point, std::vector<SSLRobot*> robots)
+{
+    double min_time = INFINITY;
+    const SSLRobot* nearest = NULL;
+    for(unsigned int i=0; i<robots.size(); ++i)
+    {
+        double tmp_time = RobotDistTo::distToPoint(robots.at(i), point);
+        if(tmp_time < min_time)
+        {
+            min_time = tmp_time;
+            nearest = robots.at(i);
+        }
+    }
+    return nearest;
 }
 
 // this function check whether the robot can kick the ball or no
-bool SSLAnalyzer::canKick(const SSLRobot &robot, SSLBall *ball)
+bool SSLAnalyzer::canKick(const SSLRobot *robot)
 {
-
+    const double TIME_DIST_FOR_KICK_BALL = 0.2;
+    return (distToBall[robot->color][robot->id]->getEuclideanTimeToBallSec() < TIME_DIST_FOR_KICK_BALL);
 }
 
-double SSLAnalyzer::possessionRatio(std::vector<SSLRobot*> robots)
+SSLRobot *SSLAnalyzer::inKickPosition(Color team_color)
 {
-//    double min_time[2];
-//    for(int tm = 0; tm <=1; ++tm)
-//       { min_time[tm] = minAccessTime(world()->team[tm]); }
-
-
-//    int our_color = (int) SSLGame::getInstance()->ourColor();
-//    double p_ratio = min_time[1 - our_color] / min_time[our_color];
-//    return p_ratio;
+    vector<SSLRobot*> robots = world()->team[team_color]->inFieldRobots();
+    if(RobotDistTo::nearestRobotToBall)
+    for(unsigned int i = 0; i<robots.size(); i++)
+    {
+        if(canKick(robots.at(i)))
+             return robots.at(i);
+    }
+    return NULL;
 }
 
-// this function shows the minimum access time among a list of robots
-double SSLAnalyzer::minAccessTime(std::vector<SSLRobot*> robots, SSLBall* ball)
+/*
+ * this function returns a number between [0, 100] where 0 shows
+ * that teamA has totally the possession of ball and 100 shows teamB
+ * possess the ball
+ */
+double SSLAnalyzer::possessionRatio(Color team_A, Color team_B)
 {
-
-//    SSLRobot* nr_rob = nearestPlayer(robots);
-//    double min_acc_time = access_time[(int)robots->color][nr_rob->id];
-//    return min_acc_time;
+    if(RobotDistTo::minTimeToBallOfTeam[team_A]==0)
+        return 100;
+    if(RobotDistTo::minTimeToBallOfTeam[team_B]==0)
+        return 0;
+    double log_ratio = atan(log(RobotDistTo::minTimeToBallOfTeam[team_B] / RobotDistTo::minTimeToBallOfTeam[team_A]));
+    return 50 + log_ratio*50.0 / M_PI_2;
 }
-
-
-// this function just checks that if a team is whether in kick situation or not
-bool SSLAnalyzer::canNearestPlayerShoot(SSLTeam *team, SSLBall *ball)
-{
-//    bool canShoot = false;
-//    SSLRobot* robot = nearestPlayer(team);
-//    if(robot == NULL){
-//        std::cerr << "Can not find Nearest Player!!!" << std::endl;
-//        return false;
-//    }
-//    Vector2D distVec = (ball->Position() - robot->Position().to2D());
-//    if( (distVec.lenght() < robot->physic.radius + ball->radius)
-//            && (abs(angleForRotate(robot, ball->Position())) < M_PI/6.0 ))
-//    {
-//        canShoot = true;
-//        std::cerr << "Robot" << robot->id << robot->colorStr() << "now can Kick" << std::endl;
-//    }
-//    return canShoot;
-//}
-}
-
 
 std::vector<double> SSLAnalyzer::openAnglesToGoal(const Vector2D &point,
                                                 Side targetGoalSide, vector<SSLRobot*> defenders)
