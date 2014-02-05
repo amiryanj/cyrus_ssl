@@ -20,7 +20,6 @@ public:
     bool openSocket(int port = GRSIM_COMMAND_PORT);
     void sendPacket(int robotID, RobotCommandPacket rawPacket);
 
-
     void check();
 };
 

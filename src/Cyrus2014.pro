@@ -67,7 +67,11 @@ SOURCES += main.cpp \
     transmitter/grsimsender.cpp \
     transmitter/grSim/cpp/grSim_Replacement.pb.cc \
     transmitter/grSim/cpp/grSim_Packet.pb.cc \
-    transmitter/grSim/cpp/grSim_Commands.pb.cc
+    transmitter/grSim/cpp/grSim_Commands.pb.cc \
+    planning/state.cpp \
+    planning/plannerbound.cpp \
+    planning/planneragent.cpp \
+    soccer/roles/stoprole.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -121,6 +125,10 @@ HEADERS += \
     transmitter/grsimsender.h \
     transmitter/grSim/cpp/grSim_Replacement.pb.h \
     transmitter/grSim/cpp/grSim_Packet.pb.h \
-    transmitter/grSim/cpp/grSim_Commands.pb.h
+    transmitter/grSim/cpp/grSim_Commands.pb.h \
+    planning/state.h \
+    planning/plannerbound.h \
+    planning/planneragent.h \
+    soccer/roles/stoprole.h
 
 

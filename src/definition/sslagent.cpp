@@ -1,20 +1,11 @@
 #include "sslagent.h"
 
 SSLAgent::SSLAgent()
-{
-//    planner = new Planning::RRTPlanner();
-    Planning::PlannerAgentShape agent(b2Shape::e_circle);
-    agent.shape->m_radius = this->realRobot->physic.radius;
-    planner.setAgent(agent);
-
-    Planning::PlannerBound bound(-FIELD_LENGTH/2, -FIELD_WIDTH/2, FIELD_LENGTH/2 , FIELD_WIDTH/2);
-    planner.setBound(bound);
+{    
 }
 
 SSLAgent::~SSLAgent()
 {
-//    if(this->planner)
-//        delete planner;
 }
 
 bool SSLAgent::isNull()
@@ -46,10 +37,5 @@ void SSLAgent::run()
         return;
     }
 
-    this->role->run();
-
-    planner.setInitial(this->realRobot->Position());
-    planner.setGoalState(this->target);
-
-
+    this->target = this->role->run();
 }

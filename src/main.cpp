@@ -26,6 +26,9 @@ int main(int argc, char *argv[])
 
     GUIHandler *gui = GUIHandler::getInstance();
 
+    Planner::RRTPlanner myPlanner;
+//    myPlanner.agent;
+
 
     while (true)
     {

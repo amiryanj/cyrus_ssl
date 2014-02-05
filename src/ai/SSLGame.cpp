@@ -32,6 +32,12 @@ void SSLGame::check()
 
     roleManager()->assignRole(this->currentStrategy, this->agents);
 
+    for(int i=0; i<agents.size(); i++) {
+
+        SSLAgent* agent = agents.at(i);
+        agent->run();
+    }
+
 }
 
 SSLGame::~SSLGame()
