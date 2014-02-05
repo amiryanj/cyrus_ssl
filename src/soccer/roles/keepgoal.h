@@ -6,9 +6,9 @@
 class KeepGoal : public SSLRole
 {
 public:
-    KeepGoal();
+    KeepGoal(SSLRobot*);
 
-    void run();
+    Planner::State* run();
 
 };
 

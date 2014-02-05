@@ -15,7 +15,7 @@ public:
     SSLRobot* realRobot;
     SSLRole* role;
 
-    Planner::State target;
+    Planner::State* target;
 
     bool isNull();
     int getID() const;

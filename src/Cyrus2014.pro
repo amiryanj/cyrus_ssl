@@ -105,7 +105,6 @@ HEADERS += \
     ai/SSLAnalyzer.h \
     vision/SSLBallKalmanFilter.h \
     soccer/roles/SSLRole.h \
-    soccer/roles/keepgoal.h \
     definition/sslagent.h \
     definition/sslstrategy.h \
     soccer/sslstrategymanager.h \
@@ -129,6 +128,7 @@ HEADERS += \
     planning/state.h \
     planning/plannerbound.h \
     planning/planneragent.h \
-    soccer/roles/stoprole.h
+    soccer/roles/stoprole.h \
+    soccer/roles/keepgoal.h
 
 
