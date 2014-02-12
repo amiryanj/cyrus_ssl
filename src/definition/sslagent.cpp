@@ -37,5 +37,5 @@ void SSLAgent::run()
         return;
     }
 
-    this->target = this->role->run();
+//    this->target = this->role->run();
 }

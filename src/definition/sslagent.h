@@ -4,7 +4,11 @@
 #include "definition/SSLRobot.h"
 #include "soccer/roles/SSLRole.h"
 #include "general.h"
-#include "../planning/rrtplanner.h"
+
+#include "planner/planning/goalstate.h"
+#include "planner/planning/planningproblem.h"
+//typedef Planner::State GoalState;
+//typedef Planner::RRTPlanner Planner;
 
 class SSLAgent
 {
@@ -15,7 +19,9 @@ public:
     SSLRobot* realRobot;
     SSLRole* role;
 
-    Planner::State* target;
+    GoalState target;
+    PlanningProblem planner;
+
 
     bool isNull();
     int getID() const;

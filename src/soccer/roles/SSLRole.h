@@ -1,8 +1,8 @@
 #ifndef SSLROLE_H
 #define SSLROLE_H
 
-#include "../planning/rrtplanner.h"
 #include "../definition/SSLRobot.h"
+#include "planner/planning/goalstate.h"
 
 class SSLRole
 {
@@ -11,17 +11,16 @@ public:
     SSLRole(SSLRobot*);
     ~SSLRole();
 
-    virtual Planner::State* run() = 0;
+    virtual GoalState run() = 0;
 
     ActiveT activeType;
 
     SSLRobot* getRobot();
-    Planner::State* getTarget();
+    GoalState getTarget();
 
 private:
 
     SSLRobot* robot;
-    const Planner::State* target;
 
 };
 

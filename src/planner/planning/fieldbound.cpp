@@ -1,8 +1,6 @@
-#include "plannerbound.h"
+#include "fieldbound.h"
 
-using namespace Planner;
-
-PlannerBound::PlannerBound()
+FieldBound::FieldBound()
 {
     this->topBound = INFINITY;
     this->downBound = -INFINITY;
@@ -10,12 +8,12 @@ PlannerBound::PlannerBound()
     this->leftBound = -INFINITY;
 }
 
-PlannerBound::PlannerBound(double left, double down, double right, double top)
+FieldBound::FieldBound(double left, double right, double down, double top)
 {
-    this->set(left, down, right, top);
+    this->set(left, right, down, top);
 }
 
-void PlannerBound::set(double left, double down, double right, double top)
+void FieldBound::set(double left, double right, double down, double top)
 {
     this->topBound = top;
     this->downBound = down;
@@ -23,7 +21,7 @@ void PlannerBound::set(double left, double down, double right, double top)
     this->leftBound = left;
 }
 
-void PlannerBound::set(Vector2D downLeft, Vector2D topRight)
+void FieldBound::set(Vector2D downLeft, Vector2D topRight)
 {
     this->leftBound = downLeft.X();
     this->downBound = downLeft.Y();
@@ -31,32 +29,32 @@ void PlannerBound::set(Vector2D downLeft, Vector2D topRight)
     this->topBound = topRight.Y();
 }
 
-bool PlannerBound::isEmpty()
+bool FieldBound::isEmpty()
 {
     if(this->topBound == this->downBound || this->rightBound == this->leftBound)
         return true;
     return false;
 }
 
-Vector2D PlannerBound::getTopLeft()
+Vector2D FieldBound::getTopLeft()
 {
     Vector2D v(leftBound, topBound);
     return v;
 }
 
-Vector2D PlannerBound::getTopRight()
+Vector2D FieldBound::getTopRight()
 {
     Vector2D v(rightBound, topBound);
     return v;
 }
 
-Vector2D PlannerBound::getDownLeft()
+Vector2D FieldBound::getDownLeft()
 {
     Vector2D v(leftBound, downBound);
     return v;
 }
 
-Vector2D PlannerBound::getDownRight()
+Vector2D FieldBound::getDownRight()
 {
     Vector2D v(rightBound, downBound);
     return v;

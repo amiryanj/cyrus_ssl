@@ -1,6 +1,7 @@
 #include "vector2d.h"
 #include "vector3d.h"
 #include <math.h>
+#include <Box2D/Common/b2Math.h>
 
 Vector2D::Vector2D()
 {
@@ -15,6 +16,11 @@ Vector2D::Vector2D(const Vector2D &vector)
 Vector2D::Vector2D(double nx, double ny)
 {
     _x = nx;    _y = ny;
+}
+
+Vector2D::Vector2D(b2Vec2 vec)
+{
+    _x = vec.x;  _y = vec.y;
 }
 
 Vector2D Vector2D::operator =(const Vector2D &vector)
@@ -126,6 +132,11 @@ Vector3D Vector2D::to3D()
 {
     Vector3D *v3d = new Vector3D(this->_x, this->_y, 0);
     return (*v3d);
+}
+
+b2Vec2 Vector2D::b2vec2()
+{
+    return b2Vec2(this->_x, this->_y);
 }
 
 double Vector2D::vectorMag(const Vector2D &vector)

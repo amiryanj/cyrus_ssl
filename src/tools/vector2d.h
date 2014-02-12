@@ -2,6 +2,7 @@
 #define Vector2D_Header_h
 
 class Vector3D;
+class b2Vec2;
 
 class Vector2D
 {
@@ -17,6 +18,7 @@ public:
     Vector2D();
     Vector2D(const Vector2D &vector);
     Vector2D(double nx, double ny);
+    Vector2D(b2Vec2 vec);
 
     Vector2D operator =(const Vector2D &vector);
     bool operator ==(const Vector2D &vector);
@@ -39,6 +41,8 @@ public:
     double operator *(const Vector2D &vector);
 
     Vector3D to3D();
+    b2Vec2 b2vec2();
+
 //    Vector2D crossProduct(const Vector2D &a, const Vector2D &b);
     static double vectorMag(const Vector2D  &vector);
     static double distance(const Vector2D &a, const Vector2D &b);

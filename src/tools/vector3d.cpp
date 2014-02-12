@@ -1,6 +1,7 @@
 #include "vector3d.h"
 #include "vector2d.h"
 #include <math.h>
+#include <Box2D/Common/b2Math.h>
 
 Vector3D::Vector3D()
 {
@@ -129,8 +130,13 @@ Vector2D Vector3D::normalized2D() const
 
 Vector2D Vector3D::to2D()
 {
-    Vector2D * v2d = new Vector2D(this->X(), this->Y());
-    return (*v2d);
+    Vector2D v2d(this->X(), this->Y());
+    return v2d;
+}
+
+b2Vec3 Vector3D::b2vec3()
+{
+    return b2Vec3(this->_x, this->_y, this->_teta);
 }
 
 double Vector3D::vector2DMag(const Vector3D &vector)
@@ -158,6 +164,11 @@ void Vector3D::setY(double y_)
 void Vector3D::setTeta(double teta_)
 {
     this->_teta = teta_;
+}
+
+void Vector3D::set(double x_, double y_, double teta_)
+{
+    _x = x_;  _y = y_; _teta = teta_;
 }
 
 double Vector3D::X() const

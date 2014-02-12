@@ -16,6 +16,7 @@ TARGET = Cyrus2014
 INCLUDEPATH += thirdparty\
                thirdparty/socket
 
+include(planner/planning/Planner.pri)
 TEMPLATE = app
 
 SOURCES += main.cpp \
@@ -54,9 +55,6 @@ SOURCES += main.cpp \
     soccer/sslrolemanager.cpp \
     tools/stdlist.cpp \
     tools/testboost.cpp \
-    planning/motionplanner.cpp \
-    planning/rrtplanner.cpp \
-    planning/obstacle.cpp \
     gui/guihandler.cpp \
     gui/cpp/ssl_visualizer.pb.cc \
     gui/cpp/ssl_world.pb.cc \
@@ -68,9 +66,6 @@ SOURCES += main.cpp \
     transmitter/grSim/cpp/grSim_Replacement.pb.cc \
     transmitter/grSim/cpp/grSim_Packet.pb.cc \
     transmitter/grSim/cpp/grSim_Commands.pb.cc \
-    planning/state.cpp \
-    planning/plannerbound.cpp \
-    planning/planneragent.cpp \
     soccer/roles/stoprole.cpp
 
 HEADERS += \
@@ -111,9 +106,6 @@ HEADERS += \
     soccer/sslrolemanager.h \
     tools/stdlist.h \
     tools/testboost.h \
-    planning/motionplanner.h \
-    planning/rrtplanner.h \
-    planning/obstacle.h \
     gui/guihandler.h \
     gui/cpp/ssl_visualizer.pb.h \
     gui/cpp/ssl_world.pb.h \
@@ -125,10 +117,9 @@ HEADERS += \
     transmitter/grSim/cpp/grSim_Replacement.pb.h \
     transmitter/grSim/cpp/grSim_Packet.pb.h \
     transmitter/grSim/cpp/grSim_Commands.pb.h \
-    planning/state.h \
-    planning/plannerbound.h \
-    planning/planneragent.h \
     soccer/roles/stoprole.h \
     soccer/roles/keepgoal.h
+
+OTHER_FILES +=
 
 
