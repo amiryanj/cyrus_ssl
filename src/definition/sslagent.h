@@ -7,29 +7,30 @@
 
 #include "planner/planning/goalstate.h"
 #include "planner/planning/planningproblem.h"
-//typedef Planner::State GoalState;
-//typedef Planner::RRTPlanner Planner;
 
 class SSLAgent
 {
 public:
-    SSLAgent();
+    SSLAgent(SSL::Color color);
     ~SSLAgent();
 
-    SSLRobot* realRobot;
+    SSLRobot* robot;
     SSLRole* role;
 
     GoalState target;
     PlanningProblem planner;
 
 
+    // SSLController controller;
+
     bool isNull();
     int getID() const;
 
     void run();
-
-
 private:
+
+    ObstacleSet myDynamicObstacleSet;
+    ObstacleSet penaltyAreaObstacleSet;
 };
 
 #endif // SSLAGENT_H

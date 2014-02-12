@@ -2,7 +2,7 @@
 #define STATE_H
 
 #include "tools/vector3d.h"
-#include "control.h"
+#include "velocity.h"
 
 class Station
 {
@@ -12,8 +12,11 @@ public:
     void setPosition(const Vector3D &pos);
     Vector3D getPosition() const;
 
+    void setVelocity(const Velocity &vel);
+    Velocity getVelociy() const;
+
     Vector3D position;
-    Control control;
+    Velocity velo;
 
     bool isValid();
 

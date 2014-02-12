@@ -98,12 +98,12 @@ Trajectory PlanningProblem::getTrajectory() const
     return trajec;
 }
 
-Control PlanningProblem::getControl(unsigned int i)
+Velocity PlanningProblem::getControl(unsigned int i)
 {
-    Control c;
+    Velocity c;
     if(i < trajec.lenght()) {
         Station st = trajec.getStation(i);
-        c = st.control;
+        c = st.velo;
     }
     return c;
 }
@@ -241,10 +241,11 @@ bool PlanningProblem::hasCollision(Station &st, const Obstacle &ob)
 
 bool PlanningProblem::CheckValidity(Station &A)
 {
-    bool result;
-    result = !hasCollision(A, this->stat_obstacles);
-    result &= !hasCollision(A,this->dyna_obstacles);
-    return result;
+    if(hasCollision(A, this->stat_obstacles))
+        return false;
+    if(hasCollision(A, this->dyna_obstacles))
+        return false;
+    return true;
 }
 
 Station PlanningProblem::SampleStateUniform()
@@ -261,7 +262,6 @@ Station PlanningProblem::SampleStateUniform()
     }
     return Station();
 }
-
 
 void PlanningProblem::PotentialFieldSolve()
 {

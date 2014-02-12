@@ -26,7 +26,12 @@ public:
     SSLBall *mainBall();
     SSLBall* ball; // should be ommited
     STDVector<SSLBall*> allBalls;
-    STDVector<SSLRobot*> allRobots();
+    STDVector<SSLRobot*> all_inFields();
+    STDVector<SSLRobot*> all_inFieldsExcept(SSLRobot* excep);
+
+    STDVector<SSLRobot*> allRobots(SSLRobot* excep);
+    STDVector<SSLRobot*> allRobotsExcept(SSLRobot* excep);
+
 
 private:
     SSLWorldModel();

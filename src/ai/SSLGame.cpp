@@ -16,6 +16,10 @@ SSLGame* SSLGame::getInstance(Color set_our_color, Side set_our_side)
 SSLGame::SSLGame(Color ourC, Side ourS)
 {    
     SetColor_Side(ourC, ourS);
+    for(int i=0; i<MAX_TEAM_PLAYER; i++) {
+        SSLAgent* ag_ = new SSLAgent(ourC);
+        agents.push_back(ag_);
+    }
 }
 
 void SSLGame::SetColor_Side(Color ourC, Side ourS)
@@ -27,7 +31,7 @@ void SSLGame::SetColor_Side(Color ourC, Side ourS)
 void SSLGame::check()
 {
     // TODO
-//    cout << "Game is running" << endl;
+    cout << "Game is running" << endl;
     strategyManager()->updateStrategy(this->currentStrategy);
 
     roleManager()->assignRole(this->currentStrategy, this->agents);

@@ -7,21 +7,22 @@
 class SSLRole
 {
 public:
-    enum ActiveT{Active, NonActive};
+    enum RoleType {ROLE_UNKNOWN, ROLE_GOALIE, ROLE_DEFENDER, ROLE_BLOCKER, ROLE_MARKER, ROLE_PLAYMAKER};
+
     SSLRole(SSLRobot*);
     ~SSLRole();
 
     virtual GoalState run() = 0;
 
-    ActiveT activeType;
+    RoleType type;
+    bool isActive;
 
     SSLRobot* getRobot();
     GoalState getTarget();
 
 private:
-
-    SSLRobot* robot;
-
+    SSLRobot* robot; // robot assigned to
+    GoalState target;
 };
 
 #endif // SSLROLE_H

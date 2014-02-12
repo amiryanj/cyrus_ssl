@@ -38,7 +38,7 @@ SOURCES += main.cpp \
     definition/SSLBall.cpp \
     definition/SSLRobotPhysic.cpp \
     ai/SSLGame.cpp \
-    definition/RobotCommandPacket.cpp \
+    transmitter/RobotCommandPacket.cpp \
     vision/SSLRobotKalmanFilter.cpp \
     tools/vector3d.cpp \
     tools/vector2d.cpp \
@@ -66,7 +66,8 @@ SOURCES += main.cpp \
     transmitter/grSim/cpp/grSim_Replacement.pb.cc \
     transmitter/grSim/cpp/grSim_Packet.pb.cc \
     transmitter/grSim/cpp/grSim_Commands.pb.cc \
-    soccer/roles/stoprole.cpp
+    soccer/roles/stoprole.cpp \
+    transmitter/commandtransmitter.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -89,7 +90,7 @@ HEADERS += \
     definition/SSLRobotPhysic.h \
     definition/Concepts.h \
     ai/SSLGame.h \
-    definition/RobotCommandPacket.h \
+    transmitter/RobotCommandPacket.h \
     vision/SSLRobotKalmanFilter.h \
     tools/vector3d.h \
     tools/vector2d.h \
@@ -118,7 +119,8 @@ HEADERS += \
     transmitter/grSim/cpp/grSim_Packet.pb.h \
     transmitter/grSim/cpp/grSim_Commands.pb.h \
     soccer/roles/stoprole.h \
-    soccer/roles/keepgoal.h
+    soccer/roles/keepgoal.h \
+    transmitter/commandtransmitter.h
 
 OTHER_FILES +=
 

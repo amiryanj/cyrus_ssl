@@ -49,6 +49,11 @@ double Vector2D::lenght()
     return sqrt(_x*_x + _y*_y);
 }
 
+double Vector2D::arctan()
+{
+    return atan2(_y, _x);
+}
+
 Vector2D Vector2D::operator -() const
 {
     return Vector2D(-_x, -_y);

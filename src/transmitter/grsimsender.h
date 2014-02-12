@@ -4,12 +4,12 @@
 #include "thirdparty/socket/netraw.h"
 #include "tools/SSLListener.h"
 #include "general.h"
-#include "definition/RobotCommandPacket.h"
+#include "RobotCommandPacket.h"
 #include "grSim/cpp/grSim_Packet.pb.h"
 #include "ai/SSLWorldModel.h"
 #include "ai/SSLGame.h"
 
-class GRSimSender: public Net::UDP, public SSLListener
+class GRSimSender: public Net::UDP
 {
 public:
     GRSimSender(SSL::Color our_color = OUR_COLOR);
@@ -20,7 +20,7 @@ public:
     bool openSocket(int port = GRSIM_COMMAND_PORT);
     void sendPacket(int robotID, RobotCommandPacket rawPacket);
 
-    void check();
+
 };
 
 #endif // GRSIMSENDER_H

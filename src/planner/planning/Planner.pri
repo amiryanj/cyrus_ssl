@@ -16,7 +16,7 @@ SOURCES += $$PWD/obstacle.cpp \
     $$PWD/station.cpp \
     $$PWD/fieldbound.cpp \
     $$PWD/dynamicobstacle.cpp \
-    $$PWD/control.cpp \
+    $$PWD/velocity.cpp \
     $$PWD/planningagent.cpp \
     $$PWD/plannermath.cpp
 
@@ -29,7 +29,7 @@ HEADERS  += obstacle.h \
     station.h \
     fieldbound.h \
     dynamicobstacle.h \
-    control.h \
+    velocity.h \
     planningagent.h \
     plannermath.h
     

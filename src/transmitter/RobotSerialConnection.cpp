@@ -12,7 +12,7 @@ RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsign
   throw(SSLException)
 {
 
-    if (lib.Open(serialPortName,baudrate) != 1)
+    if (serial.Open(serialPortName,baudrate) != 1)
     {
     	throw SSLException("failed to open serial device");
         //std::cerr << "device " << serialPortName <<" failed to open" << std::endl;
@@ -27,16 +27,16 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
 
     //robotID, motor spin and dribbler state
     byteArray[1] = (unsigned char) ( (robotID + (
-            (packet.v[0]> 0 ? 0:1) * 1 +
-            (packet.v[1]> 0 ? 0:1) * 2 +
-            (packet.v[2]> 0 ? 0:1) * 4 +
-            (packet.v[3]> 0 ? 0:1) * 8) * 16)
+            (packet.getWheelSpeed(1)> 0 ? 0:1) * 1 +
+            (packet.getWheelSpeed(2)> 0 ? 0:1) * 2 +
+            (packet.getWheelSpeed(3)> 0 ? 0:1) * 4 +
+            (packet.getWheelSpeed(4)> 0 ? 0:1) * 8) * 16)
             & 0x000000FF);
 
     //velocity bytes
-    for (int i = 0; i < 4; i++)
+    for (int i = 1; i <= 4; i++)
     {
-        byteArray[2+i] = (unsigned char)( (int)(fabs(round(packet.v[i]*255))) & 0x000000FF );
+        byteArray[i + 1] = (unsigned char)( (int)(fabs(round(packet.getWheelSpeed(i)*255))) & 0x000000FF );
     }
 
     //kick power byte
@@ -45,9 +45,9 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
 	);
 
     //transmit data to serial port
-    lib.Write(byteArray,7);
+    serial.Write(byteArray,7);
 }
 
 RobotSerialConnection::~RobotSerialConnection(){
-	lib.Close();
+    serial.Close();
 }

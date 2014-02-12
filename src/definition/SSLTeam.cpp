@@ -27,6 +27,7 @@ std::string SSLTeam::colorStr()
 vector<SSLRobot *> SSLTeam::inFieldRobots()
 {
     vector<SSLRobot*> robotList;
+    robotList.reserve(MAX_TEAM_PLAYER);
     for( int i = 0; i < MAX_ID_NUM ; ++i )
         if(this->robot[i]->isInField == true)
             robotList.push_back(robot[i]);

@@ -4,7 +4,7 @@
 #include <Box2D/Collision/Shapes/b2CircleShape.h>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include "station.h"
-#include "control.h"
+#include "velocity.h"
 
 class PlanningAgent
 {
@@ -15,7 +15,7 @@ public:
     b2Shape *shape;
     void setRadius(double rad);
 
-    Control velocity_limit;
+    Velocity velocity_limit;
     double max_accel;
 
 //    double max_vel;

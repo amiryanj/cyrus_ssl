@@ -15,6 +15,8 @@ public:
     void setMax(Station max);
     void setMin(Station min);
     void setRadius(double rad);
+
+    GoalState& operator =(GoalState other);
 };
 
 #endif // GOALSTATE_H

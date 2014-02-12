@@ -12,10 +12,11 @@ class Obstacle
 {
 
 public:
-    Obstacle(b2Vec2 center, double radius, double orien, bool isMoving = false);
-    Obstacle(b2Vec2 center, double width, double height, double orien, bool isMoving = false);
+    Obstacle(b2Vec2 center, double radius, double orien);
+    Obstacle(b2Vec2 center, double width, double height, double orien);
     ~Obstacle();
     b2Transform transform;
+    void getOut();
 
     b2Shape* shape;
 

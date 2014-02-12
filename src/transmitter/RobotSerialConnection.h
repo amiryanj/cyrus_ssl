@@ -11,7 +11,7 @@
 #include "../thirdparty/serialib/serialib.h"
 #include "../general.h"
 #include "../tools/SSLException.h"
-#include "definition/RobotCommandPacket.h"
+#include "RobotCommandPacket.h"
 using namespace std;
 
 class RobotSerialConnection {
@@ -20,7 +20,7 @@ public:
     void sendRobotData(int robotID, RobotCommandPacket &packet);
 	virtual ~RobotSerialConnection();
 private:
-	serialib lib;
+    serialib serial;
 };
 
 #endif /* SERIALCONNECTION_H_ */

@@ -27,6 +27,7 @@ public:
     Vector2D normalized() const;
     void setZero();
     double lenght();
+    double arctan();
 
     Vector2D operator -() const;
     Vector2D operator +(const Vector2D &vector) const;

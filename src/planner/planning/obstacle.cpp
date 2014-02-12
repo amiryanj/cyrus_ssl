@@ -1,6 +1,6 @@
 #include "obstacle.h"
 
-Obstacle::Obstacle(b2Vec2 center, double radius, double orien,  bool isMoving)
+Obstacle::Obstacle(b2Vec2 center, double radius, double orien)
 {
     shape = new b2CircleShape();
     b2CircleShape* circle = (b2CircleShape*) shape;
@@ -11,10 +11,10 @@ Obstacle::Obstacle(b2Vec2 center, double radius, double orien,  bool isMoving)
 
 //    this->orien = orien;
 
-    this->dynamic = isMoving;
+//    this->dynamic = isMoving;
 }
 
-Obstacle::Obstacle(b2Vec2 center, double width, double height, double orien, bool isMoving)
+Obstacle::Obstacle(b2Vec2 center, double width, double height, double orien)
 {
     shape = new b2PolygonShape();
     shape->m_type = b2Shape::e_polygon;    
@@ -24,11 +24,16 @@ Obstacle::Obstacle(b2Vec2 center, double width, double height, double orien, boo
 
 //    this->orien = orien;
 
-    this->dynamic = isMoving;
+//    this->dynamic = isMoving;
 }
 
 Obstacle::~Obstacle()
 {
     if(this->shape)
         delete shape;
+}
+
+void Obstacle::getOut()
+{
+    this->transform.Set(b2Vec2(INFINITY, INFINITY), 0);
 }

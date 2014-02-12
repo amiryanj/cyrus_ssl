@@ -15,4 +15,5 @@ SSLRobot* SSLRole::getRobot(){
 }
 
 GoalState SSLRole::getTarget(){
+    return this->target;
 }

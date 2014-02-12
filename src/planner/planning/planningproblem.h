@@ -6,7 +6,7 @@
 #include "goalstate.h"
 #include "fieldbound.h"
 #include "obstacle.h"
-#include "control.h"
+#include "velocity.h"
 #include "randomtree.h"
 #include "trajectory.h"
 #include "planningagent.h"
@@ -45,7 +45,7 @@ public:
 
     RandomTree getTree() const;
     Trajectory getTrajectory() const;
-    Control getControl(unsigned int i = 0);
+    Velocity getControl(unsigned int i = 0);
 
     // each of this planners manipulate tree, trajec, planningResult, planningTime
     void RRTsolve();
@@ -73,7 +73,7 @@ private:
     Station SampleStateUniform();
     Station GaussinaStateSample(Station mean, double var);
 
-    Control UniformControlSample();
+    Velocity UniformControlSample();
 
     bool CheckValidity(Station &A);
     bool hasCollision(Station &st, const ObstacleSet& ob_set);

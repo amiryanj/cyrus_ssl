@@ -80,7 +80,7 @@ const SSLRobot *SSLAnalyzer::nearestPlayerToBall(vector<SSLRobot*> robots)
 
 const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(Vector2D point)
 {
-    return nearestPlayerToPoint(point, world()->allRobots());
+    return nearestPlayerToPoint(point, world()->all_inFields());
 }
 
 const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(Vector2D point, Color team_color)

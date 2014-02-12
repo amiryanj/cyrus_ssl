@@ -36,16 +36,20 @@ void GRSimSender::sendPacket(int robotID, RobotCommandPacket rawPacket)
 
     grSim_Robot_Command* command = grSimPacket.mutable_commands()->add_robot_commands();
     command->set_id(robotID);
-
-    command->set_wheelsspeed(true);
-    command->set_wheel1(rawPacket.v[0]);
-    command->set_wheel2(rawPacket.v[1]);
-    command->set_wheel3(rawPacket.v[2]);
-    command->set_wheel4(rawPacket.v[3]);
-
-//    command->set_velnormal(rawPacket.vel_normal);
-//    command->set_veltangent(tan(rawPacket.vel_radian));
-//    command->set_velangular(rawPacket.vel_angular);
+    if(rawPacket.byWheelSpeed){
+        command->set_wheelsspeed(true);
+        command->set_wheel1(rawPacket.getWheelSpeed(1));
+        command->set_wheel2(rawPacket.getWheelSpeed(2));
+        command->set_wheel3(rawPacket.getWheelSpeed(3));
+        command->set_wheel4(rawPacket.getWheelSpeed(4));
+    }
+    else
+    {
+        double max_lin_vel = 5; // you should set this parameter
+        command->set_velnormal(rawPacket.getVelocity().lenght2D() / max_lin_vel);
+        command->set_veltangent(tan(rawPacket.getVelocity().to2D().arctan()));
+        command->set_velangular(rawPacket.getVelocity().Teta());
+    }
 
     command->set_kickspeedx(rawPacket.kickPower);
     command->set_kickspeedz(0); // chip kick
@@ -61,7 +65,3 @@ void GRSimSender::sendPacket(int robotID, RobotCommandPacket rawPacket)
     }
 }
 
-void GRSimSender::check()
-{
-
-}
