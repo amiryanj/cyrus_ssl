@@ -5,18 +5,15 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/thirdparty/socket/IPPacket.cpp \
-../src/thirdparty/socket/MulticastReciever.cpp \
-../src/thirdparty/socket/PracticalSocket.cpp 
+../src/thirdparty/socket/netraw.cpp 
 
 OBJS += \
 ./src/thirdparty/socket/IPPacket.o \
-./src/thirdparty/socket/MulticastReciever.o \
-./src/thirdparty/socket/PracticalSocket.o 
+./src/thirdparty/socket/netraw.o 
 
 CPP_DEPS += \
 ./src/thirdparty/socket/IPPacket.d \
-./src/thirdparty/socket/MulticastReciever.d \
-./src/thirdparty/socket/PracticalSocket.d 
+./src/thirdparty/socket/netraw.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

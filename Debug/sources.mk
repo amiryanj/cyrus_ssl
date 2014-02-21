@@ -23,12 +23,20 @@ C_UPPER_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+src/vision \
+src/transmitter \
+src/transmitter/grSim/cpp \
 src/tools \
 src/thirdparty/sslvision/cpp \
 src/thirdparty/socket \
 src/thirdparty/serialib \
 src/thirdparty/referee/cpp \
-src/physical \
-src/definition \
+src/soccer \
+src/soccer/roles \
+src/planner/planning \
 src \
+src/gui \
+src/gui/cpp \
+src/definition \
+src/ai \
 
