@@ -22,6 +22,7 @@ void PlanningAgent::setRadius(double rad)
 PlanningAgent &PlanningAgent::operator =(const PlanningAgent &other)
 {
     this->shape->m_radius = other.shape->m_radius;
-//    this->velocity_limit = other.velocity_limit;
+    this->velocity_limit = other.velocity_limit;
+    this->max_accel = other.max_accel;
     this->mass = other.mass;
 }

@@ -12,11 +12,16 @@ public:
 
     Station state;
     RRTVertex* parent;
+    RRTVertex* child;
     unsigned depth;
     double cost;
 
     bool hasParent() {
-        return (this->parent == NULL);
+        return (!this->parent == NULL);
+    }
+
+    bool hasChild() {
+        return (!wthis->child == NULL);
     }
 
 };

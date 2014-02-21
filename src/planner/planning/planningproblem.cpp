@@ -194,10 +194,18 @@ void PlanningProblem::buildTrajectory()
     {
         RRTVertex* last_vertex = tree.nearest(goal.goal_point);
         trajec.prependVertex(last_vertex);
-        while (last_vertex->parent != NULL)
+
+        RRTVertex* parent = last_vertex->parent;
+        while (parent != NULL)
         {
-            trajec.prependVertex(last_vertex->parent);
-            last_vertex = last_vertex->parent;
+            trajec.prependVertex(parent);
+            parent->child = last_vertex;
+            Vector3D displacement = (last_vertex->state.position - parent->state.position).normalized2D().to3D();
+
+            parent->state.velo = displacement.dotProduct(agent.velocity_limit);
+
+            last_vertex = parent;
+            parent = last_vertex->parent;
         }
 
         if(!(last_vertex->state == this->initialState))
@@ -331,8 +339,8 @@ void PlanningProblem::PotentialFieldSolve()
 
                 // debug
 
-                cout << "min dist from [" << near->state.position.X() << ","
-                     << near->state.position.Y() << "] is :" << min_dist_to_ob << endl;
+//                cout << "min dist from [" << near->state.position.X() << ","
+//                     << near->state.position.Y() << "] is :" << min_dist_to_ob << endl;
 
                 Vector2D repulse_vec(diff_to_ob);
                 repulse_vec.normalize();
@@ -357,7 +365,7 @@ void PlanningProblem::PotentialFieldSolve()
                 double finish_time = currentTimeMSec();
                 double total_time = finish_time - start_time;
                 cout << "Planning Succeed in (ms): " << total_time << endl;
-                return;
+                break;
             }
         }
         else
@@ -366,7 +374,7 @@ void PlanningProblem::PotentialFieldSolve()
             repulsive_coefficient *= 1.3;
             cout << "repulsive_coefficient = " << repulsive_coefficient << endl;
         }
-
     }
+    this->buildTrajectory();
 
 }

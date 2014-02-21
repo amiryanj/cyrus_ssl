@@ -55,8 +55,11 @@ bool RandomTree::addNewVertex(RRTVertex *parent, Station &st)
 
 RRTVertex *RandomTree::nearest(const Station &st)
 {
+    try {
     double min_dist = INFINITY;
     RRTVertex* nearest = NULL;
+    if(this->vertices.empty())
+        throw "Tree is empty";
     for(int i = 0; i<vertices.size(); i++)
     {
         RRTVertex* temp_ver = (RRTVertex*)(vertices.at(i));
@@ -67,7 +70,14 @@ RRTVertex *RandomTree::nearest(const Station &st)
             nearest = temp_ver;
         }
     }
+    if(min_dist == INFINITY)
+        throw "nearest dist is INFINITY!" ;
     return nearest;
+    }
+    catch (const char* msg) {
+        cerr << "Exception: " << "RandomTree" << msg << endl;
+        return NULL;
+    }
 }
 
 RRTVertex *RandomTree::lastAddedVertex()
