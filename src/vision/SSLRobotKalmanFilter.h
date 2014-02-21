@@ -5,6 +5,7 @@
 #include "../general.h"
 
 #include <Box2D/Common/b2Timer.h>
+#include "naivekalmanfilter.h"
 
 #include "frame.h"
 
@@ -28,19 +29,29 @@ public:
 
 private:
     std::vector<frame> rawPositionList;
-    double _last_update_time;
-    double _last_interval_time;
+    double last_update_time_msec;
+    double last_interval_time_sec;
 
     Vector3D filteredPosition;
     Vector3D filteredSpeed;
 
+    static int state_size;
+    static int observe_size;
+    static int measure_noise_size;
+    static int process_noise_size;
+
+    NaiveKalmanFilter naiveFilter;
+
 protected:
+
+//    void makeBaseA();
+    void makeBaseV();
+    void makeBaseR();
+    void makeBaseW();
+    void makeBaseQ();
+
     void makeA();
     void makeH();
-    void makeV();
-    void makeR();
-    void makeW();
-    void makeQ();
     void makeProcess();
     void makeMeasure();
 

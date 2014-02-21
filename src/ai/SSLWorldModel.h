@@ -9,8 +9,8 @@
 #define SSLWORLDMODEL_H_
 
 #include "../general.h"
-#include "definition/SSLTeam.h"
-#include "definition/SSLBall.h"
+#include "../definition/SSLTeam.h"
+#include "../definition/SSLBall.h"
 #include "../tools/stdlist.h"
 
 class SSLWorldModel {

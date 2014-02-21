@@ -24,13 +24,14 @@ SSLWorldModel *VisionFilter::world()
 
 void VisionFilter::check()
 {
-    for(int i=0; i<NUM_TEAMS; ++i)
-        for(int j=0; j<MAX_ID_NUM; ++j)
+    for(int tm=0; tm<NUM_TEAMS; ++tm)
+        for(int i=0; i<MAX_ID_NUM; ++i)
         {
-            robotFilter[i][j]->runFilter();            
+            robotFilter[tm][i]->runFilter();
         }
 
     updateWorldRobots();
+
 
 }
 

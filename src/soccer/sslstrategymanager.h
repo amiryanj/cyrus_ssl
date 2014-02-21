@@ -10,8 +10,8 @@
  *
  */
 
-#include "general.h"
-#include "definition/sslstrategy.h"
+#include "../general.h"
+#include "../definition/sslstrategy.h"
 
 class SSLStrategyManager
 {

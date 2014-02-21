@@ -11,10 +11,11 @@
 #include "../general.h"
 #include "VisionFilterModule.h"
 #include "frame.h"
-#include "thirdparty/socket/IPPacket.h"
+#include "../thirdparty/socket/IPPacket.h"
 #include "../thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.h"
 
-#include "netraw.h"
+#include "../thirdparty/socket/netraw.h"
+
 using namespace Net;
 
 class SSLVision : public SSLListener, public UDP

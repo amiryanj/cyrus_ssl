@@ -1,0 +1,3 @@
+message ssl_planner_packet {
+	optional string comment = 1;
+}

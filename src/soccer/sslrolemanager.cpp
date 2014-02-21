@@ -1,6 +1,6 @@
 #include "sslrolemanager.h"
-#include "ai/SSLAnalyzer.h"
-#include "ai/SSLGame.h"
+#include "../ai/SSLAnalyzer.h"
+#include "../ai/SSLGame.h"
 #include "roles/keepgoal.h"
 
 SSLRoleManager* SSLRoleManager::manager = NULL;

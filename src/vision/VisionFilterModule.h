@@ -2,10 +2,11 @@
 #define VISIONFILTERMODULE_H
 
 #include "../general.h"
-#include "tools/SSLListener.h"
+#include "../tools/SSLListener.h"
 #include "SSLRobotKalmanFilter.h"
 #include "frame.h"
-#include "ai/SSLWorldModel.h"
+#include "../ai/SSLWorldModel.h"
+#include "naivekalmanfilter.h"
 
 class VisionFilter : public SSLListener
 {
@@ -23,6 +24,8 @@ private:
 
     void updateWorldRobots();
     SSLWorldModel* world();
+
+    NaiveKalmanFilter naiveFilter;
 
 };
 

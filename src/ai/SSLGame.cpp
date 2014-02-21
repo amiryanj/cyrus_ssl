@@ -1,7 +1,7 @@
 #include "SSLGame.h"
 
-#include "soccer/sslstrategymanager.h"
-#include "soccer/sslrolemanager.h"
+#include "../soccer/sslstrategymanager.h"
+#include "../soccer/sslrolemanager.h"
 
 SSLGame* SSLGame::game = NULL;
 

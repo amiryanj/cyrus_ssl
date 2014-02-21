@@ -81,7 +81,7 @@ void SSLAgent::run()
         init_state.setPosition(this->robot->Position());
         init_state.setVelocity(this->robot->Speed());
 
-        if(init_state.position.X() == INFINITY)
+        if(init_state.position.X() == INFINITY || init_state.position.X() == NAN)
             return;
         planner.setInitialState(init_state);
         planner.setGoalRegion(this->target);

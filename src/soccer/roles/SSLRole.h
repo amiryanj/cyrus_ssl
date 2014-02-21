@@ -1,8 +1,8 @@
 #ifndef SSLROLE_H
 #define SSLROLE_H
 
-#include "../definition/SSLRobot.h"
-#include "planner/planning/goalstate.h"
+#include "../../definition/SSLRobot.h"
+#include "../../planner/planning/goalstate.h"
 
 class SSLRole
 {
@@ -10,7 +10,7 @@ public:
     enum RoleType {ROLE_UNKNOWN, ROLE_GOALIE, ROLE_DEFENDER, ROLE_BLOCKER, ROLE_MARKER, ROLE_PLAYMAKER};
 
     SSLRole();
-    ~SSLRole();
+    virtual ~SSLRole();
 
     virtual GoalState run() = 0;
 

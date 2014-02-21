@@ -1,0 +1,3 @@
+message ssl_decision_packet {
+	optional string comment = 1;
+}

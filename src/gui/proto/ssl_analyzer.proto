@@ -1,0 +1,7 @@
+message ssl_analyzer_packet {
+	required uint32 nearest_blue_id = 1;
+	required uint32 nearest_yellow_id = 2;
+	repeated double access_time_blue_vec = 3;
+	repeated double access_time_yellow_vec = 4;
+	optional string comment = 5;
+}

@@ -1,9 +1,9 @@
 #ifndef SSLROLEMANAGER_H
 #define SSLROLEMANAGER_H
 
-#include "general.h"
-#include "definition/sslagent.h"
-#include "definition/sslstrategy.h"
+#include "../general.h"
+#include "../definition/sslagent.h"
+#include "../definition/sslstrategy.h"
 
 class SSLGame;
 class SSLAnalyzer;

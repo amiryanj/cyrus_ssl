@@ -2,7 +2,7 @@
 #define RRTVERTEX_H
 
 #include <stdlib.h>
-#include <station.h>
+#include "station.h"
 
 class RRTVertex
 {
@@ -17,11 +17,11 @@ public:
     double cost;
 
     bool hasParent() {
-        return (!this->parent == NULL);
+        return (!this->parent == 0);
     }
 
     bool hasChild() {
-        return (!this->child == NULL);
+        return (!this->child == 0);
     }
 
 };

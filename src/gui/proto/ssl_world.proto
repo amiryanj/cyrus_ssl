@@ -1,0 +1,34 @@
+message vector_3d {
+	required float x = 1;
+	required float y = 2;
+	required float teta = 3;
+}
+
+message ssl_ball {
+	required uint32 id = 1;
+	required vector_3d position = 2; 
+	required vector_3d velecity = 3; 
+}
+
+message ssl_robot {
+	required uint32 id = 1;
+	required vector_3d position = 2; 
+	required vector_3d velecity = 3; 
+}
+
+enum SideType {left_side = 0; right_side = 1;}
+enum ColorType {blue_color = 0; yellow_color = 1;}
+
+message ssl_team {
+	repeated ssl_robot robots = 1;
+	required SideType side = 2;
+}
+
+message ssl_world_packet {
+	repeated ssl_ball field_balls = 1;
+	required ssl_team blue_team = 2;
+	required ssl_team yellow_team = 3;
+	optional string comment = 4;
+}
+
+
