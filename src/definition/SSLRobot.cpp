@@ -2,9 +2,16 @@
 #include <iostream>
 #include <math.h>
 
-SSLRobot::SSLRobot()
-{
+#include "SSLTeam.h"
 
+SSLRobot::SSLRobot(SSLTeam *team)
+{
+    this->team = team;
+}
+
+std::string SSLRobot::colorStr()
+{
+    return (color == Yellow)? "Yellow":"Blue";
 }
 
 Vector3D SSLRobot::localSpeed() const
@@ -13,15 +20,15 @@ Vector3D SSLRobot::localSpeed() const
     //std::cerr << "doubt in correct calculation of local speed";
 
     // forward speed
-    local_speed.x = Speed().x * cos(orien()) + Speed().y * sin(orien());
+    local_speed.setX(Speed().X() * cos(orien()) + Speed().Y() * sin(orien()));
     // lateral speed
-    local_speed.y = Speed().x * sin(orien()) - Speed().y * cos(orien());
-    local_speed.teta = Speed().teta;
+    local_speed.setY(Speed().X() * sin(orien()) - Speed().Y() * cos(orien()));
+    local_speed.setTeta(Speed().Teta());
     return local_speed;
 
 }
 
 double SSLRobot::orien() const
 {
-    return this->position_.teta;
+    return this->_position.Teta();
 }

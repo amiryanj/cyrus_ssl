@@ -5,12 +5,30 @@
  *      Author: mostafa
  */
 
-#ifndef __M_COLOR_H
-#define __M_COLOR_H
-	enum Color {Yellow, Blue};
-#endif
+#ifndef __CONCEPTS
+#define __CONCEPTS
 
-#ifndef __M_SIDE_H
-#define __M_SIDE_H
-    enum Side {Left, Right};
-#endif
+namespace SSL{
+    enum Color {Yellow = 0, Blue = 1};
+    enum Side {Left = -1, Right = 1};
+}
+
+
+struct id_color{
+    SSL::Color color;
+    unsigned int id;
+
+    bool operator==(const id_color& other){
+        return ((this->id==other.id) && (int) this->color == (int) other.color);
+    }
+
+    bool operator>(const id_color& other){
+        if(this->color>other.color)
+            return true;
+        else if(this->color<other.color)
+            return false;
+        return ((int) this->id> (int) other.id);
+    }
+};
+
+#endif // __CONCEPTS

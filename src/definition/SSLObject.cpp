@@ -1,25 +1,26 @@
 #include "SSLObject.h"
 
-SSLObject::SSLObject()
-{
-}
+//template <class VectorType>
+//VectorType SSLObject<VectorType>::Position() const
+//{
+//    return _position;
+//}
 
-Vector3D SSLObject::Position() const
-{
-    return this->position_;
-}
+//template <class VectorType>
+//VectorType SSLObject<VectorType>::Speed() const
+//{
+//    return _speed;
+//}
 
-Vector3D SSLObject::Speed() const
-{
-    return this->speed_;
-}
+//template <class VectorType>
+//void SSLObject<VectorType>::setPosition(const VectorType &position_)
+//{
+//    _position = position_;
+//}
 
-void SSLObject::setPosition(const Vector3D &position_)
-{
-    this->position_ = position_;
-}
+//template <class VectorType>
+//void SSLObject<VectorType>::setSpeed(const VectorType &speed_)
+//{
+//    _speed = speed_;
+//}
 
-void SSLObject::setSpeed(const Vector3D &speed_)
-{
-    this->speed_ = speed_;
-}

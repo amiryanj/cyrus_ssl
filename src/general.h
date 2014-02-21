@@ -8,13 +8,16 @@
 #ifndef GENERAL_H_
 #define GENERAL_H_
 
+// -------------- G L O B A L   I N C L U D E S ---------
 #include <iostream>
-using namespace std;
-#include <math.h>
-#include "definition/RobotCommandPacket.h"
+#include <cmath>
+#include <string>
+#include <vector>
 #include "definition/Concepts.h"
 #include "tools/vector3d.h"
-//#include "definition/Position.h"
+#include "tools/vector2d.h"
+//using namespace std;
+//-------------------------------------------------------
 
 typedef double time_sec;
 typedef double time_msec;
@@ -24,6 +27,9 @@ typedef double pose_mmeter;
 
 typedef Vector3D point3D;
 
+#define OUR_COLOR   Yellow
+#define OUR_SIDE    Left
+
 #define SERIAL_PORT "/dev/ttyUSB0"
 #define SERIAL_BAUD 115200
 
@@ -31,8 +37,14 @@ typedef Vector3D point3D;
 #define SSL_VISION_PORT         10002
 #define SSL_REFEREE_ADDRESS     "224.5.23.1"
 #define SSL_REFEREE_PORT        10003
-#define GRSIM_VISION_ADDRESS    "127.0.0.2"
+//#define GRSIM_VISION_ADDRESS    "127.0.0.2"
+#define GRSIM_VISION_ADDRESS    "192.168.1.2"
+#define GRSIM_COMMAND_PORT  10002
+
 #define GRSIM_VISION_PORT       10002
+
+#define VISUALIZER_PORT     4001
+#define VISUALIZER_IP       "192.168.1.2"
 
 
 #define FIELD_WIDTH 4050

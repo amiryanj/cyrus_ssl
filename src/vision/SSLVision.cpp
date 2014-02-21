@@ -10,8 +10,7 @@
 
 SSLVision::SSLVision(int port, const string address) : UDP(), SSLListener()
 {
-    filterModule = VisionFilterModule::getInstance();
-
+    filterModule = VisionFilter::getInstance();
 }
 
 
@@ -24,46 +23,51 @@ void SSLVision::check()
     Address sender_adress;
     if(this->havePendingData())
     {
-        packet.length = this->recv(packet.buffer, MAX_BUFFER_SIZE, sender_adress);
-        cerr << "Vision Packet received . Size = " << packet.length << endl;
-        this->parse(this->packet);
-        updateKalmanModule();
+        this->_packet.length = this->recv(_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
+        cerr << "Vision Packet received . Size = " << this->_packet.length << endl;
+        this->parse(this->_packet);
+        updateFilterModule();
     }
 
 }
 
-void SSLVision::parse(IPPacket &packet)
+void SSLVision::parse(IPPacket &p)
 {
 	wrapper.Clear();
-    wrapper.ParseFromArray(packet.buffer, packet.length);
+    wrapper.ParseFromArray(p.buffer, p.length);
 }
 
-void SSLVision::updateKalmanModule()
+void SSLVision::updateFilterModule()
 {
 	//TODO: update world model from wrapper    
     if(wrapper.has_detection())
-    {
+    {        
         for(int i=0; i< wrapper.detection().robots_blue_size(); i++)
         {
-            SSL_DetectionRobot Robot=wrapper.detection().robots_blue(i);
-            tmp_frame.setToCurrentTime();
-            tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
-            filterModule->setRobotFrame(Blue, Robot.robot_id(), tmp_frame);
+            SSL_DetectionRobot Robot = wrapper.detection().robots_blue(i);
+            _tmp_frame.setToCurrentTime();
+            _tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+            _tmp_frame.confidence = Robot.confidence();
+            filterModule->setRobotFrame(Blue, Robot.robot_id(), _tmp_frame);
+
         }
 
         for(int i=0; i< wrapper.detection().robots_yellow_size(); i++)
         {
-            SSL_DetectionRobot Robot=wrapper.detection().robots_yellow(i);
-            tmp_frame.setToCurrentTime();
-            tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
-            filterModule->setRobotFrame(Yellow, Robot.robot_id(), tmp_frame);
+            SSL_DetectionRobot Robot = wrapper.detection().robots_yellow(i);
+            _tmp_frame.setToCurrentTime();
+            _tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+            _tmp_frame.confidence = Robot.confidence();
+            filterModule->setRobotFrame(Yellow, Robot.robot_id(), _tmp_frame);
         }
 
         for(int i=0; i< wrapper.detection().balls_size(); i++)
         {
             SSL_DetectionBall Ball=wrapper.detection().balls(i);
-            //uint dataTime = time.currentTime().second()*1000 + time.currentTime().msec();
-            //emit parsedBallData(i,QVector2D(Ball.x(),Ball.y()), dataTime);
+            _tmp_frame.setToCurrentTime();
+            _tmp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();
+            filterModule->setBallFrame(_tmp_frame);
+
         }
     }
     if(wrapper.has_geometry())

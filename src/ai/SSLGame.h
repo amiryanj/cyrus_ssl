@@ -2,24 +2,45 @@
 #define SSLGAME_H
 
 #include "../general.h"
-#include "../ai/SSLWorldModel.h"
+#include "SSLWorldModel.h"
+#include "definition/sslagent.h"
+#include "tools/SSLListener.h"
+#include "definition/sslstrategy.h"
 
-class SSLGame
+class SSLStrategyManager;
+class SSLRoleManager;
+
+using namespace SSL;
+
+class SSLGame : SSLListener
 {
+    static SSLGame* game;
+    SSLGame(Color ourC, Side ourS);
+
 public:
-    static SSLGame* getInstance();
-    SSLWorldModel *world;
-    void run();
+    static SSLGame* getInstance(Color set_our_color = OUR_COLOR, Side set_our_side = OUR_SIDE);
+    void SetColor_Side(Color ourC, Side ourS);
+    void check();
+    ~SSLGame();
+
+    SSLTeam* ourTeam();
+    std::vector<SSLAgent*> agents;
+    SSLAgent* getAgent(unsigned int ID) const;
+    SSLStrategy currentStrategy;
+
+    bool hasAgent();
+    Color ourColor() const;
+    Side ourSide() const;
+    inline Color enemyColor() const;
+    inline Side enemySide() const;
 
 private:
-    SSLGame();
-    ~SSLGame();
-    static SSLGame* game;
+    Color _ourColor;
+    Side _ourSide;
 
-    Color ourColor;
-    inline Color enemyColor();
-    Side ourSide;
-    inline Side enemySide();
+    SSLWorldModel *world();
+    SSLStrategyManager *strategyManager();
+    SSLRoleManager *roleManager();
 
 };
 
