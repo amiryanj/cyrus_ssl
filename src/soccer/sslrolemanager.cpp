@@ -1,11 +1,13 @@
 #include "sslrolemanager.h"
 #include "../ai/SSLAnalyzer.h"
 #include "../ai/SSLGame.h"
+#include "roles/keepgoal.h"
 
 SSLRoleManager* SSLRoleManager::manager = NULL;
 
 SSLRoleManager::SSLRoleManager()
-{    
+{
+    testRole1 = new KeepGoal();
 }
 
 SSLRoleManager *SSLRoleManager::getInstance()
@@ -28,6 +30,13 @@ SSLGame *SSLRoleManager::game()
 void SSLRoleManager::assignRole(const SSLStrategy &strategy, std::vector<SSLAgent*> agents)
 {
     SSLAgent* agent_0 = SSLGame::getInstance()->agents[0];
+
+    agent_0->role = testRole1;
+    if(game()->ourTeam()->inFields().size() > 0)
+    {
+        agent_0->robot = SSLGame::getInstance()->ourTeam()->robot[0];
+        testRole1->setRobot(agent_0->robot);
+    }
 //    agent_0->role =
 //    get nearest player from analyzer
 //    SSLTeam* our_team = game()->ourTeam();

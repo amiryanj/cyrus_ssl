@@ -16,7 +16,7 @@ using namespace std;
 
 class RobotSerialConnection {
 public:
-	RobotSerialConnection(const char * serialPortName, unsigned int baudrate) throw(SSLException);
+    RobotSerialConnection(const char * serialPortName, unsigned int baudrate);
     void sendRobotData(int robotID, RobotCommandPacket &packet);
 	virtual ~RobotSerialConnection();
 private:

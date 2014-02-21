@@ -2,7 +2,7 @@
 
 frame::frame()
 {
-    this->setToCurrentTime();
+    this->setToCurrentTimeMilliSec();
 }
 
 // default constructor
@@ -17,14 +17,14 @@ void frame::set(const Vector3D &pose, const double &time, double conf)
     this->confidence = conf;
 
     if(time == -1)
-        setToCurrentTime();
+        setToCurrentTimeMilliSec();
     else
-        this->timeTag = time;
+        this->timeStampMilliSec = time;
 }
 
-void frame::setToCurrentTime()
+void frame::setToCurrentTimeMilliSec()
 {
     ptime t(microsec_clock::universal_time());   
     time_duration td = t.time_of_day();
-    timeTag =  td.total_microseconds()/1000000.0;
+    timeStampMilliSec =  td.total_microseconds()/1000.0;
 }

@@ -4,6 +4,8 @@
 #include <kalman/ekfilter.hpp>
 #include "../general.h"
 
+#include <Box2D/Common/b2Timer.h>
+
 #include "frame.h"
 
 //using namespace std;

@@ -17,7 +17,7 @@ SSLGame::SSLGame(Color ourC, Side ourS)
 {    
     SetColor_Side(ourC, ourS);
     for(int i=0; i<MAX_TEAM_PLAYER; i++) {
-        SSLAgent* ag_ = new SSLAgent(ourC);
+        SSLAgent* ag_ = new SSLAgent(ourC, ourS);
         agents.push_back(ag_);
     }
 }

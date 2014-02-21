@@ -17,8 +17,9 @@ public:
     //SSLTeam();
     SSLTeam(const Side side, const Color color, const SSLRobotPhysic &physic);
     SSLRobot *robot[MAX_ID_NUM];
-    vector<SSLRobot*> inFieldRobots();
-    unsigned int numInFieldRobots() const;
+    unsigned int numInFields() const;
+    vector<SSLRobot*> inFields();
+    vector<SSLRobot*> allRobots();
 
     Side side;
     Color color;

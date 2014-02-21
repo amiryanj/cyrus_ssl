@@ -44,8 +44,8 @@ STDVector<SSLRobot *> SSLWorldModel::all_inFields()
     STDVector<SSLRobot*> all_;
     all_.reserve(MAX_TEAM_PLAYER*2);
     for(int tm = 0; tm < 2;  ++tm)
-        if(team[tm]->numInFieldRobots() != 0)
-            all_.insert(all_.begin(), team[tm]->inFieldRobots().size(), team[tm]->inFieldRobots().at(0));
+        if(team[tm]->numInFields() != 0)
+            all_.insert(all_.begin(), team[tm]->inFields().size(), team[tm]->inFields().at(0));
     return all_;
 }
 
@@ -58,12 +58,12 @@ STDVector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(SSLRobot *excep)
             throw "Robot is invalid";
         for(int tm = 0; tm < 2;  ++tm)
         {
-            if(team[tm]->numInFieldRobots() != 0)
+            if(team[tm]->numInFields() != 0)
             {
                 if(excep->color != (Color)tm)
-                    all_.insert(all_.begin(), team[tm]->inFieldRobots().size(), team[tm]->inFieldRobots().at(0));
+                    all_.insert(all_.begin(), team[tm]->inFields().size(), team[tm]->inFields().at(0));
                 else {
-                    for(std::vector<SSLRobot*>::iterator it=team[tm]->inFieldRobots().begin(); it !=  team[tm]->inFieldRobots().end(); ++it)
+                    for(std::vector<SSLRobot*>::iterator it=team[tm]->inFields().begin(); it !=  team[tm]->inFields().end(); ++it)
                     {
                         SSLRobot* robot = (SSLRobot*) (*it);
                         if(robot->id != excep->id)
@@ -78,7 +78,7 @@ STDVector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(SSLRobot *excep)
     }
 }
 
-STDVector<SSLRobot *> SSLWorldModel::allRobots(SSLRobot *excep)
+STDVector<SSLRobot *> SSLWorldModel::allRobots()
 {
     STDVector<SSLRobot*> all_;
     all_.reserve(MAX_ID_NUM * 2);

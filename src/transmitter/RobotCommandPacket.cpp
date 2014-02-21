@@ -55,7 +55,7 @@ void RobotCommandPacket::reset(){
 void RobotCommandPacket::setVelocity(const Vector3D &vel)
 {
     this->Velocity = vel;
-    this->byWheelSpeed = true;
+    this->byWheelSpeed = false;
 }
 
 void RobotCommandPacket::setVelocity(double vx, double vy, double wz)
@@ -82,10 +82,12 @@ RobotCommandPacket &RobotCommandPacket::operator =(RobotCommandPacket &other)
     this->isDribbler = other.isDribbler;
     this->byWheelSpeed = other.byWheelSpeed;
 
+    this->Velocity = other.Velocity;
     this->v[0] = other.v[0];
     this->v[1] = other.v[1];
     this->v[2] = other.v[2];
     this->v[3] = other.v[3];
+
 }
 
 

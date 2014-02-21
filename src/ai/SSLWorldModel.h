@@ -29,7 +29,7 @@ public:
     STDVector<SSLRobot*> all_inFields();
     STDVector<SSLRobot*> all_inFieldsExcept(SSLRobot* excep);
 
-    STDVector<SSLRobot*> allRobots(SSLRobot* excep);
+    STDVector<SSLRobot*> allRobots();
     STDVector<SSLRobot*> allRobotsExcept(SSLRobot* excep);
 
 
