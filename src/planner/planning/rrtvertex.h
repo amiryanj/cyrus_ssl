@@ -21,7 +21,7 @@ public:
     }
 
     bool hasChild() {
-        return (!wthis->child == NULL);
+        return (!this->child == NULL);
     }
 
 };

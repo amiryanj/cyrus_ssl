@@ -1,6 +1,6 @@
 #include "stoprole.h"
 
-StopRole::StopRole(SSLRobot* sllRobot):SSLRole(sllRobot)
+StopRole::StopRole()
 {
 }
 

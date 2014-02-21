@@ -6,7 +6,7 @@
 class StopRole : public SSLRole
 {
 public:
-    StopRole(SSLRobot*);
+    StopRole();
 
     GoalState run();
 };

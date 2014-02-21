@@ -1,19 +1,21 @@
 #include "keepgoal.h"
 
-KeepGoal::KeepGoal(SSLRobot* sslRobot):SSLRole(sslRobot)
+KeepGoal::KeepGoal()
 {
 }
 
 GoalState KeepGoal::run()
 {
-//    SSLWorldModel* worldModel = SSLWorldModel::getInstance();
-//    SSLGame* game = SSLGame::getInstance();
+    SSLWorldModel* worldModel = SSLWorldModel::getInstance();
+    SSLGame* game = SSLGame::getInstance();
 
-//    this->getTarget()->position.setX(((FIELD_LENGTH / 2.0) - getRobot()->radius) * game->ourSide());
+    Station myTarget;
+    myTarget.setPosition(Vector3D(300, 400, 0));
+    this->target.goal_point.set(myTarget);
 //    this->getTarget()->position.setY(worldModel->ball->Position().Y());
 //    this->getTarget()->velocity = 0;
 ////    this->getTarget()->heading =
 
 
-//    return this->target;
+    return this->target;
 }

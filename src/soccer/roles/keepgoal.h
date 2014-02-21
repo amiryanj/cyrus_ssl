@@ -9,9 +9,12 @@
 class KeepGoal : public SSLRole
 {
 public:
-    KeepGoal(SSLRobot*);
+    KeepGoal();
 
     GoalState run();
+
+private:
+
 
 };
 
