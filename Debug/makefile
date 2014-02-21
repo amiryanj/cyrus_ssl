@@ -8,13 +8,21 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/vision/subdir.mk
+-include src/transmitter/grSim/cpp/subdir.mk
+-include src/transmitter/subdir.mk
 -include src/tools/subdir.mk
 -include src/thirdparty/sslvision/cpp/subdir.mk
 -include src/thirdparty/socket/subdir.mk
 -include src/thirdparty/serialib/subdir.mk
 -include src/thirdparty/referee/cpp/subdir.mk
--include src/physical/subdir.mk
+-include src/soccer/roles/subdir.mk
+-include src/soccer/subdir.mk
+-include src/planner/planning/subdir.mk
+-include src/gui/cpp/subdir.mk
+-include src/gui/subdir.mk
 -include src/definition/subdir.mk
+-include src/ai/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk

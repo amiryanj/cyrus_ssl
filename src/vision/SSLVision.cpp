@@ -6,7 +6,7 @@
  */
 
 #include "SSLVision.h"
-#include <QString>
+//#include <QString>
 
 SSLVision::SSLVision(int port, const string address) : UDP(), SSLListener()
 {

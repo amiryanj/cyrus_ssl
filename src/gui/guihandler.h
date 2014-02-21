@@ -7,8 +7,8 @@
 #include "../ai/SSLWorldModel.h"
 #include "../ai/SSLAnalyzer.h"
 #include "../ai/SSLGame.h"
-#include "thirdparty/socket/netraw.h"
-#include "thirdparty/socket/IPPacket.h"
+#include "../thirdparty/socket/netraw.h"
+#include "../thirdparty/socket/IPPacket.h"
 #include <boost/signals2/mutex.hpp>
 
 using namespace google::protobuf;

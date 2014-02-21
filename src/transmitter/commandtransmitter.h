@@ -5,7 +5,7 @@
 #include "RobotCommandPacket.h"
 #include "grsimsender.h"
 #include "RobotSerialConnection.h"
-#include "general.h"
+#include "../general.h"
 
 class CommandTransmitter : public SSLListener
 {

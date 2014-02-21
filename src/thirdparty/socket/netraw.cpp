@@ -1,5 +1,5 @@
 #include "netraw.h"
-#ifdef Q_OS_UNIX
+//#ifdef Q_OS_UNIX
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/poll.h>
@@ -10,7 +10,7 @@
 #include <fcntl.h>
 
 
-#include "util.h"
+#include "../util.h"
 
 namespace Net{
 
@@ -288,4 +288,4 @@ int main(int argc, char **argv)
 }
 
 #endif
-#endif
+//#endif

@@ -1,7 +1,7 @@
 #include "ai/SSLGame.h"
 #include "vision/SSLVision.h"
 #include "general.h"
-#include <QVector3D>
+//#include <QVector3D>
 
 #include "tools/stdlist.h"
 #include "ai/SSLAnalyzer.h"
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         filter->check();
         analyzer->check();
         game->check();
-        gui->check();
+        //gui->check();
         usleep(500000);
     }
 

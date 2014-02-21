@@ -6,7 +6,7 @@
  */
 
 #include "SSLWorldModel.h"
-#include "definition/SSLRobot.h"
+#include "../definition/SSLRobot.h"
 #include <vector>
 
 SSLWorldModel* SSLWorldModel::world = NULL;

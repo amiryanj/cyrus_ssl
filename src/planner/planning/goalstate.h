@@ -1,7 +1,7 @@
 #ifndef GOALSTATE_H
 #define GOALSTATE_H
 
-#include <station.h>
+#include "station.h"
 
 class GoalState
 {

@@ -1,8 +1,8 @@
 #ifndef SSLOBJECT_H
 #define SSLOBJECT_H
 
-#include "tools/vector3d.h"
-#include "tools/vector2d.h"
+#include "../tools/vector3d.h"
+#include "../tools/vector2d.h"
 
 enum SSL_OBJECT_TYPE {BALL_OBJECT, ROBOT_OBJECT};
 

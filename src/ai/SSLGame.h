@@ -3,9 +3,9 @@
 
 #include "../general.h"
 #include "SSLWorldModel.h"
-#include "definition/sslagent.h"
-#include "tools/SSLListener.h"
-#include "definition/sslstrategy.h"
+#include "../definition/sslagent.h"
+#include "../tools/SSLListener.h"
+#include "../definition/sslstrategy.h"
 
 class SSLStrategyManager;
 class SSLRoleManager;

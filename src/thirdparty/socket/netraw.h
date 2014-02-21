@@ -1,6 +1,6 @@
 
-#include <QtGlobal>
-#ifdef Q_OS_UNIX
+//#include <QtGlobal>
+//#ifdef Q_OS_UNIX
 #ifndef _INCLUDED_NETRAW_H_
 #define _INCLUDED_NETRAW_H_
 
@@ -86,4 +86,4 @@ public:
 
 
 
-#endif
+//#endif
