@@ -117,7 +117,7 @@ void Vector2D::normalize()
 
 Vector2D Vector2D::normalized() const
 {
-    Vector2D temp;
+    Vector2D temp(this->_x, this->_y);
     double magSqrd = _x*_x + _y*_y;
     if(magSqrd > 0.0f)
     {

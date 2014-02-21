@@ -27,6 +27,7 @@ public:
     bool isNull()const;
     void setZero();
     void normalize2D();
+    void rotate(double radianAngle);
     double lenght2D();
     void correctTeta();
 
@@ -45,6 +46,8 @@ public:
 //    double operator *(const Vector3D &vector);
     Vector2D to2D();
     b2Vec3 b2vec3();
+
+    Vector3D dotProduct(Vector3D &b);
 
     static double vector2DMag(const Vector3D  &vector);
     static double distance2D(const Vector3D &a, const Vector3D &b);

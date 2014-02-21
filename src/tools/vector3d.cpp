@@ -107,6 +107,13 @@ void Vector3D::normalize2D()
     }
 }
 
+void Vector3D::rotate(double radianAngle)
+{
+    _x = _x * cos(radianAngle) - _y * sin(radianAngle);
+    _y = _x * sin(radianAngle) + _y * cos(radianAngle);
+    _teta = _teta;
+}
+
 double Vector3D::lenght2D()
 {
     return this->to2D().lenght();
@@ -137,6 +144,13 @@ Vector2D Vector3D::to2D()
 b2Vec3 Vector3D::b2vec3()
 {
     return b2Vec3(this->_x, this->_y, this->_teta);
+}
+
+Vector3D Vector3D::dotProduct(Vector3D &b)
+{
+    Vector3D temp;
+    temp.setX(this->_x * b._x);    temp.setY(this->_y * b._y);    temp.setTeta(this->_teta * b._teta);
+    return temp;
 }
 
 double Vector3D::vector2DMag(const Vector3D &vector)
