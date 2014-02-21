@@ -5,7 +5,7 @@
 
 using namespace std;
 
-SSLAgent::SSLAgent(Color color)
+SSLAgent::SSLAgent(Color ourC, Side ourS)
 {    
     this->role = NULL;
     this->robot = NULL;
@@ -21,7 +21,7 @@ SSLAgent::SSLAgent(Color color)
     planner.setPlanningAgent(plan_agent);
 
     penaltyAreaObstacleSet.reserve(3);
-    int z = (int) color;
+    int z = (int) ourS;
     Obstacle* myPenaltyArea_1 = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
                                                     FIELD_PENALTY_AREA_RADIUS, 0);
     Obstacle* myPenaltyArea_2 = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
@@ -33,8 +33,8 @@ SSLAgent::SSLAgent(Color color)
     penaltyAreaObstacleSet.push_back(myPenaltyArea_2);
     penaltyAreaObstacleSet.push_back(myPenaltyArea_3);
 
-    myDynamicObstacleSet.reserve((MAX_ID_NUM+1) *2);
-    for(unsigned int i=0; i< (MAX_ID_NUM+1) *2; i++) //
+    myDynamicObstacleSet.reserve((MAX_ID_NUM) *2);
+    for(unsigned int i=0; i< (MAX_ID_NUM) *2; i++) //
     {
         Obstacle* ob_ = new Obstacle(b2Vec2(0, 0), ROBOT_RADIUS, 0);
         myDynamicObstacleSet.push_back(ob_);
@@ -69,8 +69,10 @@ int SSLAgent::getID() const
 void SSLAgent::run()
 {
     try {
-        if(this->role == NULL)
+        if(this->role == NULL) {
+            return; // ************ comment this line ***************
             throw "role of agent is null";
+        }
         if(this->robot == NULL)
             throw "Agent has NO ROBOT Assigned";
         this->target = this->role->run();
@@ -79,13 +81,21 @@ void SSLAgent::run()
         init_state.setPosition(this->robot->Position());
         init_state.setVelocity(this->robot->Speed());
 
+        if(init_state.position.X() == INFINITY)
+            return;
         planner.setInitialState(init_state);
         planner.setGoalRegion(this->target);
+        vector<SSLRobot*> all_robots = SSLWorldModel::getInstance()->allRobots();
         for(int i=0; i<myDynamicObstacleSet.size(); i++)
         {
             Obstacle* ob_  = myDynamicObstacleSet.at(i);
-            SSLRobot* rob_ = SSLWorldModel::getInstance()->allRobotsExcept(this->robot).at(i);
-            ob_->transform.Set(b2Vec2(rob_->Position().X(), rob_->Position().Y()), rob_->Position().Teta());
+            SSLRobot* rob_ = all_robots.at(i);
+            b2Vec2 pos;
+            if(rob_->color == this->robot->color && rob_->id == this->getID())
+                pos.Set(INFINITY, INFINITY);
+            else
+                pos.Set(rob_->Position().X(), rob_->Position().Y());
+            ob_->transform.Set(pos, rob_->Position().Teta());
         }
 
         planner.setDynamicObstacles(myDynamicObstacleSet);
@@ -94,14 +104,24 @@ void SSLAgent::run()
             planner.setStaticObstacles(penaltyAreaObstacleSet);
         }
 
-        planner.RRTsolve();
+//        planner.RRTsolve();
+
+        planner.PotentialFieldSolve();
         Vector3D desiredVelocity = planner.getControl(0);
-        RobotCommandPacket p;
-        p.setVelocity(desiredVelocity);
-        CommandTransmitter::getInstance()->send(this->getID(), p);
+        desiredVelocity.rotate(-robot->orien());
+        //        desiredVelocity.setTeta(0);
+        desiredVelocity.set(.7, .4, 0);
+
+        cout << "Desired vel for robot #" << this->getID() << " is: X= " << desiredVelocity.X()
+             << " Y= " << desiredVelocity.Y() << " teta=" << desiredVelocity.Teta() << endl;
 
         // TODO
         // run the controller
+
+        RobotCommandPacket pkt;
+        pkt.setVelocity(desiredVelocity);
+        CommandTransmitter::getInstance()->send(this->getID(), pkt);
+
 
     }
 

@@ -6,7 +6,6 @@
  */
 
 #include "SSLVision.h"
-#include <QString>
 
 SSLVision::SSLVision(int port, const string address) : UDP(), SSLListener()
 {
@@ -45,7 +44,7 @@ void SSLVision::updateFilterModule()
         for(int i=0; i< wrapper.detection().robots_blue_size(); i++)
         {
             SSL_DetectionRobot Robot = wrapper.detection().robots_blue(i);
-            _tmp_frame.setToCurrentTime();
+            _tmp_frame.setToCurrentTimeMilliSec();
             _tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
             _tmp_frame.confidence = Robot.confidence();
             filterModule->setRobotFrame(Blue, Robot.robot_id(), _tmp_frame);
@@ -55,7 +54,7 @@ void SSLVision::updateFilterModule()
         for(int i=0; i< wrapper.detection().robots_yellow_size(); i++)
         {
             SSL_DetectionRobot Robot = wrapper.detection().robots_yellow(i);
-            _tmp_frame.setToCurrentTime();
+            _tmp_frame.setToCurrentTimeMilliSec();
             _tmp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
             _tmp_frame.confidence = Robot.confidence();
             filterModule->setRobotFrame(Yellow, Robot.robot_id(), _tmp_frame);
@@ -64,10 +63,9 @@ void SSLVision::updateFilterModule()
         for(int i=0; i< wrapper.detection().balls_size(); i++)
         {
             SSL_DetectionBall Ball=wrapper.detection().balls(i);
-            _tmp_frame.setToCurrentTime();
+            _tmp_frame.setToCurrentTimeMilliSec();
             _tmp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();
             filterModule->setBallFrame(_tmp_frame);
-
         }
     }
     if(wrapper.has_geometry())

@@ -16,7 +16,7 @@ bool GRSimSender::openSocket(int port)
     }
 
     Net::Address multiaddr, interface;
-    multiaddr.setHost(GRSIM_VISION_ADDRESS, port);
+    multiaddr.setHost(GRSIM_COMMAND_ADDRESS, port);
     interface.setAny();
 
     if(!this->addMulticast(multiaddr, interface))
@@ -46,10 +46,14 @@ void GRSimSender::sendPacket(int robotID, RobotCommandPacket rawPacket)
     else
     {
         double max_lin_vel = 5; // you should set this parameter
-        command->set_velnormal(rawPacket.getVelocity().lenght2D() / max_lin_vel);
-        command->set_veltangent(tan(rawPacket.getVelocity().to2D().arctan()));
+        double d_sign = (rawPacket.getVelocity().Y() >= 0)? 1:-1;
+        command->set_velnormal(rawPacket.getVelocity().lenght2D() * -d_sign);
+        command->set_veltangent(tan(M_PI_2 - rawPacket.getVelocity().to2D().arctan()));
         command->set_velangular(rawPacket.getVelocity().Teta());
     }
+    // dangerous test
+//    command->set_velnormal(-2);
+//    command->set_veltangent(tan(0));
 
     command->set_kickspeedx(rawPacket.kickPower);
     command->set_kickspeedz(0); // chip kick
@@ -60,7 +64,7 @@ void GRSimSender::sendPacket(int robotID, RobotCommandPacket rawPacket)
         std::string s;
         grSimPacket.SerializeToString(&s);
         Net::Address multiaddr;
-        multiaddr.setHost(GRSIM_VISION_ADDRESS, GRSIM_COMMAND_PORT);
+        multiaddr.setHost(GRSIM_COMMAND_ADDRESS, GRSIM_COMMAND_PORT);
         this->send(s.c_str(), s.length(), multiaddr);
     }
 }

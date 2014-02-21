@@ -22,6 +22,8 @@ private:
     SSLAnalyzer* analyzer();
     SSLGame* game();
 
+    SSLRole* testRole1;
+
 };
 
 #endif // SSLROLEMANAGER_H

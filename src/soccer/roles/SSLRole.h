@@ -9,7 +9,7 @@ class SSLRole
 public:
     enum RoleType {ROLE_UNKNOWN, ROLE_GOALIE, ROLE_DEFENDER, ROLE_BLOCKER, ROLE_MARKER, ROLE_PLAYMAKER};
 
-    SSLRole(SSLRobot*);
+    SSLRole();
     ~SSLRole();
 
     virtual GoalState run() = 0;
@@ -18,9 +18,10 @@ public:
     bool isActive;
 
     SSLRobot* getRobot();
+    void setRobot(SSLRobot* r);
     GoalState getTarget();
 
-private:
+protected:
     SSLRobot* robot; // robot assigned to
     GoalState target;
 };

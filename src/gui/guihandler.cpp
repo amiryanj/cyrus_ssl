@@ -68,19 +68,23 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
 {
     if(packet == NULL)
         return;
-    packet->mutable_blue_team()->set_color(blue_color);
-    packet->mutable_yellow_team()->set_color(yellow_color);
+//    packet->mutable_blue_team()->set_color(blue_color);
+//    packet->mutable_yellow_team()->set_color(yellow_color);
 
+    packet->mutable_comment()->append("This packet is filled in cyrus 2014 server.");
     packet->mutable_blue_team()->set_side((world()->team[Blue]->side==Left)? left_side:right_side);
     packet->mutable_yellow_team()->set_side((world()->team[Yellow]->side==Left)? left_side:right_side);
 
     for(int tm=0; tm<2 ; ++tm)
     {
-        for(uint i=0; i<world()->getTeam((Color)tm)->numInFieldRobots(); ++i)
+//        for(uint i=0; i<world()->getTeam((Color)tm)->numInFieldRobots(); ++i)
+        vector<SSLRobot*> team_robots = world()->getTeam((Color)tm)->allRobots();
+        for(uint i=0; i < team_robots.size() ; ++i)
         {
-            const SSLRobot* robot = world()->getTeam((Color)tm)->inFieldRobots()[i];
+            const SSLRobot* robot = team_robots.at(i);
             ssl_robot* robot_packet = (((Color)tm==Blue)?
                     packet->mutable_blue_team()->add_robots() : packet->mutable_yellow_team()->add_robots());
+            robot_packet->set_id(robot->id);
             robot_packet->mutable_position()->set_x(robot->Position().X());
             robot_packet->mutable_position()->set_y(robot->Position().Y());
             robot_packet->mutable_position()->set_teta(robot->Position().Teta());
@@ -119,7 +123,7 @@ void GUIHandler::generateDecisionPacket(ssl_decision_packet *packet)
 
 bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)
 {
-    string buffer;
+    string buffer;    
     p.SerializeToString(&buffer);
     Net::Address multiaddr;
     multiaddr.setHost(VISUALIZER_IP, VISUALIZER_PORT);

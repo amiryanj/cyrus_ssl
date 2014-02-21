@@ -1,4 +1,7 @@
 #include "SSLRobotKalmanFilter.h"
+#include "definition/sslmath.h"
+
+using namespace std;
 
 SSLRobotKalmanFilter::SSLRobotKalmanFilter()
 {    
@@ -9,6 +12,9 @@ SSLRobotKalmanFilter::SSLRobotKalmanFilter()
     setDim(6, 0, 3, 3, 3);
     _last_update_time = 0;
 
+    rawPositionList.reserve(MAX_RAW_DATA_MEMORY + 1);
+
+
 //    runFilter();
 
 }
@@ -18,7 +24,7 @@ void SSLRobotKalmanFilter::setNewFrame(const frame &fr)
     while(!rawPositionList.empty())
     {
         frame listed_fr = rawPositionList.back();
-        if((fr.timeTag - listed_fr.timeTag) > 50.0)
+        if((fr.timeStampMilliSec - listed_fr.timeStampMilliSec) > ((3.0*MAX_RAW_DATA_MEMORY)/(CAMERA_FPS/1000.0)))
             rawPositionList.pop_back();
         else
             break;
@@ -29,8 +35,8 @@ void SSLRobotKalmanFilter::setNewFrame(const frame &fr)
 //    std::cout << "Robot Confidence = " <<fr.confidence << std::endl;
     if(rawPositionList.size() > MAX_RAW_DATA_MEMORY)
         rawPositionList.pop_back();
-    _last_interval_time = fr.timeTag - _last_update_time;
-    _last_update_time = fr.timeTag;
+    _last_interval_time = fr.timeStampMilliSec - _last_update_time;
+    _last_update_time = fr.timeStampMilliSec;
 
 }
 
@@ -41,7 +47,7 @@ bool SSLRobotKalmanFilter::isEmpty()
 
 bool SSLRobotKalmanFilter::isOnField()
 {
-    return (rawPositionList.size() >= 6);
+    return (rawPositionList.size() >= 4);
 }
 
 void SSLRobotKalmanFilter::runFilter()
@@ -62,7 +68,9 @@ void SSLRobotKalmanFilter::runFilter()
         Matrix init_cov(6, 6);
         for(int i=1; i <= 6; i++)
         {
-            init_cov(i, i) = 0.01;
+            // ******************************************
+            init_cov(i, i) = 0.0001;
+            // ******************************************
         }
 
         this->init(init_state, init_cov);
@@ -74,9 +82,18 @@ void SSLRobotKalmanFilter::runFilter()
         Vector obs_pose(3);
         obs_pose(1) = lastPosition.X();
         obs_pose(2) = lastPosition.Y();
-        obs_pose(3) = lastPosition.Teta();
+        double old_teta = x(3);
+        double new_teta = lastPosition.Teta();
+        if(old_teta < 0) // && old_teta > -M_PI
+             new_teta = continuousRadian(new_teta, -3*M_PI_2);
+        else
+            new_teta = continuousRadian(new_teta, -M_PI_2);
+
+        obs_pose(3) = new_teta;
         Vector u_(0);
         this->step(u_, obs_pose);
+
+        x(3) = continuousRadian(x(3), -M_PI);
 
         filteredPosition.setX(x(1));
         filteredPosition.setY(x(2));
@@ -142,9 +159,9 @@ void SSLRobotKalmanFilter::makeW()
         for (unsigned int j=1; j<= W.ncol(); j++)
             W(i, j) = 0.0;
 
-    W(4, 1) = 1.0;
-    W(5, 2) = 1.0;
-    W(6, 3) = 1.0;
+    W(4, 1) = 5.0;
+    W(5, 2) = 5.0;
+    W(6, 3) = 5.0;
 
 }
 
@@ -158,7 +175,6 @@ void SSLRobotKalmanFilter::makeH()
             else
                 H(i, j) = 0.0;
         }
-
 }
 
 void SSLRobotKalmanFilter::makeV()
@@ -175,6 +191,7 @@ void SSLRobotKalmanFilter::makeV()
 
 void SSLRobotKalmanFilter::makeQ()
 {
+    // *************************************************
     double q[3] = {1.0, 1.0, 1.0};
     for(unsigned int i=1; i <= Q.nrow(); i++)
         for (unsigned int j=1; j<= Q.ncol(); j++)
@@ -188,14 +205,19 @@ void SSLRobotKalmanFilter::makeQ()
 
 void SSLRobotKalmanFilter::makeR()
 {
-    double r[3] = {1.0, 1.0, 1.0};
-    for(unsigned int i=1; i <= R.nrow(); i++)
+    // **************************************************
+    cout << "R (Measure noise cov matrix) =  " << endl;
+    double r[3] = {10.0, 10.0, 10.0};
+    for(unsigned int i=1; i <= R.nrow(); i++) {
         for (unsigned int j=1; j<= R.ncol(); j++)
         {
             if( i == j)
                 R(i, j) = r[i-1];
             else
                 R(i, j) = 0.0;
+            cout << R(i,j) << " ";
         }
+        cout << endl;
+    }
 }
 

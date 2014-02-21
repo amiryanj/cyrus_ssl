@@ -1,8 +1,7 @@
 #include "SSLRole.h"
 
-SSLRole::SSLRole(SSLRobot* robot)
+SSLRole::SSLRole()
 {
-    this->robot = robot;
 }
 
 SSLRole::~SSLRole()
@@ -12,6 +11,11 @@ SSLRole::~SSLRole()
 
 SSLRobot* SSLRole::getRobot(){
     return this->robot;
+}
+
+void SSLRole::setRobot(SSLRobot *r)
+{
+    this->robot = r;
 }
 
 GoalState SSLRole::getTarget(){

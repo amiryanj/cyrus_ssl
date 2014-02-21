@@ -38,7 +38,7 @@ void VisionFilter::check()
 void VisionFilter::setRobotFrame(Color color, unsigned int id, frame &fr)
 {
     if(((int) color > 2) || (id >= MAX_ID_NUM))
-        throw;
+        throw "invalid color or id of robot";
     robotFilter[color][id]->setNewFrame(fr);
 }
 

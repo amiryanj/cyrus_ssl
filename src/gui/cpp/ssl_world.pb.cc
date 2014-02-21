@@ -60,7 +60,8 @@ void protobuf_AssignDesc_ssl_5fworld_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(vector_3d));
   ssl_ball_descriptor_ = file->message_type(1);
-  static const int ssl_ball_offsets_[2] = {
+  static const int ssl_ball_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_ball, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_ball, position_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_ball, velecity_),
   };
@@ -76,7 +77,8 @@ void protobuf_AssignDesc_ssl_5fworld_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ssl_ball));
   ssl_robot_descriptor_ = file->message_type(2);
-  static const int ssl_robot_offsets_[2] = {
+  static const int ssl_robot_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_robot, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_robot, position_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_robot, velecity_),
   };
@@ -92,10 +94,9 @@ void protobuf_AssignDesc_ssl_5fworld_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ssl_robot));
   ssl_team_descriptor_ = file->message_type(3);
-  static const int ssl_team_offsets_[3] = {
+  static const int ssl_team_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_team, robots_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_team, side_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_team, color_),
   };
   ssl_team_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -109,10 +110,11 @@ void protobuf_AssignDesc_ssl_5fworld_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ssl_team));
   ssl_world_packet_descriptor_ = file->message_type(4);
-  static const int ssl_world_packet_offsets_[3] = {
+  static const int ssl_world_packet_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, field_balls_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, blue_team_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, yellow_team_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_world_packet, comment_),
   };
   ssl_world_packet_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -174,18 +176,19 @@ void protobuf_AddDesc_ssl_5fworld_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\017ssl_world.proto\"/\n\tvector_3d\022\t\n\001x\030\001 \002("
-    "\002\022\t\n\001y\030\002 \002(\002\022\014\n\004teta\030\003 \002(\002\"F\n\010ssl_ball\022\034"
-    "\n\010position\030\001 \002(\0132\n.vector_3d\022\034\n\010velecity"
-    "\030\002 \002(\0132\n.vector_3d\"G\n\tssl_robot\022\034\n\010posit"
-    "ion\030\001 \002(\0132\n.vector_3d\022\034\n\010velecity\030\002 \002(\0132"
-    "\n.vector_3d\"Z\n\010ssl_team\022\032\n\006robots\030\001 \003(\0132"
-    "\n.ssl_robot\022\027\n\004side\030\002 \002(\0162\t.SideType\022\031\n\005"
-    "color\030\003 \002(\0162\n.ColorType\"p\n\020ssl_world_pac"
-    "ket\022\036\n\013field_balls\030\001 \003(\0132\t.ssl_ball\022\034\n\tb"
-    "lue_team\030\002 \002(\0132\t.ssl_team\022\036\n\013yellow_team"
-    "\030\003 \002(\0132\t.ssl_team*)\n\010SideType\022\r\n\tleft_si"
-    "de\020\000\022\016\n\nright_side\020\001*-\n\tColorType\022\016\n\nblu"
-    "e_color\020\000\022\020\n\014yellow_color\020\001", 507);
+    "\002\022\t\n\001y\030\002 \002(\002\022\014\n\004teta\030\003 \002(\002\"R\n\010ssl_ball\022\n"
+    "\n\002id\030\001 \002(\r\022\034\n\010position\030\002 \002(\0132\n.vector_3d"
+    "\022\034\n\010velecity\030\003 \002(\0132\n.vector_3d\"S\n\tssl_ro"
+    "bot\022\n\n\002id\030\001 \002(\r\022\034\n\010position\030\002 \002(\0132\n.vect"
+    "or_3d\022\034\n\010velecity\030\003 \002(\0132\n.vector_3d\"\?\n\010s"
+    "sl_team\022\032\n\006robots\030\001 \003(\0132\n.ssl_robot\022\027\n\004s"
+    "ide\030\002 \002(\0162\t.SideType\"\201\001\n\020ssl_world_packe"
+    "t\022\036\n\013field_balls\030\001 \003(\0132\t.ssl_ball\022\034\n\tblu"
+    "e_team\030\002 \002(\0132\t.ssl_team\022\036\n\013yellow_team\030\003"
+    " \002(\0132\t.ssl_team\022\017\n\007comment\030\004 \001(\t*)\n\010Side"
+    "Type\022\r\n\tleft_side\020\000\022\016\n\nright_side\020\001*-\n\tC"
+    "olorType\022\016\n\nblue_color\020\000\022\020\n\014yellow_color"
+    "\020\001", 522);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ssl_world.proto", &protobuf_RegisterTypes);
   vector_3d::default_instance_ = new vector_3d();
@@ -522,6 +525,7 @@ void vector_3d::Swap(vector_3d* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int ssl_ball::kIdFieldNumber;
 const int ssl_ball::kPositionFieldNumber;
 const int ssl_ball::kVelecityFieldNumber;
 #endif  // !_MSC_VER
@@ -544,6 +548,7 @@ ssl_ball::ssl_ball(const ssl_ball& from)
 
 void ssl_ball::SharedCtor() {
   _cached_size_ = 0;
+  id_ = 0u;
   position_ = NULL;
   velecity_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -582,6 +587,7 @@ ssl_ball* ssl_ball::New() const {
 
 void ssl_ball::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    id_ = 0u;
     if (has_position()) {
       if (position_ != NULL) position_->::vector_3d::Clear();
     }
@@ -599,21 +605,37 @@ bool ssl_ball::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .vector_3d position = 1;
+      // required uint32 id = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_position;
+        break;
+      }
+      
+      // required .vector_3d position = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_position:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_position()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_velecity;
+        if (input->ExpectTag(26)) goto parse_velecity;
         break;
       }
       
-      // required .vector_3d velecity = 2;
-      case 2: {
+      // required .vector_3d velecity = 3;
+      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_velecity:
@@ -644,16 +666,21 @@ bool ssl_ball::MergePartialFromCodedStream(
 
 void ssl_ball::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .vector_3d position = 1;
-  if (has_position()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->position(), output);
+  // required uint32 id = 1;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
   }
   
-  // required .vector_3d velecity = 2;
+  // required .vector_3d position = 2;
+  if (has_position()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->position(), output);
+  }
+  
+  // required .vector_3d velecity = 3;
   if (has_velecity()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->velecity(), output);
+      3, this->velecity(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -664,18 +691,23 @@ void ssl_ball::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ssl_ball::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required .vector_3d position = 1;
+  // required uint32 id = 1;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
+  }
+  
+  // required .vector_3d position = 2;
   if (has_position()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->position(), target);
+        2, this->position(), target);
   }
   
-  // required .vector_3d velecity = 2;
+  // required .vector_3d velecity = 3;
   if (has_velecity()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        2, this->velecity(), target);
+        3, this->velecity(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -689,14 +721,21 @@ int ssl_ball::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .vector_3d position = 1;
+    // required uint32 id = 1;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+    
+    // required .vector_3d position = 2;
     if (has_position()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->position());
     }
     
-    // required .vector_3d velecity = 2;
+    // required .vector_3d velecity = 3;
     if (has_velecity()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -730,6 +769,9 @@ void ssl_ball::MergeFrom(const ::google::protobuf::Message& from) {
 void ssl_ball::MergeFrom(const ssl_ball& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_id()) {
+      set_id(from.id());
+    }
     if (from.has_position()) {
       mutable_position()->::vector_3d::MergeFrom(from.position());
     }
@@ -753,7 +795,7 @@ void ssl_ball::CopyFrom(const ssl_ball& from) {
 }
 
 bool ssl_ball::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
   
   if (has_position()) {
     if (!this->position().IsInitialized()) return false;
@@ -766,6 +808,7 @@ bool ssl_ball::IsInitialized() const {
 
 void ssl_ball::Swap(ssl_ball* other) {
   if (other != this) {
+    std::swap(id_, other->id_);
     std::swap(position_, other->position_);
     std::swap(velecity_, other->velecity_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
@@ -786,6 +829,7 @@ void ssl_ball::Swap(ssl_ball* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int ssl_robot::kIdFieldNumber;
 const int ssl_robot::kPositionFieldNumber;
 const int ssl_robot::kVelecityFieldNumber;
 #endif  // !_MSC_VER
@@ -808,6 +852,7 @@ ssl_robot::ssl_robot(const ssl_robot& from)
 
 void ssl_robot::SharedCtor() {
   _cached_size_ = 0;
+  id_ = 0u;
   position_ = NULL;
   velecity_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -846,6 +891,7 @@ ssl_robot* ssl_robot::New() const {
 
 void ssl_robot::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    id_ = 0u;
     if (has_position()) {
       if (position_ != NULL) position_->::vector_3d::Clear();
     }
@@ -863,21 +909,37 @@ bool ssl_robot::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .vector_3d position = 1;
+      // required uint32 id = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_position;
+        break;
+      }
+      
+      // required .vector_3d position = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_position:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_position()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_velecity;
+        if (input->ExpectTag(26)) goto parse_velecity;
         break;
       }
       
-      // required .vector_3d velecity = 2;
-      case 2: {
+      // required .vector_3d velecity = 3;
+      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_velecity:
@@ -908,16 +970,21 @@ bool ssl_robot::MergePartialFromCodedStream(
 
 void ssl_robot::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .vector_3d position = 1;
-  if (has_position()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->position(), output);
+  // required uint32 id = 1;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
   }
   
-  // required .vector_3d velecity = 2;
+  // required .vector_3d position = 2;
+  if (has_position()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->position(), output);
+  }
+  
+  // required .vector_3d velecity = 3;
   if (has_velecity()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->velecity(), output);
+      3, this->velecity(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -928,18 +995,23 @@ void ssl_robot::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ssl_robot::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required .vector_3d position = 1;
+  // required uint32 id = 1;
+  if (has_id()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
+  }
+  
+  // required .vector_3d position = 2;
   if (has_position()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->position(), target);
+        2, this->position(), target);
   }
   
-  // required .vector_3d velecity = 2;
+  // required .vector_3d velecity = 3;
   if (has_velecity()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        2, this->velecity(), target);
+        3, this->velecity(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -953,14 +1025,21 @@ int ssl_robot::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .vector_3d position = 1;
+    // required uint32 id = 1;
+    if (has_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->id());
+    }
+    
+    // required .vector_3d position = 2;
     if (has_position()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->position());
     }
     
-    // required .vector_3d velecity = 2;
+    // required .vector_3d velecity = 3;
     if (has_velecity()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -994,6 +1073,9 @@ void ssl_robot::MergeFrom(const ::google::protobuf::Message& from) {
 void ssl_robot::MergeFrom(const ssl_robot& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_id()) {
+      set_id(from.id());
+    }
     if (from.has_position()) {
       mutable_position()->::vector_3d::MergeFrom(from.position());
     }
@@ -1017,7 +1099,7 @@ void ssl_robot::CopyFrom(const ssl_robot& from) {
 }
 
 bool ssl_robot::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
   
   if (has_position()) {
     if (!this->position().IsInitialized()) return false;
@@ -1030,6 +1112,7 @@ bool ssl_robot::IsInitialized() const {
 
 void ssl_robot::Swap(ssl_robot* other) {
   if (other != this) {
+    std::swap(id_, other->id_);
     std::swap(position_, other->position_);
     std::swap(velecity_, other->velecity_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
@@ -1052,7 +1135,6 @@ void ssl_robot::Swap(ssl_robot* other) {
 #ifndef _MSC_VER
 const int ssl_team::kRobotsFieldNumber;
 const int ssl_team::kSideFieldNumber;
-const int ssl_team::kColorFieldNumber;
 #endif  // !_MSC_VER
 
 ssl_team::ssl_team()
@@ -1072,7 +1154,6 @@ ssl_team::ssl_team(const ssl_team& from)
 void ssl_team::SharedCtor() {
   _cached_size_ = 0;
   side_ = 0;
-  color_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1108,7 +1189,6 @@ ssl_team* ssl_team::New() const {
 void ssl_team::Clear() {
   if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
     side_ = 0;
-    color_ = 0;
   }
   robots_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1153,27 +1233,6 @@ bool ssl_team::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(24)) goto parse_color;
-        break;
-      }
-      
-      // required .ColorType color = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_color:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (ColorType_IsValid(value)) {
-            set_color(static_cast< ColorType >(value));
-          } else {
-            mutable_unknown_fields()->AddVarint(3, value);
-          }
-        } else {
-          goto handle_uninterpreted;
-        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -1208,12 +1267,6 @@ void ssl_team::SerializeWithCachedSizes(
       2, this->side(), output);
   }
   
-  // required .ColorType color = 3;
-  if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      3, this->color(), output);
-  }
-  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1235,12 +1288,6 @@ void ssl_team::SerializeWithCachedSizes(
       2, this->side(), target);
   }
   
-  // required .ColorType color = 3;
-  if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      3, this->color(), target);
-  }
-  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1256,12 +1303,6 @@ int ssl_team::ByteSize() const {
     if (has_side()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->side());
-    }
-    
-    // required .ColorType color = 3;
-    if (has_color()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->color());
     }
     
   }
@@ -1303,9 +1344,6 @@ void ssl_team::MergeFrom(const ssl_team& from) {
     if (from.has_side()) {
       set_side(from.side());
     }
-    if (from.has_color()) {
-      set_color(from.color());
-    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1323,7 +1361,7 @@ void ssl_team::CopyFrom(const ssl_team& from) {
 }
 
 bool ssl_team::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
   
   for (int i = 0; i < robots_size(); i++) {
     if (!this->robots(i).IsInitialized()) return false;
@@ -1335,7 +1373,6 @@ void ssl_team::Swap(ssl_team* other) {
   if (other != this) {
     robots_.Swap(&other->robots_);
     std::swap(side_, other->side_);
-    std::swap(color_, other->color_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -1357,6 +1394,7 @@ void ssl_team::Swap(ssl_team* other) {
 const int ssl_world_packet::kFieldBallsFieldNumber;
 const int ssl_world_packet::kBlueTeamFieldNumber;
 const int ssl_world_packet::kYellowTeamFieldNumber;
+const int ssl_world_packet::kCommentFieldNumber;
 #endif  // !_MSC_VER
 
 ssl_world_packet::ssl_world_packet()
@@ -1379,6 +1417,7 @@ void ssl_world_packet::SharedCtor() {
   _cached_size_ = 0;
   blue_team_ = NULL;
   yellow_team_ = NULL;
+  comment_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1387,6 +1426,9 @@ ssl_world_packet::~ssl_world_packet() {
 }
 
 void ssl_world_packet::SharedDtor() {
+  if (comment_ != &::google::protobuf::internal::kEmptyString) {
+    delete comment_;
+  }
   if (this != default_instance_) {
     delete blue_team_;
     delete yellow_team_;
@@ -1420,6 +1462,11 @@ void ssl_world_packet::Clear() {
     }
     if (has_yellow_team()) {
       if (yellow_team_ != NULL) yellow_team_->::ssl_team::Clear();
+    }
+    if (has_comment()) {
+      if (comment_ != &::google::protobuf::internal::kEmptyString) {
+        comment_->clear();
+      }
     }
   }
   field_balls_.Clear();
@@ -1472,6 +1519,23 @@ bool ssl_world_packet::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(34)) goto parse_comment;
+        break;
+      }
+      
+      // optional string comment = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_comment:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_comment()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->comment().data(), this->comment().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -1512,6 +1576,15 @@ void ssl_world_packet::SerializeWithCachedSizes(
       3, this->yellow_team(), output);
   }
   
+  // optional string comment = 4;
+  if (has_comment()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->comment().data(), this->comment().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      4, this->comment(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1541,6 +1614,16 @@ void ssl_world_packet::SerializeWithCachedSizes(
         3, this->yellow_team(), target);
   }
   
+  // optional string comment = 4;
+  if (has_comment()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->comment().data(), this->comment().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->comment(), target);
+  }
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1564,6 +1647,13 @@ int ssl_world_packet::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->yellow_team());
+    }
+    
+    // optional string comment = 4;
+    if (has_comment()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->comment());
     }
     
   }
@@ -1608,6 +1698,9 @@ void ssl_world_packet::MergeFrom(const ssl_world_packet& from) {
     if (from.has_yellow_team()) {
       mutable_yellow_team()->::ssl_team::MergeFrom(from.yellow_team());
     }
+    if (from.has_comment()) {
+      set_comment(from.comment());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1644,6 +1737,7 @@ void ssl_world_packet::Swap(ssl_world_packet* other) {
     field_balls_.Swap(&other->field_balls_);
     std::swap(blue_team_, other->blue_team_);
     std::swap(yellow_team_, other->yellow_team_);
+    std::swap(comment_, other->comment_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

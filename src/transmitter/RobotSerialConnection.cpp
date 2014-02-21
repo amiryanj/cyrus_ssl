@@ -9,13 +9,13 @@
 
 
 RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)
-  throw(SSLException)
-{
-
+{    
+    try {
     if (serial.Open(serialPortName,baudrate) != 1)
-    {
-    	throw SSLException("failed to open serial device");
-        //std::cerr << "device " << serialPortName <<" failed to open" << std::endl;
+            throw "failed to open serial device";
+    }
+    catch (const char* msg)  {
+        cerr << "Exception: " << "RobotSerialConnection" << msg << endl;
     }
 }
 

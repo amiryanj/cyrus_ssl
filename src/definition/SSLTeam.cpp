@@ -24,7 +24,7 @@ std::string SSLTeam::colorStr()
     return (color == Yellow)? "Yellow":"Blue";
 }
 
-vector<SSLRobot *> SSLTeam::inFieldRobots()
+vector<SSLRobot *> SSLTeam::inFields()
 {
     vector<SSLRobot*> robotList;
     robotList.reserve(MAX_TEAM_PLAYER);
@@ -34,8 +34,16 @@ vector<SSLRobot *> SSLTeam::inFieldRobots()
     return robotList;
 }
 
+vector<SSLRobot *> SSLTeam::allRobots()
+{
+    vector<SSLRobot*> robotList;
+    robotList.reserve(MAX_ID_NUM);
+    for( int i = 0; i < MAX_ID_NUM ; ++i )
+        robotList.push_back(robot[i]);
+    return robotList;
+}
 
-unsigned int SSLTeam::numInFieldRobots() const
+unsigned int SSLTeam::numInFields() const
 {
     int count=0;
     for(int i=0;i<MAX_ID_NUM;++i)

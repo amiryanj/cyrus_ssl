@@ -67,7 +67,8 @@ SOURCES += main.cpp \
     transmitter/grSim/cpp/grSim_Packet.pb.cc \
     transmitter/grSim/cpp/grSim_Commands.pb.cc \
     soccer/roles/stoprole.cpp \
-    transmitter/commandtransmitter.cpp
+    transmitter/commandtransmitter.cpp \
+    definition/sslmath.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -120,7 +121,8 @@ HEADERS += \
     transmitter/grSim/cpp/grSim_Commands.pb.h \
     soccer/roles/stoprole.h \
     soccer/roles/keepgoal.h \
-    transmitter/commandtransmitter.h
+    transmitter/commandtransmitter.h \
+    definition/sslmath.h
 
 OTHER_FILES +=
 

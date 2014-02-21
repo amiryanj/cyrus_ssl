@@ -11,7 +11,7 @@
 class SSLAgent
 {
 public:
-    SSLAgent(SSL::Color color);
+    SSLAgent(SSL::Color ourC, SSL::Side ourS);
     ~SSLAgent();
 
     SSLRobot* robot;

@@ -44,7 +44,7 @@ void SSLAnalyzer::updateDistances()
 {    
     RobotDistTo::minTimeToBall = RobotDistTo::minTimeToBallOfTeam[0] = RobotDistTo::minTimeToBallOfTeam[1] = INFINITY;
     for(int tm = 0; tm <= 1; ++tm)
-        for(unsigned int i=0; i < world()->team[tm]->numInFieldRobots(); ++i )
+        for(unsigned int i=0; i < world()->team[tm]->numInFields(); ++i )
         {
             distToBall[tm][i]->computeEuclideanToBall();
         }
@@ -85,7 +85,7 @@ const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(Vector2D point)
 
 const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(Vector2D point, Color team_color)
 {
-    return nearestPlayerToPoint(point, world()->team[team_color]->inFieldRobots());
+    return nearestPlayerToPoint(point, world()->team[team_color]->inFields());
 }
 
 const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(const Vector2D &point, std::vector<SSLRobot*> robots)
@@ -113,7 +113,7 @@ bool SSLAnalyzer::canKick(const SSLRobot *robot)
 
 SSLRobot *SSLAnalyzer::inKickPosition(Color team_color)
 {
-    vector<SSLRobot*> robots = world()->team[team_color]->inFieldRobots();
+    vector<SSLRobot*> robots = world()->team[team_color]->inFields();
     if(RobotDistTo::nearestRobotToBall)
     for(unsigned int i = 0; i<robots.size(); i++)
     {
