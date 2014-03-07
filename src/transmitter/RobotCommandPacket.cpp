@@ -1,7 +1,14 @@
 #include "RobotCommandPacket.h"
-#include "iostream"
+#include <iostream>
+#include <cmath>
+#include "../general.h"
 
 using namespace std;
+// in clockwise turn
+double RobotCommandPacket::wheelAngle_1 = +45.0 * M_PI/180.0;
+double RobotCommandPacket::wheelAngle_2 = -45.0 * M_PI/180.0;
+double RobotCommandPacket::wheelAngle_3 = -135 * M_PI/180.0;
+double RobotCommandPacket::wheelAngle_4 = +135.0 * M_PI/180.0;
 
 RobotCommandPacket::RobotCommandPacket()
 {
@@ -65,7 +72,18 @@ void RobotCommandPacket::setVelocity(double vx, double vy, double wz)
     this->byWheelSpeed = false;
 }
 
-void RobotCommandPacket::setMotorVelocity(double v1, double v2, double v3, double v4)
+void RobotCommandPacket::setVelocityByWheels(double vx, double vy, double wz)
+{
+    // by Jacobian Matrix
+    v[0] = cos(wheelAngle_1) * vx + sin(wheelAngle_1)* vy + ROBOT_RADIUS* wz;
+    v[1] = cos(wheelAngle_2) * vx + sin(wheelAngle_2)* vy + ROBOT_RADIUS* wz;
+    v[2] = cos(wheelAngle_3) * vx + sin(wheelAngle_3)* vy + ROBOT_RADIUS* wz;
+    v[3] = cos(wheelAngle_4) * vx + sin(wheelAngle_4)* vy + ROBOT_RADIUS* wz;
+
+    this->byWheelSpeed = true;
+}
+
+void RobotCommandPacket::setWheelVelocity(double v1, double v2, double v3, double v4)
 {
     v[0] = v1;
     v[1] = v2;
@@ -107,4 +125,27 @@ double RobotCommandPacket::getWheelSpeed(int i)
         cerr << "Exception: RobotCommandPacket: " << msg << endl;
         return 0;
     }
+}
+
+double RobotCommandPacket::getWheelAngle(int i)
+{
+    try {
+        if(i < 1 || i > 4)
+            throw "Invalid Wheel Speed Number request" ;
+        switch(i) {
+        case 1:
+            return wheelAngle_1 * 180.0/M_PI;
+        case 2:
+            return wheelAngle_2 * 180.0/M_PI;
+        case 3:
+            return wheelAngle_3 * 180.0/M_PI;
+        case 4:
+            return wheelAngle_4 * 180.0/M_PI;
+        }
+    }
+    catch (const char* msg) {
+        cerr << "Exception: RobotCommandPacket: " << msg << endl;
+        return 0;
+    }
+
 }

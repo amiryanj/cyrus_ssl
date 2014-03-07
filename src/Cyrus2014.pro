@@ -69,7 +69,8 @@ SOURCES += main.cpp \
     soccer/roles/stoprole.cpp \
     transmitter/commandtransmitter.cpp \
     definition/sslmath.cpp \
-    vision/naivekalmanfilter.cpp
+    vision/naivekalmanfilter.cpp \
+    controller/pidcontroller.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -124,8 +125,10 @@ HEADERS += \
     soccer/roles/keepgoal.h \
     transmitter/commandtransmitter.h \
     definition/sslmath.h \
-    vision/naivekalmanfilter.h
+    vision/naivekalmanfilter.h \
+    controller/pidcontroller.h
 
-OTHER_FILES +=
+OTHER_FILES += \
+    todo.txt
 
 

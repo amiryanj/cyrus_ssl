@@ -119,8 +119,7 @@ void SSLWorldModel::updateRobotAvailability(Color color, int ID, bool available)
         team[color]->robot[ID]->isInField = true;
     }
     else {
-        team[color]->robot[ID]->isInField = false;
-        team[color]->robot[ID]->setPosition(Vector3D(INFINITY, INFINITY, 0));
+        team[color]->robot[ID]->getOutOfField();
     }
 
 }

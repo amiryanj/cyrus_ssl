@@ -45,10 +45,11 @@ typedef Vector3D point3D;
 #define GRSIM_VISION_PORT       10002
 
 #define GRSIM_COMMAND_ADDRESS   "127.0.0.2"  // "192.168.1.105"
-#define GRSIM_COMMAND_PORT      20011
+#define GRSIM_COMMAND_PORT      20021
 #endif
 
-#define VISUALIZER_IP           "127.0.0.1"
+#define VISUALIZER_IP           "127.0.0.3"
+// "213.233.171.39" //
 #define VISUALIZER_PORT         4001
 
 
@@ -61,6 +62,7 @@ typedef Vector3D point3D;
 #define FIELD_PENALTY_DISTANCE  750
 
 #define ROBOT_RADIUS 90.0
+#define BALL_RADIUS  21.5
 
 #define CAMERA_FPS   10.0 // 60
 

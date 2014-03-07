@@ -36,19 +36,19 @@ void GRSimSender::sendPacket(int robotID, RobotCommandPacket rawPacket)
 
     grSim_Robot_Command* command = grSimPacket.mutable_commands()->add_robot_commands();
     command->set_id(robotID);
+    double max_lin_vel = 10; // you should set this parameter
     if(rawPacket.byWheelSpeed){
         command->set_wheelsspeed(true);
-        command->set_wheel1(rawPacket.getWheelSpeed(1));
-        command->set_wheel2(rawPacket.getWheelSpeed(2));
-        command->set_wheel3(rawPacket.getWheelSpeed(3));
-        command->set_wheel4(rawPacket.getWheelSpeed(4));
+        command->set_wheel1(rawPacket.getWheelSpeed(4)/max_lin_vel);
+        command->set_wheel2(rawPacket.getWheelSpeed(3)/max_lin_vel);
+        command->set_wheel3(rawPacket.getWheelSpeed(2)/max_lin_vel);
+        command->set_wheel4(rawPacket.getWheelSpeed(1)/max_lin_vel);
     }
     else
-    {
-        double max_lin_vel = 5; // you should set this parameter
+    {        
         double d_sign = (rawPacket.getVelocity().Y() >= 0)? 1:-1;
-        command->set_velnormal(rawPacket.getVelocity().lenght2D() * -d_sign);
-        command->set_veltangent(tan(M_PI_2 - rawPacket.getVelocity().to2D().arctan()));
+        command->set_velnormal(rawPacket.getVelocity().lenght2D() * -d_sign / max_lin_vel);
+        command->set_veltangent(tan(M_PI_2 + atan2(rawPacket.getVelocity().Y(), rawPacket.getVelocity().X())));
         command->set_velangular(rawPacket.getVelocity().Teta());
     }
     // dangerous test

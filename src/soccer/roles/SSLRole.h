@@ -7,7 +7,7 @@
 class SSLRole
 {
 public:
-    enum RoleType {ROLE_UNKNOWN, ROLE_GOALIE, ROLE_DEFENDER, ROLE_BLOCKER, ROLE_MARKER, ROLE_PLAYMAKER};
+    enum RoleType {ROLE_UNKNOWN, GoalKeeper, ROLE_DEFENDER, ROLE_BLOCKER, ROLE_MARKER, ROLE_PLAYMAKER};
 
     SSLRole();
     virtual ~SSLRole();

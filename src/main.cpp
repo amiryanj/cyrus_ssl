@@ -9,8 +9,9 @@
 #include "transmitter/commandtransmitter.h"
 
 #include "definition/sslmath.h"
-
 using namespace std;
+
+
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +22,7 @@ int main(int argc, char *argv[])
 //    cout << "for " << angle << " > "<< continuousRadian(angle, start) <<   endl;
 
     cout << "Main is running ... " << endl;
+    long long loopCounter = 0;
 
     SSLVision *vision = new SSLVision();
     vision->open(GRSIM_VISION_PORT);
@@ -38,13 +40,16 @@ int main(int argc, char *argv[])
 
     while (true)
     {
+        loopCounter ++;
         vision->check();
         filter->check();
         analyzer->check();
         game->check();
         gui->check();
-        transmitter->check();
-        usleep(30000);
+        if((loopCounter % 3) ==0) {
+            transmitter->check();
+        }
+        usleep(50000);
     }
 
     //    return app.exec();

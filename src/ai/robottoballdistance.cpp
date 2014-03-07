@@ -37,7 +37,7 @@ double RobotDistTo::distToPoint(SSLRobot *robot, const Vector2D &point)
 
         Vector2D distVec = robot->Position().to2D() - ball->Position();
         double dist = distVec.lenght() / 1000.0;
-        return dist / robot->physic.max_lin_vel;
+        return dist / robot->physic.max_lin_vel_mmps;
     }
     catch (const char* msg) {
         std::cerr << "Exception: " << msg << std::endl;
@@ -57,7 +57,7 @@ void RobotDistTo::computeEuclideanToBall()
 
         Vector2D dist = robot->Position().to2D() - ball->Position();
         this->euclideanDistB = dist.lenght() / 1000.0;
-        this->euclideanTimeB = this->euclideanDistB / robot->physic.max_lin_vel;
+        this->euclideanTimeB = this->euclideanDistB / robot->physic.max_lin_vel_mmps;
 
         if(this->euclideanTimeB < minTimeToBallOfTeam[robot->color])
         {

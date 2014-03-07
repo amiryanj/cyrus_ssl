@@ -14,7 +14,8 @@ public:
     void reset();
     void setVelocity(const Vector3D &vel);
     void setVelocity(double vx, double vy, double wz);
-    void setMotorVelocity(double v1, double v2, double v3, double v4);
+    void setVelocityByWheels(double vx, double vy, double wz);
+    void setWheelVelocity(double v1, double v2, double v3, double v4);
 
     double kickPower;
     bool isForceKick;
@@ -23,12 +24,17 @@ public:
     bool byWheelSpeed;
     Vector3D getVelocity() const;
     double getWheelSpeed(int i);
+    double getWheelAngle(int i);
 
     RobotCommandPacket& operator= (RobotCommandPacket& other);
 
 private:
     double v[4];
     Vector3D Velocity;
+    static double wheelAngle_1;
+    static double wheelAngle_2;
+    static double wheelAngle_3;
+    static double wheelAngle_4;
 
 };
 
