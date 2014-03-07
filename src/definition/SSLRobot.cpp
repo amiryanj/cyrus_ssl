@@ -7,11 +7,18 @@
 SSLRobot::SSLRobot(SSLTeam *team)
 {
     this->team = team;
+    this->radius = ROBOT_RADIUS;
 }
 
 std::string SSLRobot::colorStr()
 {
     return (color == Yellow)? "Yellow":"Blue";
+}
+
+void SSLRobot::getOutOfField()
+{
+    this->setPosition(Vector3D(id* this->radius * 2.5 , FIELD_WIDTH /2 *((color==SSL::Blue)? 1:-1)* 1.4, 0.0));
+    this->isInField = false;
 }
 
 Vector3D SSLRobot::localSpeed() const

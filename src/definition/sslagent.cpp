@@ -5,10 +5,11 @@
 
 using namespace std;
 
-SSLAgent::SSLAgent(Color ourC, Side ourS)
+SSLAgent::SSLAgent(Color our_color, Side our_side)
 {    
     this->role = NULL;
     this->robot = NULL;
+
     // initialize planner
     FieldBound bound;
     bound.set(-1.2 * FIELD_LENGTH/2, 1.2 * FIELD_LENGTH/2,
@@ -20,28 +21,33 @@ SSLAgent::SSLAgent(Color ourC, Side ourS)
     plan_agent.velocity_limit.set(3, 3, 2);
     planner.setPlanningAgent(plan_agent);
 
-    penaltyAreaObstacleSet.reserve(3);
-    int z = (int) ourS;
+    // initializing field obstacles for agent
+    // ****************************************************************************************
+    penaltyAreaObs.reserve(3);
+    int z = (int) our_side;
     Obstacle* myPenaltyArea_1 = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
                                                     FIELD_PENALTY_AREA_RADIUS, 0);
     Obstacle* myPenaltyArea_2 = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
                                                     FIELD_PENALTY_AREA_RADIUS, 0);
     Obstacle* myPenaltyArea_3 = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, 0),
                                                     FIELD_PENALTY_AREA_RADIUS*2, FIELD_PENALTY_AREA_WIDTH, 0);
+    penaltyAreaObs.push_back(myPenaltyArea_1);
+    penaltyAreaObs.push_back(myPenaltyArea_2);
+    penaltyAreaObs.push_back(myPenaltyArea_3);
 
-    penaltyAreaObstacleSet.push_back(myPenaltyArea_1);
-    penaltyAreaObstacleSet.push_back(myPenaltyArea_2);
-    penaltyAreaObstacleSet.push_back(myPenaltyArea_3);
-
-    myDynamicObstacleSet.reserve((MAX_ID_NUM) *2);
-    for(unsigned int i=0; i< (MAX_ID_NUM) *2; i++) //
-    {
+    allRobotsObs.reserve(MAX_ID_NUM * 2);
+    for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
         Obstacle* ob_ = new Obstacle(b2Vec2(0, 0), ROBOT_RADIUS, 0);
-        myDynamicObstacleSet.push_back(ob_);
+        allRobotsObs.push_back(ob_);
     }
 
-    cout << "toop ra niz bayad be mavane ezafe kard" << endl;
+    ballObs = new Obstacle(b2Vec2(0,0), BALL_RADIUS, 0);
+    // ****************************************************************************************
 
+    // initialize controller
+    // ********************************************************
+    controller.setParameters(0.5, 0.0, 0.01);
+    // ********************************************************
 }
 
 SSLAgent::~SSLAgent()
@@ -50,6 +56,8 @@ SSLAgent::~SSLAgent()
 
 bool SSLAgent::isNull()
 {
+    if(robot == NULL)
+        return true;
     return !(this->robot->isInField);
 }
 
@@ -85,43 +93,71 @@ void SSLAgent::run()
             return;
         planner.setInitialState(init_state);
         planner.setGoalRegion(this->target);
-        vector<SSLRobot*> all_robots = SSLWorldModel::getInstance()->allRobots();
-        for(int i=0; i<myDynamicObstacleSet.size(); i++)
+
+        // update position of dynamic obstacles
+        vector<SSLRobot*> all_actual_robots = SSLWorldModel::getInstance()->allRobots();
+        for(unsigned int i=0; i<allRobotsObs.size(); i++)
         {
-            Obstacle* ob_  = myDynamicObstacleSet.at(i);
-            SSLRobot* rob_ = all_robots.at(i);
+            Obstacle* ob_  = allRobotsObs.at(i);
+            SSLRobot* rob_ = all_actual_robots.at(i);
             b2Vec2 pos;
             if(rob_->color == this->robot->color && rob_->id == this->getID())
-                pos.Set(INFINITY, INFINITY);
+                pos.Set(INFINITY, INFINITY); // the robot is not an obstacle for its own :))
             else
                 pos.Set(rob_->Position().X(), rob_->Position().Y());
             ob_->transform.Set(pos, rob_->Position().Teta());
         }
 
-        planner.setDynamicObstacles(myDynamicObstacleSet);
-        if(this->role->type != SSLRole::ROLE_GOALIE)
+        SSLBall* actual_ball = SSLWorldModel::getInstance()->ball;
+        ballObs->transform.Set(b2Vec2(actual_ball->Position().X(), actual_ball->Position().Y()), 0);
+
+        // we treat dynamic and static obstacles in the same way
+
+        ObstacleSet allObstacles;
+        allObstacles.insert(allObstacles.end(), allRobotsObs.begin(), allRobotsObs.end());
+        allObstacles.insert(allObstacles.end(), ballObs);
+
+        if(this->role->type != SSLRole::GoalKeeper)
         {
-            planner.setStaticObstacles(penaltyAreaObstacleSet);
+            allObstacles.insert(allObstacles.begin(), penaltyAreaObs.begin(), penaltyAreaObs.end());
         }
 
-//        planner.RRTsolve();
+        planner.setStaticObstacles(allObstacles);
 
         planner.PotentialFieldSolve();
-        Vector3D desiredVelocity = planner.getControl(0);
-        desiredVelocity.rotate(-robot->orien());
-        //        desiredVelocity.setTeta(0);
-        desiredVelocity.set(.7, .4, 0);
+        if(!planner.planningResult)
+            planner.RRTsolve();
 
-        cout << "Desired vel for robot #" << this->getID() << " is: X= " << desiredVelocity.X()
-             << " Y= " << desiredVelocity.Y() << " teta=" << desiredVelocity.Teta() << endl;
+        temp_desired_vel = planner.getControl(0);
+        double speed = .7;
+        speed *= this->robot->physic.max_lin_vel_mmps;
+        temp_desired_vel.normalize2D();
+        temp_desired_vel *= speed;
+        controller.setPoint(temp_desired_vel, this->robot->Speed());
 
-        // TODO
-        // run the controller
+        temp_applied_vel_global = controller.getControl();
+
+//        temp_applied_vel_local.set(1000, 0, 0);
+//        temp_applied_vel.rotate(M_PI_4l);
+        temp_applied_vel_local = temp_applied_vel_global;
+        temp_applied_vel_local.rotate(-robot->orien());
+        temp_applied_vel_local.setTeta(0);
+
+        cout << "Desired vel for robot #" << this->getID() << " is: X= " << temp_desired_vel.X()
+             << " Y= " << temp_desired_vel.Y() << " teta=" << temp_desired_vel.Teta() << endl;
+
+
+        cout << "Applied vel for robot #" << this->getID()
+             << " is: V_x= " << temp_applied_vel_local.X()
+             << " V_y= " << temp_applied_vel_local.Y()
+             << " ,V angle = " << temp_applied_vel_local.to2D().arctan()
+             << " ,speed = " << temp_applied_vel_local.lenght2D()
+             << " omega=" << temp_applied_vel_local.Teta() << endl;
 
         RobotCommandPacket pkt;
-        pkt.setVelocity(desiredVelocity);
-        CommandTransmitter::getInstance()->send(this->getID(), pkt);
 
+        pkt.setVelocityByWheels(temp_applied_vel_local.X(), temp_applied_vel_local.Y(), temp_applied_vel_local.Teta());
+        CommandTransmitter::getInstance()->send(this->getID(), pkt);
 
     }
 

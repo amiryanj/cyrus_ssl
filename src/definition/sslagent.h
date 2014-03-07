@@ -7,11 +7,12 @@
 
 #include "../planner/planning/goalstate.h"
 #include "../planner/planning/planningproblem.h"
+#include "../controller/pidcontroller.h"
 
 class SSLAgent
 {
 public:
-    SSLAgent(SSL::Color ourC, SSL::Side ourS);
+    SSLAgent(SSL::Color our_color, SSL::Side our_side);
     ~SSLAgent();
 
     SSLRobot* robot;
@@ -19,6 +20,11 @@ public:
 
     GoalState target;
     PlanningProblem planner;
+    PIDController controller;
+
+    Vector3D temp_desired_vel;
+    Vector3D temp_applied_vel_global;
+    Vector3D temp_applied_vel_local;
 
 
     // SSLController controller;
@@ -28,9 +34,10 @@ public:
 
     void run();
 private:
-
+    ObstacleSet allRobotsObs;
+    Obstacle* ballObs;
     ObstacleSet myDynamicObstacleSet;
-    ObstacleSet penaltyAreaObstacleSet;
+    ObstacleSet penaltyAreaObs;
 };
 
 #endif // SSLAGENT_H

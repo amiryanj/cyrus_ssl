@@ -16,6 +16,7 @@ public:
     unsigned int id;
     Color color;
     std::string colorStr();
+    void getOutOfField();
 
     bool isInField;
 

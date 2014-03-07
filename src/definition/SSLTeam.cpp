@@ -10,8 +10,8 @@ SSLTeam::SSLTeam(const Side side, const Color color, const SSLRobotPhysic &physi
         this->robot[i]= new SSLRobot(this);
         robot[i]->id = i;
         robot[i]->color = color;        
-        robot[i]->isInField = false;
         robot[i]->physic = physic;
+        robot[i]->getOutOfField();
     }
 
     this->side = side;
@@ -29,7 +29,7 @@ vector<SSLRobot *> SSLTeam::inFields()
     vector<SSLRobot*> robotList;
     robotList.reserve(MAX_TEAM_PLAYER);
     for( int i = 0; i < MAX_ID_NUM ; ++i )
-        if(this->robot[i]->isInField == true)
+        if(this->robot[i]->isInField)
             robotList.push_back(robot[i]);
     return robotList;
 }
