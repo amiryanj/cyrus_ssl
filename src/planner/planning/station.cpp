@@ -49,3 +49,8 @@ bool Station::operator ==(Station &other)
         return true;
     return false;
 }
+
+void Station::printToStream(std::ostream &stream)
+{
+    stream << "[Station]: X= " << position.X() << " ,Y= " << position.Y() << std::endl ;
+}

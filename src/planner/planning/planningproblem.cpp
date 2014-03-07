@@ -276,13 +276,25 @@ void PlanningProblem::PotentialFieldSolve()
     this->planningResult = false;
     tree.clear();
     trajec.clear();
-    double repulsive_coefficient = 6;
+    double repulsive_coefficient = .1;
+    int extendFailureCounter = 0;
     double start_time = MyMath::currentTimeMSec();
     tree.addNewVertex(NULL, initialState);
     RRTVertex* near = tree.nearest(goal.goal_point);
 
-    for(int step = 0; step < 50; step++)
+    // if the robot is in an invalid position, find the shotest path to valid area
+    if(!CheckValidity(initialState)) {
+        cerr << "Warning: the initial state is drawn in an obstacle" << endl;
+    }
+
+    if(!CheckValidity(goal.goal_point))  {
+        // for example: dont search
+        cerr << "Warning: the Goal state is drawn in an obstacle" << endl;
+    }
+
+    for(int step = 0; step < 200; step++)
     {
+        Vector2D totalForce(0, 0);
         b2PolygonShape road_to_goal_shape;
         b2Vec2 center(((near->state.position + goal.goal_point.position)/2.0).to2D().b2vec2());
         Vector2D diff_to_goal((goal.goal_point.position - near->state.position).to2D());
@@ -298,7 +310,8 @@ void PlanningProblem::PotentialFieldSolve()
 //            cout << "x: " << road.GetVertex(ii).x << " y: " << road.GetVertex(ii).y << endl;
 */
 
-        diff_to_goal.normalize();
+        diff_to_goal.normalize();                
+
         b2Transform identity_trans;
         identity_trans.SetIdentity();
         for(unsigned int i=0; i<this->stat_obstacles.size(); i++)
@@ -335,7 +348,8 @@ void PlanningProblem::PotentialFieldSolve()
                 dis_cache_.count = 0;
                 b2DistanceOutput dis_out;
                 b2Distance(&dis_out, &dis_cache_, &dis_in);
-                double min_dist_to_ob = dis_out.distance;
+                double dist_to_ob_body = dis_out.distance;
+
 
                 // debug
 
@@ -344,15 +358,26 @@ void PlanningProblem::PotentialFieldSolve()
 
                 Vector2D repulse_vec(diff_to_ob);
                 repulse_vec.normalize();
-                repulse_vec *= (agent.shape->m_radius * repulsive_coefficient/diff_to_ob.lenght());
+//                repulse_vec *= (agent.shape->m_radius * repulsive_coefficient/diff_to_ob.lenght());
 
-                diff_to_goal += repulse_vec;
+                // avoiding divid by zero
+                if(dist_to_ob_body < agent.shape->m_radius*0.2)
+                    dist_to_ob_body = agent.shape->m_radius*0.2;
+                if(dist_to_ob_body > agent.shape->m_radius*6)
+                    dist_to_ob_body = INFINITY;
+
+//                repulse_vec *= (agent.shape->m_radius * repulsive_coefficient/diff_to_ob.lenght());
+                repulse_vec *= (agent.shape->m_radius * repulsive_coefficient/dist_to_ob_body);
+
+                totalForce += repulse_vec;
+                totalForce += diff_to_goal * 0.7;
             }
         }
-        diff_to_goal.normalize();
+        totalForce += diff_to_goal;
+        totalForce.normalize();
 
         Station new_station;
-        new_station.setPosition(near->state.position + (diff_to_goal * 1.7 * agent.shape->m_radius).to3D());
+        new_station.setPosition(near->state.position + (totalForce * 1.7 * agent.shape->m_radius).to3D());
         if(CheckValidity(new_station))
         {
             tree.addNewVertex(near, new_station);
@@ -367,14 +392,20 @@ void PlanningProblem::PotentialFieldSolve()
                 cout << "Planning Succeed in (ms): " << total_time << endl;
                 break;
             }
+            extendFailureCounter = 0;
         }
         else
         {
+            cerr << "extension failed in planning:";
+            new_station.printToStream(cerr);
+            extendFailureCounter++;
+            if(extendFailureCounter > 2 && near->hasParent())
+                near = near->parent;
             cerr << "Potential Field: problem in finding root (local minima)" << endl;
-            repulsive_coefficient *= 1.3;
+            repulsive_coefficient *= 1.15;
             cout << "repulsive_coefficient = " << repulsive_coefficient << endl;
         }
     }
     this->buildTrajectory();
-
+    trajec.printToStream(cout);
 }

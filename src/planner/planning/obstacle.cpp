@@ -19,7 +19,7 @@ Obstacle::Obstacle(b2Vec2 center, double width, double height, double orien)
     shape = new b2PolygonShape();
     shape->m_type = b2Shape::e_polygon;    
 
-    ((b2PolygonShape*)shape)->SetAsBox(width, height); // , center, orien);
+    ((b2PolygonShape*)shape)->SetAsBox(width/2, height/2); // , center, orien);
     this->transform.Set(center, orien);
 
 //    this->orien = orien;

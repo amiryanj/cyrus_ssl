@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "station.h"
 #include "randomtree.h"
+#include "ostream"
 
 class Trajectory : public RandomTree
 {
@@ -15,6 +16,8 @@ public:
     int lenght() const;
 
     void prependVertex(RRTVertex* ver);
+
+    void printToStream(std::ostream& stream);
 
     Station getStation(int index);
 };

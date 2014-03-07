@@ -16,7 +16,7 @@
 #define MAX_SAMPLING_TRY 10
 #define MAX_STATION_CATCH_SIZE 50
 #define MAX_RRT_STEP_TRY 400
-#define GOAL_PROB 1 // 0.5
+#define GOAL_PROB 0.5
 #define STEP 0.01f
 
 class PlanningProblem        
@@ -86,7 +86,6 @@ private:
     double EucleadianDistance(const Station& A, const Station& B);
 
     void testCollisionFunc();
-
 
 
 };

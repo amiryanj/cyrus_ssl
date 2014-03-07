@@ -7,9 +7,11 @@ PlanningAgent::PlanningAgent(b2Shape::Type type)
     case b2Shape::e_circle:
         shape = new b2CircleShape();
         break;
-
     case b2Shape::e_polygon :
         shape = new b2PolygonShape();
+        break;
+    default:
+        shape = new b2CircleShape();
         break;
     }
 }

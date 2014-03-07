@@ -3,6 +3,7 @@
 
 #include "../../tools/vector3d.h"
 #include "velocity.h"
+#include "iostream"
 
 class Station
 {
@@ -23,6 +24,8 @@ public:
     void set(Station& other);
     void operator =(Station& other);
     bool operator ==(Station& other);
+
+    void printToStream(std::ostream& stream);
 
 };
 
