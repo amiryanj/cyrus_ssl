@@ -83,10 +83,10 @@ void protobuf_AddDesc_ssl_5fvisualizer_2eproto() {
     "\n\024ssl_visualizer.proto\032\017ssl_world.proto\032"
     "\022ssl_analyzer.proto\032\022ssl_decision.proto\032"
     "\021ssl_planner.proto\"\303\001\n\025ssl_visualizer_pa"
-    "cket\022%\n\nworld_data\030\001 \002(\0132\021.ssl_world_pac"
-    "ket\022+\n\ranalyzer_data\030\002 \002(\0132\024.ssl_analyze"
-    "r_packet\022+\n\rdecision_data\030\003 \002(\0132\024.ssl_de"
-    "cision_packet\022)\n\014planner_data\030\004 \002(\0132\023.ss"
+    "cket\022%\n\nworld_data\030\001 \001(\0132\021.ssl_world_pac"
+    "ket\022+\n\ranalyzer_data\030\002 \001(\0132\024.ssl_analyze"
+    "r_packet\022+\n\rdecision_data\030\003 \001(\0132\024.ssl_de"
+    "cision_packet\022)\n\014planner_data\030\004 \001(\0132\023.ss"
     "l_planner_packet", 296);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ssl_visualizer.proto", &protobuf_RegisterTypes);
@@ -197,7 +197,7 @@ bool ssl_visualizer_packet::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ssl_world_packet world_data = 1;
+      // optional .ssl_world_packet world_data = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -210,7 +210,7 @@ bool ssl_visualizer_packet::MergePartialFromCodedStream(
         break;
       }
       
-      // required .ssl_analyzer_packet analyzer_data = 2;
+      // optional .ssl_analyzer_packet analyzer_data = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -224,7 +224,7 @@ bool ssl_visualizer_packet::MergePartialFromCodedStream(
         break;
       }
       
-      // required .ssl_decision_packet decision_data = 3;
+      // optional .ssl_decision_packet decision_data = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -238,7 +238,7 @@ bool ssl_visualizer_packet::MergePartialFromCodedStream(
         break;
       }
       
-      // required .ssl_planner_packet planner_data = 4;
+      // optional .ssl_planner_packet planner_data = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -270,25 +270,25 @@ bool ssl_visualizer_packet::MergePartialFromCodedStream(
 
 void ssl_visualizer_packet::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .ssl_world_packet world_data = 1;
+  // optional .ssl_world_packet world_data = 1;
   if (has_world_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->world_data(), output);
   }
   
-  // required .ssl_analyzer_packet analyzer_data = 2;
+  // optional .ssl_analyzer_packet analyzer_data = 2;
   if (has_analyzer_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->analyzer_data(), output);
   }
   
-  // required .ssl_decision_packet decision_data = 3;
+  // optional .ssl_decision_packet decision_data = 3;
   if (has_decision_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->decision_data(), output);
   }
   
-  // required .ssl_planner_packet planner_data = 4;
+  // optional .ssl_planner_packet planner_data = 4;
   if (has_planner_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, this->planner_data(), output);
@@ -302,28 +302,28 @@ void ssl_visualizer_packet::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ssl_visualizer_packet::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required .ssl_world_packet world_data = 1;
+  // optional .ssl_world_packet world_data = 1;
   if (has_world_data()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         1, this->world_data(), target);
   }
   
-  // required .ssl_analyzer_packet analyzer_data = 2;
+  // optional .ssl_analyzer_packet analyzer_data = 2;
   if (has_analyzer_data()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, this->analyzer_data(), target);
   }
   
-  // required .ssl_decision_packet decision_data = 3;
+  // optional .ssl_decision_packet decision_data = 3;
   if (has_decision_data()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, this->decision_data(), target);
   }
   
-  // required .ssl_planner_packet planner_data = 4;
+  // optional .ssl_planner_packet planner_data = 4;
   if (has_planner_data()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -341,28 +341,28 @@ int ssl_visualizer_packet::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .ssl_world_packet world_data = 1;
+    // optional .ssl_world_packet world_data = 1;
     if (has_world_data()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->world_data());
     }
     
-    // required .ssl_analyzer_packet analyzer_data = 2;
+    // optional .ssl_analyzer_packet analyzer_data = 2;
     if (has_analyzer_data()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->analyzer_data());
     }
     
-    // required .ssl_decision_packet decision_data = 3;
+    // optional .ssl_decision_packet decision_data = 3;
     if (has_decision_data()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->decision_data());
     }
     
-    // required .ssl_planner_packet planner_data = 4;
+    // optional .ssl_planner_packet planner_data = 4;
     if (has_planner_data()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -425,13 +425,15 @@ void ssl_visualizer_packet::CopyFrom(const ssl_visualizer_packet& from) {
 }
 
 bool ssl_visualizer_packet::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   
   if (has_world_data()) {
     if (!this->world_data().IsInitialized()) return false;
   }
   if (has_analyzer_data()) {
     if (!this->analyzer_data().IsInitialized()) return false;
+  }
+  if (has_planner_data()) {
+    if (!this->planner_data().IsInitialized()) return false;
   }
   return true;
 }

@@ -6,5 +6,5 @@ message ssl_visualizer_packet {
 	required ssl_world_packet world_data = 1;	
 	required ssl_analyzer_packet analyzer_data = 2;	
 	required ssl_decision_packet decision_data = 3;	
-	required ssl_planner_packet world_data = 4;	
+	required ssl_planner_packet planner_data = 4;	
 }

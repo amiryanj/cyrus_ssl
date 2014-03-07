@@ -115,6 +115,41 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
 
 void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
 {
+    packet->set_comment("This is planning packet");
+    planner_polygon* bound = packet->mutable_plannerbound();
+    vector<SSLAgent*>::iterator it;
+    for(it=game()->agents.begin(); it!=game()->agents.end(); ++it)
+    {
+        SSLAgent* agent = *it;
+        if(agent->isNull())
+            return;
+        planner_plan* plan = packet->add_plans();
+        plan->set_id(agent->getID());
+        planner_vec3d* initial = plan->mutable_initstate();
+        initial->set_x(agent->planner.getInitialState().position.X());
+        initial->set_y(agent->planner.getInitialState().position.Y());
+        initial->set_teta(agent->planner.getInitialState().position.Teta());
+        planner_vec3d* goal = plan->mutable_goalstate();
+        goal->set_x(agent->planner.getGoal().goal_point.position.X());
+        goal->set_y(agent->planner.getGoal().goal_point.position.Y());
+        goal->set_teta(agent->planner.getGoal().goal_point.position.Teta());
+        planner_obstacles* obstacles = plan->mutable_obstacleset(); // is not filled yet
+        for(int i = 0; i< agent->planner.getTrajectory().count(); i++)
+        {
+            Vector3D pos = agent->planner.getTrajectory().getStation(i).getPosition();
+            planner_vec3d* state = plan->add_pathstate();
+            state->set_x(pos.X());
+            state->set_y(pos.Y());
+            state->set_teta(pos.Teta());
+        }
+        plan->mutable_desiredvel()->set_x(agent->temp_desired_vel.X());
+        plan->mutable_desiredvel()->set_y(agent->temp_desired_vel.Y());
+        plan->mutable_desiredvel()->set_teta(agent->temp_desired_vel.Teta());
+
+        plan->mutable_appliedvel()->set_x(agent->temp_applied_vel_local.X());
+        plan->mutable_appliedvel()->set_y(agent->temp_applied_vel_local.Y());
+        plan->mutable_appliedvel()->set_teta(agent->temp_applied_vel_local.Teta());
+    }
 }
 
 void GUIHandler::generateDecisionPacket(ssl_decision_packet *packet)

@@ -92,7 +92,7 @@ class ssl_visualizer_packet : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // required .ssl_world_packet world_data = 1;
+  // optional .ssl_world_packet world_data = 1;
   inline bool has_world_data() const;
   inline void clear_world_data();
   static const int kWorldDataFieldNumber = 1;
@@ -100,7 +100,7 @@ class ssl_visualizer_packet : public ::google::protobuf::Message {
   inline ::ssl_world_packet* mutable_world_data();
   inline ::ssl_world_packet* release_world_data();
   
-  // required .ssl_analyzer_packet analyzer_data = 2;
+  // optional .ssl_analyzer_packet analyzer_data = 2;
   inline bool has_analyzer_data() const;
   inline void clear_analyzer_data();
   static const int kAnalyzerDataFieldNumber = 2;
@@ -108,7 +108,7 @@ class ssl_visualizer_packet : public ::google::protobuf::Message {
   inline ::ssl_analyzer_packet* mutable_analyzer_data();
   inline ::ssl_analyzer_packet* release_analyzer_data();
   
-  // required .ssl_decision_packet decision_data = 3;
+  // optional .ssl_decision_packet decision_data = 3;
   inline bool has_decision_data() const;
   inline void clear_decision_data();
   static const int kDecisionDataFieldNumber = 3;
@@ -116,7 +116,7 @@ class ssl_visualizer_packet : public ::google::protobuf::Message {
   inline ::ssl_decision_packet* mutable_decision_data();
   inline ::ssl_decision_packet* release_decision_data();
   
-  // required .ssl_planner_packet planner_data = 4;
+  // optional .ssl_planner_packet planner_data = 4;
   inline bool has_planner_data() const;
   inline void clear_planner_data();
   static const int kPlannerDataFieldNumber = 4;
@@ -159,7 +159,7 @@ class ssl_visualizer_packet : public ::google::protobuf::Message {
 
 // ssl_visualizer_packet
 
-// required .ssl_world_packet world_data = 1;
+// optional .ssl_world_packet world_data = 1;
 inline bool ssl_visualizer_packet::has_world_data() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -188,7 +188,7 @@ inline ::ssl_world_packet* ssl_visualizer_packet::release_world_data() {
   return temp;
 }
 
-// required .ssl_analyzer_packet analyzer_data = 2;
+// optional .ssl_analyzer_packet analyzer_data = 2;
 inline bool ssl_visualizer_packet::has_analyzer_data() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -217,7 +217,7 @@ inline ::ssl_analyzer_packet* ssl_visualizer_packet::release_analyzer_data() {
   return temp;
 }
 
-// required .ssl_decision_packet decision_data = 3;
+// optional .ssl_decision_packet decision_data = 3;
 inline bool ssl_visualizer_packet::has_decision_data() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -246,7 +246,7 @@ inline ::ssl_decision_packet* ssl_visualizer_packet::release_decision_data() {
   return temp;
 }
 
-// required .ssl_planner_packet planner_data = 4;
+// optional .ssl_planner_packet planner_data = 4;
 inline bool ssl_visualizer_packet::has_planner_data() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
