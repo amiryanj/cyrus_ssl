@@ -13,7 +13,7 @@
 
 #define MAX_RAW_DATA_MEMORY 30
 
-class SSLRobotKalmanFilter : public Kalman::EKFilter<double, 1>
+class SSLRobotKalmanFilter //: public Kalman::EKFilter<double, 1>
 {
 public:
     SSLRobotKalmanFilter();
@@ -41,6 +41,8 @@ private:
     static int process_noise_size;
 
     NaiveKalmanFilter naiveFilter;
+//    KalmanVector state;
+
 
 protected:
 

@@ -6,14 +6,16 @@
 #include <eigen3/Eigen/Eigen>
 using namespace Eigen;
 
+typedef Matrix<double, 6, 1>     KalmanVector;
+typedef Matrix<double, 6, 6>     KalmanMatrix;
+
 class NaiveKalmanFilter
 {
 public:
-    typedef Matrix<double, 6, 1>     KalmanVector;
-    typedef Matrix<double, 6, 6>     KalmanMatrix;
 
     NaiveKalmanFilter();
-    void predict();
+    void predict(double delta_t_sec);
+    KalmanVector getPredict(double delta_t_sec);
     void update(KalmanVector z);
 
     KalmanMatrix  F;  // state transition model
@@ -27,7 +29,6 @@ public:
     KalmanMatrix  H; // Observation Model
     KalmanMatrix  Identity; // Identity Matrix :))))))
 
-    double delta_t_sec;
 private:
 
     Vector3d test_vec;

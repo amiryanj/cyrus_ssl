@@ -25,8 +25,6 @@ private:
     void updateWorldRobots();
     SSLWorldModel* world();
 
-    NaiveKalmanFilter naiveFilter;
-
 };
 
 #endif // VISIONFILTERMODULE_H
