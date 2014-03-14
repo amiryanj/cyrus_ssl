@@ -13,6 +13,8 @@
 #include "../definition/SSLBall.h"
 #include "../tools/stdlist.h"
 
+#define MAX_BALL_NUM 3
+
 class SSLWorldModel {
 public:
     void updateRobotState(Color color, int ID, Vector3D position, Vector3D speed);
@@ -23,9 +25,9 @@ public:
     SSLTeam* team[2];
     SSLTeam* getTeam(Color c);
 
-    SSLBall *mainBall();
-    SSLBall* ball; // should be ommited
-    STDVector<SSLBall*> allBalls;
+    SSLBall* balls[MAX_BALL_NUM];
+    SSLBall* mainBall();
+
     STDVector<SSLRobot*> all_inFields();
     STDVector<SSLRobot*> all_inFieldsExcept(SSLRobot* excep);
 
@@ -36,8 +38,8 @@ public:
 private:
     SSLWorldModel();
     virtual ~SSLWorldModel();
-
     static SSLWorldModel *world;
+
 };
 
 #endif /* SSLWORLDMODEL_H_ */

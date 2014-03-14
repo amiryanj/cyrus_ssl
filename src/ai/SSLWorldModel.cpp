@@ -16,8 +16,8 @@ SSLWorldModel::SSLWorldModel() {
     for(int i=0; i< NUM_TEAMS; ++i)
         team[i] = new SSLTeam((Side)i, (Color)i, SSLRobotPhysic());
 
-    ball = new SSLBall();
-
+    for(int i=0; i<MAX_BALL_NUM; i++)
+        balls[i] = new SSLBall();
 }
 
 SSLWorldModel *SSLWorldModel::getInstance()
@@ -34,9 +34,7 @@ SSLTeam *SSLWorldModel::getTeam(Color c)
 
 SSLBall* SSLWorldModel::mainBall()
 {
-    if(this->allBalls.empty())
-        return NULL;
-    return allBalls[0];
+    return balls[0];
 }
 
 STDVector<SSLRobot *> SSLWorldModel::all_inFields()
@@ -126,7 +124,9 @@ void SSLWorldModel::updateRobotAvailability(Color color, int ID, bool available)
 
 void SSLWorldModel::updateBallState(int ID, Vector2D position, Vector2D speed)
 {
-    this->ball->setPosition(position);
-    this->ball->setSpeed(speed);
+    if(ID >= MAX_BALL_NUM)
+        ID = MAX_BALL_NUM - 1;
+    balls[ID]->setPosition(position);
+    balls[ID]->setSpeed(speed);
 }
 
