@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     cout << "Main is running ... " << endl;
     long loopCounter = 0;
 
-    SSLVision *vision = new SSLVision(SSL_VISION_PORT, GRSIM_VISION_ADDRESS);
+    SSLVision *vision = new SSLVision(GRSIM_VISION_PORT, GRSIM_VISION_ADDRESS);
 
     VisionFilter *filter =  VisionFilter::getInstance();
 
@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
+
     transmitter->type = CommandTransmitter::SERIAL;
 
     while (true)
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
         }
         if(loopCounter % 100 == 0)
             transmitter->check();
-        usleep(30000);
+        usleep(5000);
     }
 
     //    return app.exec();

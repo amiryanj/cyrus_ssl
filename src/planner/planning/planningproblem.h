@@ -16,7 +16,7 @@
 #define MAX_TREE_SIZE 300
 #define MAX_SAMPLING_TRY 10
 #define MAX_STATION_CATCH_SIZE 50
-#define MAX_RRT_STEP_TRY 400
+#define MAX_RRT_STEP_TRY 300
 #define GOAL_PROB 0.25
 
 class PlanningProblem        
@@ -48,6 +48,7 @@ public:
     Velocity getControl(unsigned int i = 0);
 
     // each of this planners manipulate tree, trajec, planningResult, planningTime
+    bool solve();
     void RRTsolve();
     void ERRTsolve();
     void GRRTsolve();
@@ -82,10 +83,16 @@ private:
     Station RRTExtend(const Station &start, const Station &target);
     ExtendResult RRTStep();
     void buildTrajectory();
+    void buildVelocityProfile();
+    void solveInvalidInitialState();
+    void solveInvalidGoalState();
+    bool isGoalStateValid();
 
-    double EucleadianDistance(const Station& A, const Station& B);
+    float EucleadianDistance(const Station& A, const Station& B);
 
     void testCollisionFunc();
+
+    b2Transform identity_trans;
 
 
 };
