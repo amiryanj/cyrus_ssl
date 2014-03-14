@@ -5,11 +5,11 @@
 using namespace boost::posix_time;
 
 namespace SSL {
-    double continuousRadian(double angle, double start_ang);
+    float continuousRadian(float angle, float start_ang);
 
-    double minAngleDistToRange(double my_angle, double range_start, double range_end_);
+    float minAngleDistToRange(float my_angle, float range_start, float range_end_);
 
-    double uni_rand(double a, double b);
+    float uni_rand(float a, float b);
 
     double currentTimeMSec();
 }
