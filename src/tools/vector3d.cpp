@@ -13,7 +13,7 @@ Vector3D::Vector3D(const Vector3D &vector)
     _x = vector._x; _y = vector._y; _teta = vector._teta;
 }
 
-Vector3D::Vector3D(double nx, double ny, double nteta)
+Vector3D::Vector3D(float nx, float ny, float nteta)
 {
     _x = nx;    _y = ny;    _teta = nteta;
 }
@@ -68,14 +68,14 @@ Vector3D Vector3D::operator -(const Vector3D &vector) const
     return Vector3D( _x - vector._x, _y - vector._y, _teta - vector._teta);
 }
 
-Vector3D Vector3D::operator *(double s)
+Vector3D Vector3D::operator *(float s)
 {
     return Vector3D( _x*s, _y*s, _teta*s);
 }
 
-Vector3D Vector3D::operator /(double s)
+Vector3D Vector3D::operator /(float s)
 {
-    double oneOverS = 1.0f / s;
+    float oneOverS = 1.0f / s;
     return Vector3D( _x*oneOverS, _y*oneOverS, _teta*s);
 }
 
@@ -91,37 +91,37 @@ Vector3D &Vector3D::operator -=(const Vector3D &vector)
     return *this;
 }
 
-Vector3D &Vector3D::operator *=(double s)
+Vector3D &Vector3D::operator *=(float s)
 {
     _x *= s; _y *= s; _teta *= s;
     return *this;
 }
 
-Vector3D &Vector3D::operator /=(double s)
+Vector3D &Vector3D::operator /=(float s)
 {
-    double oneOverS = 1.0f / s;
+    float oneOverS = 1.0f / s;
     _x *= oneOverS; _y *= oneOverS; _teta *= oneOverS;
     return *this;
 }
 
 void Vector3D::normalize2D()
 {
-    double magSqrd = _x*_x + _y*_y;
+    float magSqrd = _x*_x + _y*_y;
     if(magSqrd > 0.0f){
-        double oneOverMag = 1.0 / sqrt(magSqrd);
+        float oneOverMag = 1.0 / sqrt(magSqrd);
         _x *= oneOverMag;
         _y *= oneOverMag;
     }
 }
 
-void Vector3D::rotate(double radianAngle)
+void Vector3D::rotate(float radianAngle)
 {
     _x = _x * cos(radianAngle) - _y * sin(radianAngle);
     _y = _x * sin(radianAngle) + _y * cos(radianAngle);
     _teta = _teta;
 }
 
-double Vector3D::lenght2D()
+float Vector3D::lenght2D()
 {
     return this->to2D().lenght();
 }
@@ -160,49 +160,49 @@ Vector3D Vector3D::dotProduct(Vector3D &b)
     return temp;
 }
 
-double Vector3D::vector2DMag(const Vector3D &vector)
+float Vector3D::vector2DMag(const Vector3D &vector)
 {
     Vector3D tmp = vector;
     return Vector2D::vectorMag(tmp.to2D());
 }
 
-double Vector3D::distance2D(const Vector3D &a, const Vector3D &b)
+float Vector3D::distance2D(const Vector3D &a, const Vector3D &b)
 {
     Vector3D tmp_a = a, tmp_b = b;
     return Vector2D::distance(tmp_a.to2D(), tmp_b.to2D());
 }
 
-void Vector3D::setX(double x_)
+void Vector3D::setX(float x_)
 {
     this->_x = x_;
 }
 
-void Vector3D::setY(double y_)
+void Vector3D::setY(float y_)
 {
     this->_y = y_;
 }
 
-void Vector3D::setTeta(double teta_)
+void Vector3D::setTeta(float teta_)
 {
     this->_teta = teta_;
 }
 
-void Vector3D::set(double x_, double y_, double teta_)
+void Vector3D::set(float x_, float y_, float teta_)
 {
     _x = x_;  _y = y_; _teta = teta_;
 }
 
-double Vector3D::X() const
+float Vector3D::X() const
 {
     return this->_x;
 }
 
-double Vector3D::Y() const
+float Vector3D::Y() const
 {
     return this->_y;
 }
 
-double Vector3D::Teta() const
+float Vector3D::Teta() const
 {
     return this->_teta;
 }

@@ -6,20 +6,20 @@ class b2Vec3;
 
 class Vector3D
 {
-    double _x, _y, _teta;
+    float _x, _y, _teta;
 public:
-    void setX(double x_);
-    void setY(double y_);
-    void setTeta(double teta_);
-    void set(double x_, double y_, double teta_);
+    void setX(float x_);
+    void setY(float y_);
+    void setTeta(float teta_);
+    void set(float x_, float y_, float teta_);
     
-    double X() const;
-    double Y() const;
-    double Teta() const;
+    float X() const;
+    float Y() const;
+    float Teta() const;
 
     Vector3D();
     Vector3D(const Vector3D &vector);
-    Vector3D(double nx, double ny, double nteta);
+    Vector3D(float nx, float ny, float nteta);
 
     Vector3D operator =(const Vector3D &vector);
     bool operator ==(const Vector3D &vector);
@@ -28,8 +28,8 @@ public:
     bool isInf() const;
     void setZero();
     void normalize2D();
-    void rotate(double radianAngle);
-    double lenght2D();
+    void rotate(float radianAngle);
+    float lenght2D();
     void correctTeta();
 
     Vector2D normalized2D() const;
@@ -37,21 +37,21 @@ public:
     Vector3D operator -() const;
     Vector3D operator +(const Vector3D &vector) const;
     Vector3D operator -(const Vector3D &vector) const;
-    Vector3D operator *(double s);
-    Vector3D operator /(double s);
+    Vector3D operator *(float s);
+    Vector3D operator /(float s);
 
     Vector3D &operator +=(const Vector3D &vector);
     Vector3D &operator -=(const Vector3D &vector);
-    Vector3D &operator *=(double s);
-    Vector3D &operator /=(double s);
-//    double operator *(const Vector3D &vector);
+    Vector3D &operator *=(float s);
+    Vector3D &operator /=(float s);
+//    float operator *(const Vector3D &vector);
     Vector2D to2D();
     b2Vec3 b2vec3();
 
     Vector3D dotProduct(Vector3D &b);
 
-    static double vector2DMag(const Vector3D  &vector);
-    static double distance2D(const Vector3D &a, const Vector3D &b);
+    static float vector2DMag(const Vector3D  &vector);
+    static float distance2D(const Vector3D &a, const Vector3D &b);
 
 };
 #endif
