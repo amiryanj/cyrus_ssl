@@ -100,17 +100,25 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
      */
 
     ssl_ball* ball_packet = packet->mutable_field_balls()->Add();
-    ball_packet->mutable_position()->set_x(world()->ball->Position().X());
-    ball_packet->mutable_position()->set_y(world()->ball->Position().Y());
+    ball_packet->mutable_position()->set_x(world()->mainBall()->Position().X());
+    ball_packet->mutable_position()->set_y(world()->mainBall()->Position().Y());
     ball_packet->mutable_position()->set_teta(0);
 
-    ball_packet->mutable_velecity()->set_x(world()->ball->Speed().X());
-    ball_packet->mutable_velecity()->set_y(world()->ball->Speed().Y());
+    ball_packet->mutable_velecity()->set_x(world()->mainBall()->Speed().X());
+    ball_packet->mutable_velecity()->set_y(world()->mainBall()->Speed().Y());
     ball_packet->mutable_velecity()->set_teta(0);
+
+    ball_packet->set_id(0);
 }
 
 void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
 {
+    if(packet == NULL)
+        return;
+    packet->set_comment("Test Analyzer Packet ");
+    packet->set_nearest_blue_id(0);
+    packet->set_nearest_yellow_id(0);
+
 }
 
 void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)

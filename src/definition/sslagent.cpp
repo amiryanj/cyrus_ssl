@@ -18,24 +18,24 @@ SSLAgent::SSLAgent(Color our_color, Side our_side)
     PlanningAgent plan_agent;
     plan_agent.setRadius(90); // in milimeter
     plan_agent.mass = 3.0; // kilo gram
-    plan_agent.velocity_limit.set(3000, 3000, 3);
+    plan_agent.velocity_limit.set(3000, 3000, M_PI * 1.2);
     planner.setPlanningAgent(plan_agent);
 
     // initializing field obstacles for agent
     // ****************************************************************************************
     penaltyAreaObs.reserve(5);
     int z = (int) our_side;
-    Obstacle* myPenaltyArea_C = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, 0),
+    Obstacle* myPenaltyArea_C = new Obstacle(Obstacle::Field, b2Vec2(z* FIELD_LENGTH/2, 0),
                                                     FIELD_PENALTY_AREA_RADIUS * 0.9, 0);
-    Obstacle* myPenaltyArea_T = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
+    Obstacle* myPenaltyArea_T = new Obstacle(Obstacle::Field, b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
                                                     FIELD_PENALTY_AREA_RADIUS * 0.9, 0);
-    Obstacle* myPenaltyArea_D = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
+    Obstacle* myPenaltyArea_D = new Obstacle(Obstacle::Field, b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
                                                     FIELD_PENALTY_AREA_RADIUS * 0.9, 0);
 //    Obstacle* myPenaltyArea_C = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, 0),
 //                                                    FIELD_PENALTY_AREA_RADIUS*2 * .9, FIELD_PENALTY_AREA_WIDTH, 0);
-    Obstacle* outFieldArea_R = new Obstacle(b2Vec2(FIELD_LENGTH/2+300, 0),
+    Obstacle* outFieldArea_R = new Obstacle(Obstacle::Field, b2Vec2(FIELD_LENGTH/2+300, 0),
                                                     150*2 ,  FIELD_WIDTH, 0);
-    Obstacle* outFieldArea_L = new Obstacle(b2Vec2(-FIELD_LENGTH/2-300, 0),
+    Obstacle* outFieldArea_L = new Obstacle(Obstacle::Field, b2Vec2(-FIELD_LENGTH/2-300, 0),
                                                     150*2 ,  FIELD_WIDTH, 0);
     penaltyAreaObs.push_back(myPenaltyArea_C);
     penaltyAreaObs.push_back(myPenaltyArea_T);
@@ -46,11 +46,11 @@ SSLAgent::SSLAgent(Color our_color, Side our_side)
 
     allRobotsObs.reserve(MAX_ID_NUM * 2);
     for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
-        Obstacle* ob_ = new Obstacle(b2Vec2(0, 0), ROBOT_RADIUS, 0);
+        Obstacle* ob_ = new Obstacle(Obstacle::Robot, b2Vec2(0, 0), ROBOT_RADIUS, 0);
         allRobotsObs.push_back(ob_);
     }
 
-    ballObs = new Obstacle(b2Vec2(0,0), BALL_RADIUS, 0);
+    ballOb = new Obstacle(Obstacle::Ball, b2Vec2(0,0), BALL_RADIUS, 0);
     // ****************************************************************************************
 
     // initialize controller
@@ -103,39 +103,41 @@ void SSLAgent::run()
         planner.setInitialState(init_state);
         planner.setGoalRegion(this->target);
 
+        ObstacleSet tmpAllObstacles;
+        tmpAllObstacles.reserve(2*MAX_ID_NUM + 6);
+        if(this->role->type != SSLRole::GoalKeeper) {
+            tmpAllObstacles.insert(tmpAllObstacles.begin(), penaltyAreaObs.begin(), penaltyAreaObs.end());
+        }
+
         // update position of dynamic obstacles
         vector<SSLRobot*> all_actual_robots = SSLWorldModel::getInstance()->allRobots();
         for(unsigned int i=0; i<allRobotsObs.size(); i++)
         {
             Obstacle* ob_  = allRobotsObs.at(i);
             SSLRobot* rob_ = all_actual_robots.at(i);
-            b2Vec2 pos;
+//            b2Vec2 pos;
             if(rob_->color == this->robot->color && rob_->id == this->getID())
-                pos.Set(INFINITY, INFINITY); // the robot is not an obstacle for its own :))
-            else
-                pos.Set(rob_->Position().X(), rob_->Position().Y());
-            ob_->transform.Set(pos, rob_->Position().Teta());
+                continue;
+            if(rob_->isInField) {
+                ob_->m_transform.Set(Vector2D(rob_->Position().X(), rob_->Position().Y()).b2vec2(), rob_->Position().Teta());
+                tmpAllObstacles.push_back(ob_);
+            }
         }
 
-        SSLBall* actual_ball = SSLWorldModel::getInstance()->ball;
-        ballObs->transform.Set(b2Vec2(actual_ball->Position().X(), actual_ball->Position().Y()), 0);
+        SSLBall* actual_ball = SSLWorldModel::getInstance()->mainBall();
+        ballOb->m_transform.Set(b2Vec2(actual_ball->Position().X(), actual_ball->Position().Y()), 0);
 
         // we treat dynamic and static obstacles in the same way
+//        if(/* the robot should consider ball as obstacle*/)
+        tmpAllObstacles.push_back(ballOb);
 
-        ObstacleSet allObstacles;
-        allObstacles.insert(allObstacles.end(), allRobotsObs.begin(), allRobotsObs.end());
-        allObstacles.insert(allObstacles.end(), ballObs);
+        planner.setStaticObstacles(tmpAllObstacles);
 
-        if(this->role->type != SSLRole::GoalKeeper)
-        {
-            allObstacles.insert(allObstacles.begin(), penaltyAreaObs.begin(), penaltyAreaObs.end());
-        }
-
-        planner.setStaticObstacles(allObstacles);
-
-        planner.PotentialFieldSolve();
-        if(!planner.planningResult)
-            planner.GRRTsolve();
+        planner.solve();
+//        assert(planner.planningResult == true); // this assumption is not true
+//        PotentialFieldSolve();
+//        if(!planner.planningResult)
+//            planner.GRRTsolve();
 
         temp_desired_vel = planner.getControl(0);
 //        double speed = .7;
@@ -152,10 +154,9 @@ void SSLAgent::run()
         temp_applied_vel_local = temp_applied_vel_global;
         temp_applied_vel_local.rotate(-robot->orien());
 
-        temp_applied_vel_local.setTeta(0);
-        temp_applied_vel_local.normalize2D();
-
-        temp_applied_vel_local *= .6;
+//        temp_applied_vel_local.setTeta(0);
+//        temp_applied_vel_local.normalize2D();
+//        temp_applied_vel_local *= .6;
 
         cout << "Desired vel for robot #" << this->getID() << " is: X= " << temp_desired_vel.X()
              << " Y= " << temp_desired_vel.Y() << " teta=" << temp_desired_vel.Teta() << endl;

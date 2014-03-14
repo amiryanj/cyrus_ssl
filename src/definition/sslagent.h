@@ -35,7 +35,7 @@ public:
     void run();
 private:
     ObstacleSet allRobotsObs;
-    Obstacle* ballObs;
+    Obstacle* ballOb;
     ObstacleSet myDynamicObstacleSet;
     ObstacleSet penaltyAreaObs;
 };

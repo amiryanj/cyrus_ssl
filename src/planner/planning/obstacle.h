@@ -11,18 +11,18 @@
 
 class Obstacle
 {
-
 public:
-    Obstacle(b2Vec2 center, double radius, double orien);
-    Obstacle(b2Vec2 center, double width, double height, double orien);
+    enum ObstacleType{ Ball, Robot, Field};
+
+    Obstacle(ObstacleType type, b2Vec2 center, double radius, double orien);
+    Obstacle(ObstacleType type, b2Vec2 center, double width, double height, double orien);
     ~Obstacle();
-    b2Transform transform;
+
+    ObstacleType m_ObstacleType;
+    b2Transform m_transform;
     void getOut();
 
     b2Shape* shape;
-
-
-//    double orien;
 
     bool dynamic;
 
