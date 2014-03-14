@@ -11,7 +11,7 @@
 RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)
 {    
     try {
-    if (serial.Open(serialPortName,baudrate) != 1)
+    if (serial.Open(serialPortName, baudrate) != 1)
             throw "failed to open serial device";
     }
     catch (const char* msg)  {

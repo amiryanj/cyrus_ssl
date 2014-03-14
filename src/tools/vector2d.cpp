@@ -44,6 +44,12 @@ void Vector2D::setZero()
     _x = _y = 0.0;
 }
 
+void Vector2D::rotate(double radian_rot)
+{
+    _x = _x * cos(radian_rot) - _y * sin(radian_rot);
+    _y = _x * sin(radian_rot) + _y * cos(radian_rot);
+}
+
 double Vector2D::lenght()
 {
     return sqrt(_x*_x + _y*_y);
@@ -128,6 +134,13 @@ Vector2D Vector2D::normalized() const
     return temp;
 }
 
+bool Vector2D::isInf() const
+{
+    if(_x == INFINITY || _y == INFINITY)
+        return true;
+    return false;
+}
+
 double Vector2D::operator *(const Vector2D &vector)
 {
     return (_x * vector._x) + (_y * vector._y);
@@ -135,8 +148,8 @@ double Vector2D::operator *(const Vector2D &vector)
 
 Vector3D Vector2D::to3D()
 {
-    Vector3D *v3d = new Vector3D(this->_x, this->_y, 0);
-    return (*v3d);
+    Vector3D v3d(this->_x, this->_y, 0);
+    return v3d;
 }
 
 b2Vec2 Vector2D::b2vec2()

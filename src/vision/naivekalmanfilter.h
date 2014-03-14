@@ -1,37 +1,35 @@
 #ifndef NAIVEKALMANFILTER_H
 #define NAIVEKALMANFILTER_H
 
-#include <eigen3/Eigen/Core>
-#include <eigen3/Eigen/LU>
-#include <eigen3/Eigen/Eigen>
-using namespace Eigen;
+//#include <eigen3/Eigen/Core>
+//#include <eigen3/Eigen/LU>
+//#include <eigen3/Eigen/Eigen>
 
-typedef Matrix<double, 6, 1>     KalmanVector;
-typedef Matrix<double, 6, 6>     KalmanMatrix;
+#include "tools/vector3d.h"
+
+struct FilterState {
+    Vector3D acc;
+    Vector3D vel;
+    Vector3D pos;
+};
 
 class NaiveKalmanFilter
 {
 public:
-
     NaiveKalmanFilter();
-    void predict(double delta_t_sec);
-    KalmanVector getPredict(double delta_t_sec);
-    void update(KalmanVector z);
+    FilterState predict(double delta_t_sec);
+    void observe(Vector3D new_pos, double delta_t_sec);
+    FilterState filter();
 
-    KalmanMatrix  F;  // state transition model
-    KalmanMatrix  Q;  // Covariance of process noise
-    KalmanMatrix  P;  //
-    KalmanMatrix  R;  // Covariance of observation noise
-    KalmanVector  x;  // state vector
-//    KalmanMatrix  B;  // Control Input Model
-//    KalmanMatrix  u;
-
-    KalmanMatrix  H; // Observation Model
-    KalmanMatrix  Identity; // Identity Matrix :))))))
-
+    FilterState m_state;
 private:
+    FilterState m_observed;
+    FilterState m_predicted;
 
-    Vector3d test_vec;
+//    FilterState m_pos_k_1;
+
+    double alfa, beta, gama;
+
 };
 
 #endif // NAIVEKALMANFILTER_H

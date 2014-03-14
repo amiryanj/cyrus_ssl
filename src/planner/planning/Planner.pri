@@ -18,7 +18,8 @@ SOURCES += $$PWD/obstacle.cpp \
     $$PWD/dynamicobstacle.cpp \
     $$PWD/velocity.cpp \
     $$PWD/planningagent.cpp \
-    $$PWD/plannermath.cpp
+    $$PWD/plannermath.cpp \
+    $$PWD/../../tools/sslmath.cpp
 
 HEADERS  += obstacle.h \
     rrtvertex.h \
@@ -31,5 +32,6 @@ HEADERS  += obstacle.h \
     dynamicobstacle.h \
     velocity.h \
     planningagent.h \
-    plannermath.h
+    plannermath.h \
+    tools/sslmath.h
     

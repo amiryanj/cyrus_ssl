@@ -25,7 +25,9 @@ public:
     bool operator !=(const Vector2D &vector);
     void normalize();
     Vector2D normalized() const;
+    bool isInf() const;
     void setZero();
+    void rotate(double radian_rot);
     double lenght();
     double arctan();
 

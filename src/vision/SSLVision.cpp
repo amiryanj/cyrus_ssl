@@ -10,8 +10,12 @@
 SSLVision::SSLVision(int port, const string address) : UDP(), SSLListener()
 {
     filterModule = VisionFilter::getInstance();
+    this->open(port, true, true);
+    Address a, b;
+    a.setHost(address.c_str(), port);
+    b.setAny();
+    this->addMulticast(a, b);
 }
-
 
 SSLVision::~SSLVision()
 {

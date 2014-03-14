@@ -2,77 +2,83 @@
 #include <cmath>
 #include <iostream>
 #include <typeinfo>
+#include <assert.h>
 
 using namespace std;
 
 RandomTree::RandomTree()
 {
-    this->vertices.reserve(MAX_TREE_CAP);
+    for(int i=0; i<MAX_TREE_CAP; i++) {
+        m_vertices[i] = new RRTVertex();
+    }
+}
+
+RandomTree::~RandomTree()
+{
+    for(int i=0; i<MAX_TREE_CAP; i++) {
+        delete m_vertices[i];
+    }
 }
 
 void RandomTree::clear()
 {
-//    for(int i= vertices.size()-1; i>=0; i--)
-//        if(vertices.at(i) != NULL)
-//            delete vertices.at(i);
-    vertices.clear();
+//    for(int i= m_vertices.size()-1; i>=0; i--)
+//        if(m_vertices.at(i) != NULL)
+//            delete m_vertices.at(i);
+//    m_vertices.clear();
+    m_vertices_count = 0;
 }
 
 int RandomTree::count() const
 {
-    return vertices.size();
+//    return m_vertices.size();
+    return m_vertices_count;
 }
 
-void RandomTree::setRoot(RRTVertex *root)
-{
-    this->root = root;
-}
-
-RRTVertex *RandomTree::getRoot() const
-{
-    return this->root;
-}
-
-bool RandomTree::addNewVertex(RRTVertex *parent, Station &st)
+RRTVertex* RandomTree::addNewVertex(RRTVertex *parent, Station &st)
 {
     try {
-    RRTVertex *new_ver = new RRTVertex();
-    new_ver->state = st;
-    if(parent == NULL)
-        new_ver->depth = 0;
-    else
-        new_ver->depth = parent->depth + 1;
-    new_ver->parent = parent;
-    this->vertices.push_back(new_ver);
-    return true;
+//        RRTVertex *new_ver = new RRTVertex();
+//        assert(m_vertices_count >= 0);
+        RRTVertex* new_ver = m_vertices[m_vertices_count];
+        new_ver->state = st;
+        if(parent == NULL)
+            new_ver->depth = 0;
+        else
+            new_ver->depth = parent->depth + 1;
+        new_ver->parent = parent;
+        m_vertices_count ++;
+        return new_ver;
     }
     catch (const char* msg)
     {
         cerr << "Exception " << typeid (*this).name() << " " << msg << endl;
-        return false;
+        return NULL;
     }
 }
 
 RRTVertex *RandomTree::nearest(const Station &st)
 {
     try {
-    double min_dist = INFINITY;
-    RRTVertex* nearest = NULL;
-    if(this->vertices.empty())
-        throw "Tree is empty";
-    for(int i = 0; i<vertices.size(); i++)
-    {
-        RRTVertex* temp_ver = (RRTVertex*)(vertices.at(i));
-        double temp_dist = (temp_ver->state.getPosition() - st.getPosition()).lenght2D();
-        if(temp_dist < min_dist)
+        double min_dist = INFINITY;
+        RRTVertex* nearest = NULL;
+        if(m_vertices_count <= 0)
+            throw "Tree is empty";
+        if(st.position.isInf())
+            throw "The State position is placed in infinity...";
+        for(int i = 0; i<m_vertices_count; i++)
         {
-            min_dist = temp_dist;
-            nearest = temp_ver;
+            RRTVertex* temp_ver = m_vertices[i];
+            double temp_dist = (temp_ver->state.getPosition() - st.getPosition()).lenght2D();
+            if(temp_dist < min_dist)
+            {
+                min_dist = temp_dist;
+                nearest = temp_ver;
+            }
         }
-    }
-    if(min_dist == INFINITY)
-        throw "nearest dist is INFINITY!" ;
-    return nearest;
+        if(min_dist == INFINITY)
+            throw "nearest dist is INFINITY!" ;
+        return nearest;
     }
     catch (const char* msg) {
         cerr << "Exception: " << "RandomTree" << msg << endl;
@@ -83,9 +89,10 @@ RRTVertex *RandomTree::nearest(const Station &st)
 RRTVertex *RandomTree::lastAddedVertex()
 {
     try {
-    if(vertices.empty())
-        throw "there is no vertex in this tree ";
-    return this->vertices.back();
+        if(m_vertices_count <= 0)
+            throw "there is no vertex in this tree ";
+        else
+            return m_vertices[m_vertices_count-1];
     }
     catch (const char* msg) {
         cerr << "Exeption in Random Tree: "  << msg << endl;
@@ -93,13 +100,7 @@ RRTVertex *RandomTree::lastAddedVertex()
     }
 }
 
-vector<Station> RandomTree::getStations() const
-{
-    vector<Station> tempVec;
-    for(int i = 0; i<vertices.size(); i++)
-        tempVec.push_back(((RRTVertex*)(vertices.at(i)))->state);
-    return tempVec;
-}
+
 
 
 

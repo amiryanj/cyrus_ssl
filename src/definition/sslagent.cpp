@@ -12,28 +12,37 @@ SSLAgent::SSLAgent(Color our_color, Side our_side)
 
     // initialize planner
     FieldBound bound;
-    bound.set(-1.2 * FIELD_LENGTH/2, 1.2 * FIELD_LENGTH/2,
-              -1.2 * FIELD_WIDTH/2, 1.2 * FIELD_WIDTH/2 );
+    bound.set(-1.1 * FIELD_LENGTH/2, 1.1 * FIELD_LENGTH/2,
+              -1.1 * FIELD_WIDTH/2, 1.1 * FIELD_WIDTH/2 );
     planner.setBound(bound);
     PlanningAgent plan_agent;
     plan_agent.setRadius(90); // in milimeter
     plan_agent.mass = 3.0; // kilo gram
-    plan_agent.velocity_limit.set(3, 3, 2);
+    plan_agent.velocity_limit.set(3000, 3000, 3);
     planner.setPlanningAgent(plan_agent);
 
     // initializing field obstacles for agent
     // ****************************************************************************************
-    penaltyAreaObs.reserve(3);
+    penaltyAreaObs.reserve(5);
     int z = (int) our_side;
-    Obstacle* myPenaltyArea_1 = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS, 0);
-    Obstacle* myPenaltyArea_2 = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS, 0);
-    Obstacle* myPenaltyArea_3 = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, 0),
-                                                    FIELD_PENALTY_AREA_RADIUS*2, FIELD_PENALTY_AREA_WIDTH, 0);
-    penaltyAreaObs.push_back(myPenaltyArea_1);
-    penaltyAreaObs.push_back(myPenaltyArea_2);
-    penaltyAreaObs.push_back(myPenaltyArea_3);
+    Obstacle* myPenaltyArea_C = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, 0),
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.9, 0);
+    Obstacle* myPenaltyArea_T = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.9, 0);
+    Obstacle* myPenaltyArea_D = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.9, 0);
+//    Obstacle* myPenaltyArea_C = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, 0),
+//                                                    FIELD_PENALTY_AREA_RADIUS*2 * .9, FIELD_PENALTY_AREA_WIDTH, 0);
+    Obstacle* outFieldArea_R = new Obstacle(b2Vec2(FIELD_LENGTH/2+300, 0),
+                                                    150*2 ,  FIELD_WIDTH, 0);
+    Obstacle* outFieldArea_L = new Obstacle(b2Vec2(-FIELD_LENGTH/2-300, 0),
+                                                    150*2 ,  FIELD_WIDTH, 0);
+    penaltyAreaObs.push_back(myPenaltyArea_C);
+    penaltyAreaObs.push_back(myPenaltyArea_T);
+    penaltyAreaObs.push_back(myPenaltyArea_D);
+
+    penaltyAreaObs.push_back(outFieldArea_L);
+    penaltyAreaObs.push_back(outFieldArea_R);
 
     allRobotsObs.reserve(MAX_ID_NUM * 2);
     for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
@@ -126,26 +135,30 @@ void SSLAgent::run()
 
         planner.PotentialFieldSolve();
         if(!planner.planningResult)
-            planner.RRTsolve();
+            planner.GRRTsolve();
 
         temp_desired_vel = planner.getControl(0);
-        double speed = .7;
-        speed *= this->robot->physic.max_lin_vel_mmps;
-        temp_desired_vel.normalize2D();
-        temp_desired_vel *= speed;
-        controller.setPoint(temp_desired_vel, this->robot->Speed());
+//        double speed = .7;
+//        speed *= this->robot->physic.max_lin_vel_mmps;
+//        temp_desired_vel.normalize2D();
+//        temp_desired_vel *= speed;
+//        controller.setPoint(temp_desired_vel, this->robot->Speed());
 
-        temp_applied_vel_global = controller.getControl();
+//        temp_applied_vel_global = controller.getControl();
+        temp_applied_vel_global = temp_desired_vel; // because controller is not working yet
 
 //        temp_applied_vel_local.set(1000, 0, 0);
 //        temp_applied_vel.rotate(M_PI_4l);
         temp_applied_vel_local = temp_applied_vel_global;
         temp_applied_vel_local.rotate(-robot->orien());
+
         temp_applied_vel_local.setTeta(0);
+        temp_applied_vel_local.normalize2D();
+
+        temp_applied_vel_local *= .6;
 
         cout << "Desired vel for robot #" << this->getID() << " is: X= " << temp_desired_vel.X()
              << " Y= " << temp_desired_vel.Y() << " teta=" << temp_desired_vel.Teta() << endl;
-
 
         cout << "Applied vel for robot #" << this->getID()
              << " is: V_x= " << temp_applied_vel_local.X()

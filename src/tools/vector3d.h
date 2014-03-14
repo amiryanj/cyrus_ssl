@@ -24,7 +24,8 @@ public:
     Vector3D operator =(const Vector3D &vector);
     bool operator ==(const Vector3D &vector);
     bool operator !=(const Vector3D &vector);
-    bool isNull()const;
+    bool isNull() const;
+    bool isInf() const;
     void setZero();
     void normalize2D();
     void rotate(double radianAngle);

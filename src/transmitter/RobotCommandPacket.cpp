@@ -5,10 +5,10 @@
 
 using namespace std;
 // in clockwise turn
-double RobotCommandPacket::wheelAngle_1 = +45.0 * M_PI/180.0;
-double RobotCommandPacket::wheelAngle_2 = -45.0 * M_PI/180.0;
-double RobotCommandPacket::wheelAngle_3 = -135 * M_PI/180.0;
-double RobotCommandPacket::wheelAngle_4 = +135.0 * M_PI/180.0;
+double RobotCommandPacket::wheelAngle_1 = +33.0 * M_PI/180.0;
+double RobotCommandPacket::wheelAngle_2 = -38.0 * M_PI/180.0;
+double RobotCommandPacket::wheelAngle_3 = -142 * M_PI/180.0;
+double RobotCommandPacket::wheelAngle_4 = +147.0 * M_PI/180.0;
 
 RobotCommandPacket::RobotCommandPacket()
 {

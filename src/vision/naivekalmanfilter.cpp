@@ -1,58 +1,64 @@
 #include "naivekalmanfilter.h"
+#include "tools/sslmath.h"
+#include <cmath>
+
+using namespace SSL;
 
 NaiveKalmanFilter::NaiveKalmanFilter()
 {
-    Identity.setIdentity();
-    x.setZero();
-    F.setIdentity();
-    H.setIdentity();
-    P.setIdentity(); // initialize covarince matrix
-    P(0, 0) = P(1, 1) = pow(40, 2);
-    P(2, 2) = pow(.1, 2);
-    P(3, 3) = P(4, 4) = pow(80, 2);
-    P(5, 5) = pow(.2, 2);
-
-    R.setIdentity();
-    R(0, 0) = R(1, 1) = pow(40, 2);
-    R(2, 2) = pow(.1, 2);
-    R(3, 3) = R(4, 4) = pow(80, 2);
-    R(5, 5) = pow(.2, 2);
-
-    Q.setIdentity();
-    Q(0, 0) = Q(1, 1) = pow(10, 2);
-    Q(2, 2) = pow(.05, 2);
-    Q(3, 3) = Q(4, 4) = pow(20, 2);
-    Q(5, 5) = pow(.1, 2);
+    alfa = 0.75;
+    beta = 0.8;
+    gama = 0.25;
 }
 
-void NaiveKalmanFilter::predict(double delta_t_sec)
+FilterState NaiveKalmanFilter::predict(double delta_t_sec)
 {
-    // update F
-    F(0, 3) = delta_t_sec;
-    F(1, 4) = delta_t_sec;
-    F(2, 5) = delta_t_sec;
+    m_predicted.acc = m_state.acc;
+    m_predicted.vel = m_state.vel + m_state.acc * delta_t_sec;
+    m_predicted.pos = m_state.pos + m_state.vel * delta_t_sec;// + m_state.acc * (0.5 * delta_t_sec *delta_t_sec);
 
-    // update U
-    // **************
-    x = F * x;
-    P = F * P * F.transpose() + Q;
+    double teta_ = m_predicted.pos.Teta();
+    m_predicted.pos.setTeta(continuousRadian(teta_, -M_PI));
+
+    return m_predicted;
 }
 
-KalmanVector NaiveKalmanFilter::getPredict(double delta_t_sec)
+void NaiveKalmanFilter::observe(Vector3D new_pos, double delta_t_sec)
 {
-    F(0, 3) = delta_t_sec;
-    F(1, 4) = delta_t_sec;
-    F(2, 5) = delta_t_sec;
+    double teta_ = new_pos.Teta();
+    if(m_observed.pos.Teta() > 0)
+        new_pos.setTeta(continuousRadian(teta_, -M_PI_2));
+    else
+        new_pos.setTeta(continuousRadian(teta_, -3 * M_PI_2));
 
-    return (F * x);
+    m_observed.acc = (((new_pos - m_observed.pos) / delta_t_sec) - m_observed.vel)/delta_t_sec ;
+    if(m_observed.acc.lenght2D() > 5000)
+        m_observed.acc.setZero();
+
+    m_observed.vel = (new_pos - m_observed.pos) / delta_t_sec;
+    if(m_observed.vel.lenght2D() > 5000)
+        m_observed.vel.setZero();
+
+    m_observed.pos = new_pos;
 }
 
-void NaiveKalmanFilter::update(KalmanVector z)
+FilterState NaiveKalmanFilter::filter()
 {
-    KalmanVector y = z - H * x;
-    KalmanMatrix S = H * P * H.transpose() + R;
-    KalmanMatrix K = P * H.transpose() * S.inverse();
-//    K = K * 0.4;
-    x = x + K * y;
-    P = (Identity - K * H) * P;
+    double teta_ = m_predicted.pos.Teta();
+    if(m_observed.pos.Teta() > 0)
+        m_predicted.pos.setTeta(continuousRadian(teta_, -M_PI_2));
+    else
+        m_predicted.pos.setTeta(continuousRadian(teta_, -3 * M_PI_2));
+
+    m_state.pos = m_predicted.pos * (1-alfa) + m_observed.pos * alfa;
+    m_state.vel = m_predicted.vel * (1-beta) + m_observed.vel * beta;
+
+    m_state.acc = m_predicted.acc * (1-gama) + m_observed.acc * gama;
+    if(m_state.acc.lenght2D() > 5000)
+        m_state.acc /= 2;
+
+    teta_ = m_state.pos.Teta();
+    m_state.pos.setTeta(continuousRadian(teta_, -M_PI));
+
+    return m_state;
 }

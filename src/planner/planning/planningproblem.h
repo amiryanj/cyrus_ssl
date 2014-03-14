@@ -11,13 +11,13 @@
 #include "trajectory.h"
 #include "planningagent.h"
 #include <iostream>
+#include "sslmath.h"
 
 #define MAX_TREE_SIZE 300
 #define MAX_SAMPLING_TRY 10
 #define MAX_STATION_CATCH_SIZE 50
 #define MAX_RRT_STEP_TRY 400
-#define GOAL_PROB 0.5
-#define STEP 0.01f
+#define GOAL_PROB 0.25
 
 class PlanningProblem        
 {

@@ -7,7 +7,7 @@
 #include "randomtree.h"
 #include "ostream"
 
-class Trajectory : public RandomTree
+class Trajectory
 {
 public:
     Trajectory();    
@@ -19,7 +19,19 @@ public:
 
     void printToStream(std::ostream& stream);
 
+//    void setRoot(RRTVertex* m_root);
+//    RRTVertex* getRoot() const;
+
     Station getStation(int index);
+    vector<Station> getAllStations();
+    RRTVertex* getVertex(int index);
+
+    void clear();
+
+private:
+    vector<RRTVertex*> m_vertex_vec;
+
+
 };
 
 #endif // TRAJECTORY_H

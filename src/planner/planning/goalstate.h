@@ -17,6 +17,8 @@ public:
     void setRadius(double rad);
 
     GoalState& operator =(GoalState other);
+
+    double minDistTo(Station p);
 };
 
 #endif // GOALSTATE_H

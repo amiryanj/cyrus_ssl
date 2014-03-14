@@ -13,10 +13,12 @@ TARGET = Cyrus2014
 #CONFIG   += console
 #CONFIG   -= app_bundle
 
-INCLUDEPATH += thirdparty\
-               thirdparty/socket
+INCLUDEPATH += \
+            $$PWD \
+            thirdparty\
+            thirdparty/socket \
+            tools
 
-include(planner/planning/Planner.pri)
 TEMPLATE = app
 
 SOURCES += main.cpp \
@@ -54,23 +56,33 @@ SOURCES += main.cpp \
     soccer/sslstrategymanager.cpp \
     soccer/sslrolemanager.cpp \
     tools/stdlist.cpp \
-    tools/testboost.cpp \
     gui/guihandler.cpp \
     gui/cpp/ssl_visualizer.pb.cc \
     gui/cpp/ssl_world.pb.cc \
     gui/cpp/ssl_decision.pb.cc \
     gui/cpp/ssl_planner.pb.cc \
     gui/cpp/ssl_analyzer.pb.cc \
-    ai/robottoballdistance.cpp \
     transmitter/grsimsender.cpp \
     transmitter/grSim/cpp/grSim_Replacement.pb.cc \
     transmitter/grSim/cpp/grSim_Packet.pb.cc \
     transmitter/grSim/cpp/grSim_Commands.pb.cc \
     soccer/roles/stoprole.cpp \
     transmitter/commandtransmitter.cpp \
-    definition/sslmath.cpp \
+    tools/sslmath.cpp \
     vision/naivekalmanfilter.cpp \
-    controller/pidcontroller.cpp
+    controller/pidcontroller.cpp \
+    planner/planning/velocity.cpp \
+    planner/planning/trajectory.cpp \
+    planner/planning/station.cpp \
+    planner/planning/rrtvertex.cpp \
+    planner/planning/randomtree.cpp \
+    planner/planning/planningproblem.cpp \
+    planner/planning/planningagent.cpp \
+    planner/planning/plannermath.cpp \
+    planner/planning/obstacle.cpp \
+    planner/planning/goalstate.cpp \
+    planner/planning/fieldbound.cpp \
+    planner/planning/dynamicobstacle.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -109,14 +121,12 @@ HEADERS += \
     soccer/sslstrategymanager.h \
     soccer/sslrolemanager.h \
     tools/stdlist.h \
-    tools/testboost.h \
     gui/guihandler.h \
     gui/cpp/ssl_visualizer.pb.h \
     gui/cpp/ssl_world.pb.h \
     gui/cpp/ssl_decision.pb.h \
     gui/cpp/ssl_planner.pb.h \
     gui/cpp/ssl_analyzer.pb.h \
-    ai/robottoballdistance.h \
     transmitter/grsimsender.h \
     transmitter/grSim/cpp/grSim_Replacement.pb.h \
     transmitter/grSim/cpp/grSim_Packet.pb.h \
@@ -124,11 +134,24 @@ HEADERS += \
     soccer/roles/stoprole.h \
     soccer/roles/keepgoal.h \
     transmitter/commandtransmitter.h \
-    definition/sslmath.h \
+    tools/sslmath.h \
     vision/naivekalmanfilter.h \
-    controller/pidcontroller.h
+    controller/pidcontroller.h \
+    planner/planning/velocity.h \
+    planner/planning/trajectory.h \
+    planner/planning/station.h \
+    planner/planning/rrtvertex.h \
+    planner/planning/randomtree.h \
+    planner/planning/planningproblem.h \
+    planner/planning/planningagent.h \
+    planner/planning/plannermath.h \
+    planner/planning/obstacle.h \
+    planner/planning/goalstate.h \
+    planner/planning/fieldbound.h \
+    planner/planning/dynamicobstacle.h
 
 OTHER_FILES += \
-    todo.txt
+    todo.txt \
+    planner/planning/Planner.pri
 
 

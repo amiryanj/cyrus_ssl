@@ -45,7 +45,7 @@ typedef Vector3D point3D;
 #define GRSIM_VISION_PORT       10002
 
 #define GRSIM_COMMAND_ADDRESS   "127.0.0.2"  // "192.168.1.105"
-#define GRSIM_COMMAND_PORT      20021
+#define GRSIM_COMMAND_PORT      20016
 #endif
 
 #define VISUALIZER_IP           "127.0.0.3"

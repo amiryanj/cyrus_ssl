@@ -10,11 +10,10 @@ CommandTransmitter* CommandTransmitter::transmitter = NULL;
 CommandTransmitter::CommandTransmitter()
 {
     try {
-    this->serial = new RobotSerialConnection("/dev/ttyS0", 9600);
-    this->grsim = new GRSimSender(SSLGame::getInstance()->ourColor());
-    grsim->openSocket();
-
-    this->type = GRSIM;  // default is grsim
+        this->serial = new RobotSerialConnection("/dev/ttyUSB0", 38400);
+        this->grsim = new GRSimSender(SSLGame::getInstance()->ourColor());
+        grsim->openSocket();
+        this->type = GRSIM;  // default is grsim
     }
     catch (...) {
 

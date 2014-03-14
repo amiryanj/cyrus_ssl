@@ -8,7 +8,7 @@
 #include "gui/guihandler.h"
 #include "transmitter/commandtransmitter.h"
 
-#include "definition/sslmath.h"
+#include "tools/sslmath.h"
 using namespace std;
 
 
@@ -22,21 +22,20 @@ int main(int argc, char *argv[])
 //    cout << "for " << angle << " > "<< continuousRadian(angle, start) <<   endl;
 
     cout << "Main is running ... " << endl;
-    long long loopCounter = 0;
+    long loopCounter = 0;
 
-    SSLVision *vision = new SSLVision();
-    vision->open(GRSIM_VISION_PORT);
+    SSLVision *vision = new SSLVision(SSL_VISION_PORT, GRSIM_VISION_ADDRESS);
 
     VisionFilter *filter =  VisionFilter::getInstance();
 
     SSLAnalyzer *analyzer = SSLAnalyzer::getInstance();
 
-    SSLGame *game = SSLGame::getInstance(Yellow, Right);
+    SSLGame *game = SSLGame::getInstance(SSL::Blue, Right);
 
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
-
+    transmitter->type = CommandTransmitter::SERIAL;
 
     while (true)
     {
@@ -44,12 +43,13 @@ int main(int argc, char *argv[])
         vision->check();
         filter->check();
         analyzer->check();
-        game->check();
-        gui->check();
-        if((loopCounter % 3) ==0) {
-            transmitter->check();
+        if((loopCounter % 5) ==0) {
+            game->check();
+            gui->check();
         }
-        usleep(50000);
+        if(loopCounter % 100 == 0)
+            transmitter->check();
+        usleep(30000);
     }
 
     //    return app.exec();
