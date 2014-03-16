@@ -2,7 +2,7 @@
 #define SSLSTRATEGY_H
 
 #include "../general.h"
-#include "../soccer/roles/SSLRole.h"
+#include "../soccer/roles/sslrole.h"
 
 class SSLStrategy
 {

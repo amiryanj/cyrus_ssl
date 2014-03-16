@@ -2,7 +2,7 @@
 #define SSLAGENT_H
 
 #include "../definition/SSLRobot.h"
-#include "../soccer/roles/SSLRole.h"
+#include "../soccer/roles/sslrole.h"
 #include "../general.h"
 
 #include "../planner/planning/goalstate.h"

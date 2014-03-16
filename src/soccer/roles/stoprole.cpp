@@ -1,10 +1,12 @@
 #include "stoprole.h"
 
-StopRole::StopRole()
+StopRole::StopRole(SSLAgent *agent)
 {
+    this->m_agent = agent;
+    this->m_type = SSLRole::Stop;
 }
 
-GoalState StopRole::run()
+void StopRole::run()
 {
 
 //    this->getTarget()->position.setX(this->getRobot()->Position().X());

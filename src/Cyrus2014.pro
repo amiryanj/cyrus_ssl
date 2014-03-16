@@ -49,8 +49,6 @@ SOURCES += main.cpp \
     thirdparty/socket/netraw.cpp \
     ai/SSLAnalyzer.cpp \
     vision/SSLBallKalmanFilter.cpp \
-    soccer/roles/SSLRole.cpp \
-    soccer/roles/keepgoal.cpp \
     definition/sslagent.cpp \
     definition/sslstrategy.cpp \
     soccer/sslstrategymanager.cpp \
@@ -82,7 +80,19 @@ SOURCES += main.cpp \
     planner/planning/obstacle.cpp \
     planner/planning/goalstate.cpp \
     planner/planning/fieldbound.cpp \
-    planner/planning/dynamicobstacle.cpp
+    planner/planning/dynamicobstacle.cpp \
+    soccer/roles/supportrole.cpp \
+    soccer/roles/positionrole.cpp \
+    soccer/roles/activerole.cpp \
+    soccer/sslsocermath.cpp \
+    soccer/SSLSkill.cpp \
+    soccer/roles/playmakerrole.cpp \
+    soccer/roles/blockrole.cpp \
+    soccer/roles/defenderrole.cpp \
+    soccer/roles/keepgoalrole.cpp \
+    soccer/roles/pressrole.cpp \
+    soccer/roles/sslrole.cpp \
+    soccer/roles/waitpassrole.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -115,7 +125,6 @@ HEADERS += \
     thirdparty/util.h \
     ai/SSLAnalyzer.h \
     vision/SSLBallKalmanFilter.h \
-    soccer/roles/SSLRole.h \
     definition/sslagent.h \
     definition/sslstrategy.h \
     soccer/sslstrategymanager.h \
@@ -132,7 +141,6 @@ HEADERS += \
     transmitter/grSim/cpp/grSim_Packet.pb.h \
     transmitter/grSim/cpp/grSim_Commands.pb.h \
     soccer/roles/stoprole.h \
-    soccer/roles/keepgoal.h \
     transmitter/commandtransmitter.h \
     tools/sslmath.h \
     vision/naivekalmanfilter.h \
@@ -148,7 +156,19 @@ HEADERS += \
     planner/planning/obstacle.h \
     planner/planning/goalstate.h \
     planner/planning/fieldbound.h \
-    planner/planning/dynamicobstacle.h
+    planner/planning/dynamicobstacle.h \
+    soccer/roles/supportrole.h \
+    soccer/roles/positionrole.h \
+    soccer/sslsocermath.h \
+    soccer/SSLSkill.h \
+    soccer/roles/pressrole.h \
+    soccer/roles/sslrole.h \
+    soccer/roles/waitpassrole.h \
+    soccer/roles/playmakerrole.h \
+    soccer/roles/keepgoalrole.h \
+    soccer/roles/defenderrole.h \
+    soccer/roles/activerole.h \
+    soccer/roles/blockrole.h
 
 OTHER_FILES += \
     todo.txt \

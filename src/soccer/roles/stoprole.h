@@ -1,14 +1,14 @@
 #ifndef STOPROLE_H
 #define STOPROLE_H
 
-#include "SSLRole.h"
+#include "sslrole.h"
 
 class StopRole : public SSLRole
 {
 public:
-    StopRole();
+    StopRole(SSLAgent* agent);
 
-    GoalState run();
+    void run();
 };
 
 #endif // STOPROLE_H

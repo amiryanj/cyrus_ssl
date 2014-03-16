@@ -92,7 +92,7 @@ void SSLAgent::run()
         }
         if(this->robot == NULL)
             throw "Agent has NO ROBOT Assigned";
-        this->target = this->role->run();
+        this->role->run();
         // run the planner
         Station init_state;
         init_state.setPosition(this->robot->Position());
@@ -105,7 +105,7 @@ void SSLAgent::run()
 
         ObstacleSet tmpAllObstacles;
         tmpAllObstacles.reserve(2*MAX_ID_NUM + 6);
-        if(this->role->type != SSLRole::GoalKeeper) {
+        if(this->role->m_type != SSLRole::KeepGoal) {
             tmpAllObstacles.insert(tmpAllObstacles.begin(), penaltyAreaObs.begin(), penaltyAreaObs.end());
         }
 
