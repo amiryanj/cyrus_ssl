@@ -2,6 +2,7 @@
 #include "plannermath.h"
 #include <Box2D/Collision/b2Distance.h>
 #include "tools/sslmath.h"
+#include <iostream>
 
 using namespace SSL;
 
@@ -352,7 +353,7 @@ void PlanningProblem::buildVelocityProfile()
 
     }
 
-    align_radius = 500; // for adjusting robot desired speed
+    align_radius = 700; // for adjusting robot desired speed
     for(int i=0; i<trajec.lenght(); i++) {
         RRTVertex* node = trajec.getVertex(i);
         float MDTG = goal.minDistTo(node->state); // min dist to goal

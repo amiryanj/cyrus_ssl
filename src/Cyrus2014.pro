@@ -21,10 +21,10 @@ INCLUDEPATH += \
 
 TEMPLATE = app
 
-SOURCES += main.cpp \
+SOURCES += \
+    main.cpp \
     vision/SSLVision.cpp \    
     transmitter/RobotSerialConnection.cpp \
-    thirdparty/referee/cpp/referee.pb.cc \
     thirdparty/serialib/serialib.cpp \
     thirdparty/socket/IPPacket.cpp \
     thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.cc \
@@ -51,8 +51,6 @@ SOURCES += main.cpp \
     vision/SSLBallKalmanFilter.cpp \
     definition/sslagent.cpp \
     definition/sslstrategy.cpp \
-    soccer/sslstrategymanager.cpp \
-    soccer/sslrolemanager.cpp \
     tools/stdlist.cpp \
     gui/guihandler.cpp \
     gui/cpp/ssl_visualizer.pb.cc \
@@ -64,10 +62,11 @@ SOURCES += main.cpp \
     transmitter/grSim/cpp/grSim_Replacement.pb.cc \
     transmitter/grSim/cpp/grSim_Packet.pb.cc \
     transmitter/grSim/cpp/grSim_Commands.pb.cc \
-    soccer/roles/stoprole.cpp \
     transmitter/commandtransmitter.cpp \
     tools/sslmath.cpp \
     vision/naivekalmanfilter.cpp \
+    referee/SSLReferee.cpp \
+    referee/referee/cpp/referee.pb.cc \
     controller/pidcontroller.cpp \
     planner/planning/velocity.cpp \
     planner/planning/trajectory.cpp \
@@ -81,23 +80,24 @@ SOURCES += main.cpp \
     planner/planning/goalstate.cpp \
     planner/planning/fieldbound.cpp \
     planner/planning/dynamicobstacle.cpp \
-    soccer/roles/supportrole.cpp \
-    soccer/roles/positionrole.cpp \
-    soccer/roles/activerole.cpp \
-    soccer/sslsocermath.cpp \
+    soccer/sslstrategymanager.cpp \
     soccer/SSLSkill.cpp \
-    soccer/roles/playmakerrole.cpp \
-    soccer/roles/blockrole.cpp \
-    soccer/roles/defenderrole.cpp \
-    soccer/roles/keepgoalrole.cpp \
-    soccer/roles/pressrole.cpp \
+    soccer/sslrolemanager.cpp \
     soccer/roles/sslrole.cpp \
-    soccer/roles/waitpassrole.cpp
+    soccer/roles/wallstander.cpp \
+    soccer/roles/waitrebound.cpp \
+    soccer/roles/waitpass.cpp \
+    soccer/roles/positionrole.cpp \
+    soccer/roles/playstarter.cpp \
+    soccer/roles/opponentmarker.cpp \
+    soccer/roles/goalkeeper.cpp \
+    soccer/roles/defender.cpp \
+    soccer/roles/blocker.cpp \
+    soccer/roles/activerole.cpp
 
 HEADERS += \
     vision/SSLVision.h \
     transmitter/RobotSerialConnection.h \
-    thirdparty/referee/cpp/referee.pb.h \
     thirdparty/serialib/serialib.h \
     thirdparty/socket/IPPacket.h \
     thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.h \
@@ -127,8 +127,6 @@ HEADERS += \
     vision/SSLBallKalmanFilter.h \
     definition/sslagent.h \
     definition/sslstrategy.h \
-    soccer/sslstrategymanager.h \
-    soccer/sslrolemanager.h \
     tools/stdlist.h \
     gui/guihandler.h \
     gui/cpp/ssl_visualizer.pb.h \
@@ -140,10 +138,25 @@ HEADERS += \
     transmitter/grSim/cpp/grSim_Replacement.pb.h \
     transmitter/grSim/cpp/grSim_Packet.pb.h \
     transmitter/grSim/cpp/grSim_Commands.pb.h \
-    soccer/roles/stoprole.h \
     transmitter/commandtransmitter.h \
     tools/sslmath.h \
     vision/naivekalmanfilter.h \
+    referee/SSLReferee.h \
+    referee/referee/cpp/referee.pb.h \
+    soccer/SSLSkill.h \
+    soccer/sslstrategymanager.h \
+    soccer/roles/sslrole.h \
+    soccer/sslrolemanager.h \
+    soccer/roles/wallstander.h \
+    soccer/roles/waitrebound.h \
+    soccer/roles/waitpass.h \
+    soccer/roles/positionrole.h \
+    soccer/roles/playstarter.h \
+    soccer/roles/opponentmarker.h \
+    soccer/roles/goalkeeper.h \
+    soccer/roles/defender.h \
+    soccer/roles/blocker.h \
+    soccer/roles/activerole.h \
     controller/pidcontroller.h \
     planner/planning/velocity.h \
     planner/planning/trajectory.h \
@@ -156,22 +169,12 @@ HEADERS += \
     planner/planning/obstacle.h \
     planner/planning/goalstate.h \
     planner/planning/fieldbound.h \
-    planner/planning/dynamicobstacle.h \
-    soccer/roles/supportrole.h \
-    soccer/roles/positionrole.h \
-    soccer/sslsocermath.h \
-    soccer/SSLSkill.h \
-    soccer/roles/pressrole.h \
-    soccer/roles/sslrole.h \
-    soccer/roles/waitpassrole.h \
-    soccer/roles/playmakerrole.h \
-    soccer/roles/keepgoalrole.h \
-    soccer/roles/defenderrole.h \
-    soccer/roles/activerole.h \
-    soccer/roles/blockrole.h
+    planner/planning/dynamicobstacle.h
 
 OTHER_FILES += \
     todo.txt \
-    planner/planning/Planner.pri
+    planner/planning/Planner.pri \
+    referee/referee/referee.proto \
+    /etc/sslrefbox/referee.conf
 
 

@@ -2,16 +2,18 @@
 #define SSLSTRATEGY_H
 
 #include "../general.h"
-#include "../soccer/roles/sslrole.h"
+#include "../referee/SSLReferee.h"
+
+class SSLRole;
 
 class SSLStrategy
 {
 public:
     SSLStrategy();
 
-    std::string name;
-    std::vector<SSLRole*> postList;
-
+    std::string m_name;
+    SSLReferee::RefereeState m_refereeCondition;
+    std::vector<SSLRole*> m_roleList;
 
 };
 

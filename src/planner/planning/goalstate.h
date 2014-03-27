@@ -1,5 +1,5 @@
-#ifndef GOALSTATE_H
-#define GOALSTATE_H
+#ifndef _GOALSTATE_H
+#define _GOALSTATE_H
 
 #include "station.h"
 
@@ -21,4 +21,4 @@ public:
     double minDistTo(Station p);
 };
 
-#endif // GOALSTATE_H
+#endif // _GOALSTATE_H

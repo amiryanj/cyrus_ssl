@@ -24,6 +24,7 @@ std::string SSLTeam::colorStr()
     return (color == Yellow)? "Yellow":"Blue";
 }
 
+// this method returns in-field robots of the team, sorted by their ID's
 vector<SSLRobot *> SSLTeam::inFields()
 {
     vector<SSLRobot*> robotList;

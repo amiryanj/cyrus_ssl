@@ -8,7 +8,7 @@
 #ifndef SSLREFEREE_H_
 #define SSLREFEREE_H_
 
-#include "../thirdparty/referee/cpp/referee.pb.h"
+#include "referee/cpp/referee.pb.h"
 #include "thirdparty/socket/netraw.h"
 #include "tools/SSLListener.h"
 #include "thirdparty/socket/IPPacket.h"
@@ -18,12 +18,36 @@ using namespace Net;
 class SSLReferee : public SSLListener, public UDP
 {
 private:
-	SSL_Referee referee;
-public:
-	SSLReferee(string address, int port);
+    IPPacket m_temp_packet;
+    void updateState();
+
+public:    
+    enum RefereeState{ Unknown, Halt, Stop, ForceStart,
+                       BlueKickOffPosition, YellowKickOffPosition,
+                       BlueKickOffKick,     YellowKickOffKick,
+                       BluePenaltyPosition, YellowPenaltyPosition,
+                       BluePenaltyKick,     YellowPenaltyKick,
+                       BlueDirectKick,      YellowDirectKick,
+                       BlueIndirectKick,    YellowIndirectKick
+                     } lastState;
+
+    SSLReferee(int port, string address);
 	virtual ~SSLReferee();
-	void parse(IPPacket &packet);
-    void updateWorldModel();
+    void check();
+
+    long packet_time_stamp;
+
+    SSL_Referee_Stage stage;
+    long stage_time_left;
+
+    SSL_Referee_Command previous_command;
+    SSL_Referee_Command last_command;
+    long command_counter;
+    long command_timestamp;
+
+    SSL_Referee_TeamInfo yellow_info;
+    SSL_Referee_TeamInfo blue_info;
+
 };
 
 #endif /* SSLREFEREE_H_ */

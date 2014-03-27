@@ -15,6 +15,7 @@ struct frame
     double timeStampMilliSec; // unit = second
     double confidence;
     Vector3D position;
+    short camera_id;
 
     void setToCurrentTimeMilliSec();
 

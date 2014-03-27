@@ -17,11 +17,6 @@ VisionFilter::VisionFilter()
             robotFilter[i][j] = new SSLRobotKalmanFilter();
 }
 
-SSLWorldModel *VisionFilter::world()
-{
-    return SSLWorldModel::getInstance();
-}
-
 void VisionFilter::check()
 {
     for(int tm=0; tm<NUM_TEAMS; ++tm)
@@ -36,7 +31,7 @@ void VisionFilter::check()
 }
 
 
-void VisionFilter::setRobotFrame(Color color, unsigned int id, frame &fr)
+void VisionFilter::setRobotFrame(SSL::Color color, unsigned int id, frame &fr)
 {
     if(((int) color > 2) || (id >= MAX_ID_NUM))
         throw "invalid color or id of robot";
@@ -45,7 +40,7 @@ void VisionFilter::setRobotFrame(Color color, unsigned int id, frame &fr)
 
 void VisionFilter::setBallFrame(frame &fr)
 {
-    world()->updateBallState(0, fr.position.to2D(), Vector3D(0,0,0).to2D());
+    world->updateBallState(0, fr.position.to2D(), Vector3D(0,0,0).to2D());
 }
 
 void VisionFilter::updateWorldRobots()
@@ -53,9 +48,9 @@ void VisionFilter::updateWorldRobots()
     for(int i=0; i<NUM_TEAMS; ++i)
         for(int j=0; j<MAX_ID_NUM; ++j)
         {
-            world()->updateRobotState((Color)i, j,robotFilter[i][j]->getFilteredPosition(),
-                                                    robotFilter[i][j]->getFilteredSpeed());
-            world()->updateRobotAvailability((Color)i, j, robotFilter[i][j]->isOnField());
+            world->updateRobotState((SSL::Color)i, j,robotFilter[i][j]->getFilteredPosition(),
+                                                  robotFilter[i][j]->getFilteredSpeed());
+            world->updateRobotAvailability((SSL::Color)i, j, robotFilter[i][j]->isOnField());
         }
 
 }

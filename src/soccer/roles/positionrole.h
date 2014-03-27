@@ -2,26 +2,29 @@
 #define POSITIONROLE_H
 
 #include "sslrole.h"
-#include "../definition/SSLRobot.h"
 #include "../SSLSkill.h"
-#include "../sslsocermath.h"
 
 class PositionRole : public SSLRole
 {
 public:
-    PositionRole(SSLAgent* agent);
+    PositionRole();
+
+    Vector3D getPosition() const;
+    void setPosition(const Vector3D &value);
+
+    Vector3D getTolerance() const;
+    void setTolerance(const Vector3D &value);
+
+    void run();
 
     float getFacing() const;
     void setFacing(float value);
 
-    Vector2D getPosition() const;
-    void setPosition(const Vector2D &value);
-
-    void run();
+    Vector2D expectedPosition();
 
 private:
-    Vector2D position;
-    float facing;
+    Vector3D m_position;
+    Vector3D m_tolerance;
 };
 
 #endif // POSITIONROLE_H

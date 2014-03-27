@@ -1,6 +1,10 @@
 #include "guihandler.h"
 //#include "boost/shared_ptr.hpp"
 
+#include "../definition/SSLRobot.h"
+#include "../definition/sslagent.h"
+#include "../definition/SSLBall.h"
+
 GUIHandler* GUIHandler::instance = NULL;
 using namespace boost;
 GUIHandler::GUIHandler()
@@ -15,7 +19,7 @@ GUIHandler *GUIHandler::getInstance()
     return instance;
 }
 
-bool GUIHandler::openSocket(int port)
+bool GUIHandler::openSocket(int port, string address)
 {
     this->close();
     if(!this->open(port, true, true))
@@ -25,7 +29,7 @@ bool GUIHandler::openSocket(int port)
     }
 
     Net::Address multiaddr, interface;
-    multiaddr.setHost(VISUALIZER_IP, port);
+    multiaddr.setHost(address.c_str(), port);
     interface.setAny();   
 
     if(!this->addMulticast(multiaddr, interface))
@@ -72,13 +76,13 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
 //    packet->mutable_yellow_team()->set_color(yellow_color);
 
     packet->mutable_comment()->append("This packet is filled in cyrus 2014 server.");
-    packet->mutable_blue_team()->set_side((world()->team[Blue]->side==Left)? left_side:right_side);
-    packet->mutable_yellow_team()->set_side((world()->team[Yellow]->side==Left)? left_side:right_side);
+    packet->mutable_blue_team()->set_side((world->team[Blue]->side==Left)? left_side:right_side);
+    packet->mutable_yellow_team()->set_side((world->team[Yellow]->side==Left)? left_side:right_side);
 
     for(int tm=0; tm<2 ; ++tm)
     {
-//        for(uint i=0; i<world()->getTeam((Color)tm)->numInFieldRobots(); ++i)
-        vector<SSLRobot*> team_robots = world()->getTeam((Color)tm)->allRobots();
+//        for(uint i=0; i<world->getTeam((Color)tm)->numInFieldRobots(); ++i)
+        vector<SSLRobot*> team_robots = world->getTeam((Color)tm)->allRobots();
         for(uint i=0; i < team_robots.size() ; ++i)
         {
             const SSLRobot* robot = team_robots.at(i);
@@ -100,12 +104,12 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
      */
 
     ssl_ball* ball_packet = packet->mutable_field_balls()->Add();
-    ball_packet->mutable_position()->set_x(world()->mainBall()->Position().X());
-    ball_packet->mutable_position()->set_y(world()->mainBall()->Position().Y());
+    ball_packet->mutable_position()->set_x(world->mainBall()->Position().X());
+    ball_packet->mutable_position()->set_y(world->mainBall()->Position().Y());
     ball_packet->mutable_position()->set_teta(0);
 
-    ball_packet->mutable_velecity()->set_x(world()->mainBall()->Speed().X());
-    ball_packet->mutable_velecity()->set_y(world()->mainBall()->Speed().Y());
+    ball_packet->mutable_velecity()->set_x(world->mainBall()->Speed().X());
+    ball_packet->mutable_velecity()->set_y(world->mainBall()->Speed().Y());
     ball_packet->mutable_velecity()->set_teta(0);
 
     ball_packet->set_id(0);
@@ -126,7 +130,7 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
     packet->set_comment("This is planning packet");
     planner_polygon* bound = packet->mutable_plannerbound();
     vector<SSLAgent*>::iterator it;
-    for(it=game()->agents.begin(); it!=game()->agents.end(); ++it)
+    for(it=decision->m_agents.begin(); it!=decision->m_agents.end(); ++it)
     {
         SSLAgent* agent = *it;
         if(agent->isNull())
@@ -138,9 +142,9 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         initial->set_y(agent->planner.getInitialState().position.Y());
         initial->set_teta(agent->planner.getInitialState().position.Teta());
         planner_vec3d* goal = plan->mutable_goalstate();
-        goal->set_x(agent->planner.getGoal().goal_point.position.X());
-        goal->set_y(agent->planner.getGoal().goal_point.position.Y());
-        goal->set_teta(agent->planner.getGoal().goal_point.position.Teta());
+        goal->set_x(agent->planner.getGoal().goal_point.position.X() );
+        goal->set_y(agent->planner.getGoal().goal_point.position.Y() );
+        goal->set_teta(agent->planner.getGoal().goal_point.position.Teta() );
         planner_obstacles* obstacles = plan->mutable_obstacleset(); // is not filled yet
         for(int i = 0; i< agent->planner.getTrajectory().lenght(); i++)
         {
@@ -150,13 +154,13 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
             state->set_y(pos.Y());
             state->set_teta(pos.Teta());
         }
-        plan->mutable_desiredvel()->set_x(agent->temp_desired_vel.X());
-        plan->mutable_desiredvel()->set_y(agent->temp_desired_vel.Y());
-        plan->mutable_desiredvel()->set_teta(agent->temp_desired_vel.Teta());
+        plan->mutable_desiredvel()->set_x(agent->desiredGlobalSpeed.X() * 2000);
+        plan->mutable_desiredvel()->set_y(agent->desiredGlobalSpeed.Y() * 2000);
+        plan->mutable_desiredvel()->set_teta(agent->desiredGlobalSpeed.Teta() * 2000);
 
-        plan->mutable_appliedvel()->set_x(agent->temp_applied_vel_local.X());
-        plan->mutable_appliedvel()->set_y(agent->temp_applied_vel_local.Y());
-        plan->mutable_appliedvel()->set_teta(agent->temp_applied_vel_local.Teta());
+        plan->mutable_appliedvel()->set_x(agent->appliedLocalSpeed.X() * 2000);
+        plan->mutable_appliedvel()->set_y(agent->appliedLocalSpeed.Y() * 2000);
+        plan->mutable_appliedvel()->set_teta(agent->appliedLocalSpeed.Teta() * 2000);
     }
 }
 
@@ -183,19 +187,4 @@ bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)
         cout << buffer.length() << " Bytes of ( Visualizer Packet ) has been sent." << endl;
     }
     return(result);
-}
-
-SSLWorldModel *GUIHandler::world()
-{
-    return SSLWorldModel::getInstance();
-}
-
-SSLAnalyzer *GUIHandler::analyzer()
-{
-    return SSLAnalyzer::getInstance();
-}
-
-SSLGame *GUIHandler::game()
-{
-    return SSLGame::getInstance();
 }

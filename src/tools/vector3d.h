@@ -1,5 +1,5 @@
-#ifndef Vector3D_Header_h
-#define Vector3D_Header_h
+#ifndef _Vector3D_H
+#define _Vector3D_H
 
 class Vector2D;
 class b2Vec3;
@@ -19,6 +19,7 @@ public:
 
     Vector3D();
     Vector3D(const Vector3D &vector);
+    Vector3D(const Vector2D &point, float nteta);
     Vector3D(float nx, float ny, float nteta);
 
     Vector3D operator =(const Vector3D &vector);
@@ -54,4 +55,4 @@ public:
     static float distance2D(const Vector3D &a, const Vector3D &b);
 
 };
-#endif
+#endif // _Vector3D_H

@@ -13,21 +13,37 @@
 #include "../general.h"
 #include "../definition/sslstrategy.h"
 
+#define strategyManager  SSLStrategyManager::getInstance()
+
 class SSLStrategyManager
 {
     SSLStrategyManager();
-    static SSLStrategyManager* manager;
+    static SSLStrategyManager* manager_instance;
 
 public:
     static SSLStrategyManager* getInstance();
     std::vector<SSLStrategy> strategyList;
 
-    void updateStrategy(SSLStrategy &strategy);
+    SSLStrategy* updateStrategy(SSLStrategy *strategy);
 
     void initialStrategyFiles();
 
 private:
+    SSLStrategy* normalPlay_1;
+    SSLStrategy* offensePlay_1;
+    SSLStrategy* defensePlay_1;
 
+    SSLStrategy* ourKickOffFormation_1;
+    SSLStrategy* opponentKickOffFormation_1;
+
+    SSLStrategy* ourPenaltyFormation_1;
+    SSLStrategy* opponentPenaltyFormation_1;
+//    SSLStrategy* opponentPenaltyKick_1;
+
+    SSLStrategy* ourDirectKick_1;
+    SSLStrategy* opponentDirectKickFormation_1;
+    SSLStrategy* ourIndirectKick_1;
+    SSLStrategy* opponentIndirectKickFormation_1;
 
 };
 

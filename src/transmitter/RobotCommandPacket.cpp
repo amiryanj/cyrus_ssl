@@ -4,11 +4,6 @@
 #include "../general.h"
 
 using namespace std;
-// in clockwise turn
-double RobotCommandPacket::wheelAngle_1 = +33.0 * M_PI/180.0;
-double RobotCommandPacket::wheelAngle_2 = -38.0 * M_PI/180.0;
-double RobotCommandPacket::wheelAngle_3 = -142 * M_PI/180.0;
-double RobotCommandPacket::wheelAngle_4 = +147.0 * M_PI/180.0;
 
 RobotCommandPacket::RobotCommandPacket()
 {
@@ -22,28 +17,23 @@ RobotCommandPacket::RobotCommandPacket(double v[], double kickPower, bool isForc
     this->v[2] = v[2];
     this->v[3] = v[3];
 
-    this->kickPower = kickPower;
-    this->isForceKick = isForceKick;
-    this->isDribbler = isDribbler;
+    this->m_kickPower = kickPower;
+    this->m_isForceKick = isForceKick;
+    this->m_isDribbler = isDribbler;
 }
 
-RobotCommandPacket::RobotCommandPacket(double vx, double vy, double wz,
+RobotCommandPacket::RobotCommandPacket(Vector3D velocity, bool use_new_wheel_angles,
                                        double kickPower, bool isForceKick, bool isDribbler)
 {
-    this->Velocity.set(vx, vy, wz);
+    this->m_velocity = velocity;
 
-    this->kickPower = kickPower;
-    this->isForceKick = isForceKick;
-    this->isDribbler = isDribbler;
-}
+    this->setVelocityByWheels(velocity, use_new_wheel_angles);
 
-RobotCommandPacket::RobotCommandPacket(Vector3D velocity, double kickPower, bool isForceKick, bool isDribbler)
-{
-    this->Velocity = velocity;
+    this->m_kickPower = kickPower;
+    this->m_isForceKick = isForceKick;
+    this->m_isDribbler = isDribbler;
 
-    this->kickPower = kickPower;
-    this->isForceKick = isForceKick;
-    this->isDribbler = isDribbler;
+    this->setVelocity(velocity, use_new_wheel_angles);
 }
 
 void RobotCommandPacket::reset(){
@@ -52,33 +42,35 @@ void RobotCommandPacket::reset(){
     this->v[2] = 0;
     this->v[3] = 0;
 
-    this->Velocity.setZero();
+    this->m_velocity.setZero();
 
-    this->kickPower = 0;
-    this->isForceKick = 0;
-    this->isDribbler = 0;
+    this->m_kickPower = 0;
+    this->m_isForceKick = 0;
+    this->m_isDribbler = 0;
 }
 
-void RobotCommandPacket::setVelocity(const Vector3D &vel)
+void RobotCommandPacket::setVelocity(const Vector3D &vel, bool use_new_wheel_angles)
 {
-    this->Velocity = vel;
+    this->m_velocity = vel;
+    this->setVelocityByWheels(vel, use_new_wheel_angles);
     this->byWheelSpeed = false;
 }
 
-void RobotCommandPacket::setVelocity(double vx, double vy, double wz)
-{
-    this->Velocity.set(vx, vy, wz);
-
-    this->byWheelSpeed = false;
-}
-
-void RobotCommandPacket::setVelocityByWheels(double vx, double vy, double wz)
+void RobotCommandPacket::setVelocityByWheels(Vector3D vel, bool use_new_wheel_angles)
 {
     // by Jacobian Matrix
-    v[0] = cos(wheelAngle_1) * vx + sin(wheelAngle_1)* vy + ROBOT_RADIUS* wz;
-    v[1] = cos(wheelAngle_2) * vx + sin(wheelAngle_2)* vy + ROBOT_RADIUS* wz;
-    v[2] = cos(wheelAngle_3) * vx + sin(wheelAngle_3)* vy + ROBOT_RADIUS* wz;
-    v[3] = cos(wheelAngle_4) * vx + sin(wheelAngle_4)* vy + ROBOT_RADIUS* wz;
+    if(use_new_wheel_angles) {
+        v[0] = cos(wheelAngle_1_new) * vel.X() + sin(wheelAngle_1_new)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+        v[1] = cos(wheelAngle_2_new) * vel.X() + sin(wheelAngle_2_new)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+        v[2] = cos(wheelAngle_3_new) * vel.X() + sin(wheelAngle_3_new)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+        v[3] = cos(wheelAngle_4_new) * vel.X() + sin(wheelAngle_4_new)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+    }
+    else {
+        v[0] = cos(wheelAngle_1_old) * vel.X() + sin(wheelAngle_1_old)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+        v[1] = cos(wheelAngle_2_old) * vel.X() + sin(wheelAngle_2_old)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+        v[2] = cos(wheelAngle_3_old) * vel.X() + sin(wheelAngle_3_old)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+        v[3] = cos(wheelAngle_4_old) * vel.X() + sin(wheelAngle_4_old)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+    }
 
     this->byWheelSpeed = true;
 }
@@ -95,12 +87,12 @@ void RobotCommandPacket::setWheelVelocity(double v1, double v2, double v3, doubl
 
 RobotCommandPacket &RobotCommandPacket::operator =(RobotCommandPacket &other)
 {
-    this->kickPower = other.kickPower;
-    this->isForceKick = other.isForceKick;
-    this->isDribbler = other.isDribbler;
+    this->m_kickPower = other.m_kickPower;
+    this->m_isForceKick = other.m_isForceKick;
+    this->m_isDribbler = other.m_isDribbler;
     this->byWheelSpeed = other.byWheelSpeed;
 
-    this->Velocity = other.Velocity;
+    this->m_velocity = other.m_velocity;
     this->v[0] = other.v[0];
     this->v[1] = other.v[1];
     this->v[2] = other.v[2];
@@ -111,7 +103,7 @@ RobotCommandPacket &RobotCommandPacket::operator =(RobotCommandPacket &other)
 
 Vector3D RobotCommandPacket::getVelocity() const
 {
-    return this->Velocity;
+    return this->m_velocity;
 }
 
 double RobotCommandPacket::getWheelSpeed(int i)
@@ -134,13 +126,13 @@ double RobotCommandPacket::getWheelAngle(int i)
             throw "Invalid Wheel Speed Number request" ;
         switch(i) {
         case 1:
-            return wheelAngle_1 * 180.0/M_PI;
+            return wheelAngle_1_new * 180.0/M_PI;
         case 2:
-            return wheelAngle_2 * 180.0/M_PI;
+            return wheelAngle_2_new * 180.0/M_PI;
         case 3:
-            return wheelAngle_3 * 180.0/M_PI;
+            return wheelAngle_3_new * 180.0/M_PI;
         case 4:
-            return wheelAngle_4 * 180.0/M_PI;
+            return wheelAngle_4_new * 180.0/M_PI;
         }
     }
     catch (const char* msg) {

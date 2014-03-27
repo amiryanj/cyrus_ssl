@@ -1,5 +1,5 @@
-#ifndef ANALYZER_H
-#define ANALYZER_H
+#ifndef _ANALYZER_H
+#define _ANALYZER_H
 
 #include "../general.h"
 #include "../tools/SSLListener.h"
@@ -15,16 +15,15 @@ class SSLBall;
 using namespace SSL;
 using namespace std;
 
+#define analyzer SSLAnalyzer::getInstance()
+
 // Singleton Class
 class SSLAnalyzer : SSLListener
 {
 private:
     SSLAnalyzer();  // default constructor
-    static SSLAnalyzer *analyzer;
+    static SSLAnalyzer *analyzer_instance;
 
-    SSLWorldModel *world();
-    SSLGame* game();
-    
     void updateDistances();
 
 public:
@@ -70,7 +69,7 @@ public:
 // LEVEL 1  --------------------------------------------------------------------------------
 //    SSLRobot* robotHaveBall(std::vector<SSLRobot*> robots);
 //    bool cyrusHaveBall(std::vector<SSLRobot*> robots);
-    bool robotCanKick(SSLRobot * robot);
+    bool canKick(SSLRobot * robot);
     SSLRobot* whichRobotCanKick(); // Null : none
     std::vector<SSLRobot*> nearestRobotToBall(std::vector<SSLRobot*> robots);
     std::vector<SSLRobot*> nearestRobotToPoint(std::vector<SSLRobot*> robots,Vector2D point);
@@ -98,6 +97,35 @@ public:
   //  Vector3D bestTranslocationForShoot();
   //  Vector3D bestTranslocationForMark();
   //  Vector3D bestTranslocationForBlock(std::vector<SSLRobot*> cyrusRobots,SSLRobot * robot);
+
+//
+    float distToCatchBall(SSLRobot* robot);
+    Vector2D whereCanCatchBall(SSLRobot* robot);
+
+
+// Referee State Analyze:
+    bool isOurKickOffPosition();
+    bool isOpponentKickOffPosition();
+    bool isOurKickOffKick();
+    bool isOpponentKickOffKick();
+
+    bool isOurPenaltyPosition();
+    bool isOpponentPenaltyPosition();
+    bool isOurPenaltyKick();
+    bool isOpponentPenaltyKick();
+
+    bool isOurDirectKick();
+    bool isOpponentDirectKick();
+    bool isOurIndirectKick();
+    bool isOpponentIndirectKick();
+
+    bool isGameRunning();
+    bool isPointWithinOurPenaltyArea(const Vector2D& point);
+    bool isPointInOurSide(const Vector2D& point);
+
+private:
+    bool m_game_running;
+
 };
 
-#endif // ANALYZER_H
+#endif // _ANALYZER_H

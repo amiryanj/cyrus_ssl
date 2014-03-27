@@ -4,25 +4,34 @@
 #include "../general.h"
 #include "../definition/sslagent.h"
 #include "../definition/sslstrategy.h"
+#include "roles/defender.h"
+#include "roles/blocker.h"
+#include "roles/opponentmarker.h"
 
 class SSLGame;
 class SSLAnalyzer;
 
+#define roleManager  SSLRoleManager::getInstance()
+
 class SSLRoleManager
 {
-    static SSLRoleManager* manager;
+    static SSLRoleManager* manager_instance;
     SSLRoleManager();
 
 public:
     static SSLRoleManager* getInstance();
 
-    void assignRole(const SSLStrategy &strategy, std::vector<SSLAgent*> agents);
+    void AssignRole(SSLStrategy *strategy, vector<SSLAgent*> agents);
+    void ArrangeDefense(vector<SSLAgent*> agents);
 
 private:
-    SSLAnalyzer* analyzer();
-    SSLGame* game();
-
     SSLRole* testRole1;
+
+    Defender* spareDefender;
+    Blocker* spareBlocker;
+    OpponentMarker* spareOpponentMarker;
+
+    void joinAgentAndRole(SSLAgent* agent, SSLRole* role);
 
 };
 

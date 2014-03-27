@@ -1,5 +1,5 @@
-#ifndef Vector2D_Header_h
-#define Vector2D_Header_h
+#ifndef _Vector2D_H
+#define _Vector2D_H
 
 class Vector3D;
 class b2Vec2;
@@ -52,4 +52,4 @@ public:
 
 };
 
-#endif
+#endif // _Vector2D_H

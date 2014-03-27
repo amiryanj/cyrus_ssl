@@ -55,9 +55,9 @@ void GRSimSender::sendPacket(int robotID, RobotCommandPacket rawPacket)
 //    command->set_velnormal(-2);
 //    command->set_veltangent(tan(0));
 
-    command->set_kickspeedx(rawPacket.kickPower);
+    command->set_kickspeedx(rawPacket.m_kickPower);
     command->set_kickspeedz(0); // chip kick
-    command->set_spinner((rawPacket.isDribbler)? 1:0);
+    command->set_spinner((rawPacket.m_isDribbler)? 1:0);
 
     if(connected)
     {

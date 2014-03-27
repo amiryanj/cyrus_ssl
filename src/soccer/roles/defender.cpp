@@ -1,32 +1,39 @@
-#include "defenderrole.h"
+#include "defender.h"
 
-DefenderRole::DefenderRole(SSLAgent *agent)
+Defender::Defender()
 {
-    this->m_agent = agent;
-    this->m_type = SSLRole::Defender;
+    this->m_type = SSLRole::e_Defender;
+
+    m_hardness = 1;
 }
 
-int DefenderRole::getDefenderIndex() const
+Vector2D Defender::expectedPosition()
+{
+
+}
+
+int Defender::getDefenderIndex() const
 {
     return m_defenderIndex;
 }
 
-void DefenderRole::setDefenderIndex(int ind)
+void Defender::setDefenderIndex(int ind)
 {
     m_defenderIndex = ind;
 }
 
-int DefenderRole::getDefenderCount() const
+int Defender::getDefenderCount() const
 {
     return m_defenderCount;
 }
 
-void DefenderRole::setDefenderCount(int ind)
+void Defender::setDefenderCount(int ind)
 {
     m_defenderCount = ind;
 }
 
-void DefenderRole::run(){
+void Defender::run(){
+
 
 //    Vector2D target;
 //    float facing = 0;
@@ -77,7 +84,7 @@ void DefenderRole::run(){
 //        }else{
 //            //Go between ball and Goal
 
-////            Vector2D ourGoal(0, SSLGame::getInstance()->ourSide() * FIELD_LENGTH/ (double)2);
+////            Vector2D ourGoal(SSLGame::getInstance()->ourSide() * FIELD_LENGTH/ (double)2, 0);
 
 ////            target.setX((SSLWorldModel::getInstance()->ball->Position().X() + ourGoal.X()) / (double)2);
 ////            target.setY((SSLWorldModel::getInstance()->ball->Position().Y() + ourGoal.Y()) / (double)2);

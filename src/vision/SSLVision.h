@@ -21,13 +21,14 @@ using namespace Net;
 class SSLVision : public SSLListener, public UDP
 {
 private:
-    SSL_WrapperPacket wrapper;
     VisionFilter* filterModule;
 
-    void parse(IPPacket &p);
-    void updateFilterModule();
-    frame _tmp_frame;
-    IPPacket _packet;
+//    void parse(IPPacket &p);
+    void updateFilterModule(const SSL_WrapperPacket& wrapper);
+
+    //    SSL_WrapperPacket wrapper;
+//    frame m_temp_frame;
+    IPPacket m_temp_packet;
 
 public:
     SSLVision(int port = 0, const std::string address = "");

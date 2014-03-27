@@ -4,6 +4,7 @@
 
 PIDController::PIDController()
 {
+
 }
 
 void PIDController::setParameters(double kp, double ki, double kd)
@@ -54,5 +55,5 @@ Vector3D PIDController::getControl()
         cerr << "Exception: " << "PID COntroller" << msg << endl;
     }
 
-    return control;
+    return control + currentDesired;
 }

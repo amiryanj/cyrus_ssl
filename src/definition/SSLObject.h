@@ -4,7 +4,7 @@
 #include "../tools/vector3d.h"
 #include "../tools/vector2d.h"
 
-enum SSL_OBJECT_TYPE {BALL_OBJECT, ROBOT_OBJECT};
+enum SSL_OBJECT_TYPE {e_BALL_OBJECT, e_ROBOT_OBJECT};
 
 template <class VectorType>
 class SSLObject
@@ -13,29 +13,29 @@ public:
     SSLObject() {}
 
     VectorType Position() const    {
-        return this->_position;
+        return m_position;
     }
 
     VectorType Speed() const    {
-        return this->_speed;
+        return m_speed;
     }
 
     void setPosition(const VectorType &position_)   {
-        this->_position = position_;
+        m_position = position_;
     }
 
     void setSpeed(const VectorType &speed_)     {
-        this->_speed = speed_;
+        m_speed = speed_;
     }
-        ;
-    double radius;
+
+    double m_radius;
 
 protected:
-    VectorType _position;
-    VectorType _speed;
+    VectorType m_position;
+    VectorType m_speed;
 
-    SSL_OBJECT_TYPE type;
-    double mass;
+    SSL_OBJECT_TYPE m_type;
+    double m_mass;
 
 };
 

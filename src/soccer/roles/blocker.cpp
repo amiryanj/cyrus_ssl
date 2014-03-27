@@ -1,22 +1,23 @@
-#include "blockrole.h"
+#include "blocker.h"
 
-BlockRole::BlockRole(SSLAgent *agent)
+Blocker::Blocker()
 {
-    this->m_agent = agent;
-    this->m_type = SSLRole::Block;
+    this->m_type = SSLRole::e_Blocker;
+
+    m_hardness = 2;
 }
 
-SSLRobot *BlockRole::getBlockedRobot() const
+SSLRobot *Blocker::getBlockedRobot() const
 {
     return m_blockedRobot;
 }
 
-void BlockRole::setBlockedRobot(SSLRobot *value)
+void Blocker::setBlockedRobot(SSLRobot *value)
 {
     m_blockedRobot = value;
 }
 
-void BlockRole::run()
+void Blocker::run()
 {
 
 //    if(SSLAnalyzer::getInstance()->canKick(getRobot())){
@@ -39,5 +40,10 @@ void BlockRole::run()
 //                            SSLSocerMath::getFacingToPoint(getRobot()->Position().to2D(), ourGoalPos));
 //    }
 
+
+}
+
+Vector2D Blocker::expectedPosition()
+{
 
 }

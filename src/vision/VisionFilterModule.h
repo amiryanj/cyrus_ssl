@@ -16,14 +16,13 @@ class VisionFilter : public SSLListener
 public:
     static VisionFilter* getInstance();
     void check();
-    void setRobotFrame(Color color, unsigned int id, frame &fr);
+    void setRobotFrame(SSL::Color color, unsigned int id, frame &fr);
     void setBallFrame(frame &fr);
 
 private:
     SSLRobotKalmanFilter *robotFilter[NUM_TEAMS][MAX_ID_NUM];
 
     void updateWorldRobots();
-    SSLWorldModel* world();
 
 };
 

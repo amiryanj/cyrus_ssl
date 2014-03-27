@@ -1,13 +1,14 @@
-#ifndef SSLAGENT_H
-#define SSLAGENT_H
+#ifndef _SSLAGENT_H
+#define _SSLAGENT_H
 
 #include "../definition/SSLRobot.h"
-#include "../soccer/roles/sslrole.h"
 #include "../general.h"
 
 #include "../planner/planning/goalstate.h"
 #include "../planner/planning/planningproblem.h"
 #include "../controller/pidcontroller.h"
+
+class SSLRole;
 
 class SSLAgent
 {
@@ -22,9 +23,9 @@ public:
     PlanningProblem planner;
     PIDController controller;
 
-    Vector3D temp_desired_vel;
-    Vector3D temp_applied_vel_global;
-    Vector3D temp_applied_vel_local;
+    Vector3D desiredGlobalSpeed;
+    Vector3D appliedGlobalSpeed;
+    Vector3D appliedLocalSpeed;
 
 
     // SSLController controller;
@@ -33,11 +34,8 @@ public:
     int getID() const;
 
     void run();
+
 private:
-    ObstacleSet allRobotsObs;
-    Obstacle* ballOb;
-    ObstacleSet myDynamicObstacleSet;
-    ObstacleSet penaltyAreaObs;
 };
 
-#endif // SSLAGENT_H
+#endif // _SSLAGENT_H

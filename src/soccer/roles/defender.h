@@ -1,20 +1,16 @@
-#ifndef DEFENCEROLE_H
-#define DEFENCEROLE_H
+#ifndef _DEFENDER_H
+#define _DEFENDER_H
 
 #include "sslrole.h"
-#include "../sslsocermath.h"
 #include "../SSLSkill.h"
-#include "../ai/SSLAnalyzer.h"
-#include "../ai/SSLGame.h"
-#include "../ai/SSLWorldModel.h"
 
-class DefenderRole : public SSLRole
+class Defender : public SSLRole
 {
 public:
 
     static const double SMALLEST_TIME_TO_SHOOT = 1.0;
 
-    DefenderRole(SSLAgent* agent);
+    Defender();
 
     void run();
 
@@ -24,9 +20,11 @@ public:
     int getDefenderIndex() const;
     void setDefenderIndex(int ind);
 
+    Vector2D expectedPosition();
+
 private :
     int m_defenderCount;
     int m_defenderIndex;
 };
 
-#endif // DEFENCEROLE_H
+#endif // _DEFENDER_H

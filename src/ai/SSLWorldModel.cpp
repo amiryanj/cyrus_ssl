@@ -1,15 +1,10 @@
-/*
- * SSLWorldModel.cpp
- *
- *  Created on: Aug 14, 2013
- *      Author: mostafa, javad
- */
-
 #include "SSLWorldModel.h"
+#include "../definition/SSLTeam.h"
+#include "../definition/SSLBall.h"
 #include "../definition/SSLRobot.h"
 #include <vector>
 
-SSLWorldModel* SSLWorldModel::world = NULL;
+SSLWorldModel* SSLWorldModel::world_instance = NULL;
 
 SSLWorldModel::SSLWorldModel() {
     // TODO Auto-generated constructor stub
@@ -22,9 +17,9 @@ SSLWorldModel::SSLWorldModel() {
 
 SSLWorldModel *SSLWorldModel::getInstance()
 {
-    if(world==NULL)
-        world = new SSLWorldModel();
-    return world;
+    if(world_instance==NULL)
+        world_instance = new SSLWorldModel();
+    return world_instance;
 }
 
 SSLTeam *SSLWorldModel::getTeam(Color c)
@@ -49,8 +44,8 @@ STDVector<SSLRobot *> SSLWorldModel::all_inFields()
 
 STDVector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(SSLRobot *excep)
 {
+    STDVector<SSLRobot*> all_;
     try {
-        STDVector<SSLRobot*> all_;
         all_.reserve(MAX_TEAM_PLAYER*2 - 1);
         if(excep == NULL)
             throw "Robot is invalid";
@@ -74,6 +69,7 @@ STDVector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(SSLRobot *excep)
     catch(const char* msg) {
         cerr << "Exception: SSLWorldmodel: " << msg << endl;
     }
+    return all_;
 }
 
 STDVector<SSLRobot *> SSLWorldModel::allRobots()

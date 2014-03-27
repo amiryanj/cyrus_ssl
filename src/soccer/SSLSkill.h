@@ -5,37 +5,54 @@
  * Created on February 13, 2014, 1:06 PM
  */
 
-#ifndef SSLSKILL_H
-#define	SSLSKILL_H
+#ifndef _SSLSKILL_H
+#define	_SSLSKILL_H
 
-#include <iostream>
+#include "general.h"
+#include "iostream"
 
-#include "../definition/SSLRobot.h"
-#include "../definition/sslagent.h"
-#include "../definition/SSLBall.h"
+class SSLAgent;
+class Vector2D;
+class Vector3D;
 
+class SSLWorldModel;
+class SSLAnalyzer;
+class SSLGame;
 
 class SSLSkill {
     
 public:
-    SSLSkill();
-    
-    static void goToPoint(SSLAgent* agent, Vector2D target);
+    SSLSkill() { }
 
-    static void goBehindBall(SSLAgent* agent, SSLBall* ball);
+    static void halt(SSLAgent* agent);
 
-    static void kick(SSLAgent* agent);
+    static void goToPoint(SSLAgent* agent, Vector3D target, Vector3D tolerance);
 
-    static void blockOpponent(SSLAgent* agent, SSLRobot* opponent);
+    static void goToPointWithPlanner(SSLAgent *agent, Vector3D target, Vector3D tolerance,
+                                     bool considerPenaltyArea = true,
+                                     short ball_ob_radius = BALL_RADIUS,
+                                     short robot_ob_radius = ROBOT_RADIUS);
+
+    static void goAndKick(SSLAgent* agent, double kickStrenghtNormal);
+
+    static void goAndChip(SSLAgent* agent, double chipStrenghtNormal = 1);
+
+//    static void goBehindBall(SSLAgent* agent, SSLBall* ball);
+//    static void blockOpponent(SSLAgent* agent, SSLRobot* opponent);
 
 //    void goToPointKickForBlock(SSLRobot*);
 //    void forcKick(SSLRobot*);
-//    void forcKick(SSLRobot*, long duration);
 //    void forceStop(SSLRobot*);
 //    void stopCommands(SSLRobot*);
+
+    static Vector2D opponentPenaltyPoint();
+    static Vector2D opponentGoalCenter();
+    static Vector3D KickStylePosition(Vector2D point, Vector2D kickTarget);
     
 private:
+    static void buildAndSendPacket(int id, Vector3D &vel, float kickSpeed = 0);
+    static void printRobotAppliedSpeed(SSLAgent* agent, std::ostream& stream);
 
 };
 
-#endif	/* SSLSKILL_H */
+#endif	/* _SSLSKILL_H */

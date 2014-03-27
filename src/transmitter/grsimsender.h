@@ -12,7 +12,7 @@
 class GRSimSender: public Net::UDP
 {
 public:
-    GRSimSender(SSL::Color our_color = OUR_COLOR);
+    GRSimSender(SSL::Color our_color);
 
     Color ourColor;
     bool connected;

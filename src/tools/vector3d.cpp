@@ -13,6 +13,11 @@ Vector3D::Vector3D(const Vector3D &vector)
     _x = vector._x; _y = vector._y; _teta = vector._teta;
 }
 
+Vector3D::Vector3D(const Vector2D &point, float nteta)
+{
+    _x = point.X();  _y = point.Y();  _teta = nteta;
+}
+
 Vector3D::Vector3D(float nx, float ny, float nteta)
 {
     _x = nx;    _y = ny;    _teta = nteta;
@@ -116,9 +121,13 @@ void Vector3D::normalize2D()
 
 void Vector3D::rotate(float radianAngle)
 {
-    _x = _x * cos(radianAngle) - _y * sin(radianAngle);
-    _y = _x * sin(radianAngle) + _y * cos(radianAngle);
+    double new_x, new_y;
+    new_x = _x * cos(radianAngle) - _y * sin(radianAngle);
+    new_y = _x * sin(radianAngle) + _y * cos(radianAngle);
+    _x = new_x;
+    _y = new_y;
     _teta = _teta;
+
 }
 
 float Vector3D::lenght2D()

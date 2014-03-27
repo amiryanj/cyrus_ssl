@@ -2,6 +2,6 @@
 
 SSLBall::SSLBall()
 {
-    this->radius = 220;
+    this->m_radius = 220;
 }
 

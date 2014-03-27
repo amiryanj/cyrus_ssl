@@ -1,5 +1,5 @@
-#ifndef GUIPACKETCOLLECTOR_H
-#define GUIPACKETCOLLECTOR_H
+#ifndef _GUIHANDLER_H
+#define _GUIHANDLER_H
 
 #include "../tools/SSLListener.h"
 #include "cpp/ssl_visualizer.pb.h"
@@ -22,7 +22,7 @@ class GUIHandler : public SSLListener, public Net::UDP
 public:
     static GUIHandler* getInstance();
 
-    bool openSocket(int port = VISUALIZER_PORT);
+    bool openSocket(int port = VISUALIZER_PORT, string address = VISUALIZER_IP);
 
     void check();
 
@@ -40,11 +40,6 @@ private:
 //    ssl_world_packet world_packet;
 
     boost::signals2::mutex mtx_;
-
-    SSLWorldModel *world();
-    SSLAnalyzer *analyzer();
-    SSLGame *game();
-
 };
 
-#endif // GUIPACKETCOLLECTOR_H
+#endif // _GUIHANDLER_H

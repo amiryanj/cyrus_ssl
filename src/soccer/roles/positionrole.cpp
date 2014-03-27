@@ -1,29 +1,45 @@
 #include "positionrole.h"
 
-PositionRole::PositionRole(SSLAgent *agent)
+PositionRole::PositionRole()
 {
-    this->m_agent = agent;
-    this->m_type = SSLRole::Position;
+    this->m_type = SSLRole::e_Position;
+
+    m_hardness = 2;
 }
 
 float PositionRole::getFacing() const
 {
-    return facing;
+    return m_position.Teta();
 }
 
 void PositionRole::setFacing(float value)
 {
-    facing = value;
+    m_position.setTeta(value);
 }
 
-Vector2D PositionRole::getPosition() const
+Vector2D PositionRole::expectedPosition()
 {
-    return position;
+    return m_position.to2D();
 }
 
-void PositionRole::setPosition(const Vector2D &value)
+Vector3D PositionRole::getPosition() const
 {
-    position = value;
+    return m_position;
+}
+
+void PositionRole::setPosition(const Vector3D &value)
+{
+    m_position = value;
+}
+
+Vector3D PositionRole::getTolerance() const
+{
+    return m_tolerance;
+}
+
+void PositionRole::setTolerance(const Vector3D &value)
+{
+    m_tolerance = value;
 }
 
 void PositionRole::run()

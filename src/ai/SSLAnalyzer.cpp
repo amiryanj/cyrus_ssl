@@ -1,7 +1,3 @@
-/*
-*   Written by : ....
-*   Last Edit by : Sina Mohammadzadeh
-*/
 #include "SSLAnalyzer.h"
 
 #include "SSLGame.h"
@@ -20,32 +16,54 @@
 #define goalRightPost 2375
 #define robotObstacle 100
 
-SSLAnalyzer* SSLAnalyzer::analyzer = NULL;
+SSLAnalyzer* SSLAnalyzer::analyzer_instance = NULL;
 
 SSLAnalyzer::SSLAnalyzer()
 {
 //    for(int tm = 0; tm < 2; tm++)
 //        for(int j=0; j < MAX_ID_NUM; j++)
 //        {
-//            this->distToBall[tm][j] = new RobotDistTo(world()->team[tm]->robot[j], world()->ball);
+//            this->distToBall[tm][j] = new RobotDistTo(world->team[tm]->robot[j], world->ball);
 //        }
 }
 
 SSLAnalyzer* SSLAnalyzer::getInstance()
 {
-    if(analyzer == NULL)
-        analyzer = new SSLAnalyzer();
-    return analyzer;
+    if(analyzer_instance == NULL)
+        analyzer_instance = new SSLAnalyzer();
+    return analyzer_instance;
 }
 
-SSLWorldModel *SSLAnalyzer::world()
-{
-    return SSLWorldModel::getInstance();
-}
 
 void SSLAnalyzer::check()
 {
     // TODO check function
+    if(m_game_running) {
+        if(world->m_refereeState == SSLReferee::Stop || world->m_refereeState == SSLReferee::Halt){
+            m_game_running = false;
+        }
+    }
+    else {
+        if(world->m_refereeState == SSLReferee::ForceStart)
+            m_game_running = true;
+        SSLReferee::RefereeState st = world->m_refereeState;
+        if( st == SSLReferee::BlueDirectKick   || st == SSLReferee::YellowDirectKick   ||
+            st == SSLReferee::BlueIndirectKick || st == SSLReferee::YellowIndirectKick ||
+            st == SSLReferee::BlueKickOffKick  || st == SSLReferee::YellowKickOffKick  ||
+            st == SSLReferee::BluePenaltyKick  || st == SSLReferee::YellowPenaltyKick )
+       {
+//            vector<SSLRobot* > nears = nearestRobotToBall(world->all_inFields());
+//            if(nears.empty())
+//                return;
+//            SSLRobot* near = nears[0];
+//            double diff2Ball = (near->Position().to2D() - world->mainBall()->Position()).lenght();
+//            if(diff2Ball < (BALL_RADIUS + ROBOT_RADIUS))
+
+            if(world->mainBall()->Speed().lenght() > 200) { // milimeter/sec
+                m_game_running = true;
+            }
+       }
+    }
 }
 
 //double SSLAnalyzer::getTimeToBall(const SSLRobot &robot)
@@ -58,7 +76,7 @@ void SSLAnalyzer::check()
 //{
 //    RobotDistTo::minTimeToBall = RobotDistTo::minTimeToBallOfTeam[0] = RobotDistTo::minTimeToBallOfTeam[1] = INFINITY;
 //    for(int tm = 0; tm <= 1; ++tm)
-//        for(unsigned int i=0; i < world()->team[tm]->numInFieldRobots(); ++i )
+//        for(unsigned int i=0; i < world->team[tm]->numInFieldRobots(); ++i )
 //        {
 //            distToBall[tm][i]->computeEuclideanToBall();
 //        }
@@ -94,12 +112,12 @@ void SSLAnalyzer::check()
 
 //const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(Vector2D point)
 //{
-//    return nearestPlayerToPoint(point, world()->allRobots());
+//    return nearestPlayerToPoint(point, world->allRobots());
 //}
 
 //const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(Vector2D point, Color team_color)
 //{
-//    return nearestPlayerToPoint(point, world()->team[team_color]->inFieldRobots());
+//    return nearestPlayerToPoint(point, world->team[team_color]->inFieldRobots());
 //}
 
 //const SSLRobot *SSLAnalyzer::nearestPlayerToPoint(const Vector2D &point, std::vector<SSLRobot*> robots)
@@ -126,7 +144,7 @@ void SSLAnalyzer::check()
 //    if(roboHaveball->color == SSLGame::getInstance()->ourColor())
 //    {
 //        goalposition *= SSLGame::getInstance()->enemySide();
-//        x = ((goalposition - roboHaveball->Position().Y())/(((roboHaveball->Position().Y() - world()->ball->Position().Y())/(roboHaveball->Position().X() - world()->ball->Position().X()))) + (roboHaveball->Position().X()));
+//        x = ((goalposition - roboHaveball->Position().Y())/(((roboHaveball->Position().Y() - world->ball->Position().Y())/(roboHaveball->Position().X() - world->ball->Position().X()))) + (roboHaveball->Position().X()));
 //        if(x >= goalLeftPost && x <= goalRightPost)
 //            return true;
 //        else
@@ -135,7 +153,7 @@ void SSLAnalyzer::check()
 //    else
 //    {
 //        goalposition *= SSLGame::getInstance()->ourSide();
-//        x = ((goalposition - roboHaveball->Position().Y())/(((roboHaveball->Position().Y() - world()->ball->Position().Y())/(roboHaveball->Position().X() - world()->ball->Position().X()))) + (roboHaveball->Position().X()));
+//        x = ((goalposition - roboHaveball->Position().Y())/(((roboHaveball->Position().Y() - world->ball->Position().Y())/(roboHaveball->Position().X() - world->ball->Position().X()))) + (roboHaveball->Position().X()));
 //        if(x >= goalLeftPost && x <= goalRightPost)
 //            return true;
 //        else
@@ -153,7 +171,7 @@ void SSLAnalyzer::check()
 //    {
 //        double x;
 //        goalposition *= SSLGame::getInstance()->ourSide();
-//        x = ((goalposition - roboHaveball->Position().Y())/(((roboHaveball->Position().Y() - world()->ball->Position().Y())/(roboHaveball->Position().X() - world()->ball->Position().X()))) + (roboHaveball->Position().X()));
+//        x = ((goalposition - roboHaveball->Position().Y())/(((roboHaveball->Position().Y() - world->ball->Position().Y())/(roboHaveball->Position().X() - world->ball->Position().X()))) + (roboHaveball->Position().X()));
 //        if(x >= goalLeftPost && x <= goalRightPost)
 //            return true;
 //        else
@@ -168,10 +186,10 @@ void SSLAnalyzer::check()
 //        SSLRobot *robo = robots.at(i);
 //        double robox = robo->Position().X();
 //        double roboy = robo->Position().Y();
-//        double distoball = sqrt(pow((robox - world()->ball->Position().X()),2) + sqrt(pow((roboy - world()->ball->Position().Y()),2)));
+//        double distoball = sqrt(pow((robox - world->ball->Position().X()),2) + sqrt(pow((roboy - world->ball->Position().Y()),2)));
 //        if(robo->radius > distoball)
 //        {
-//            Vector2D dis = world()->ball->Position()-robo->Position().to2D();
+//            Vector2D dis = world->ball->Position()-robo->Position().to2D();
 //            double ang = atan(dis.Y()/dis.X());
 //            if(((robo->orien()- ang ) < defnum ))
 //            {
@@ -196,10 +214,10 @@ void SSLAnalyzer::check()
 
 //        double robox = robo->Position().X();
 //        double roboy = robo->Position().Y();
-//        double distoball = sqrt(pow((robox - world()->ball->Position().X()),2) + sqrt(pow((roboy - world()->ball->Position().Y()),2)));
+//        double distoball = sqrt(pow((robox - world->ball->Position().X()),2) + sqrt(pow((roboy - world->ball->Position().Y()),2)));
 //        if(robo->radius > distoball)
 //        {
-//            Vector2D dis = world()->ball->Position()-robo->Position().to2D();
+//            Vector2D dis = world->ball->Position()-robo->Position().to2D();
 //            double ang = atan(dis.Y()/dis.X());
 //            if(((robo->orien()- ang) < defnum ))
 //            {
@@ -231,7 +249,7 @@ void SSLAnalyzer::check()
 
 //            double robox = robo->Position().X();
 //            double roboy = robo->Position().Y();
-//            double distoball = sqrt(pow((robox - world()->ball->Position().X()),2) + sqrt(pow((roboy - world()->ball->Position().Y()),2)));
+//            double distoball = sqrt(pow((robox - world->ball->Position().X()),2) + sqrt(pow((roboy - world->ball->Position().Y()),2)));
 //            if(distoball < min)
 //            {
 //              nearest = robo;
@@ -381,12 +399,12 @@ void SSLAnalyzer::check()
 
 int SSLAnalyzer::distanceFromBall(Vector2D point)
 {
-    return (world()->mainBall()->Position() - point).lenght();
+    return (world->mainBall()->Position() - point).lenght();
 }
 int SSLAnalyzer::distanceFromBall(SSLRobot* robot)
 {
-    return sqrt(((world()->mainBall()->Position().X() - robot->Position().X())*(world()->mainBall()->Position().X() - robot->Position().X()))
-              + ((world()->mainBall()->Position().Y() - robot->Position().Y())*(world()->mainBall()->Position().Y() - robot->Position().Y())));
+    return sqrt(((world->mainBall()->Position().X() - robot->Position().X())*(world->mainBall()->Position().X() - robot->Position().X()))
+              + ((world->mainBall()->Position().Y() - robot->Position().Y())*(world->mainBall()->Position().Y() - robot->Position().Y())));
 }
 
 int SSLAnalyzer::distanceFromRobotToPoint(Vector2D point, SSLRobot* robot)
@@ -400,7 +418,7 @@ int SSLAnalyzer::distanceFromRobotToRobot(SSLRobot* robot1,SSLRobot* robot2)
 }
 
 // TODO Nariman
-bool SSLAnalyzer::robotCanKick(SSLRobot* robot)
+bool SSLAnalyzer::canKick(SSLRobot* robot)
 {
     //
 }
@@ -464,7 +482,7 @@ bool SSLAnalyzer::isRobotSameSide(SSLRobot * robot1, SSLRobot * robot2)
 // it doesnt work ...
 std::vector<SSLRobot*> SSLAnalyzer::cyrusCanMakePass()
 {
-    vector<SSLRobot*> our_robots = game()->ourTeam()->inFields();
+    vector<SSLRobot*> our_robots = decision->ourTeam()->inFields();
     SSLRobot* in_kick_position = whichRobotCanKick();
     if(in_kick_position == NULL) {
         vector<SSLRobot* > empty_vector;
@@ -521,9 +539,9 @@ SSLRobot* SSLAnalyzer::cyrusCanMakeGoal(std::vector<SSLRobot *> cyrusRobots, std
 //    SSLRobot* RobotHaveBall = robotHaveBall(cyrusRobots);
 //    SSLRobot* RobotCanKick  = robotCanKick(RobotHaveBall);
 //    int k = 0 ;
-//    for(int i = 0 ; i < (int)FIELD_GOAL_WIDTH/(world()->ball->radius*2) ; i ++  )
+//    for(int i = 0 ; i < (int)FIELD_GOAL_WIDTH/(world->ball->radius*2) ; i ++  )
 //    {
-//        QLine * line = new QLine(RobotCanKick->Position().X(),RobotCanKick->Position().Y(),(FIELD_LENGTH/2)*SSLGame::getInstance()->ourSide(),i*(world()->ball->radius*2)+(-FIELD_GOAL_WIDTH/2));
+//        QLine * line = new QLine(RobotCanKick->Position().X(),RobotCanKick->Position().Y(),(FIELD_LENGTH/2)*SSLGame::getInstance()->ourSide(),i*(world->ball->radius*2)+(-FIELD_GOAL_WIDTH/2));
 //        int m  = line->dy()/line->dx();
 //        int b = RobotCanKick->Position().Y() - m*RobotCanKick->Position().X();
 //        for(int j = 0 ; j < opponentRobots.size() ; j++ )
@@ -536,7 +554,7 @@ SSLRobot* SSLAnalyzer::cyrusCanMakeGoal(std::vector<SSLRobot *> cyrusRobots, std
 //            if(cyrusRobots[j]->Position().Y() == m*(cyrusRobots[j]->Position().X()) + b)
 //                return NULL;
 //        }
-//        goalPoints[k++] = i*(world()->ball->radius*2)+(-FIELD_GOAL_WIDTH/2);
+//        goalPoints[k++] = i*(world->ball->radius*2)+(-FIELD_GOAL_WIDTH/2);
 //        return RobotCanKick;
 //    }
 }
@@ -546,9 +564,9 @@ SSLRobot* SSLAnalyzer::opponentCanMakeGoal(std::vector<SSLRobot *> cyrusRobots, 
 //    SSLRobot* RobotHaveBall = robotHaveBall(opponentRobots);
 //    SSLRobot* RobotCanKick  = robotCanKick(RobotHaveBall);
 //    int k = 0;
-//    for(int i = 0 ; i < (int)FIELD_GOAL_WIDTH/(world()->ball->radius*2) ; i ++  )
+//    for(int i = 0 ; i < (int)FIELD_GOAL_WIDTH/(world->ball->radius*2) ; i ++  )
 //    {
-//        QLine * line = new QLine(RobotCanKick->Position().X(),RobotCanKick->Position().Y(),(FIELD_LENGTH/2)*SSLGame::getInstance()->ourSide(),i*(world()->ball->radius*2)+(-FIELD_GOAL_WIDTH/2));
+//        QLine * line = new QLine(RobotCanKick->Position().X(),RobotCanKick->Position().Y(),(FIELD_LENGTH/2)*SSLGame::getInstance()->ourSide(),i*(world->ball->radius*2)+(-FIELD_GOAL_WIDTH/2));
 //        int m  = line->dy()/line->dx();
 //        int b = RobotCanKick->Position().Y() - m*RobotCanKick->Position().X();
 //        for(int j = 0 ; j < opponentRobots.size() ; j++ )
@@ -561,7 +579,7 @@ SSLRobot* SSLAnalyzer::opponentCanMakeGoal(std::vector<SSLRobot *> cyrusRobots, 
 //            if(cyrusRobots[j]->Position().Y() == m*(cyrusRobots[j]->Position().X()) + b)
 //                return NULL;
 //        }
-//        goalPoints[k++] = i*(world()->ball->radius*2)+(-FIELD_GOAL_WIDTH/2);
+//        goalPoints[k++] = i*(world->ball->radius*2)+(-FIELD_GOAL_WIDTH/2);
 //        return RobotCanKick;
 //    }
 }
@@ -570,11 +588,11 @@ std::vector<SSLRobot*> SSLAnalyzer::nearestRobotsToBlockRobot(std::vector<SSLRob
 {
 //    std::vector<int> goalYPoints;
 //    SSLRobot * robot = opponentCanMakeGoal(cyrusRobots,opponentRobots,goalYPoints);
-//    QLine * line = new QLine(robot->Position().X() , robot->Position().Y() , world()->ball->Position().X(),world()->ball->Position().Y());
+//    QLine * line = new QLine(robot->Position().X() , robot->Position().Y() , world->ball->Position().X(),world->ball->Position().Y());
 
 //    int m = line->dy()/line->dx();
 
-//    int b = world()->ball->Position().Y() - m*world()->ball->Position().X();
+//    int b = world->ball->Position().Y() - m*world->ball->Position().X();
 
 //    vector<pair<SSLRobot*,int> > distancesFromLine;
 //    vector<SSLRobot *> returnVector;
@@ -612,6 +630,118 @@ std::vector<SSLRobot*> SSLAnalyzer::nearestRobotsToMarkRobot(std::vector<SSLRobo
     //sort ...
 }
 
+float SSLAnalyzer::distToCatchBall(SSLRobot *robot)
+{
+    // simplest implementation,
+    // just works when the ball is stopped
+    return this->distanceFromBall(robot);
+}
+
+Vector2D SSLAnalyzer::whereCanCatchBall(SSLRobot *robot)
+{
+    // simplest implementation,
+    // just works when the ball is stopped
+    return world->mainBall()->Position();
+}
+
+bool SSLAnalyzer::isOurKickOffPosition()
+{
+    return ((world->m_refereeState == SSLReferee::BlueKickOffPosition && decision->ourColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowKickOffPosition && decision->ourColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOpponentKickOffPosition()
+{
+    return ((world->m_refereeState == SSLReferee::BlueKickOffPosition && decision->opponentColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowKickOffPosition && decision->opponentColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOurKickOffKick()
+{
+    return ((world->m_refereeState == SSLReferee::BlueKickOffKick && decision->ourColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowKickOffKick && decision->ourColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOpponentKickOffKick()
+{
+    return ((world->m_refereeState == SSLReferee::BlueKickOffKick && decision->opponentColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowKickOffKick && decision->opponentColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOurPenaltyPosition()
+{
+    return ((world->m_refereeState == SSLReferee::BluePenaltyPosition && decision->ourColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowPenaltyPosition && decision->ourColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOpponentPenaltyPosition()
+{
+    return ((world->m_refereeState == SSLReferee::BluePenaltyPosition && decision->opponentColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowPenaltyPosition && decision->opponentColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOurPenaltyKick()
+{
+    return ((world->m_refereeState == SSLReferee::BluePenaltyKick && decision->ourColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowPenaltyKick && decision->ourColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOpponentPenaltyKick()
+{
+    return ((world->m_refereeState == SSLReferee::BluePenaltyKick && decision->opponentColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowPenaltyKick && decision->opponentColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOurDirectKick()
+{
+    return ((world->m_refereeState == SSLReferee::BlueDirectKick && decision->ourColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowDirectKick && decision->ourColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOpponentDirectKick()
+{
+    return ((world->m_refereeState == SSLReferee::BlueDirectKick && decision->opponentColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowDirectKick && decision->opponentColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOurIndirectKick()
+{
+    return ((world->m_refereeState == SSLReferee::BlueIndirectKick && decision->ourColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowIndirectKick && decision->ourColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isOpponentIndirectKick()
+{
+    return ((world->m_refereeState == SSLReferee::BlueIndirectKick && decision->opponentColor() == SSL::Blue) ||
+            (world->m_refereeState == SSLReferee::YellowIndirectKick && decision->opponentColor() == SSL::Yellow));
+}
+
+bool SSLAnalyzer::isGameRunning()
+{
+    return m_game_running;
+}
+
+// this function should be tested
+// I dont trust its functionality: Javad
+bool SSLAnalyzer::isPointWithinOurPenaltyArea(const Vector2D &point)
+{
+    float our_x = decision->ourSide() * FIELD_LENGTH/2;
+    if((point - Vector2D(our_x, FIELD_PENALTY_AREA_WIDTH/2)).lenght() < FIELD_PENALTY_AREA_RADIUS)
+        return true;
+    if((point - Vector2D(our_x, -FIELD_PENALTY_AREA_WIDTH/2)).lenght() < FIELD_PENALTY_AREA_RADIUS)
+        return true;
+    if(fabs(point.Y()) < FIELD_PENALTY_AREA_WIDTH/2 &&
+            fabs(point.X()) > (decision->ourSide() * (FIELD_LENGTH - FIELD_PENALTY_AREA_RADIUS )) &&
+            isPointInOurSide(point))
+        return true;
+    return false;
+}
+
+bool SSLAnalyzer::isPointInOurSide(const Vector2D &point)
+{
+    return (point.X() * decision->ourSide() > 0);
+}
+
 bool SSLAnalyzer::mySort(pair<SSLRobot *, int> i, pair<SSLRobot *, int> j)
 {
     if(i.second < j.second)
@@ -620,7 +750,3 @@ bool SSLAnalyzer::mySort(pair<SSLRobot *, int> i, pair<SSLRobot *, int> j)
         return false;
 }
 
-SSLGame *SSLAnalyzer::game()
-{
-    return SSLGame::getInstance();
-}
