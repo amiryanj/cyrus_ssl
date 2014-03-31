@@ -175,6 +175,11 @@ OTHER_FILES += \
     todo.txt \
     planner/planning/Planner.pri \
     referee/referee/referee.proto \
-    /etc/sslrefbox/referee.conf
+    /etc/sslrefbox/referee.conf \
+    gui/proto/ssl_world.proto \
+    gui/proto/ssl_visualizer.proto \
+    gui/proto/ssl_planner.proto \
+    gui/proto/ssl_decision.proto \
+    gui/proto/ssl_analyzer.proto
 
 

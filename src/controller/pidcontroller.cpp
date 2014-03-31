@@ -18,7 +18,7 @@ void PIDController::setPoint(Vector3D desired, Vector3D actual)
 {
     currentDesired = desired;
     currentActual = actual;
-    Vector3D error = currentDesired - currentActual;
+    Vector3D error = currentActual - currentDesired;
     errorHistory.insert(errorHistory.begin(), error);
     if(errorHistory.size() > MAX_HISTORY_SIZE)
         errorHistory.pop_back();

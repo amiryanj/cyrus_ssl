@@ -30,60 +30,41 @@ void  protobuf_AddDesc_ssl_5fworld_2eproto();
 void protobuf_AssignDesc_ssl_5fworld_2eproto();
 void protobuf_ShutdownFile_ssl_5fworld_2eproto();
 
-class vector_3d;
-class ssl_ball;
-class ssl_robot;
-class ssl_team;
 class ssl_world_packet;
+class ssl_world_packet_vector_3d;
+class ssl_world_packet_Ball;
+class ssl_world_packet_Robot;
+class ssl_world_packet_Team;
 
-enum SideType {
-  left_side = 0,
-  right_side = 1
+enum ssl_world_packet_Side {
+  ssl_world_packet_Side_left = -1,
+  ssl_world_packet_Side_right = 1
 };
-bool SideType_IsValid(int value);
-const SideType SideType_MIN = left_side;
-const SideType SideType_MAX = right_side;
-const int SideType_ARRAYSIZE = SideType_MAX + 1;
+bool ssl_world_packet_Side_IsValid(int value);
+const ssl_world_packet_Side ssl_world_packet_Side_Side_MIN = ssl_world_packet_Side_left;
+const ssl_world_packet_Side ssl_world_packet_Side_Side_MAX = ssl_world_packet_Side_right;
+const int ssl_world_packet_Side_Side_ARRAYSIZE = ssl_world_packet_Side_Side_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* SideType_descriptor();
-inline const ::std::string& SideType_Name(SideType value) {
+const ::google::protobuf::EnumDescriptor* ssl_world_packet_Side_descriptor();
+inline const ::std::string& ssl_world_packet_Side_Name(ssl_world_packet_Side value) {
   return ::google::protobuf::internal::NameOfEnum(
-    SideType_descriptor(), value);
+    ssl_world_packet_Side_descriptor(), value);
 }
-inline bool SideType_Parse(
-    const ::std::string& name, SideType* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<SideType>(
-    SideType_descriptor(), name, value);
-}
-enum ColorType {
-  blue_color = 0,
-  yellow_color = 1
-};
-bool ColorType_IsValid(int value);
-const ColorType ColorType_MIN = blue_color;
-const ColorType ColorType_MAX = yellow_color;
-const int ColorType_ARRAYSIZE = ColorType_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* ColorType_descriptor();
-inline const ::std::string& ColorType_Name(ColorType value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    ColorType_descriptor(), value);
-}
-inline bool ColorType_Parse(
-    const ::std::string& name, ColorType* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<ColorType>(
-    ColorType_descriptor(), name, value);
+inline bool ssl_world_packet_Side_Parse(
+    const ::std::string& name, ssl_world_packet_Side* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ssl_world_packet_Side>(
+    ssl_world_packet_Side_descriptor(), name, value);
 }
 // ===================================================================
 
-class vector_3d : public ::google::protobuf::Message {
+class ssl_world_packet_vector_3d : public ::google::protobuf::Message {
  public:
-  vector_3d();
-  virtual ~vector_3d();
+  ssl_world_packet_vector_3d();
+  virtual ~ssl_world_packet_vector_3d();
   
-  vector_3d(const vector_3d& from);
+  ssl_world_packet_vector_3d(const ssl_world_packet_vector_3d& from);
   
-  inline vector_3d& operator=(const vector_3d& from) {
+  inline ssl_world_packet_vector_3d& operator=(const ssl_world_packet_vector_3d& from) {
     CopyFrom(from);
     return *this;
   }
@@ -97,17 +78,17 @@ class vector_3d : public ::google::protobuf::Message {
   }
   
   static const ::google::protobuf::Descriptor* descriptor();
-  static const vector_3d& default_instance();
+  static const ssl_world_packet_vector_3d& default_instance();
   
-  void Swap(vector_3d* other);
+  void Swap(ssl_world_packet_vector_3d* other);
   
   // implements Message ----------------------------------------------
   
-  vector_3d* New() const;
+  ssl_world_packet_vector_3d* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const vector_3d& from);
-  void MergeFrom(const vector_3d& from);
+  void CopyFrom(const ssl_world_packet_vector_3d& from);
+  void MergeFrom(const ssl_world_packet_vector_3d& from);
   void Clear();
   bool IsInitialized() const;
   
@@ -151,7 +132,7 @@ class vector_3d : public ::google::protobuf::Message {
   inline float teta() const;
   inline void set_teta(float value);
   
-  // @@protoc_insertion_point(class_scope:vector_3d)
+  // @@protoc_insertion_point(class_scope:ssl_world_packet.vector_3d)
  private:
   inline void set_has_x();
   inline void clear_has_x();
@@ -174,18 +155,18 @@ class vector_3d : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_ssl_5fworld_2eproto();
   
   void InitAsDefaultInstance();
-  static vector_3d* default_instance_;
+  static ssl_world_packet_vector_3d* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class ssl_ball : public ::google::protobuf::Message {
+class ssl_world_packet_Ball : public ::google::protobuf::Message {
  public:
-  ssl_ball();
-  virtual ~ssl_ball();
+  ssl_world_packet_Ball();
+  virtual ~ssl_world_packet_Ball();
   
-  ssl_ball(const ssl_ball& from);
+  ssl_world_packet_Ball(const ssl_world_packet_Ball& from);
   
-  inline ssl_ball& operator=(const ssl_ball& from) {
+  inline ssl_world_packet_Ball& operator=(const ssl_world_packet_Ball& from) {
     CopyFrom(from);
     return *this;
   }
@@ -199,17 +180,17 @@ class ssl_ball : public ::google::protobuf::Message {
   }
   
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ssl_ball& default_instance();
+  static const ssl_world_packet_Ball& default_instance();
   
-  void Swap(ssl_ball* other);
+  void Swap(ssl_world_packet_Ball* other);
   
   // implements Message ----------------------------------------------
   
-  ssl_ball* New() const;
+  ssl_world_packet_Ball* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const ssl_ball& from);
-  void MergeFrom(const ssl_ball& from);
+  void CopyFrom(const ssl_world_packet_Ball& from);
+  void MergeFrom(const ssl_world_packet_Ball& from);
   void Clear();
   bool IsInitialized() const;
   
@@ -239,23 +220,23 @@ class ssl_ball : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 id() const;
   inline void set_id(::google::protobuf::uint32 value);
   
-  // required .vector_3d position = 2;
+  // required .ssl_world_packet.vector_3d position = 2;
   inline bool has_position() const;
   inline void clear_position();
   static const int kPositionFieldNumber = 2;
-  inline const ::vector_3d& position() const;
-  inline ::vector_3d* mutable_position();
-  inline ::vector_3d* release_position();
+  inline const ::ssl_world_packet_vector_3d& position() const;
+  inline ::ssl_world_packet_vector_3d* mutable_position();
+  inline ::ssl_world_packet_vector_3d* release_position();
   
-  // required .vector_3d velecity = 3;
+  // required .ssl_world_packet.vector_3d velecity = 3;
   inline bool has_velecity() const;
   inline void clear_velecity();
   static const int kVelecityFieldNumber = 3;
-  inline const ::vector_3d& velecity() const;
-  inline ::vector_3d* mutable_velecity();
-  inline ::vector_3d* release_velecity();
+  inline const ::ssl_world_packet_vector_3d& velecity() const;
+  inline ::ssl_world_packet_vector_3d* mutable_velecity();
+  inline ::ssl_world_packet_vector_3d* release_velecity();
   
-  // @@protoc_insertion_point(class_scope:ssl_ball)
+  // @@protoc_insertion_point(class_scope:ssl_world_packet.Ball)
  private:
   inline void set_has_id();
   inline void clear_has_id();
@@ -266,8 +247,8 @@ class ssl_ball : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::vector_3d* position_;
-  ::vector_3d* velecity_;
+  ::ssl_world_packet_vector_3d* position_;
+  ::ssl_world_packet_vector_3d* velecity_;
   ::google::protobuf::uint32 id_;
   
   mutable int _cached_size_;
@@ -278,18 +259,18 @@ class ssl_ball : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_ssl_5fworld_2eproto();
   
   void InitAsDefaultInstance();
-  static ssl_ball* default_instance_;
+  static ssl_world_packet_Ball* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class ssl_robot : public ::google::protobuf::Message {
+class ssl_world_packet_Robot : public ::google::protobuf::Message {
  public:
-  ssl_robot();
-  virtual ~ssl_robot();
+  ssl_world_packet_Robot();
+  virtual ~ssl_world_packet_Robot();
   
-  ssl_robot(const ssl_robot& from);
+  ssl_world_packet_Robot(const ssl_world_packet_Robot& from);
   
-  inline ssl_robot& operator=(const ssl_robot& from) {
+  inline ssl_world_packet_Robot& operator=(const ssl_world_packet_Robot& from) {
     CopyFrom(from);
     return *this;
   }
@@ -303,17 +284,17 @@ class ssl_robot : public ::google::protobuf::Message {
   }
   
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ssl_robot& default_instance();
+  static const ssl_world_packet_Robot& default_instance();
   
-  void Swap(ssl_robot* other);
+  void Swap(ssl_world_packet_Robot* other);
   
   // implements Message ----------------------------------------------
   
-  ssl_robot* New() const;
+  ssl_world_packet_Robot* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const ssl_robot& from);
-  void MergeFrom(const ssl_robot& from);
+  void CopyFrom(const ssl_world_packet_Robot& from);
+  void MergeFrom(const ssl_world_packet_Robot& from);
   void Clear();
   bool IsInitialized() const;
   
@@ -343,23 +324,23 @@ class ssl_robot : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 id() const;
   inline void set_id(::google::protobuf::uint32 value);
   
-  // required .vector_3d position = 2;
+  // required .ssl_world_packet.vector_3d position = 2;
   inline bool has_position() const;
   inline void clear_position();
   static const int kPositionFieldNumber = 2;
-  inline const ::vector_3d& position() const;
-  inline ::vector_3d* mutable_position();
-  inline ::vector_3d* release_position();
+  inline const ::ssl_world_packet_vector_3d& position() const;
+  inline ::ssl_world_packet_vector_3d* mutable_position();
+  inline ::ssl_world_packet_vector_3d* release_position();
   
-  // required .vector_3d velecity = 3;
+  // required .ssl_world_packet.vector_3d velecity = 3;
   inline bool has_velecity() const;
   inline void clear_velecity();
   static const int kVelecityFieldNumber = 3;
-  inline const ::vector_3d& velecity() const;
-  inline ::vector_3d* mutable_velecity();
-  inline ::vector_3d* release_velecity();
+  inline const ::ssl_world_packet_vector_3d& velecity() const;
+  inline ::ssl_world_packet_vector_3d* mutable_velecity();
+  inline ::ssl_world_packet_vector_3d* release_velecity();
   
-  // @@protoc_insertion_point(class_scope:ssl_robot)
+  // @@protoc_insertion_point(class_scope:ssl_world_packet.Robot)
  private:
   inline void set_has_id();
   inline void clear_has_id();
@@ -370,8 +351,8 @@ class ssl_robot : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::vector_3d* position_;
-  ::vector_3d* velecity_;
+  ::ssl_world_packet_vector_3d* position_;
+  ::ssl_world_packet_vector_3d* velecity_;
   ::google::protobuf::uint32 id_;
   
   mutable int _cached_size_;
@@ -382,18 +363,18 @@ class ssl_robot : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_ssl_5fworld_2eproto();
   
   void InitAsDefaultInstance();
-  static ssl_robot* default_instance_;
+  static ssl_world_packet_Robot* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class ssl_team : public ::google::protobuf::Message {
+class ssl_world_packet_Team : public ::google::protobuf::Message {
  public:
-  ssl_team();
-  virtual ~ssl_team();
+  ssl_world_packet_Team();
+  virtual ~ssl_world_packet_Team();
   
-  ssl_team(const ssl_team& from);
+  ssl_world_packet_Team(const ssl_world_packet_Team& from);
   
-  inline ssl_team& operator=(const ssl_team& from) {
+  inline ssl_world_packet_Team& operator=(const ssl_world_packet_Team& from) {
     CopyFrom(from);
     return *this;
   }
@@ -407,17 +388,17 @@ class ssl_team : public ::google::protobuf::Message {
   }
   
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ssl_team& default_instance();
+  static const ssl_world_packet_Team& default_instance();
   
-  void Swap(ssl_team* other);
+  void Swap(ssl_world_packet_Team* other);
   
   // implements Message ----------------------------------------------
   
-  ssl_team* New() const;
+  ssl_world_packet_Team* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const ssl_team& from);
-  void MergeFrom(const ssl_team& from);
+  void CopyFrom(const ssl_world_packet_Team& from);
+  void MergeFrom(const ssl_world_packet_Team& from);
   void Clear();
   bool IsInitialized() const;
   
@@ -440,33 +421,33 @@ class ssl_team : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // repeated .ssl_robot robots = 1;
+  // repeated .ssl_world_packet.Robot robots = 1;
   inline int robots_size() const;
   inline void clear_robots();
   static const int kRobotsFieldNumber = 1;
-  inline const ::ssl_robot& robots(int index) const;
-  inline ::ssl_robot* mutable_robots(int index);
-  inline ::ssl_robot* add_robots();
-  inline const ::google::protobuf::RepeatedPtrField< ::ssl_robot >&
+  inline const ::ssl_world_packet_Robot& robots(int index) const;
+  inline ::ssl_world_packet_Robot* mutable_robots(int index);
+  inline ::ssl_world_packet_Robot* add_robots();
+  inline const ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Robot >&
       robots() const;
-  inline ::google::protobuf::RepeatedPtrField< ::ssl_robot >*
+  inline ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Robot >*
       mutable_robots();
   
-  // required .SideType side = 2;
+  // required .ssl_world_packet.Side side = 2;
   inline bool has_side() const;
   inline void clear_side();
   static const int kSideFieldNumber = 2;
-  inline SideType side() const;
-  inline void set_side(SideType value);
+  inline ::ssl_world_packet_Side side() const;
+  inline void set_side(::ssl_world_packet_Side value);
   
-  // @@protoc_insertion_point(class_scope:ssl_team)
+  // @@protoc_insertion_point(class_scope:ssl_world_packet.Team)
  private:
   inline void set_has_side();
   inline void clear_has_side();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::google::protobuf::RepeatedPtrField< ::ssl_robot > robots_;
+  ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Robot > robots_;
   int side_;
   
   mutable int _cached_size_;
@@ -477,7 +458,7 @@ class ssl_team : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_ssl_5fworld_2eproto();
   
   void InitAsDefaultInstance();
-  static ssl_team* default_instance_;
+  static ssl_world_packet_Team* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -533,40 +514,80 @@ class ssl_world_packet : public ::google::protobuf::Message {
   
   // nested types ----------------------------------------------------
   
+  typedef ssl_world_packet_vector_3d vector_3d;
+  typedef ssl_world_packet_Ball Ball;
+  typedef ssl_world_packet_Robot Robot;
+  typedef ssl_world_packet_Team Team;
+  
+  typedef ssl_world_packet_Side Side;
+  static const Side left = ssl_world_packet_Side_left;
+  static const Side right = ssl_world_packet_Side_right;
+  static inline bool Side_IsValid(int value) {
+    return ssl_world_packet_Side_IsValid(value);
+  }
+  static const Side Side_MIN =
+    ssl_world_packet_Side_Side_MIN;
+  static const Side Side_MAX =
+    ssl_world_packet_Side_Side_MAX;
+  static const int Side_ARRAYSIZE =
+    ssl_world_packet_Side_Side_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  Side_descriptor() {
+    return ssl_world_packet_Side_descriptor();
+  }
+  static inline const ::std::string& Side_Name(Side value) {
+    return ssl_world_packet_Side_Name(value);
+  }
+  static inline bool Side_Parse(const ::std::string& name,
+      Side* value) {
+    return ssl_world_packet_Side_Parse(name, value);
+  }
+  
   // accessors -------------------------------------------------------
   
-  // repeated .ssl_ball field_balls = 1;
+  // repeated .ssl_world_packet.Ball field_balls = 1;
   inline int field_balls_size() const;
   inline void clear_field_balls();
   static const int kFieldBallsFieldNumber = 1;
-  inline const ::ssl_ball& field_balls(int index) const;
-  inline ::ssl_ball* mutable_field_balls(int index);
-  inline ::ssl_ball* add_field_balls();
-  inline const ::google::protobuf::RepeatedPtrField< ::ssl_ball >&
+  inline const ::ssl_world_packet_Ball& field_balls(int index) const;
+  inline ::ssl_world_packet_Ball* mutable_field_balls(int index);
+  inline ::ssl_world_packet_Ball* add_field_balls();
+  inline const ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Ball >&
       field_balls() const;
-  inline ::google::protobuf::RepeatedPtrField< ::ssl_ball >*
+  inline ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Ball >*
       mutable_field_balls();
   
-  // required .ssl_team blue_team = 2;
+  // required .ssl_world_packet.Team blue_team = 2;
   inline bool has_blue_team() const;
   inline void clear_blue_team();
   static const int kBlueTeamFieldNumber = 2;
-  inline const ::ssl_team& blue_team() const;
-  inline ::ssl_team* mutable_blue_team();
-  inline ::ssl_team* release_blue_team();
+  inline const ::ssl_world_packet_Team& blue_team() const;
+  inline ::ssl_world_packet_Team* mutable_blue_team();
+  inline ::ssl_world_packet_Team* release_blue_team();
   
-  // required .ssl_team yellow_team = 3;
+  // required .ssl_world_packet.Team yellow_team = 3;
   inline bool has_yellow_team() const;
   inline void clear_yellow_team();
   static const int kYellowTeamFieldNumber = 3;
-  inline const ::ssl_team& yellow_team() const;
-  inline ::ssl_team* mutable_yellow_team();
-  inline ::ssl_team* release_yellow_team();
+  inline const ::ssl_world_packet_Team& yellow_team() const;
+  inline ::ssl_world_packet_Team* mutable_yellow_team();
+  inline ::ssl_world_packet_Team* release_yellow_team();
   
-  // optional string comment = 4;
+  // required string referee_state = 4;
+  inline bool has_referee_state() const;
+  inline void clear_referee_state();
+  static const int kRefereeStateFieldNumber = 4;
+  inline const ::std::string& referee_state() const;
+  inline void set_referee_state(const ::std::string& value);
+  inline void set_referee_state(const char* value);
+  inline void set_referee_state(const char* value, size_t size);
+  inline ::std::string* mutable_referee_state();
+  inline ::std::string* release_referee_state();
+  
+  // optional string comment = 5;
   inline bool has_comment() const;
   inline void clear_comment();
-  static const int kCommentFieldNumber = 4;
+  static const int kCommentFieldNumber = 5;
   inline const ::std::string& comment() const;
   inline void set_comment(const ::std::string& value);
   inline void set_comment(const char* value);
@@ -580,18 +601,21 @@ class ssl_world_packet : public ::google::protobuf::Message {
   inline void clear_has_blue_team();
   inline void set_has_yellow_team();
   inline void clear_has_yellow_team();
+  inline void set_has_referee_state();
+  inline void clear_has_referee_state();
   inline void set_has_comment();
   inline void clear_has_comment();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::google::protobuf::RepeatedPtrField< ::ssl_ball > field_balls_;
-  ::ssl_team* blue_team_;
-  ::ssl_team* yellow_team_;
+  ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Ball > field_balls_;
+  ::ssl_world_packet_Team* blue_team_;
+  ::ssl_world_packet_Team* yellow_team_;
+  ::std::string* referee_state_;
   ::std::string* comment_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
   
   friend void  protobuf_AddDesc_ssl_5fworld_2eproto();
   friend void protobuf_AssignDesc_ssl_5fworld_2eproto();
@@ -605,290 +629,290 @@ class ssl_world_packet : public ::google::protobuf::Message {
 
 // ===================================================================
 
-// vector_3d
+// ssl_world_packet_vector_3d
 
 // required float x = 1;
-inline bool vector_3d::has_x() const {
+inline bool ssl_world_packet_vector_3d::has_x() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void vector_3d::set_has_x() {
+inline void ssl_world_packet_vector_3d::set_has_x() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void vector_3d::clear_has_x() {
+inline void ssl_world_packet_vector_3d::clear_has_x() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void vector_3d::clear_x() {
+inline void ssl_world_packet_vector_3d::clear_x() {
   x_ = 0;
   clear_has_x();
 }
-inline float vector_3d::x() const {
+inline float ssl_world_packet_vector_3d::x() const {
   return x_;
 }
-inline void vector_3d::set_x(float value) {
+inline void ssl_world_packet_vector_3d::set_x(float value) {
   set_has_x();
   x_ = value;
 }
 
 // required float y = 2;
-inline bool vector_3d::has_y() const {
+inline bool ssl_world_packet_vector_3d::has_y() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void vector_3d::set_has_y() {
+inline void ssl_world_packet_vector_3d::set_has_y() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void vector_3d::clear_has_y() {
+inline void ssl_world_packet_vector_3d::clear_has_y() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void vector_3d::clear_y() {
+inline void ssl_world_packet_vector_3d::clear_y() {
   y_ = 0;
   clear_has_y();
 }
-inline float vector_3d::y() const {
+inline float ssl_world_packet_vector_3d::y() const {
   return y_;
 }
-inline void vector_3d::set_y(float value) {
+inline void ssl_world_packet_vector_3d::set_y(float value) {
   set_has_y();
   y_ = value;
 }
 
 // required float teta = 3;
-inline bool vector_3d::has_teta() const {
+inline bool ssl_world_packet_vector_3d::has_teta() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void vector_3d::set_has_teta() {
+inline void ssl_world_packet_vector_3d::set_has_teta() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void vector_3d::clear_has_teta() {
+inline void ssl_world_packet_vector_3d::clear_has_teta() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void vector_3d::clear_teta() {
+inline void ssl_world_packet_vector_3d::clear_teta() {
   teta_ = 0;
   clear_has_teta();
 }
-inline float vector_3d::teta() const {
+inline float ssl_world_packet_vector_3d::teta() const {
   return teta_;
 }
-inline void vector_3d::set_teta(float value) {
+inline void ssl_world_packet_vector_3d::set_teta(float value) {
   set_has_teta();
   teta_ = value;
 }
 
 // -------------------------------------------------------------------
 
-// ssl_ball
+// ssl_world_packet_Ball
 
 // required uint32 id = 1;
-inline bool ssl_ball::has_id() const {
+inline bool ssl_world_packet_Ball::has_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ssl_ball::set_has_id() {
+inline void ssl_world_packet_Ball::set_has_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void ssl_ball::clear_has_id() {
+inline void ssl_world_packet_Ball::clear_has_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void ssl_ball::clear_id() {
+inline void ssl_world_packet_Ball::clear_id() {
   id_ = 0u;
   clear_has_id();
 }
-inline ::google::protobuf::uint32 ssl_ball::id() const {
+inline ::google::protobuf::uint32 ssl_world_packet_Ball::id() const {
   return id_;
 }
-inline void ssl_ball::set_id(::google::protobuf::uint32 value) {
+inline void ssl_world_packet_Ball::set_id(::google::protobuf::uint32 value) {
   set_has_id();
   id_ = value;
 }
 
-// required .vector_3d position = 2;
-inline bool ssl_ball::has_position() const {
+// required .ssl_world_packet.vector_3d position = 2;
+inline bool ssl_world_packet_Ball::has_position() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void ssl_ball::set_has_position() {
+inline void ssl_world_packet_Ball::set_has_position() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void ssl_ball::clear_has_position() {
+inline void ssl_world_packet_Ball::clear_has_position() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void ssl_ball::clear_position() {
-  if (position_ != NULL) position_->::vector_3d::Clear();
+inline void ssl_world_packet_Ball::clear_position() {
+  if (position_ != NULL) position_->::ssl_world_packet_vector_3d::Clear();
   clear_has_position();
 }
-inline const ::vector_3d& ssl_ball::position() const {
+inline const ::ssl_world_packet_vector_3d& ssl_world_packet_Ball::position() const {
   return position_ != NULL ? *position_ : *default_instance_->position_;
 }
-inline ::vector_3d* ssl_ball::mutable_position() {
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Ball::mutable_position() {
   set_has_position();
-  if (position_ == NULL) position_ = new ::vector_3d;
+  if (position_ == NULL) position_ = new ::ssl_world_packet_vector_3d;
   return position_;
 }
-inline ::vector_3d* ssl_ball::release_position() {
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Ball::release_position() {
   clear_has_position();
-  ::vector_3d* temp = position_;
+  ::ssl_world_packet_vector_3d* temp = position_;
   position_ = NULL;
   return temp;
 }
 
-// required .vector_3d velecity = 3;
-inline bool ssl_ball::has_velecity() const {
+// required .ssl_world_packet.vector_3d velecity = 3;
+inline bool ssl_world_packet_Ball::has_velecity() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void ssl_ball::set_has_velecity() {
+inline void ssl_world_packet_Ball::set_has_velecity() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void ssl_ball::clear_has_velecity() {
+inline void ssl_world_packet_Ball::clear_has_velecity() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void ssl_ball::clear_velecity() {
-  if (velecity_ != NULL) velecity_->::vector_3d::Clear();
+inline void ssl_world_packet_Ball::clear_velecity() {
+  if (velecity_ != NULL) velecity_->::ssl_world_packet_vector_3d::Clear();
   clear_has_velecity();
 }
-inline const ::vector_3d& ssl_ball::velecity() const {
+inline const ::ssl_world_packet_vector_3d& ssl_world_packet_Ball::velecity() const {
   return velecity_ != NULL ? *velecity_ : *default_instance_->velecity_;
 }
-inline ::vector_3d* ssl_ball::mutable_velecity() {
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Ball::mutable_velecity() {
   set_has_velecity();
-  if (velecity_ == NULL) velecity_ = new ::vector_3d;
+  if (velecity_ == NULL) velecity_ = new ::ssl_world_packet_vector_3d;
   return velecity_;
 }
-inline ::vector_3d* ssl_ball::release_velecity() {
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Ball::release_velecity() {
   clear_has_velecity();
-  ::vector_3d* temp = velecity_;
+  ::ssl_world_packet_vector_3d* temp = velecity_;
   velecity_ = NULL;
   return temp;
 }
 
 // -------------------------------------------------------------------
 
-// ssl_robot
+// ssl_world_packet_Robot
 
 // required uint32 id = 1;
-inline bool ssl_robot::has_id() const {
+inline bool ssl_world_packet_Robot::has_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ssl_robot::set_has_id() {
+inline void ssl_world_packet_Robot::set_has_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void ssl_robot::clear_has_id() {
+inline void ssl_world_packet_Robot::clear_has_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void ssl_robot::clear_id() {
+inline void ssl_world_packet_Robot::clear_id() {
   id_ = 0u;
   clear_has_id();
 }
-inline ::google::protobuf::uint32 ssl_robot::id() const {
+inline ::google::protobuf::uint32 ssl_world_packet_Robot::id() const {
   return id_;
 }
-inline void ssl_robot::set_id(::google::protobuf::uint32 value) {
+inline void ssl_world_packet_Robot::set_id(::google::protobuf::uint32 value) {
   set_has_id();
   id_ = value;
 }
 
-// required .vector_3d position = 2;
-inline bool ssl_robot::has_position() const {
+// required .ssl_world_packet.vector_3d position = 2;
+inline bool ssl_world_packet_Robot::has_position() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void ssl_robot::set_has_position() {
+inline void ssl_world_packet_Robot::set_has_position() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void ssl_robot::clear_has_position() {
+inline void ssl_world_packet_Robot::clear_has_position() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void ssl_robot::clear_position() {
-  if (position_ != NULL) position_->::vector_3d::Clear();
+inline void ssl_world_packet_Robot::clear_position() {
+  if (position_ != NULL) position_->::ssl_world_packet_vector_3d::Clear();
   clear_has_position();
 }
-inline const ::vector_3d& ssl_robot::position() const {
+inline const ::ssl_world_packet_vector_3d& ssl_world_packet_Robot::position() const {
   return position_ != NULL ? *position_ : *default_instance_->position_;
 }
-inline ::vector_3d* ssl_robot::mutable_position() {
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Robot::mutable_position() {
   set_has_position();
-  if (position_ == NULL) position_ = new ::vector_3d;
+  if (position_ == NULL) position_ = new ::ssl_world_packet_vector_3d;
   return position_;
 }
-inline ::vector_3d* ssl_robot::release_position() {
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Robot::release_position() {
   clear_has_position();
-  ::vector_3d* temp = position_;
+  ::ssl_world_packet_vector_3d* temp = position_;
   position_ = NULL;
   return temp;
 }
 
-// required .vector_3d velecity = 3;
-inline bool ssl_robot::has_velecity() const {
+// required .ssl_world_packet.vector_3d velecity = 3;
+inline bool ssl_world_packet_Robot::has_velecity() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void ssl_robot::set_has_velecity() {
+inline void ssl_world_packet_Robot::set_has_velecity() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void ssl_robot::clear_has_velecity() {
+inline void ssl_world_packet_Robot::clear_has_velecity() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void ssl_robot::clear_velecity() {
-  if (velecity_ != NULL) velecity_->::vector_3d::Clear();
+inline void ssl_world_packet_Robot::clear_velecity() {
+  if (velecity_ != NULL) velecity_->::ssl_world_packet_vector_3d::Clear();
   clear_has_velecity();
 }
-inline const ::vector_3d& ssl_robot::velecity() const {
+inline const ::ssl_world_packet_vector_3d& ssl_world_packet_Robot::velecity() const {
   return velecity_ != NULL ? *velecity_ : *default_instance_->velecity_;
 }
-inline ::vector_3d* ssl_robot::mutable_velecity() {
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Robot::mutable_velecity() {
   set_has_velecity();
-  if (velecity_ == NULL) velecity_ = new ::vector_3d;
+  if (velecity_ == NULL) velecity_ = new ::ssl_world_packet_vector_3d;
   return velecity_;
 }
-inline ::vector_3d* ssl_robot::release_velecity() {
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Robot::release_velecity() {
   clear_has_velecity();
-  ::vector_3d* temp = velecity_;
+  ::ssl_world_packet_vector_3d* temp = velecity_;
   velecity_ = NULL;
   return temp;
 }
 
 // -------------------------------------------------------------------
 
-// ssl_team
+// ssl_world_packet_Team
 
-// repeated .ssl_robot robots = 1;
-inline int ssl_team::robots_size() const {
+// repeated .ssl_world_packet.Robot robots = 1;
+inline int ssl_world_packet_Team::robots_size() const {
   return robots_.size();
 }
-inline void ssl_team::clear_robots() {
+inline void ssl_world_packet_Team::clear_robots() {
   robots_.Clear();
 }
-inline const ::ssl_robot& ssl_team::robots(int index) const {
+inline const ::ssl_world_packet_Robot& ssl_world_packet_Team::robots(int index) const {
   return robots_.Get(index);
 }
-inline ::ssl_robot* ssl_team::mutable_robots(int index) {
+inline ::ssl_world_packet_Robot* ssl_world_packet_Team::mutable_robots(int index) {
   return robots_.Mutable(index);
 }
-inline ::ssl_robot* ssl_team::add_robots() {
+inline ::ssl_world_packet_Robot* ssl_world_packet_Team::add_robots() {
   return robots_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ssl_robot >&
-ssl_team::robots() const {
+inline const ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Robot >&
+ssl_world_packet_Team::robots() const {
   return robots_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::ssl_robot >*
-ssl_team::mutable_robots() {
+inline ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Robot >*
+ssl_world_packet_Team::mutable_robots() {
   return &robots_;
 }
 
-// required .SideType side = 2;
-inline bool ssl_team::has_side() const {
+// required .ssl_world_packet.Side side = 2;
+inline bool ssl_world_packet_Team::has_side() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void ssl_team::set_has_side() {
+inline void ssl_world_packet_Team::set_has_side() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void ssl_team::clear_has_side() {
+inline void ssl_world_packet_Team::clear_has_side() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void ssl_team::clear_side() {
-  side_ = 0;
+inline void ssl_world_packet_Team::clear_side() {
+  side_ = -1;
   clear_has_side();
 }
-inline SideType ssl_team::side() const {
-  return static_cast< SideType >(side_);
+inline ::ssl_world_packet_Side ssl_world_packet_Team::side() const {
+  return static_cast< ::ssl_world_packet_Side >(side_);
 }
-inline void ssl_team::set_side(SideType value) {
-  GOOGLE_DCHECK(SideType_IsValid(value));
+inline void ssl_world_packet_Team::set_side(::ssl_world_packet_Side value) {
+  GOOGLE_DCHECK(::ssl_world_packet_Side_IsValid(value));
   set_has_side();
   side_ = value;
 }
@@ -897,32 +921,32 @@ inline void ssl_team::set_side(SideType value) {
 
 // ssl_world_packet
 
-// repeated .ssl_ball field_balls = 1;
+// repeated .ssl_world_packet.Ball field_balls = 1;
 inline int ssl_world_packet::field_balls_size() const {
   return field_balls_.size();
 }
 inline void ssl_world_packet::clear_field_balls() {
   field_balls_.Clear();
 }
-inline const ::ssl_ball& ssl_world_packet::field_balls(int index) const {
+inline const ::ssl_world_packet_Ball& ssl_world_packet::field_balls(int index) const {
   return field_balls_.Get(index);
 }
-inline ::ssl_ball* ssl_world_packet::mutable_field_balls(int index) {
+inline ::ssl_world_packet_Ball* ssl_world_packet::mutable_field_balls(int index) {
   return field_balls_.Mutable(index);
 }
-inline ::ssl_ball* ssl_world_packet::add_field_balls() {
+inline ::ssl_world_packet_Ball* ssl_world_packet::add_field_balls() {
   return field_balls_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ssl_ball >&
+inline const ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Ball >&
 ssl_world_packet::field_balls() const {
   return field_balls_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::ssl_ball >*
+inline ::google::protobuf::RepeatedPtrField< ::ssl_world_packet_Ball >*
 ssl_world_packet::mutable_field_balls() {
   return &field_balls_;
 }
 
-// required .ssl_team blue_team = 2;
+// required .ssl_world_packet.Team blue_team = 2;
 inline bool ssl_world_packet::has_blue_team() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -933,25 +957,25 @@ inline void ssl_world_packet::clear_has_blue_team() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void ssl_world_packet::clear_blue_team() {
-  if (blue_team_ != NULL) blue_team_->::ssl_team::Clear();
+  if (blue_team_ != NULL) blue_team_->::ssl_world_packet_Team::Clear();
   clear_has_blue_team();
 }
-inline const ::ssl_team& ssl_world_packet::blue_team() const {
+inline const ::ssl_world_packet_Team& ssl_world_packet::blue_team() const {
   return blue_team_ != NULL ? *blue_team_ : *default_instance_->blue_team_;
 }
-inline ::ssl_team* ssl_world_packet::mutable_blue_team() {
+inline ::ssl_world_packet_Team* ssl_world_packet::mutable_blue_team() {
   set_has_blue_team();
-  if (blue_team_ == NULL) blue_team_ = new ::ssl_team;
+  if (blue_team_ == NULL) blue_team_ = new ::ssl_world_packet_Team;
   return blue_team_;
 }
-inline ::ssl_team* ssl_world_packet::release_blue_team() {
+inline ::ssl_world_packet_Team* ssl_world_packet::release_blue_team() {
   clear_has_blue_team();
-  ::ssl_team* temp = blue_team_;
+  ::ssl_world_packet_Team* temp = blue_team_;
   blue_team_ = NULL;
   return temp;
 }
 
-// required .ssl_team yellow_team = 3;
+// required .ssl_world_packet.Team yellow_team = 3;
 inline bool ssl_world_packet::has_yellow_team() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -962,33 +986,91 @@ inline void ssl_world_packet::clear_has_yellow_team() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void ssl_world_packet::clear_yellow_team() {
-  if (yellow_team_ != NULL) yellow_team_->::ssl_team::Clear();
+  if (yellow_team_ != NULL) yellow_team_->::ssl_world_packet_Team::Clear();
   clear_has_yellow_team();
 }
-inline const ::ssl_team& ssl_world_packet::yellow_team() const {
+inline const ::ssl_world_packet_Team& ssl_world_packet::yellow_team() const {
   return yellow_team_ != NULL ? *yellow_team_ : *default_instance_->yellow_team_;
 }
-inline ::ssl_team* ssl_world_packet::mutable_yellow_team() {
+inline ::ssl_world_packet_Team* ssl_world_packet::mutable_yellow_team() {
   set_has_yellow_team();
-  if (yellow_team_ == NULL) yellow_team_ = new ::ssl_team;
+  if (yellow_team_ == NULL) yellow_team_ = new ::ssl_world_packet_Team;
   return yellow_team_;
 }
-inline ::ssl_team* ssl_world_packet::release_yellow_team() {
+inline ::ssl_world_packet_Team* ssl_world_packet::release_yellow_team() {
   clear_has_yellow_team();
-  ::ssl_team* temp = yellow_team_;
+  ::ssl_world_packet_Team* temp = yellow_team_;
   yellow_team_ = NULL;
   return temp;
 }
 
-// optional string comment = 4;
-inline bool ssl_world_packet::has_comment() const {
+// required string referee_state = 4;
+inline bool ssl_world_packet::has_referee_state() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void ssl_world_packet::set_has_comment() {
+inline void ssl_world_packet::set_has_referee_state() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void ssl_world_packet::clear_has_comment() {
+inline void ssl_world_packet::clear_has_referee_state() {
   _has_bits_[0] &= ~0x00000008u;
+}
+inline void ssl_world_packet::clear_referee_state() {
+  if (referee_state_ != &::google::protobuf::internal::kEmptyString) {
+    referee_state_->clear();
+  }
+  clear_has_referee_state();
+}
+inline const ::std::string& ssl_world_packet::referee_state() const {
+  return *referee_state_;
+}
+inline void ssl_world_packet::set_referee_state(const ::std::string& value) {
+  set_has_referee_state();
+  if (referee_state_ == &::google::protobuf::internal::kEmptyString) {
+    referee_state_ = new ::std::string;
+  }
+  referee_state_->assign(value);
+}
+inline void ssl_world_packet::set_referee_state(const char* value) {
+  set_has_referee_state();
+  if (referee_state_ == &::google::protobuf::internal::kEmptyString) {
+    referee_state_ = new ::std::string;
+  }
+  referee_state_->assign(value);
+}
+inline void ssl_world_packet::set_referee_state(const char* value, size_t size) {
+  set_has_referee_state();
+  if (referee_state_ == &::google::protobuf::internal::kEmptyString) {
+    referee_state_ = new ::std::string;
+  }
+  referee_state_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ssl_world_packet::mutable_referee_state() {
+  set_has_referee_state();
+  if (referee_state_ == &::google::protobuf::internal::kEmptyString) {
+    referee_state_ = new ::std::string;
+  }
+  return referee_state_;
+}
+inline ::std::string* ssl_world_packet::release_referee_state() {
+  clear_has_referee_state();
+  if (referee_state_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = referee_state_;
+    referee_state_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+
+// optional string comment = 5;
+inline bool ssl_world_packet::has_comment() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ssl_world_packet::set_has_comment() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ssl_world_packet::clear_has_comment() {
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void ssl_world_packet::clear_comment() {
   if (comment_ != &::google::protobuf::internal::kEmptyString) {
@@ -1046,12 +1128,8 @@ namespace google {
 namespace protobuf {
 
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< SideType>() {
-  return SideType_descriptor();
-}
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ColorType>() {
-  return ColorType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ssl_world_packet_Side>() {
+  return ::ssl_world_packet_Side_descriptor();
 }
 
 }  // namespace google

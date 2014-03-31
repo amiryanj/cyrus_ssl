@@ -432,6 +432,9 @@ bool ssl_visualizer_packet::IsInitialized() const {
   if (has_analyzer_data()) {
     if (!this->analyzer_data().IsInitialized()) return false;
   }
+  if (has_decision_data()) {
+    if (!this->decision_data().IsInitialized()) return false;
+  }
   if (has_planner_data()) {
     if (!this->planner_data().IsInitialized()) return false;
   }

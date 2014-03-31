@@ -4,6 +4,8 @@
 #include "../definition/SSLRobot.h"
 #include "../definition/sslagent.h"
 #include "../definition/SSLBall.h"
+#include "../definition/sslstrategy.h"
+#include "../soccer/roles/sslrole.h"
 
 GUIHandler* GUIHandler::instance = NULL;
 using namespace boost;
@@ -76,17 +78,21 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
 //    packet->mutable_yellow_team()->set_color(yellow_color);
 
     packet->mutable_comment()->append("This packet is filled in cyrus 2014 server.");
-    packet->mutable_blue_team()->set_side((world->team[Blue]->side==Left)? left_side:right_side);
-    packet->mutable_yellow_team()->set_side((world->team[Yellow]->side==Left)? left_side:right_side);
-
+    {
+    SSL::Side blueSide = (game->ourColor() == SSL::Blue)? game->ourSide():game->opponentSide();
+    packet->mutable_blue_team()->set_side((blueSide==SSL::Left)?
+                                    ssl_world_packet_Side_left:ssl_world_packet_Side_right);
+    packet->mutable_yellow_team()->set_side((blueSide==SSL::Right)?
+                                    ssl_world_packet_Side_left:ssl_world_packet_Side_right);
+    }
     for(int tm=0; tm<2 ; ++tm)
     {
-//        for(uint i=0; i<world->getTeam((Color)tm)->numInFieldRobots(); ++i)
-        vector<SSLRobot*> team_robots = world->getTeam((Color)tm)->allRobots();
+//        vector<SSLRobot* > team_robots = world->getTeam((Color)tm)->inFields();
+        vector<SSLRobot* > team_robots = world->getTeam((Color)tm)->allRobots();
         for(uint i=0; i < team_robots.size() ; ++i)
         {
-            const SSLRobot* robot = team_robots.at(i);
-            ssl_robot* robot_packet = (((Color)tm==Blue)?
+            const SSLRobot* robot = team_robots[i];
+            ssl_world_packet_Robot* robot_packet = (((Color)tm==Blue)?
                     packet->mutable_blue_team()->add_robots() : packet->mutable_yellow_team()->add_robots());
             robot_packet->set_id(robot->id);
             robot_packet->mutable_position()->set_x(robot->Position().X());
@@ -98,12 +104,8 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
             robot_packet->mutable_velecity()->set_teta(robot->Speed().Teta());
         }
     }
-    // TO DO : Mohsen
-    /*
-     * write an interfacce to fill packet fields for test purposes
-     */
 
-    ssl_ball* ball_packet = packet->mutable_field_balls()->Add();
+    ssl_world_packet_Ball* ball_packet = packet->mutable_field_balls()->Add();
     ball_packet->mutable_position()->set_x(world->mainBall()->Position().X());
     ball_packet->mutable_position()->set_y(world->mainBall()->Position().Y());
     ball_packet->mutable_position()->set_teta(0);
@@ -113,6 +115,8 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
     ball_packet->mutable_velecity()->set_teta(0);
 
     ball_packet->set_id(0);
+
+    packet->set_referee_state(typeid(world->m_refereeState).name());
 }
 
 void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
@@ -120,9 +124,9 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
     if(packet == NULL)
         return;
     packet->set_comment("Test Analyzer Packet ");
+//    analyzer->nearestRobotToBall(game->ourTeam()->inFields());
     packet->set_nearest_blue_id(0);
     packet->set_nearest_yellow_id(0);
-
 }
 
 void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
@@ -130,7 +134,7 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
     packet->set_comment("This is planning packet");
     planner_polygon* bound = packet->mutable_plannerbound();
     vector<SSLAgent*>::iterator it;
-    for(it=decision->m_agents.begin(); it!=decision->m_agents.end(); ++it)
+    for(it = decision->m_agents.begin(); it!=decision->m_agents.end(); ++it)
     {
         SSLAgent* agent = *it;
         if(agent->isNull())
@@ -138,22 +142,24 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         planner_plan* plan = packet->add_plans();
         plan->set_id(agent->getID());
         planner_vec3d* initial = plan->mutable_initstate();
-        initial->set_x(agent->planner.getInitialState().position.X());
-        initial->set_y(agent->planner.getInitialState().position.Y());
-        initial->set_teta(agent->planner.getInitialState().position.Teta());
+        initial->set_x(agent->robot->Position().X());
+        initial->set_y(agent->robot->Position().Y());
+        initial->set_teta(agent->robot->Position().Teta());
+
         planner_vec3d* goal = plan->mutable_goalstate();
-        goal->set_x(agent->planner.getGoal().goal_point.position.X() );
-        goal->set_y(agent->planner.getGoal().goal_point.position.Y() );
-        goal->set_teta(agent->planner.getGoal().goal_point.position.Teta() );
+        goal->set_x(agent->tempTarget.X());
+        goal->set_y(agent->tempTarget.Y());
+        goal->set_teta(agent->tempTarget.Teta());
         planner_obstacles* obstacles = plan->mutable_obstacleset(); // is not filled yet
-        for(int i = 0; i< agent->planner.getTrajectory().lenght(); i++)
-        {
-            Vector3D pos = agent->planner.getTrajectory().getStation(i).getPosition();
-            planner_vec3d* state = plan->add_pathstate();
-            state->set_x(pos.X());
-            state->set_y(pos.Y());
-            state->set_teta(pos.Teta());
-        }
+        if(agent->planner.planningResult)
+            for(int i = 0; i< agent->planner.getTrajectory().lenght(); i++)
+            {
+                Vector3D pos = agent->planner.getTrajectory().getStation(i).getPosition();
+                planner_vec3d* state = plan->add_pathstate();
+                state->set_x(pos.X());
+                state->set_y(pos.Y());
+                state->set_teta(pos.Teta());
+            }
         plan->mutable_desiredvel()->set_x(agent->desiredGlobalSpeed.X() * 2000);
         plan->mutable_desiredvel()->set_y(agent->desiredGlobalSpeed.Y() * 2000);
         plan->mutable_desiredvel()->set_teta(agent->desiredGlobalSpeed.Teta() * 2000);
@@ -166,6 +172,23 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
 
 void GUIHandler::generateDecisionPacket(ssl_decision_packet *packet)
 {
+    packet->set_comment("This is decision packet");
+    packet->set_our_color((game->ourColor() == SSL::Blue)?
+                ssl_decision_packet_Color_blue:ssl_decision_packet_Color_yellow);
+    packet->set_our_side((game->ourSide() == SSL::Left)?
+                ssl_decision_packet_Side_left:ssl_decision_packet_Side_right);
+
+    packet->set_strategy_name(game->currentStrategy->m_name);
+    for(uint i=0; i<game->m_agents.size(); i++) {
+        SSLAgent* agent = game->m_agents[i];
+        if(agent->isNull())
+            continue;
+        ssl_decision_packet_Robot_Role* robot_role = packet->add_robot_roles();
+        robot_role->set_robot_id(agent->getID());
+        string role_name = typeid(*(agent->role)).name();
+        robot_role->set_current_role(role_name);
+        robot_role->set_current_skill("unknown");
+    }
 }
 
 bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)

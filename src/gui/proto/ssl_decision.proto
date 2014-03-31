@@ -1,3 +1,18 @@
+
 message ssl_decision_packet {
-	optional string comment = 1;
+	enum Color {blue = 0; yellow = 1;};
+	required Color our_color = 1;
+
+	enum Side {left = -1; right = 1;};
+	required Side our_side = 2;
+
+	required string strategy_name = 3;
+	message Robot_Role {
+		required uint32 robot_id = 1;
+		required string current_role = 2;
+		required string current_skill = 3;		  
+	}
+	repeated Robot_Role robot_roles = 4;
+
+	optional string comment = 5;
 }
