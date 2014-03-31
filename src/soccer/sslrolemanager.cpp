@@ -16,7 +16,7 @@ SSLRoleManager::SSLRoleManager()
 //    {
 //        agent_0->robot = SSLGame::getInstance()->ourTeam()->robot[2];
 //    }
-    spareDefender = new Defender();
+    spareDefender = new Defender(3, 3);
     spareBlocker = new Blocker();
     spareOpponentMarker = new OpponentMarker();
 }

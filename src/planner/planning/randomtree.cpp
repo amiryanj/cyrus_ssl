@@ -26,6 +26,10 @@ void RandomTree::clear()
 //        if(m_vertices.at(i) != NULL)
 //            delete m_vertices.at(i);
 //    m_vertices.clear();
+    for(int i=0; i<m_vertices_count; i++){
+        m_vertices[i]->child = NULL;
+        m_vertices[i]->parent = NULL;
+    }
     m_vertices_count = 0;
 }
 
@@ -39,7 +43,7 @@ RRTVertex* RandomTree::addNewVertex(RRTVertex *parent, Station &st)
 {
     try {
 //        RRTVertex *new_ver = new RRTVertex();
-//        assert(m_vertices_count >= 0);
+        assert(m_vertices_count >= 0 && m_vertices_count < MAX_TREE_CAP);
         RRTVertex* new_ver = m_vertices[m_vertices_count];
         new_ver->state = st;
         if(parent == NULL)
@@ -50,8 +54,7 @@ RRTVertex* RandomTree::addNewVertex(RRTVertex *parent, Station &st)
         m_vertices_count ++;
         return new_ver;
     }
-    catch (const char* msg)
-    {
+    catch (const char* msg) {
         cerr << "Exception " << typeid (*this).name() << " " << msg << endl;
         return NULL;
     }

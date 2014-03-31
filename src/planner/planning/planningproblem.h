@@ -51,6 +51,7 @@ public:
     void RRTsolve();
     void ERRTsolve();
     void GRRTsolve();
+    void deactive();
 
     void PotentialFieldSolve();
 

@@ -9,46 +9,31 @@
 void SSLSkill::halt(SSLAgent *agent)
 {
     assert(agent != NULL);
-    Vector3D zero(0, 0, 0);
 
-    agent->target.goal_point.position = agent->robot->Position();
-    agent->desiredGlobalSpeed = zero;
-    agent->appliedLocalSpeed = zero;
-    agent->appliedGlobalSpeed = zero;
+    agent->planner.deactive();
+
+    goTowards(agent, agent->robot->Position()); // diff = 0 ==> dont need to any move
 
     buildAndSendPacket(agent->getID(), agent->appliedLocalSpeed);
 }
 
 void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, Vector3D tolerance)
 {
-    float directSpeedCoefficient = 0.6;
-    float angularSpeedCoefficient = 0.0;
-
     Vector3D diff = target - agent->robot->Position();
-    if((fabs(diff.X()) < tolerance.X()) && (fabs(diff.Y()) < tolerance.Y()) && (fabs(diff.Teta()) < tolerance.Teta())) {
+    if((fabs(diff.X()) < tolerance.X())
+            && (fabs(diff.Y()) < tolerance.Y())
+            && (fabs(diff.Teta()) < tolerance.Teta()))
+    {
         halt(agent);
     }
     else {
-        diff.normalize2D();
-
-        agent->desiredGlobalSpeed = diff;
-
-        agent->appliedGlobalSpeed = agent->desiredGlobalSpeed; // because controller is not working yet
-
-        agent->appliedLocalSpeed = agent->appliedGlobalSpeed;
-        agent->appliedLocalSpeed.rotate( -1 * agent->robot->orien());
-
-        agent->appliedLocalSpeed *= directSpeedCoefficient;
-
-        agent->appliedLocalSpeed.setTeta(agent->appliedLocalSpeed.Teta() * angularSpeedCoefficient);
-
-        buildAndSendPacket(agent->getID(), agent->appliedLocalSpeed);
+        goTowards(agent, target);
     }
-
+    agent->planner.deactive();
 }
 
 void SSLSkill::goToPointWithPlanner(SSLAgent* agent, Vector3D target, Vector3D tolerance,
-                                    bool considerPenaltyArea, short ball_ob_radius, short robot_ob_radius)
+                                    bool considerPenaltyArea, float ball_ob_radius, float robot_ob_radius)
 {
     cout << "Hello... Go to point with planner" << endl;
 
@@ -92,10 +77,13 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, Vector3D target, Vector3D t
 //        assert(planner.planningResult == true); // this assumption is not true
 
     Vector3D nextTarget;
-    if(agent->planner.planningResult)
+    if(agent->planner.planningResult) {
         nextTarget = agent->planner.getTrajectory().getStation(1).position;
+        goTowards(agent, nextTarget);
+    }
+    else
+        halt(agent);
 
-    goToPoint(agent, nextTarget, Vector3D(0,0,0));
 
 //    agent->desiredGlobalSpeed = agent->planner.getControl(0);
 
@@ -129,7 +117,7 @@ void SSLSkill::goAndKick(SSLAgent *agent, double kickStrenghtNormal)
     }
     else {
         Vector3D target = KickStylePosition(SSLWorldModel::getInstance()->mainBall()->Position(), opponentGoalCenter());
-        goToPoint(agent, target, Vector3D(50, 50, M_PI_4));
+        goTowards(agent, target);
     }
 }
 
@@ -140,7 +128,9 @@ void SSLSkill::goAndChip(SSLAgent *agent, double chipStrenghtNormal)
 
 void SSLSkill::buildAndSendPacket(int id, Vector3D &vel, float kickPower)
 {
-    RobotCommandPacket pkt(vel, true, kickPower);
+    bool useNewRobotWheelAngles = true;
+
+    RobotCommandPacket pkt(vel, useNewRobotWheelAngles, kickPower);
 
     CommandTransmitter::getInstance()->send(id, pkt);
 }
@@ -166,9 +156,38 @@ Vector2D SSLSkill::opponentGoalCenter()
     return Vector2D(game->opponentSide() * (FIELD_LENGTH/2), 0);
 }
 
+Vector2D SSLSkill::ourGoalCenter()
+{
+    return Vector2D(game->ourSide() * (FIELD_LENGTH/2), 0);
+}
+
 Vector3D SSLSkill::KickStylePosition(Vector2D point, Vector2D target)
 {
     Vector2D dir = (target - point).normalized();
     float orien = dir.arctan();
     Vector3D pos(point - dir * (BALL_RADIUS + ROBOT_RADIUS + 100), orien);
+}
+
+void SSLSkill::goTowards(SSLAgent *agent, Vector3D target)
+{
+    float directSpeedCoefficient = 0.6;
+    float angularSpeedCoefficient = 0.0;
+
+    Vector3D diff = target - agent->robot->Position();
+    diff.normalize2D();
+
+    agent->tempTarget = target;
+
+    agent->desiredGlobalSpeed = diff;
+    agent->desiredGlobalSpeed *= directSpeedCoefficient;
+    agent->desiredGlobalSpeed.setTeta(agent->desiredGlobalSpeed.Teta() * angularSpeedCoefficient);
+
+    // because controller is not working yet
+    agent->appliedGlobalSpeed = agent->desiredGlobalSpeed;
+
+    agent->appliedLocalSpeed = agent->appliedGlobalSpeed;
+    agent->appliedLocalSpeed.rotate( -1 * agent->robot->orien());
+
+
+    buildAndSendPacket(agent->getID(), agent->appliedLocalSpeed);
 }

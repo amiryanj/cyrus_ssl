@@ -195,6 +195,12 @@ void PlanningProblem::GRRTsolve()
     }
 }
 
+void PlanningProblem::deactive()
+{
+    this->trajec.clear();
+    this->tree.clear();
+}
+
 void PlanningProblem::ERRTsolve()
 {
     cout << "ERRT method is not implemented yet!!!" << endl;
@@ -374,6 +380,7 @@ void PlanningProblem::solveInvalidInitialState()
     if(!CheckValidity(initialState)) {
         cerr << "Warning: the initial state is drawn in an obstacle" << endl;
         tree.clear();
+        trajec.clear();
         RRTVertex* near = tree.addNewVertex(NULL, initialState);
         for(unsigned int i=0; i < stat_obstacles.size(); i++)  {
             Obstacle* ob = stat_obstacles.at(i);

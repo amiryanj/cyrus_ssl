@@ -14,17 +14,11 @@ using namespace std;
 
 //******************************************************
 #define OUR_COLOR   SSL::Blue
-#define OUR_SIDE    SSL::Right
+#define OUR_SIDE    SSL::Left
 //******************************************************
 
 int main(int argc, char *argv[])
 {
-//    QApplication app(argc, argv);
-
-//    double angle = -3*M_PI_4;
-//    double start = 0;
-//    cout << "for " << angle << " > "<< continuousRadian(angle, start) <<   endl;
-
     cout << "Main is running ... " << endl;
     long loopCounter = 0;
 
@@ -58,15 +52,6 @@ int main(int argc, char *argv[])
         }
         usleep(5000);
     }
-
-//    RobotCommandPacket pkt;
-//    pkt.setVelocity(0, 0, 0);
-//    transmitter->send(0, pkt);
-//    transmitter->check();
-
-    //    return app.exec();
-    // ------------ test scripts -------------------
-
 
 }
 

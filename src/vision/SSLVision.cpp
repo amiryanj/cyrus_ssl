@@ -60,6 +60,7 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             temp_frame.setToCurrentTimeMilliSec();
             temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
             temp_frame.confidence = Robot.confidence();
+            temp_frame.camera_id = wrapper.detection().camera_id();
             filterModule->setRobotFrame(SSL::Yellow, Robot.robot_id(), temp_frame);
         }
 

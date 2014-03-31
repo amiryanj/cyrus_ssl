@@ -26,8 +26,8 @@ private:
     double last_update_time_msec;
     double last_delta_t_sec;
 
-    Vector3D filteredPosition;
-    Vector3D filteredSpeed;
+    Vector3D m_filteredPosition;
+    Vector3D m_filteredSpeed;
 
     NaiveKalmanFilter naiveFilter;
 

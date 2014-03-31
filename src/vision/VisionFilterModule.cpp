@@ -27,7 +27,6 @@ void VisionFilter::check()
 
     updateWorldRobots();
 
-
 }
 
 

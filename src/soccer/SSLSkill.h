@@ -30,8 +30,8 @@ public:
 
     static void goToPointWithPlanner(SSLAgent *agent, Vector3D target, Vector3D tolerance,
                                      bool considerPenaltyArea = true,
-                                     short ball_ob_radius = BALL_RADIUS,
-                                     short robot_ob_radius = ROBOT_RADIUS);
+                                     float ball_ob_radius = BALL_RADIUS,
+                                     float robot_ob_radius = ROBOT_RADIUS);
 
     static void goAndKick(SSLAgent* agent, double kickStrenghtNormal);
 
@@ -47,9 +47,11 @@ public:
 
     static Vector2D opponentPenaltyPoint();
     static Vector2D opponentGoalCenter();
+    static Vector2D ourGoalCenter();
     static Vector3D KickStylePosition(Vector2D point, Vector2D kickTarget);
     
 private:
+    static void goTowards(SSLAgent* agent, Vector3D target);
     static void buildAndSendPacket(int id, Vector3D &vel, float kickSpeed = 0);
     static void printRobotAppliedSpeed(SSLAgent* agent, std::ostream& stream);
 

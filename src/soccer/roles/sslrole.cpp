@@ -10,3 +10,9 @@ void SSLRole::setAgent(SSLAgent *agent)
     this->m_agent = agent;
 }
 
+bool SSLRole::Halt()
+{
+    SSLSkill::halt(m_agent);
+}
+
+

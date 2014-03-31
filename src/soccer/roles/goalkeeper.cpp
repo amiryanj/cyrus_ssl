@@ -13,6 +13,7 @@ void GoalKeeper::run()
     if(analyzer->isPointWithinOurPenaltyArea(world->mainBall()->Position())) {
         SSLSkill::goAndKick(m_agent, 1); // goAndChip()
     }
+
     else {
         Vector3D target;
         Vector3D tolerance;
@@ -68,5 +69,5 @@ void GoalKeeper::run()
 
 Vector2D GoalKeeper::expectedPosition()
 {
-    return Vector2D(SSLGame::getInstance()->opponentSide() * (FIELD_LENGTH/2 - ROBOT_RADIUS), 0);
+    return Vector2D(SSLGame::getInstance()->ourSide() * (FIELD_LENGTH/2 - ROBOT_RADIUS), 0);
 }

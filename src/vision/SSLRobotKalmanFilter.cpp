@@ -35,12 +35,12 @@ bool SSLRobotKalmanFilter::isOnField()
 void SSLRobotKalmanFilter::runFilter()
 {
     // remove decayed frames
-    frame temp_fr;
-    temp_fr.setToCurrentTimeMilliSec();
+    frame fake_frame;
+    fake_frame.setToCurrentTimeMilliSec();
     while(!rawPositionList.empty())
     {
         frame listed_fr = rawPositionList.back();
-        if((temp_fr.timeStampMilliSec - listed_fr.timeStampMilliSec) > ((2 * MAX_RAW_DATA_MEMORY)/(CAMERA_FPS/1000.0)))
+        if((fake_frame.timeStampMilliSec - listed_fr.timeStampMilliSec) > ((2 * MAX_RAW_DATA_MEMORY)/(CAMERA_FPS/1000.0)))
             rawPositionList.pop_back();
         else
             break;
@@ -55,8 +55,8 @@ void SSLRobotKalmanFilter::runFilter()
     naiveFilter.predict(last_delta_t_sec);
     naiveFilter.observe(last_observe, last_delta_t_sec);
     FilterState fs = naiveFilter.filter();
-    this->filteredPosition = fs.pos;
-    this->filteredSpeed = fs.vel;
+    this->m_filteredPosition = fs.pos;
+    this->m_filteredSpeed = fs.vel;
 
 //    naiveFilter.x(2, 0) = continuousRadian(naiveFilter.x(2), -M_PI);
 
@@ -64,11 +64,11 @@ void SSLRobotKalmanFilter::runFilter()
 
 Vector3D SSLRobotKalmanFilter::getFilteredPosition() const
 {
-    return this->filteredPosition;
+    return m_filteredPosition;
 }
 
 Vector3D SSLRobotKalmanFilter::getFilteredSpeed() const
 {
-    return this->filteredSpeed;
+    return m_filteredSpeed;
 }
 

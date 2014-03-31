@@ -24,5 +24,5 @@ Vector2D WaitRebound::expectedPosition()
 
 void WaitRebound::run()
 {
-
+    SSLSkill::halt(m_agent);
 }

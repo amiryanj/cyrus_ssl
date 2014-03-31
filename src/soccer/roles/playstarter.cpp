@@ -37,5 +37,8 @@ Vector2D PlayStarter::expectedPosition()
 
 void PlayStarter::run()
 {
+    Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter());
+    Vector3D tolerance(50, 50, M_PI / 8.0);
 
+    SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true);
 }

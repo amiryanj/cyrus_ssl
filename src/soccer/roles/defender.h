@@ -10,7 +10,7 @@ public:
 
     static const double SMALLEST_TIME_TO_SHOOT = 1.0;
 
-    Defender();
+    Defender(int ind, int count);
 
     void run();
 
