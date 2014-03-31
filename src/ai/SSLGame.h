@@ -29,6 +29,7 @@ public:
     ~SSLGame();
 
     SSLTeam* ourTeam();
+    SSLTeam* opponentTeam();
     std::vector<SSLAgent* > m_agents;
     SSLAgent* getAgent(unsigned int ID) const;
     SSLStrategy* currentStrategy;
@@ -38,6 +39,7 @@ public:
     Side ourSide() const;
     Color opponentColor() const;
     Side opponentSide() const;
+
 
     ObstacleSet allRobotsObs;
     Obstacle* ballOb;

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-SSLAgent::SSLAgent(Color our_color, Side our_side)
+SSLAgent::SSLAgent()
 {    
     this->role = NULL;
     this->robot = NULL;
@@ -56,14 +56,17 @@ void SSLAgent::run()
 {
     try {
         if(this->role == NULL) {
-            return; // ************ comment this line ***************
+            return;
             throw "role of agent is null";
         }
         if(this->robot == NULL)
             throw "Agent has NO ROBOT Assigned";
-        this->role->run();
-        // run the planner
-
+        if(world->m_refereeState == SSLReferee::Halt) {
+            role->Halt();
+            throw "Agent in HALT State ";
+        }
+        else
+            role->run();
     }
 
     catch(const char* msg) {

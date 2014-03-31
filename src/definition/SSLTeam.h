@@ -15,13 +15,12 @@ class SSLTeam
 {
 public:
     //SSLTeam();
-    SSLTeam(const Side side, const Color color, const SSLRobotPhysic &physic);
+    SSLTeam(const Color color, const SSLRobotPhysic &physic);
     SSLRobot *robot[MAX_ID_NUM];
     unsigned int numInFields() const;
     vector<SSLRobot*> inFields();
     vector<SSLRobot*> allRobots();
 
-    Side side;
     Color color;
     std::string colorStr();
 

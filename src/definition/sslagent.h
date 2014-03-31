@@ -13,13 +13,13 @@ class SSLRole;
 class SSLAgent
 {
 public:
-    SSLAgent(SSL::Color our_color, SSL::Side our_side);
+    SSLAgent();
     ~SSLAgent();
 
     SSLRobot* robot;
     SSLRole* role;
 
-    GoalState target;
+    Vector3D tempTarget;
     PlanningProblem planner;
     PIDController controller;
 

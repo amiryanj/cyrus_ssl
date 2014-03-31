@@ -25,7 +25,7 @@ SSLGame::SSLGame(Color ourC, Side ourS)
 {    
     SetColor_Side(ourC, ourS);
     for(int i=0; i<MAX_TEAM_PLAYER; i++) {
-        SSLAgent* agent_ = new SSLAgent(ourC, ourS);
+        SSLAgent* agent_ = new SSLAgent();
         m_agents.push_back(agent_);
     }
     currentStrategy = NULL;
@@ -89,7 +89,7 @@ void SSLGame::check()
     updateObstacles();
 
     for(int i=0; i<m_agents.size(); i++) {
-        SSLAgent* agent = m_agents.at(i);
+        SSLAgent* agent = m_agents[i];
         agent->run();
     }
 
@@ -102,6 +102,11 @@ SSLGame::~SSLGame()
 SSLTeam *SSLGame::ourTeam()
 {
     return world->team[m_ourColor];
+}
+
+SSLTeam *SSLGame::opponentTeam()
+{
+    return world->team[(int)opponentColor()];
 }
 
 SSLAgent *SSLGame::getAgent(unsigned int ID) const

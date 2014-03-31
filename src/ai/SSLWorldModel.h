@@ -2,7 +2,6 @@
 #define SSLWORLDMODEL_H_
 
 #include "../general.h"
-#include "../tools/stdlist.h"
 #include "../referee/SSLReferee.h"
 #include "../definition/Concepts.h"
 
@@ -27,11 +26,11 @@ public:
     SSLBall* balls[MAX_BALL_NUM];
     SSLBall* mainBall();
 
-    STDVector<SSLRobot*> all_inFields();
-    STDVector<SSLRobot*> all_inFieldsExcept(SSLRobot* excep);
+    vector<SSLRobot*> all_inFields();
+    vector<SSLRobot*> all_inFieldsExcept(SSLRobot* excep);
 
-    STDVector<SSLRobot*> allRobots();
-    STDVector<SSLRobot*> allRobotsExcept(SSLRobot* excep);
+    vector<SSLRobot*> allRobots();
+    vector<SSLRobot*> allRobotsExcept(SSLRobot* excep);
 
     SSLReferee::RefereeState m_refereeState;
 

@@ -2,7 +2,7 @@
 
 #include "SSLRobot.h"
 
-SSLTeam::SSLTeam(const Side side, const Color color, const SSLRobotPhysic &physic)
+SSLTeam::SSLTeam(const Color color, const SSLRobotPhysic &physic)
 {
 
     for(int i = 0; i < MAX_ID_NUM; i++ )
@@ -14,9 +14,7 @@ SSLTeam::SSLTeam(const Side side, const Color color, const SSLRobotPhysic &physi
         robot[i]->getOutOfField();
     }
 
-    this->side = side;
     this->color = color;
-
 }
 
 std::string SSLTeam::colorStr()
