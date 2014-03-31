@@ -1,3 +1,4 @@
+
 #include "vector2d.h"
 #include "vector3d.h"
 #include <math.h>
@@ -46,8 +47,11 @@ void Vector2D::setZero()
 
 void Vector2D::rotate(float radian_rot)
 {
-    _x = _x * cos(radian_rot) - _y * sin(radian_rot);
-    _y = _x * sin(radian_rot) + _y * cos(radian_rot);
+    float new_x, new_y;
+    new_x = _x * cos(radian_rot) - _y * sin(radian_rot);
+    new_y = _x * sin(radian_rot) + _y * cos(radian_rot);
+    _x = new_x;
+    _y = new_y;
 }
 
 float Vector2D::lenght()
@@ -69,6 +73,12 @@ Vector2D Vector2D::operator +(const Vector2D &vector) const
 {
     return Vector2D( _x + vector._x, _y + vector._y);
 }
+
+bool Vector2D::operator <(const Vector2D &vector) const
+{
+    return (this->X()<vector.X() || (!(this->X() > vector.X()) && (this->Y() < vector.Y())));
+}
+
 
 Vector2D Vector2D::operator -(const Vector2D &vector) const
 {

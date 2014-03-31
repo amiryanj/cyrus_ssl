@@ -50,6 +50,7 @@ public:
     static float vectorMag(const Vector2D  &vector);
     static float distance(const Vector2D &a, const Vector2D &b);
 
+    bool operator <(const Vector2D &vector) const;
 };
 
 #endif // _Vector2D_H
