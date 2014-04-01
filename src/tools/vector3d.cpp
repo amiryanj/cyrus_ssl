@@ -73,12 +73,12 @@ Vector3D Vector3D::operator -(const Vector3D &vector) const
     return Vector3D( _x - vector._x, _y - vector._y, _teta - vector._teta);
 }
 
-Vector3D Vector3D::operator *(float s)
+Vector3D Vector3D::operator *(float s) const
 {
     return Vector3D( _x*s, _y*s, _teta*s);
 }
 
-Vector3D Vector3D::operator /(float s)
+Vector3D Vector3D::operator /(float s) const
 {
     float oneOverS = 1.0f / s;
     return Vector3D( _x*oneOverS, _y*oneOverS, _teta*s);

@@ -1,5 +1,6 @@
 #include "ai/SSLGame.h"
 #include "vision/SSLVision.h"
+#include "vision/VisionFilterModule.h"
 #include "referee/SSLReferee.h"
 #include "general.h"
 //#include <QVector3D>
@@ -40,7 +41,7 @@ int main(int argc, char *argv[])
     {
         loopCounter ++;
         referee->check();
-        vision->check();
+//        vision->check();
         filter->check();
         analyzer->check();
         if((loopCounter % 5) ==0) {
@@ -50,8 +51,10 @@ int main(int argc, char *argv[])
             gui->check();
             transmitter->check();
         }
-        usleep(5000);
+//        usleep(30000);
     }
+
+
 
 }
 

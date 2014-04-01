@@ -1,7 +1,17 @@
 message ssl_analyzer_packet {
 	required uint32 nearest_blue_id = 1;
 	required uint32 nearest_yellow_id = 2;
-	repeated double access_time_blue_vec = 3;
-	repeated double access_time_yellow_vec = 4;
-	optional string comment = 5;
+	enum Color {none = -1; blue = 0; yellow = 1; };
+	required Color possessor_team = 3;
+	required bool nearest_can_kick = 4;
+	required bool is_game_running = 5;
+	message RobotIntersectTime {
+		required Color color = 1;
+		required uint32 id = 2;
+		required float time = 3;
+		required float intersect_x = 4;
+		required float intersect_y = 5;
+	};
+	repeated RobotIntersectTime intersects = 6;
+	optional string comment = 7;
 }

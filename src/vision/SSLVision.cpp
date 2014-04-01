@@ -1,39 +1,44 @@
-/*
- * SSLVision.cpp
- *
- *  Created on: Aug 15, 2013
- *      Author: mostafa
- */
-
 #include "SSLVision.h"
+#include "frame.h"
+#include "VisionFilterModule.h"
 
-SSLVision::SSLVision(int port, const string address) : UDP(), SSLListener()
+IPPacket SSLVision::m_temp_packet;
+UDP SSLVision::udp_socket;
+
+SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener()
 {
-    filterModule = VisionFilter::getInstance();
-    this->open(port, true, true);
+//    m_socket = new QUdpSocket();
+//    m_socket->bind(port, QUdpSocket::ShareAddress);
+//    m_socket->joinMulticastGroup(QHostAddress(QString(address.c_str())));
+//    QObject::connect(m_socket, SIGNAL(readyRead()), this, SLOT(readSocket()));
+//    QObject::connect(this, SIGNAL(testSignal()), this, SLOT(readSocket()));
+
+    udp_socket.open(port, true, true);
     Address multi_, interface_;
     multi_.setHost(address.c_str(), port);
     interface_.setAny();
-    this->addMulticast(multi_, interface_);
+    udp_socket.addMulticast(multi_, interface_);
+    pthread_create(&ssl_vision_thread, NULL, &check, NULL);
 }
 
-SSLVision::~SSLVision()
-{
-}
+SSLVision::~SSLVision() { }
 
-void SSLVision::check()
+void* SSLVision::check(void *)
 {
     Address sender_adress;
-    if(this->havePendingData())
+    while(true)
     {
-        m_temp_packet.length = this->recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
-        cout << "Vision-Packet received. Packet Lenght: [" << this->m_temp_packet.length << "]" << endl;
+        if(udp_socket.havePendingData())
+        {
+            m_temp_packet.length = udp_socket.recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
+            cout << "Vision-Packet received. Packet Lenght: [" << m_temp_packet.length << "]" << endl;
 
-        SSL_WrapperPacket wrapper;
-        wrapper.Clear();
-        wrapper.ParseFromArray(m_temp_packet.buffer, m_temp_packet.length);
+            SSL_WrapperPacket wrapper;
+            wrapper.Clear();
+            wrapper.ParseFromArray(m_temp_packet.buffer, m_temp_packet.length);
 
-        updateFilterModule(wrapper);
+            updateFilterModule(wrapper);
+        }
     }
 }
 
@@ -50,7 +55,7 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
             temp_frame.confidence = Robot.confidence();
             temp_frame.camera_id = wrapper.detection().camera_id();
-            filterModule->setRobotFrame(SSL::Blue, Robot.robot_id(), temp_frame);
+            VisionFilter::getInstance()->setRobotFrame(SSL::Blue, Robot.robot_id(), temp_frame);
 
         }
 
@@ -61,7 +66,7 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
             temp_frame.confidence = Robot.confidence();
             temp_frame.camera_id = wrapper.detection().camera_id();
-            filterModule->setRobotFrame(SSL::Yellow, Robot.robot_id(), temp_frame);
+            VisionFilter::getInstance()->setRobotFrame(SSL::Yellow, Robot.robot_id(), temp_frame);
         }
 
         for(int i=0; i< wrapper.detection().balls_size(); i++)
@@ -69,7 +74,7 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             SSL_DetectionBall Ball=wrapper.detection().balls(i);
             temp_frame.setToCurrentTimeMilliSec();
             temp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();
-            filterModule->setBallFrame(temp_frame);
+            VisionFilter::getInstance()->setBallFrame(temp_frame);
         }
     }
     if(wrapper.has_geometry())
@@ -78,3 +83,22 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
         // and so on
     }
 }
+
+//void SSLVision::readSocket()
+//{
+//    while(m_socket->hasPendingDatagrams()) {
+
+//        QByteArray data;
+
+//        data.resize(m_socket->pendingDatagramSize());
+//        m_socket->readDatagram(data.data(), data.size());
+
+//        cout << "Vision-Packet received. Packet Lenght: [" << data.size() << "]" << endl;
+
+//        SSL_WrapperPacket wrapper;
+//        wrapper.Clear();
+//        wrapper.ParseFromArray(data.data(), data.size());//m_temp_packet.buffer, m_temp_packet.length);
+
+//        updateFilterModule(wrapper);
+//    }
+//}

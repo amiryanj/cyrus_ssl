@@ -125,8 +125,12 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
         return;
     packet->set_comment("Test Analyzer Packet ");
 //    analyzer->nearestRobotToBall(game->ourTeam()->inFields());
-    packet->set_nearest_blue_id(0);
-    packet->set_nearest_yellow_id(0);
+//    packet->set_nearest_blue_id(analyzer->nearestRobotToBall(SSL::Blue).at(0));
+//    packet->set_nearest_yellow_id(analyzer->nearestRobotToBall(SSL::Yellow));
+//    packet->set_possessor_team();
+//    packet->set_nearest_can_kick();
+    packet->set_is_game_running(analyzer->isGameRunning());
+
 }
 
 void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)

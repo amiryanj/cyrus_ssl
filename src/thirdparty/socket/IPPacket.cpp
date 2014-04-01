@@ -9,11 +9,10 @@
 /*
 IPPacket::IPPacket() {
 }
-
-IPPacket::~IPPacket() {
-}
-
 */
+//IPPacket::~IPPacket() {
+
+//}
 
 
 IPPacket::IPPacket(int packet_size)

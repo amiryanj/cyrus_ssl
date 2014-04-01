@@ -31,6 +31,7 @@ public:
 protected:
     enum ActiveRoleState { e_FarFromBall, e_NearBall, e_CanKick} m_state;
 
+
 private:
 
 };

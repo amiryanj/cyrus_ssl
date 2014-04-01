@@ -5,38 +5,32 @@
  *      Author: mostafa
  */
 
-#ifndef SSLVISION_H_
-#define SSLVISION_H_
+#ifndef _SSLVISION_H_
+#define _SSLVISION_H_
 
-#include "../general.h"
-#include "VisionFilterModule.h"
-#include "frame.h"
 #include "../thirdparty/socket/IPPacket.h"
 #include "../thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.h"
 
 #include "../thirdparty/socket/netraw.h"
-
 using namespace Net;
 
-class SSLVision : public SSLListener, public UDP
+#include <pthread.h>
+
+class SSLVision //: public UDP //, public SSLListener
 {
-private:
-    VisionFilter* filterModule;
+    static UDP udp_socket;
+    static IPPacket m_temp_packet;
 
-//    void parse(IPPacket &p);
-    void updateFilterModule(const SSL_WrapperPacket& wrapper);
+    pthread_t ssl_vision_thread;
 
-    //    SSL_WrapperPacket wrapper;
-//    frame m_temp_frame;
-    IPPacket m_temp_packet;
+    static void *check(void *);
+    static void updateFilterModule(const SSL_WrapperPacket& wrapper);
 
 public:
     SSLVision(int port = 0, const std::string address = "");
 	virtual ~SSLVision();
 
-    void check();
-
 
 };
 
-#endif /* SSLVISION_H_ */
+#endif /* _SSLVISION_H_ */

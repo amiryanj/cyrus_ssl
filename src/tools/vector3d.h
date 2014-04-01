@@ -38,8 +38,8 @@ public:
     Vector3D operator -() const;
     Vector3D operator +(const Vector3D &vector) const;
     Vector3D operator -(const Vector3D &vector) const;
-    Vector3D operator *(float s);
-    Vector3D operator /(float s);
+    Vector3D operator *(float s) const;
+    Vector3D operator /(float s) const;
 
     Vector3D &operator +=(const Vector3D &vector);
     Vector3D &operator -=(const Vector3D &vector);

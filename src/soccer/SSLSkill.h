@@ -51,9 +51,9 @@ public:
     static Vector3D KickStylePosition(Vector2D point, Vector2D kickTarget);
     
 private:
-    static void goTowards(SSLAgent* agent, Vector3D target);
     static void buildAndSendPacket(int id, Vector3D &vel, float kickSpeed = 0);
     static void printRobotAppliedSpeed(SSLAgent* agent, std::ostream& stream);
+    static void controlSpeed(SSLAgent* agent, const Vector3D &speed);
 
 };
 
