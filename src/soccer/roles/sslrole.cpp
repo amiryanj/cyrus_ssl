@@ -15,4 +15,3 @@ bool SSLRole::Halt()
     SSLSkill::halt(m_agent);
 }
 
-

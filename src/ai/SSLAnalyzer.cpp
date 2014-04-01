@@ -123,42 +123,31 @@ bool SSLAnalyzer::canKick(SSLRobot *robot)
 
 
 // TODO : Farzad ***************************************************************************
-vector<pair<float,pair<Vector2D, SSLRobot *> > > SSLAnalyzer::nearestRobotToBall()
-{
-    vector<pair<float,pair<Vector2D, SSLRobot *> > > timeForEachRobot;
-    const vector<SSLRobot*> & robots = world->all_inFields();
-    for(int i = 0 ; i < robots.size(); i++ )
-    {
-        pair<float, Vector2D> res = whenWhereCanRobotCatchTheBall(robots[i]);
-        timeForEachRobot.push_back(make_pair(res.first, make_pair(res.second, robots[i])));
-    }
-    sort(timeForEachRobot.begin(), timeForEachRobot.end());
-    return timeForEachRobot;
-}
-vector<pair<float,pair<Vector2D, SSLRobot *> > > SSLAnalyzer::nearestRobotToBall(const Color &teamColor)
-{
-    vector<pair<float,pair<Vector2D, SSLRobot *> > > timeForEachRobot;
-    const vector<SSLRobot*> & robots = world->getTeam(teamColor)->inFields();
-    for(int i = 0 ; i < robots.size(); i++ )
-    {
-        pair<float, Vector2D> res = whenWhereCanRobotCatchTheBall(robots[i]);
-        timeForEachRobot.push_back(make_pair(res.first, make_pair(res.second, robots[i])));
-    }
-    sort(timeForEachRobot.begin(), timeForEachRobot.end());
-    return timeForEachRobot;
-
+SSLAnalyzer::robotIntersectTime SSLAnalyzer::nearestRobotToBall(int index)
+{    
+    return nearestRobotToBall(world->all_inFields(), index);
 }
 
-vector<pair<float,pair<Vector2D, SSLRobot *> > > SSLAnalyzer::nearestRobotToBall(const vector<SSLRobot *> &robots)
+SSLAnalyzer::robotIntersectTime SSLAnalyzer::nearestRobotToBall(const Color &teamColor, int index)
 {
-    vector<pair<float,pair<Vector2D, SSLRobot *> > > timeForEachRobot;
-    for(int i = 0 ; i < robots.size(); i++ )
+    return nearestRobotToBall(world->getTeam(teamColor)->inFields(), index);
+}
+
+SSLAnalyzer::robotIntersectTime SSLAnalyzer::nearestRobotToBall(const vector<SSLRobot *> &robots, int index)
+{
+    vector<robotIntersectTime> timeForEachRobot;
+    assert(index>=0);
+    if(index >= robots.size()) {
+        cerr << "Nearest Robot Could not find";
+        return robotIntersectTime();
+    }
+    for(uint i = 0 ; i < robots.size(); i++ )
     {
-            pair<float, Vector2D> res = whenWhereCanRobotCatchTheBall(robots[i]);
-            timeForEachRobot.push_back(make_pair(res.first, make_pair(res.second, robots[i])));
+        SSLAnalyzer::robotIntersectTime res = whenWhereCanRobotCatchTheBall(robots[i]);
+        timeForEachRobot.push_back(res);
     }
     sort(timeForEachRobot.begin(), timeForEachRobot.end());
-    return timeForEachRobot;
+    return timeForEachRobot[index];
 }
 
 //----------------------------------------------------------------------------------------------
@@ -339,19 +328,22 @@ vector<pair<float,float> > SSLAnalyzer::openAngleToGoal(const Vector2D targetPoi
     return openAngles;
 }
 
-int SSLAnalyzer::nearestRobotToBallForVisualizer(SSL::Color c)
+float SSLAnalyzer::wastedTimeForInertia(SSLRobot *robot, Vector2D target) const
 {
-    vector<pair<float,pair<Vector2D, SSLRobot *> > > temp = nearestRobotToBall(c);
-    if(!temp.empty())
-        return temp[0].second.second->id;
-
+    Vector2D diff = target - robot->Position().to2D();
+    float cos_theta = cos(Vector2D::angleBetween(diff, robot->Speed().to2D()));
+    float wastedTime = (robot->physic.max_lin_vel_mmps - robot->Speed().lenght2D()*cos_theta) / robot->physic.max_lin_acc_mmps2;
+    return wastedTime;
 }
 
-std::pair<float, Vector2D> SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(const SSLRobot* robot) {
+SSLAnalyzer::robotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(SSLRobot* robot) {
     /* stop case
      solves using (x-xb)^2 + (y-yb)^2 = r(t)^2 and vb'= at + vb
      r(t): radius robot can be in t seconds from now = ROBOT_MAX_SPEED * t
      */
+    robotIntersectTime stopCaseAnswer;
+    stopCaseAnswer.m_robot = robot;
+
     const SSLBall* ball = world->mainBall();
 
     float stopTime = fabs(ball->Speed().lenght()) / BALL_FRICTION_COEFF;
@@ -360,9 +352,9 @@ std::pair<float, Vector2D> SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(const
     float distanceOfNewPositionToRobot = (robot->Position().to2D() - newPosition).lenght();
 
     float neededTime = distanceOfNewPositionToRobot / robot->physic.max_lin_vel_mmps;
-
-    std::pair<float, Vector2D> stopCaseAnswer(neededTime, newPosition);
-
+    neededTime += wastedTimeForInertia(robot, newPosition);
+    stopCaseAnswer.m_time = neededTime;
+    stopCaseAnswer.m_position = newPosition;
     if (ball->Speed().lenght() < 1.0)
         return stopCaseAnswer;
     /* cross case
@@ -370,39 +362,49 @@ std::pair<float, Vector2D> SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(const
      r(t): radius robot can be in t seconds from now
      there will be an equation like at^2 + bt + c = 0
     */
+
+    robotIntersectTime crossCaseAnswer;
+    crossCaseAnswer.m_robot = robot;
+
     float xDelta = ball->Position().X() - robot->Position().X();
     float yDelta = ball->Position().Y() - robot->Position().Y();
 
     float a = (pow(robot->physic.max_lin_vel_mmps, 2.0) - pow(ball->Speed().lenght(), 2.0))/2.0;
     float b = -(ball->Speed().X() * xDelta + ball->Speed().Y() * yDelta);
-    float b2_4ac = pow(robot->physic.max_lin_vel_mmps * xDelta, 2.0) - pow(ball->Speed().Y() * xDelta ,2.0)
-            + 2.0 * ball->Speed().X() * ball->Speed().Y() * xDelta * yDelta + pow(robot->physic.max_lin_vel_mmps * yDelta ,2.0)
+    float b2_4ac = pow(robot->physic.max_lin_vel_mmps * xDelta, 2.0)
+            - pow(ball->Speed().Y() * xDelta ,2.0)
+            + 2.0 * ball->Speed().X() * ball->Speed().Y() * xDelta * yDelta
+            + pow(robot->physic.max_lin_vel_mmps * yDelta ,2.0)
             - pow(ball->Speed().X() * yDelta ,2.0);
 
     float neededTime1 = (-b + sqrt(b2_4ac))/(2.0*a);
     float neededTime2 = (-b - sqrt(b2_4ac))/(2.0*a);
 
-    neededTime = min(neededTime1, neededTime2);
-    newPosition = Vector2D(ball->Position() + ball->Speed() * neededTime);
+    Vector2D newPosition1 = Vector2D(ball->Position() + ball->Speed() * neededTime1);
+    Vector2D newPosition2 = Vector2D(ball->Position() + ball->Speed() * neededTime2);
 
-    std::pair<float, Vector2D> crossCaseAnswer(neededTime, newPosition);
+    neededTime = min(neededTime1 + wastedTimeForInertia(robot, newPosition1),
+                     neededTime2 + wastedTimeForInertia(robot, newPosition2));
+
+    crossCaseAnswer.m_time = neededTime;
+    crossCaseAnswer.m_position = newPosition;
 
     /*
      compare both cases and return best answer
      */
 
-    if (stopCaseAnswer.first < crossCaseAnswer.first)
+    if (stopCaseAnswer.m_time < crossCaseAnswer.m_time)
         return stopCaseAnswer;
     return crossCaseAnswer;
 }
 
-std::pair<float, Vector2D> SSLAnalyzer::whenWhereCanRobotCatchTheBall(const SSLRobot* robot) {
+SSLAnalyzer::robotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall(SSLRobot* robot) {
     const SSLBall* ball = world->mainBall();
 
     if (robot && ball) {
         return whenWhereCanRobotCatchTheBall_imp1(robot);
     }
-    return make_pair(INFINITY, Vector2D(INFINITY, INFINITY));
+    return robotIntersectTime(INFINITY, Vector2D(INFINITY, INFINITY), robot);
 }
 
 

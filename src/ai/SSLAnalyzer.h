@@ -20,17 +20,39 @@ using namespace std;
 // Singleton Class
 class SSLAnalyzer : SSLListener
 {
+public:
+    struct robotIntersectTime {
+        float m_time;
+        Vector2D m_position;
+        SSLRobot* m_robot;
+
+        bool isValid() {
+            return !(m_robot == NULL);
+        }
+
+        robotIntersectTime(float time = 0.0, Vector2D position = Vector2D(0.0, 0.0), SSLRobot* robot = NULL) {
+            m_time = time;
+            m_position = position;
+            m_robot = robot;
+        }
+
+        bool operator < (const robotIntersectTime & other) const {
+            return this->m_time < other.m_time;
+        }
+    };
 private:
     SSLAnalyzer();  // default constructor
     static SSLAnalyzer *analyzer_instance;
 
     void updateDistances();
-    std::pair<float, Vector2D> whenWhereCanRobotCatchTheBall_imp1(const SSLRobot* robot);
-    std::pair<float, float> blockedAngleByARobot(const Vector2D & vec, const SSLRobot* robot);
+    robotIntersectTime  whenWhereCanRobotCatchTheBall_imp1(SSLRobot* robot);
+    pair<float, float> blockedAngleByARobot(const Vector2D & vec, const SSLRobot* robot);
     float positiveSideAngleInNegativeSide(float angle) const;
     float negativeSideAngleInPositiveSide(float angle) const;
+    float wastedTimeForInertia(SSLRobot *robot, Vector2D target) const;
 
 public:
+
     static SSLAnalyzer *getInstance();
     void check();
 
@@ -46,9 +68,9 @@ public:
     SSLRobot* whichRobotCanKick(); // Null : none
     bool canKick(SSLRobot* robot);
 
-    vector<pair<float,pair<Vector2D, SSLRobot *> > > nearestRobotToBall();
-    vector<pair<float,pair<Vector2D, SSLRobot *> > > nearestRobotToBall(const SSL::Color & teamColor);
-    vector<pair<float,pair<Vector2D, SSLRobot *> > > nearestRobotToBall(const vector<SSLRobot *> & robots);
+    robotIntersectTime nearestRobotToBall(int index = 0);
+    robotIntersectTime nearestRobotToBall(const SSL::Color & teamColor, int index = 0);
+    robotIntersectTime nearestRobotToBall(const vector<SSLRobot *> & robots, int index = 0);
 
     vector<SSLRobot*> nearestRobotToPoint(const Vector2D & point);
     vector<SSLRobot*> nearestRobotToPoint(const SSL::Color & teamColor,const Vector2D & point);
@@ -66,12 +88,9 @@ public:
 
 // LEVEL 3 : PREDICTION ---------------------------------------------------------------------
 
-    std::pair<float, Vector2D> whenWhereCanRobotCatchTheBall(const SSLRobot* robot);
+    SSLAnalyzer::robotIntersectTime  whenWhereCanRobotCatchTheBall(SSLRobot* robot);
     std::vector<SSLRobot *> opponentBlockerFromPoint(const Vector2D targetPoint);
     std::vector<pair<float,float> > openAngleToGoal(const Vector2D targetPoint);
-
-// temp fuction ---------------------------------------------------------------------
-    int nearestRobotToBallForVisualizer(Color);
 
 // Referee State Analyze:
     bool isOurKickOffPosition();

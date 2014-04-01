@@ -28,8 +28,9 @@ public:
     bool isInf() const;
     void setZero();
     void rotate(float radian_rot);
-    float lenght();
-    float arctan();
+    float lenght() const;
+    float arctan() const;
+    float distToLine(const Vector2D& a, const Vector2D& b) const;
 
     Vector2D operator -() const;
     Vector2D operator +(const Vector2D &vector) const;
@@ -49,6 +50,9 @@ public:
 //    Vector2D crossProduct(const Vector2D &a, const Vector2D &b);
     static float vectorMag(const Vector2D  &vector);
     static float distance(const Vector2D &a, const Vector2D &b);
+
+    static float dot(const Vector2D& a, const Vector2D& b);
+    static float angleBetween(const Vector2D& a, const Vector2D& b);
 
     bool operator <(const Vector2D &vector) const;
 };

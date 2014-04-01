@@ -54,14 +54,35 @@ void Vector2D::rotate(float radian_rot)
     _y = new_y;
 }
 
-float Vector2D::lenght()
+float Vector2D::lenght() const
 {
     return sqrt(_x*_x + _y*_y);
 }
 
-float Vector2D::arctan()
+float Vector2D::arctan() const
 {
     return atan2(_y, _x);
+}
+
+float Vector2D::distToLine(const Vector2D &a, const Vector2D &b) const
+{
+    assert(0);
+
+    // farzad
+    /*
+     *float SSLAnalyzer::distance_point_line(const Vector2D &a, const Vector2D &b, const Vector2D &c) const
+
+    // a,b,c are points, |ch| is returned
+    float distancePointPoint = hypot(a.X() - b.X(), a.Y() - b.Y());
+    if (distancePointPoint < 1e-9)
+        return INFINITY;
+    Vector2D ac = (c-a);
+    Vector2D ab = (b-a);
+    float cross = ac.X()*ab.Y() + ac.Y()*ab.X();
+    return abs(cross)/ distancePointPoint;
+
+     */
+
 }
 
 Vector2D Vector2D::operator -() const
@@ -177,6 +198,20 @@ float Vector2D::distance(const Vector2D &a, const Vector2D &b)
     float dx = a._x - b._x;
     float dy = a._y - b._y;
     return sqrt(dx * dx + dy * dy);
+}
+
+float Vector2D::dot(const Vector2D &a, const Vector2D &b)
+{
+    return a._x*b._x + a._y*b._y;
+}
+
+float Vector2D::angleBetween(const Vector2D &a, const Vector2D &b)
+{
+    float mulOfLengths = a.lenght() * b.lenght();
+    if (mulOfLengths == 0.0)
+        return 0.0;
+    float cos_theta = Vector2D::dot(a, b) / mulOfLengths;
+    return acos(cos_theta);
 }
 
 void Vector2D::set(float x_, float y_)
