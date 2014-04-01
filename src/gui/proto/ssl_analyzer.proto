@@ -1,7 +1,7 @@
 message ssl_analyzer_packet {
         required uint32 nearest_blue_id = 1;
         required uint32 nearest_yellow_id = 2;
-	enum Color {none = -1; blue = 0; yellow = 1; };
+	enum Color {none = -1; yellow = 0; blue = 1; };
 	required Color possessor_team = 3;
 	required bool nearest_can_kick = 4;
 	required bool is_game_running = 5;

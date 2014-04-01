@@ -35,12 +35,12 @@ class ssl_analyzer_packet_RobotIntersectTime;
 
 enum ssl_analyzer_packet_Color {
   ssl_analyzer_packet_Color_none = -1,
-  ssl_analyzer_packet_Color_blue = 0,
-  ssl_analyzer_packet_Color_yellow = 1
+  ssl_analyzer_packet_Color_yellow = 0,
+  ssl_analyzer_packet_Color_blue = 1
 };
 bool ssl_analyzer_packet_Color_IsValid(int value);
 const ssl_analyzer_packet_Color ssl_analyzer_packet_Color_Color_MIN = ssl_analyzer_packet_Color_none;
-const ssl_analyzer_packet_Color ssl_analyzer_packet_Color_Color_MAX = ssl_analyzer_packet_Color_yellow;
+const ssl_analyzer_packet_Color ssl_analyzer_packet_Color_Color_MAX = ssl_analyzer_packet_Color_blue;
 const int ssl_analyzer_packet_Color_Color_ARRAYSIZE = ssl_analyzer_packet_Color_Color_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ssl_analyzer_packet_Color_descriptor();
@@ -233,8 +233,8 @@ class ssl_analyzer_packet : public ::google::protobuf::Message {
   
   typedef ssl_analyzer_packet_Color Color;
   static const Color none = ssl_analyzer_packet_Color_none;
-  static const Color blue = ssl_analyzer_packet_Color_blue;
   static const Color yellow = ssl_analyzer_packet_Color_yellow;
+  static const Color blue = ssl_analyzer_packet_Color_blue;
   static inline bool Color_IsValid(int value) {
     return ssl_analyzer_packet_Color_IsValid(value);
   }
