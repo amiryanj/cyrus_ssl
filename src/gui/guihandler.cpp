@@ -24,8 +24,7 @@ GUIHandler *GUIHandler::getInstance()
 bool GUIHandler::openSocket(int port, string address)
 {
     this->close();
-    if(!this->open(port, true, true))
-    {
+    if(!this->open(port, true, true)) {
         cerr << "Unable to open UDP network port: "<< port << endl;
         return false;
     }
@@ -74,8 +73,6 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
 {
     if(packet == NULL)
         return;
-//    packet->mutable_blue_team()->set_color(blue_color);
-//    packet->mutable_yellow_team()->set_color(yellow_color);
 
     packet->mutable_comment()->append("This packet is filled in cyrus 2014 server.");
     {
@@ -123,14 +120,40 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
 {
     if(packet == NULL)
         return;
+
+    // test
     packet->set_comment("Test Analyzer Packet ");
-//    analyzer->nearestRobotToBall(game->ourTeam()->inFields());
-//    packet->set_nearest_blue_id(analyzer->nearestRobotToBall(SSL::Blue).at(0));
-//    packet->set_nearest_yellow_id(analyzer->nearestRobotToBall(SSL::Yellow));
-//    packet->set_possessor_team();
-//    packet->set_nearest_can_kick();
+    SSLAnalyzer::RobotIntersectTime nearest = analyzer->nearestRobotToBall(SSL::Blue);
+    if(nearest.isValid())
+        packet->set_nearest_blue_id(nearest.m_robot->id);
+    else
+        packet->set_nearest_blue_id(0);// default nearest robot
+    nearest = analyzer->nearestRobotToBall(SSL::Yellow);
+    if(nearest.isValid())
+        packet->set_nearest_yellow_id(nearest.m_robot->id);
+    else
+        packet->set_nearest_yellow_id(0);
+
+    packet->set_possessor_team(ssl_analyzer_packet_Color_blue);
+
+    nearest = analyzer->nearestRobotToBall();
+    if(nearest.isValid())
+        packet->set_nearest_can_kick(analyzer->canKick(nearest.m_robot));
+    else
+        packet->set_nearest_can_kick(false);
     packet->set_is_game_running(analyzer->isGameRunning());
 
+    vector<SSLRobot*> all_inFields = world->all_inFields();
+    for(uint i=0; i< all_inFields.size(); i++) {
+        SSLRobot* robot = all_inFields.at(i);
+        SSLAnalyzer::RobotIntersectTime intersect_ = analyzer->whenWhereCanRobotCatchTheBall(robot);
+        ssl_analyzer_packet_RobotIntersectTime* intersect_mes=  packet->add_intersects();
+        intersect_mes->set_color((robot->color==SSL::Blue)? ssl_analyzer_packet_Color_blue:ssl_analyzer_packet_Color_yellow);
+        intersect_mes->set_id(robot->id);
+        intersect_mes->set_intersect_x(intersect_.m_position.X());
+        intersect_mes->set_intersect_y(intersect_.m_position.Y());
+        intersect_mes->set_time(intersect_.m_time);
+    }
 }
 
 void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)

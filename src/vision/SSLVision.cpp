@@ -37,8 +37,9 @@ void* SSLVision::check(void *)
             wrapper.Clear();
             wrapper.ParseFromArray(m_temp_packet.buffer, m_temp_packet.length);
 
-            updateFilterModule(wrapper);
+            updateFilterModule(wrapper);            
         }
+        usleep(1000);
     }
 }
 
@@ -56,7 +57,6 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             temp_frame.confidence = Robot.confidence();
             temp_frame.camera_id = wrapper.detection().camera_id();
             VisionFilter::getInstance()->setRobotFrame(SSL::Blue, Robot.robot_id(), temp_frame);
-
         }
 
         for(int i=0; i< wrapper.detection().robots_yellow_size(); i++)

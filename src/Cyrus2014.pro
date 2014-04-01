@@ -15,6 +15,7 @@ TARGET = Cyrus2014
 
 INCLUDEPATH += \
             $$PWD \
+            /usr/local/include \
             thirdparty\
             thirdparty/socket \
             tools
