@@ -37,7 +37,6 @@ void ActiveRole::run()
         SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, BALL_RADIUS, ROBOT_RADIUS);
         break;    
     }
-
 }
 
 Vector2D ActiveRole::expectedPosition()

@@ -17,9 +17,6 @@ public:
 
     void run();
 
-    float getFacing() const;
-    void setFacing(float value);
-
     Vector2D expectedPosition();
 
 private:

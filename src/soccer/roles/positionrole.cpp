@@ -7,19 +7,14 @@ PositionRole::PositionRole()
     m_hardness = 2;
 }
 
-float PositionRole::getFacing() const
-{
-    return m_position.Teta();
-}
-
-void PositionRole::setFacing(float value)
-{
-    m_position.setTeta(value);
-}
-
 Vector2D PositionRole::expectedPosition()
 {
     return m_position.to2D();
+}
+
+void PositionRole::run()
+{
+    SSLSkill::goToPointWithPlanner(m_agent, m_position, m_tolerance, true);
 }
 
 Vector3D PositionRole::getPosition() const
@@ -40,9 +35,4 @@ Vector3D PositionRole::getTolerance() const
 void PositionRole::setTolerance(const Vector3D &value)
 {
     m_tolerance = value;
-}
-
-void PositionRole::run()
-{
-
 }
