@@ -128,10 +128,11 @@ void SSLWorldModel::updateRobotAvailability(Color color, int ID, bool available)
 
 }
 
-void SSLWorldModel::updateBallState(int ID, Vector2D position, Vector2D speed)
+void SSLWorldModel::updateBallState(int ID, Vector2D position, Vector2D speed, Vector2D filteredSpeed)
 {
     if(ID >= MAX_BALL_NUM)
         ID = MAX_BALL_NUM - 1;
     balls[ID]->setPosition(position);
     balls[ID]->setSpeed(speed);
+    balls[ID]->setFilteredSpeed(filteredSpeed);
 }

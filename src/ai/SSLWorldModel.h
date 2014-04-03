@@ -17,7 +17,7 @@ class SSLWorldModel {
 public:
     void updateRobotState(SSL::Color color, int ID, Vector3D position, Vector3D speed);
     void updateRobotAvailability(SSL::Color color, int ID, bool available);
-    void updateBallState(int ID, Vector2D position, Vector2D speed);
+    void updateBallState(int ID, Vector2D position, Vector2D speed, Vector2D filteredSpeed);
     static SSLWorldModel *getInstance();
 
     SSLTeam* team[2];

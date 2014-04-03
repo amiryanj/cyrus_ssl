@@ -25,7 +25,7 @@ private:
 
     BallFilter *ballFilter;
 
-    void updateWorldRobots();
+    void updateWorldModel();
 
 };
 
