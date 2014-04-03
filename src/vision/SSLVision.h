@@ -1,10 +1,3 @@
-/*
- * SSLVision.h
- *
- *  Created on: Aug 15, 2013
- *      Author: mostafa
- */
-
 #ifndef _SSLVISION_H_
 #define _SSLVISION_H_
 

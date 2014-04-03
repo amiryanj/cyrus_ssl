@@ -28,9 +28,11 @@ public:
 
     vector<SSLRobot*> all_inFields();
     vector<SSLRobot*> all_inFieldsExcept(SSLRobot* excep);
+    vector<SSLRobot*> all_inFieldsExcept(SSL::Color color, int id);
 
     vector<SSLRobot*> allRobots();
     vector<SSLRobot*> allRobotsExcept(SSLRobot* excep);
+    vector<SSLRobot*> allRobotsExcept(SSL::Color color, int id);
 
     SSLReferee::RefereeState m_refereeState;
 

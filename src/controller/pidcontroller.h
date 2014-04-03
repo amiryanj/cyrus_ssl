@@ -18,6 +18,10 @@ public:
     void autoTune();
     Vector3D lastOutput;
 
+    Vector3D m_crop_control;
+
+    Vector3D last_error;
+
 private:
     double k_p, k_i, k_d;
     vector<Vector3D> errorHistory;

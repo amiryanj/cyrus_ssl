@@ -7,10 +7,10 @@
 using namespace boost::posix_time;
 
 
-struct frame
+struct Frame
 {
-    frame();
-    frame(const Vector3D &pose, const double &time = -1 , double conf = 0);
+    Frame();
+    Frame(const Vector3D &pose, const double &time = -1 , double conf = 0);
     void set(const Vector3D &pose, const double &time = -1, double conf = 0);
     double timeStampMilliSec; // unit = second
     double confidence;

@@ -19,7 +19,6 @@ void Blocker::setBlockedRobot(SSLRobot *value)
 
 void Blocker::run()
 {
-
 //    if(SSLAnalyzer::getInstance()->canKick(getRobot())){
 //        SSLSkill::getInstance()->goToPointAndKickForGoal(getRobot());
 //    }else if(SSLAnalyzer::getInstance()->canStealBall(getRobot())){
@@ -40,10 +39,31 @@ void Blocker::run()
 //                            SSLSocerMath::getFacingToPoint(getRobot()->Position().to2D(), ourGoalPos));
 //    }
 
-
 }
 
 Vector2D Blocker::expectedPosition()
 {
+    SSL::Color op_color = game->opponentColor();
+
+    SSLRobot* nearBall = NULL;
+    SSLAnalyzer::RobotIntersectTime temp_intersect_ = analyzer->nearestRobotToBall(op_color);
+    if(temp_intersect_.isValid())
+        nearBall = temp_intersect_.m_robot;
+    vector<SSLRobot* > others = world->getTeam(op_color)->inFieldsExcept(nearBall);
+    temp_intersect_ = analyzer->nearestRobotToPoint(others, SSLSkill::ourGoalCenter(), 0);
+    if(temp_intersect_.isValid()) {
+        SSLRobot* nearOurGoal = temp_intersect_.m_robot;
+        Vector2D opponent_pos = nearOurGoal->Position().to2D();
+        if(!analyzer->isPointWithinOurPenaltyArea(opponent_pos)) {
+            Vector2D diff = opponent_pos - SSLSkill::ourGoalCenter();
+            if(diff.lenght() < FIELD_LENGTH / 2){} //
+            diff.normalize();
+//            Vector2D target =
+        }
+
+    }
+
+
+
 
 }

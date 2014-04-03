@@ -33,6 +33,25 @@ vector<SSLRobot *> SSLTeam::inFields()
     return robotList;
 }
 
+vector<SSLRobot *> SSLTeam::inFieldsExcept(int id)
+{
+    vector<SSLRobot*> robotList;
+    robotList.reserve(MAX_TEAM_PLAYER - 1);
+    for( int i = 0; i < MAX_ID_NUM ; ++i )
+        if(this->robot[i]->isInField && i!= id)
+            robotList.push_back(robot[i]);
+    return robotList;
+}
+
+vector<SSLRobot *> SSLTeam::inFieldsExcept(SSLRobot *robot)
+{
+    int id = -1;
+    if(robot != NULL) {
+        id = robot->id;
+    }
+    return inFieldsExcept(id);
+}
+
 vector<SSLRobot *> SSLTeam::allRobots()
 {
     vector<SSLRobot*> robotList;

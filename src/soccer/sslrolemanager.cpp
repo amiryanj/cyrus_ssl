@@ -49,7 +49,7 @@ void SSLRoleManager::AssignRole(SSLStrategy *strategy, vector<SSLAgent*> agents)
             throw "Strategy is NULL!!";
         }
 
-        vector<SSLRole*> roleList = strategy->m_roleList;
+        vector<SSLRole* > roleList = strategy->m_roleList;
         for(int i = roleList.size()-1; i >=0 ; i--) {
             SSLRole* role = roleList[i];
             if(role->m_hardness == 0) {

@@ -19,6 +19,8 @@ public:
     SSLRobot *robot[MAX_ID_NUM];
     unsigned int numInFields() const;
     vector<SSLRobot*> inFields();
+    vector<SSLRobot*> inFieldsExcept(int id);
+    vector<SSLRobot*> inFieldsExcept(SSLRobot* robot);
     vector<SSLRobot*> allRobots();
 
     Color color;

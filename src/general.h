@@ -50,7 +50,7 @@ typedef Vector3D point3D;
 #define ROBOT_RADIUS        90.0
 #define BALL_RADIUS         21.5
 
-#define CAMERA_FPS   10.0 // 60
+#define CAMERA_FPS   60.0 // 10
 
 #define NUM_TEAMS           2
 #define MAX_TEAM_PLAYER     6

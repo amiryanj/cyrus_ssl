@@ -4,7 +4,7 @@
 
 PIDController::PIDController()
 {
-
+    m_crop_control.set(1, 1, .3 * M_PI);
 }
 
 void PIDController::setParameters(double kp, double ki, double kd)
@@ -18,8 +18,8 @@ void PIDController::setPoint(Vector3D desired, Vector3D actual)
 {
     currentDesired = desired;
     currentActual = actual;
-    Vector3D error = currentActual - currentDesired;
-    errorHistory.insert(errorHistory.begin(), error);
+    last_error = currentDesired - currentActual;
+    errorHistory.insert(errorHistory.begin(), last_error);
     if(errorHistory.size() > MAX_HISTORY_SIZE)
         errorHistory.pop_back();
 }
@@ -37,7 +37,7 @@ Vector3D PIDController::getControl()
             throw "Invalid Parameters";
         if(errorHistory.size() < 1)
             throw "There is no set point!";
-        control += errorHistory.at(0) * k_p;
+        control += last_error * k_p;
 
         Vector3D errorSum(0, 0, 0);
         for(int i=0; i<errorHistory.size(); i++)
@@ -55,5 +55,23 @@ Vector3D PIDController::getControl()
         cerr << "Exception: " << "PID COntroller" << msg << endl;
     }
 
-    return control + currentDesired;
+    control = control + currentDesired;
+
+    if(control.X() > m_crop_control.X())
+        control.setX(m_crop_control.X());
+    else if(control.X() < - m_crop_control.X())
+        control.setX(-m_crop_control.X());
+
+    if(control.Y() > m_crop_control.Y())
+        control.setY(m_crop_control.Y());
+    else if(control.Y() < - m_crop_control.Y())
+        control.setY(-m_crop_control.Y());
+
+    if(control.Teta() > m_crop_control.Teta())
+        control.setTeta(m_crop_control.Teta());
+    else if(control.Teta() < - m_crop_control.Teta())
+        control.setTeta(-m_crop_control.Teta());
+
+    return control;
+
 }

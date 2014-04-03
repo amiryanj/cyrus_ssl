@@ -27,6 +27,7 @@ public:
     Vector3D appliedGlobalSpeed;
     Vector3D appliedLocalSpeed;
 
+    string skill_in_use; // for visualizer use
 
     // SSLController controller;
 

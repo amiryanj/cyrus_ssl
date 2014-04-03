@@ -1,11 +1,10 @@
 #include "ai/SSLGame.h"
 #include "vision/SSLVision.h"
-#include "vision/VisionFilterModule.h"
+#include "vision/VisionFilter.h"
 #include "referee/SSLReferee.h"
 #include "general.h"
 //#include <QVector3D>
 
-#include "tools/stdlist.h"
 #include "ai/SSLAnalyzer.h"
 #include "gui/guihandler.h"
 #include "transmitter/commandtransmitter.h"

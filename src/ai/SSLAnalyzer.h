@@ -53,6 +53,7 @@ private:
     float wastedTimeForInertia(SSLRobot *robot, Vector2D target) const;
 
 public:
+
     static SSLAnalyzer *getInstance();
     void check();
 

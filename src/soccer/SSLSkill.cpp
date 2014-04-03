@@ -10,18 +10,20 @@ void SSLSkill::halt(SSLAgent *agent)
 {
     assert(agent != NULL);
 
+    agent->skill_in_use = "Halt";
     agent->planner.deactive();
 
     Vector3D zeroSpeed;
     zeroSpeed.setZero();
 
     controlSpeed(agent, zeroSpeed);
-
-    buildAndSendPacket(agent->getID(), agent->appliedLocalSpeed);
 }
 
 void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, Vector3D tolerance)
 {
+    cout << "Agent Number [" << agent->getID() << "] => Go to point " << endl;
+
+    agent->skill_in_use = "Go to point";
     agent->planner.deactive();
 
     agent->tempTarget = target;
@@ -31,12 +33,14 @@ void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, Vector3D tolerance)
            && (fabs(diff.Y()) < tolerance.Y())
            && (fabs(diff.Teta()) < tolerance.Teta()))
     {
-        halt(agent);
+        Vector3D zeroSpeed;
+        zeroSpeed.setZero();
+        controlSpeed(agent, zeroSpeed);
     }
     else {
         float speedCoefficient = 1;
-        if(diff.lenght2D() < 250) // milli meter
-            speedCoefficient = (250.0 /diff.lenght2D());
+        if(diff.lenght2D() < 400) // milli meter
+            speedCoefficient = (diff.lenght2D() / 400.0);
 
         diff.normalize2D();
         Vector3D desiredSpeed = diff * speedCoefficient;
@@ -47,8 +51,9 @@ void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, Vector3D tolerance)
 void SSLSkill::goToPointWithPlanner(SSLAgent* agent, Vector3D target, Vector3D tolerance,
                                     bool considerPenaltyArea, float ball_ob_radius, float robot_ob_radius)
 {
-    cout << "Hello... Go to point with planner" << endl;
+    cout << "Agent Number [" << agent->getID() << "] => Go to point with planner" << endl;
 
+    agent->skill_in_use = "Plan and go to point";
     Station init_state;
     init_state.setPosition(agent->robot->Position());
     init_state.setVelocity(agent->robot->Speed());
@@ -58,6 +63,8 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, Vector3D target, Vector3D t
     goal.goal_point.position = target;
     goal.tolerance.position = tolerance;
     agent->planner.setGoalRegion(goal);
+
+    agent->tempTarget = target;
 
     ObstacleSet tmpAllObstacles;
     tmpAllObstacles.reserve(2*MAX_ID_NUM + 6);
@@ -94,14 +101,17 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, Vector3D target, Vector3D t
 
         Vector3D diff = target - agent->robot->Position();
         float speedCoefficient = 1;
-        if(diff.lenght2D() < 250) // milli meter
-            speedCoefficient = (250.0 /diff.lenght2D());
+        if(diff.lenght2D() < 400) // milli meter
+            speedCoefficient = (diff.lenght2D() / 400.0 );
 
         Vector3D desiredSpeed = vel * speedCoefficient;
         controlSpeed(agent, desiredSpeed);
     }
-    else
-        halt(agent);
+    else {
+        Vector3D zeroSpeed;
+        zeroSpeed.setZero();
+        controlSpeed(agent, zeroSpeed);
+    }
 }
 
 
@@ -111,12 +121,15 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, Vector3D target, Vector3D t
 // it should get the target to shoot
 void SSLSkill::goAndKick(SSLAgent *agent, double kickStrenghtNormal)
 {
+    agent->skill_in_use = "Kick ball";
+    Vector3D target = KickStylePosition(SSLWorldModel::getInstance()->mainBall()->Position(), opponentGoalCenter());
+    agent->tempTarget = target;
+    agent->planner.deactive();
     if(analyzer->canKick(agent->robot)) {
         Vector3D speed(1, 0, 0); // go fast forward
         buildAndSendPacket(agent->getID(), speed, kickStrenghtNormal);
     }
     else {
-        Vector3D target = KickStylePosition(SSLWorldModel::getInstance()->mainBall()->Position(), opponentGoalCenter());
         Vector3D diff = target - agent->robot->Position();
         diff.normalize2D();
         controlSpeed(agent, diff);
@@ -125,7 +138,8 @@ void SSLSkill::goAndKick(SSLAgent *agent, double kickStrenghtNormal)
 
 void SSLSkill::goAndChip(SSLAgent *agent, double chipStrenghtNormal)
 {
-
+    agent->skill_in_use = "Chip ball";
+    agent->planner.deactive();
 }
 
 void SSLSkill::buildAndSendPacket(int id, Vector3D &vel, float kickPower)
@@ -167,18 +181,21 @@ Vector3D SSLSkill::KickStylePosition(Vector2D point, Vector2D target)
     Vector2D dir = (target - point).normalized();
     float orien = dir.arctan();
     Vector3D pos(point - dir * (BALL_RADIUS + ROBOT_RADIUS + 100), orien);
+    return pos;
 }
 
 void SSLSkill::controlSpeed(SSLAgent *agent, const Vector3D& speed)
 {
-    float speedDiscountRate = .7;
+    float speedDiscountRate = .4;
     agent->desiredGlobalSpeed = speed * speedDiscountRate;
 
     float angularSpeedCoefficient = 0.0;
-    agent->desiredGlobalSpeed.setTeta(agent->desiredGlobalSpeed.Teta() * angularSpeedCoefficient);
 
     // because controller is not working yet
-    agent->appliedGlobalSpeed = agent->desiredGlobalSpeed;
+    agent->controller.setPoint(agent->desiredGlobalSpeed, agent->robot->Speed()/2000);
+    agent->appliedGlobalSpeed = agent->controller.getControl();
+
+    agent->appliedGlobalSpeed.setTeta(agent->appliedGlobalSpeed.Teta() * angularSpeedCoefficient);
 
     agent->appliedLocalSpeed = agent->appliedGlobalSpeed;
     agent->appliedLocalSpeed.rotate( -1 * agent->robot->orien());

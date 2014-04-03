@@ -38,17 +38,17 @@ SSLAnalyzer* SSLAnalyzer::getInstance()
 void SSLAnalyzer::check()
 {
     try {
-        if(game->ourTeam()->inFields().empty())
-            throw "The team infield attribute is empty.";
-        vector<SSLRobot *> defenders  = blockersFromPoint(world->mainBall()->Position());
-        if(defenders.empty())
-            throw "cannot find any defenders";
-        for (int i = 0; i < defenders.size(); i++)
-            cout << "defender " << i << " is : " << defenders[i]->id <<  " from team " << defenders[i]->color << endl;
-        vector<pair<float, float> > openAngle = openAngleToGoal(world->mainBall()->Position());
-        cout << "Angles:" << endl;
-        for (int i = 0; i < openAngle.size(); i++)
-            cout << openAngle[i].first << " " << openAngle[i].second << endl;
+//        if(game->ourTeam()->inFields().empty())
+//            throw "The team infield attribute is empty.";
+//        vector<SSLRobot *> defenders  = blockersFromPoint(world->mainBall()->Position());
+//        if(defenders.empty())
+//            throw "cannot find any defenders";
+//        for (int i = 0; i < defenders.size(); i++)
+//            cout << "defender " << i << " is : " << defenders[i]->id <<  " from team " << defenders[i]->color << endl;
+//        vector<pair<float, float> > openAngle = openAngleToGoal(world->mainBall()->Position());
+//        cout << "Angles:" << endl;
+//        for (int i = 0; i < openAngle.size(); i++)
+//            cout << openAngle[i].first << " " << openAngle[i].second << endl;
     }
     catch(const char* mes) {
         cerr << "Exception SSLAnalizer : " << mes <<endl;
@@ -89,7 +89,7 @@ SSLRobot *SSLAnalyzer::whichRobotCanKick()
 {
     vector<SSLRobot* > robots = world->all_inFields();
 
-    for(int  i = 0 ; i < robots.size() ; i ++)
+    for(uint i = 0 ; i < robots.size() ; i ++)
     {
         if(distanceFromBall(robots[i]) < robotObstacle && distanceFromBall(robots[i]) != -1)
         {
@@ -108,15 +108,14 @@ SSLRobot *SSLAnalyzer::whichRobotCanKick()
 
 bool SSLAnalyzer::canKick(SSLRobot *robot)
 {
-    if(distanceFromBall(robot) < (ROBOT_RADIUS * 0.9))
+    if(distanceFromBall(robot) < ((BALL_RADIUS + ROBOT_RADIUS) * 0.95))
     {
         Vector2D dis = world->mainBall()->Position() - robot->Position().to2D();
         double ang = dis.arctan();
         if(fabs(robot->orien() - ang) < (M_PI / 6.0 ) )
-            return true;
-        else
-            return false;
+            return true;        
     }
+    return false;
 }
 
 
@@ -162,7 +161,7 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToPoint(Color teamColor
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToPoint(const vector<SSLRobot *> &robots, const Vector2D &point, uint index)
 {
     if(index > robots.size())
-        return NULL;
+        return RobotIntersectTime();
     vector<RobotIntersectTime> robotIntersectPoints;
     robotIntersectPoints.reserve(robots.size());
     for(uint i = 0 ; i < robots.size() ; i++)
@@ -223,7 +222,7 @@ vector<SSLRobot *> SSLAnalyzer::blockersFromPoint(const Vector2D targetPoint)
         float m = (y2 - targetPoint.Y()) / xDelta;
         float b = m*(-targetPoint.X());
         vector<SSLRobot*> robots = world->all_inFields();
-        for(int j = 0 ; j < robots.size() ; j++)
+        for(uint j = 0 ; j < robots.size() ; j++)
         {
             SSLRobot* robot = robots[j];
             if (!robot->isInField) continue;
@@ -289,7 +288,7 @@ vector<pair<float,float> > SSLAnalyzer::openAngleToGoal(const Vector2D targetPoi
     float downAngle = atan(m1);
     float upAngle = atan(m2);
     blockedAngles.push_back(make_pair(downAngle, downAngle));
-    for (int i = 0; i < defenders.size(); i++)
+    for (uint i = 0; i < defenders.size(); i++)
         blockedAngles.push_back(blockedAngleByARobot(targetPoint, defenders[i]));
     blockedAngles.push_back(make_pair(upAngle, upAngle));
 
@@ -301,7 +300,7 @@ vector<pair<float,float> > SSLAnalyzer::openAngleToGoal(const Vector2D targetPoi
 
     sort(blockedAngles.begin(), blockedAngles.end());
     vector<pair<float, float> > openAngles;
-    int start, last;
+    uint start, last;
     start = 0;
     while (start < blockedAngles.size()) {
         float limit = blockedAngles[start].second;

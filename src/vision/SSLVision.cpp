@@ -1,6 +1,6 @@
 #include "SSLVision.h"
-#include "frame.h"
-#include "VisionFilterModule.h"
+#include "Frame.h"
+#include "VisionFilter.h"
 
 IPPacket SSLVision::m_temp_packet;
 UDP SSLVision::udp_socket;
@@ -48,7 +48,7 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
 	//TODO: update world model from wrapper    
     if(wrapper.has_detection())
     {        
-        frame temp_frame;
+        Frame temp_frame;
         for(int i=0; i < wrapper.detection().robots_blue_size(); i++)
         {
             SSL_DetectionRobot Robot = wrapper.detection().robots_blue(i);

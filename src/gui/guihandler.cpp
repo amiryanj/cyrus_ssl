@@ -113,7 +113,26 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
 
     ball_packet->set_id(0);
 
-    packet->set_referee_state(typeid(world->m_refereeState).name());
+    string referee_state_str;
+    switch(world->m_refereeState) {
+    case SSLReferee::Unknown:
+        referee_state_str = "unknown";
+        break;
+    case SSLReferee::Halt:
+        referee_state_str = "halt";
+        break;
+    case SSLReferee::Stop:
+        referee_state_str = "stop";
+        break;
+    case SSLReferee::ForceStart:
+        referee_state_str = "force-start";
+        break;
+    default:
+        referee_state_str = "restart";
+        break;
+    }
+
+    packet->set_referee_state(referee_state_str);
 }
 
 void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
@@ -177,9 +196,9 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         goal->set_x(agent->tempTarget.X());
         goal->set_y(agent->tempTarget.Y());
         goal->set_teta(agent->tempTarget.Teta());
-        planner_obstacles* obstacles = plan->mutable_obstacleset(); // is not filled yet
+        planner_obstacles* obstacles = plan->mutable_obstacleset(); // not filled yet
         if(agent->planner.planningResult)
-            for(int i = 0; i< agent->planner.getTrajectory().lenght(); i++)
+            for(uint i = 0; i< agent->planner.getTrajectory().lenght(); i++)
             {
                 Vector3D pos = agent->planner.getTrajectory().getStation(i).getPosition();
                 planner_vec3d* state = plan->add_pathstate();
@@ -191,9 +210,9 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         plan->mutable_desiredvel()->set_y(agent->desiredGlobalSpeed.Y() * 2000);
         plan->mutable_desiredvel()->set_teta(agent->desiredGlobalSpeed.Teta() * 2000);
 
-        plan->mutable_appliedvel()->set_x(agent->appliedLocalSpeed.X() * 2000);
-        plan->mutable_appliedvel()->set_y(agent->appliedLocalSpeed.Y() * 2000);
-        plan->mutable_appliedvel()->set_teta(agent->appliedLocalSpeed.Teta() * 2000);
+        plan->mutable_appliedvel()->set_x(agent->appliedGlobalSpeed.X() * 2000);
+        plan->mutable_appliedvel()->set_y(agent->appliedGlobalSpeed.Y() * 2000);
+        plan->mutable_appliedvel()->set_teta(agent->appliedGlobalSpeed.Teta() * 2000);
     }
 }
 
@@ -214,7 +233,7 @@ void GUIHandler::generateDecisionPacket(ssl_decision_packet *packet)
         robot_role->set_robot_id(agent->getID());
         string role_name = typeid(*(agent->role)).name();
         robot_role->set_current_role(role_name);
-        robot_role->set_current_skill("unknown");
+        robot_role->set_current_skill(agent->skill_in_use);
     }
 }
 

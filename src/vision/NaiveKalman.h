@@ -1,5 +1,5 @@
-#ifndef NAIVEKALMANFILTER_H
-#define NAIVEKALMANFILTER_H
+#ifndef _NAIVEKALMAN_H
+#define _NAIVEKALMAN_H
 
 //#include <eigen3/Eigen/Core>
 //#include <eigen3/Eigen/LU>
@@ -13,23 +13,28 @@ struct FilterState {
     Vector3D pos;
 };
 
-class NaiveKalmanFilter
+class NaiveKalman
 {
 public:
-    NaiveKalmanFilter();
+    NaiveKalman();
     FilterState predict(double delta_t_sec);
     void observe(Vector3D new_pos, double delta_t_sec);
     FilterState filter();
 
     FilterState m_state;
+
+    double m_alfa, m_beta, m_gama;
+    double m_acc_effect;
+
+    Vector3D max_speed_crop;
+    Vector3D max_acceleration_crop;
 private:
     FilterState m_observed;
     FilterState m_predicted;
 
 //    FilterState m_pos_k_1;
 
-    double alfa, beta, gama;
 
 };
 
-#endif // NAIVEKALMANFILTER_H
+#endif // _NAIVEKALMAN_H

@@ -35,39 +35,40 @@ SSLBall* SSLWorldModel::mainBall()
 vector<SSLRobot *> SSLWorldModel::all_inFields()
 {
     vector<SSLRobot*> all_;
-    all_.reserve(MAX_TEAM_PLAYER*2);
-    for(int tm = 0; tm < 2;  ++tm)
-        if(team[tm]->numInFields() != 0)
-            all_.insert(all_.begin(), team[tm]->inFields().size(), team[tm]->inFields().at(0));
+    all_.reserve(MAX_TEAM_PLAYER * 2);
+    for(int tm = 0; tm < 2;  ++tm) {
+        vector<SSLRobot*> teamRobots = team[tm]->inFields();
+        all_.insert(all_.begin(), teamRobots.begin(), teamRobots.end());
+    }
     return all_;
 }
 
 vector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(SSLRobot *excep)
 {
+    if(excep == NULL)
+        return all_inFields();
+    return all_inFieldsExcept(excep->color, excep->id);
+
+}
+
+vector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(Color color, int id)
+{
     vector<SSLRobot*> all_;
-    try {
-        all_.reserve(MAX_TEAM_PLAYER*2 - 1);
-        if(excep == NULL)
-            throw "Robot is invalid";
-        for(int tm = 0; tm < 2;  ++tm)
-        {
-            if(team[tm]->numInFields() != 0)
+    all_.reserve(MAX_TEAM_PLAYER*2 - 1);
+    for(int tm = 0; tm < 2;  ++tm)
+    {
+        vector<SSLRobot*> teamRobots = team[tm]->inFields();
+        if(color != (Color)tm) {
+            all_.insert(all_.begin(), teamRobots.begin(), teamRobots.end());
+        }
+        else {
+            for(vector<SSLRobot*>::iterator it=teamRobots.begin(); it != teamRobots.end(); ++it)
             {
-                if(excep->color != (Color)tm)
-                    all_.insert(all_.begin(), team[tm]->inFields().size(), team[tm]->inFields().at(0));
-                else {
-                    for(vector<SSLRobot*>::iterator it=team[tm]->inFields().begin(); it !=  team[tm]->inFields().end(); ++it)
-                    {
-                        SSLRobot* robot = (SSLRobot*) (*it);
-                        if(robot->id != excep->id)
-                            all_.push_back(robot);
-                    }
-                }
+                SSLRobot* robot = (SSLRobot*) (*it);
+                if(robot->id != id)
+                    all_.push_back(robot);
             }
         }
-    }
-    catch(const char* msg) {
-        cerr << "Exception: SSLWorldmodel: " << msg << endl;
     }
     return all_;
 }
@@ -84,13 +85,22 @@ vector<SSLRobot *> SSLWorldModel::allRobots()
 
 vector<SSLRobot *> SSLWorldModel::allRobotsExcept(SSLRobot *excep)
 {
+    if(excep == NULL)
+        return allRobots();
+
+    return allRobotsExcept(excep->color, excep->id);
+}
+
+vector<SSLRobot *> SSLWorldModel::allRobotsExcept(SSL::Color color, int id)
+{
     vector<SSLRobot*> all_;
     all_.reserve(MAX_ID_NUM * 2);
     for(int tm = 0; tm < 2;  ++tm)
         for(int i=0; i< MAX_ID_NUM; i++) {
-            if(excep->color == team[tm]->color && excep->id == team[tm]->robot[i]->id)
+            if(color == team[tm]->color && id == team[tm]->robot[i]->id)
                 continue;
-            all_.push_back(team[tm]->robot[i]);
+            else
+                all_.push_back(team[tm]->robot[i]);
         }
     return all_;
 }

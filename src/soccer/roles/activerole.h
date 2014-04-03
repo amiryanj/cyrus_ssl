@@ -12,6 +12,8 @@ public:
     Vector2D expectedPosition();
 
 private:
+    Vector3D myTarget();
+
 
 };
 

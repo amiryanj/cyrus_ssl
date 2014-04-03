@@ -24,19 +24,18 @@ void ActiveRole::run()
 
     }
 
-    Vector3D tolerance(100, 100, M_PI_4);
     switch (m_state) {
     case e_CanKick:
         SSLSkill::goAndKick(m_agent, 1);
         break;
-    case e_FarFromBall:
-        SSLSkill::goToPointWithPlanner(m_agent, world->mainBall()->Position().to3D(), tolerance,
-                                           true, BALL_RADIUS, ROBOT_RADIUS);
-        break;
     case e_NearBall:
         SSLSkill::goAndKick(m_agent, 1);
         break;
-
+    case e_FarFromBall:
+        Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter());
+        Vector3D tolerance(2*ROBOT_RADIUS, 2*ROBOT_RADIUS, M_PI_4);
+        SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, BALL_RADIUS, ROBOT_RADIUS);
+        break;    
     }
 
 }

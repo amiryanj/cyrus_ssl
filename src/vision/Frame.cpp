@@ -1,17 +1,17 @@
-#include "frame.h"
+#include "Frame.h"
 
-frame::frame()
+Frame::Frame()
 {
     this->setToCurrentTimeMilliSec();
 }
 
 // default constructor
-frame::frame(const Vector3D &pose, const double &time, double conf)
+Frame::Frame(const Vector3D &pose, const double &time, double conf)
 {
     this->set(pose, time, conf);
 }
 
-void frame::set(const Vector3D &pose, const double &time, double conf)
+void Frame::set(const Vector3D &pose, const double &time, double conf)
 {
     this->position = pose;
     this->confidence = conf;
@@ -22,7 +22,7 @@ void frame::set(const Vector3D &pose, const double &time, double conf)
         this->timeStampMilliSec = time;
 }
 
-void frame::setToCurrentTimeMilliSec()
+void Frame::setToCurrentTimeMilliSec()
 {
     ptime t(microsec_clock::universal_time());   
     time_duration td = t.time_of_day();

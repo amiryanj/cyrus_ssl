@@ -118,7 +118,7 @@ void protobuf_AddDesc_ssl_5fanalyzer_2eproto() {
     "l_analyzer_packet.Color\022\n\n\002id\030\002 \002(\r\022\014\n\004t"
     "ime\030\003 \002(\002\022\023\n\013intersect_x\030\004 \002(\002\022\023\n\013inters"
     "ect_y\030\005 \002(\002\"0\n\005Color\022\021\n\004none\020\377\377\377\377\377\377\377\377\377\001\022"
-    "\010\n\004blue\020\000\022\n\n\006yellow\020\001", 461);
+    "\n\n\006yellow\020\000\022\010\n\004blue\020\001", 461);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ssl_analyzer.proto", &protobuf_RegisterTypes);
   ssl_analyzer_packet::default_instance_ = new ssl_analyzer_packet();
@@ -155,8 +155,8 @@ bool ssl_analyzer_packet_Color_IsValid(int value) {
 
 #ifndef _MSC_VER
 const ssl_analyzer_packet_Color ssl_analyzer_packet::none;
-const ssl_analyzer_packet_Color ssl_analyzer_packet::blue;
 const ssl_analyzer_packet_Color ssl_analyzer_packet::yellow;
+const ssl_analyzer_packet_Color ssl_analyzer_packet::blue;
 const ssl_analyzer_packet_Color ssl_analyzer_packet::Color_MIN;
 const ssl_analyzer_packet_Color ssl_analyzer_packet::Color_MAX;
 const int ssl_analyzer_packet::Color_ARRAYSIZE;

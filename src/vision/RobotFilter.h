@@ -1,17 +1,17 @@
-#ifndef SSLROBOTKALMANFILTER_H
-#define SSLROBOTKALMANFILTER_H
+#ifndef _ROBOTFILTER_H
+#define _ROBOTFILTER_H
 
 #include "../tools/vector3d.h"
-#include "naivekalmanfilter.h"
-#include "frame.h"
+#include "NaiveKalman.h"
+#include "Frame.h"
 
 #define MAX_RAW_DATA_MEMORY 30
 
-class SSLRobotKalmanFilter //: public Kalman::EKFilter<double, 1>
+class RobotFilter //: public Kalman::EKFilter<double, 1>
 {
 public:
-    SSLRobotKalmanFilter();
-    void putNewFrame(const frame &fr);
+    RobotFilter();
+    void putNewFrame(const Frame &fr);
     bool isEmpty();
     bool isOnField();
 
@@ -22,15 +22,15 @@ public:
     Vector3D getFilteredPosition() const;
 
 private:
-    std::vector<frame> rawPositionList;
+    std::vector<Frame> rawPositionList;
     double last_update_time_msec;
     double last_delta_t_sec;
 
     Vector3D m_filteredPosition;
     Vector3D m_filteredSpeed;
 
-    NaiveKalmanFilter naiveFilter;
+    NaiveKalman naiveFilter;
 
 };
 
-#endif // SSLROBOTKALMANFILTER_H
+#endif // _ROBOTFILTER_H

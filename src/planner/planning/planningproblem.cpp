@@ -90,7 +90,7 @@ void PlanningProblem::PotentialFieldSolve()
 //                b2DistanceOutput dis_out;
 //                b2Distance(&dis_out, &dis_cache_, &dis_in);
                 // the obstacles are circular
-                assert(ob->shape->m_type == b2Shape::e_circle);
+//                assert(ob->shape->m_type == b2Shape::e_circle);
                 float dist_to_ob_body = diff_to_ob.lenght() - (ob->shape->m_radius + agent.shape->m_radius);
 
                 float repulseMag;
@@ -396,6 +396,7 @@ void PlanningProblem::solveInvalidInitialState()
                 newVer->child = near;
                 this->trajec.prependVertex(newVer);
                 this->trajec.prependVertex(near);
+                near->child = newVer;
                 planningResult = true;
                 trajec.printToStream(cout);
                 return;

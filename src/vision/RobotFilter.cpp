@@ -1,9 +1,9 @@
-#include "SSLRobotKalmanFilter.h"
+#include "RobotFilter.h"
 #include "tools/sslmath.h"
 
 using namespace std;
 
-SSLRobotKalmanFilter::SSLRobotKalmanFilter()
+RobotFilter::RobotFilter()
 {    
     last_update_time_msec = 0;
 
@@ -12,7 +12,7 @@ SSLRobotKalmanFilter::SSLRobotKalmanFilter()
 }
 
 // insert new frame in the list and remove expired frames
-void SSLRobotKalmanFilter::putNewFrame(const frame &fr)
+void RobotFilter::putNewFrame(const Frame &fr)
 {
     rawPositionList.insert(rawPositionList.begin(), fr);
 //    std::cout << "Robot Confidence = " <<fr.confidence << std::endl;
@@ -22,24 +22,24 @@ void SSLRobotKalmanFilter::putNewFrame(const frame &fr)
     last_update_time_msec = fr.timeStampMilliSec;
 }
 
-bool SSLRobotKalmanFilter::isEmpty()
+bool RobotFilter::isEmpty()
 {
     return rawPositionList.empty();
 }
 
-bool SSLRobotKalmanFilter::isOnField()
+bool RobotFilter::isOnField()
 {
-    return (rawPositionList.size() >= 4);
+    return (rawPositionList.size() >= 7);
 }
 
-void SSLRobotKalmanFilter::runFilter()
+void RobotFilter::runFilter()
 {
     // remove decayed frames
-    frame fake_frame;
+    Frame fake_frame;
     fake_frame.setToCurrentTimeMilliSec();
     while(!rawPositionList.empty())
     {
-        frame listed_fr = rawPositionList.back();
+        Frame listed_fr = rawPositionList.back();
         if((fake_frame.timeStampMilliSec - listed_fr.timeStampMilliSec) > ((2 * MAX_RAW_DATA_MEMORY)/(CAMERA_FPS/1000.0)))
             rawPositionList.pop_back();
         else
@@ -49,7 +49,7 @@ void SSLRobotKalmanFilter::runFilter()
     if( rawPositionList.size() == 0 )
         return;
 
-    frame last_frame = rawPositionList.front();
+    Frame last_frame = rawPositionList.front();
     Vector3D last_observe = last_frame.position;
 
     naiveFilter.predict(last_delta_t_sec);
@@ -62,12 +62,12 @@ void SSLRobotKalmanFilter::runFilter()
 
 }
 
-Vector3D SSLRobotKalmanFilter::getFilteredPosition() const
+Vector3D RobotFilter::getFilteredPosition() const
 {
     return m_filteredPosition;
 }
 
-Vector3D SSLRobotKalmanFilter::getFilteredSpeed() const
+Vector3D RobotFilter::getFilteredSpeed() const
 {
     return m_filteredSpeed;
 }

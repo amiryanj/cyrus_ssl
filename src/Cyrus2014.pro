@@ -42,17 +42,12 @@ SOURCES += \
     definition/SSLRobotPhysic.cpp \
     ai/SSLGame.cpp \
     transmitter/RobotCommandPacket.cpp \
-    vision/SSLRobotKalmanFilter.cpp \
     tools/vector3d.cpp \
     tools/vector2d.cpp \
-    vision/frame.cpp \
-    vision/VisionFilterModule.cpp \
     thirdparty/socket/netraw.cpp \
     ai/SSLAnalyzer.cpp \
-    vision/SSLBallKalmanFilter.cpp \
     definition/sslagent.cpp \
     definition/sslstrategy.cpp \
-    tools/stdlist.cpp \
     gui/guihandler.cpp \
     gui/cpp/ssl_visualizer.pb.cc \
     gui/cpp/ssl_world.pb.cc \
@@ -65,7 +60,6 @@ SOURCES += \
     transmitter/grSim/cpp/grSim_Commands.pb.cc \
     transmitter/commandtransmitter.cpp \
     tools/sslmath.cpp \
-    vision/naivekalmanfilter.cpp \
     referee/SSLReferee.cpp \
     referee/referee/cpp/referee.pb.cc \
     controller/pidcontroller.cpp \
@@ -94,7 +88,12 @@ SOURCES += \
     soccer/roles/goalkeeper.cpp \
     soccer/roles/defender.cpp \
     soccer/roles/blocker.cpp \
-    soccer/roles/activerole.cpp
+    soccer/roles/activerole.cpp \
+    vision/VisionFilter.cpp \
+    vision/NaiveKalman.cpp \
+    vision/BallFilter.cpp \
+    vision/RobotFilter.cpp \
+    vision/Frame.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -117,18 +116,13 @@ HEADERS += \
     definition/Concepts.h \
     ai/SSLGame.h \
     transmitter/RobotCommandPacket.h \
-    vision/SSLRobotKalmanFilter.h \
     tools/vector3d.h \
     tools/vector2d.h \
-    vision/frame.h \
-    vision/VisionFilterModule.h \
     thirdparty/socket/netraw.h \
     thirdparty/util.h \
     ai/SSLAnalyzer.h \
-    vision/SSLBallKalmanFilter.h \
     definition/sslagent.h \
     definition/sslstrategy.h \
-    tools/stdlist.h \
     gui/guihandler.h \
     gui/cpp/ssl_visualizer.pb.h \
     gui/cpp/ssl_world.pb.h \
@@ -141,7 +135,6 @@ HEADERS += \
     transmitter/grSim/cpp/grSim_Commands.pb.h \
     transmitter/commandtransmitter.h \
     tools/sslmath.h \
-    vision/naivekalmanfilter.h \
     referee/SSLReferee.h \
     referee/referee/cpp/referee.pb.h \
     soccer/SSLSkill.h \
@@ -170,7 +163,12 @@ HEADERS += \
     planner/planning/obstacle.h \
     planner/planning/goalstate.h \
     planner/planning/fieldbound.h \
-    planner/planning/dynamicobstacle.h
+    planner/planning/dynamicobstacle.h \
+    vision/VisionFilter.h \
+    vision/RobotFilter.h \
+    vision/BallFilter.h \
+    vision/NaiveKalman.h \
+    vision/Frame.h
 
 OTHER_FILES += \
     todo.txt \
