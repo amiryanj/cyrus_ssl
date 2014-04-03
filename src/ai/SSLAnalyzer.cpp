@@ -15,6 +15,18 @@
 #define robotObstacle 100
 #define BALL_FRICTION_COEFF  10.0
 
+#define POSSESSION_THRESHOLD 0.03
+
+#define EPS 1e-6
+
+
+int cmp(float a, float b) {
+    if (a < b - EPS)
+        return -1;
+    if (a > b + EPS)
+        return 1;
+    return 0;
+}
 
 SSLAnalyzer* SSLAnalyzer::analyzer_instance = NULL;
 
@@ -400,6 +412,33 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall(SSLRo
     return RobotIntersectTime(INFINITY, Vector2D(INFINITY, INFINITY), robot);
 }
 
+float SSLAnalyzer::ballPossession()
+{
+    float result;
+    SSLAnalyzer::RobotIntersectTime  ourRobot = nearestRobotToBall(game->ourColor());
+    SSLAnalyzer::RobotIntersectTime  opponentRobot = nearestRobotToBall(game->opponentColor());
+    if(ourRobot.isValid() && opponentRobot.isValid())
+    {
+        if(opponentRobot.m_time > EPS)
+            result = ourRobot.m_time/opponentRobot.m_time;
+        else
+            result = INFINITY;
+    }
+    if(cmp(result, 1) == 0)
+        return 0;
+    return log2(result);
+}
+
+SSLTeam *SSLAnalyzer::ballPossessorTeam()
+{
+    float BallPossession = ballPossession();
+    if(BallPossession <POSSESSION_THRESHOLD && BallPossession > -POSSESSION_THRESHOLD)
+        return NULL;
+    else if(BallPossession <= POSSESSION_THRESHOLD)
+        return game->ourTeam();
+    else if(BallPossession >= POSSESSION_THRESHOLD)
+        return game->opponentTeam();
+}
 
 // referee states  : Javad
 bool SSLAnalyzer::isOurKickOffPosition()

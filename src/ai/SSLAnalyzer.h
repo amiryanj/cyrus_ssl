@@ -91,6 +91,10 @@ public:
     std::vector<SSLRobot *> blockersFromPoint(const Vector2D targetPoint);
     std::vector<pair<float, float> > openAngleToGoal(const Vector2D targetPoint);
 
+// ball Possession methods
+    float ballPossession();
+    SSLTeam * ballPossessorTeam();
+
 // Referee State Analyze:
     bool isOurKickOffPosition();
     bool isOpponentKickOffPosition();
