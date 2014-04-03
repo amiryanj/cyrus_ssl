@@ -29,7 +29,7 @@ void VisionFilter::check()
 
     ballFilter->runFilter();
 
-    updateWorldRobots();
+    updateWorldModel();
 
 }
 
@@ -46,7 +46,7 @@ void VisionFilter::setBallFrame(Frame &fr)
     ballFilter->putNewFrame(fr);
 }
 
-void VisionFilter::updateWorldRobots()
+void VisionFilter::updateWorldModel()
 {
     for(int i=0; i<NUM_TEAMS; ++i)
         for(int j=0; j<MAX_ID_NUM; ++j)
@@ -56,6 +56,7 @@ void VisionFilter::updateWorldRobots()
             world->updateRobotAvailability((SSL::Color)i, j, robotFilter[i][j]->isOnField());
         }
 
-    world->updateBallState(0, ballFilter->getFilteredPosition(), ballFilter->getFilteredSpeed());
+    world->updateBallState(0, ballFilter->getFilteredPosition(),
+                           ballFilter->getUnfilteredSpeed(), ballFilter->getMedianFilteredSpeed());
 
 }

@@ -8,6 +8,8 @@ BallFilter::BallFilter()
     last_update_time_msec = 0;
 
     rawPositionList.reserve(MAX_BALL_MEMORY + 1);
+    // rawSpeedList is set to zero by default
+    __medianFilterIndex = 0;
 }
 
 void BallFilter::putNewFrame(const Frame &fr)
@@ -16,8 +18,17 @@ void BallFilter::putNewFrame(const Frame &fr)
 //    std::cout << "Robot Confidence = " <<fr.confidence << std::endl;
     if(rawPositionList.size() > MAX_BALL_MEMORY)
         rawPositionList.pop_back();
+
     last_delta_t_sec = (fr.timeStampMilliSec - last_update_time_msec)/ 1000.0;
     last_update_time_msec = fr.timeStampMilliSec;
+
+    Vector2D currentSpeed_;
+    if (rawPositionList.size() >= 2)
+        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList[1].position.to2D()) / last_delta_t_sec;
+
+    rawSpeedList[__medianFilterIndex++] = currentSpeed_;
+    if (__medianFilterIndex >= MAX_BALL_MEDIAN_MEMORY)
+        __medianFilterIndex = 0;
 
 }
 
@@ -64,12 +75,26 @@ void BallFilter::runFilter()
 
     FilterState fs = naiveFilter.filter();
     this->m_filteredPosition = fs.pos.to2D();
-    this->m_filteredSpeed = fs.vel.to2D();
+    this->m_unfilteredSpeed = fs.vel.to2D();
+
+    //.first is length, second is index
+    pair<float, int> medianFilterValues[MAX_BALL_MEDIAN_MEMORY];
+    for (int i = 0; i < MAX_BALL_MEDIAN_MEMORY; i++)
+        medianFilterValues[i] = make_pair(rawSpeedList[i].lenght(), i);
+
+    sort(medianFilterValues, medianFilterValues + MAX_BALL_MEDIAN_MEMORY);
+    int medianFilteredSpeed_Index = medianFilterValues[MAX_BALL_MEDIAN_MEMORY/2].second;
+    m_medianFilteredSpeed = rawSpeedList[medianFilteredSpeed_Index];
 }
 
-Vector2D BallFilter::getFilteredSpeed() const
+Vector2D BallFilter::getUnfilteredSpeed() const
 {
-    return m_filteredSpeed;
+    return m_unfilteredSpeed;
+}
+
+Vector2D BallFilter::getMedianFilteredSpeed() const
+{
+    return m_medianFilteredSpeed;
 }
 
 Vector2D BallFilter::getFilteredPosition() const

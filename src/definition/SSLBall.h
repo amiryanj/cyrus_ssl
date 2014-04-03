@@ -8,8 +8,11 @@ class SSLBall : public SSLObject<Vector2D>
 public:
     SSLBall();
 
-private:
+    void setFilteredSpeed(const Vector2D & speed);
+    Vector2D getFilteredSpeed() const;
 
+private:
+    Vector2D m_filteredSpeed;
 };
 
 #endif // SSLBALL_H

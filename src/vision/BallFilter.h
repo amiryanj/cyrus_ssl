@@ -7,6 +7,7 @@
 #include "Frame.h"
 
 #define MAX_BALL_MEMORY 30
+#define MAX_BALL_MEDIAN_MEMORY 11
 
 class BallFilter
 {
@@ -18,18 +19,23 @@ public:
     // main method for updating state vectors
     void runFilter();
 
-    Vector2D getFilteredSpeed() const;
+    Vector2D getUnfilteredSpeed() const;
+    Vector2D getMedianFilteredSpeed() const;
     Vector2D getFilteredPosition() const;
 
 private:
     std::vector<Frame> rawPositionList;
+    Vector2D rawSpeedList[MAX_BALL_MEDIAN_MEMORY];
     double last_update_time_msec;
     double last_delta_t_sec;
 
     Vector2D m_filteredPosition;
-    Vector2D m_filteredSpeed;
+    Vector2D m_unfilteredSpeed;
+    Vector2D m_medianFilteredSpeed;
 
     NaiveKalman naiveFilter;
+
+    int __medianFilterIndex;
 };
 
 #endif // _BALLFILTER_H
