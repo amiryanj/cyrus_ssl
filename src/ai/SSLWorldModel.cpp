@@ -13,6 +13,8 @@ SSLWorldModel::SSLWorldModel() {
 
     for(int i=0; i<MAX_BALL_NUM; i++)
         balls[i] = new SSLBall();
+
+    m_refereeState = SSLReferee::ForceStart;
 }
 
 SSLWorldModel *SSLWorldModel::getInstance()
@@ -38,7 +40,7 @@ vector<SSLRobot *> SSLWorldModel::all_inFields()
     all_.reserve(MAX_TEAM_PLAYER * 2);
     for(int tm = 0; tm < 2;  ++tm) {
         vector<SSLRobot*> teamRobots = team[tm]->inFields();
-        all_.insert(all_.begin(), teamRobots.begin(), teamRobots.end());
+        all_.insert(all_.end(), teamRobots.begin(), teamRobots.end());
     }
     return all_;
 }
@@ -59,7 +61,7 @@ vector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(Color color, int id)
     {
         vector<SSLRobot*> teamRobots = team[tm]->inFields();
         if(color != (Color)tm) {
-            all_.insert(all_.begin(), teamRobots.begin(), teamRobots.end());
+            all_.insert(all_.end(), teamRobots.begin(), teamRobots.end());
         }
         else {
             for(vector<SSLRobot*>::iterator it=teamRobots.begin(); it != teamRobots.end(); ++it)

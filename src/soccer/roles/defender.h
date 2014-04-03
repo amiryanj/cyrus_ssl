@@ -20,7 +20,7 @@ public:
     int getDefenderIndex() const;
     void setDefenderIndex(int ind);
 
-    Vector2D expectedPosition();
+    Vector3D expectedPosition();
 
 private :
     int m_defenderCount;

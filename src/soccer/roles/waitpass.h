@@ -15,7 +15,7 @@ public:
     Vector3D getBestPosition() const;
     void setBestPosition(const Vector3D &value);
 
-    Vector2D expectedPosition();
+    Vector3D expectedPosition();
 
 private:
     Vector3D m_bestPosition;

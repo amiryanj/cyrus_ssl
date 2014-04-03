@@ -79,11 +79,9 @@ SOURCES += \
     soccer/SSLSkill.cpp \
     soccer/sslrolemanager.cpp \
     soccer/roles/sslrole.cpp \
-    soccer/roles/wallstander.cpp \
     soccer/roles/waitrebound.cpp \
     soccer/roles/waitpass.cpp \
     soccer/roles/positionrole.cpp \
-    soccer/roles/playstarter.cpp \
     soccer/roles/opponentmarker.cpp \
     soccer/roles/goalkeeper.cpp \
     soccer/roles/defender.cpp \
@@ -141,11 +139,9 @@ HEADERS += \
     soccer/sslstrategymanager.h \
     soccer/roles/sslrole.h \
     soccer/sslrolemanager.h \
-    soccer/roles/wallstander.h \
     soccer/roles/waitrebound.h \
     soccer/roles/waitpass.h \
     soccer/roles/positionrole.h \
-    soccer/roles/playstarter.h \
     soccer/roles/opponentmarker.h \
     soccer/roles/goalkeeper.h \
     soccer/roles/defender.h \

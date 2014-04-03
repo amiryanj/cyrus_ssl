@@ -9,7 +9,7 @@ public:
     ActiveRole();
 
     void run();
-    Vector2D expectedPosition();
+    Vector3D expectedPosition();
 
 private:
     Vector3D myTarget();

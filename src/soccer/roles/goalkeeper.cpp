@@ -67,7 +67,7 @@ void GoalKeeper::run()
   */
 }
 
-Vector2D GoalKeeper::expectedPosition()
+Vector3D GoalKeeper::expectedPosition()
 {
-    return Vector2D(SSLGame::getInstance()->ourSide() * (FIELD_LENGTH/2 - ROBOT_RADIUS), 0);
+    return Vector3D(SSLGame::getInstance()->ourSide() * (FIELD_LENGTH/2 - ROBOT_RADIUS), 0, 0);
 }

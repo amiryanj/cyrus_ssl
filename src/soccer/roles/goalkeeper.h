@@ -10,7 +10,7 @@ public:
 
     void run();
 
-    Vector2D expectedPosition();
+    Vector3D expectedPosition();
 
 private:
 

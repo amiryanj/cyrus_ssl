@@ -11,7 +11,7 @@ Defender::Defender(int ind, int count)
     m_hardness = 1;
 }
 
-Vector2D Defender::expectedPosition()
+Vector3D Defender::expectedPosition()
 {
     float x = (float)(m_defenderCount + 1)/2.0;
     float displaceAngle = (m_defenderIndex - x) * (2 *ROBOT_RADIUS /FIELD_PENALTY_AREA_RADIUS);
@@ -20,7 +20,7 @@ Vector2D Defender::expectedPosition()
     dir.rotate(displaceAngle);
     dir *= FIELD_PENALTY_AREA_RADIUS * 1.33;
     Vector3D target(dir + SSLSkill::ourGoalCenter(), dir.arctan());
-    return target.to2D();
+    return target;
 }
 
 int Defender::getDefenderIndex() const

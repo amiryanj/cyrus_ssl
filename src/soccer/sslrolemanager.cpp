@@ -72,7 +72,7 @@ void SSLRoleManager::AssignRole(SSLStrategy *strategy, vector<SSLAgent*> agents)
                 throw "No enough agent";
             }
             SSLRole* role = roleList.at(i);
-            Vector2D expPos = role->expectedPosition();
+            Vector2D expPos = role->expectedPosition().to2D();
             float minDist = INFINITY;
             short nearAgentIndex = -1;
             for(uint j=0; j<agents.size(); j++)

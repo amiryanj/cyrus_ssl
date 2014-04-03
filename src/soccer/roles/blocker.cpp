@@ -19,12 +19,12 @@ void Blocker::setBlockedRobot(SSLRobot *value)
 
 void Blocker::run()
 {
-    Vector3D target = expectedPosition().to3D();
+    Vector3D target = expectedPosition();
     Vector3D tolerance(100, 100, M_PI);
     SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true);
 }
 
-Vector2D Blocker::expectedPosition()
+Vector3D Blocker::expectedPosition()
 {
     SSL::Color op_color = game->opponentColor();
     Vector2D opponent_pos(0, 0);
@@ -46,6 +46,6 @@ Vector2D Blocker::expectedPosition()
     Vector2D diff = opponent_pos - SSLSkill::ourGoalCenter();
     diff.normalize();
     Vector2D target = SSLSkill::ourGoalCenter() + diff * FIELD_PENALTY_AREA_RADIUS * 1.5;
-    return target;
+    return target.to3D();
 }
 

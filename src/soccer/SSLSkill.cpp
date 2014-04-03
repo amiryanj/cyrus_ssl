@@ -19,7 +19,7 @@ void SSLSkill::halt(SSLAgent *agent)
     controlSpeed(agent, zeroSpeed);
 }
 
-void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, Vector3D tolerance)
+void SSLSkill::goToPoint(SSLAgent *agent, const Vector3D &target, const Vector3D &tolerance)
 {
     cout << "Agent Number [" << agent->getID() << "] => Go to point " << endl;
 
@@ -39,8 +39,10 @@ void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, Vector3D tolerance)
     }
     else {
         float speedCoefficient = 1;
-        if(diff.lenght2D() < 400) // milli meter
-            speedCoefficient = (diff.lenght2D() / 400.0);
+        if(diff.lenght2D() < 500) // milli meter
+            speedCoefficient = (diff.lenght2D() / 500.0);
+
+        speedCoefficient = pow(speedCoefficient, 0.8);  //
 
         diff.normalize2D();
         Vector3D desiredSpeed = diff * speedCoefficient;
@@ -48,7 +50,7 @@ void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, Vector3D tolerance)
     }
 }
 
-void SSLSkill::goToPointWithPlanner(SSLAgent* agent, Vector3D target, Vector3D tolerance,
+void SSLSkill::goToPointWithPlanner(SSLAgent* agent, const Vector3D &target, const Vector3D &tolerance,
                                     bool considerPenaltyArea, float ball_ob_radius, float robot_ob_radius)
 {
     cout << "Agent Number [" << agent->getID() << "] => Go to point with planner" << endl;
@@ -122,7 +124,7 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, Vector3D target, Vector3D t
 void SSLSkill::goAndKick(SSLAgent *agent, double kickStrenghtNormal)
 {
     agent->skill_in_use = "Kick ball";
-    Vector3D target = KickStylePosition(SSLWorldModel::getInstance()->mainBall()->Position(), opponentGoalCenter());
+    Vector3D target = KickStylePosition(SSLWorldModel::getInstance()->mainBall()->Position(), opponentGoalCenter(), -40);
     agent->tempTarget = target;
     agent->planner.deactive();
     if(analyzer->canKick(agent->robot)) {
@@ -176,20 +178,56 @@ Vector2D SSLSkill::ourGoalCenter()
     return Vector2D(game->ourSide() * (FIELD_LENGTH/2), 0);
 }
 
-Vector3D SSLSkill::KickStylePosition(Vector2D point, Vector2D target)
+Vector3D SSLSkill::ourMidfieldUpPosition()
 {
-    Vector2D dir = (target - point).normalized();
+    float x_ = game->ourSide() * (FIELD_LENGTH / 4);
+    Vector2D point(x_, +700);
+    return KickStylePosition(point, opponentGoalCenter(), 0);
+}
+
+Vector3D SSLSkill::ourMidfieldDownPosition()
+{
+    float x_ = game->ourSide() * (FIELD_LENGTH / 4);
+    Vector2D point(x_, -700);
+    return KickStylePosition(point, opponentGoalCenter(), 0);
+}
+
+Vector3D SSLSkill::opponentMidfieldUpPosition()
+{
+    float x_ = game->opponentSide() * (FIELD_LENGTH / 4);
+    Vector2D point(x_, +700);
+    return KickStylePosition(point, opponentGoalCenter(), 0);
+}
+
+Vector3D SSLSkill::opponentMidfieldDownPosition()
+{
+    float x_ = game->opponentSide() * (FIELD_LENGTH / 4);
+    Vector2D point(x_, -700);
+    return KickStylePosition(point, opponentGoalCenter(), 0);
+}
+
+Vector3D SSLSkill::KickStylePosition(const Vector2D &kick_point, const Vector2D &target, float dist)
+{
+    Vector2D dir = (target - kick_point).normalized();
     float orien = dir.arctan();
-    Vector3D pos(point - dir * (BALL_RADIUS + ROBOT_RADIUS + 100), orien);
+    Vector3D pos(kick_point - dir * (BALL_RADIUS + ROBOT_RADIUS + dist), orien);
+    return pos;
+}
+
+Vector3D SSLSkill::DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point, float dist)
+{
+    Vector2D dir = (risky_point - defense_point).normalized();
+    float orien = dir.arctan();
+    Vector3D pos(risky_point - dir * (dist + ROBOT_RADIUS), orien);
     return pos;
 }
 
 void SSLSkill::controlSpeed(SSLAgent *agent, const Vector3D& speed)
 {
-    float speedDiscountRate = .4;
+    float speedDiscountRate = .5;
     agent->desiredGlobalSpeed = speed * speedDiscountRate;
 
-    float angularSpeedCoefficient = 0.0;
+    float angularSpeedCoefficient = 0.00;
 
     // because controller is not working yet
     agent->controller.setPoint(agent->desiredGlobalSpeed, agent->robot->Speed()/2000);

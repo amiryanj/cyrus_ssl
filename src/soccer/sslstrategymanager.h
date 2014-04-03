@@ -33,17 +33,14 @@ private:
     SSLStrategy* offensePlay_1;
     SSLStrategy* defensePlay_1;
 
-    SSLStrategy* ourKickOffFormation_1;
-    SSLStrategy* opponentKickOffFormation_1;
+    SSLStrategy* kickOffFormation_1;
+    SSLStrategy* opponentKickOffFormation_1; // unused
 
     SSLStrategy* ourPenaltyFormation_1;
     SSLStrategy* opponentPenaltyFormation_1;
-//    SSLStrategy* opponentPenaltyKick_1;
 
-    SSLStrategy* ourDirectKick_1;
-    SSLStrategy* opponentDirectKickFormation_1;
-    SSLStrategy* ourIndirectKick_1;
-    SSLStrategy* opponentIndirectKickFormation_1;
+    SSLStrategy* ourFreeKick_1;
+    SSLStrategy* opponentFreeKickFormation_1;
 
 };
 

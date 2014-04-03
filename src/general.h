@@ -23,7 +23,8 @@ typedef Vector3D point3D;
 #define SERIAL_PORT "/dev/ttyUSB0"
 #define SERIAL_BAUD 115200
 
-#define SSL_REFEREE_ADDRESS     "127.0.0.2" //"224.5.23.1"
+#define SSL_REFEREE_ADDRESS     "127.0.0.2"
+//"224.5.23.1"
 #define SSL_REFEREE_PORT        10001
 
 #define SSL_VISION_ADDRESS      "224.5.23.2"
@@ -32,10 +33,12 @@ typedef Vector3D point3D;
 #define GRSIM_VISION_ADDRESS    "127.0.0.1"
 #define GRSIM_VISION_PORT       10003
 
-#define GRSIM_COMMAND_ADDRESS   "127.0.0.4"  // "192.168.1.105"
+#define GRSIM_COMMAND_ADDRESS   "127.0.0.4"
+// "192.168.1.105"
 #define GRSIM_COMMAND_PORT      20016
 
-#define VISUALIZER_IP           "127.0.0.3"  // "213.233.171.39" //
+#define VISUALIZER_IP           "127.0.0.3"
+// "213.233.171.39" //
 #define VISUALIZER_PORT         4001
 
 
@@ -50,7 +53,7 @@ typedef Vector3D point3D;
 #define ROBOT_RADIUS        90.0
 #define BALL_RADIUS         21.5
 
-#define CAMERA_FPS   10.0
+#define CAMERA_FPS   20.0
 // 10
 
 #define NUM_TEAMS           2

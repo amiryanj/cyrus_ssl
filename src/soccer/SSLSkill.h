@@ -26,14 +26,14 @@ public:
 
     static void halt(SSLAgent* agent);
 
-    static void goToPoint(SSLAgent* agent, Vector3D target, Vector3D tolerance);
+    static void goToPoint(SSLAgent* agent, const Vector3D &target, const Vector3D &tolerance);
 
-    static void goToPointWithPlanner(SSLAgent *agent, Vector3D target, Vector3D tolerance,
+    static void goToPointWithPlanner(SSLAgent *agent, const Vector3D &target, const Vector3D &tolerance,
                                      bool considerPenaltyArea = true,
                                      float ball_ob_radius = BALL_RADIUS,
                                      float robot_ob_radius = ROBOT_RADIUS);
 
-    static void goAndKick(SSLAgent* agent, double kickStrenghtNormal);
+    static void goAndKick(SSLAgent* agent, double kickStrenghtNormal = 1);
 
     static void goAndChip(SSLAgent* agent, double chipStrenghtNormal = 1);
 
@@ -48,7 +48,13 @@ public:
     static Vector2D opponentPenaltyPoint();
     static Vector2D opponentGoalCenter();
     static Vector2D ourGoalCenter();
-    static Vector3D KickStylePosition(Vector2D point, Vector2D kickTarget);
+    static Vector3D ourMidfieldUpPosition();
+    static Vector3D ourMidfieldDownPosition();
+    static Vector3D opponentMidfieldUpPosition();
+    static Vector3D opponentMidfieldDownPosition();
+    static Vector3D KickStylePosition(const Vector2D &kick_point, const Vector2D &kickTarget, float dist = 100);
+    static Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point,
+                                         float dist = 2 * ROBOT_RADIUS);
     
 private:
     static void buildAndSendPacket(int id, Vector3D &vel, float kickSpeed = 0);

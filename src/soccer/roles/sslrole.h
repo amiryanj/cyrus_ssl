@@ -21,7 +21,7 @@ public:
     void setAgent(SSLAgent* agent);
 
     virtual void run() = 0;
-    virtual Vector2D expectedPosition() = 0;
+    virtual Vector3D expectedPosition() = 0;
     bool Halt();
 
     SSLAgent* m_agent;

@@ -14,7 +14,7 @@ public:
     void setBlockedRobot(SSLRobot *value);
 
     void run();
-    Vector2D expectedPosition();
+    Vector3D expectedPosition();
 
 private:
     SSLRobot* m_blockedRobot;

@@ -4,11 +4,11 @@
 #include "roles/defender.h"
 #include "roles/goalkeeper.h"
 #include "roles/opponentmarker.h"
-#include "roles/playstarter.h"
 #include "roles/positionrole.h"
 #include "roles/waitpass.h"
 #include "roles/waitrebound.h"
-#include "roles/wallstander.h"
+//#include "roles/playstarter.h"
+//#include "roles/wallstander.h"
 
 #define analyzer    SSLAnalyzer::getInstance()
 #define game        SSLGame::getInstance()
@@ -25,17 +25,17 @@ SSLStrategyManager *SSLStrategyManager::getInstance()
 
 SSLStrategyManager::SSLStrategyManager()
 {
-
     {
         normalPlay_1 = new SSLStrategy();
         normalPlay_1->m_name = "normalPlay_1";
-        SSLRole* r[6];
-        r[0] = new ActiveRole();
-        r[1] = new GoalKeeper();
-        r[2] = new Defender(1, 3);
-        r[3] = new Defender(2, 3);
-        r[4] = new Defender(3, 3);
-        r[5] = new WaitRebound();
+        SSLRole* r[6] = {
+            new ActiveRole(),
+            new GoalKeeper(),
+            new Defender(1, 3),
+            new Defender(2, 3),
+            new Defender(3, 3),
+            new WaitPass()
+        };
         for (int i=0; i<6; i++) {
             normalPlay_1->m_roleList.push_back(r[i]);
         }
@@ -45,13 +45,14 @@ SSLStrategyManager::SSLStrategyManager()
     {
         offensePlay_1 = new SSLStrategy();
         offensePlay_1->m_name = "offensePlay_1";
-        SSLRole* r[6];
-        r[0] = new ActiveRole();
-        r[1] = new GoalKeeper();
-        r[2] = new WaitPass();
-        r[3] = new Defender(1, 2);
-        r[4] = new Defender(2, 2);
-        r[5] = new WaitRebound();
+        SSLRole* r[6] = {
+            new ActiveRole(),
+            new GoalKeeper(),
+            new WaitPass(),
+            new Defender(1, 2),
+            new Defender(2, 2),
+            new WaitPass()
+        };
         for (int i=0; i<6; i++) {
             offensePlay_1->m_roleList.push_back(r[i]);
         }
@@ -61,13 +62,14 @@ SSLStrategyManager::SSLStrategyManager()
     {
         defensePlay_1 = new SSLStrategy();
         defensePlay_1->m_name = "defensePlay_1";
-        SSLRole* r[6];
-        r[0] = new ActiveRole();
-        r[1] = new GoalKeeper();
-        r[2] = new Defender(1, 2);
-        r[3] = new Defender(2, 2);
-        r[4] = new OpponentMarker();
-        r[5] = new Defender(3, 3);
+        SSLRole* r[6] = {
+            new ActiveRole(),
+            new GoalKeeper(),
+            new Defender(1, 2),
+            new Defender(2, 2),
+            new Blocker(),
+            new Defender(3, 3)
+        };
         for (int i=0; i<6; i++) {
             defensePlay_1->m_roleList.push_back(r[i]);
         }
@@ -75,17 +77,18 @@ SSLStrategyManager::SSLStrategyManager()
 
 
     {
-        ourKickOffFormation_1 = new SSLStrategy;
-        ourKickOffFormation_1->m_name = "ourKickOffFormation_1";
-        SSLRole* r[6];
-        r[0] = new PlayStarter();
-        r[1] = new GoalKeeper();
-        r[2] = new WaitRebound();
-        r[3] = new Defender(1, 2);
-        r[4] = new Defender(2, 2);
-        r[5] = new WaitRebound();
+        kickOffFormation_1 = new SSLStrategy;
+        kickOffFormation_1->m_name = "KickOffFormation_1";
+        SSLRole* r[6] = {
+            new ActiveRole(),
+            new GoalKeeper(),
+            new WaitPass(),
+            new Defender(1, 2),
+            new Defender(2, 2),
+            new WaitPass()
+        };
         for (int i=0; i<6; i++) {
-            ourKickOffFormation_1->m_roleList.push_back(r[i]);
+            kickOffFormation_1->m_roleList.push_back(r[i]);
         }
     }
 
@@ -93,13 +96,14 @@ SSLStrategyManager::SSLStrategyManager()
     {
         opponentKickOffFormation_1 = new SSLStrategy();
         opponentKickOffFormation_1->m_name = "opponentKickOffFormation_1";
-        SSLRole* r[6];
-        r[0] = new WallStander();
-        r[1] = new WallStander();
-        r[2] = new GoalKeeper();
-        r[3] = new Defender(1, 2);
-        r[4] = new Defender(2, 2);
-        r[5] = new WaitRebound();
+        SSLRole* r[6] = {
+            new ActiveRole(),
+            new Blocker(),
+            new GoalKeeper(),
+            new Defender(1, 2),
+            new Defender(2, 2),
+            new WaitPass()
+        };
         for (int i=0; i<6; i++) {
             opponentKickOffFormation_1->m_roleList.push_back(r[i]);
         }
@@ -109,13 +113,14 @@ SSLStrategyManager::SSLStrategyManager()
     {
         ourPenaltyFormation_1 = new SSLStrategy();
         ourPenaltyFormation_1->m_name = "ourPenaltyFormation_1";
-        SSLRole* r[6];
-        r[0] = new PlayStarter();
-        r[1] = new GoalKeeper();
-        r[2] = new Defender(1, 2);
-        r[3] = new Defender(2, 2);
-        r[4] = new WaitRebound();
-        r[5] = new Defender(3, 3);
+        SSLRole* r[6] = {
+            r[0] = new ActiveRole(),
+            r[1] = new GoalKeeper(),
+            r[2] = new Defender(1, 2),
+            r[3] = new Defender(2, 2),
+            r[4] = new WaitPass(),
+            r[5] = new Defender(3, 3)
+        };
         for (int i=0; i<6; i++) {
             ourPenaltyFormation_1->m_roleList.push_back(r[i]);
         }
@@ -125,13 +130,14 @@ SSLStrategyManager::SSLStrategyManager()
     {
         opponentPenaltyFormation_1 = new SSLStrategy();
         opponentPenaltyFormation_1->m_name = "opponentPenaltyFormation_1";
-        SSLRole* r[6];
-        r[0] = new GoalKeeper();
-        r[1] = new WaitRebound();
-        r[2] = new WaitRebound();
-        r[3] = new WaitRebound();
-        r[4] = new Defender(1, 1);
-        r[5] = new Defender(2, 2);
+        SSLRole* r[6] = {
+            new GoalKeeper(),
+            new WaitPass(),
+            new WaitPass(),
+            new WaitPass(),
+            new Defender(1, 1),
+            new Defender(2, 2)
+        };
         for (int i=0; i<6; i++) {
             opponentPenaltyFormation_1->m_roleList.push_back(r[i]);
         }
@@ -139,66 +145,35 @@ SSLStrategyManager::SSLStrategyManager()
 
 
     {
-        ourDirectKick_1 = new SSLStrategy();
-        ourDirectKick_1->m_name = "ourDirectKick_1";
-        SSLRole* r[6];
-        r[0] = new PlayStarter();
-        r[1] = new GoalKeeper();
-        r[2] = new WaitRebound();
-        r[3] = new Defender(1, 2);
-        r[4] = new Defender(2, 2);
-        r[5] = new WaitRebound();
+        ourFreeKick_1 = new SSLStrategy();
+        ourFreeKick_1->m_name = "ourDirectKick_1";
+        SSLRole* r[6] = {
+            r[0] = new ActiveRole(),
+            r[1] = new GoalKeeper(),
+            r[2] = new WaitPass(),
+            r[3] = new Defender(1, 2),
+            r[4] = new Defender(2, 2),
+            r[5] = new WaitPass()
+        };
         for (int i=0; i<6; i++) {
-            ourDirectKick_1->m_roleList.push_back(r[i]);
+            ourFreeKick_1->m_roleList.push_back(r[i]);
         }
     }
 
 
     {
-        opponentDirectKickFormation_1 = new SSLStrategy();
-        opponentDirectKickFormation_1->m_name = "opponentDirectKickFormation_1";
-        SSLRole* r[6];
-        r[0] = new GoalKeeper();
-        r[1] = new WaitRebound();
-        r[2] = new WaitRebound();
-        r[3] = new Defender(1, 2);
-        r[4] = new Defender(2, 2);
-        r[5] = new WaitRebound();
+        opponentFreeKickFormation_1 = new SSLStrategy();
+        opponentFreeKickFormation_1->m_name = "opponentDirectKickFormation_1";
+        SSLRole* r[6] = {
+            r[0] = new GoalKeeper(),
+            r[1] = new WaitPass(),
+            r[2] = new WaitPass(),
+            r[3] = new Defender(1, 2),
+            r[4] = new Defender(2, 2),
+            r[5] = new WaitPass()
+        };
         for (int i=0; i<6; i++) {
-            opponentDirectKickFormation_1->m_roleList.push_back(r[i]);
-        }
-    }
-
-
-    {
-        ourIndirectKick_1 = new SSLStrategy();
-        ourIndirectKick_1->m_name = "ourIndirectKick_1";
-        SSLRole* r[6];
-        r[0] = new PlayStarter();
-        r[1] = new GoalKeeper();
-        r[2] = new WaitRebound();
-        r[3] = new Defender(1, 2);
-        r[4] = new Defender(2, 2);
-        r[5] = new WaitRebound();
-        for (int i=0; i<6; i++) {
-            ourIndirectKick_1->m_roleList.push_back(r[i]);
-        }
-    }
-
-
-    {
-
-        opponentIndirectKickFormation_1 = new SSLStrategy();
-        opponentIndirectKickFormation_1->m_name = "opponentIndirectKickFormation_1";
-        SSLRole* r[6];
-        r[0] = new GoalKeeper();
-        r[1] = new WaitRebound();
-        r[2] = new WaitRebound();
-        r[3] = new Defender(1, 2);
-        r[4] = new Defender(2, 2);
-        r[5] = new WaitRebound();
-        for (int i=0; i<6; i++) {
-            opponentIndirectKickFormation_1->m_roleList.push_back(r[i]);
+            opponentFreeKickFormation_1->m_roleList.push_back(r[i]);
         }
     }
 
@@ -215,7 +190,7 @@ SSLStrategy *SSLStrategyManager::updateStrategy(SSLStrategy *strategy)
 //    }
 
     else if(analyzer->isOurKickOffPosition() || analyzer->isOurKickOffKick()) {
-        strategy = ourKickOffFormation_1;
+        strategy = kickOffFormation_1;
     }
 
     else if(analyzer->isOpponentKickOffPosition() || analyzer->isOpponentKickOffKick()) {
@@ -230,20 +205,12 @@ SSLStrategy *SSLStrategyManager::updateStrategy(SSLStrategy *strategy)
         strategy = opponentPenaltyFormation_1;
     }
 
-    else if(analyzer->isOurDirectKick()) {
-        strategy = ourDirectKick_1;
+    else if(analyzer->isOurDirectKick() || analyzer->isOurIndirectKick()) {
+        strategy = ourFreeKick_1;
     }
 
-    else if(analyzer->isOpponentDirectKick()) {
-        strategy = opponentDirectKickFormation_1;
-    }
-
-    else if(analyzer->isOurIndirectKick()) {
-        strategy = ourIndirectKick_1;
-    }
-
-    else if(analyzer->isOpponentIndirectKick()) {
-        strategy = opponentIndirectKickFormation_1;
+    else if(analyzer->isOpponentDirectKick() || analyzer->isOpponentIndirectKick()) {
+        strategy = opponentFreeKickFormation_1;
     }
 
     else {

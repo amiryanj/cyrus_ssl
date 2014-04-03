@@ -32,6 +32,8 @@ SSLAnalyzer* SSLAnalyzer::analyzer_instance = NULL;
 
 SSLAnalyzer::SSLAnalyzer()
 {
+    m_game_running = false;
+
 //    for(int tm = 0; tm < 2; tm++)
 //        for(int j=0; j < MAX_ID_NUM; j++)
 //        {
@@ -50,6 +52,37 @@ SSLAnalyzer* SSLAnalyzer::getInstance()
 void SSLAnalyzer::check()
 {
     try {
+
+        if(m_game_running == true) {
+            if(world->m_refereeState == SSLReferee::Stop || world->m_refereeState == SSLReferee::Halt)
+                m_game_running = false;
+        }
+        else // check if game gets running
+        {
+            if(world->m_refereeState == SSLReferee::ForceStart)
+                m_game_running = true;
+            else if((isOurDirectKick() ||  isOpponentDirectKick() ||
+                    isOurIndirectKick() || isOpponentIndirectKick() ||
+                    isOurKickOffKick() || isOpponentKickOffKick() ||
+                    isOurPenaltyKick() || isOpponentPenaltyKick() )
+                    && (world->mainBall()->Speed().lenght() > 200) ) //  milimeter per sec
+            {
+
+                m_game_running = true;
+            }
+        }
+    }
+    catch(const char* mes) {
+        cerr << "Exception SSLAnalizer : " << mes <<endl;
+    }
+        //            vector<SSLRobot* > nears = nearestRobotToBall(world->all_inFields());
+        //            if(nears.empty())
+        //                return;
+        //            SSLRobot* near = nears[0];
+        //            double diff2Ball = (near->Position().to2D() - world->mainBall()->Position()).lenght();
+        //            if(diff2Ball < (BALL_RADIUS + ROBOT_RADIUS))
+
+
 //        if(game->ourTeam()->inFields().empty())
 //            throw "The team infield attribute is empty.";
 //        vector<SSLRobot *> defenders  = blockersFromPoint(world->mainBall()->Position());
@@ -61,10 +94,8 @@ void SSLAnalyzer::check()
 //        cout << "Angles:" << endl;
 //        for (int i = 0; i < openAngle.size(); i++)
 //            cout << openAngle[i].first << " " << openAngle[i].second << endl;
-    }
-    catch(const char* mes) {
-        cerr << "Exception SSLAnalizer : " << mes <<endl;
-    }
+
+
 }
 
 double SSLAnalyzer::distanceFromBall(const Vector2D &point)

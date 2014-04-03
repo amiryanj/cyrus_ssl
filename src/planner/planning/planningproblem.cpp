@@ -119,6 +119,16 @@ void PlanningProblem::PotentialFieldSolve()
 
         Station new_station;
         new_station.setPosition(currentVertex->state.position + (totalForce * 1.3 * agent.shape->m_radius).to3D());
+        for(int i=0; i<stat_obstacles.size(); i++) {
+            Obstacle* ob_i = stat_obstacles[i];
+            assert(ob_i != NULL);
+            if(hasCollision(new_station, *ob_i)) {
+                Vector2D dir_ = new_station.position.to2D() - Vector2D(ob_i->m_transform.p);
+                dir_.normalize();
+                new_station.position = new_station.position + (dir_ * agent.shape->m_radius * 1.2).to3D();
+
+            }
+        }
         if(CheckValidity(new_station)) {
             currentVertex = tree.addNewVertex(currentVertex, new_station);
 
@@ -131,8 +141,7 @@ void PlanningProblem::PotentialFieldSolve()
             }
         }
 
-        else
-        {
+        else {
             cerr << "extension failed in planning:";
             new_station.printToStream(cerr);
             extendFailureCounter++;

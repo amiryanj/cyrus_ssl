@@ -7,9 +7,9 @@ PositionRole::PositionRole()
     m_hardness = 2;
 }
 
-Vector2D PositionRole::expectedPosition()
+Vector3D PositionRole::expectedPosition()
 {
-    return m_position.to2D();
+    return m_position;
 }
 
 void PositionRole::run()
