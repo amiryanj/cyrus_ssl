@@ -51,6 +51,7 @@ SSLAnalyzer* SSLAnalyzer::getInstance()
 
 void SSLAnalyzer::check()
 {
+    initialize_caches();
     try {
 
         if(m_game_running == true) {
@@ -107,8 +108,15 @@ double SSLAnalyzer::distanceFromBall(const Vector2D &point)
 }
 double SSLAnalyzer::distanceFromBall(const SSLRobot *robot)
 {
-    if(world->mainBall() != NULL && robot != NULL)
-        return (world->mainBall()->Position() - robot->Position().to2D()).lenght();
+    if(world->mainBall() != NULL && robot != NULL) {
+        uint hashID = _getHashID(robot);
+        if (f_distance_robot_ball[hashID] == 0) {
+            f_distance_robot_ball[hashID] = 1;
+            return c_distance_robot_ball[hashID] =
+                    (world->mainBall()->Position() - robot->Position().to2D()).lenght();
+        }
+        return c_distance_robot_ball[hashID];
+    }
     else
         return -1;
 }
@@ -122,43 +130,59 @@ double SSLAnalyzer::distanceFromRobotToPoint(const Vector2D &point, const SSLRob
 }
 double SSLAnalyzer::distanceFromRobotToRobot(const SSLRobot* robot1,const SSLRobot* robot2)
 {
-    if(robot1 != NULL && robot2 != NULL)
-        return (robot1->Position().to2D() - robot2->Position().to2D()).lenght();
+    if(robot1 != NULL && robot2 != NULL) {
+        uint hashID1 = _getHashID(robot1), hashID2 = _getHashID(robot2);
+        if (f_distance_robot_robot[hashID1][hashID2] == 0) {
+            f_distance_robot_robot[hashID1][hashID2] = 1;
+            return c_distance_robot_robot[hashID1][hashID2] =
+                    (robot1->Position().to2D() - robot2->Position().to2D()).lenght();
+        }
+        return c_distance_robot_robot[hashID1][hashID2];
+    }
     else
         return -1;
 }
 
 SSLRobot *SSLAnalyzer::whichRobotCanKick()
 {
-    vector<SSLRobot* > robots = world->all_inFields();
+    if (f_whichRobotCanKick == 0) {
+        f_whichRobotCanKick = 1;
+        vector<SSLRobot* > robots = world->all_inFields();
 
-    for(uint i = 0 ; i < robots.size() ; i ++)
-    {
-        if(distanceFromBall(robots[i]) < robotObstacle && distanceFromBall(robots[i]) != -1)
+        for(uint i = 0 ; i < robots.size() ; i ++)
         {
-            Vector2D dis = world->mainBall()->Position()-robots[i]->Position().to2D();
-            double ang = dis.arctan();
-            if(fabs(robots[i]->orien() - ang) < (M_PI / 6.0 ) )
+            if(distanceFromBall(robots[i]) < robotObstacle && distanceFromBall(robots[i]) != -1)
             {
-                return robots[i];
+                Vector2D dis = world->mainBall()->Position()-robots[i]->Position().to2D();
+                double ang = dis.arctan();
+                if(fabs(robots[i]->orien() - ang) < (M_PI / 6.0 ) )
+                {
+                    return c_whichRobotCanKick = robots[i];
+                }
+                else
+                    continue;
             }
-            else
-                continue;
         }
+        return c_whichRobotCanKick = NULL;
     }
-    return NULL;
+    return c_whichRobotCanKick;
 }
 
 bool SSLAnalyzer::canKick(SSLRobot *robot)
 {
-    if(distanceFromBall(robot) < ((BALL_RADIUS + ROBOT_RADIUS) * 0.95))
-    {
-        Vector2D dis = world->mainBall()->Position() - robot->Position().to2D();
-        double ang = dis.arctan();
-        if(fabs(robot->orien() - ang) < (M_PI / 6.0 ) )
-            return true;        
+    uint hashID = _getHashID(robot);
+    if (f_canKick[hashID] == 0) {
+        f_canKick[hashID] = 1;
+        if(distanceFromBall(robot) < ((BALL_RADIUS + ROBOT_RADIUS) * 0.95))
+        {
+            Vector2D dis = world->mainBall()->Position() - robot->Position().to2D();
+            double ang = dis.arctan();
+            if(fabs(robot->orien() - ang) < (M_PI / 6.0 ) )
+                return c_canKick[hashID] = true;
+        }
+        return c_canKick[hashID] = false;
     }
-    return false;
+    return c_canKick[hashID];
 }
 
 
@@ -254,7 +278,7 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotsToMarkRobot(const SSLR
 //point opponentBlockerFromPoint
 vector<SSLRobot *> SSLAnalyzer::blockersFromPoint(const Vector2D targetPoint)
 {
-    SSLRobot* hashed[2 * MAX_ID_NUM];
+    SSLRobot* hashed[MAX_ID_NUM << 1];
     memset(hashed, 0, sizeof hashed);
     float r = ROBOT_RADIUS - 2.0;
     int repeat = FIELD_GOAL_WIDTH / (2.0*r);
@@ -276,7 +300,7 @@ vector<SSLRobot *> SSLAnalyzer::blockersFromPoint(const Vector2D targetPoint)
                 float delta = -b*b + r*r + m*m*r*r - 2.0*b*m*rx - m*m*rx*rx +
                         2.0*b*ry + 2.0*m*rx*ry - ry*ry;
                  if (delta >= 0.0) {
-                    hashed[robot->id + 12*robot->color] = robot;
+                    hashed[_getHashID(robot)] = robot;
                 }
             }
         }
@@ -382,8 +406,8 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(
 
     const SSLBall* ball = world->mainBall();
 
-    float stopTime = fabs(ball->Speed().lenght()) / BALL_FRICTION_COEFF;
-    Vector2D newPosition(ball->Position() + ball->Speed() * stopTime);
+    float stopTime = fabs(ball->getFilteredSpeed().lenght()) / BALL_FRICTION_COEFF;
+    Vector2D newPosition(ball->Position() + ball->getFilteredSpeed() * stopTime);
 
     float distanceOfNewPositionToRobot = (robot->Position().to2D() - newPosition).lenght();
 
@@ -391,7 +415,7 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(
     neededTime += wastedTimeForInertia(robot, newPosition);
     stopCaseAnswer.m_time = neededTime;
     stopCaseAnswer.m_position = newPosition;
-    if (ball->Speed().lenght() < 1.0)
+    if (ball->getFilteredSpeed().lenght() < 1.0)
         return stopCaseAnswer;
     /* cross case
      solves using (x-xb)^2 + (y-yb)^2 = r(t)^2 and vb = cte
@@ -405,19 +429,19 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(
     float xDelta = ball->Position().X() - robot->Position().X();
     float yDelta = ball->Position().Y() - robot->Position().Y();
 
-    float a = (pow(robot->physic.max_lin_vel_mmps, 2.0) - pow(ball->Speed().lenght(), 2.0))/2.0;
-    float b = -(ball->Speed().X() * xDelta + ball->Speed().Y() * yDelta);
+    float a = (pow(robot->physic.max_lin_vel_mmps, 2.0) - pow(ball->getFilteredSpeed().lenght(), 2.0))/2.0;
+    float b = -(ball->getFilteredSpeed().X() * xDelta + ball->getFilteredSpeed().Y() * yDelta);
     float b2_4ac = pow(robot->physic.max_lin_vel_mmps * xDelta, 2.0)
-            - pow(ball->Speed().Y() * xDelta ,2.0)
-            + 2.0 * ball->Speed().X() * ball->Speed().Y() * xDelta * yDelta
+            - pow(ball->getFilteredSpeed().Y() * xDelta ,2.0)
+            + 2.0 * ball->getFilteredSpeed().X() * ball->getFilteredSpeed().Y() * xDelta * yDelta
             + pow(robot->physic.max_lin_vel_mmps * yDelta ,2.0)
-            - pow(ball->Speed().X() * yDelta ,2.0);
+            - pow(ball->getFilteredSpeed().X() * yDelta ,2.0);
 
     float neededTime1 = (-b + sqrt(b2_4ac))/(2.0*a);
     float neededTime2 = (-b - sqrt(b2_4ac))/(2.0*a);
 
-    Vector2D newPosition1 = Vector2D(ball->Position() + ball->Speed() * neededTime1);
-    Vector2D newPosition2 = Vector2D(ball->Position() + ball->Speed() * neededTime2);
+    Vector2D newPosition1 = Vector2D(ball->Position() + ball->getFilteredSpeed() * neededTime1);
+    Vector2D newPosition2 = Vector2D(ball->Position() + ball->getFilteredSpeed() * neededTime2);
 
     neededTime = min(neededTime1 + wastedTimeForInertia(robot, newPosition1),
                      neededTime2 + wastedTimeForInertia(robot, newPosition2));
@@ -438,7 +462,13 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall(SSLRo
     const SSLBall* ball = world->mainBall();
 
     if (robot && ball) {
-        return whenWhereCanRobotCatchTheBall_imp1(robot);
+        uint hashID = _getHashID(robot);
+        if (f_whenWhereCanCatchTheBall[hashID] == 0) {
+            f_whenWhereCanCatchTheBall[hashID] = 1;
+            return c_whenWhereCanCatchTheBall[hashID] =
+                    whenWhereCanRobotCatchTheBall_imp1(robot);
+        }
+        return c_whenWhereCanCatchTheBall[hashID];
     }
     return RobotIntersectTime(INFINITY, Vector2D(INFINITY, INFINITY), robot);
 }
@@ -568,5 +598,20 @@ bool SSLAnalyzer::isPointWithinOurPenaltyArea(const Vector2D &point)
 bool SSLAnalyzer::isPointInOurSide(const Vector2D &point)
 {
     return (point.X() * decision->ourSide() > 0);
+}
+
+void SSLAnalyzer::initialize_caches()
+{
+    memset(f_distance_robot_ball     , 0, sizeof f_distance_robot_ball     );
+    memset(f_distance_robot_robot    , 0, sizeof f_distance_robot_robot    );
+    memset(f_canKick                 , 0, sizeof f_canKick                 );
+    memset(f_whenWhereCanCatchTheBall, 0, sizeof f_whenWhereCanCatchTheBall);
+    f_whichRobotCanKick = 0;
+}
+
+uint SSLAnalyzer::_getHashID(const SSLRobot *robot)
+{
+    assert(robot != NULL);
+    return robot->id + MAX_ID_NUM*robot->color;
 }
 
