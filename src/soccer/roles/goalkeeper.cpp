@@ -20,7 +20,7 @@ void GoalKeeper::run()
         double distBallFromOurGoal_x = fabs(world->mainBall()->Position().X() -
                                             (game->ourSide() * FIELD_LENGTH/2) ); // [0 - 6050]
         float target_x = game->ourSide() * (FIELD_LENGTH/2 -
-                                (ROBOT_RADIUS + (distBallFromOurGoal_x * FIELD_PENALTY_AREA_RADIUS) /FIELD_LENGTH));
+                                (ROBOT_RADIUS + (distBallFromOurGoal_x * FIELD_PENALTY_AREA_RADIUS * 0.7) /FIELD_LENGTH));
         float target_y = (world->mainBall()->Position().Y() /(FIELD_WIDTH /2.0)) * (FIELD_GOAL_WIDTH /2.0);
 
         float target_teta = (world->mainBall()->Position() - Vector2D(target_x, target_y)).arctan();

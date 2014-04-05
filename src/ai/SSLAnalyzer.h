@@ -112,7 +112,7 @@ public:
     bool isOpponentIndirectKick();
 
     bool isGameRunning();
-    bool isPointWithinOurPenaltyArea(const Vector2D& point);
+    bool isPointWithinOurPenaltyArea(Vector2D point);
     bool isPointInOurSide(const Vector2D& point);
 
 private:

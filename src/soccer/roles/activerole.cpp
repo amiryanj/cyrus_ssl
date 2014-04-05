@@ -50,15 +50,17 @@ void ActiveRole::run()
     }
     else
     {
+        Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter(), 120);
         if(analyzer->canKick(m_agent->robot)) {
             m_state = e_CanKick;
         }
 
         else {
-            float distToBall = (m_agent->robot->Position().to2D() - world->mainBall()->Position()).lenght();
-            if(distToBall < 450)
+            float distToTarget = (m_agent->robot->Position().to2D() - target.to2D()).lenght();
+            if(distToTarget < 100 ) {
                 m_state = e_NearBall;
-            else if(distToBall > 650)
+            }
+            else if(distToTarget > 200)
                 m_state = e_FarFromBall;
         }
 
@@ -70,9 +72,8 @@ void ActiveRole::run()
             SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1);
             break;
         case e_FarFromBall:
-            Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter());
-            Vector3D tolerance(2*ROBOT_RADIUS, 2*ROBOT_RADIUS, M_PI_4);
-            SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, BALL_RADIUS, ROBOT_RADIUS);
+            Vector3D tolerance(ROBOT_RADIUS, ROBOT_RADIUS, M_PI_4);
+            SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 3 * BALL_RADIUS, ROBOT_RADIUS);
             break;
         }
     }

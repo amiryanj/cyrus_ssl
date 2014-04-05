@@ -42,7 +42,7 @@ void SSLSkill::goToPoint(SSLAgent *agent, const Vector3D &target, const Vector3D
         if(diff.lenght2D() < 500) // milli meter
             speedCoefficient = (diff.lenght2D() / 500.0);
 
-        speedCoefficient = pow(speedCoefficient, 0.8);  //
+        speedCoefficient = pow(speedCoefficient, 2);  //
 
         diff.normalize2D();
         Vector3D desiredSpeed = diff * speedCoefficient;
@@ -124,11 +124,11 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, const Vector3D &target, con
 void SSLSkill::goAndKick(SSLAgent *agent, Vector2D kick_target, double kickStrenghtNormal)
 {
     agent->skill_in_use = "Kick ball";
-    Vector3D target = KickStylePosition(SSLWorldModel::getInstance()->mainBall()->Position(), opponentGoalCenter(), -40);
+    Vector3D target = KickStylePosition(SSLWorldModel::getInstance()->mainBall()->Position(), kick_target, -40);
     agent->tempTarget = target;
     agent->planner.deactive();
     if(analyzer->canKick(agent->robot)) {
-        Vector3D speed(1, 0, 0); // go fast forward
+        Vector3D speed(.4, 0, 0); // go fast forward
         buildAndSendPacket(agent->getID(), speed, kickStrenghtNormal);
     }
     else {
@@ -224,7 +224,7 @@ Vector3D SSLSkill::DefenseStylePosition(const Vector2D &risky_point, const Vecto
 
 void SSLSkill::controlSpeed(SSLAgent *agent, const Vector3D& speed)
 {
-    float speedDiscountRate = .5;
+    float speedDiscountRate = .3;
     agent->desiredGlobalSpeed = speed * speedDiscountRate;
 
     float angularSpeedCoefficient = 0.00;

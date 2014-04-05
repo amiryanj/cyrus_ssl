@@ -227,7 +227,7 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToPoint(Color teamColor
 
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToPoint(const vector<SSLRobot *> &robots, const Vector2D &point, uint index)
 {
-    if(index > robots.size())
+    if(index >= robots.size())
         return RobotIntersectTime();
     vector<RobotIntersectTime> robotIntersectPoints;
     robotIntersectPoints.reserve(robots.size());
@@ -581,16 +581,14 @@ bool SSLAnalyzer::isGameRunning()
 
 // this function should be tested
 // I dont trust its functionality: Javad
-bool SSLAnalyzer::isPointWithinOurPenaltyArea(const Vector2D &point)
+bool SSLAnalyzer::isPointWithinOurPenaltyArea(Vector2D point)
 {
     float our_x = decision->ourSide() * FIELD_LENGTH/2;
     if((point - Vector2D(our_x, FIELD_PENALTY_AREA_WIDTH/2)).lenght() < FIELD_PENALTY_AREA_RADIUS)
         return true;
     if((point - Vector2D(our_x, -FIELD_PENALTY_AREA_WIDTH/2)).lenght() < FIELD_PENALTY_AREA_RADIUS)
         return true;
-    if(fabs(point.Y()) < FIELD_PENALTY_AREA_WIDTH/2 &&
-            fabs(point.X()) > (decision->ourSide() * (FIELD_LENGTH - FIELD_PENALTY_AREA_RADIUS )) &&
-            isPointInOurSide(point))
+    if(fabs(point.Y()) < FIELD_PENALTY_AREA_WIDTH/2 && fabs(point.X() - our_x) < FIELD_PENALTY_AREA_RADIUS)
         return true;
     return false;
 }

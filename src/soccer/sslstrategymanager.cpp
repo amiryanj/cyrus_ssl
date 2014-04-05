@@ -182,7 +182,7 @@ SSLStrategyManager::SSLStrategyManager()
 SSLStrategy *SSLStrategyManager::updateStrategy(SSLStrategy *strategy)
 {
     if(analyzer->isGameRunning()) {
-        strategy = normalPlay_1;
+        strategy = defensePlay_1;
     }
 
 //    else if(world->m_refereeState == SSLReferee::Stop) {
