@@ -24,6 +24,7 @@ Vector3D WaitPass::expectedPosition()
 
 void WaitPass::run()
 {
+//    Vector3D target(game->ourSide() * (FIELD_LENGTH / 2.0) + 10, 10, 0); // for test invalid goal point
     Vector3D target = SSLSkill::KickStylePosition(SSLSkill::opponentMidfieldUpPosition().to2D(),
                                                   SSLSkill::opponentGoalCenter(), 100);
     Vector3D tolerance(100, 100, M_PI/4);

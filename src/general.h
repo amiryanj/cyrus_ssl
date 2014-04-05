@@ -53,6 +53,8 @@ typedef Vector3D point3D;
 #define ROBOT_RADIUS        90.0
 #define BALL_RADIUS         21.5
 
+#define GOALKEPPER_DEFAULT_ID 5
+
 #define CAMERA_FPS   20.0
 // 10
 

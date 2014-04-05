@@ -121,7 +121,7 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, const Vector3D &target, con
 // and setting the orientation such that it can kick the ball
 // TO DO:
 // it should get the target to shoot
-void SSLSkill::goAndKick(SSLAgent *agent, double kickStrenghtNormal)
+void SSLSkill::goAndKick(SSLAgent *agent, Vector2D kick_target, double kickStrenghtNormal)
 {
     agent->skill_in_use = "Kick ball";
     Vector3D target = KickStylePosition(SSLWorldModel::getInstance()->mainBall()->Position(), opponentGoalCenter(), -40);
@@ -214,11 +214,11 @@ Vector3D SSLSkill::KickStylePosition(const Vector2D &kick_point, const Vector2D 
     return pos;
 }
 
-Vector3D SSLSkill::DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point, float dist)
+Vector3D SSLSkill::DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point, float dist_from_risky)
 {
     Vector2D dir = (risky_point - defense_point).normalized();
     float orien = dir.arctan();
-    Vector3D pos(risky_point - dir * (dist + ROBOT_RADIUS), orien);
+    Vector3D pos(risky_point - dir * (dist_from_risky + ROBOT_RADIUS), orien);
     return pos;
 }
 

@@ -86,7 +86,7 @@ private:
     void buildVelocityProfile();
     void solveInvalidInitialState();
     void solveInvalidGoalState();
-    bool isGoalStateValid();
+//    bool isGoalStateValid();
 
     float EucleadianDistance(const Station& A, const Station& B);
 

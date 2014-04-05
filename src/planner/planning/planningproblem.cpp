@@ -14,18 +14,20 @@ bool PlanningProblem::solve()
 {
     double start_time = currentTimeMSec();
     planningResult = false;
+
+    if (!CheckValidity(goal.goal_point)) {
+        cerr << "Warning: the Goal state is drawn in an obstacle" << endl;
+        solveInvalidGoalState();
+    }
+
     if(goal.minDistTo(initialState) == 0) { // if it is already in the goal region
         tree.clear();
         trajec.clear();
         planningResult = true;
     }
+
     else if(!CheckValidity(initialState))
         solveInvalidInitialState();
-    else if (!CheckValidity(goal.goal_point))  {
-        cerr << "Warning: the Goal state is drawn in an obstacle" << endl;
-        // for example: dont search
-//        solveInvalidGoalState();
-    }
 
     else {
         PotentialFieldSolve();
@@ -416,11 +418,18 @@ void PlanningProblem::solveInvalidInitialState()
 
 void PlanningProblem::solveInvalidGoalState()
 {
-    for(int i=0; i<stat_obstacles.size(); i++) {
+    for(uint i=0; i<stat_obstacles.size(); i++) {
         Obstacle* ob = stat_obstacles[i];
+        if(ob == NULL) continue;
+        if(hasCollision(goal.goal_point, *ob)) {
+            Vector2D diff = goal.goal_point.position.to2D() - Vector2D(ob->m_transform.p);
+            float displacement_ = agent.shape->m_radius + ob->shape->m_radius - diff.lenght();
+            if(displacement_ > 0)
+                goal.goal_point.position = goal.goal_point.position + (diff.normalized() * displacement_ * 1.1).to3D();
+            break;
+        }
 
         // TODO : make a strategy for handling this situation
-//        if(hasCollision(goal.goal_point, *ob))
             //
     }
 }

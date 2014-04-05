@@ -33,7 +33,7 @@ public:
                                      float ball_ob_radius = BALL_RADIUS,
                                      float robot_ob_radius = ROBOT_RADIUS);
 
-    static void goAndKick(SSLAgent* agent, double kickStrenghtNormal = 1);
+    static void goAndKick(SSLAgent* agent, Vector2D kick_target, double kickStrenghtNormal = 1);
 
     static void goAndChip(SSLAgent* agent, double chipStrenghtNormal = 1);
 
@@ -54,7 +54,7 @@ public:
     static Vector3D opponentMidfieldDownPosition();
     static Vector3D KickStylePosition(const Vector2D &kick_point, const Vector2D &kickTarget, float dist = 100);
     static Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point,
-                                         float dist = 2 * ROBOT_RADIUS);
+                                         float dist_from_risky = 2 * ROBOT_RADIUS);
     
 private:
     static void buildAndSendPacket(int id, Vector3D &vel, float kickSpeed = 0);

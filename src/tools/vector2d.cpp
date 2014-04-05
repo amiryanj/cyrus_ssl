@@ -151,6 +151,8 @@ void Vector2D::normalize()
         _x *= oneOverMag;
         _y *= oneOverMag;
     }
+    else
+        this->set(sqrt(2)/2, sqrt(2)/2);
 }
 
 Vector2D Vector2D::normalized() const
@@ -163,6 +165,9 @@ Vector2D Vector2D::normalized() const
         temp._x *= oneOverMag;
         temp._y *= oneOverMag;
     }
+    else
+        temp.set(sqrt(2)/2, sqrt(2)/2);
+
     return temp;
 }
 

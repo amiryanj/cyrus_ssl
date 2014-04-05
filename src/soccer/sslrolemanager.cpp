@@ -52,17 +52,30 @@ void SSLRoleManager::AssignRole(SSLStrategy *strategy, vector<SSLAgent*> agents)
         vector<SSLRole* > roleList = strategy->m_roleList;
         for(int i = roleList.size()-1; i >=0 ; i--) {
             SSLRole* role = roleList[i];
-            if(role->m_hardness == 0) {
+            int min_id = MAX_ID_NUM;
+            int goalie_index = -1;
+            SSLAgent* goalie_agent = NULL;
+            if(role->m_hardness == 0) // goal_keeper
+            {
                 for(uint j=0; j < agents.size(); j++) {
                     SSLAgent* agent = agents[j];
-                    if(agent->role == NULL)
+                    if(agent->isNull())
                         continue;
-                    if(agent->role->m_type == role->m_type) {
-                        joinAgentAndRole(agent, role);
-                        agents.erase(agents.begin() + j);
-                        roleList.erase(roleList.begin() + i);
+                    if(agent->getID() == GOALKEPPER_DEFAULT_ID) {
+                        goalie_agent = agent;
+                        goalie_index = j;
                         break;
                     }
+                    if(agent->getID() < min_id) {
+                        min_id = agent->getID();
+                        goalie_agent = agent;
+                        goalie_index = j;
+                    }
+                }
+                if(goalie_agent != NULL) {
+                    joinAgentAndRole(goalie_agent, role);
+                    agents.erase(agents.begin() + goalie_index);
+                    roleList.erase(roleList.begin() + i);
                 }
             }
         }

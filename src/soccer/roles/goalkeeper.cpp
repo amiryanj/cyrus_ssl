@@ -11,7 +11,7 @@ GoalKeeper::GoalKeeper()
 void GoalKeeper::run()
 {
     if(analyzer->isPointWithinOurPenaltyArea(world->mainBall()->Position())) {
-        SSLSkill::goAndKick(m_agent, 1); // goAndChip()
+        SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1); // goAndChip()
     }
 
     else {
