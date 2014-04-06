@@ -26,7 +26,7 @@ public:
 
     static void halt(SSLAgent* agent);
 
-    static void goToPoint(SSLAgent* agent, const Vector3D &target, const Vector3D &tolerance);
+    static void goToPoint(SSLAgent* agent, Vector3D target, const Vector3D &tolerance);
 
     static void goToPointWithPlanner(SSLAgent *agent, const Vector3D &target, const Vector3D &tolerance,
                                      bool considerPenaltyArea = true,
@@ -59,6 +59,7 @@ public:
 private:
     static void buildAndSendPacket(int id, Vector3D &vel, float kickSpeed = 0);
     static void printRobotAppliedSpeed(SSLAgent* agent, std::ostream& stream);
+    static Vector3D calcSpeed(const Vector3D &current, const Vector3D &target);
     static void controlSpeed(SSLAgent* agent, const Vector3D &speed);
 
 };
