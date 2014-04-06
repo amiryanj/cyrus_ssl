@@ -3,6 +3,8 @@
 #include "../ai/SSLWorldModel.h"
 #include "../definition/SSLRobot.h"
 
+#define EPS 1e-5
+
 BallFilter::BallFilter()
 {
     last_update_time_msec = 0;
@@ -10,6 +12,7 @@ BallFilter::BallFilter()
     rawPositionList.reserve(MAX_BALL_MEMORY + 1);
     // rawSpeedList is set to zero by default
     __medianFilterIndex = 0;
+    __speedLimitFilter = 7;
 }
 
 void BallFilter::putNewFrame(const Frame &fr)
@@ -23,8 +26,12 @@ void BallFilter::putNewFrame(const Frame &fr)
     last_update_time_msec = fr.timeStampMilliSec;
 
     Vector2D currentSpeed_;
-    if (rawPositionList.size() >= 2)
-        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList[1].position.to2D()) / last_delta_t_sec;
+    if (rawPositionList.size() >= __speedLimitFilter)
+        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList[__speedLimitFilter].position.to2D())
+                / (rawPositionList[0].timeStampMilliSec - rawPositionList[__speedLimitFilter].timeStampMilliSec);
+    else
+        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList.back().position.to2D())
+                / (rawPositionList[0].timeStampMilliSec - rawPositionList.back().timeStampMilliSec);
 
     rawSpeedList[__medianFilterIndex++] = currentSpeed_;
     if (__medianFilterIndex >= MAX_BALL_MEDIAN_MEMORY)
@@ -49,7 +56,43 @@ void BallFilter::runFilter()
     if( rawPositionList.size() == 0 )
         return;
 
+
+
+    //.first is length, second is index
+    pair<float, int> medianFilterValues[MAX_BALL_MEDIAN_MEMORY];
+    for (int i = 0; i < MAX_BALL_MEDIAN_MEMORY; i++)
+        medianFilterValues[i] = make_pair(rawSpeedList[i].lenght(), i);
+
+    sort(medianFilterValues, medianFilterValues + MAX_BALL_MEDIAN_MEMORY);
+    int medianFilteredSpeed_Index = medianFilterValues[MAX_BALL_MEDIAN_MEMORY/2].second;
+    m_medianFilteredSpeed = rawSpeedList[medianFilteredSpeed_Index];
+
+
+
     Frame last_frame = rawPositionList.front();
+    /*  farzad's prediction */
+    /*
+    if (rawPositionList.size() >= 2) {
+        last_frame = rawPositionList[1];
+        last_frame.position += Vector3D(m_medianFilteredSpeed * last_delta_t_sec, 0.0);
+    }
+    */
+    /* javad's prediction */
+
+    for (int i = 0 ; i < MAX_BALL_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
+        if (fabs(((rawPositionList[i].position.to2D() - rawPositionList[i+1].position.to2D())
+                  / (rawPositionList[i].timeStampMilliSec - rawPositionList[i+1].timeStampMilliSec)).lenght()
+                - m_medianFilteredSpeed.lenght()) <= EPS)
+        {
+            last_frame.position =
+                    rawPositionList[i+1].position + Vector3D(
+                        m_medianFilteredSpeed *
+                        (rawPositionList[0].timeStampMilliSec - rawPositionList[i+1].timeStampMilliSec) * (i+1), 0.0
+                        );
+            break;
+        }
+
+
     Vector3D last_observe = last_frame.position;
 
     naiveFilter.predict(last_delta_t_sec);
@@ -70,21 +113,12 @@ void BallFilter::runFilter()
     }
     else {
         naiveFilter.m_alfa = 0.1;
-        naiveFilter.m_beta = 0.05;
+        naiveFilter.m_beta = 0.03;
     }
 
     FilterState fs = naiveFilter.filter();
     this->m_filteredPosition = fs.pos.to2D();
     this->m_unfilteredSpeed = fs.vel.to2D();
-
-    //.first is length, second is index
-    pair<float, int> medianFilterValues[MAX_BALL_MEDIAN_MEMORY];
-    for (int i = 0; i < MAX_BALL_MEDIAN_MEMORY; i++)
-        medianFilterValues[i] = make_pair(rawSpeedList[i].lenght(), i);
-
-    sort(medianFilterValues, medianFilterValues + MAX_BALL_MEDIAN_MEMORY);
-    int medianFilteredSpeed_Index = medianFilterValues[MAX_BALL_MEDIAN_MEMORY/2].second;
-    m_medianFilteredSpeed = rawSpeedList[medianFilteredSpeed_Index];
 }
 
 Vector2D BallFilter::getUnfilteredSpeed() const

@@ -13,7 +13,7 @@
 #define goalLeftPost 1675
 #define goalRightPost 2375
 #define robotObstacle 100
-#define BALL_FRICTION_COEFF  10.0
+#define BALL_FRICTION_COEFF  4.0
 
 #define POSSESSION_THRESHOLD 0.03
 
@@ -406,8 +406,8 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(
 
     const SSLBall* ball = world->mainBall();
 
-    float stopTime = fabs(ball->getFilteredSpeed().lenght()) / BALL_FRICTION_COEFF;
-    Vector2D newPosition(ball->Position() + ball->getFilteredSpeed() * stopTime);
+    float stopTime = fabs(ball->Speed().lenght()) / BALL_FRICTION_COEFF;
+    Vector2D newPosition(ball->Position() + ball->Speed() * stopTime);
 
     float distanceOfNewPositionToRobot = (robot->Position().to2D() - newPosition).lenght();
 
@@ -415,8 +415,6 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(
     neededTime += wastedTimeForInertia(robot, newPosition);
     stopCaseAnswer.m_time = neededTime;
     stopCaseAnswer.m_position = newPosition;
-    if (ball->getFilteredSpeed().lenght() < 1.0)
-        return stopCaseAnswer;
     /* cross case
      solves using (x-xb)^2 + (y-yb)^2 = r(t)^2 and vb = cte
      r(t): radius robot can be in t seconds from now
@@ -429,19 +427,19 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(
     float xDelta = ball->Position().X() - robot->Position().X();
     float yDelta = ball->Position().Y() - robot->Position().Y();
 
-    float a = (pow(robot->physic.max_lin_vel_mmps, 2.0) - pow(ball->getFilteredSpeed().lenght(), 2.0))/2.0;
-    float b = -(ball->getFilteredSpeed().X() * xDelta + ball->getFilteredSpeed().Y() * yDelta);
+    float a = (pow(robot->physic.max_lin_vel_mmps, 2.0) - pow(ball->Speed().lenght(), 2.0))/2.0;
+    float b = -(ball->Speed().X() * xDelta + ball->Speed().Y() * yDelta);
     float b2_4ac = pow(robot->physic.max_lin_vel_mmps * xDelta, 2.0)
-            - pow(ball->getFilteredSpeed().Y() * xDelta ,2.0)
-            + 2.0 * ball->getFilteredSpeed().X() * ball->getFilteredSpeed().Y() * xDelta * yDelta
+            - pow(ball->Speed().Y() * xDelta ,2.0)
+            + 2.0 * ball->Speed().X() * ball->Speed().Y() * xDelta * yDelta
             + pow(robot->physic.max_lin_vel_mmps * yDelta ,2.0)
-            - pow(ball->getFilteredSpeed().X() * yDelta ,2.0);
+            - pow(ball->Speed().X() * yDelta ,2.0);
 
     float neededTime1 = (-b + sqrt(b2_4ac))/(2.0*a);
     float neededTime2 = (-b - sqrt(b2_4ac))/(2.0*a);
 
-    Vector2D newPosition1 = Vector2D(ball->Position() + ball->getFilteredSpeed() * neededTime1);
-    Vector2D newPosition2 = Vector2D(ball->Position() + ball->getFilteredSpeed() * neededTime2);
+    Vector2D newPosition1 = Vector2D(ball->Position() + ball->Speed() * neededTime1);
+    Vector2D newPosition2 = Vector2D(ball->Position() + ball->Speed() * neededTime2);
 
     neededTime = min(neededTime1 + wastedTimeForInertia(robot, newPosition1),
                      neededTime2 + wastedTimeForInertia(robot, newPosition2));
