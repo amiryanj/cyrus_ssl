@@ -142,12 +142,12 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
 
     // test
     packet->set_comment("Test Analyzer Packet ");
-    SSLAnalyzer::RobotIntersectTime nearest = analyzer->nearestRobotToBall(SSL::Blue);
+    SSLAnalyzer::RobotIntersectTime nearest = analyzer->nearestRobotIntersectBall(SSL::Blue);
     if(nearest.isValid())
         packet->set_nearest_blue_id(nearest.m_robot->id);
     else
         packet->set_nearest_blue_id(0);// default nearest robot
-    nearest = analyzer->nearestRobotToBall(SSL::Yellow);
+    nearest = analyzer->nearestRobotIntersectBall(SSL::Yellow);
     if(nearest.isValid())
         packet->set_nearest_yellow_id(nearest.m_robot->id);
     else
@@ -155,7 +155,7 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
 
     packet->set_possessor_team(ssl_analyzer_packet_Color_blue);
 
-    nearest = analyzer->nearestRobotToBall();
+    nearest = analyzer->nearestRobotIntersectBall();
     if(nearest.isValid())
         packet->set_nearest_can_kick(analyzer->canKick(nearest.m_robot));
     else

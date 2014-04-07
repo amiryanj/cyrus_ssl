@@ -51,7 +51,7 @@ SSLStrategyManager::SSLStrategyManager()
             new WaitPass(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new Blocker(),
+            new Blocker(1),
         };
         for (int i=0; i<6; i++) {
             offensePlay_1->m_roleList.push_back(r[i]);
@@ -67,7 +67,7 @@ SSLStrategyManager::SSLStrategyManager()
             new GoalKeeper(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new Blocker(),
+            new Blocker(1),
             new Defender(3, 3),
         };
         for (int i=0; i<6; i++) {
@@ -84,7 +84,7 @@ SSLStrategyManager::SSLStrategyManager()
             new GoalKeeper(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new Blocker(),
+            new Blocker(1),
             new WaitPass(),
         };
         for (int i=0; i<6; i++) {
@@ -101,8 +101,8 @@ SSLStrategyManager::SSLStrategyManager()
             new GoalKeeper(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new Blocker(),
-            new Blocker(),
+            new Blocker(1),
+            new Blocker(2),
         };
         for (int i=0; i<6; i++) {
             opponentKickOffFormation_1->m_roleList.push_back(r[i]);
@@ -153,7 +153,7 @@ SSLStrategyManager::SSLStrategyManager()
             new WaitPass(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new Blocker(),
+            new Blocker(1),
         };
         for (int i=0; i<6; i++) {
             ourFreeKick_1->m_roleList.push_back(r[i]);
@@ -169,8 +169,8 @@ SSLStrategyManager::SSLStrategyManager()
             new GoalKeeper(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new Blocker(),
-            new Blocker(),
+            new Blocker(1),
+            new Blocker(2),
         };
         for (int i=0; i<6; i++) {
             opponentFreeKickFormation_1->m_roleList.push_back(r[i]);

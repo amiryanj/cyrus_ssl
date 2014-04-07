@@ -188,17 +188,17 @@ bool SSLAnalyzer::canKick(SSLRobot *robot)
 
 
 // TODO : Farzad ***************************************************************************
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToBall(uint index)
+SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotIntersectBall(uint index)
 {    
-    return nearestRobotToBall(world->all_inFields(), index);
+    return nearestRobotIntersectBall(world->all_inFields(), index);
 }
 
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToBall(Color teamColor, uint index)
+SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotIntersectBall(Color teamColor, uint index)
 {
-    return nearestRobotToBall(world->getTeam(teamColor)->inFields(), index);
+    return nearestRobotIntersectBall(world->getTeam(teamColor)->inFields(), index);
 }
 
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToBall(const vector<SSLRobot *> &robots, uint index)
+SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotIntersectBall(const vector<SSLRobot *> &robots, uint index)
 {
     vector<RobotIntersectTime> timeForEachRobot;
     try {
@@ -217,6 +217,15 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToBall(const vector<SSL
         cerr << "Warning: " << "SSLAnalyzer" << mes << endl;
         return RobotIntersectTime();
     }
+}
+
+SSLRobot *SSLAnalyzer::nearestToBall(const vector<SSLRobot *> robots, uint index)
+{
+    RobotIntersectTime intersect_(nearestRobotIntersectBall(robots, index));
+    if(intersect_.isValid()) {
+        return intersect_.m_robot;
+    }
+    return NULL;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -250,37 +259,44 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToPoint(const vector<SS
     sort(robotIntersectPoints.begin(), robotIntersectPoints.end());
     return robotIntersectPoints[index];
 }
+
+SSLRobot *SSLAnalyzer::nearestToPoint(const vector<SSLRobot *> &robots, const Vector2D &point, uint index)
+{
+    RobotIntersectTime intersect_(nearestRobotToPoint(robots, point, index));
+    if(intersect_.isValid()) {
+        return intersect_.m_robot;
+    }
+    return NULL;
+}
 // ------------------------------------------------------------------------------------------
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToRobot(const SSLRobot *robot, uint index)
-{
+//SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToRobot(const SSLRobot *robot, uint index)
+//{
 
-}
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToRobot(SSL::Color teamColor, const SSLRobot *robot, uint index)
-{
+//}
+//SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToRobot(SSL::Color teamColor, const SSLRobot *robot, uint index)
+//{
 
-}
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToRobot(const vector<SSLRobot *> &robots, const SSLRobot *robot, uint index)
-{
+//}
+//SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToRobot(const vector<SSLRobot *> &robots, const SSLRobot *robot, uint index)
+//{
 
-}
+//}
 
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotsToBlockPointOutOfOurPenaltyArea(const Vector2D targetPoint, uint index)
-{
+//SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotsToBlockPointOutOfOurPenaltyArea(const Vector2D targetPoint, uint index)
+//{
 
-}
+//}
 
-//--------------------------------------------------------------------------------------------
+//SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotsToBlockPoint(const Vector2D targetPoint, uint index)
+//{
 
-//blocktrobo
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotsToBlockPoint(const Vector2D targetPoint, uint index)
-{
+//}
 
-}
+//SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotsToMarkRobot(const SSLRobot * robot, uint index)
+//{
+//    // nearest robot robot :D
+//}
 
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotsToMarkRobot(const SSLRobot * robot, uint index)
-{
-    // nearest robot robot :D
-}
 //point opponentBlockerFromPoint
 vector<SSLRobot *> SSLAnalyzer::blockersFromPoint(const Vector2D targetPoint)
 {
@@ -483,8 +499,8 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall(SSLRo
 float SSLAnalyzer::ballPossession()
 {
     float result;
-    SSLAnalyzer::RobotIntersectTime  ourRobot = nearestRobotToBall(game->ourColor());
-    SSLAnalyzer::RobotIntersectTime  opponentRobot = nearestRobotToBall(game->opponentColor());
+    SSLAnalyzer::RobotIntersectTime  ourRobot = nearestRobotIntersectBall(game->ourColor());
+    SSLAnalyzer::RobotIntersectTime  opponentRobot = nearestRobotIntersectBall(game->opponentColor());
     if(ourRobot.isValid() && opponentRobot.isValid())
     {
         if(opponentRobot.m_time > EPS)
@@ -596,6 +612,19 @@ bool SSLAnalyzer::isPointWithinOurPenaltyArea(Vector2D point)
     if((point - Vector2D(our_x, -FIELD_PENALTY_AREA_WIDTH/2)).lenght() < FIELD_PENALTY_AREA_RADIUS)
         return true;
     if(fabs(point.Y()) < FIELD_PENALTY_AREA_WIDTH/2 && fabs(point.X() - our_x) < FIELD_PENALTY_AREA_RADIUS)
+        return true;
+    return false;
+}
+
+bool SSLAnalyzer::isRobotWithinOurPenaltyArea(Vector3D robot_pos)
+{
+    float our_x = decision->ourSide() * FIELD_LENGTH/2;
+    if((robot_pos.to2D() - Vector2D(our_x, FIELD_PENALTY_AREA_WIDTH/2)).lenght() < FIELD_PENALTY_AREA_RADIUS + ROBOT_RADIUS)
+        return true;
+    if((robot_pos.to2D() - Vector2D(our_x, -FIELD_PENALTY_AREA_WIDTH/2)).lenght() < FIELD_PENALTY_AREA_RADIUS + ROBOT_RADIUS)
+        return true;
+    if(fabs(robot_pos.Y()) < FIELD_PENALTY_AREA_WIDTH/2+ROBOT_RADIUS &&
+            fabs(robot_pos.X() - our_x) < FIELD_PENALTY_AREA_RADIUS+ROBOT_RADIUS)
         return true;
     return false;
 }

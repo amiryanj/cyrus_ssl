@@ -1,20 +1,11 @@
 #include "blocker.h"
 
-Blocker::Blocker()
+Blocker::Blocker(int index_)
 {
     this->m_type = SSLRole::e_Blocker;
+    this->m_index = index_;
 
     m_hardness = 2;
-}
-
-SSLRobot *Blocker::getBlockedRobot() const
-{
-    return m_blockedRobot;
-}
-
-void Blocker::setBlockedRobot(SSLRobot *value)
-{
-    m_blockedRobot = value;
 }
 
 void Blocker::run()
@@ -26,26 +17,40 @@ void Blocker::run()
 
 Vector3D Blocker::expectedPosition()
 {
-    SSL::Color op_color = game->opponentColor();
-    Vector2D opponent_pos(0, 0);
-    SSLRobot* nearToBall = NULL;
-    SSLAnalyzer::RobotIntersectTime temp_intersect_ = analyzer->nearestRobotToBall(op_color);
-    if(temp_intersect_.isValid())
-        nearToBall = temp_intersect_.m_robot;
-    vector<SSLRobot* > others = world->getTeam(op_color)->inFieldsExcept(nearToBall);
-    temp_intersect_ = analyzer->nearestRobotToPoint(others, SSLSkill::ourGoalCenter(), 0);
-    if(temp_intersect_.isValid()) {
-        SSLRobot* nearToOurGoal = temp_intersect_.m_robot;
-        if(!analyzer->isPointWithinOurPenaltyArea(nearToOurGoal->Position().to2D())) {
-            opponent_pos = nearToOurGoal->Position().to2D();
-            if((opponent_pos - SSLSkill::ourGoalCenter()).lenght() < FIELD_LENGTH / 2) {
+    Vector3D target;
 
+    if(world->m_refereeState == SSLReferee::Stop) {
+        target = SSLSkill::wallStandFrontBall(-1);
+    }
+
+    else if(analyzer->isOpponentPenaltyPosition() || analyzer->isOpponentPenaltyKick()) {
+        target = SSLSkill::ourMidfieldDownPosition();
+    }
+
+    else {
+
+        SSLRobot* near_to_ball = analyzer->nearestToBall(game->opponentTeam()->inFields(), m_index - 1);
+        if(near_to_ball != NULL) {
+            SSLRobot* near_to_goal = analyzer->nearestToPoint(game->opponentTeam()->inFieldsExcept(near_to_ball),
+                                                              SSLSkill::ourGoalCenter());
+            if(near_to_goal != NULL) {
+                float near_to_goal_dist = (near_to_goal->Position().to2D() - SSLSkill::ourGoalCenter()).lenght();
+                near_to_goal_dist = fabs(near_to_goal_dist - FIELD_PENALTY_AREA_RADIUS * 1.5);
+                target = SSLSkill::DefenseStylePosition(near_to_goal->Position().to2D(), SSLSkill::ourGoalCenter(), near_to_goal_dist/2);
+                if(!analyzer->isRobotWithinOurPenaltyArea(target) && analyzer->isPointInOurSide(target.to2D())) {
+                   return target;
+                }
             }
         }
     }
-    Vector2D diff = opponent_pos - SSLSkill::ourGoalCenter();
-    diff.normalize();
-    Vector2D target = SSLSkill::ourGoalCenter() + diff * FIELD_PENALTY_AREA_RADIUS * 1.5;
-    return target.to3D();
+
+    if(m_index == 1) {
+        target = SSLSkill::ourMidfieldDownPosition();
+    }
+    else {
+        target = SSLSkill::ourMidfieldUpPosition();
+    }
+
+    return target;
 }
 

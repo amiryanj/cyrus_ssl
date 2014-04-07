@@ -25,7 +25,7 @@ void GoalKeeper::run()
         SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1); // goAndChip()
     }
 
-    else if(0) {
+    else if(analyzer->isOpponentDirectKick() || analyzer->isOpponentIndirectKick()) {
 
     }
 

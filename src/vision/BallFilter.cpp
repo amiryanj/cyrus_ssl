@@ -55,8 +55,6 @@ void BallFilter::runFilter()
     if( rawPositionList.size() == 0 )
         return;
 
-
-
     //.first is length, second is index
     pair<float, int> medianFilterValues[MAX_BALL_MEDIAN_MEMORY];
     for (int i = 0; i < MAX_BALL_MEDIAN_MEMORY; i++)
@@ -107,8 +105,8 @@ void BallFilter::runFilter()
         }
     }
     if(near_robots) {
-        naiveFilter.m_alfa = 0.3;
-        naiveFilter.m_beta = 0.2;
+        naiveFilter.m_alfa = 0.2;
+        naiveFilter.m_beta = 0.13;
     }
     else {
         naiveFilter.m_alfa = 0.1;

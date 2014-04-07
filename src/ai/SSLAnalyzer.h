@@ -69,22 +69,26 @@ public:
     SSLRobot* whichRobotCanKick(); // Null : none
     bool canKick(SSLRobot* robot);
 
-    RobotIntersectTime nearestRobotToBall(uint index = 0);
-    RobotIntersectTime nearestRobotToBall(SSL::Color teamColor, uint index = 0);
-    RobotIntersectTime nearestRobotToBall(const vector<SSLRobot *> & robots, uint index = 0);
+    RobotIntersectTime nearestRobotIntersectBall(uint index = 0);
+    RobotIntersectTime nearestRobotIntersectBall(SSL::Color teamColor, uint index = 0);
+    RobotIntersectTime nearestRobotIntersectBall(const vector<SSLRobot *> & robots, uint index = 0);
+
+    SSLRobot* nearestToBall(const vector<SSLRobot*> robots, uint index = 0);
 
     RobotIntersectTime nearestRobotToPoint(const Vector2D & point, uint index = 0);
     RobotIntersectTime nearestRobotToPoint(SSL::Color teamColor, const Vector2D & point, uint index = 0);
     RobotIntersectTime nearestRobotToPoint(const vector<SSLRobot*> & robots, const Vector2D & point, uint index = 0);
+
+    SSLRobot* nearestToPoint(const vector<SSLRobot*> & robots, const Vector2D & point, uint index = 0);
 
     RobotIntersectTime nearestRobotToRobot(const SSLRobot* robot, uint index = 0);
     RobotIntersectTime nearestRobotToRobot(SSL::Color teamColor, const SSLRobot * robot, uint index = 0);
     RobotIntersectTime nearestRobotToRobot(const vector<SSLRobot*> & robots,const SSLRobot * robot, uint index = 0);
 
 //   //LEVEL 2 : ROBOT & ROBOT ------------------------------------------------------------------
-    RobotIntersectTime nearestRobotsToBlockPointOutOfOurPenaltyArea(const Vector2D targetPoint, uint index =0);
-    RobotIntersectTime nearestRobotsToBlockPoint(const Vector2D targetPoint, uint index = 0);
-    RobotIntersectTime nearestRobotsToMarkRobot(const SSLRobot * robot, uint index = 0); // nazdiktarin robot be robot
+//    RobotIntersectTime nearestRobotsToBlockPointOutOfOurPenaltyArea(const Vector2D targetPoint, uint index =0);
+//    RobotIntersectTime nearestRobotsToBlockPoint(const Vector2D targetPoint, uint index = 0);
+//    RobotIntersectTime nearestRobotsToMarkRobot(const SSLRobot * robot, uint index = 0); // nazdiktarin robot be robot
 
 // LEVEL 3 : PREDICTION ------------------------------------------------------------
     SSLAnalyzer::RobotIntersectTime  whenWhereCanRobotCatchTheBall(SSLRobot* robot);
@@ -113,6 +117,7 @@ public:
 
     bool isGameRunning();
     bool isPointWithinOurPenaltyArea(Vector2D point);
+    bool isRobotWithinOurPenaltyArea(Vector3D robot_pos);
     bool isPointInOurSide(const Vector2D& point);
 
 private:

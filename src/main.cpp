@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     SSLReferee *referee = new SSLReferee(SSL_REFEREE_PORT, SSL_REFEREE_ADDRESS);
 
-    SSLVision *vision = new SSLVision(SSL_VISION_PORT, SSL_VISION_ADDRESS);
+    SSLVision *vision = new SSLVision(GRSIM_VISION_PORT, GRSIM_VISION_ADDRESS);
 
     VisionFilter *filter =  VisionFilter::getInstance();
 

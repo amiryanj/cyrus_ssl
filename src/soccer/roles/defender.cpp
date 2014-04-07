@@ -14,7 +14,7 @@ Defender::Defender(int ind, int count)
 Vector3D Defender::expectedPosition()
 {
     float x = (float)(m_defenderCount + 1)/2.0;
-    float displaceAngle = (m_defenderIndex - x) * (2 *ROBOT_RADIUS /FIELD_PENALTY_AREA_RADIUS);
+    float displaceAngle = (m_defenderIndex - x) * (1.6 *ROBOT_RADIUS /FIELD_PENALTY_AREA_RADIUS);
     Vector2D dir(world->mainBall()->Position() - SSLSkill::ourGoalCenter());
     dir.normalize();
     dir.rotate(displaceAngle);

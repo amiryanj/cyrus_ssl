@@ -247,18 +247,17 @@ Vector3D SSLSkill::calcSpeed(const Vector3D &current, const Vector3D &target)
     Vector3D diff = target - current;
     float Coeffs[3] = {1, 1, 1};
     if(diff.lenght2D() < 800) {
-        if(diff.lenght2D() > 120) {// milli meter
+        if(diff.lenght2D() > 120.0) {// milli meter
             Coeffs[0] = diff.lenght2D() / 800.0;
             Coeffs[1] = diff.lenght2D() / 800.0;
         }
         else {
-            Coeffs[0] = diff.lenght2D() / 120.0;
-            Coeffs[1] = diff.lenght2D() / 120.0;
+            Coeffs[0] = 120.0 / 800.0;
+            Coeffs[1] = 120.0 / 800.0;
         }
     }
 
-
-    Coeffs[2] = 0.05;
+    Coeffs[2] = 0.1;
 
     diff.normalize2D();
 

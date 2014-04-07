@@ -8,10 +8,7 @@
 class Blocker : public SSLRole
 {
 public:
-    Blocker();
-
-    SSLRobot *getBlockedRobot() const;
-    void setBlockedRobot(SSLRobot *value);
+    Blocker(int index_);
 
     void run();
     Vector3D expectedPosition();
@@ -19,7 +16,7 @@ public:
     int m_index;
 
 private:
-    SSLRobot* m_blockedRobot;
+
 };
 
 #endif // BLOCKER_H
