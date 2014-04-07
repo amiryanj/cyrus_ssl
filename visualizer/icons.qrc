@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/exit.png</file>
+        <file>icons/fullscreen.png</file>
+        <file>icons/network.png</file>
+        <file>icons/show-plan.png</file>
+        <file>icons/show-target.png</file>
+        <file>icons/Soccer_ball.svg.png</file>
+        <file>icons/Stop-Normal-Red.png</file>
+    </qresource>
+</RCC>
