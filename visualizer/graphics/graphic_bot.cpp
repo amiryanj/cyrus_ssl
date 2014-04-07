@@ -45,7 +45,7 @@ void RobotGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem 
         }
 
         if(this->canKick) {
-            QPen pen(QColor(Qt::cyan));
+            QPen pen(QColor(Qt::darkCyan));
             pen.setWidth(10);
             painter->setPen(pen);
             painter->setBrush(QColor(Qt::transparent));

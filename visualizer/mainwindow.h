@@ -64,6 +64,7 @@ private slots:
     void on_actionShow_Plans_toggled(bool arg1);
 
 private:
+
     Ui::MainWindow *ui;
     FieldScene *field;
     PacketReceiver *receiver;
@@ -79,6 +80,7 @@ private:
     QVBoxLayout leftVLayout;
     QVBoxLayout middleVLayout;
     QVBoxLayout rightVLayout;
+
 };
 
 #endif // MAINWINDOW_H

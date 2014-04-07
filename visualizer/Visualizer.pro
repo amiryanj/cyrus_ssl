@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     selectcolordialog.cpp \
     graphics/graphic_plan.cpp \
     graphics/graphic_circle.cpp \
-    graphics/graphic_intersect.cpp
+    graphics/graphic_intersect.cpp \
+    selectplotdialog.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -66,12 +67,14 @@ HEADERS  += mainwindow.h \
     selectcolordialog.h \
     graphics/graphic_plan.h \
     graphics/graphic_circle.h \
-    graphics/graphic_intersect.h
+    graphics/graphic_intersect.h \
+    selectplotdialog.h
 
 FORMS    += mainwindow.ui \
     plotwidget.ui \
     fieldscene.ui \
-    selectcolordialog.ui
+    selectcolordialog.ui \
+    selectplotdialog.ui
 
 RESOURCES += \
     icons.qrc

@@ -3,6 +3,8 @@
 
 #include <QTableWidgetItem>
 #include <QPicture>
+#include <QStringList>
+#include "selectplotdialog.h"
 
 MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     QMainWindow(parent),
@@ -140,7 +142,19 @@ void MainWindow::setupTable()
 
 void MainWindow::on_ourRobotsTableWidget_cellDoubleClicked(int row, int column)
 {
-    QString plotName = QString((ourColor==SSL::Blue)?"Blue%1":"Yellow%1").arg(row);
+    QString plotName = QString((ourColor==SSL::Blue)?"Blue%1 ":"Yellow%1 ").arg(row);
+    SelectPlotDialog dialog;
+    if(dialog.exec() == QDialog::Accepted) {
+        if(dialog.is_x_selected())
+            plotName.append("X");
+        if(dialog.is_y_selected())
+            plotName.append("Y");
+        if(dialog.is_mag_selected())
+            plotName.append("M");
+        if(dialog.is_teta_selected())
+            plotName.append("T");
+    }
+
     PlotWidget* plot;
     if(!plotList.contains(plotName))
         plot = addPlot(3, plotName);
@@ -152,7 +166,20 @@ void MainWindow::on_ourRobotsTableWidget_cellDoubleClicked(int row, int column)
 
 void MainWindow::on_opRobotsTableWidget_cellDoubleClicked(int row, int column)
 {
-    QString plotName = QString((ourColor!=SSL::Blue)?"Blue%1":"Yellow%1").arg(row);
+    QString plotName = QString((ourColor==SSL::Yellow)?"Blue%1 ":"Yellow%1 ").arg(row);
+    SelectPlotDialog dialog;
+    if(dialog.exec() == QDialog::Accepted) {
+        if(dialog.is_x_selected())
+            plotName.append("X");
+        if(dialog.is_y_selected())
+            plotName.append("Y");
+        if(dialog.is_mag_selected())
+            plotName.append("M");
+        if(dialog.is_teta_selected())
+            plotName.append("T");
+    }
+
+
     PlotWidget* plot;
     if(!plotList.contains(plotName))
         plot = addPlot(3, plotName);
@@ -170,12 +197,25 @@ void MainWindow::updateRobotVelocity(RobotState state)
 
 void MainWindow::plotRobotVelocity(int id, QVector3D desired, QVector3D applied)
 {
-    QString str = ((ourColor==SSL::Blue)? "Blue":"Yellow") + QString::number(id);
-    if(plotList.contains(str)) {
-        PlotWidget* plot = plotList[str];
-        QVector<double> values;
-        values << ourActualVelocity[id].x() << desired.x() << applied.x() ;
-        plot->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
+    QStringList str_list;
+    str_list << "X" << "Y" << "M" << "T";
+    for(int i = 0 ; i < str_list.size() ; i++)
+    {
+        QString str = ((ourColor==SSL::Blue)? "Blue":"Yellow") + QString::number(id) + " " + str_list[i];
+        if(plotList.contains(str))
+        {
+            PlotWidget* plot = plotList[QString("%1").arg(str)];
+            QVector<double> values;
+            if(str_list.at(i) == "X")
+                values << ourActualVelocity[id].x() << desired.x() << applied.x() ;
+            else if(str_list.at(i) == "Y")
+                values << ourActualVelocity[id].y() << desired.y() << applied.y() ;
+            else if(str_list.at(i) == "M")
+                values << ourActualVelocity[id].toVector2D().length() << desired.toVector2D().length() << applied.toVector2D().length() ;
+             else if(str_list.at(i) == "Y")
+                values << ourActualVelocity[id].z() << desired.z() << applied.z() ;
+            plot->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
+        }
     }
 }
 
