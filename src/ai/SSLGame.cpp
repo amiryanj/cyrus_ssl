@@ -74,7 +74,7 @@ void SSLGame::SetColor_Side(Color ourC, Side ourS)
 void SSLGame::check()
 {
     // TODO
-    cout << "Game is running" << endl;
+//    cout << "Decision (SSLGame) is running" << endl;
     bool changeInAgents = false;
     updateAgents(changeInAgents);
 

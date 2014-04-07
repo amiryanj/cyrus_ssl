@@ -16,7 +16,7 @@ void SSLSkill::halt(SSLAgent *agent)
     Vector3D zeroSpeed;
     zeroSpeed.setZero();
 
-    controlSpeed(agent, zeroSpeed);
+    controlSpeed(agent, zeroSpeed, false);
 }
 
 void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, const Vector3D &tolerance)
@@ -36,11 +36,11 @@ void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, const Vector3D &toler
     {
         Vector3D zeroSpeed;
         zeroSpeed.setZero();
-        controlSpeed(agent, zeroSpeed);
+        controlSpeed(agent, zeroSpeed, false);
     }
     else {
         Vector3D speed = calcSpeed(agent->robot->Position(), target);
-        controlSpeed(agent, speed);
+        controlSpeed(agent, speed, true);
     }
 }
 
@@ -97,16 +97,16 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, const Vector3D &target, con
 
         Vector3D diff = target - agent->robot->Position();
         float speedCoefficient = 1;
-        if(diff.lenght2D() < 400) // milli meter
-            speedCoefficient = (diff.lenght2D() / 400.0 );
+        if(diff.lenght2D() < 600) // milli meter
+            speedCoefficient = (diff.lenght2D() / 600.0 );
 
         Vector3D desiredSpeed = vel * speedCoefficient;
-        controlSpeed(agent, desiredSpeed);
+        controlSpeed(agent, desiredSpeed, true);
     }
     else {
         Vector3D zeroSpeed;
         zeroSpeed.setZero();
-        controlSpeed(agent, zeroSpeed);
+        controlSpeed(agent, zeroSpeed, true);
     }
 }
 
@@ -122,12 +122,12 @@ void SSLSkill::goAndKick(SSLAgent *agent, Vector2D kick_target, double kickStren
     agent->planner.deactive();
     if(analyzer->canKick(agent->robot)) {
         Vector3D speed(.4, 0, 0); // go fast forward
-        controlSpeed(agent, speed);
+        controlSpeed(agent, speed, true);
         // TODO send kick packet
     }
     else {
         Vector3D speed = calcSpeed(agent->robot->Position(), target);
-        controlSpeed(agent, speed);
+        controlSpeed(agent, speed, true);
     }
 }
 
@@ -135,15 +135,6 @@ void SSLSkill::goAndChip(SSLAgent *agent, double chipStrenghtNormal)
 {
     agent->skill_in_use = "Chip ball";
     agent->planner.deactive();
-}
-
-void SSLSkill::buildAndSendPacket(int id, Vector3D &vel, float kickPower)
-{
-    bool useNewRobotWheelAngles = true;
-
-    RobotCommandPacket pkt(vel, useNewRobotWheelAngles, kickPower);
-
-    CommandTransmitter::getInstance()->send(id, pkt);
 }
 
 void SSLSkill::printRobotAppliedSpeed(SSLAgent *agent, ostream &stream)
@@ -154,21 +145,6 @@ void SSLSkill::printRobotAppliedSpeed(SSLAgent *agent, ostream &stream)
             << " ,V <angle>= " << agent->appliedLocalSpeed.to2D().arctan()
             << " <speed>= "<< agent->appliedLocalSpeed.lenght2D()
             << " omega= "  << agent->appliedLocalSpeed.Teta() << endl;
-}
-
-Vector3D SSLSkill::calcSpeed(const Vector3D &current, const Vector3D &target)
-{
-    Vector3D diff = target - current;
-    Vector3D speedCoefficient(1, 1, 0.2);
-    if(diff.lenght2D() < 500) // milli meter
-        speedCoefficient = diff / 500.0;
-
-    speedCoefficient = pow(speedCoefficient, 1.5);  //
-
-    diff.normalize2D();
-
-    Vector3D speed = diff.dotProduct(speedCoefficient);
-    return speed;
 }
 
 Vector2D SSLSkill::opponentPenaltyPoint()
@@ -188,14 +164,21 @@ Vector2D SSLSkill::ourGoalCenter()
 
 Vector3D SSLSkill::ourMidfieldUpPosition()
 {
-    float x_ = game->ourSide() * (FIELD_LENGTH / 4);
+    float x_ = game->ourSide() * (FIELD_LENGTH / 4) * 0.8;
     Vector2D point(x_, +700);
+    return KickStylePosition(point, opponentGoalCenter(), 0);
+}
+
+Vector3D SSLSkill::ourMidfieldCenterPosition()
+{
+    float x_ = game->ourSide() * (FIELD_LENGTH / 4) * 0.8;
+    Vector2D point(x_, 0);
     return KickStylePosition(point, opponentGoalCenter(), 0);
 }
 
 Vector3D SSLSkill::ourMidfieldDownPosition()
 {
-    float x_ = game->ourSide() * (FIELD_LENGTH / 4);
+    float x_ = game->ourSide() * (FIELD_LENGTH / 4) * 0.8;
     Vector2D point(x_, -700);
     return KickStylePosition(point, opponentGoalCenter(), 0);
 }
@@ -203,15 +186,44 @@ Vector3D SSLSkill::ourMidfieldDownPosition()
 Vector3D SSLSkill::opponentMidfieldUpPosition()
 {
     float x_ = game->opponentSide() * (FIELD_LENGTH / 4);
-    Vector2D point(x_, +700);
+    Vector2D point(x_, +900);
     return KickStylePosition(point, opponentGoalCenter(), 0);
 }
 
 Vector3D SSLSkill::opponentMidfieldDownPosition()
 {
     float x_ = game->opponentSide() * (FIELD_LENGTH / 4);
-    Vector2D point(x_, -700);
+    Vector2D point(x_, -900);
     return KickStylePosition(point, opponentGoalCenter(), 0);
+}
+
+Vector3D SSLSkill::midlineUpPosition()
+{
+    Vector2D point(0, 700);
+    return KickStylePosition(point, opponentGoalCenter(), 0);
+}
+
+Vector3D SSLSkill::midlineDownPosition()
+{
+    Vector2D point(0, 700);
+    return KickStylePosition(point, opponentGoalCenter(), 0);
+}
+
+Vector3D SSLSkill::wallStandFrontBall(int number)
+{
+    Vector2D def_point = ourGoalCenter();
+    switch(number) {
+    case -1:
+        def_point.setY(-FIELD_GOAL_WIDTH * 0.8);
+    case 0:
+        def_point.setY(0);
+    case 1:
+        def_point.setY(FIELD_GOAL_WIDTH * 0.8);
+    default:
+        def_point.setY(FIELD_GOAL_WIDTH * 0.8);
+    }
+
+    return DefenseStylePosition(world->mainBall()->Position(), def_point, 500);
 }
 
 Vector3D SSLSkill::KickStylePosition(const Vector2D &kick_point, const Vector2D &target, float dist)
@@ -230,21 +242,64 @@ Vector3D SSLSkill::DefenseStylePosition(const Vector2D &risky_point, const Vecto
     return pos;
 }
 
-void SSLSkill::controlSpeed(SSLAgent *agent, const Vector3D& speed)
+Vector3D SSLSkill::calcSpeed(const Vector3D &current, const Vector3D &target)
 {
-    float speedDiscountRate = 0.3;
+    Vector3D diff = target - current;
+    float Coeffs[3] = {1, 1, 1};
+    if(diff.lenght2D() < 800) {
+        if(diff.lenght2D() > 120) {// milli meter
+            Coeffs[0] = diff.lenght2D() / 800.0;
+            Coeffs[1] = diff.lenght2D() / 800.0;
+        }
+        else {
+            Coeffs[0] = diff.lenght2D() / 120.0;
+            Coeffs[1] = diff.lenght2D() / 120.0;
+        }
+    }
+
+
+    Coeffs[2] = 0.05;
+
+    diff.normalize2D();
+
+    Vector3D speed(diff.X() * Coeffs[0], diff.Y() * Coeffs[1], diff.Teta() * Coeffs[2]);
+    cout << speed.X() << " " << speed.Y() << " " << speed.Teta() << endl;
+    return speed;
+}
+
+void SSLSkill::controlSpeed(SSLAgent *agent, const Vector3D& speed, bool use_controller)
+{
+    float speedDiscountRate = 0.75;
     agent->desiredGlobalSpeed = speed * speedDiscountRate;
 
-    float angularSpeedCoefficient = 0.004;
+    float angularSpeedCoefficient = 0.5;
 
     // because controller is not working yet
-    agent->controller.setPoint(agent->desiredGlobalSpeed, agent->robot->Speed()/2000);
-    agent->appliedGlobalSpeed = agent->controller.getControl();
+    if(use_controller) {
+        agent->controller.setPoint(agent->desiredGlobalSpeed, agent->robot->Speed()/2000);
+        agent->appliedGlobalSpeed = agent->controller.getControl();
+    }
+    else {
+        agent->appliedGlobalSpeed = agent->desiredGlobalSpeed;
+    }
 
     agent->appliedGlobalSpeed.setTeta(agent->appliedGlobalSpeed.Teta() * angularSpeedCoefficient);
 
     agent->appliedLocalSpeed = agent->appliedGlobalSpeed;
     agent->appliedLocalSpeed.rotate( -1 * agent->robot->orien());
 
+    printRobotAppliedSpeed(agent, cout);
+
     buildAndSendPacket(agent->getID(), agent->appliedLocalSpeed);
+}
+
+void SSLSkill::buildAndSendPacket(int id, Vector3D &vel, float kickPower)
+{
+    bool useNewRobotWheelAngles = true;
+
+    if(id == OLD_ID_NUM)  useNewRobotWheelAngles = false;
+
+    RobotCommandPacket pkt(vel, useNewRobotWheelAngles, kickPower);
+
+    CommandTransmitter::getInstance()->send(id, pkt);
 }

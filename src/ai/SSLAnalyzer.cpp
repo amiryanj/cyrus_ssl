@@ -66,7 +66,7 @@ void SSLAnalyzer::check()
                     isOurIndirectKick() || isOpponentIndirectKick() ||
                     isOurKickOffKick() || isOpponentKickOffKick() ||
                     isOurPenaltyKick() || isOpponentPenaltyKick() )
-                    && (world->mainBall()->Speed().lenght() > 200) ) //  milimeter per sec
+                    && (world->mainBall()->Speed().lenght() > 700) ) //  milimeter per sec
             {
 
                 m_game_running = true;
@@ -200,17 +200,22 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToBall(Color teamColor,
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToBall(const vector<SSLRobot *> &robots, uint index)
 {
     vector<RobotIntersectTime> timeForEachRobot;
-    if(index >= robots.size()) {
-        cerr << "Nearest Robot Could not find";
+    try {
+        if(index >= robots.size()) {
+            throw "Nearest Robot Could not find";
+        }
+        for(uint i = 0 ; i < robots.size(); i++ )
+        {
+            SSLAnalyzer::RobotIntersectTime res = whenWhereCanRobotCatchTheBall(robots[i]);
+            timeForEachRobot.push_back(res);
+        }
+        sort(timeForEachRobot.begin(), timeForEachRobot.end());
+        return timeForEachRobot[index];
+    }
+    catch (const char* mes) {
+        cerr << "Warning: " << "SSLAnalyzer" << mes << endl;
         return RobotIntersectTime();
     }
-    for(uint i = 0 ; i < robots.size(); i++ )
-    {
-        SSLAnalyzer::RobotIntersectTime res = whenWhereCanRobotCatchTheBall(robots[i]);
-        timeForEachRobot.push_back(res);
-    }
-    sort(timeForEachRobot.begin(), timeForEachRobot.end());
-    return timeForEachRobot[index];
 }
 
 //----------------------------------------------------------------------------------------------

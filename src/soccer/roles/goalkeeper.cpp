@@ -10,23 +10,45 @@ GoalKeeper::GoalKeeper()
 
 void GoalKeeper::run()
 {
-    if(analyzer->isPointWithinOurPenaltyArea(world->mainBall()->Position())) {
+    Vector3D tolerance(30, 30, M_PI_4);
+    if(analyzer->isOpponentPenaltyPosition() || world->m_refereeState == SSLReferee::Stop) {
+        Vector3D target = SSLSkill::wallStandFrontBall(0);
+        SSLSkill::goToPoint(m_agent, target, tolerance);
+    }
+
+    else if(analyzer->isOpponentPenaltyKick()) {
+        Vector3D target = SSLSkill::wallStandFrontBall(0);
+        SSLSkill::goToPoint(m_agent, target, tolerance);
+    }
+
+    else if(analyzer->isPointWithinOurPenaltyArea(world->mainBall()->Position())) {
         SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1); // goAndChip()
+    }
+
+    else if(0) {
+
     }
 
     else {
         Vector3D target;
-        Vector3D tolerance;
         double distBallFromOurGoal_x = fabs(world->mainBall()->Position().X() -
                                             (game->ourSide() * FIELD_LENGTH/2) ); // [0 - 6050]
         float target_x = game->ourSide() * (FIELD_LENGTH/2 -
-                                (ROBOT_RADIUS + (distBallFromOurGoal_x * FIELD_PENALTY_AREA_RADIUS * 0.7) /FIELD_LENGTH));
-        float target_y = (world->mainBall()->Position().Y() /(FIELD_WIDTH /2.0)) * (FIELD_GOAL_WIDTH /2.0);
+                                (ROBOT_RADIUS + (distBallFromOurGoal_x * FIELD_PENALTY_AREA_RADIUS * 0.4) /FIELD_LENGTH));
+
+        float target_y;
+        if(fabs(world->mainBall()->Position().Y()) < 500 )
+            target_y = (world->mainBall()->Position().Y() /(FIELD_WIDTH /2.0)) * (FIELD_GOAL_WIDTH /2.0);
+        else if(world->mainBall()->Position().Y() > 0){
+            target_y = FIELD_GOAL_WIDTH / 2 - ROBOT_RADIUS;
+        }
+        else {
+            target_y = -(FIELD_GOAL_WIDTH / 2 - ROBOT_RADIUS);
+        }
 
         float target_teta = (world->mainBall()->Position() - Vector2D(target_x, target_y)).arctan();
 
         target.set(target_x, target_y, target_teta);
-        tolerance.set(50, 50, M_PI_4);
 
         SSLSkill::goToPoint(m_agent, target, tolerance);
     }
@@ -69,5 +91,5 @@ void GoalKeeper::run()
 
 Vector3D GoalKeeper::expectedPosition()
 {
-    return Vector3D(SSLGame::getInstance()->ourSide() * (FIELD_LENGTH/2 - ROBOT_RADIUS), 0, 0);
+    return SSLSkill::ourGoalCenter().to3D();
 }

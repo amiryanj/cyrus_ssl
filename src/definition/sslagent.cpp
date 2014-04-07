@@ -24,7 +24,7 @@ SSLAgent::SSLAgent()
 
     // initialize controller
     // ********************************************************
-    controller.setParameters(0.2, 0.0, 0.0);
+    controller.setParameters(0.0, 0.0, 0.0);
     // ********************************************************
 }
 

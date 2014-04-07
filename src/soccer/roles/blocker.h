@@ -16,6 +16,8 @@ public:
     void run();
     Vector3D expectedPosition();
 
+    int m_index;
+
 private:
     SSLRobot* m_blockedRobot;
 };
