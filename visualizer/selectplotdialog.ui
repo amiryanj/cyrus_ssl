@@ -21,6 +21,9 @@
        <property name="text">
         <string>x</string>
        </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -34,6 +37,9 @@
       <widget class="QRadioButton" name="mag_radioButton">
        <property name="text">
         <string>Magnitude</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

@@ -191,7 +191,7 @@ void FieldScene::updateNearestRobotToBall(int blueID, int yellowID, Color posses
         robot[Blue][lastNearBlueID]->setCanKick(nearestCacnKick);
     }
     else if(possessorTeam == Yellow){
-        robot[Yellow][lastNearYellowID]->setTotalNearest(false);
+        robot[Yellow][lastNearYellowID]->setTotalNearest(true);
         robot[Yellow][lastNearYellowID]->setCanKick(nearestCacnKick);
     }
 
