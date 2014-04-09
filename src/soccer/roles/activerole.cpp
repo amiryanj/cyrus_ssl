@@ -4,7 +4,7 @@ ActiveRole::ActiveRole()
 {
     m_type = SSLRole::e_Active;
 
-    m_hardness = 2;
+    m_hardness = 1;
 }
 
 void ActiveRole::run()

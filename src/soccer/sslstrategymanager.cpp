@@ -31,10 +31,10 @@ SSLStrategyManager::SSLStrategyManager()
         SSLRole* r[6] = {
             new ActiveRole(),
             new GoalKeeper(),
-            new Defender(1, 3),
-            new Defender(2, 3),
-            new Defender(3, 3),
-            new WaitPass(),
+            new Defender(1, 2),
+            new Blocker(1),
+            new Blocker(2),
+            new Defender(2, 2),
         };
         for (int i=0; i<6; i++) {
             normalPlay_1->m_roleList.push_back(r[i]);
@@ -66,9 +66,9 @@ SSLStrategyManager::SSLStrategyManager()
             new ActiveRole(),
             new GoalKeeper(),
             new Defender(1, 2),
-            new Defender(2, 2),
             new Blocker(1),
-            new Defender(3, 3),
+            new Blocker(2),
+            new Defender(2, 2),
         };
         for (int i=0; i<6; i++) {
             defensePlay_1->m_roleList.push_back(r[i]);

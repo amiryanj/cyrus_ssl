@@ -15,7 +15,7 @@ SSLReferee::SSLReferee(int port, string address) : UDP(), SSLListener()
     this->open(port, true, true);
     Address multi_, interface_;
     multi_.setHost(address.c_str(), port);
-    interface_.setAny();
+//    interface_.set();
     this->addMulticast(multi_, interface_);
 
     previous_command = SSL_Referee_Command_HALT;
@@ -28,9 +28,18 @@ SSLReferee::~SSLReferee() {
 void SSLReferee::check()
 {
     Address sender_adress;
+    Address defalt_address;
+    defalt_address.setHost("192.168.1.134", SSL_REFEREE_PORT);
     if(this->havePendingData())
     {
         m_temp_packet.length = this->recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
+//        if(sender_adress.)
+        cerr << "Referee Address sender: " ;
+//        sender_adress.print();
+//        cerr << endl;
+//        if(!(sender_adress == defalt_address)) {
+//            return;
+//        }
 
         SSL_Referee_Command new_command;
         if(m_temp_packet.length < 6)

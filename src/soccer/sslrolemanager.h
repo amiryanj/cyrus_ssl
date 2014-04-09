@@ -33,6 +33,9 @@ private:
 
     void joinAgentAndRole(SSLAgent* agent, SSLRole* role);
 
+    static const int GOALKEPPER_DEFAULT_ID = 3;
+    static const int ACTIVEROLE_DEFAULT_ID = 0;
+
 };
 
 #endif // SSLROLEMANAGER_H

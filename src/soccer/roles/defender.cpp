@@ -8,7 +8,7 @@ Defender::Defender(int ind, int count)
 
     assert(ind <= count);
 
-    m_hardness = 1;
+    m_hardness = 2;
 }
 
 Vector3D Defender::expectedPosition()

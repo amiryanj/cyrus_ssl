@@ -39,6 +39,7 @@ void* SSLVision::check(void *)
 
             updateFilterModule(wrapper);            
         }
+        VisionFilter::getInstance()->check();
         usleep(1000);
     }
 }
@@ -73,7 +74,7 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
         {
             SSL_DetectionBall Ball=wrapper.detection().balls(i);
             temp_frame.setToCurrentTimeMilliSec();
-            temp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();
+            temp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();            
             VisionFilter::getInstance()->setBallFrame(temp_frame);
         }
     }

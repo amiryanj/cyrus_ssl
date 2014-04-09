@@ -2,6 +2,7 @@
 #include "vector2d.h"
 #include <math.h>
 #include <Box2D/Common/b2Math.h>
+#include "sslmath.h"
 
 Vector3D::Vector3D()
 {
@@ -66,12 +67,18 @@ Vector3D Vector3D::operator -() const
 
 Vector3D Vector3D::operator +(const Vector3D &vector) const
 {
-    return Vector3D( _x + vector._x, _y + vector._y, _teta + vector._teta);
+    Vector3D res;
+    res.set(_x + vector._x, _y + vector._y, _teta + vector._teta);
+    res.setTeta(SSL::continuousRadian(res.Teta(), -M_PI));
+    return res;
 }
 
 Vector3D Vector3D::operator -(const Vector3D &vector) const
 {
-    return Vector3D( _x - vector._x, _y - vector._y, _teta - vector._teta);
+    Vector3D res;
+    res.set(_x - vector._x, _y - vector._y, _teta - vector._teta);
+    res.setTeta(SSL::continuousRadian(res.Teta(), -M_PI));
+    return res;
 }
 
 Vector3D Vector3D::operator *(float s) const
@@ -94,6 +101,7 @@ Vector3D &Vector3D::operator +=(const Vector3D &vector)
 Vector3D &Vector3D::operator -=(const Vector3D &vector)
 {
     _x -= vector._x; _y -= vector._y; _teta -= vector._teta;
+    _teta = SSL::continuousRadian(_teta, -M_PI);
     return *this;
 }
 

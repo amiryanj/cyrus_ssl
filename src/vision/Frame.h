@@ -6,6 +6,7 @@
 
 using namespace boost::posix_time;
 
+const static int CAMERA_FPS = 20;
 
 struct Frame
 {

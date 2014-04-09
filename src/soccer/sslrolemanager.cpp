@@ -50,32 +50,35 @@ void SSLRoleManager::AssignRole(SSLStrategy *strategy, vector<SSLAgent*> agents)
         }
 
         vector<SSLRole* > roleList = strategy->m_roleList;
-        for(int i = roleList.size()-1; i >=0 ; i--) {
-            SSLRole* role = roleList[i];
-            int min_id = MAX_ID_NUM;
-            int goalie_index = -1;
-            SSLAgent* goalie_agent = NULL;
-            if(role->m_hardness == 0) // goal_keeper
-            {
-                for(uint j=0; j < agents.size(); j++) {
-                    SSLAgent* agent = agents[j];
-                    if(agent->isNull())
-                        continue;
-                    if(agent->getID() == GOALKEPPER_DEFAULT_ID) {
-                        goalie_agent = agent;
-                        goalie_index = j;
-                        break;
+        for(int h=0; h<=1; h++) {
+            for(int i = roleList.size()-1; i >=0 ; i--) {
+                SSLRole* role = roleList[i];
+                int min_id = MAX_ID_NUM;
+                int selected_index = -1;
+                SSLAgent* selected_agent = NULL;
+                if(role->m_hardness == h) // goal_keeper
+                {
+                    for(uint j=0; j < agents.size(); j++) {
+                        SSLAgent* agent = agents[j];
+                        if(agent->isNull())
+                            continue;
+                        if(role->m_type == SSLRole::e_GoalKeeper && (agent->getID() == GOALKEPPER_DEFAULT_ID) ||
+                             role->m_type == SSLRole::e_Active && (agent->getID() == ACTIVEROLE_DEFAULT_ID)) {
+                            selected_agent = agent;
+                            selected_index = j;
+                            break;
+                        }
+                        if(agent->getID() < min_id) {
+                            min_id = agent->getID();
+                            selected_agent = agent;
+                            selected_index = j;
+                        }
                     }
-                    if(agent->getID() < min_id) {
-                        min_id = agent->getID();
-                        goalie_agent = agent;
-                        goalie_index = j;
+                    if(selected_agent != NULL) {
+                        joinAgentAndRole(selected_agent, role);
+                        agents.erase(agents.begin() + selected_index);
+                        roleList.erase(roleList.begin() + i);
                     }
-                }
-                if(goalie_agent != NULL) {
-                    joinAgentAndRole(goalie_agent, role);
-                    agents.erase(agents.begin() + goalie_index);
-                    roleList.erase(roleList.begin() + i);
                 }
             }
         }

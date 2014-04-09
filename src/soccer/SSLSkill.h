@@ -70,6 +70,8 @@ private:
     static Vector3D calcSpeed(const Vector3D &current, const Vector3D &target);
     static void controlSpeed(SSLAgent* agent, const Vector3D &speed, bool use_controller);
 
+    static const int OLD_ID_NUMS[];
+
 };
 
 #endif	/* _SSLSKILL_H */

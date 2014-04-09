@@ -56,21 +56,27 @@ void SSLAnalyzer::check()
     try {
 
         if(m_game_running == true) {
-            if(world->m_refereeState == SSLReferee::Stop || world->m_refereeState == SSLReferee::Halt)
+            if(world->m_refereeState == SSLReferee::Stop || world->m_refereeState == SSLReferee::Halt) {
                 m_game_running = false;
+                ball_move_counter = 0;
+
+            }
         }
         else // check if game gets running
         {
+//            ball_stop_position = world->mainBall()->Position();
             if(world->m_refereeState == SSLReferee::ForceStart)
                 m_game_running = true;
             else if((isOurDirectKick() ||  isOpponentDirectKick() ||
                     isOurIndirectKick() || isOpponentIndirectKick() ||
                     isOurKickOffKick() || isOpponentKickOffKick() ||
-                    isOurPenaltyKick() || isOpponentPenaltyKick() )
-                    && (world->mainBall()->Speed().lenght() > 700) ) //  milimeter per sec
+                    isOurPenaltyKick() || isOpponentPenaltyKick() ))
             {
-
-                m_game_running = true;
+                if((world->mainBall()->Speed().lenght() > 80)) { //  milimeter per sec)
+                    ball_move_counter ++;
+                }
+                if(ball_move_counter > 20)
+                    m_game_running = true;
             }
         }
     }
@@ -516,11 +522,11 @@ float SSLAnalyzer::ballPossession()
 SSLTeam *SSLAnalyzer::ballPossessorTeam()
 {
     float BallPossession = ballPossession();
-    if(BallPossession <POSSESSION_THRESHOLD && BallPossession > -POSSESSION_THRESHOLD)
+    if(fabs(BallPossession) < POSSESSION_THRESHOLD)
         return NULL;
     else if(BallPossession <= POSSESSION_THRESHOLD)
         return game->ourTeam();
-    else if(BallPossession >= POSSESSION_THRESHOLD)
+    else // if(BallPossession >= POSSESSION_THRESHOLD)
         return game->opponentTeam();
 }
 
@@ -649,3 +655,27 @@ uint SSLAnalyzer::_getHashID(const SSLRobot *robot)
     return robot->id + MAX_ID_NUM*robot->color;
 }
 
+bool SSLAnalyzer::isPointWithinOurCorner(const Vector2D &point)
+{
+    if(isPointWithinOurUpCorner(point))
+        return true;
+    if(isPointWithinOurDownCorner(point))
+        return true;
+    return false;
+}
+
+bool SSLAnalyzer::isPointWithinOurUpCorner(const Vector2D &point)
+{
+    float our_x = decision->ourSide() * FIELD_LENGTH/2;
+    if(fabs(point.X() - our_x) < 300 && point.Y() > FIELD_WIDTH/2 * .8)
+        return true;
+    return false;
+}
+
+bool SSLAnalyzer::isPointWithinOurDownCorner(const Vector2D &point)
+{
+    float our_x = decision->ourSide() * FIELD_LENGTH/2;
+    if(fabs(point.X() - our_x) < 300 && point.Y() < -FIELD_WIDTH/2 * .8)
+        return true;
+    return false;
+}

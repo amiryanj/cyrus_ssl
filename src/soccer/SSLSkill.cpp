@@ -6,6 +6,8 @@
 #include "../transmitter/RobotCommandPacket.h"
 #include "../transmitter/commandtransmitter.h"
 
+const int SSLSkill::OLD_ID_NUMS[] = {5, 6, 7, 9, 10};
+
 void SSLSkill::halt(SSLAgent *agent)
 {
     assert(agent != NULL);
@@ -123,6 +125,7 @@ void SSLSkill::goAndKick(SSLAgent *agent, Vector2D kick_target, double kickStren
     if(analyzer->canKick(agent->robot)) {
         Vector3D speed(.4, 0, 0); // go fast forward
         controlSpeed(agent, speed, true);
+        buildAndSendPacket(agent->getID(), speed, kickStrenghtNormal);
         // TODO send kick packet
     }
     else {
@@ -247,13 +250,13 @@ Vector3D SSLSkill::calcSpeed(const Vector3D &current, const Vector3D &target)
     Vector3D diff = target - current;
     float Coeffs[3] = {1, 1, 1};
     if(diff.lenght2D() < 800) {
-        if(diff.lenght2D() > 120.0) {// milli meter
+        if(diff.lenght2D() > 300.0) {// milli meter
             Coeffs[0] = diff.lenght2D() / 800.0;
             Coeffs[1] = diff.lenght2D() / 800.0;
         }
         else {
-            Coeffs[0] = 120.0 / 800.0;
-            Coeffs[1] = 120.0 / 800.0;
+            Coeffs[0] = 300.0 / 800.0;
+            Coeffs[1] = 300.0 / 800.0;
         }
     }
 
@@ -268,7 +271,7 @@ Vector3D SSLSkill::calcSpeed(const Vector3D &current, const Vector3D &target)
 
 void SSLSkill::controlSpeed(SSLAgent *agent, const Vector3D& speed, bool use_controller)
 {
-    float speedDiscountRate = 0.75;
+    float speedDiscountRate = 0.45;
     agent->desiredGlobalSpeed = speed * speedDiscountRate;
 
     float angularSpeedCoefficient = 0.5;
@@ -296,7 +299,12 @@ void SSLSkill::buildAndSendPacket(int id, Vector3D &vel, float kickPower)
 {
     bool useNewRobotWheelAngles = true;
 
-    if(id == OLD_ID_NUM)  useNewRobotWheelAngles = false;
+    for(int i=0; i<5; i++) {
+        if(id == OLD_ID_NUMS[i]) {
+            useNewRobotWheelAngles = false;
+            break;
+        }
+    }
 
     RobotCommandPacket pkt(vel, useNewRobotWheelAngles, kickPower);
 

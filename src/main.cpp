@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
     cout << "Main is running ... " << endl;
     long loopCounter = 0;
 
-    SSLReferee *referee = new SSLReferee(SSL_REFEREE_PORT, SSL_REFEREE_ADDRESS);
+    SSLReferee *referee = new SSLReferee(MY_REFEREE_PORT, MY_REFEREE_ADDRESS);
 
-    SSLVision *vision = new SSLVision(GRSIM_VISION_PORT, GRSIM_VISION_ADDRESS);
+    SSLVision *vision = new SSLVision(SSL_VISION_PORT, SSL_VISION_ADDRESS);
 
     VisionFilter *filter =  VisionFilter::getInstance();
 
@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
     {
         loopCounter ++;
         referee->check();
-//        vision->check();
-        filter->check();
+//        vision->check(); // in thread 2
+//        filter->check(); // in thread 2
         analyzer->check();
         if((loopCounter % 5) ==0) {
             gameModule->check();

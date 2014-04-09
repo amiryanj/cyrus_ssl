@@ -116,9 +116,12 @@ public:
     bool isOpponentIndirectKick();
 
     bool isGameRunning();
-    bool isPointWithinOurPenaltyArea(Vector2D point);
-    bool isRobotWithinOurPenaltyArea(Vector3D robot_pos);
     bool isPointInOurSide(const Vector2D& point);
+    bool isRobotWithinOurPenaltyArea(Vector3D robot_pos);
+    bool isPointWithinOurPenaltyArea(Vector2D point);
+    bool isPointWithinOurCorner(const Vector2D &point);
+    bool isPointWithinOurUpCorner(const Vector2D &point);
+    bool isPointWithinOurDownCorner(const Vector2D &point);
 
 private:
     bool m_game_running;
@@ -140,6 +143,9 @@ private:
 
     void initialize_caches();
     uint _getHashID(const SSLRobot * robot);
+
+    int ball_move_counter;
+    Vector2D ball_stop_position;
 
 
 };

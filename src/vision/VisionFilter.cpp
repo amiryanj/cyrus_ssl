@@ -36,8 +36,8 @@ void VisionFilter::check()
 
 void VisionFilter::setRobotFrame(SSL::Color color, unsigned int id, Frame &fr)
 {
-    if(fr.camera_id == 1 && fabs(fr.position.X()) < 100)
-        return;
+//    if(fr.camera_id == 1 && fabs(fr.position.X()) < 100)
+//        return;
     if(((int) color > 2) || (id >= MAX_ID_NUM))
         throw "invalid color or id of robot";
     robotFilter[color][id]->putNewFrame(fr);
@@ -45,8 +45,12 @@ void VisionFilter::setRobotFrame(SSL::Color color, unsigned int id, Frame &fr)
 
 void VisionFilter::setBallFrame(Frame &fr)
 {
-    if(fr.camera_id == 1 && fabs(fr.position.X()) < 200)
+    if(fr.camera_id == 1 && fabs(fr.position.X()) < 300)
         return;
+
+    if(fabs(fr.position.X() > (30 + FIELD_LENGTH / 2))  ||  fabs(fr.position.Y())> (30 +FIELD_WIDTH / 2))
+        return;
+
     ballFilter->putNewFrame(fr);
 }
 

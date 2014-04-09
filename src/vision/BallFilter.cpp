@@ -113,7 +113,7 @@ void BallFilter::runFilter()
         naiveFilter.m_beta = 0.03;
     }
 
-    FilterState fs = naiveFilter.filter();
+    FilterState fs = naiveFilter.filter();    
     this->m_filteredPosition = fs.pos.to2D();
     this->m_unfilteredSpeed = fs.vel.to2D();
 }
