@@ -26,20 +26,20 @@ void RobotGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     {
         if(this->isNearest == true)
         {
-            QPen pen(QColor(Qt::red));
+            QPen pen(QColor(178,34,34));
             pen.setWidth(15);
             painter->setPen(pen);
-            painter->setBrush(QColor(Qt::transparent));
-            painter->drawEllipse(-(myRadius+50),-(myRadius+50),(myRadius+50)*2,(myRadius+50)*2);
+            painter->setBrush(Qt::transparent);
+            painter->drawEllipse(-(myRadius+30),-(myRadius+30),(myRadius+30)*2,(myRadius+30)*2);
             painter->setPen(myColor);
         }
         if(this->IsTotalNearest == true)
         {
-            QPen pen(QColor(Qt::green));
+            QPen pen(Qt::red);
             pen.setWidth(15);
             painter->setPen(pen);
             painter->setBrush(QColor(Qt::transparent));
-            painter->drawEllipse(-(myRadius+50),-(myRadius+50),(myRadius+50)*2,(myRadius+50)*2);
+            painter->drawEllipse(-(myRadius+30),-(myRadius+30),(myRadius+30)*2,(myRadius+30)*2);
             painter->setPen(myColor);
 
         }
@@ -52,10 +52,10 @@ void RobotGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem 
             painter->drawRect(-(myRadius+50),-(myRadius+50),(myRadius+50)*2,(myRadius+50)*2);
             painter->setPen(myColor);
         }
-//        painter->setPen(myColor);
+        painter->setPen(myColor);
         painter->setBrush((myColor==Qt::blue)? QColor(Qt::blue):QColor(Qt::yellow));
         painter->drawChord(-myRadius,-myRadius,myRadius*2,myRadius*2,35*16,290*16);
-        painter->setPen((this->myColor==Qt::blue)? QColor(150,150,255):QColor(200,200,170));
+        painter->setPen((this->myColor==Qt::blue)? QColor(200,200,255):QColor(150,150,170));
         painter->drawLine(40,0,74,0);
     }
 

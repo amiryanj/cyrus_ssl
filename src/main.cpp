@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
         if(loopCounter % 25 == 0)  {
             gui->check();
         }
-        usleep(5000);
+        usleep(2000);
     }
 
 

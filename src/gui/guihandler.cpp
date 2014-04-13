@@ -152,8 +152,15 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
         packet->set_nearest_yellow_id(nearest.m_robot->id);
     else
         packet->set_nearest_yellow_id(0);
+    SSLTeam * possessorTeam = analyzer->ballPossessorTeam();
+    if(possessorTeam == NULL)
+        packet->set_possessor_team(ssl_analyzer_packet_Color_none);
+    else if(possessorTeam->color == SSL::Blue)
+        packet->set_possessor_team(ssl_analyzer_packet_Color_blue);
+    else if(possessorTeam->color == SSL::Yellow)
+        packet->set_possessor_team(ssl_analyzer_packet_Color_yellow);
 
-    packet->set_possessor_team(ssl_analyzer_packet_Color_blue);
+
 
     nearest = analyzer->nearestRobotIntersectBall();
     if(nearest.isValid())

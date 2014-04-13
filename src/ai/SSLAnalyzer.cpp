@@ -524,7 +524,7 @@ SSLTeam *SSLAnalyzer::ballPossessorTeam()
     float BallPossession = ballPossession();
     if(fabs(BallPossession) < POSSESSION_THRESHOLD)
         return NULL;
-    else if(BallPossession <= POSSESSION_THRESHOLD)
+    else if(BallPossession <= -POSSESSION_THRESHOLD)
         return game->ourTeam();
     else // if(BallPossession >= POSSESSION_THRESHOLD)
         return game->opponentTeam();

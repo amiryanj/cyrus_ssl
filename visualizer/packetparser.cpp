@@ -37,6 +37,7 @@ void PacketParser::handleWorldPacket(ssl_world_packet p)
     for(int i=0; i<p.field_balls_size(); i++) {
         ssl_world_packet_Ball* ball = p.mutable_field_balls(i);
         BallState ball_state(i);
+        qDebug()<<"world packet : ball pos : "<<ball->position().x() << ball->position().y();
         ball_state.position = Vector2D(ball->position().x(), ball->position().y());
         ball_state.velocity = Vector2D(ball->velecity().x(), ball->velecity().y());
 

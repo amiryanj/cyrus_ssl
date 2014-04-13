@@ -18,6 +18,7 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
             robot[tm][i]->setZValue(2);
 
             number[tm][i] = new NumberGraphicsItem(i);
+            number[tm][i]->setColor(((Color)tm == Yellow)? Qt::yellow:Qt::blue);
             number[tm][i]->setZValue(3);
             number[tm][i]->setParentItem(robot[tm][i]);
 //            scene.addItem(number[tm][i]);
@@ -60,7 +61,7 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
             updateRobotState(st);
         }
 
-    ball = new CircleGraphicsItem(22, QColor(200, 80, 0));
+    ball = new CircleGraphicsItem(22, QColor(255,120,0));
     scene.addItem(ball);
     ball->setZValue(7);
 
@@ -73,8 +74,8 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
     ui->graphicsView->setScene(&scene);
     ui->graphicsView->scale(0.08, 0.08);
 
-    connect(ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(updateZoom(int)));
-//    connect(&scene, SIGNAL())
+    connect(this, SIGNAL(zoomWheel(int)), this, SLOT(updateZoom(int)));
+   // connect(ui->verticalSlider,SIGNAL(valueChanged(int)),this,SLOT(updateZoom(int)));
 
     this->lastNearBlueID = 0;
     this->lastNearYellowID = 0;
@@ -90,6 +91,11 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
 FieldScene::~FieldScene()
 {
     delete ui;
+}
+
+void FieldScene::wheelEvent(QWheelEvent * wheelEvent)
+{
+    emit zoomWheel(wheelEvent->delta());
 }
 void FieldScene::setIsShowingIntersects(bool show)
 {
@@ -123,6 +129,7 @@ void FieldScene::updateRobotState(const RobotState &st)
 
 void FieldScene::updateBallState(const BallState &st)
 {
+    qDebug()<<"ball position : "<< st.position.X() << st.position.Y();
     this->ball->setPos(st.position.X(), -st.position.Y());
     this->ballVel->setEnd(st.velocity.X(), -st.velocity.Y());
 }
@@ -152,7 +159,12 @@ void FieldScene::updateRobotPlan(int id, QVector<RobotState> path, QVector3D des
 
 void FieldScene::updateZoom(int zoom)
 {
-    double zoomPercent = (double) zoom/1000;
+    static double zoomPercent = 0.07;
+    if(zoom > 0)
+        zoomPercent += 0.01;
+    else
+        zoomPercent -= 0.01;
+
     QTransform t;
     t.scale(zoomPercent, zoomPercent);
     ui->graphicsView->setTransform(t);
@@ -191,7 +203,7 @@ void FieldScene::updateNearestRobotToBall(int blueID, int yellowID, Color posses
         robot[Blue][lastNearBlueID]->setCanKick(nearestCacnKick);
     }
     else if(possessorTeam == Yellow){
-        robot[Yellow][lastNearYellowID]->setTotalNearest(false);
+        robot[Yellow][lastNearYellowID]->setTotalNearest(true);
         robot[Yellow][lastNearYellowID]->setCanKick(nearestCacnKick);
     }
 
@@ -289,7 +301,10 @@ void FieldScene::drawBounds()
     scene.setSceneRect(-FIELD_MAIN_LENGHT/2, -FIELD_MAIN_WIDTH/2, FIELD_MAIN_LENGHT, FIELD_MAIN_WIDTH);
 //    scene.setSceneRect(-FIELD_MAIN_LENGHT/2, -FIELD_MAIN_WIDTH/2, FIELD_MAIN_LENGHT, FIELD_MAIN_WIDTH);
 
-    QPen drawBoundsPen(Qt::magenta);
+    scene.addRect(-FIELD_MAIN_LENGHT/2, -FIELD_MAIN_WIDTH/2,
+                  FIELD_MAIN_LENGHT, FIELD_MAIN_WIDTH,QPen(Qt::green),QBrush(Qt::green));
+
+    QPen drawBoundsPen(Qt::white);
     scene.addLine(-FIELD_LENGTH/2, -FIELD_WIDTH/2, -FIELD_LENGTH/2, FIELD_WIDTH/2, drawBoundsPen);
     scene.addLine(FIELD_LENGTH/2, -FIELD_WIDTH/2, FIELD_LENGTH/2, FIELD_WIDTH/2, drawBoundsPen);
     scene.addLine(-FIELD_LENGTH/2, -FIELD_WIDTH/2, FIELD_LENGTH/2, -FIELD_WIDTH/2, drawBoundsPen);
