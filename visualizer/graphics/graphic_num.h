@@ -21,6 +21,8 @@ public:
     }
 
     void setText(QString text_);
+
+    void setColor(Qt::GlobalColor color);
 private:
     Qt::GlobalColor myColor;
     int  number;

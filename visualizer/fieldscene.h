@@ -11,6 +11,7 @@
 #include "graphics/graphic_intersect.h"
 #include "Concepts.h"
 #include "robotstate.h"
+#include <QWheelEvent>
 
 namespace Ui {
 class FieldScene;
@@ -28,6 +29,13 @@ public:
     explicit FieldScene(SSL::Color our_color, QWidget *parent = 0);
     ~FieldScene();
     SSL::Color ourColor; // just should be set by mainwindow
+
+    void wheelEvent(QWheelEvent *);
+
+signals:
+
+    void zoomWheel(int);
+
 
 public slots:
 //    void updateRobotState(Color c, int id, const RobotState& st);

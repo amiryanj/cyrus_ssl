@@ -10,14 +10,17 @@ NumberGraphicsItem::NumberGraphicsItem(int num_)
 
 void NumberGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-        painter->setPen((this->myColor==Qt::blue)? QColor(Qt::white):QColor(Qt::black));
-        painter->setFont(QFont("Calibri",80, 0.8));
-        QString numStr;
-        numStr.setNum(this->number);
-        (this->myColor==Qt::blue)? (painter->drawText(-20,60,numStr)) : (painter->drawText(-35,40,numStr));
-        if(!myText.isEmpty())
-            painter->drawText(-20,-50, myText);
-        this->setRotation(-this->parentItem()->rotation());
+    painter->setPen((myColor == Qt::blue)? QColor(255,255,230) : QColor(0,70,50));
+    painter->setFont(QFont("Calibri",80, 0.8));
+    QString numStr;
+    numStr.setNum(this->number);
+    (this->myColor==Qt::blue)? (painter->drawText(-30,60,numStr)) : (painter->drawText(-35,40,numStr));
+    if(!myText.isEmpty())
+    {
+        painter->setPen((myColor == Qt::blue)? Qt::black : Qt::black);
+        painter->drawText(-20,-50, myText);
+    }
+    this->setRotation(-this->parentItem()->rotation());
 }
 
 QRectF NumberGraphicsItem::boundingRect() const
@@ -28,4 +31,10 @@ QRectF NumberGraphicsItem::boundingRect() const
 void NumberGraphicsItem::setText(QString text_)
 {
     myText = text_;
+}
+
+void NumberGraphicsItem::setColor(Qt::GlobalColor color)
+{
+    myColor = color;
+
 }

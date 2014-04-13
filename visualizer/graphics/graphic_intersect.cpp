@@ -21,7 +21,7 @@ void IntersectGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsI
 {
     if(isInvisible)
     {
-        painter->setPen(QPen(Qt::red));
+        painter->setPen(QColor(139,0,139));
         painter->drawLine(-30,-(+30),+30,-(-30));
         painter->drawLine(+30,-(+30),-30,-(-30));
         painter->drawLine(robotPosition.X()-this->pos().x(),(robotPosition.Y()-this->pos().y()),0,0);

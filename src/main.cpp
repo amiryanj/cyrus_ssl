@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
             gui->check();
             transmitter->check();
         }
-        usleep(5000);
+        usleep(2000);
     }
 
 
