@@ -7,7 +7,7 @@
 #include "Frame.h"
 
 #define MAX_BALL_MEMORY 30
-#define MAX_BALL_MEDIAN_MEMORY 11
+#define MAX_BALL_MEDIAN_MEMORY 12
 #define BALL_SPEED_LIMIT_FILTER 7
 
 class BallFilter

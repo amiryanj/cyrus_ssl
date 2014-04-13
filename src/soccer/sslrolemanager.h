@@ -33,8 +33,8 @@ private:
 
     void joinAgentAndRole(SSLAgent* agent, SSLRole* role);
 
-    static const int GOALKEPPER_DEFAULT_ID = 3;
-    static const int ACTIVEROLE_DEFAULT_ID = 0;
+    static const int GOALKEPPER_DEFAULT_ID = 4;  // goalie
+    static const int ACTIVEROLE_DEFAULT_ID = 2;  // 6  Active
 
 };
 

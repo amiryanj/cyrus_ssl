@@ -105,7 +105,7 @@ void RobotFilter::runFilter()
     naiveFilter.observe(last_observe, last_delta_t_sec);
     FilterState fs = naiveFilter.filter();
     this->m_filteredPosition = fs.pos;
-    this->m_filteredSpeed = fs.vel;
+    this->m_filteredSpeed = fs.vel * 10;
 
 //    naiveFilter.x(2, 0) = continuousRadian(naiveFilter.x(2), -M_PI);
 

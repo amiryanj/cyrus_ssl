@@ -10,7 +10,7 @@ GoalKeeper::GoalKeeper()
 
 void GoalKeeper::run()
 {
-    Vector3D tolerance(30, 30, M_PI_4);
+    Vector3D tolerance(30, 30, M_PI_4 * 2);
     if(analyzer->isOpponentPenaltyPosition()) {
         Vector3D target = SSLSkill::wallStandFrontBall(0);
         SSLSkill::goToPoint(m_agent, target, tolerance);
@@ -59,23 +59,29 @@ void GoalKeeper::run()
         }
 
         // else
+        Vector2D ball_target = world->mainBall()->Position();
 
-        double distBallFromOurGoal_x = fabs(world->mainBall()->Position().X() -
+        SSLAnalyzer::RobotIntersectTime ball_intersect = analyzer->whenWhereCanRobotCatchTheBall(m_agent->robot);
+        if(ball_intersect.isValid()) {
+            ball_target = ball_intersect.m_position;
+        }
+
+        double distBallFromOurGoal_x = fabs(ball_target.X() -
                                             (game->ourSide() * FIELD_LENGTH/2) ); // [0 - 6050]
         float target_x = game->ourSide() * (FIELD_LENGTH/2 -
                                 (ROBOT_RADIUS * 0.8 + (distBallFromOurGoal_x * FIELD_PENALTY_AREA_RADIUS * 0.4) /FIELD_LENGTH));
 
         float target_y;
-        if(fabs(world->mainBall()->Position().Y()) < 500 )
-            target_y = (world->mainBall()->Position().Y() /(FIELD_WIDTH /2.0)) * (FIELD_GOAL_WIDTH /2.0);
-        else if(world->mainBall()->Position().Y() > 0){
+        if(fabs(ball_target.Y()) < 500 )
+            target_y = (ball_target.Y() /(FIELD_WIDTH /2.0)) * (FIELD_GOAL_WIDTH /2.0);
+        else if(ball_target.Y() > 0){
             target_y = FIELD_GOAL_WIDTH / 2 - ROBOT_RADIUS + 20;
         }
         else {
             target_y = -(FIELD_GOAL_WIDTH / 2 - ROBOT_RADIUS + 30);
         }
 
-        float target_teta = (world->mainBall()->Position() - Vector2D(target_x, target_y)).arctan();
+        float target_teta  = - game->ourSide() * M_PI + M_PI_4; //= (ball_target - Vector2D(target_x, target_y)).arctan();
 
         target.set(target_x, target_y, target_teta);
 

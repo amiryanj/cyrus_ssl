@@ -20,6 +20,7 @@ struct Frame
 
     void setToCurrentTimeMilliSec();
 
+    Frame& operator =(const Frame &other);
 //    ptime *t;
 
 

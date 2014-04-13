@@ -9,13 +9,13 @@ ActiveRole::ActiveRole()
 
 void ActiveRole::run()
 {
-    Vector3D tolerance(ROBOT_RADIUS, ROBOT_RADIUS, M_PI_4);
+    Vector3D tolerance(ROBOT_RADIUS, ROBOT_RADIUS/2, M_PI / 6.0);
 
     if(analyzer->isGameRunning() == false) {  // stop states
         if(world->m_refereeState == SSLReferee::Stop) {
             Vector3D target = SSLSkill::wallStandFrontBall(0);
 //            Vector3D target = SSLSkill::DefenseStylePosition(world->mainBall()->Position(), SSLSkill::ourGoalCenter(), 500);
-            SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 2*BALL_RADIUS, ROBOT_RADIUS);
+            SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 1.3*BALL_RADIUS, ROBOT_RADIUS);
         }
         else if(analyzer->isOurKickOffPosition() || analyzer->isOurPenaltyPosition()) {
             Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter(), 80);
@@ -48,10 +48,10 @@ void ActiveRole::run()
 
     // ************** game is running *****************************************************
     // if the ball is in our penalty area, the actve player should approach our defense area
-    Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter(), 80);
+    Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter(), 100);
     if(analyzer->isPointWithinOurPenaltyArea(target.to2D())) {
         target = SSLSkill::ourMidfieldUpPosition();
-        SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 3 * BALL_RADIUS, ROBOT_RADIUS);
+        SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
     }
     else {
         if(analyzer->canKick(m_agent->robot)) {
@@ -59,11 +59,12 @@ void ActiveRole::run()
         }
 
         else {
-            float distToTarget = (m_agent->robot->Position().to2D() - target.to2D()).lenght();
-            if(distToTarget < 100 ) {
-                m_state = e_NearBall;
-            }
-            else if(distToTarget > 150)
+//            float distToTarget = (m_agent->robot->Position().to2D() - target.to2D()).lenght();
+//            if(distToTarget < 180 )
+            if(fabs(m_agent->robot->Position().Y() - target.Y()) < 80
+                    && fabs(m_agent->robot->Position().X() - target.X()) < 100)
+                m_state = e_NearBall;            
+            else // if(distToTarget > 150)
                 m_state = e_FarFromBall;
         }
 
@@ -76,7 +77,7 @@ void ActiveRole::run()
             break;
         case e_FarFromBall:
             Vector3D tolerance(ROBOT_RADIUS, ROBOT_RADIUS, M_PI_4);
-            SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 2.5 * BALL_RADIUS, ROBOT_RADIUS);
+            SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
             break;
         }
     }

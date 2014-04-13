@@ -70,13 +70,17 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             VisionFilter::getInstance()->setRobotFrame(SSL::Yellow, Robot.robot_id(), temp_frame);
         }
 
+        vector<Frame> balls_vec;
         for(int i=0; i< wrapper.detection().balls_size(); i++)
         {
-            SSL_DetectionBall Ball=wrapper.detection().balls(i);
+            SSL_DetectionBall Ball = wrapper.detection().balls(i);
             temp_frame.setToCurrentTimeMilliSec();
             temp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();            
-            VisionFilter::getInstance()->setBallFrame(temp_frame);
+            temp_frame.confidence = Ball.confidence();
+            temp_frame.camera_id = wrapper.detection().camera_id();
+            balls_vec.push_back(temp_frame);
         }
+        VisionFilter::getInstance()->setBallFrames(balls_vec);
     }
     if(wrapper.has_geometry())
     {

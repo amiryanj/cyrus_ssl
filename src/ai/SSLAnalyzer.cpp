@@ -180,7 +180,7 @@ bool SSLAnalyzer::canKick(SSLRobot *robot)
     uint hashID = _getHashID(robot);
     if (f_canKick[hashID] == 0) {
         f_canKick[hashID] = 1;
-        if(distanceFromBall(robot) < ((BALL_RADIUS + ROBOT_RADIUS) * 0.95))
+        if(distanceFromBall(robot) < ((BALL_RADIUS + ROBOT_RADIUS) * 0.9))
         {
             Vector2D dis = world->mainBall()->Position() - robot->Position().to2D();
             double ang = dis.arctan();
@@ -434,7 +434,7 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(
 
     const SSLBall* ball = world->mainBall();
 
-    float stopTime = fabs(ball->Speed().lenght()) / BALL_FRICTION_COEFF;
+    float stopTime = fabs(ball->Speed().lenght() * 2.0) / BALL_FRICTION_COEFF;
     Vector2D newPosition(ball->Position() + ball->Speed() * stopTime);
 
     float distanceOfNewPositionToRobot = (robot->Position().to2D() - newPosition).lenght();

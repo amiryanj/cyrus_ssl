@@ -28,3 +28,11 @@ void Frame::setToCurrentTimeMilliSec()
     time_duration td = t.time_of_day();
     timeStampMilliSec =  td.total_microseconds()/1000.0;
 }
+
+Frame &Frame::operator =(const Frame &other)
+{
+    this->timeStampMilliSec = other.timeStampMilliSec;
+    this->camera_id = other.camera_id;
+    this->confidence = other.confidence;
+    this->position = other.position;
+}

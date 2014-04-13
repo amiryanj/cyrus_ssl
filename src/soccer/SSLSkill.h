@@ -33,6 +33,7 @@ public:
                                      float ball_ob_radius = BALL_RADIUS,
                                      float robot_ob_radius = ROBOT_RADIUS);
 
+    // ********************* Kick Skill ***************************
     static void goAndKick(SSLAgent* agent, Vector2D kick_target, double kickStrenghtNormal = 1);
 
     static void goAndChip(SSLAgent* agent, double chipStrenghtNormal = 1);

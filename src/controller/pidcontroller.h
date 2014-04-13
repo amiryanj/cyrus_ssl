@@ -27,6 +27,7 @@ private:
     vector<Vector3D> errorHistory;
     Vector3D currentActual;
     Vector3D currentDesired;
+    Vector3D sum_on_time;
 
 };
 

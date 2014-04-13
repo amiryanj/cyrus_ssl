@@ -26,10 +26,10 @@ void BallFilter::putNewFrame(const Frame &fr)
 
     Vector2D currentSpeed_;
     if (rawPositionList.size() >= BALL_SPEED_LIMIT_FILTER)
-        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList[BALL_SPEED_LIMIT_FILTER].position.to2D())
+        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList[BALL_SPEED_LIMIT_FILTER].position.to2D()) * 1000.0
                 / (rawPositionList[0].timeStampMilliSec - rawPositionList[BALL_SPEED_LIMIT_FILTER].timeStampMilliSec);
     else
-        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList.back().position.to2D())
+        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList.back().position.to2D()) * 1000.0
                 / (rawPositionList[0].timeStampMilliSec - rawPositionList.back().timeStampMilliSec);
 
     rawSpeedList[__medianFilterIndex++] = currentSpeed_;
@@ -55,6 +55,7 @@ void BallFilter::runFilter()
     if( rawPositionList.size() == 0 )
         return;
 
+
     //.first is length, second is index
     pair<float, int> medianFilterValues[MAX_BALL_MEDIAN_MEMORY];
     for (int i = 0; i < MAX_BALL_MEDIAN_MEMORY; i++)
@@ -65,8 +66,8 @@ void BallFilter::runFilter()
     m_medianFilteredSpeed = rawSpeedList[medianFilteredSpeed_Index];
 
 
-
     Frame last_frame = rawPositionList.front();
+
     /*  farzad's prediction */
     /*
     if (rawPositionList.size() >= 2) {
@@ -74,10 +75,11 @@ void BallFilter::runFilter()
         last_frame.position += Vector3D(m_medianFilteredSpeed * last_delta_t_sec, 0.0);
     }
     */
+
     /* javad's prediction */
 
     for (int i = 0 ; i < MAX_BALL_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
-        if (fabs(((rawPositionList[i].position.to2D() - rawPositionList[i+1].position.to2D())
+        if (fabs(((rawPositionList[i].position.to2D() - rawPositionList[i+1].position.to2D()) * 1000.0
                   / (rawPositionList[i].timeStampMilliSec - rawPositionList[i+1].timeStampMilliSec)).lenght()
                 - m_medianFilteredSpeed.lenght()) <= EPS)
         {
@@ -116,6 +118,21 @@ void BallFilter::runFilter()
     FilterState fs = naiveFilter.filter();    
     this->m_filteredPosition = fs.pos.to2D();
     this->m_unfilteredSpeed = fs.vel.to2D();
+
+    int last_sign = 0;
+    int change_sign_count = 0;
+    for (int i=1; i<MAX_BALL_MEDIAN_MEMORY; i++) {
+        int cur_sign = (rawSpeedList[i].X()>0)? 1:-1;
+        if(cur_sign * last_sign < 0) {
+            change_sign_count ++;
+        }
+        last_sign = cur_sign;
+    }
+    if(change_sign_count > MAX_BALL_MEDIAN_MEMORY / 3) {
+        this->m_filteredPosition = fs.pos.to2D();
+        this->m_unfilteredSpeed = Vector2D(0, 0);
+    }
+
 }
 
 Vector2D BallFilter::getUnfilteredSpeed() const

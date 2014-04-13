@@ -76,7 +76,7 @@ void SSLReferee::check()
             case 's':
                 new_command = SSL_Referee_Command_FORCE_START;
                 break;
-            case ' ':
+            case '\n':
                 new_command = SSL_Referee_Command_NORMAL_START;
                 break;
             case 'k':
