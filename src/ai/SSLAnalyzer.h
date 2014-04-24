@@ -118,6 +118,25 @@ public:
 private:
     bool m_game_running;
 
+    // f stands for flag
+    bool f_distance_robot_ball       [MAX_ID_NUM << 1]                 ;
+    bool f_distance_robot_robot      [MAX_ID_NUM << 1][MAX_ID_NUM << 1];
+    bool f_canKick                   [MAX_ID_NUM << 1]                 ;
+    bool f_whenWhereCanCatchTheBall  [MAX_ID_NUM << 1]                 ;
+    bool f_whichRobotCanKick                                           ;
+
+
+    // c stands for cache
+    double             c_distance_robot_ball       [MAX_ID_NUM << 1]                 ;
+    double             c_distance_robot_robot      [MAX_ID_NUM << 1][MAX_ID_NUM << 1];
+    bool               c_canKick                   [MAX_ID_NUM << 1]                 ;
+    RobotIntersectTime c_whenWhereCanCatchTheBall  [MAX_ID_NUM << 1]                 ;
+    SSLRobot*          c_whichRobotCanKick                                           ;
+
+    void initialize_caches();
+    uint _getHashID(const SSLRobot * robot);
+
+
 };
 
 #endif // _ANALYZER_H
