@@ -7,9 +7,9 @@ using namespace SSL;
 NaiveKalman::NaiveKalman()
 {
     // default parameters
-    m_alfa = 0.25;
-    m_beta = 0.05;
-    m_gama = 0.15;
+    m_alfa = 0.25;   // position coefficient
+    m_beta = 0.05;   // velocity coefficient
+    m_gama = 0.15;   // accelera coefficient
 
     m_acc_effect = 0.0;
 
@@ -20,7 +20,7 @@ NaiveKalman::NaiveKalman()
 FilterState NaiveKalman::predict(double delta_t_sec)
 {
     m_predicted.acc = m_state.acc;
-    m_predicted.vel = m_state.vel + (m_state.acc * delta_t_sec) * m_acc_effect;
+    m_predicted.vel = m_state.vel * 0.9 + (m_state.acc * delta_t_sec) * m_acc_effect;
     m_predicted.pos = m_state.pos + m_state.vel * delta_t_sec;// + m_state.acc * (0.5 * delta_t_sec *delta_t_sec);
 
     double teta_ = m_predicted.pos.Teta();

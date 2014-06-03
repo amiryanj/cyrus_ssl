@@ -36,6 +36,7 @@ private:
     NaiveKalman naiveFilter;
 
     int __medianFilterIndex;
+    int __speedLimitFilter;
 };
 
 #endif // _BALLFILTER_H
