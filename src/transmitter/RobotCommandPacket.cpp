@@ -58,18 +58,29 @@ void RobotCommandPacket::setVelocity(const Vector3D &vel, bool use_new_wheel_ang
 
 void RobotCommandPacket::setVelocityByWheels(Vector3D vel, bool use_new_wheel_angles)
 {
+    float omega_coeff = ROBOT_RADIUS * 0.01;
     // by Jacobian Matrix
     if(use_new_wheel_angles) {
-        v[0] = cos(wheelAngle_1_new) * vel.X() + sin(wheelAngle_1_new)* vel.Y() + ROBOT_RADIUS* vel.Teta();
-        v[1] = cos(wheelAngle_2_new) * vel.X() + sin(wheelAngle_2_new)* vel.Y() + ROBOT_RADIUS* vel.Teta();
-        v[2] = cos(wheelAngle_3_new) * vel.X() + sin(wheelAngle_3_new)* vel.Y() + ROBOT_RADIUS* vel.Teta();
-        v[3] = cos(wheelAngle_4_new) * vel.X() + sin(wheelAngle_4_new)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+        v[0] = cos(wheelAngle_1_new) * vel.X() + sin(wheelAngle_1_new)* vel.Y() + omega_coeff * vel.Teta();
+        v[1] = cos(wheelAngle_2_new) * vel.X() + sin(wheelAngle_2_new)* vel.Y() + omega_coeff * vel.Teta();
+        v[2] = cos(wheelAngle_3_new) * vel.X() + sin(wheelAngle_3_new)* vel.Y() + omega_coeff * vel.Teta();
+        v[3] = cos(wheelAngle_4_new) * vel.X() + sin(wheelAngle_4_new)* vel.Y() + omega_coeff * vel.Teta();
     }
     else {
-        v[0] = cos(wheelAngle_1_old) * vel.X() + sin(wheelAngle_1_old)* vel.Y() + ROBOT_RADIUS* vel.Teta();
-        v[1] = cos(wheelAngle_2_old) * vel.X() + sin(wheelAngle_2_old)* vel.Y() + ROBOT_RADIUS* vel.Teta();
-        v[2] = cos(wheelAngle_3_old) * vel.X() + sin(wheelAngle_3_old)* vel.Y() + ROBOT_RADIUS* vel.Teta();
-        v[3] = cos(wheelAngle_4_old) * vel.X() + sin(wheelAngle_4_old)* vel.Y() + ROBOT_RADIUS* vel.Teta();
+        v[0] = cos(wheelAngle_1_old) * vel.X() + sin(wheelAngle_1_old)* vel.Y() + omega_coeff * vel.Teta();
+        v[1] = cos(wheelAngle_2_old) * vel.X() + sin(wheelAngle_2_old)* vel.Y() + omega_coeff * vel.Teta();
+        v[2] = cos(wheelAngle_3_old) * vel.X() + sin(wheelAngle_3_old)* vel.Y() + omega_coeff * vel.Teta();
+        v[3] = cos(wheelAngle_4_old) * vel.X() + sin(wheelAngle_4_old)* vel.Y() + omega_coeff * vel.Teta();
+    }
+
+    // test for clamping wheel velocities
+    for(int i=0; i<4; i++) {
+        if(fabs(v[i]) > 1) {
+            float temp = fabs(v[i]) * 1.001;
+            for(int j=0; j<4; j++) {
+                v[j] = v[j]/temp;
+            }
+        }
     }
 
     this->byWheelSpeed = true;

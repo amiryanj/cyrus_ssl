@@ -53,9 +53,10 @@ bool Vector3D::isInf() const
     return false;
 }
 
-void Vector3D::setZero()
+Vector3D& Vector3D::setZero()
 {
     _x = _y = _teta = 0.0;
+    return (*this);
 }
 
 Vector3D Vector3D::operator -() const

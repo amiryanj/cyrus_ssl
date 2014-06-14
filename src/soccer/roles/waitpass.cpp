@@ -19,14 +19,32 @@ void WaitPass::setBestPosition(const Vector3D &value)
 
 Vector3D WaitPass::expectedPosition()
 {
-    return SSLSkill::opponentMidfieldDownPosition();
+    Vector3D target;
+    if(analyzer->isGameRunning()) {
+        if(analyzer->ballPossessorTeam()->color == game->ourColor()) {
+            target = SSLSkill::opponentMidfieldUpPosition();
+        }
+        else
+            target = SSLSkill::ourMidfieldDownPosition();
+    }
+
+    else if(world->m_refereeState == SSLReferee::Stop) {
+        target = SSLSkill::wallStandFrontBall(1);
+    }
+
+    else { // other restart states
+        target = SSLSkill::ourMidfieldCenterPosition();
+    }
+    return target;
 }
 
 void WaitPass::run()
 {
+
+    Vector3D tolerance (300, 300, M_PI/4);
+
+    Vector3D target = expectedPosition();
+
 //    Vector3D target(game->ourSide() * (FIELD_LENGTH / 2.0) + 10, 10, 0); // for test invalid goal point
-    Vector3D target = SSLSkill::KickStylePosition(SSLSkill::opponentMidfieldUpPosition().to2D(),
-                                                  SSLSkill::opponentGoalCenter(), 100);
-    Vector3D tolerance(100, 100, M_PI/4);
     SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true);
 }

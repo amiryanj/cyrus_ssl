@@ -27,11 +27,11 @@ public:
     bool operator !=(const Vector3D &vector);
     bool isNull() const;
     bool isInf() const;
-    void setZero();
     void normalize2D();
     void rotate(float radianAngle);
     float lenght2D();
     void correctTeta();
+    Vector3D& setZero();
 
     Vector2D normalized2D() const;
 

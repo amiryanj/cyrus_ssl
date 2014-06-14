@@ -80,7 +80,7 @@ void SSLReferee::check()
                 new_command = SSL_Referee_Command_PREPARE_PENALTY_YELLOW;
                 break;
             case 'P':
-                new_command = SSL_Referee_Command_PREPARE_KICKOFF_BLUE;
+                new_command = SSL_Referee_Command_PREPARE_PENALTY_BLUE;
                 break;
             case 'i':
                 new_command = SSL_Referee_Command_INDIRECT_FREE_YELLOW;
@@ -126,7 +126,6 @@ void SSLReferee::check()
 
         cout << "Referee-Packet received. Lenght: [" << this->m_temp_packet.length << "]"
              << " command: "<< new_command << endl;
-
 
     }
 }

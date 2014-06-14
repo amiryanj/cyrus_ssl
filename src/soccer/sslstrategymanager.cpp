@@ -34,7 +34,7 @@ SSLStrategyManager::SSLStrategyManager()
             new Defender(1, 3),
             new Defender(2, 3),
             new Defender(3, 3),
-            new WaitPass()
+            new WaitPass(),
         };
         for (int i=0; i<6; i++) {
             normalPlay_1->m_roleList.push_back(r[i]);
@@ -51,7 +51,7 @@ SSLStrategyManager::SSLStrategyManager()
             new WaitPass(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new WaitPass()
+            new Blocker(),
         };
         for (int i=0; i<6; i++) {
             offensePlay_1->m_roleList.push_back(r[i]);
@@ -68,7 +68,7 @@ SSLStrategyManager::SSLStrategyManager()
             new Defender(1, 2),
             new Defender(2, 2),
             new Blocker(),
-            new Defender(3, 3)
+            new Defender(3, 3),
         };
         for (int i=0; i<6; i++) {
             defensePlay_1->m_roleList.push_back(r[i]);
@@ -82,10 +82,10 @@ SSLStrategyManager::SSLStrategyManager()
         SSLRole* r[6] = {
             new ActiveRole(),
             new GoalKeeper(),
-            new WaitPass(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new WaitPass()
+            new Blocker(),
+            new WaitPass(),
         };
         for (int i=0; i<6; i++) {
             kickOffFormation_1->m_roleList.push_back(r[i]);
@@ -98,11 +98,11 @@ SSLStrategyManager::SSLStrategyManager()
         opponentKickOffFormation_1->m_name = "opponentKickOffFormation_1";
         SSLRole* r[6] = {
             new ActiveRole(),
-            new Blocker(),
             new GoalKeeper(),
             new Defender(1, 2),
             new Defender(2, 2),
-            new WaitPass()
+            new Blocker(),
+            new Blocker(),
         };
         for (int i=0; i<6; i++) {
             opponentKickOffFormation_1->m_roleList.push_back(r[i]);
@@ -114,12 +114,12 @@ SSLStrategyManager::SSLStrategyManager()
         ourPenaltyFormation_1 = new SSLStrategy();
         ourPenaltyFormation_1->m_name = "ourPenaltyFormation_1";
         SSLRole* r[6] = {
-            r[0] = new ActiveRole(),
-            r[1] = new GoalKeeper(),
-            r[2] = new Defender(1, 2),
-            r[3] = new Defender(2, 2),
-            r[4] = new WaitPass(),
-            r[5] = new Defender(3, 3)
+            new ActiveRole(),
+            new GoalKeeper(),
+            new Defender(1, 2),
+            new Defender(2, 2),
+            new WaitPass(),
+            new Defender(3, 3),
         };
         for (int i=0; i<6; i++) {
             ourPenaltyFormation_1->m_roleList.push_back(r[i]);
@@ -135,8 +135,8 @@ SSLStrategyManager::SSLStrategyManager()
             new WaitPass(),
             new WaitPass(),
             new WaitPass(),
-            new Defender(1, 1),
-            new Defender(2, 2)
+            new WaitPass(),
+            new WaitPass(),
         };
         for (int i=0; i<6; i++) {
             opponentPenaltyFormation_1->m_roleList.push_back(r[i]);
@@ -148,12 +148,12 @@ SSLStrategyManager::SSLStrategyManager()
         ourFreeKick_1 = new SSLStrategy();
         ourFreeKick_1->m_name = "ourDirectKick_1";
         SSLRole* r[6] = {
-            r[0] = new ActiveRole(),
-            r[1] = new GoalKeeper(),
-            r[2] = new WaitPass(),
-            r[3] = new Defender(1, 2),
-            r[4] = new Defender(2, 2),
-            r[5] = new WaitPass()
+            new ActiveRole(),
+            new GoalKeeper(),
+            new WaitPass(),
+            new Defender(1, 2),
+            new Defender(2, 2),
+            new Blocker(),
         };
         for (int i=0; i<6; i++) {
             ourFreeKick_1->m_roleList.push_back(r[i]);
@@ -165,12 +165,12 @@ SSLStrategyManager::SSLStrategyManager()
         opponentFreeKickFormation_1 = new SSLStrategy();
         opponentFreeKickFormation_1->m_name = "opponentDirectKickFormation_1";
         SSLRole* r[6] = {
-            r[0] = new GoalKeeper(),
-            r[1] = new WaitPass(),
-            r[2] = new WaitPass(),
-            r[3] = new Defender(1, 2),
-            r[4] = new Defender(2, 2),
-            r[5] = new WaitPass()
+            new ActiveRole(),
+            new GoalKeeper(),
+            new Defender(1, 2),
+            new Defender(2, 2),
+            new Blocker(),
+            new Blocker(),
         };
         for (int i=0; i<6; i++) {
             opponentFreeKickFormation_1->m_roleList.push_back(r[i]);

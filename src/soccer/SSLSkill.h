@@ -26,7 +26,7 @@ public:
 
     static void halt(SSLAgent* agent);
 
-    static void goToPoint(SSLAgent* agent, const Vector3D &target, const Vector3D &tolerance);
+    static void goToPoint(SSLAgent* agent, Vector3D target, const Vector3D &tolerance);
 
     static void goToPointWithPlanner(SSLAgent *agent, const Vector3D &target, const Vector3D &tolerance,
                                      bool considerPenaltyArea = true,
@@ -50,8 +50,16 @@ public:
     static Vector2D ourGoalCenter();
     static Vector3D ourMidfieldUpPosition();
     static Vector3D ourMidfieldDownPosition();
+    static Vector3D ourMidfieldCenterPosition();
+
     static Vector3D opponentMidfieldUpPosition();
     static Vector3D opponentMidfieldDownPosition();
+
+    static Vector3D midlineUpPosition();
+    static Vector3D midlineDownPosition();
+
+    static Vector3D wallStandFrontBall(int number);
+
     static Vector3D KickStylePosition(const Vector2D &kick_point, const Vector2D &kickTarget, float dist = 100);
     static Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point,
                                          float dist_from_risky = 2 * ROBOT_RADIUS);
@@ -59,7 +67,8 @@ public:
 private:
     static void buildAndSendPacket(int id, Vector3D &vel, float kickSpeed = 0);
     static void printRobotAppliedSpeed(SSLAgent* agent, std::ostream& stream);
-    static void controlSpeed(SSLAgent* agent, const Vector3D &speed);
+    static Vector3D calcSpeed(const Vector3D &current, const Vector3D &target);
+    static void controlSpeed(SSLAgent* agent, const Vector3D &speed, bool use_controller);
 
 };
 
