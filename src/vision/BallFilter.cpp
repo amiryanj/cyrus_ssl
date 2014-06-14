@@ -12,7 +12,6 @@ BallFilter::BallFilter()
     rawPositionList.reserve(MAX_BALL_MEMORY + 1);
     // rawSpeedList is set to zero by default
     __medianFilterIndex = 0;
-    __speedLimitFilter = 7;
 }
 
 void BallFilter::putNewFrame(const Frame &fr)
@@ -26,9 +25,9 @@ void BallFilter::putNewFrame(const Frame &fr)
     last_update_time_msec = fr.timeStampMilliSec;
 
     Vector2D currentSpeed_;
-    if (rawPositionList.size() >= __speedLimitFilter)
-        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList[__speedLimitFilter].position.to2D())
-                / (rawPositionList[0].timeStampMilliSec - rawPositionList[__speedLimitFilter].timeStampMilliSec);
+    if (rawPositionList.size() >= BALL_SPEED_LIMIT_FILTER)
+        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList[BALL_SPEED_LIMIT_FILTER].position.to2D())
+                / (rawPositionList[0].timeStampMilliSec - rawPositionList[BALL_SPEED_LIMIT_FILTER].timeStampMilliSec);
     else
         currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList.back().position.to2D())
                 / (rawPositionList[0].timeStampMilliSec - rawPositionList.back().timeStampMilliSec);
@@ -86,8 +85,8 @@ void BallFilter::runFilter()
         {
             last_frame.position =
                     rawPositionList[i+1].position + Vector3D(
-                        m_medianFilteredSpeed *
-                        (rawPositionList[0].timeStampMilliSec - rawPositionList[i+1].timeStampMilliSec) * (i+1), 0.0
+                        (rawPositionList[i].position.to2D() - rawPositionList[i+1].position.to2D())
+                        * (i+1), 0.0
                         );
             break;
         }

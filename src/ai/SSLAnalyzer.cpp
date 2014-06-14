@@ -14,6 +14,7 @@
 #define goalRightPost 2375
 #define robotObstacle 100
 #define BALL_FRICTION_COEFF  4.0
+#define BALL_SPEED_THRESHOLD_FOR_CROSS 400.0
 
 #define POSSESSION_THRESHOLD 0.03
 
@@ -415,6 +416,9 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(
     neededTime += wastedTimeForInertia(robot, newPosition);
     stopCaseAnswer.m_time = neededTime;
     stopCaseAnswer.m_position = newPosition;
+    if (ball->Speed().lenght() < BALL_SPEED_THRESHOLD_FOR_CROSS)
+        return stopCaseAnswer;
+
     /* cross case
      solves using (x-xb)^2 + (y-yb)^2 = r(t)^2 and vb = cte
      r(t): radius robot can be in t seconds from now

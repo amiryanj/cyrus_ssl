@@ -8,6 +8,7 @@
 
 #define MAX_BALL_MEMORY 30
 #define MAX_BALL_MEDIAN_MEMORY 11
+#define BALL_SPEED_LIMIT_FILTER 7
 
 class BallFilter
 {
@@ -36,7 +37,6 @@ private:
     NaiveKalman naiveFilter;
 
     int __medianFilterIndex;
-    int __speedLimitFilter;
 };
 
 #endif // _BALLFILTER_H
