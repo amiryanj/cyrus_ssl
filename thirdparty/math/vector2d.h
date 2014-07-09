@@ -1,8 +1,16 @@
 #ifndef _Vector2D_H
 #define _Vector2D_H
 
+#include <iosfwd>
+
 class Vector3D;
-class b2Vec2;
+#ifdef _USE_QT_
+class QVector3D;
+class QVector2D;
+class QPointF;
+#endif
+struct b2Vec3;
+struct b2Vec2;
 
 class Vector2D
 {
@@ -18,7 +26,6 @@ public:
     Vector2D();
     Vector2D(const Vector2D &vector);
     Vector2D(float nx, float ny);
-    Vector2D(b2Vec2 vec);
 
     Vector2D operator =(const Vector2D &vector);
     bool operator ==(const Vector2D &vector);
@@ -45,11 +52,27 @@ public:
     float operator *(const Vector2D &vector);
 
     Vector3D to3D();
-    b2Vec2 b2vec2();
+
+#ifdef _USE_BOX2D_
+    Vector2D(b2Vec2 vec);
+    b2Vec2 toB2vec2();
+    b2Vec3 toB2vec3();
+#endif
+
+#ifdef _USE_QT_
+    Vector2D(QVector2D &qvec);
+    Vector2D(QPointF qpnt);
+    QVector3D toQvec3D();
+    QVector2D toQvec2D();
+    QPointF toQpoint();
+#endif
+
+    void print(std::ostream &stream);
 
 //    Vector2D crossProduct(const Vector2D &a, const Vector2D &b);
     static float vectorMag(const Vector2D  &vector);
     static float distance(const Vector2D &a, const Vector2D &b);
+    static Vector2D unitVector(float direction_rad);
 
     static float dot(const Vector2D& a, const Vector2D& b);
     static float angleBetween(const Vector2D& a, const Vector2D& b);

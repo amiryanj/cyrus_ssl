@@ -1,8 +1,18 @@
-
 #include "vector2d.h"
 #include "vector3d.h"
-#include <math.h>
+#include "sslmath.h"
+#include <cmath>
+#include <ostream>
+
+#ifdef _USE_QT_
+#include <QVector3D>
+#include <QVector2D>
+#include <QPointF>
+#endif
+
+#ifdef _USE_BOX2D_
 #include <Box2D/Common/b2Math.h>
+#endif
 
 Vector2D::Vector2D()
 {
@@ -17,11 +27,6 @@ Vector2D::Vector2D(const Vector2D &vector)
 Vector2D::Vector2D(float nx, float ny)
 {
     _x = nx;    _y = ny;
-}
-
-Vector2D::Vector2D(b2Vec2 vec)
-{
-    _x = vec.x;  _y = vec.y;
 }
 
 Vector2D Vector2D::operator =(const Vector2D &vector)
@@ -189,9 +194,57 @@ Vector3D Vector2D::to3D()
     return v3d;
 }
 
-b2Vec2 Vector2D::b2vec2()
+#ifdef _USE_BOX2D_
+Vector2D::Vector2D(b2Vec2 vec)
+{
+    _x = vec.x;
+    _y = vec.y;
+}
+
+b2Vec3 Vector2D::toB2vec3()
+{
+    return b2Vec3(this->_x, this->_y, 0);
+}
+
+b2Vec2 Vector2D::toB2vec2()
 {
     return b2Vec2(this->_x, this->_y);
+}
+#endif
+
+#ifdef _USE_QT_
+Vector2D::Vector2D(QVector2D &qvec)
+{
+    _x = qvec.x();
+    _y = qvec.y();
+}
+
+Vector2D::Vector2D(QPointF qpnt)
+{
+    _x = qpnt.x();
+    _y = qpnt.y();
+}
+
+QVector3D Vector2D::toQvec3D()
+{
+    return QVector3D(_x, _y, 0);
+}
+
+QVector2D Vector2D::toQvec2D()
+{
+    return QVector2D(_x, _y);
+}
+
+QPointF Vector2D::toQpoint()
+{
+    return QPointF(_x, _y);
+}
+
+#endif
+
+void Vector2D::print(std::ostream &stream)
+{
+    stream << "X: " << _x << ", Y:" << _y << std::endl;
 }
 
 float Vector2D::vectorMag(const Vector2D &vector)
@@ -204,6 +257,13 @@ float Vector2D::distance(const Vector2D &a, const Vector2D &b)
     float dx = a._x - b._x;
     float dy = a._y - b._y;
     return sqrt(dx * dx + dy * dy);
+}
+
+Vector2D Vector2D::unitVector(float direction_rad)
+{
+    Vector2D tmp(1, 0);
+    tmp.rotate(direction_rad);
+    return tmp;
 }
 
 float Vector2D::dot(const Vector2D &a, const Vector2D &b)

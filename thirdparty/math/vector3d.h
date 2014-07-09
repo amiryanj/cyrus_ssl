@@ -2,7 +2,10 @@
 #define _Vector3D_H
 
 class Vector2D;
-class b2Vec3;
+class QVector3D;
+class QVector2D;
+struct b2Vec3;
+struct b2Vec2;
 
 class Vector3D
 {
@@ -33,7 +36,7 @@ public:
     void correctTeta();
     Vector3D& setZero();
 
-    Vector2D normalized2D() const;
+    Vector2D getNormalized2D() const;
 
     Vector3D operator -() const;
     Vector3D operator +(const Vector3D &vector) const;
@@ -47,7 +50,18 @@ public:
     Vector3D &operator /=(float s);
 //    float operator *(const Vector3D &vector);
     Vector2D to2D();
-    b2Vec3 b2vec3();
+
+#ifdef _USE_BOX2D_
+    Vector3D(b2Vec3 vec);
+    b2Vec3 toB2vec3();
+    b2Vec2 toB2vec2();
+#endif
+
+#ifdef _USE_QT_
+    Vector3D(QVector3D qvec);
+    QVector3D toQvec3D();
+    QVector2D toQvec2D();
+#endif
 
     Vector3D dotProduct(Vector3D &b);
 

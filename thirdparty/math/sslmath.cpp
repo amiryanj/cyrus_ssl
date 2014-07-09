@@ -8,7 +8,7 @@ float SSL::continuousRadian(float angle, float start_ang) {
         float c = angle/(2*M_PI);
         float d = floor(c) * (2*M_PI);
         angle = angle - d;
-        if(fabs(angle) < 2*M_PI) {
+        if(fabs(angle) > 2*M_PI) {
             std::cout << "Error : continuous radian: angle = " << angle << std::endl;
         }
 //        assert(fabs(angle) < 2*M_PI);

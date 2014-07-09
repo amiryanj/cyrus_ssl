@@ -1,8 +1,16 @@
 #include "vector3d.h"
 #include "vector2d.h"
-#include <math.h>
-#include <Box2D/Common/b2Math.h>
+#include <cmath>
 #include "sslmath.h"
+
+#ifdef _USE_QT_
+#include <QVector3D>
+#include <QVector2D>
+#endif
+
+#ifdef _USE_BOX2D_
+#include <Box2D/Common/b2Math.h>
+#endif
 
 Vector3D::Vector3D()
 {
@@ -152,7 +160,7 @@ void Vector3D::correctTeta()
         _teta += M_PI;
 }
 
-Vector2D Vector3D::normalized2D() const
+Vector2D Vector3D::getNormalized2D() const
 {
     Vector2D __tmp;
     __tmp.set(this->X(), this->Y());
@@ -166,10 +174,42 @@ Vector2D Vector3D::to2D()
     return v2d;
 }
 
-b2Vec3 Vector3D::b2vec3()
+#ifdef _USE_BOX2D_
+Vector3D::Vector3D(b2Vec3 vec)
+{
+    _x = vec.x;
+    _y = vec.y;
+    _teta = vec.z;
+}
+
+b2Vec3 Vector3D::toB2vec3()
 {
     return b2Vec3(this->_x, this->_y, this->_teta);
 }
+
+b2Vec2 Vector3D::toB2vec2()
+{
+    return b2Vec2(this->_x, this->_y);
+}
+#endif
+
+#ifdef _USE_QT_
+Vector3D::Vector3D(QVector3D qvec)
+{
+    _x = qvec.x();
+    _y = qvec.y();
+    _teta = qvec.z();
+}
+QVector3D Vector3D::toQvec3D()
+{
+    return QVector3D(_x, _y, _teta);
+}
+
+QVector2D Vector3D::toQvec2D()
+{
+    return QVector2D(_x, _y);
+}
+#endif
 
 Vector3D Vector3D::dotProduct(Vector3D &b)
 {
