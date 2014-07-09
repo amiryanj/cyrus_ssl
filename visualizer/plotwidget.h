@@ -1,5 +1,5 @@
-#ifndef PLOTWIDGET_H
-#define PLOTWIDGET_H
+#ifndef _PLOTWIDGET_H
+#define _PLOTWIDGET_H
 
 #include <QWidget>
 #include <QTimer>
@@ -31,4 +31,4 @@ private slots:
     void graphClicked(QCPAbstractPlottable *plottable);
 };
 
-#endif // PLOTWIDGET_H
+#endif // _PLOTWIDGET_H

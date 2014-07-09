@@ -25,6 +25,11 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">.QWidget {
+font-size : 6px;
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="5">
    <property name="spacing">
     <number>0</number>
@@ -46,19 +51,6 @@
        <height>300</height>
       </size>
      </property>
-     <widget class="QLabel" name="vel_label">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>81</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>select graph</string>
-      </property>
-     </widget>
     </widget>
    </item>
   </layout>

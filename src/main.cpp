@@ -9,12 +9,12 @@
 #include "gui/guihandler.h"
 #include "transmitter/commandtransmitter.h"
 
-#include "tools/sslmath.h"
+//#include "tools/sslmath.h"
 using namespace std;
 
 //******************************************************
 #define OUR_COLOR   SSL::Yellow
-#define OUR_SIDE    SSL::Right
+#define OUR_SIDE    SSL::Left
 //******************************************************
 
 int main(int argc, char *argv[])
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     cout << "Main is running ... " << endl;
     long loopCounter = 0;
 
-    SSLReferee *referee = new SSLReferee(SSL_REFEREE_PORT, SSL_REFEREE_ADDRESS);
+    SSLReferee *referee = new SSLReferee(MY_REFEREE_PORT, MY_REFEREE_ADDRESS);
 
     SSLVision *vision = new SSLVision(SSL_VISION_PORT, SSL_VISION_ADDRESS);
 

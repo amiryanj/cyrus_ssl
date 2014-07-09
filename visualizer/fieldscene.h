@@ -9,6 +9,7 @@
 #include "graphics/graphic_plan.h"
 #include "graphics/graphic_circle.h"
 #include "graphics/graphic_intersect.h"
+#include "graphics/graphic_ball.h"
 #include "Concepts.h"
 #include "robotstate.h"
 #include <QWheelEvent>
@@ -60,6 +61,7 @@ private:
 
 
     CircleGraphicsItem *ball;
+    BallGraphicsItem *ballTail;
     VectorGraphicsItem *ballVel;
 
     int lastNearBlueID;

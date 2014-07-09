@@ -2,7 +2,7 @@
 #define _ANALYZER_H
 
 #include "../general.h"
-#include "../tools/SSLListener.h"
+#include "SSLListener.h"
 #include <vector>
 #include <map>
 #include <algorithm>

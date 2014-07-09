@@ -2,12 +2,12 @@
 #define GRSIMSENDER_H
 
 #include "../thirdparty/socket/netraw.h"
-#include "../tools/SSLListener.h"
+#include "SSLListener.h"
 #include "../general.h"
-#include "RobotCommandPacket.h"
-#include "grSim/cpp/grSim_Packet.pb.h"
+#include "../../protoc/grSim/cpp/grSim_Packet.pb.h"
 #include "../ai/SSLWorldModel.h"
 #include "../ai/SSLGame.h"
+#include "RobotCommandPacket.h"
 
 class GRSimSender: public Net::UDP
 {

@@ -1,6 +1,6 @@
 #ifndef VELOCITY_H
 #define VELOCITY_H
-#include "../../tools/vector3d.h"
+#include "math/vector3d.h"
 
 typedef Vector3D Velocity;
 

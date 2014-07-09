@@ -3,7 +3,7 @@
 
 #include "../general.h"
 #include "../ai/SSLWorldModel.h"
-#include "../tools/SSLListener.h"
+#include "SSLListener.h"
 #include "RobotFilter.h"
 #include "BallFilter.h"
 #include "Frame.h"

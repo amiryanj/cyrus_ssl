@@ -8,10 +8,10 @@
 #ifndef SSLREFEREE_H_
 #define SSLREFEREE_H_
 
-#include "referee/cpp/referee.pb.h"
-#include "thirdparty/socket/netraw.h"
-#include "tools/SSLListener.h"
-#include "thirdparty/socket/IPPacket.h"
+#include "../../protoc/referee/cpp/referee.pb.h"
+#include "../thirdparty/socket/netraw.h"
+#include "../thirdparty/socket/IPPacket.h"
+#include "SSLListener.h"
 
 using namespace Net;
 

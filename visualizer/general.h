@@ -14,8 +14,8 @@
 #include <string>
 #include <vector>
 #include "Concepts.h"
-#include "tools/vector3d.h"
-#include "tools/vector2d.h"
+#include "vector3d.h"
+#include "vector2d.h"
 //using namespace std;
 //-------------------------------------------------------
 

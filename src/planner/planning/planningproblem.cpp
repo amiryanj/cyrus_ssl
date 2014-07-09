@@ -1,8 +1,8 @@
 #include "planningproblem.h"
-#include "plannermath.h"
 #include <Box2D/Collision/b2Distance.h>
-#include "tools/sslmath.h"
 #include <iostream>
+#include "plannermath.h"
+#include "math/sslmath.h"
 
 using namespace SSL;
 
@@ -60,7 +60,7 @@ void PlanningProblem::PotentialFieldSolve()
     {
         Vector2D totalForce(0, 0);
         b2PolygonShape road_to_goal_shape;
-        b2Vec2 center(((currentVertex->state.position + goal.goal_point.position)/2.0).to2D().b2vec2());
+        b2Vec2 center(((currentVertex->state.position + goal.goal_point.position)/2.0).toB2vec2());
         Vector2D diff_to_goal((goal.goal_point.position - currentVertex->state.position).to2D());
 
         road_to_goal_shape.SetAsBox(agent.shape->m_radius * 1.10, diff_to_goal.lenght()/2, center,
@@ -121,7 +121,7 @@ void PlanningProblem::PotentialFieldSolve()
 
         Station new_station;
         new_station.setPosition(currentVertex->state.position + (totalForce * 1.3 * agent.shape->m_radius).to3D());
-        for(int i=0; i<stat_obstacles.size(); i++) {
+        for(uint i=0; i<stat_obstacles.size(); i++) {
             Obstacle* ob_i = stat_obstacles[i];
             assert(ob_i != NULL);
             if(hasCollision(new_station, *ob_i)) {
@@ -442,7 +442,7 @@ float PlanningProblem::EucleadianDistance(const Station &A, const Station &B)
 bool PlanningProblem::hasCollision(Station &st, const ObstacleSet &ob_set)
 {
     b2Transform st_ateTransform;
-    st_ateTransform.Set(st.position.to2D().b2vec2(), st.position.Teta());
+    st_ateTransform.Set(st.position.toB2vec2(), st.position.Teta());
 
     for(unsigned int i=0; i<ob_set.size(); i++)
     {
@@ -462,7 +462,7 @@ bool PlanningProblem::hasCollision(Station &st, const ObstacleSet &ob_set)
 bool PlanningProblem::hasCollision(Station &st, const Obstacle &ob)
 {
     b2Transform st_Transform;
-    st_Transform.Set(st.position.to2D().b2vec2(), st.position.Teta());
+    st_Transform.Set(st.position.toB2vec2(), st.position.Teta());
 
     return b2TestOverlap(ob.shape, 0, agent.shape, 1, ob.m_transform, st_Transform);
 }

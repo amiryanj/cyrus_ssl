@@ -419,7 +419,7 @@ vector<pair<float,float> > SSLAnalyzer::openAngleToGoal(const Vector2D targetPoi
 float SSLAnalyzer::wastedTimeForInertia(SSLRobot *robot, Vector2D target) const
 {
     Vector2D diff = target - robot->Position().to2D();
-    float cos_theta = cos(Vector2D::angleBetween(diff, robot->Speed().to2D()));
+    float cos_theta = cos(diff.arctan() - robot->Speed().to2D().arctan());
     float wastedTime = (robot->physic.max_lin_vel_mmps - robot->Speed().lenght2D()*cos_theta) / robot->physic.max_lin_acc_mmps2;
     return wastedTime;
 }

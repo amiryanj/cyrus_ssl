@@ -1,7 +1,7 @@
 #ifndef _BALLFILTER_H
 #define _BALLFILTER_H
 
-#include "../tools/vector2d.h"
+#include "math/vector2d.h"
 #include <vector>
 #include "NaiveKalman.h"
 #include "Frame.h"

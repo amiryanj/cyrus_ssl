@@ -1,4 +1,5 @@
 #include "sslrole.h"
+#include "../../definition/sslagent.h"
 
 SSLRole::SSLRole()
 {

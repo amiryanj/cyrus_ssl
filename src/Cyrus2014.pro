@@ -9,6 +9,8 @@
 
 LIBS += -lprotobuf -lboost_system -lBox2D
 
+DEFINES += _USE_BOX2D_
+
 TARGET = Cyrus2014
 #CONFIG   += console
 #CONFIG   -= app_bundle
@@ -16,8 +18,12 @@ TARGET = Cyrus2014
 INCLUDEPATH += \
             $$PWD \
             /usr/local/include \
-            thirdparty\
-            thirdparty/socket \
+            ../common \
+            ../common/math \
+            ../common/tools \
+            ../common/protoc \
+            ../common/thirdparty \
+            ../common/thirdparty/socket \
             tools
 
 TEMPLATE = app
@@ -26,14 +32,10 @@ SOURCES += \
     main.cpp \
     vision/SSLVision.cpp \    
     transmitter/RobotSerialConnection.cpp \
-    thirdparty/serialib/serialib.cpp \
-    thirdparty/socket/IPPacket.cpp \
-    thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.cc \
-    thirdparty/sslvision/cpp/messages_robocup_ssl_refbox_log.pb.cc \
-    thirdparty/sslvision/cpp/messages_robocup_ssl_geometry.pb.cc \
-    thirdparty/sslvision/cpp/messages_robocup_ssl_detection.pb.cc \
-    tools/SSLListener.cpp \
-    tools/SSLException.cpp \
+    ../common/thirdparty/serialib/serialib.cpp \
+    ../common/thirdparty/socket/IPPacket.cpp \
+    ../common/tools/SSLListener.cpp \
+#    tools/SSLException.cpp \
     ai/SSLWorldModel.cpp \
     definition/SSLTeam.cpp \
     definition/SSLRobot.cpp \
@@ -42,26 +44,17 @@ SOURCES += \
     definition/SSLRobotPhysic.cpp \
     ai/SSLGame.cpp \
     transmitter/RobotCommandPacket.cpp \
-    tools/vector3d.cpp \
-    tools/vector2d.cpp \
-    thirdparty/socket/netraw.cpp \
+    ../common/math/vector3d.cpp \
+    ../common/math/vector2d.cpp \
+    ../common/thirdparty/socket/netraw.cpp \
     ai/SSLAnalyzer.cpp \
     definition/sslagent.cpp \
     definition/sslstrategy.cpp \
-    gui/guihandler.cpp \
-    gui/cpp/ssl_visualizer.pb.cc \
-    gui/cpp/ssl_world.pb.cc \
-    gui/cpp/ssl_decision.pb.cc \
-    gui/cpp/ssl_planner.pb.cc \
-    gui/cpp/ssl_analyzer.pb.cc \
-    transmitter/grsimsender.cpp \
-    transmitter/grSim/cpp/grSim_Replacement.pb.cc \
-    transmitter/grSim/cpp/grSim_Packet.pb.cc \
-    transmitter/grSim/cpp/grSim_Commands.pb.cc \
+    gui/guihandler.cpp \    
+    transmitter/grsimsender.cpp \    
     transmitter/commandtransmitter.cpp \
-    tools/sslmath.cpp \
-    referee/SSLReferee.cpp \
-    referee/referee/cpp/referee.pb.cc \
+    ../common/math/sslmath.cpp \
+    referee/SSLReferee.cpp \    
     controller/pidcontroller.cpp \
     planner/planning/velocity.cpp \
     planner/planning/trajectory.cpp \
@@ -91,20 +84,29 @@ SOURCES += \
     vision/NaiveKalman.cpp \
     vision/BallFilter.cpp \
     vision/RobotFilter.cpp \
-    vision/Frame.cpp
+    vision/Frame.cpp \
+    ../common/protoc/grSim/cpp/grSim_Replacement.pb.cc \
+    ../common/protoc/grSim/cpp/grSim_Packet.pb.cc \
+    ../common/protoc/grSim/cpp/grSim_Commands.pb.cc \
+    ../common/protoc/referee/cpp/referee.pb.cc \
+    ../common/protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.cc \
+    ../common/protoc/vision/cpp/messages_robocup_ssl_refbox_log.pb.cc \
+    ../common/protoc/vision/cpp/messages_robocup_ssl_geometry.pb.cc \
+    ../common/protoc/vision/cpp/messages_robocup_ssl_detection.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_world.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_visualizer.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_planner.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_decision.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc
 
 HEADERS += \
     vision/SSLVision.h \
     transmitter/RobotSerialConnection.h \
-    thirdparty/serialib/serialib.h \
-    thirdparty/socket/IPPacket.h \
-    thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.h \
-    thirdparty/sslvision/cpp/messages_robocup_ssl_refbox_log.pb.h \
-    thirdparty/sslvision/cpp/messages_robocup_ssl_geometry.pb.h \
-    thirdparty/sslvision/cpp/messages_robocup_ssl_detection.pb.h \
-    tools/SSLListener.h \
-    tools/SSLException.h \
-    general.h \
+    ../common/thirdparty/serialib/serialib.h \
+    ../common/thirdparty/socket/IPPacket.h \
+    ../common/tools/SSLListener.h \
+#    tools/SSLException.h \
+    ../common/general.h \
     ai/SSLWorldModel.h \
     definition/SSLTeam.h \
     definition/SSLRobot.h \
@@ -114,27 +116,18 @@ HEADERS += \
     definition/Concepts.h \
     ai/SSLGame.h \
     transmitter/RobotCommandPacket.h \
-    tools/vector3d.h \
-    tools/vector2d.h \
-    thirdparty/socket/netraw.h \
-    thirdparty/util.h \
+    ../common/math/vector3d.h \
+    ../common/math/vector2d.h \
+    ../common/thirdparty/socket/netraw.h \
+    ../common/thirdparty/util.h \
     ai/SSLAnalyzer.h \
     definition/sslagent.h \
     definition/sslstrategy.h \
     gui/guihandler.h \
-    gui/cpp/ssl_visualizer.pb.h \
-    gui/cpp/ssl_world.pb.h \
-    gui/cpp/ssl_decision.pb.h \
-    gui/cpp/ssl_planner.pb.h \
-    gui/cpp/ssl_analyzer.pb.h \
     transmitter/grsimsender.h \
-    transmitter/grSim/cpp/grSim_Replacement.pb.h \
-    transmitter/grSim/cpp/grSim_Packet.pb.h \
-    transmitter/grSim/cpp/grSim_Commands.pb.h \
     transmitter/commandtransmitter.h \
-    tools/sslmath.h \
+    ../common/math/sslmath.h \
     referee/SSLReferee.h \
-    referee/referee/cpp/referee.pb.h \
     soccer/SSLSkill.h \
     soccer/sslstrategymanager.h \
     soccer/roles/sslrole.h \
@@ -164,17 +157,36 @@ HEADERS += \
     vision/RobotFilter.h \
     vision/BallFilter.h \
     vision/NaiveKalman.h \
-    vision/Frame.h
+    vision/Frame.h \
+    ../common/protoc/grSim/cpp/grSim_Replacement.pb.h \
+    ../common/protoc/grSim/cpp/grSim_Packet.pb.h \
+    ../common/protoc/grSim/cpp/grSim_Commands.pb.h \
+    ../common/protoc/referee/cpp/referee.pb.h \
+    ../common/protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.h \
+    ../common/protoc/vision/cpp/messages_robocup_ssl_refbox_log.pb.h \
+    ../common/protoc/vision/cpp/messages_robocup_ssl_geometry.pb.h \
+    ../common/protoc/vision/cpp/messages_robocup_ssl_detection.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_world.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_visualizer.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_planner.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_decision.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.h
 
 OTHER_FILES += \
     todo.txt \
     planner/planning/Planner.pri \
-    referee/referee/referee.proto \
     /etc/sslrefbox/referee.conf \
-    gui/proto/ssl_world.proto \
-    gui/proto/ssl_visualizer.proto \
-    gui/proto/ssl_planner.proto \
-    gui/proto/ssl_decision.proto \
-    gui/proto/ssl_analyzer.proto
-
+    ../common/protoc/referee/referee.proto \
+    ../common/protoc/referee/compile.sh \
+    ../common/protoc/vision/proto/messages_robocup_ssl_wrapper.proto \
+    ../common/protoc/vision/proto/messages_robocup_ssl_refbox_log.proto \
+    ../common/protoc/vision/proto/messages_robocup_ssl_geometry.proto \
+    ../common/protoc/vision/proto/messages_robocup_ssl_detection.proto \
+    ../common/protoc/vision/proto/compile.sh \
+    ../common/protoc/visualizer/proto/ssl_world.proto \
+    ../common/protoc/visualizer/proto/ssl_visualizer.proto \
+    ../common/protoc/visualizer/proto/ssl_planner.proto \
+    ../common/protoc/visualizer/proto/ssl_decision.proto \
+    ../common/protoc/visualizer/proto/ssl_analyzer.proto \
+    ../common/protoc/visualizer/proto/compile.sh
 

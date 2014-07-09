@@ -5,7 +5,7 @@
 //#include <eigen3/Eigen/LU>
 //#include <eigen3/Eigen/Eigen>
 
-#include "tools/vector3d.h"
+#include "math/vector3d.h"
 
 struct FilterState {
     Vector3D acc;

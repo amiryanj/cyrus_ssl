@@ -1,7 +1,7 @@
 #ifndef COMMANDTRANSMITTER_H
 #define COMMANDTRANSMITTER_H
 
-#include "../tools/SSLListener.h"
+#include "SSLListener.h"
 #include "RobotCommandPacket.h"
 #include "grsimsender.h"
 #include "RobotSerialConnection.h"

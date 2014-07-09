@@ -2,7 +2,7 @@
 #define _OPPONENTMARKER_H
 
 #include "sslrole.h"
-#include "../definition/SSLRobot.h"
+#include "../../definition/SSLRobot.h"
 #include "../SSLSkill.h"
 
 class OpponentMarker : public SSLRole

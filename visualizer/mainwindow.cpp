@@ -52,7 +52,12 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     connect(parser, SIGNAL(newRefereeState(QString)), this, SLOT(setRefereeState(QString)));
 
 
+    setupTree();
     setupTable();
+
+    ui->actionShow_Plans->setChecked(true);
+    ui->actionShow_Targets->setChecked(true);
+    ui->actionConnect_Server->setChecked(true);
 }
 
 MainWindow::~MainWindow()
@@ -109,34 +114,58 @@ void MainWindow::setupTable()
 
     // op team
   {
-    ui->opRobotsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->opRobotsTableWidget->setColumnCount(2);
-    QStringList opRobotTableHeaders;
-    opRobotTableHeaders << "Role" << "In Field" ; //<< "Position";
-    ui->opRobotsTableWidget->setHorizontalHeaderLabels(opRobotTableHeaders);
+//    ui->opRobotsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+//    ui->opRobotsTableWidget->setColumnCount(2);
+//    QStringList opRobotTableHeaders;
+//    opRobotTableHeaders << "Role" << "In Field" ; //<< "Position";
+//    ui->opRobotsTableWidget->setHorizontalHeaderLabels(opRobotTableHeaders);
 
-    int reducedRows = 4;
-    ui->opRobotsTableWidget->setRowCount(MAX_ID_NUM - reducedRows);
+//    int reducedRows = 4;
+//    ui->opRobotsTableWidget->setRowCount(MAX_ID_NUM - reducedRows);
 
-    QStringList opTableRobotsHeader;
-    for (int i=0; i< MAX_ID_NUM - reducedRows; ++i) {
-        QString temp = QString((ourColor==SSL::Blue)? "Yellow %1":"Blue %1").arg(i);
-        opTableRobotsHeader << temp;
-    }
-    ui->opRobotsTableWidget->setVerticalHeaderLabels(opTableRobotsHeader);
+//    QStringList opTableRobotsHeader;
+//    for (int i=0; i< MAX_ID_NUM - reducedRows; ++i) {
+//        QString temp = QString((ourColor==SSL::Blue)? "Yellow %1":"Blue %1").arg(i);
+//        opTableRobotsHeader << temp;
+//    }
+//    ui->opRobotsTableWidget->setVerticalHeaderLabels(opTableRobotsHeader);
 
-    for(int i=0; i< MAX_ID_NUM; ++i)
-    {
-        for(int j=0; j< 4; j++) {
-            op_robots[i][j] = new QTableWidgetItem();
-            ui->opRobotsTableWidget->setItem(i, j, op_robots[i][j]);
-        }
-    }
+//    for(int i=0; i< MAX_ID_NUM; ++i)
+//    {
+//        for(int j=0; j< 4; j++) {
+//            op_robots[i][j] = new QTableWidgetItem();
+//            ui->opRobotsTableWidget->setItem(i, j, op_robots[i][j]);
+//        }
+//    }
 
-    for(int i=0; i<ui->opRobotsTableWidget->rowCount(); i++) {
-        ui->opRobotsTableWidget->setRowHeight(i, 20);
-    }
+//    for(int i=0; i<ui->opRobotsTableWidget->rowCount(); i++) {
+//        ui->opRobotsTableWidget->setRowHeight(i, 20);
+//    }
   }
+
+}
+
+void MainWindow::setupTree()
+{
+    QString tempStr = ((ourColor==SSL::Blue)? QString("Blue"):QString("Yellow"));
+    QTreeWidgetItem* ourTeamItem = new QTreeWidgetItem(ui->treeWidget);
+    ourTeamItem->setText(0, "Our Team [" + tempStr + "]");
+
+    for(int i=0; i<MAX_TEAM_PLAYER; i++) {
+        QTreeWidgetItem* item = new QTreeWidgetItem();
+        item->setText(0, tempStr + QString(" Robot %1 ").arg(i));
+        ourTeamItem->addChild(item);
+    }
+
+    tempStr = ((ourColor==SSL::Yellow)? QString("Blue"):QString("Yellow"));
+    QTreeWidgetItem* opTeamItem = new QTreeWidgetItem(ui->treeWidget);
+    opTeamItem->setText(0, "Opponent Team [" + tempStr + "]");
+
+    for(int i=0; i<MAX_TEAM_PLAYER; i++) {
+        QTreeWidgetItem* item = new QTreeWidgetItem();
+        item->setText(0, tempStr + QString(" Robot %1").arg(i));
+        opTeamItem->addChild(item);
+    }
 
 }
 
@@ -266,6 +295,11 @@ void MainWindow::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
 {
     QString a = item->text(column);
     qDebug() << "Salam:   " << a;
+    if(a.contains("Robot")) {
+        RobotPropertiesWidget *widget = new RobotPropertiesWidget();
+        ui->tabWidget->addTab(widget, a);
+        this->robotWidgetList.insert(a, widget);
+    }
 //    if(item->)
 }
 
@@ -323,4 +357,17 @@ void MainWindow::on_actionShowIntersects_toggled(bool arg1)
 void MainWindow::on_actionShow_Plans_toggled(bool arg1)
 {
     field->setIsShowingPlans(arg1);
+}
+
+void MainWindow::on_actionConnect_Server_triggered(bool checked)
+{
+    if(checked) {
+        joinCyrusServer();
+        receiver->timer.start();
+    }
+
+    else {
+        receiver->timer.stop();
+        receiver->disconnectNetwork();
+    }
 }

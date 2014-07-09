@@ -1,4 +1,5 @@
 #include "activerole.h"
+#include "../../definition/sslagent.h"
 
 ActiveRole::ActiveRole()
 {

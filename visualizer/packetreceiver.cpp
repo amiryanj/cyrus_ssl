@@ -37,6 +37,11 @@ bool PacketReceiver::joinNetwork(QString IP, int port)
     return joinResultFlag;
 }
 
+void PacketReceiver::disconnectNetwork()
+{
+    socket.close();
+}
+
 void PacketReceiver::processPendingData()
 {
     qDebug() << "new data packet received";

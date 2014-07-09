@@ -2,7 +2,7 @@
 #define _SSLVISION_H_
 
 #include "../thirdparty/socket/IPPacket.h"
-#include "../thirdparty/sslvision/cpp/messages_robocup_ssl_wrapper.pb.h"
+#include "../../protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.h"
 
 #include "../thirdparty/socket/netraw.h"
 using namespace Net;

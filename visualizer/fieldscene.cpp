@@ -65,6 +65,10 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
     scene.addItem(ball);
     ball->setZValue(7);
 
+    ballTail = new BallGraphicsItem(Qt::red);
+    scene.addItem(ballTail);
+    ballTail->setZValue(9);
+
     ballVel = new VectorGraphicsItem(Qt::cyan);
     ballVel->setParentItem(ball);
     ballVel->setZValue(8);
@@ -132,6 +136,9 @@ void FieldScene::updateBallState(const BallState &st)
     qDebug()<<"ball position : "<< st.position.X() << st.position.Y();
     this->ball->setPos(st.position.X(), -st.position.Y());
     this->ballVel->setEnd(st.velocity.X(), -st.velocity.Y());
+
+    ballTail->setNewPosition(QVector2D(st.position.X(), st.position.Y()));
+
 }
 
 void FieldScene::updateRobotPlan(int id, QVector<RobotState> path, QVector3D desired_vel, QVector3D applied_vel)

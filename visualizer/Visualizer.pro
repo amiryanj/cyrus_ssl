@@ -14,8 +14,10 @@ LIBS += -lprotobuf
 TARGET = Visualizer
 TEMPLATE = app
 
-INCLUDEPATH += thirdparty \
-                tools
+INCLUDEPATH += ../common \
+                ../common/thirdparty \
+                ../common/math \
+                ../common/tools
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -24,16 +26,11 @@ SOURCES += main.cpp\
     fieldscene.cpp \
     graphics/graphic_bot.cpp \
     robotstate.cpp \
-    tools/vector3d.cpp \
-    tools/vector2d.cpp \
     packetreceiver.cpp \
-    thirdparty/socket/netraw.cpp \
-    thirdparty/socket/IPPacket.cpp \
-    proto/cpp/ssl_world.pb.cc \
-    proto/cpp/ssl_visualizer.pb.cc \
-    proto/cpp/ssl_planner.pb.cc \
-    proto/cpp/ssl_decision.pb.cc \
-    proto/cpp/ssl_analyzer.pb.cc \
+    ../common/math/vector3d.cpp \
+    ../common/math/vector2d.cpp \
+    ../common/thirdparty/socket/netraw.cpp \
+    ../common/thirdparty/socket/IPPacket.cpp \
     packetparser.cpp \
     graphics/graphic_num.cpp \
     graphics/graphic_vec.cpp \
@@ -41,7 +38,15 @@ SOURCES += main.cpp\
     graphics/graphic_plan.cpp \
     graphics/graphic_circle.cpp \
     graphics/graphic_intersect.cpp \
-    selectplotdialog.cpp
+    selectplotdialog.cpp \
+    graphics/graphic_ball.cpp \
+    robotpropertieswidget.cpp \
+    ../common/protoc/visualizer/cpp/ssl_world.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_visualizer.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_planner.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_decision.pb.cc \
+    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc \
+    ../common/math/sslmath.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -51,16 +56,11 @@ HEADERS  += mainwindow.h \
     general.h \
     Concepts.h \
     robotstate.h \
-    tools/vector3d.h \
-    tools/vector2d.h \
     packetreceiver.h \
-    thirdparty/socket/netraw.h \
-    thirdparty/socket/IPPacket.h \
-    proto/cpp/ssl_world.pb.h \
-    proto/cpp/ssl_visualizer.pb.h \
-    proto/cpp/ssl_planner.pb.h \
-    proto/cpp/ssl_decision.pb.h \
-    proto/cpp/ssl_analyzer.pb.h \
+    ../common/math/vector2d.h \
+    ../common/math/vector3d.h \
+    ../common/thirdparty/socket/netraw.h \
+    ../common/thirdparty/socket/IPPacket.h \
     packetparser.h \
     graphics/graphic_num.h \
     graphics/graphic_vec.h \
@@ -68,13 +68,22 @@ HEADERS  += mainwindow.h \
     graphics/graphic_plan.h \
     graphics/graphic_circle.h \
     graphics/graphic_intersect.h \
-    selectplotdialog.h
+    selectplotdialog.h \
+    graphics/graphic_ball.h \
+    robotpropertieswidget.h \
+    ../common/protoc/visualizer/cpp/ssl_world.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_visualizer.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_planner.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_decision.pb.h \
+    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.h \
+    ../common/math/sslmath.h
 
 FORMS    += mainwindow.ui \
     plotwidget.ui \
     fieldscene.ui \
     selectcolordialog.ui \
-    selectplotdialog.ui
+    selectplotdialog.ui \
+    robotpropertieswidget.ui
 
 RESOURCES += \
     icons.qrc

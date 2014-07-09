@@ -78,7 +78,7 @@ void BallFilter::runFilter()
 
     /* javad's prediction */
 
-    for (int i = 0 ; i < MAX_BALL_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
+    for (uint i = 0 ; i < MAX_BALL_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
         if (fabs(((rawPositionList[i].position.to2D() - rawPositionList[i+1].position.to2D()) * 1000.0
                   / (rawPositionList[i].timeStampMilliSec - rawPositionList[i+1].timeStampMilliSec)).lenght()
                 - m_medianFilteredSpeed.lenght()) <= EPS)
@@ -99,7 +99,7 @@ void BallFilter::runFilter()
 
     vector<SSLRobot*> all_robots = world->all_inFields();
     bool near_robots = false;
-    for(int i=0; i<all_robots.size(); i++) {
+    for(uint i=0; i<all_robots.size(); i++) {
         SSLRobot* robot = all_robots[i];
         if((last_frame.position.to2D() - robot->Position().to2D()).lenght() < (ROBOT_RADIUS + BALL_RADIUS)* 1.1 ) {
             near_robots = true;

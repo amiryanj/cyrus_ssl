@@ -1,7 +1,7 @@
 #ifndef ROBOTSTATE_H
 #define ROBOTSTATE_H
 
-#include "tools/vector3d.h"
+#include "vector3d.h"
 #include "vector2d.h"
 #include "Concepts.h"
 #include <QString>

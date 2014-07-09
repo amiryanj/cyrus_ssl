@@ -10,7 +10,7 @@
 #include "randomtree.h"
 #include "trajectory.h"
 #include "planningagent.h"
-#include "sslmath.h"
+#include "../../common/math/sslmath.h"
 
 #define MAX_TREE_SIZE 300
 #define MAX_SAMPLING_TRY 10

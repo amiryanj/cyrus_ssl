@@ -1,5 +1,5 @@
 #include "NaiveKalman.h"
-#include "tools/sslmath.h"
+#include "math/sslmath.h"
 #include <cmath>
 
 using namespace SSL;

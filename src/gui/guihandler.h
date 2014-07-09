@@ -1,7 +1,7 @@
 #ifndef _GUIHANDLER_H
 #define _GUIHANDLER_H
 
-#include "../../thirdparty/SSLListener.h"
+#include "SSLListener.h"
 #include "../../protoc/visualizer/cpp/ssl_visualizer.pb.h"
 #include "../../protoc/visualizer/cpp/ssl_world.pb.h"
 #include "../ai/SSLWorldModel.h"

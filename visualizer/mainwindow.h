@@ -9,6 +9,7 @@
 #include <QMap>
 #include <QTreeWidgetItem>
 
+#include "robotpropertieswidget.h"
 #include "packetreceiver.h"
 
 class QTableWidgetItem;
@@ -32,6 +33,8 @@ public:
 
 private slots:
     void setupTable();
+
+    void setupTree();
 
     void updateRobotVelocity(RobotState state);
 
@@ -63,12 +66,15 @@ private slots:
 
     void on_actionShow_Plans_toggled(bool arg1);
 
+    void on_actionConnect_Server_triggered(bool checked);
+
 private:
 
     Ui::MainWindow *ui;
     FieldScene *field;
     PacketReceiver *receiver;
     QMap<QString, PlotWidget*> plotList;
+    QMap<QString, RobotPropertiesWidget*> robotWidgetList;
 
     PacketParser *parser;
     QTableWidgetItem* our_robots[MAX_ID_NUM][4];

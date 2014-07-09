@@ -1,5 +1,8 @@
 #include "goalkeeper.h"
 #include "../SSLSkill.h"
+#include "../../definition/SSLTeam.h"
+#include "../../definition/SSLRobot.h"
+#include "../../definition/sslagent.h"
 
 GoalKeeper::GoalKeeper()
 {

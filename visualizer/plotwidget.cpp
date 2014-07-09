@@ -36,8 +36,6 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
     // ************************************************
     // ************* Set Axis Settings ****************
     // ************************************************
-    ui->myPlot->xAxis->setRange(0, 20);
-//    ui->myPlot->xAxis->setLabel("Time (s)");
 //    ui->myPlot->xAxis->setTickLabelType(QCPAxis::ltNumber);
     ui->myPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
     ui->myPlot->xAxis->setDateTimeFormat("mm:ss");
@@ -45,10 +43,10 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
     ui->myPlot->xAxis->setTickStep(1);
     ui->myPlot->xAxis->setTickLabelRotation(30);
 
-    ui->myPlot->yAxis->setRange(-5, 5);
-    ui->myPlot->yAxis->setLabel("Velocity (mm/s)");
+    ui->myPlot->yAxis->setRange(-50, 50);
+//    ui->myPlot->yAxis->setLabel("Velo (mm/s)");
 
-    ui->myPlot->axisRect()->setupFullAxesBox();
+//    ui->myPlot->axisRect()->setupFullAxesBox();
 
 
     // ************************************************
@@ -179,6 +177,6 @@ void PlotWidget::mouseWheel()
 
 void PlotWidget::graphClicked(QCPAbstractPlottable *plottable)
 {
-    ui->vel_label->setText(plottable->name());
+//    ui->vel_label->setText(plottable->name());
 }
 

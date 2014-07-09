@@ -2,7 +2,7 @@
 #define SSLGAME_H
 
 #include "../general.h"
-#include "../tools/SSLListener.h"
+#include "SSLListener.h"
 #include "../planner/planning/planningproblem.h"
 
 class SSLStrategyManager;

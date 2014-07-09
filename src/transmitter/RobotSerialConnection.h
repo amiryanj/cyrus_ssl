@@ -10,7 +10,7 @@
 
 #include "../thirdparty/serialib/serialib.h"
 #include "../general.h"
-#include "../tools/SSLException.h"
+//#include "../../thirdparty/SSLException.h"
 #include "RobotCommandPacket.h"
 using namespace std;
 

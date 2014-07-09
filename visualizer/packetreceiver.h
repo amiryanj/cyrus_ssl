@@ -19,8 +19,11 @@ class PacketReceiver : public QObject
     Q_OBJECT
 public:
     PacketReceiver();
+    QTimer timer;
 
+public slots:
     bool joinNetwork(QString IP = QString(VISUALIZER_IP), int port = VISUALIZER_PORT);
+    void disconnectNetwork();
 
 private slots:
     void processPendingData();
@@ -33,7 +36,6 @@ private:
       QByteArray receivedData;
 
       ssl_visualizer_packet vis_packet;
-      QTimer timer;
 
 signals:
       void newWorldPacket(ssl_world_packet packet);

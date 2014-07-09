@@ -1,15 +1,14 @@
 #ifndef SSLROLE_H
 #define SSLROLE_H
 
-class SSLAgent;
-
 #include "../../ai/SSLWorldModel.h"
 #include "../../ai/SSLGame.h"
 #include "../../ai/SSLAnalyzer.h"
 
-#include "../definition/sslagent.h"
-#include "../definition/SSLBall.h"
+#include "../../definition/SSLBall.h"
 #include "../SSLSkill.h"
+
+class SSLAgent;
 
 class SSLRole
 {

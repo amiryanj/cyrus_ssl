@@ -1,4 +1,5 @@
 #include "waitpass.h"
+#include "../../definition/SSLTeam.h"
 
 WaitPass::WaitPass()
 {

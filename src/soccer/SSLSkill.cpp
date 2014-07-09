@@ -79,7 +79,7 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, const Vector3D &target, con
             SSLRobot* rob_ = all_actual_robots[i];
             Obstacle* ob_  = game->allRobotsObs[i];
             ob_->shape->m_radius = robot_ob_radius;
-            ob_->m_transform.Set(Vector2D(rob_->Position().X(), rob_->Position().Y()).b2vec2(), rob_->Position().Teta());
+            ob_->m_transform.Set(Vector2D(rob_->Position().X(), rob_->Position().Y()).toB2vec2(), rob_->Position().Teta());
             tmpAllObstacles.push_back(ob_);
         }
     }
@@ -305,10 +305,10 @@ Vector3D SSLSkill::calcSpeed(const Vector3D &current, const Vector3D &target)
 
 void SSLSkill::controlSpeed(SSLAgent *agent, const Vector3D& speed, bool use_controller)
 {
-    float speedDiscountRate = 0.95;
+    float speedDiscountRate = 0.55;
     for(int i=0; i<5; i++) {
         if(agent->getID() == OLD_ID_NUMS[i]) {
-            speedDiscountRate = 0.95;
+            speedDiscountRate = 0.55;
             break;
         }
     }

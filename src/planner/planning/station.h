@@ -1,7 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include "../../tools/vector3d.h"
+#include "math/vector3d.h"
 #include "velocity.h"
 #include "iostream"
 

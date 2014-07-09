@@ -10,6 +10,15 @@
     <height>629</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Ubuntu</family>
+    <pointsize>-1</pointsize>
+    <weight>50</weight>
+    <italic>false</italic>
+    <bold>false</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Cyrus Visualizer</string>
   </property>
@@ -22,7 +31,7 @@ QPushButton{
 	radius : 3px
 }*/
 QWidget {
-font: bold 12px &quot;Times New Roman&quot;
+font: 9px &quot;Ubuntu&quot;
 }
 
 QTabWidget::pane { /* The tab widget frame */
@@ -75,7 +84,7 @@ QTabBar::tab {
      <number>0</number>
     </property>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1,1,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -142,11 +151,11 @@ QTabBar::tab {
        <widget class="QTableWidget" name="ourRobotsTableWidget">
         <property name="font">
          <font>
-          <family>Times New Roman</family>
+          <family>Ubuntu</family>
           <pointsize>-1</pointsize>
-          <weight>75</weight>
+          <weight>50</weight>
           <italic>false</italic>
-          <bold>true</bold>
+          <bold>false</bold>
          </font>
         </property>
         <property name="editTriggers">
@@ -157,19 +166,6 @@ QTabBar::tab {
         </attribute>
         <attribute name="horizontalHeaderDefaultSectionSize">
          <number>60</number>
-        </attribute>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTableWidget" name="opRobotsTableWidget">
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-        <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>60</number>
-        </attribute>
-        <attribute name="verticalHeaderMinimumSectionSize">
-         <number>21</number>
         </attribute>
        </widget>
       </item>
@@ -228,6 +224,18 @@ QTabBar::tab {
        </widget>
       </item>
       <item>
+       <widget class="QTabWidget" name="tabWidget_2">
+        <property name="tabPosition">
+         <enum>QTabWidget::South</enum>
+        </property>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>Tab 2</string>
+         </attribute>
+        </widget>
+       </widget>
+      </item>
+      <item>
        <widget class="QWidget" name="widget" native="true"/>
       </item>
      </layout>
@@ -269,11 +277,20 @@ QTabBar::tab {
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="tabPosition">
+         <enum>QTabWidget::West</enum>
+        </property>
         <property name="tabShape">
          <enum>QTabWidget::Triangular</enum>
         </property>
         <property name="currentIndex">
          <number>-1</number>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
         </property>
         <property name="tabsClosable">
          <bool>true</bool>
@@ -297,8 +314,8 @@ QTabBar::tab {
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionConnect_Server"/>
    <addaction name="actionFull_Screen"/>
+   <addaction name="actionConnect_Server"/>
    <addaction name="actionShow_Plans"/>
    <addaction name="actionShow_Targets"/>
    <addaction name="actionShowIntersects"/>
@@ -306,6 +323,9 @@ QTabBar::tab {
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionConnect_Server">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/icons/network.png</normaloff>:/icons/network.png</iconset>
