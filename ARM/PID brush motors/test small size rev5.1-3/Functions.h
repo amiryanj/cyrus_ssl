@@ -1,0 +1,1 @@
+void waits(int);

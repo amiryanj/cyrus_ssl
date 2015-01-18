@@ -1,0 +1,4 @@
+--cpu Cortex-M3 "startup_lpc17xx.o" "system_lpc17xx.o" "main.o" "uart.o" "functions.o" "delay.o" "pwm.o" "drive.o" "timer.o" "exti.o" "rit.o" --strict --scatter "test rev5.1.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\test rev5.map" -o "test rev5.1.axf"

@@ -1,0 +1,13 @@
+main.o: main.c
+main.o: C:\Keil\ARM\INC\NXP\LPC17xx\lpc17xx.h
+main.o: C:\Keil\\ARM\RV31\INC\core_cm3.h
+main.o: C:\Keil\\ARM\RV31\INC\stdint.h
+main.o: C:\Keil\ARM\INC\NXP\LPC17xx\system_LPC17xx.h
+main.o: uart.h
+main.o: pwm.h
+main.o: delay.h
+main.o: Drive.h
+main.o: timer.h
+main.o: EXTI.h
+main.o: defines.h
+main.o: RIT.h

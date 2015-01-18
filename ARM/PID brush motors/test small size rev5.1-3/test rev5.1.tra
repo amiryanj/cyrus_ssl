@@ -1,0 +1,29 @@
+*** Creating Trace Output File 'test rev5.1.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup_lpc17xx.o"'
+### List of Objects: adding '"system_lpc17xx.o"'
+### List of Objects: adding '"main.o"'
+### List of Objects: adding '"uart.o"'
+### List of Objects: adding '"functions.o"'
+### List of Objects: adding '"delay.o"'
+### List of Objects: adding '"pwm.o"'
+### List of Objects: adding '"drive.o"'
+### List of Objects: adding '"timer.o"'
+### List of Objects: adding '"exti.o"'
+### List of Objects: adding '"rit.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 "startup_lpc17xx.o" "system_lpc17xx.o" "main.o" "uart.o" "functions.o" "delay.o" "pwm.o" "drive.o" "timer.o" "exti.o" "rit.o" --strict --scatter "test rev5.1.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\test rev5.map" -o "test rev5.1.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'test rev5.1.axf'
+### ADS-LD Command File: 'test rev5.1.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'test rev5.1.lnp', Handle=0x00000504
+### Writing '.lnp' file
+### ADS-LD Command file 'test rev5.1.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.
