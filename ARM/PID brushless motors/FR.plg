@@ -1,0 +1,200 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Bardia Nadimi\Desktop\Fuckin Robot\FR.uvproj
+Project File Date:  01/15/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(223): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:                 UART0_SendByte('*');
+Main.c:                 ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=9032 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=8748 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(223): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:                 UART0_SendByte('*');
+Main.c:                 ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=8996 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(223): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:                 UART0_SendByte('*');
+Main.c:                 ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=9000 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(223): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:                 UART0_SendByte('*');
+Main.c:                 ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=9000 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=8764 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(952): warning:  #223-D: function "delay" declared implicitly
+Main.c:   delay(100);
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=8796 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(952): warning:  #223-D: function "delay" declared implicitly
+Main.c:   delay(100);
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=8812 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(952): warning:  #223-D: function "delay" declared implicitly
+Main.c:   delay(100);
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=8800 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling Main.c...
+Main.c(191): warning:  #223-D: function "UART0_Init" declared implicitly
+Main.c:   UART0_Init();
+Main.c:   ^
+Main.c(935): warning:  #223-D: function "UART0_SendByte" declared implicitly
+Main.c:   UART0_SendByte('*');
+Main.c:   ^
+Main.c(992): warning:  #223-D: function "UART0_GetChar" declared implicitly
+Main.c:         data = UART0_GetChar();
+Main.c:                ^
+Main.c: Main.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=8748 RO-data=236 RW-data=204 ZI-data=620  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\FR.axf" --output ".\\FR.bin"
+"FR.axf" - 0 Error(s), 3 Warning(s).
