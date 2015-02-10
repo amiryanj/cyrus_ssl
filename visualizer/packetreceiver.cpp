@@ -8,9 +8,11 @@ using namespace std;
 
 PacketReceiver::PacketReceiver()
 {
+    char opt=1;
+    setsockopt(socket.socketDescriptor(), SOL_RAW, SO_REUSEADDR, &opt, sizeof(int));
     connect(&socket, SIGNAL(readyRead()), this, SLOT(processPendingData()));
     timer.setInterval(2000);
-    timer.start();
+   // timer.start();
     connect(&timer, SIGNAL(timeout()), this, SLOT(timerTimeout()));
 }
 
@@ -28,12 +30,18 @@ void PacketReceiver::timerTimeout()
 bool PacketReceiver::joinNetwork(QString IP, int port)
 {
     socket.close();
-    socket.bind(port, QUdpSocket::ShareAddress);
+    if(socket.bind(QHostAddress::AnyIPv4,port,QUdpSocket::ShareAddress))
+        qDebug() << "Binded Successfully" ;
+    else
+        qDebug() << "Failed to Bind";
+    if(socket.state() !=QAbstractSocket::BoundState)
+          qDebug() << "Not Bind State";
+
     bool joinResultFlag = socket.joinMulticastGroup(QHostAddress(IP));
     if(joinResultFlag)
         qDebug() << "Successfully connected to Cyrus Server ..." ;
     else
-        qDebug() << "Failed to connect Cyrus Server !!!" ;
+        qDebug() << socket.errorString();
     return joinResultFlag;
 }
 
