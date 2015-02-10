@@ -36,8 +36,10 @@ bool GUIHandler::openSocket(int port, string address)
     if(!this->addMulticast(multiaddr, interface))
     {
         cerr << "Unable to setup UDP multicast." << endl ;
+    }else
+    {
+        cout << "Visualizer UDP network successfully configured. Multicast address= " << port << endl;
     }
-    cout << "Visualizer UDP network successfully configured. Multicast address= " << port << endl;
     return true;
 }
 
@@ -253,6 +255,7 @@ bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)
     bool result;
     mtx_.lock();
     result = this->send(buffer.c_str(), buffer.length(), multiaddr);
+
     mtx_.unlock();
     if (result==false)
     {

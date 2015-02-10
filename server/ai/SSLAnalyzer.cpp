@@ -220,7 +220,7 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotIntersectBall(const vec
         return timeForEachRobot[index];
     }
     catch (const char* mes) {
-        cerr << "Warning: " << "SSLAnalyzer" << mes << endl;
+        //cerr << "Warning: " << "SSLAnalyzer" << mes << endl;
         return RobotIntersectTime();
     }
 }

@@ -13,7 +13,7 @@
 using namespace std;
 
 //******************************************************
-#define OUR_COLOR   SSL::Yellow
+#define OUR_COLOR   SSL::Blue
 #define OUR_SIDE    SSL::Left
 //******************************************************
 
@@ -24,7 +24,8 @@ int main(int argc, char *argv[])
 
     SSLReferee *referee = new SSLReferee(MY_REFEREE_PORT, MY_REFEREE_ADDRESS);
 
-    SSLVision *vision = new SSLVision(SSL_VISION_PORT, SSL_VISION_ADDRESS);
+    SSLVision *vision = new SSLVision(GRSIM_VISION_PORT, GRSIM_VISION_ADDRESS);
+
 
     VisionFilter *filter =  VisionFilter::getInstance();
 

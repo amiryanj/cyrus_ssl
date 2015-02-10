@@ -32,12 +32,12 @@ typedef Vector3D point3D;
 #define SSL_VISION_ADDRESS      "224.5.23.2"
 #define SSL_VISION_PORT         10002
 
-#define GRSIM_VISION_ADDRESS    "127.0.0.1"
-#define GRSIM_VISION_PORT       10005
+#define GRSIM_VISION_ADDRESS    "224.5.23.2"
+#define GRSIM_VISION_PORT       10020
 
-#define GRSIM_COMMAND_ADDRESS   "127.0.0.4"
+#define GRSIM_COMMAND_ADDRESS   "127.0.0.1"
 // "192.168.1.105"
-#define GRSIM_COMMAND_PORT      20016
+#define GRSIM_COMMAND_PORT      20011
 
 #define VISUALIZER_IP           "127.0.0.3"
 // "213.233.171.39" //

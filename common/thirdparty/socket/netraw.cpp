@@ -128,17 +128,17 @@ bool UDP::open(int port, bool share_port_for_multicasting, bool multicast_includ
 
   /*
   // allow port reuse (for when a program is quickly restarted)
-  // (not sure we really need this)
+  // (not sure we really need this)*/
   int one = 1;
   setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
-  */
+
 
   return(true);
 }
 
 bool UDP::addMulticast(const Address &multiaddr,const Address &interface)
 {
-  static const bool debug = false;
+  static const bool debug = true;
   struct ip_mreq imreq;
   imreq.imr_multiaddr.s_addr = multiaddr.getInAddr();
   imreq.imr_interface.s_addr = interface.getInAddr();
