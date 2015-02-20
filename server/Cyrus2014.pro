@@ -97,7 +97,9 @@ SOURCES += \
     ../common/protoc/visualizer/cpp/ssl_visualizer.pb.cc \
     ../common/protoc/visualizer/cpp/ssl_planner.pb.cc \
     ../common/protoc/visualizer/cpp/ssl_decision.pb.cc \
-    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc
+    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc \
+    iniparser/iniparser.cpp \
+    iniparser/parametermanager.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -170,7 +172,9 @@ HEADERS += \
     ../common/protoc/visualizer/cpp/ssl_visualizer.pb.h \
     ../common/protoc/visualizer/cpp/ssl_planner.pb.h \
     ../common/protoc/visualizer/cpp/ssl_decision.pb.h \
-    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.h
+    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.h \
+    iniparser/iniparser.h \
+    iniparser/parametermanager.h
 
 OTHER_FILES += \
     todo.txt \
