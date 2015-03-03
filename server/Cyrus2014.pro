@@ -11,6 +11,13 @@ LIBS += -lprotobuf -lboost_system -lBox2D
 
 DEFINES += _USE_BOX2D_
 
+#MOC_DIR = $$PWD/../objs
+release: DESTDIR = $$PWD/../../release
+release: OBJECTS_DIR = $$PWD/../../release/objs
+
+debug: DESTDIR = $$PWD/../../debug
+debug: OBJECTS_DIR = $$PWD/../../debug/objs
+
 TARGET = Cyrus2014
 #CONFIG   += console
 #CONFIG   -= app_bundle
@@ -23,8 +30,8 @@ INCLUDEPATH += \
             ../common/tools \
             ../common/protoc \
             ../common/thirdparty \
-            ../common/thirdparty/socket \
-            tools
+            ../common/thirdparty/socket
+
 
 TEMPLATE = app
 
@@ -98,8 +105,8 @@ SOURCES += \
     ../common/protoc/visualizer/cpp/ssl_planner.pb.cc \
     ../common/protoc/visualizer/cpp/ssl_decision.pb.cc \
     ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc \
-    iniparser/iniparser.cpp \
-    iniparser/parametermanager.cpp
+    paramater-manager/parametermanager.cpp \
+    paramater-manager/iniparser.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -174,10 +181,11 @@ HEADERS += \
     ../common/protoc/visualizer/cpp/ssl_decision.pb.h \
     ../common/protoc/visualizer/cpp/ssl_analyzer.pb.h \
     iniparser/iniparser.h \
-    iniparser/parametermanager.h
+    iniparser/parametermanager.h \
+    paramater-manager/parametermanager.h \
+    paramater-manager/iniparser.h
 
-OTHER_FILES += \
-    todo.txt \
+OTHER_FILES += \    
     planner/planning/Planner.pri \
     /etc/sslrefbox/referee.conf \
     ../common/protoc/referee/referee.proto \
