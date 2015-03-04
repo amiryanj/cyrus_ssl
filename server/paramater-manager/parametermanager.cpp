@@ -5,10 +5,11 @@ using namespace std;
 
 ParameterManager::ParameterManager()
 {
-    read_xml(filename, pt);
+    read_json(filename, pt);
+
 }
 ParameterManager* ParameterManager::instance = NULL;
-const string ParameterManager::filename = "Setting.xml";
+const string ParameterManager::filename = "Setting.json";
 ParameterManager *ParameterManager::getInstance()
 {
     if(instance == NULL)
