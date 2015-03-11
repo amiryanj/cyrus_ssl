@@ -1,12 +1,15 @@
 #include "parametermanager.h"
 #include <string>
 #include <locale>
-using namespace std;
+
+const string ParameterManager::filename = "Setting.json";
 
 ParameterManager* ParameterManager::instance = NULL;
+
 ParameterManager::ParameterManager()
 {
-    read_xml(filename, pt);
+    read_json(filename, pt);
+
 }
 
 ParameterManager *ParameterManager::getInstance()

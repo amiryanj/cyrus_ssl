@@ -4,12 +4,13 @@
 #include <string>
 #include <vector>
 #include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/xml_parser.hpp>
+#include <boost/property_tree/json_parser.hpp>
 #include <locale>
 #include <sstream>
 #include <iostream>
 
 //const char* ::filename = "Setting.xml";
+const string ParameterManager::filename = "Setting.json";
 using namespace boost::property_tree::xml_parser;
 
 using namespace std;
