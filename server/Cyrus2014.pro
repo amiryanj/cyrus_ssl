@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-#QT       += core network
-#QT       -= gui
+QT       += core network
+QT       -= gui
 
 LIBS += -lprotobuf -lboost_system -lBox2D
 
@@ -106,7 +106,8 @@ SOURCES += \
     ../common/protoc/visualizer/cpp/ssl_decision.pb.cc \
     ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc \
     paramater-manager/parametermanager.cpp \
-    paramater-manager/iniparser.cpp
+    paramater-manager/iniparser.cpp \
+    vision/alphabetafilter.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -122,7 +123,7 @@ HEADERS += \
     definition/SSLObject.h \
     definition/SSLBall.h \
     definition/SSLRobotPhysic.h \
-    definition/Concepts.h \
+    ../common/Concepts.h \
     ai/SSLGame.h \
     transmitter/RobotCommandPacket.h \
     ../common/math/vector3d.h \
@@ -183,7 +184,8 @@ HEADERS += \
     iniparser/iniparser.h \
     iniparser/parametermanager.h \
     paramater-manager/parametermanager.h \
-    paramater-manager/iniparser.h
+    paramater-manager/iniparser.h \
+    vision/alphabetafilter.h
 
 OTHER_FILES += \    
     planner/planning/Planner.pri \

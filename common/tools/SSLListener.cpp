@@ -7,7 +7,5 @@
 
 #include "SSLListener.h"
 
-SSLListener::~SSLListener(){
-}
 
 

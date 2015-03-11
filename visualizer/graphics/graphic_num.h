@@ -2,6 +2,7 @@
 #define GRAPHIC_NUM_H
 #include <QGraphicsItem>
 #include <QImage>
+#include <QString>
 #include "Concepts.h"
 #include "general.h"
 

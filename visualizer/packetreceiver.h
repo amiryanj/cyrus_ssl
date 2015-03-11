@@ -14,11 +14,15 @@
 #include "proto/cpp/ssl_decision.pb.h"
 #include "proto/cpp/ssl_planner.pb.h"
 
+#define VISUALIZER_IP "127.0.0.1"
+#define VISUALIZER_PORT  4001
+
 class PacketReceiver : public QObject
 {
     Q_OBJECT
 public:
     PacketReceiver();
+    ~PacketReceiver();
     QTimer timer;
 
 public slots:

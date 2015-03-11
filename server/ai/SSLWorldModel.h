@@ -1,9 +1,9 @@
 #ifndef SSLWORLDMODEL_H_
 #define SSLWORLDMODEL_H_
 
-#include "../general.h"
+#include "../../common/general.h"
+#include "../../common/Concepts.h"
 #include "../referee/SSLReferee.h"
-#include "../definition/Concepts.h"
 
 class SSLTeam;
 class SSLBall;
@@ -17,7 +17,7 @@ class SSLWorldModel {
 public:
     void updateRobotState(SSL::Color color, int ID, Vector3D position, Vector3D speed);
     void updateRobotAvailability(SSL::Color color, int ID, bool available);
-    void updateBallState(int ID, Vector2D position, Vector2D speed, Vector2D filteredSpeed);
+    void updateBallState(int ID, Vector2D position, Vector2D speed, Vector2D acceleration);
     static SSLWorldModel *getInstance();
 
     SSLTeam* team[2];

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include "../general.h"
+#include "../../common/general.h"
 #include "SSLRobotPhysic.h"
 
 using namespace std;

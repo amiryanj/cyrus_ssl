@@ -30,7 +30,7 @@ bool GRSimSender::openSocket(int port)
 
     if(!this->addMulticast(multiaddr, interface))
     {
-        cerr << "Unable to setup UDP multicast." << endl ;
+        cerr << "Unable to setup UDP multicast, for grsim connection" << endl ;
     }
     cout << "Grsim Sender UDP network successfully configured. Multicast address= " << port << endl;
     connected = true;

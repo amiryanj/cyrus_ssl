@@ -8,42 +8,28 @@
 #include "SSLReferee.h"
 #include <iostream>
 #include "../ai/SSLWorldModel.h"
+#include "../definition/SSLBall.h"
 #include "paramater-manager/parametermanager.h"
-//#include <typeinfo>
 
-SSLReferee::SSLReferee(int port, string address) : UDP(), SSLListener()
+SSLReferee::SSLReferee(int port, string address) : SSLListener()
 {
-    this->open(port, true, true);
-    Address multi_, interface_;
-    multi_.setHost(address.c_str(), port);
-//    interface_.set();
-    this->addMulticast(multi_, interface_);
+    socket_.bind(port);
 
     previous_command = SSL_Referee_Command_HALT;
     last_command = SSL_Referee_Command_HALT;
 }
 
-SSLReferee::~SSLReferee() {
+SSLReferee::~SSLReferee()
+{
 }
 
 void SSLReferee::check()
 {
-    ParameterManager* pm = ParameterManager::getInstance();
-    Address sender_adress;
-    Address defalt_address;
-
-    defalt_address.setHost(pm->get<string>("network.SSL_REFEREE_ADDRESS").c_str(),
-                           pm->get<int>("network.SSL_REFEREE_PORT"));
-    if(this->havePendingData())
+    while(socket_.hasPendingDatagrams())
     {
-        m_temp_packet.length = this->recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
-//        if(sender_adress.)
-        cerr << "Referee Address sender: " ;
-//        sender_adress.print();
-//        cerr << endl;
-//        if(!(sender_adress == defalt_address)) {
-//            return;
-//        }
+        m_temp_packet.length = socket_.pendingDatagramSize();
+        socket_.readDatagram(m_temp_packet.buffer, m_temp_packet.length);
+//        m_temp_packet.length = this->recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
 
         SSL_Referee_Command new_command;
         if(m_temp_packet.length < 6)
@@ -181,5 +167,6 @@ void SSLReferee::updateState()
 
 //    else lastState = Unknown; // logically impossible state
     SSLWorldModel::getInstance()->m_refereeState = lastState;
+    SSLWorldModel::getInstance()->mainBall()->setStopped(true);
 
 }

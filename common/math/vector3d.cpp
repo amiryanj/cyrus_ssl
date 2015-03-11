@@ -168,7 +168,7 @@ Vector2D Vector3D::getNormalized2D() const
     return __tmp.normalized();
 }
 
-Vector2D Vector3D::to2D()
+Vector2D Vector3D::to2D() const
 {
     Vector2D v2d(this->X(), this->Y());
     return v2d;

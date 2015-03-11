@@ -15,8 +15,12 @@ using namespace std;
 
 struct IPPacket {
 public:
-    IPPacket(int packet_size = MAX_BUFFER_SIZE);
-    //~IPPacket();
+    IPPacket(int packet_size = MAX_BUFFER_SIZE) {
+        this->buffer = new char[packet_size];
+        this->length = packet_size;
+    }
+
+    ~IPPacket() {}
     int length;
 	unsigned short int senderPort;
 	string senderAddress;

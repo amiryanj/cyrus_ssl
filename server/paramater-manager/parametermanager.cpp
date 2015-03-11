@@ -1,7 +1,10 @@
 #include "parametermanager.h"
 #include <string>
 #include <locale>
-using namespace std;
+
+const string ParameterManager::filename = "Setting.json";
+
+ParameterManager* ParameterManager::instance = NULL;
 
 ParameterManager::ParameterManager()
 {
@@ -9,8 +12,7 @@ ParameterManager::ParameterManager()
     read_json(filename, pt);
     mtx_.unlock();
 }
-ParameterManager* ParameterManager::instance = NULL;
-const string ParameterManager::filename = "Setting.json";
+
 ParameterManager *ParameterManager::getInstance()
 {
     if(instance == NULL)

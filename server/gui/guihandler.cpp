@@ -11,7 +11,7 @@ GUIHandler* GUIHandler::instance = NULL;
 using namespace boost;
 GUIHandler::GUIHandler()
 {    
-    this->openSocket();
+    this->setAddress();
 }
 
 GUIHandler *GUIHandler::getInstance()
@@ -21,33 +21,11 @@ GUIHandler *GUIHandler::getInstance()
     return instance;
 }
 
-bool GUIHandler::openSocket()
+void GUIHandler::setAddress()
 {
     ParameterManager* pm = ParameterManager::getInstance();
-    openSocket(pm->get<int>("network.VISUALIZER_PORT"),pm->get<string>("network.VISUALIZER_IP"));
-
-}
-
-bool GUIHandler::openSocket(int port, string address)
-{
-    this->close();
-    if(!this->open(port, true, true)) {
-        cerr << "Unable to open UDP network port: "<< port << endl;
-        return false;
-    }
-
-    Net::Address multiaddr, interface;
-    multiaddr.setHost(address.c_str(), port);
-    interface.setAny();   
-
-    if(!this->addMulticast(multiaddr, interface))
-    {
-        cerr << "Unable to setup UDP multicast." << endl ;
-    }else
-    {
-        cout << "Visualizer UDP network successfully configured. Multicast address= " << port << endl;
-    }
-    return true;
+    receiver_port_ = pm->get<int>("network.VISUALIZER_PORT");
+    receiver_ip_ = pm->get<string>("network.VISUALIZER_IP");
 }
 
 void GUIHandler::check()
@@ -258,20 +236,20 @@ bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)
     ParameterManager* pm = ParameterManager::getInstance();
     string buffer;    
     p.SerializeToString(&buffer);
-    Net::Address multiaddr;
-    multiaddr.setHost(pm->get<string>("network.VISUALIZER_IP").c_str(),pm->get<int>("network.VISUALIZER_PORT"));
+
     bool result;
     mtx_.lock();
-    result = this->send(buffer.c_str(), buffer.length(), multiaddr);
-
+//    int sent_size = qudp_socket.writeDatagram(buffer.c_str(), QHostAddress(receiver_ip_.c_str()), receiver_port_);
+    Net::Address multiaddr;
+    multiaddr.setHost(receiver_ip_.c_str(), receiver_port_);
+    result = simple_socket.send(buffer.c_str(), buffer.length(), multiaddr);
     mtx_.unlock();
-    if (result==false)
-    {
-        cerr << "Sending Visualizer data failed (maybe too large?). Size was: " << buffer.length() << endl;
+    if (result==false) {
+        cerr << "Sending Visualizer data failed" << endl;
     }
-    else
-    {
-        cout << buffer.length() << " Bytes of ( Visualizer Packet ) has been sent." << endl;
+    else {
+        cout << buffer.length() << " Visualizer Packet sent." << endl;
     }
+//    cout << "SIZE:  " << sent_size << endl;
     return(result);
 }

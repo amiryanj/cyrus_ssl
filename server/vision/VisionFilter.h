@@ -1,9 +1,9 @@
 #ifndef _VISIONFILTER_H
 #define _VISIONFILTER_H
 
-#include "../general.h"
+#include "../../common/general.h"
 #include "../ai/SSLWorldModel.h"
-#include "SSLListener.h"
+#include "../../common/tools/SSLListener.h"
 #include "RobotFilter.h"
 #include "BallFilter.h"
 #include "Frame.h"
@@ -20,10 +20,10 @@ public:
     void setRobotFrame(SSL::Color color, unsigned int id, Frame &fr);
     void setBallFrames(vector<Frame> frs);
 
+    BallFilter *ballFilter;
 private:
     RobotFilter *robotFilter[NUM_TEAMS][MAX_ID_NUM];
 
-    BallFilter *ballFilter;
 
     void updateWorldModel();
 

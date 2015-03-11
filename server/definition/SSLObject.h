@@ -1,8 +1,8 @@
 #ifndef SSLOBJECT_H
 #define SSLOBJECT_H
 
-#include "math/vector3d.h"
-#include "math/vector2d.h"
+#include "../../common/math/vector3d.h"
+#include "../../common/math/vector2d.h"
 
 enum SSL_OBJECT_TYPE {e_BALL_OBJECT, e_ROBOT_OBJECT};
 
@@ -20,6 +20,10 @@ public:
         return m_speed;
     }
 
+    VectorType Acceleration() const {
+        return m_acceleration;
+    }
+
     void setPosition(const VectorType &position_)   {
         m_position = position_;
     }
@@ -28,11 +32,16 @@ public:
         m_speed = speed_;
     }
 
+    void setAcceleration(const VectorType &acceleration_) {
+        m_acceleration = acceleration_;
+    }
+
     double m_radius;
 
 protected:
     VectorType m_position;
     VectorType m_speed;
+    VectorType m_acceleration;
 
     SSL_OBJECT_TYPE m_type;
     double m_mass;

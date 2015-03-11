@@ -43,7 +43,7 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
     ui->myPlot->xAxis->setTickStep(1);
     ui->myPlot->xAxis->setTickLabelRotation(30);
 
-    ui->myPlot->yAxis->setRange(-50, 50);
+    ui->myPlot->yAxis->setRange(100, 50000);
 //    ui->myPlot->yAxis->setLabel("Velo (mm/s)");
 
 //    ui->myPlot->axisRect()->setupFullAxesBox();
@@ -77,7 +77,7 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
 
 void PlotWidget::addValue(double key, QVector<double> val)
 {
-    for(int i=0; i<numGraphs; i++) {
+    for(int i=0; i<(qMin(numGraphs, val.size())); i++) {
           // add data to lines:
           ui->myPlot->graph(2*i)->addData(key, val[i]);
           ui->myPlot->graph(2*i)->removeDataBefore(key-30);
@@ -85,7 +85,7 @@ void PlotWidget::addValue(double key, QVector<double> val)
           ui->myPlot->graph(2*i+1)->addData(key, val[i]);
     }
     // make key axis range scroll with the data (at a constant range size of 8):
-    ui->myPlot->xAxis->setRange(key+2, 8, Qt::AlignRight);
+    ui->myPlot->xAxis->setRange(key+2, 20, Qt::AlignRight);
     ui->myPlot->replot();
 
     // calculate frames per second:
@@ -99,6 +99,29 @@ void PlotWidget::addValue(double key, QVector<double> val)
       lastFpsKey = key;
       frameCount = 0;
     }
+}
+
+void PlotWidget::addValue(double key, double val)
+{
+    QVector<double> valVector;
+    valVector << val;
+    addValue(key, valVector);
+}
+
+void PlotWidget::addValue(QDateTime dateTime, double value)
+{
+    mKey = dateTime.toMSecsSinceEpoch()/1000.0;
+
+    addValue(mKey, value);
+}
+
+void PlotWidget::addValue(double value)
+{
+    mKey = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0 ;
+    static int counter = 0;
+    counter++;
+
+    addValue(counter/10.0, value);
 }
 
 PlotWidget::~PlotWidget()

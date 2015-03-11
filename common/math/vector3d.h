@@ -49,7 +49,7 @@ public:
     Vector3D &operator *=(float s);
     Vector3D &operator /=(float s);
 //    float operator *(const Vector3D &vector);
-    Vector2D to2D();
+    Vector2D to2D() const;
 
 #ifdef _USE_BOX2D_
     Vector3D(b2Vec3 vec);

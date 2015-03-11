@@ -8,14 +8,15 @@
 #ifndef SSLREFEREE_H_
 #define SSLREFEREE_H_
 
-#include "../../protoc/referee/cpp/referee.pb.h"
-#include "../thirdparty/socket/netraw.h"
-#include "../thirdparty/socket/IPPacket.h"
-#include "SSLListener.h"
+#include "../../common/protoc/referee/cpp/referee.pb.h"
+#include "../../common/thirdparty/socket/netraw.h"
+#include "../../common/thirdparty/socket/IPPacket.h"
+#include "../../common/tools/SSLListener.h"
+#include <QtNetwork/QUdpSocket>
 
 using namespace Net;
 
-class SSLReferee : public SSLListener, public UDP
+class SSLReferee : public SSLListener
 {
 private:
     IPPacket m_temp_packet;
@@ -34,6 +35,7 @@ public:
     SSLReferee(int port, string address);
 	virtual ~SSLReferee();
     void check();
+    QUdpSocket socket_;
 
     long packet_time_stamp;
 
@@ -47,6 +49,7 @@ public:
 
     SSL_Referee_TeamInfo yellow_info;
     SSL_Referee_TeamInfo blue_info;
+
 
 };
 

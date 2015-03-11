@@ -10,11 +10,12 @@
 #include <iostream>
 #include <boost/signals2/mutex.hpp>
 
+
 using namespace std;
 class ParameterManager
 {
 private:
-    static const string filename ;
+    static const string filename;
     //IniParser parser;
     boost::signals2::mutex mtx_;
     boost::property_tree::ptree pt;
@@ -35,14 +36,12 @@ public :
     static ParameterManager *getInstance();
     void beginGroup(string group);
     void endGroup();
-    template <typename T> T get ( std::string key)
-    {
+    template <typename T> T get ( std::string key) {
         string global_key;
         for(int i = 0 ; i < groups.size() ;  i++)
             global_key+=toLower(groups[i])+".";
         global_key+=toLower(key);
         return pt.get<T>(global_key);
-
     }
 
 };
