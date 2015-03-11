@@ -8,6 +8,7 @@
 #include <locale>
 #include <sstream>
 #include <iostream>
+#include <boost/signals2/mutex.hpp>
 
 using namespace std;
 class ParameterManager
@@ -15,7 +16,7 @@ class ParameterManager
 private:
     static const string filename ;
     //IniParser parser;
-
+    boost::signals2::mutex mtx_;
     boost::property_tree::ptree pt;
 
     static ParameterManager* instance;

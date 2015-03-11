@@ -405,12 +405,6 @@
         <file>icons/oxygen/resource-group-new.png</file>
         <file>icons/oxygen/roll.png</file>
         <file>icons/oxygen/run-build.png</file>
-        <file>icons/oxygen/run-build-clean.png</file>
-        <file>icons/oxygen/run-build-configure.png</file>
-        <file>icons/oxygen/run-build-file.png</file>
-        <file>icons/oxygen/run-build-install.png</file>
-        <file>icons/oxygen/run-build-install-root.png</file>
-        <file>icons/oxygen/run-build-prune.png</file>
         <file>icons/oxygen/select-rectangular.png</file>
         <file>icons/oxygen/services.png</file>
         <file>icons/oxygen/shape-choose.png</file>

@@ -18,6 +18,7 @@ public:
     QPainterPath shape() const
     {
         QPainterPath path;
+
         path.addEllipse(boundingRect());
         return path;
     }

@@ -21,8 +21,8 @@ class GUIHandler : public SSLListener, public Net::UDP
     static GUIHandler* instance;
 public:
     static GUIHandler* getInstance();
-
-    bool openSocket(int port = VISUALIZER_PORT, string address = VISUALIZER_IP);
+    bool openSocket();
+    bool openSocket(int port, string address);
 
     void check();
 

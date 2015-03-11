@@ -22,6 +22,7 @@ RobotGraphicsItem::RobotGraphicsItem(Mode mode, int itsDimension)
 
 void RobotGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    //painter->setClipRect(boundingRect());
     if(this->myMode==RobotGraphicMode)
     {
         if(this->isNearest == true)

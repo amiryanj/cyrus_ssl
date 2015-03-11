@@ -8,7 +8,7 @@
 #include "ai/SSLAnalyzer.h"
 #include "gui/guihandler.h"
 #include "transmitter/commandtransmitter.h"
-
+#include "paramater-manager/parametermanager.h"
 //#include "tools/sslmath.h"
 using namespace std;
 
@@ -19,23 +19,30 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
+    ParameterManager* pm = ParameterManager::getInstance();
+
+
+    cout << "Parameter Manager initiated" <<endl;
     cout << "Main is running ... " << endl;
     long loopCounter = 0;
 
-    SSLReferee *referee = new SSLReferee(MY_REFEREE_PORT, MY_REFEREE_ADDRESS);
+    SSLReferee *referee = new SSLReferee(pm->get<int>("network.MY_REFEREE_PORT"),
+                                         pm->get<string>("network.MY_REFEREE_ADDRESS"));
 
-    SSLVision *vision = new SSLVision(GRSIM_VISION_PORT, GRSIM_VISION_ADDRESS);
+    SSLVision *vision = new SSLVision(pm->get<int>("network.SSL_VISION_PORT"),
+                                      pm->get<string>("network.SSL_VISION_ADDRESS"));
 
 
     VisionFilter *filter =  VisionFilter::getInstance();
 
-    SSLGame *gameModule = SSLGame::getInstance(OUR_COLOR, OUR_SIDE);
+    SSLGame *gameModule = SSLGame::getInstance((Color)pm->get<int>("game.our_color"),
+                                               (Side)pm->get<int>("game.our_side"));
 
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
 
-    transmitter->type = CommandTransmitter::SERIAL;
+    transmitter->type = CommandTransmitter::GRSIM;
 
     while (true)
     {

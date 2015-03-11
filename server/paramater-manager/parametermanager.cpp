@@ -5,8 +5,9 @@ using namespace std;
 
 ParameterManager::ParameterManager()
 {
+    mtx_.lock();
     read_json(filename, pt);
-
+    mtx_.unlock();
 }
 ParameterManager* ParameterManager::instance = NULL;
 const string ParameterManager::filename = "Setting.json";

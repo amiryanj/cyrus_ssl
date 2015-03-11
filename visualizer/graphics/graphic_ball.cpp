@@ -11,8 +11,10 @@ BallGraphicsItem::BallGraphicsItem(Qt::GlobalColor color)
 
 void BallGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+
+    painter->setPen(myColor);
     for(int i=0; i<path.size(); i++) {
-        painter->setPen(myColor);
+
         this->setOpacity(0.3);
         painter->drawEllipse(path[i].toPoint(), myRadius,myRadius);
     }

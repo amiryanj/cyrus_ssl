@@ -1,6 +1,6 @@
 #include "guihandler.h"
 //#include "boost/shared_ptr.hpp"
-
+#include "paramater-manager/parametermanager.h"
 #include "../definition/SSLRobot.h"
 #include "../definition/sslagent.h"
 #include "../definition/SSLBall.h"
@@ -19,6 +19,13 @@ GUIHandler *GUIHandler::getInstance()
     if(instance == NULL)
         instance = new GUIHandler();
     return instance;
+}
+
+bool GUIHandler::openSocket()
+{
+    ParameterManager* pm = ParameterManager::getInstance();
+    openSocket(pm->get<int>("network.VISUALIZER_PORT"),pm->get<string>("network.VISUALIZER_IP"));
+
 }
 
 bool GUIHandler::openSocket(int port, string address)
@@ -248,10 +255,11 @@ void GUIHandler::generateDecisionPacket(ssl_decision_packet *packet)
 
 bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)
 {
+    ParameterManager* pm = ParameterManager::getInstance();
     string buffer;    
     p.SerializeToString(&buffer);
     Net::Address multiaddr;
-    multiaddr.setHost(VISUALIZER_IP, VISUALIZER_PORT);
+    multiaddr.setHost(pm->get<string>("network.VISUALIZER_IP").c_str(),pm->get<int>("network.VISUALIZER_PORT"));
     bool result;
     mtx_.lock();
     result = this->send(buffer.c_str(), buffer.length(), multiaddr);

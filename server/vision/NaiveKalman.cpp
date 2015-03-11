@@ -1,5 +1,6 @@
 #include "NaiveKalman.h"
 #include "math/sslmath.h"
+#include "paramater-manager/parametermanager.h"
 #include <cmath>
 
 using namespace SSL;
@@ -7,11 +8,13 @@ using namespace SSL;
 NaiveKalman::NaiveKalman()
 {
     // default parameters
-    m_alfa = 0.25;   // position coefficient
-    m_beta = 0.05;   // velocity coefficient
-    m_gama = 0.15;   // accelera coefficient
+    ParameterManager* pm = ParameterManager::getInstance();
 
-    m_acc_effect = 0.0;
+    m_alfa = pm->get<double>("kalman.m_alfa");   // position coefficient
+    m_beta = pm->get<double>("kalman.m_beta");   // velocity coefficient
+    m_gama = pm->get<double>("kalman.m_gama");   // accelera coefficient
+
+    m_acc_effect = pm->get<double>("kalman.m_acc_effect");
 
     max_speed_crop.set(3000, 3000, 3*M_PI);
     max_acceleration_crop.set(3000, 3000, 2*M_PI);

@@ -17,7 +17,8 @@ public:
     Color ourColor;
     bool connected;
 
-    bool openSocket(int port = GRSIM_COMMAND_PORT);
+    bool openSocket();
+    bool openSocket(int port);
     void sendPacket(int robotID, RobotCommandPacket rawPacket);
 
 

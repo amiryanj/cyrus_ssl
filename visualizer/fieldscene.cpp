@@ -76,6 +76,8 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
     drawBounds();
 
     ui->graphicsView->setScene(&scene);
+  //  ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
+
     ui->graphicsView->scale(0.08, 0.08);
 
     connect(this, SIGNAL(zoomWheel(int)), this, SLOT(updateZoom(int)));
@@ -311,7 +313,7 @@ void FieldScene::drawBounds()
     scene.addRect(-FIELD_MAIN_LENGHT/2, -FIELD_MAIN_WIDTH/2,
                   FIELD_MAIN_LENGHT, FIELD_MAIN_WIDTH,QPen(Qt::green),QBrush(Qt::green));
 
-    QPen drawBoundsPen(Qt::white);
+    QPen drawBoundsPen(QBrush(Qt::white),10.0);
     scene.addLine(-FIELD_LENGTH/2, -FIELD_WIDTH/2, -FIELD_LENGTH/2, FIELD_WIDTH/2, drawBoundsPen);
     scene.addLine(FIELD_LENGTH/2, -FIELD_WIDTH/2, FIELD_LENGTH/2, FIELD_WIDTH/2, drawBoundsPen);
     scene.addLine(-FIELD_LENGTH/2, -FIELD_WIDTH/2, FIELD_LENGTH/2, -FIELD_WIDTH/2, drawBoundsPen);

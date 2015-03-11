@@ -35,7 +35,7 @@ public:
     vector<SSLRobot*> allRobotsExcept(SSL::Color color, int id);
 
     SSLReferee::RefereeState m_refereeState;
-
+    static float FOELD_LENGTH;
 private:
     SSLWorldModel();
     virtual ~SSLWorldModel();

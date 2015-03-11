@@ -8,6 +8,7 @@
 #include "SSLReferee.h"
 #include <iostream>
 #include "../ai/SSLWorldModel.h"
+#include "paramater-manager/parametermanager.h"
 //#include <typeinfo>
 
 SSLReferee::SSLReferee(int port, string address) : UDP(), SSLListener()
@@ -27,9 +28,12 @@ SSLReferee::~SSLReferee() {
 
 void SSLReferee::check()
 {
+    ParameterManager* pm = ParameterManager::getInstance();
     Address sender_adress;
     Address defalt_address;
-    defalt_address.setHost("192.168.1.134", SSL_REFEREE_PORT);
+
+    defalt_address.setHost(pm->get<string>("network.SSL_REFEREE_ADDRESS").c_str(),
+                           pm->get<int>("network.SSL_REFEREE_PORT"));
     if(this->havePendingData())
     {
         m_temp_packet.length = this->recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
