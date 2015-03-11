@@ -9,15 +9,12 @@
 #include <sstream>
 #include <iostream>
 
-//const char* ::filename = "Setting.xml";
-const string ParameterManager::filename = "Setting.json";
-using namespace boost::property_tree::xml_parser;
 
 using namespace std;
 class ParameterManager
 {
 private:
-    const string filename ;
+    static const string filename;
     //IniParser parser;
 
     boost::property_tree::ptree pt;
