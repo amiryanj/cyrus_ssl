@@ -1,7 +1,7 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "../general.h"
+#include "../../common/general.h"
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 using namespace boost::posix_time;

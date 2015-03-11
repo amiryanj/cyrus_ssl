@@ -14,7 +14,7 @@ using namespace std;
 
 //******************************************************
 #define OUR_COLOR   SSL::Blue
-#define OUR_SIDE    SSL::Left
+#define OUR_SIDE    SSL::Right
 //******************************************************
 
 int main(int argc, char *argv[])
@@ -22,10 +22,9 @@ int main(int argc, char *argv[])
     cout << "Main is running ... " << endl;
     long loopCounter = 0;
 
-    SSLReferee *referee = new SSLReferee(MY_REFEREE_PORT, MY_REFEREE_ADDRESS);
+    SSLReferee *referee = new SSLReferee(SSL_REFEREE_PORT, SSL_REFEREE_ADDRESS);
 
-    SSLVision *vision = new SSLVision(GRSIM_VISION_PORT, GRSIM_VISION_ADDRESS);
-
+    SSLVision *vision = new SSLVision(SSL_VISION_PORT, SSL_VISION_ADDRESS);
 
     VisionFilter *filter =  VisionFilter::getInstance();
 
@@ -51,10 +50,6 @@ int main(int argc, char *argv[])
         if(loopCounter % 25 == 0)  {
             gui->check();
         }
-        usleep(2000);
+        usleep(200000);
     }
-
-
-
 }
-

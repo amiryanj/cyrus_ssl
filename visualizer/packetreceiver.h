@@ -19,6 +19,7 @@ class PacketReceiver : public QObject
     Q_OBJECT
 public:
     PacketReceiver();
+    ~PacketReceiver();
     QTimer timer;
 
 public slots:

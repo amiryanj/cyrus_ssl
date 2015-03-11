@@ -1,7 +1,7 @@
 #ifndef _ROBOTFILTER_H
 #define _ROBOTFILTER_H
 
-#include "math/vector3d.h"
+#include "../../common/math/vector3d.h"
 #include "NaiveKalman.h"
 #include "Frame.h"
 

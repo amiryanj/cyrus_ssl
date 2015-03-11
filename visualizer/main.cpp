@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
 //            sleep(2);
         }
 
-        w->showFullScreen();
+        w->show();
+//        w->showFullScreen();
     }
     else
         return 0;

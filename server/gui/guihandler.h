@@ -10,12 +10,13 @@
 #include "../thirdparty/socket/netraw.h"
 #include "../thirdparty/socket/IPPacket.h"
 #include <boost/signals2/mutex.hpp>
+#include <QtNetwork/QUdpSocket>
 
 using namespace google::protobuf;
 
 //using namespace Net;
 
-class GUIHandler : public SSLListener, public Net::UDP
+class GUIHandler : public SSLListener
 {
     GUIHandler();
     static GUIHandler* instance;
@@ -40,6 +41,10 @@ private:
 //    ssl_world_packet world_packet;
 
     boost::signals2::mutex mtx_;
+    QUdpSocket socket_;
+
+    string receiver_ip_;
+    int receiver_port_;
 };
 
 #endif // _GUIHANDLER_H

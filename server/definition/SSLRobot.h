@@ -2,7 +2,7 @@
 #define SSLROBOT_H
 
 #include "SSLRobotPhysic.h"
-#include "../general.h"
+#include "../../common/general.h"
 #include "SSLObject.h"
 
 #include "SSLTeam.h" //SSLTeam;

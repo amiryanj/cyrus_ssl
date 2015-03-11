@@ -1,17 +1,34 @@
 #include "SSLBall.h"
+#include "../ai/SSLWorldModel.h"
+
+SSLBall *SSLBall::mainBall()
+{
+    return SSLWorldModel::getInstance()->mainBall();
+}
 
 SSLBall::SSLBall()
 {
-    this->m_radius = 220;
+    this->m_radius = 22;
+    this->m_isStopped = true;
 }
 
-void SSLBall::setFilteredSpeed(const Vector2D &speed)
+//void SSLBall::setFilteredSpeed(const Vector2D &speed)
+//{
+//    m_filteredSpeed = speed;
+//}
+
+//Vector2D SSLBall::getFilteredSpeed() const
+//{
+//    return m_filteredSpeed;
+//}
+
+bool SSLBall::isStopped() const
 {
-    m_filteredSpeed = speed;
+    return m_isStopped;
 }
 
-Vector2D SSLBall::getFilteredSpeed() const
+void SSLBall::setStopped(bool stopped)
 {
-    return m_filteredSpeed;
+    m_isStopped =  stopped;
 }
 

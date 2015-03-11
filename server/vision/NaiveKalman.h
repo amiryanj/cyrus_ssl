@@ -5,7 +5,7 @@
 //#include <eigen3/Eigen/LU>
 //#include <eigen3/Eigen/Eigen>
 
-#include "math/vector3d.h"
+#include "../../common/math/vector3d.h"
 
 struct FilterState {
     Vector3D acc;
@@ -25,6 +25,7 @@ public:
 
     double m_alfa, m_beta, m_gama;
     double m_acc_effect;
+    double m_speed_discount_rate;
 
     Vector3D max_speed_crop;
     Vector3D max_acceleration_crop;

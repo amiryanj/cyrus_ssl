@@ -23,24 +23,8 @@ GUIHandler *GUIHandler::getInstance()
 
 bool GUIHandler::openSocket(int port, string address)
 {
-    this->close();
-    if(!this->open(port, true, true)) {
-        cerr << "Unable to open UDP network port: "<< port << endl;
-        return false;
-    }
-
-    Net::Address multiaddr, interface;
-    multiaddr.setHost(address.c_str(), port);
-    interface.setAny();   
-
-    if(!this->addMulticast(multiaddr, interface))
-    {
-        cerr << "Unable to setup UDP multicast." << endl ;
-    }else
-    {
-        cout << "Visualizer UDP network successfully configured. Multicast address= " << port << endl;
-    }
-    return true;
+    receiver_ip_ = address;
+    receiver_port_ = port;
 }
 
 void GUIHandler::check()
@@ -250,20 +234,18 @@ bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)
 {
     string buffer;    
     p.SerializeToString(&buffer);
-    Net::Address multiaddr;
-    multiaddr.setHost(VISUALIZER_IP, VISUALIZER_PORT);
+
     bool result;
     mtx_.lock();
-    result = this->send(buffer.c_str(), buffer.length(), multiaddr);
-
+    int sent_size = socket_.writeDatagram(buffer.c_str(), QHostAddress(receiver_ip_.c_str()), receiver_port_);
+//    result = this->send(buffer.c_str(), buffer.length(), multiaddr);
     mtx_.unlock();
-    if (result==false)
-    {
-        cerr << "Sending Visualizer data failed (maybe too large?). Size was: " << buffer.length() << endl;
+    if (result==false) {
+//        cerr << "Sending Visualizer data failed" << endl;
     }
-    else
-    {
-        cout << buffer.length() << " Bytes of ( Visualizer Packet ) has been sent." << endl;
+    else {
+//        cout << buffer.length() << " Visualizer Packet sent." << endl;
     }
+//    cout << "SIZE:  " << sent_size << endl;
     return(result);
 }

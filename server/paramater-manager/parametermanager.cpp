@@ -3,12 +3,12 @@
 #include <locale>
 using namespace std;
 
+ParameterManager* ParameterManager::instance = NULL;
 ParameterManager::ParameterManager()
 {
     read_xml(filename, pt);
 }
-ParameterManager* ParameterManager::instance = NULL;
-const string ParameterManager::filename = "Setting.xml";
+
 ParameterManager *ParameterManager::getInstance()
 {
     if(instance == NULL)

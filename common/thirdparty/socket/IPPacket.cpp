@@ -15,8 +15,4 @@ IPPacket::IPPacket() {
 //}
 
 
-IPPacket::IPPacket(int packet_size)
-{
-    this->buffer = new char[packet_size];
-    this->length = packet_size;
-}
+

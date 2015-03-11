@@ -2,150 +2,160 @@
 
 #include "../ai/SSLWorldModel.h"
 #include "../definition/SSLRobot.h"
+#include "../definition/SSLBall.h"
 
 #define EPS 1e-5
 
 BallFilter::BallFilter()
 {
     last_update_time_msec = 0;
-
-    rawPositionList.reserve(MAX_BALL_MEMORY + 1);
+    rawData.reserve(MAX_BALL_MEMORY + 1);
+//    rawPositions.reserve(MAX_BALL_MEMORY + 1);
     // rawSpeedList is set to zero by default
-    __medianFilterIndex = 0;
+//    __medianFilterIndex = 0;
 }
 
 void BallFilter::putNewFrame(const Frame &fr)
 {
-    rawPositionList.insert(rawPositionList.begin(), fr);
-//    std::cout << "Robot Confidence = " <<fr.confidence << std::endl;
-    if(rawPositionList.size() > MAX_BALL_MEMORY)
-        rawPositionList.pop_back();
+    if(rawData.empty()) { // initial raw data when the first frame received
+        for(int i=0; i< MAX_BALL_MEMORY; i++) {
+            BallKinematic bk_;
+            bk_.timeStamp_second = fr.timeStampMilliSec /1000.0 - (i *0.0166); // avoid dividing by zero
+                                                                               // in following computations
+            bk_.position = fr.position.to2D();
+            bk_.displacement = Vector2D(0.0, 0.0);
+            bk_.velocity = Vector2D(0.0, 0.0);
+            bk_.acceleration = Vector2D(0.0, 0.0);
+            rawData.insert(rawData.begin(), bk_);
+        }
+        m_filteredPosition = fr.position.to2D();
+        m_displacement = Vector2D(0.0, 0.0);
+        m_velocity = Vector2D(0.0, 0.0);
+        m_accleration = Vector2D(0.0, 0.0);
+    }
 
-    last_delta_t_sec = (fr.timeStampMilliSec - last_update_time_msec)/ 1000.0;
-    last_update_time_msec = fr.timeStampMilliSec;
+    else {
+        assert( rawData.size() >= 2 );
 
-    Vector2D currentSpeed_;
-    if (rawPositionList.size() >= BALL_SPEED_LIMIT_FILTER)
-        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList[BALL_SPEED_LIMIT_FILTER].position.to2D()) * 1000.0
-                / (rawPositionList[0].timeStampMilliSec - rawPositionList[BALL_SPEED_LIMIT_FILTER].timeStampMilliSec);
-    else
-        currentSpeed_ = (rawPositionList[0].position.to2D() - rawPositionList.back().position.to2D()) * 1000.0
-                / (rawPositionList[0].timeStampMilliSec - rawPositionList.back().timeStampMilliSec);
+        BallKinematic bk_;
+        bk_.timeStamp_second = fr.timeStampMilliSec / 1000.0;
+        bk_.position = fr.position.to2D();
+        bk_.displacement = (bk_.position - getRawData(0).position);
+        bk_.velocity = bk_.displacement / (bk_.timeStamp_second - getRawData(0).timeStamp_second);
 
-    rawSpeedList[__medianFilterIndex++] = currentSpeed_;
-    if (__medianFilterIndex >= MAX_BALL_MEDIAN_MEMORY)
-        __medianFilterIndex = 0;
+        bk_.acceleration = (bk_.velocity - getRawData(0).velocity) /
+                (bk_.timeStamp_second - getRawData(0).timeStamp_second);
 
+        rawData.insert(rawData.begin(), bk_);
+        rawData.pop_back();
+    }
+
+    assert( rawData.size() == MAX_BALL_MEMORY );
+}
+
+void BallFilter::putNewFrameWithManyBalls(vector<Frame> balls_)
+{
+    cerr << "ERROR:  XXXXXXXXXXXXXXXXXXX Code Not Completed XXXXXXXXXXXXXXXXXXXX" << endl;
+    if(!balls_.empty())
+        this->putNewFrame(balls_[0]);
 }
 
 void BallFilter::runFilter()
 {
-    // remove decayed frames
-    Frame fake_frame;
-    fake_frame.setToCurrentTimeMilliSec();
-    while(!rawPositionList.empty())
-    {
-        Frame listed_fr = rawPositionList.back();
-        if((fake_frame.timeStampMilliSec - listed_fr.timeStampMilliSec) > ((2 * MAX_BALL_MEMORY)/(CAMERA_FPS/1000.0)))
-            rawPositionList.pop_back();
-        else
-            break;
-    }
-
-    if( rawPositionList.size() == 0 )
+    if(rawData.empty()) {
+//        cerr << "No ball deteceted in the field" << endl;
         return;
-
-
-    //.first is length, second is index
-    pair<float, int> medianFilterValues[MAX_BALL_MEDIAN_MEMORY];
-    for (int i = 0; i < MAX_BALL_MEDIAN_MEMORY; i++)
-        medianFilterValues[i] = make_pair(rawSpeedList[i].lenght(), i);
-
-    sort(medianFilterValues, medianFilterValues + MAX_BALL_MEDIAN_MEMORY);
-    int medianFilteredSpeed_Index = medianFilterValues[MAX_BALL_MEDIAN_MEMORY/2].second;
-    m_medianFilteredSpeed = rawSpeedList[medianFilteredSpeed_Index];
-
-
-    Frame last_frame = rawPositionList.front();
-
-    /*  farzad's prediction */
-    /*
-    if (rawPositionList.size() >= 2) {
-        last_frame = rawPositionList[1];
-        last_frame.position += Vector3D(m_medianFilteredSpeed * last_delta_t_sec, 0.0);
     }
-    */
+    // check for changing the ball state
+    if(getBallStoppedState() == BALL_NOT_STOPPED) {
+        SSLWorldModel::getInstance()->mainBall()->setStopped(BALL_NOT_STOPPED);
+    }
 
-    /* javad's prediction */
+    m_accleration = getRawData(0).acceleration;
+    m_displacement = getRawData(0).displacement;
+    m_filteredPosition = getRawData(0).position;
+    m_velocity = getRawData(0).velocity;
+    if(SSLWorldModel::getInstance()->mainBall()->isStopped()) {
+        m_velocity = Vector2D(0, 0);
+//    } else {
+    }
 
-    for (uint i = 0 ; i < MAX_BALL_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
-        if (fabs(((rawPositionList[i].position.to2D() - rawPositionList[i+1].position.to2D()) * 1000.0
-                  / (rawPositionList[i].timeStampMilliSec - rawPositionList[i+1].timeStampMilliSec)).lenght()
-                - m_medianFilteredSpeed.lenght()) <= EPS)
-        {
-            last_frame.position =
-                    rawPositionList[i+1].position + Vector3D(
-                        (rawPositionList[i].position.to2D() - rawPositionList[i+1].position.to2D())
-                        * (i+1), 0.0
-                        );
-            break;
-        }
-
-
-    Vector3D last_observe = last_frame.position;
+    double disp_error_ = m_accleration.lenght() / m_velocity.lenght();
+    double turn_error_ = m_accleration.arctan();
 
     naiveFilter.predict(last_delta_t_sec);
-    naiveFilter.observe(last_observe, last_delta_t_sec);
+    naiveFilter.m_alfa = exp( -1.0 * disp_error_);
+    naiveFilter.m_beta = exp( -1.0 * turn_error_);
+    naiveFilter.observe(getRawData(0).position.to3D(), last_delta_t_sec);
 
-    vector<SSLRobot*> all_robots = world->all_inFields();
-    bool near_robots = false;
-    for(uint i=0; i<all_robots.size(); i++) {
-        SSLRobot* robot = all_robots[i];
-        if((last_frame.position.to2D() - robot->Position().to2D()).lenght() < (ROBOT_RADIUS + BALL_RADIUS)* 1.1 ) {
-            near_robots = true;
-            break;
-        }
-    }
-    if(near_robots) {
-        naiveFilter.m_alfa = 0.2;
-        naiveFilter.m_beta = 0.13;
-    }
-    else {
-        naiveFilter.m_alfa = 0.1;
-        naiveFilter.m_beta = 0.03;
-    }
-
-    FilterState fs = naiveFilter.filter();    
+    FilterState fs = naiveFilter.filter();
     this->m_filteredPosition = fs.pos.to2D();
-    this->m_unfilteredSpeed = fs.vel.to2D();
-
-    int last_sign = 0;
-    int change_sign_count = 0;
-    for (int i=1; i<MAX_BALL_MEDIAN_MEMORY; i++) {
-        int cur_sign = (rawSpeedList[i].X()>0)? 1:-1;
-        if(cur_sign * last_sign < 0) {
-            change_sign_count ++;
-        }
-        last_sign = cur_sign;
-    }
-    if(change_sign_count > MAX_BALL_MEDIAN_MEMORY / 3) {
-        this->m_filteredPosition = fs.pos.to2D();
-        this->m_unfilteredSpeed = Vector2D(0, 0);
-    }
-
+    this->m_velocity = fs.vel.to2D();
 }
 
 Vector2D BallFilter::getUnfilteredSpeed() const
 {
-    return m_unfilteredSpeed;
+    return m_velocity;
 }
 
-Vector2D BallFilter::getMedianFilteredSpeed() const
+Vector2D BallFilter::getFilteredSpeed() const
 {
-    return m_medianFilteredSpeed;
+    return m_velocity;
 }
 
 Vector2D BallFilter::getFilteredPosition() const
 {
     return m_filteredPosition;
+}
+
+Vector2D BallFilter::getAcceleration() const
+{
+    return m_accleration;
+}
+
+Vector2D BallFilter::getDisplacement() const
+{
+    return m_displacement;
+}
+
+bool BallFilter::getBallStoppedState()
+{
+    if(SSLWorldModel::getInstance()->mainBall()->isStopped()) {
+        vector<SSLRobot *> all_robots = SSLWorldModel::getInstance()->all_inFields();
+        double minimum_distance = INFINITY;
+        for(uint i=0; i<all_robots.size(); i++) {
+            double dist_i = (((SSLRobot*)(all_robots.at(i)))->Position().to2D() - getFilteredPosition()).lenght();
+            dist_i -= SSLWorldModel::getInstance()->mainBall()->m_radius - ((SSLRobot*)(all_robots.at(i)))->m_radius;
+            minimum_distance = min(dist_i, minimum_distance);
+        }
+
+        double totoal_rotation_5_frame = getRawData(0).turnInDegree() +
+                                         getRawData(1).turnInDegree() +
+                                         getRawData(2).turnInDegree() ;
+
+        if(minimum_distance < 30) { // there is very close robot
+            if(totoal_rotation_5_frame < 50)
+                return false;
+        }
+
+        int large_displacement_counter= (getRawData(0).displacement.lenght() > 15) +
+                                        (getRawData(1).displacement.lenght() > 15) +
+                                        (getRawData(2).displacement.lenght() > 15) +
+                                        (getRawData(3).displacement.lenght() > 15) +
+                                        (getRawData(4).displacement.lenght() > 15);
+
+        if(minimum_distance < 100) { // there is some robot around ball
+            if((totoal_rotation_5_frame < 50) && large_displacement_counter >= 3)
+                return false;
+        } else { // no robot around ball
+            double total_displacement = (getRawData(0).position - getRawData(5).position).lenght();
+            if((large_displacement_counter >= 4) && (total_displacement > 50))
+                return false;
+        }
+
+        return true; // observation says that ball is still stopped
+    } else {
+        // we dont consider the moments where ball get stopped during a game
+        // set stop is just called by referee signals
+    }
 }

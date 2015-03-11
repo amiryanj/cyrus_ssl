@@ -1,14 +1,27 @@
 #ifndef _BALLFILTER_H
 #define _BALLFILTER_H
 
-#include "math/vector2d.h"
+#include "../../common/math/vector2d.h"
 #include <vector>
 #include "NaiveKalman.h"
 #include "Frame.h"
 
-#define MAX_BALL_MEMORY 30
+#define MAX_BALL_MEMORY 13
 #define MAX_BALL_MEDIAN_MEMORY 12
 #define BALL_SPEED_LIMIT_FILTER 7
+
+using namespace std;
+
+struct BallKinematic {
+    double timeStamp_second; // variable unit = second  : SSSS.mmm
+    Vector2D position; // mili meter
+    Vector2D displacement; // mili meter
+    Vector2D velocity; // mili meter per second
+    Vector2D acceleration; // mili meter per second^2
+    float turnInDegree() const {return acceleration.arctan() * 180.0/M_PI;}
+//    bool hasSuddenChange() const {return ((acceleration.lenght() > )
+//                                          || turnInDegree());}
+};
 
 class BallFilter
 {
@@ -16,27 +29,38 @@ public:
     BallFilter();
 
     void putNewFrame(const Frame &fr);
+    void putNewFrameWithManyBalls(vector<Frame> balls_);
 
     // main method for updating state vectors
     void runFilter();
 
+    Vector2D getFilteredSpeed() const;
     Vector2D getUnfilteredSpeed() const;
-    Vector2D getMedianFilteredSpeed() const;
     Vector2D getFilteredPosition() const;
+    Vector2D getAcceleration() const;
+    Vector2D getDisplacement() const;
 
 private:
-    std::vector<Frame> rawPositionList;
-    Vector2D rawSpeedList[MAX_BALL_MEDIAN_MEMORY];
+    BallKinematic& getRawData(uint i) {return rawData[i];}
+    vector<BallKinematic> rawData;
+
+    bool getBallStoppedState();
+
+    vector<Frame> rawPositions;
+
+    Vector2D rawSpeeds[MAX_BALL_MEDIAN_MEMORY];
+    Vector2D rawAccelerations;
     double last_update_time_msec;
     double last_delta_t_sec;
 
     Vector2D m_filteredPosition;
-    Vector2D m_unfilteredSpeed;
-    Vector2D m_medianFilteredSpeed;
+    Vector2D m_velocity;
+    Vector2D m_accleration;
+    Vector2D m_displacement;
 
     NaiveKalman naiveFilter;
 
-    int __medianFilterIndex;
+//    int __medianFilterIndex;
 };
 
 #endif // _BALLFILTER_H

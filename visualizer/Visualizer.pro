@@ -53,7 +53,6 @@ HEADERS  += mainwindow.h \
     plotwidget.h \
     fieldscene.h \
     graphics/graphic_bot.h \
-    general.h \
     Concepts.h \
     robotstate.h \
     packetreceiver.h \

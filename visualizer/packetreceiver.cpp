@@ -11,9 +11,14 @@ PacketReceiver::PacketReceiver()
     char opt=1;
     setsockopt(socket.socketDescriptor(), SOL_RAW, SO_REUSEADDR, &opt, sizeof(int));
     connect(&socket, SIGNAL(readyRead()), this, SLOT(processPendingData()));
-    timer.setInterval(2000);
+    timer.setInterval(3000);
    // timer.start();
     connect(&timer, SIGNAL(timeout()), this, SLOT(timerTimeout()));
+}
+
+PacketReceiver::~PacketReceiver()
+{
+    this->disconnectNetwork();
 }
 
 void PacketReceiver::check()
@@ -30,19 +35,20 @@ void PacketReceiver::timerTimeout()
 bool PacketReceiver::joinNetwork(QString IP, int port)
 {
     socket.close();
-    if(socket.bind(QHostAddress::AnyIPv4,port,QUdpSocket::ShareAddress))
+    if(socket.bind(QHostAddress::Any , port,QUdpSocket::ShareAddress))
         qDebug() << "Binded Successfully" ;
     else
         qDebug() << "Failed to Bind";
     if(socket.state() !=QAbstractSocket::BoundState)
           qDebug() << "Not Bind State";
 
-    bool joinResultFlag = socket.joinMulticastGroup(QHostAddress(IP));
-    if(joinResultFlag)
-        qDebug() << "Successfully connected to Cyrus Server ..." ;
-    else
-        qDebug() << socket.errorString();
-    return joinResultFlag;
+//    bool joinResultFlag = socket.joinMulticastGroup(QHostAddress(IP));
+//    if(joinResultFlag)
+//        qDebug() << "Successfully connected to Cyrus Server ..." ;
+//    else
+//        qDebug() << socket.errorString();
+//    return joinResultFlag;
+    return true;
 }
 
 void PacketReceiver::disconnectNetwork()
