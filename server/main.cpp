@@ -26,11 +26,11 @@ int main(int argc, char *argv[])
     cout << "Main is running ... " << endl;
     long loopCounter = 0;
 
-    SSLReferee *referee = new SSLReferee(pm->get<int>("network.MY_REFEREE_PORT"),
-                                         pm->get<string>("network.MY_REFEREE_ADDRESS"));
+    SSLReferee *referee = new SSLReferee(pm->get<int>("network.REFEREE_PORT"),
+                                         pm->get<string>("network.REFEREE_ADDRESS"));
 
-    SSLVision *vision = new SSLVision(pm->get<int>("network.SSL_VISION_PORT"),
-                                      pm->get<string>("network.SSL_VISION_ADDRESS"));
+    SSLVision *vision = new SSLVision(pm->get<int>("network.VISION_PORT"),
+                                      pm->get<string>("network.VISION_ADDRESS"));
 
     VisionFilter *filter =  VisionFilter::getInstance();
 
@@ -54,8 +54,9 @@ int main(int argc, char *argv[])
             gameModule->check();
             transmitter->check();
         }
-        if(loopCounter % 25 == 0)  {
+        if(loopCounter % 15 == 0)  {
             gui->check();
+//            gui->testVisualizer();
         }
         usleep(200000);
     }

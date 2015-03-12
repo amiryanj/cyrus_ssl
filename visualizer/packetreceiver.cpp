@@ -35,14 +35,14 @@ void PacketReceiver::timerTimeout()
 bool PacketReceiver::joinNetwork(QString IP, int port)
 {
     socket.close();
-    if(socket.bind(QHostAddress::Any , port,QUdpSocket::ShareAddress))
+    if(socket.bind(QHostAddress::AnyIPv4 , port, QUdpSocket::ShareAddress))
         qDebug() << "Binded Successfully" ;
     else
         qDebug() << "Failed to Bind";
     if(socket.state() !=QAbstractSocket::BoundState)
           qDebug() << "Not Bind State";
 
-//    bool joinResultFlag = socket.joinMulticastGroup(QHostAddress(IP));
+    bool joinResultFlag = socket.joinMulticastGroup(QHostAddress(IP));
 //    if(joinResultFlag)
 //        qDebug() << "Successfully connected to Cyrus Server ..." ;
 //    else

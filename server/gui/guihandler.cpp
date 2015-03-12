@@ -11,7 +11,7 @@ GUIHandler* GUIHandler::instance = NULL;
 using namespace boost;
 GUIHandler::GUIHandler()
 {    
-    this->setAddress();
+    this->openSocket();
 }
 
 GUIHandler *GUIHandler::getInstance()
@@ -21,11 +21,33 @@ GUIHandler *GUIHandler::getInstance()
     return instance;
 }
 
-void GUIHandler::setAddress()
+bool GUIHandler::openSocket()
 {
     ParameterManager* pm = ParameterManager::getInstance();
-    receiver_port_ = pm->get<int>("network.VISUALIZER_PORT");
-    receiver_ip_ = pm->get<string>("network.VISUALIZER_IP");
+    openSocket(pm->get<int>("network.VISUALIZER_PORT"),pm->get<string>("network.VISUALIZER_ADDRESS"));
+
+}
+
+bool GUIHandler::openSocket(int port, string address)
+{
+    this->close();
+    if(!this->open(port, true, true)) {
+        cerr << "Unable to open UDP network port: "<< port << endl;
+        return false;
+    }
+
+    Net::Address multiaddr, interface;
+    multiaddr.setHost(address.c_str(), port);
+    interface.setAny();   
+
+    if(!this->addMulticast(multiaddr, interface))
+    {
+        cerr << "Unable to setup UDP multicast." << endl ;
+    }else
+    {
+        cout << "Visualizer UDP network successfully configured. Multicast address= " << port << endl;
+    }
+    return true;
 }
 
 void GUIHandler::check()
@@ -54,6 +76,32 @@ ssl_visualizer_packet *GUIHandler::generateVisualizerPacket()
     generatePlannerPacket(p_p);
 
     return visualizer_packet;
+}
+
+void GUIHandler::testVisualizer()
+{
+    ssl_visualizer_packet* visualizer_packet = new ssl_visualizer_packet();
+    ssl_world_packet *w_p = visualizer_packet->mutable_world_data();
+    generateWorldPacket(w_p);
+
+    w_p->mutable_blue_team()->mutable_robots(0)->mutable_position()->set_x(0);
+    w_p->mutable_blue_team()->mutable_robots(0)->mutable_position()->set_y(0);
+
+    ssl_world_packet_Ball* ball_packet = w_p->mutable_field_balls()->Add();
+    ball_packet->mutable_position()->set_x(200.0);
+    ball_packet->mutable_position()->set_y(5.0);
+    ball_packet->mutable_position()->set_teta(0);
+
+    ball_packet->mutable_velecity()->set_x(7.0);
+    ball_packet->mutable_velecity()->set_y(1.0);
+    ball_packet->mutable_velecity()->set_teta(0);
+
+    ball_packet->set_id(0);
+
+    sendPacket(*visualizer_packet);
+    if(visualizer_packet != NULL)
+        delete visualizer_packet;
+
 }
 
 void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
@@ -236,20 +284,21 @@ bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)
     ParameterManager* pm = ParameterManager::getInstance();
     string buffer;    
     p.SerializeToString(&buffer);
-
+    Net::Address multiaddr;
+    multiaddr.setHost(pm->get<string>("network.VISUALIZER_ADDRESS").c_str(),
+                      pm->get<int>("network.VISUALIZER_PORT"));
     bool result;
     mtx_.lock();
-//    int sent_size = qudp_socket.writeDatagram(buffer.c_str(), QHostAddress(receiver_ip_.c_str()), receiver_port_);
-    Net::Address multiaddr;
-    multiaddr.setHost(receiver_ip_.c_str(), receiver_port_);
-    result = simple_socket.send(buffer.c_str(), buffer.length(), multiaddr);
+    result = this->send(buffer.c_str(), buffer.length(), multiaddr);
+
     mtx_.unlock();
-    if (result==false) {
-        cerr << "Sending Visualizer data failed" << endl;
+    if (result==false)
+    {
+        cerr << "Sending Visualizer data failed (maybe too large?). Size was: " << buffer.length() << endl;
     }
-    else {
-        cout << buffer.length() << " Visualizer Packet sent." << endl;
+    else
+    {
+        cout << buffer.length() << " Bytes of ( Visualizer Packet ) has been sent." << endl;
     }
-//    cout << "SIZE:  " << sent_size << endl;
     return(result);
 }

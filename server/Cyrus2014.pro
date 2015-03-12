@@ -11,12 +11,12 @@ LIBS += -lprotobuf -lboost_system -lBox2D
 
 DEFINES += _USE_BOX2D_
 
-#MOC_DIR = $$PWD/../objs
-#release: DESTDIR = $$PWD/../../release
-#release: OBJECTS_DIR = $$PWD/../../release/objs
+MOC_DIR = $$PWD/../../cyrus_objs
+release: DESTDIR = $$PWD/../../cyrus_release
+release: OBJECTS_DIR = $$PWD/../../cyrus_release/objs
 
-#debug: DESTDIR = $$PWD/../../debug
-#debug: OBJECTS_DIR = $$PWD/../../debug/objs
+debug: DESTDIR = $$PWD/../../cyrus_debug
+debug: OBJECTS_DIR = $$PWD/../../cyrus_debug/objs
 
 TARGET = Cyrus2014
 #CONFIG   += console
@@ -203,5 +203,5 @@ OTHER_FILES += \
     ../common/protoc/visualizer/proto/ssl_decision.proto \
     ../common/protoc/visualizer/proto/ssl_analyzer.proto \
     ../common/protoc/visualizer/proto/compile.sh \
-    Setting.json
+    ../cyrus_settings.json
 

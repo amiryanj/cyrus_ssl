@@ -55,7 +55,7 @@ void BallFilter::putNewFrame(const Frame &fr)
 
 void BallFilter::putNewFrameWithManyBalls(vector<Frame> balls_)
 {
-    cerr << "ERROR:  XXXXXXXXXXXXXXXXXXX Code Not Completed XXXXXXXXXXXXXXXXXXXX" << endl;
+//    cerr << "ERROR:  XXXXXXXXXXXXXXXXXXX Code Not Completed XXXXXXXXXXXXXXXXXXXX" << endl;
     if(!balls_.empty())
         this->putNewFrame(balls_[0]);
 }

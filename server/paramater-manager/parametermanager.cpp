@@ -2,7 +2,7 @@
 #include <string>
 #include <locale>
 
-const string ParameterManager::filename = "Setting.json";
+const string ParameterManager::filename = "../cyrus2014/cyrus_settings.json";
 
 ParameterManager* ParameterManager::instance = NULL;
 
