@@ -5,6 +5,8 @@
 #include <QTimer>
 #include "../../visualizer/plotwidget.h"
 #include "../ai/SSLWorldModel.h"
+#include "VisionFilter.h"
+#include "BallFilter.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +27,7 @@ private:
     Ui::MainWindow *ui;
     PlotWidget *pw_;
     QTimer timer;
+
 };
 
 #endif // MAINWINDOW_H

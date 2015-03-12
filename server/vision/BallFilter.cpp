@@ -8,11 +8,7 @@
 
 BallFilter::BallFilter()
 {
-    last_update_time_msec = 0;
     rawData.reserve(MAX_BALL_MEMORY + 1);
-//    rawPositions.reserve(MAX_BALL_MEMORY + 1);
-    // rawSpeedList is set to zero by default
-//    __medianFilterIndex = 0;
 }
 
 void BallFilter::putNewFrame(const Frame &fr)
@@ -30,7 +26,7 @@ void BallFilter::putNewFrame(const Frame &fr)
         }
         m_filteredPosition = fr.position.to2D();
         m_displacement = Vector2D(0.0, 0.0);
-        m_velocity = Vector2D(0.0, 0.0);
+        m_filteredVelocity = Vector2D(0.0, 0.0);
         m_accleration = Vector2D(0.0, 0.0);
     }
 
@@ -71,36 +67,46 @@ void BallFilter::runFilter()
         SSLWorldModel::getInstance()->mainBall()->setStopped(BALL_NOT_STOPPED);
     }
 
-    m_accleration = getRawData(0).acceleration;
+    m_rawPosition = getRawData(0).position;
     m_displacement = getRawData(0).displacement;
+    m_rawVelocity = getRawData(0).velocity;
+
     m_filteredPosition = getRawData(0).position;
-    m_velocity = getRawData(0).velocity;
+    m_filteredVelocity = getRawData(0).velocity;
+    m_accleration = getRawData(0).acceleration;
+
     if(SSLWorldModel::getInstance()->mainBall()->isStopped()) {
-        m_velocity = Vector2D(0, 0);
+        m_filteredVelocity = Vector2D(0, 0);
 //    } else {
     }
 
-    double disp_error_ = m_accleration.lenght() / m_velocity.lenght();
+    double disp_error_ = m_accleration.lenght(); // / m_filteredVelocity.lenght();
     double turn_error_ = m_accleration.arctan();
 
+    double last_delta_t_sec = getRawData(0).timeStamp_second - getRawData(1).timeStamp_second;
+
     naiveFilter.predict(last_delta_t_sec);
-    naiveFilter.m_alfa = exp( -1.0 * disp_error_);
-    naiveFilter.m_beta = exp( -1.0 * turn_error_);
-    naiveFilter.observe(getRawData(0).position.to3D(), last_delta_t_sec);
+    naiveFilter.m_alfa = 0.1 + 0.9 * exp( -0.000005 * disp_error_);
+    naiveFilter.m_beta = (0.1 + 0.9 * exp( -0.01 * turn_error_))
+                        *(0.1 + 0.9 * exp( -0.000005 * disp_error_));
+    naiveFilter.observe(getRawData(0).position.to3D(),
+                        getRawData(0).velocity.to3D(),
+                        getRawData(0).acceleration.to3D());
 
     FilterState fs = naiveFilter.filter();
     this->m_filteredPosition = fs.pos.to2D();
-    this->m_velocity = fs.vel.to2D();
+    this->m_filteredVelocity = fs.vel.to2D();
+    this->m_accleration = fs.acc.to2D();
 }
 
 Vector2D BallFilter::getUnfilteredSpeed() const
 {
-    return m_velocity;
+    return m_rawVelocity;
 }
 
 Vector2D BallFilter::getFilteredSpeed() const
 {
-    return m_velocity;
+    return m_filteredVelocity;
 }
 
 Vector2D BallFilter::getFilteredPosition() const

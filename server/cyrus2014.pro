@@ -11,14 +11,15 @@ LIBS += -lprotobuf -lboost_system -lBox2D
 
 DEFINES += _USE_BOX2D_
 
-MOC_DIR = $$PWD/../../cyrus_objs
-release: DESTDIR = $$PWD/../../cyrus_release
-release: OBJECTS_DIR = $$PWD/../../cyrus_release/objs
+release: DESTDIR = $$PWD/../../release_cyrus/server
+release: MOC_DIR = $$PWD/../../release_cyrus/server/mocs
+release: OBJECTS_DIR = $$PWD/../../release_cyrus/server/objs
 
-debug: DESTDIR = $$PWD/../../cyrus_debug
-debug: OBJECTS_DIR = $$PWD/../../cyrus_debug/objs
+debug: DESTDIR = $$PWD/../../debug_cyrus/server
+debug: MOC_DIR = $$PWD/../../debug_cyrus/server/mocs
+debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/server/objs
 
-TARGET = Cyrus2014
+TARGET = cyrus2014
 #CONFIG   += console
 #CONFIG   -= app_bundle
 

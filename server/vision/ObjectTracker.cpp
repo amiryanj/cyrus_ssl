@@ -3,6 +3,7 @@
 
 #include "SSLVision.h"
 #include "../../common/general.h"
+#include "../paramater-manager/parametermanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +11,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    SSLVision* vision = new SSLVision(10045, GRSIM_VISION_ADDRESS);
+    ParameterManager* pm = ParameterManager::getInstance();
+    SSLVision *vision = new SSLVision(pm->get<int>("network.VISION_PORT"),
+                                      pm->get<string>("network.VISION_ADDRESS"));
     
     return a.exec();
 }

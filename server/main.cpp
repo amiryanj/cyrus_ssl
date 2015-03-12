@@ -54,10 +54,10 @@ int main(int argc, char *argv[])
             gameModule->check();
             transmitter->check();
         }
-        if(loopCounter % 15 == 0)  {
+        if(loopCounter % 25 == 0)  {
             gui->check();
 //            gui->testVisualizer();
         }
-        usleep(200000);
+        usleep(2000);
     }
 }

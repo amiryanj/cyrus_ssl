@@ -18,7 +18,7 @@ class NaiveKalman
 public:
     NaiveKalman();
     FilterState predict(double delta_t_sec);
-    void observe(Vector3D new_pos, double delta_t_sec);
+    void observe(Vector3D new_pos, Vector3D new_vel, Vector3D new_acc);
     FilterState filter();
 
     FilterState m_state;

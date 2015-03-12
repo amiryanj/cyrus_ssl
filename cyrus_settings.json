@@ -23,19 +23,36 @@
 
         "visualizer_address":"127.0.0.1",
         "visualizer_port":4001
-
     },
+
     "kalman":
     {
-        "m_alfa" : "0.25",
-        "m_beta" : "0.05",
-        "m_gama" : "0.15",
-        "m_acc_effect" : "0.0"
+        "default":
+        {
+            "alfa" : "0.25",
+            "beta" : "0.05",
+            "gama" : "0.15",
+            "acc_effect" : "0.0"
+        },
+        "ball":
+        {
+            "alfa" : "0.25",
+            "beta" : "0.05",
+            "gama" : "0.15",
+            "acc_effect" : "0.0"
+        },
+        "robot":
+        {
+            "alfa" : "0.25",
+            "beta" : "0.05",
+            "gama" : "0.15",
+            "acc_effect" : "0.0"
+        }
     },
     "game":
     {
         "our_color" : 1,
-        "our_side" : -1,
+        "our_side" : 1,
         "comment" : "Yellow = 0, Blue = 1 Left = -1, Right = 1"
 
     }

@@ -12,6 +12,10 @@ namespace SSL {
     float uni_rand(float a, float b);
 
     double currentTimeMSec();
+
+    template <typename T> int sgn(T val) {
+        return (T(0) < val) - (val < T(0));
+    }
 }
 
 

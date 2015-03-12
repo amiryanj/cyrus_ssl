@@ -9,6 +9,14 @@ QT       += core gui
 TARGET = ObjectTracker
 TEMPLATE = app
 
+release: DESTDIR = $$PWD/../../../release_cyrus/tracker
+release: MOC_DIR = $$PWD/../../../release_cyrus/tracker/mocs
+release: OBJECTS_DIR = $$PWD/../../../release_cyrus/tracker/objs
+
+debug: DESTDIR = $$PWD/../../../debug_cyrus/tracker
+debug: MOC_DIR = $$PWD/../../../debug_cyrus/tracker/mocs
+debug: OBJECTS_DIR = $$PWD/../../../debug_cyrus/tracker/objs
+
 LIBS += -lprotobuf -lboost_system -lqcustomplot
 
 SOURCES +=\
@@ -37,7 +45,8 @@ SOURCES +=\
     ../../common/thirdparty/socket/netraw.cpp \
     ../../common/thirdparty/socket/IPPacket.cpp \
     ../../visualizer/plotwidget.cpp \
-    ObjectTracker.cpp
+    ObjectTracker.cpp \
+    ../paramater-manager/parametermanager.cpp
 
 HEADERS  += mainwindow.h \
     VisionFilter.h \
@@ -63,7 +72,8 @@ HEADERS  += mainwindow.h \
     ../../common/math/sslmath.h \
     ../../common/thirdparty/socket/netraw.h \
     ../../common/thirdparty/socket/IPPacket.h \
-    ../../visualizer/plotwidget.h
+    ../../visualizer/plotwidget.h \
+    ../paramater-manager/parametermanager.h
 
 FORMS    += mainwindow.ui \
     ../../visualizer/plotwidget.ui

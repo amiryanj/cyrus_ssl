@@ -1,8 +1,6 @@
 #include "parametermanager.h"
-#include <string>
-#include <locale>
 
-const string ParameterManager::filename = "../cyrus2014/cyrus_settings.json";
+const string ParameterManager::filename = "../../cyrus2014/cyrus_settings.json";
 
 ParameterManager* ParameterManager::instance = NULL;
 

@@ -9,6 +9,14 @@ QT       += core gui network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 greaterThan(QT_MAJOR_VERSION, 4.9): QT += printsupport
 
+release: DESTDIR = $$PWD/../../release_cyrus/visualizer
+release: MOC_DIR = $$PWD/../../release_cyrus/visualizer/mocs
+release: OBJECTS_DIR = $$PWD/../../release_cyrus/visualizer/objs
+
+debug: DESTDIR = $$PWD/../../debug_cyrus/visualizer
+debug: MOC_DIR = $$PWD/../../debug_cyrus/visualizer/mocs
+debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/visualizer/objs
+
 LIBS += -lprotobuf
 
 TARGET = Visualizer

@@ -5,10 +5,10 @@
 #include <vector>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include <boost/signals2/mutex.hpp>
 #include <locale>
 #include <sstream>
 #include <iostream>
-#include <boost/signals2/mutex.hpp>
 
 
 using namespace std;

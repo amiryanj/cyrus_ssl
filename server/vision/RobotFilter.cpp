@@ -67,7 +67,7 @@ void RobotFilter::runFilter()
     if( rawPositionList.size() == 0 )
         return;
 
-    //.first is length, second is index
+    //first is length, second is index
     pair<float, int> medianFilterValues[MAX_ROBOT_MEDIAN_MEMORY];
     for (int i = 0; i < MAX_ROBOT_MEDIAN_MEMORY; i++)
         medianFilterValues[i] = make_pair(rawSpeedList[i].lenght2D(), i);
@@ -78,13 +78,6 @@ void RobotFilter::runFilter()
 
 
     Frame last_frame = rawPositionList.front();
-    /*  farzad's prediction */
-    /*
-    if (rawPositionList.size() >= 2) {
-        last_frame = rawPositionList[1];
-        last_frame.position += Vector3D(m_medianFilteredSpeed * last_delta_t_sec, 0.0);
-    }
-    */
     /* javad's prediction */
 
     for (int i = 0 ; i < MAX_ROBOT_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
@@ -102,7 +95,7 @@ void RobotFilter::runFilter()
     Vector3D last_observe = last_frame.position;
 
     naiveFilter.predict(last_delta_t_sec);
-    naiveFilter.observe(last_observe, last_delta_t_sec);
+    naiveFilter.observe(last_observe, m_medianFilteredSpeed, Vector3D(0.0, 0.0, 0.0));
     FilterState fs = naiveFilter.filter();
     this->m_filteredPosition = fs.pos;
     this->m_filteredSpeed = fs.vel * 10;

@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "../definition/SSLBall.h"
-#include "VisionFilter.h"
-#include "BallFilter.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,15 +26,17 @@ void MainWindow::timerOVF()
     static int counter = 0;
     counter ++;
 
-    double ball_err = SSLWorldModel::getInstance()->mainBall()->Acceleration().lenght();
+//    double ball_err = SSLWorldModel::getInstance()->mainBall()->Speed().lenght();
 
-    double ball_disp = VisionFilter::getInstance()->ballFilter->getFilteredSpeed().lenght();
+    double data_1 = VisionFilter::getInstance()->ballFilter->getUnfilteredSpeed().lenght();
+    double data_2 = VisionFilter::getInstance()->ballFilter->getFilteredSpeed().lenght();
 
+    double alfa = VisionFilter::getInstance()->ballFilter->naiveFilter.m_alfa;
 
-    qDebug() << "Ball Raw Acceleration = " << ball_err
-             << "Ball Raw Displacement = " << ball_disp;
+//    qDebug() << "Ball Raw Acceleration = " << data_1;
+//             << "Ball Raw Displacement = " << ball_disp;
 
     QVector<double> values;
-    values << ball_err << ball_disp;
-    pw_->addValue(counter/50.0, values);
+    values << data_1 << data_2;
+    pw_->addValue( counter /10.0, values );
 }
