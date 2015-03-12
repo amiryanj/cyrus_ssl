@@ -25,7 +25,8 @@ TEMPLATE = app
 INCLUDEPATH += ../common \
                 ../common/thirdparty \
                 ../common/math \
-                ../common/tools
+                ../common/tools \
+                ../common/protoc
 
 SOURCES += main.cpp\
         mainwindow.cpp \

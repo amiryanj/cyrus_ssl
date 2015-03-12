@@ -13,7 +13,13 @@
 
 SSLReferee::SSLReferee(int port, string address) : SSLListener()
 {
-    socket_.bind(port);
+//    qudp_socket.bind(port);
+
+    simple_socket.open(port, true, true);
+    Address multi_, interface_;
+    multi_.setHost(address.c_str(), port);
+    interface_.setAny();
+    simple_socket.addMulticast(multi_, interface_);
 
     previous_command = SSL_Referee_Command_HALT;
     last_command = SSL_Referee_Command_HALT;
@@ -25,10 +31,17 @@ SSLReferee::~SSLReferee()
 
 void SSLReferee::check()
 {
-    while(socket_.hasPendingDatagrams())
+
+    //    while(qudp_socket.hasPendingDatagrams())
+
+    Address sender_adress;
+    while(simple_socket.havePendingData())
     {
-        m_temp_packet.length = socket_.pendingDatagramSize();
-        socket_.readDatagram(m_temp_packet.buffer, m_temp_packet.length);
+        m_temp_packet.length = simple_socket.recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
+        cout << "Referee-Packet received. Packet Lenght: [" << m_temp_packet.length << "]" << endl;
+
+//        m_temp_packet.length = qudp_socket.pendingDatagramSize();
+//        qudp_socket.readDatagram(m_temp_packet.buffer, m_temp_packet.length);
 //        m_temp_packet.length = this->recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
 
         SSL_Referee_Command new_command;

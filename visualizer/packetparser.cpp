@@ -16,7 +16,7 @@ void PacketParser::handleWorldPacket(ssl_world_packet p)
             ssl_world_packet_Robot* robot = p.mutable_blue_team()->mutable_robots(i);
             RobotState robot_state(SSL::Blue, robot->id());
             robot_state.position = Vector3D(robot->position().x(), robot->position().y(), robot->position().teta());
-            robot_state.velocity = Vector3D(robot->velecity().x(), robot->velecity().y(), robot->velecity().teta());
+            robot_state.velocity = Vector3D(robot->velocity().x(), robot->velocity().y(), robot->velocity().teta());
 
             emit newRobotState(robot_state);
         }
@@ -28,7 +28,7 @@ void PacketParser::handleWorldPacket(ssl_world_packet p)
             ssl_world_packet_Robot* robot = p.mutable_yellow_team()->mutable_robots(i);
             RobotState robot_state(SSL::Yellow, robot->id());
             robot_state.position = Vector3D(robot->position().x(), robot->position().y(), robot->position().teta());
-            robot_state.velocity = Vector3D(robot->velecity().x(), robot->velecity().y(), robot->velecity().teta());
+            robot_state.velocity = Vector3D(robot->velocity().x(), robot->velocity().y(), robot->velocity().teta());
 
             emit newRobotState(robot_state);
         }
@@ -39,8 +39,9 @@ void PacketParser::handleWorldPacket(ssl_world_packet p)
         BallState ball_state(i);
         qDebug()<<"world packet : ball pos : "<<ball->position().x() << ball->position().y();
         ball_state.position = Vector2D(ball->position().x(), ball->position().y());
-        ball_state.velocity = Vector2D(ball->velecity().x(), ball->velecity().y());
-//        ball_state.displacement = Vector2D(ball->velecity)
+        ball_state.velocity = Vector2D(ball->velocity().x(), ball->velocity().y());
+        ball_state.rawVelocity = Vector2D(ball->velocity_raw().x(), ball->velocity_raw().y());
+        ball_state.displacement = Vector2D(ball->displacement().x(), ball->displacement().y());
 
         emit newBallState(ball_state);
     }

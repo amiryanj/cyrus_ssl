@@ -26,7 +26,7 @@ bool GUIHandler::openSocket()
 {
     ParameterManager* pm = ParameterManager::getInstance();
     openSocket(pm->get<int>("network.VISUALIZER_PORT"),pm->get<string>("network.VISUALIZER_ADDRESS"));
-
+    return true;
 }
 
 bool GUIHandler::openSocket(int port, string address)
@@ -147,15 +147,15 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
     ball_packet->mutable_velocity()->set_y(world->mainBall()->Speed().Y());
     ball_packet->mutable_velocity()->set_teta(0);
 
-    Vector3D ball_displacement = VisionFilter::getInstance()->ballFilter->getDisplacement();
+    Vector2D ball_displacement = VisionFilter::getInstance()->ballFilter->getDisplacement();
     ball_packet->mutable_displacement()->set_x(ball_displacement.X());
     ball_packet->mutable_displacement()->set_y(ball_displacement.Y());
-    ball_packet->mutable_displacement()->set_teta(ball_displacement.Teta());
+    ball_packet->mutable_displacement()->set_teta(0);
 
-    Vector3D ball_raw_velocity = VisionFilter::getInstance()->ballFilter->getUnfilteredSpeed();
-    ball_packet->mutable_velecity_raw()->set_x(ball_raw_velocity.X());
-    ball_packet->mutable_velecity_raw()->set_y(ball_raw_velocity.Y());
-    ball_packet->mutable_velecity_raw()->set_teta(ball_raw_velocity.Teta());
+    Vector2D ball_raw_velocity = VisionFilter::getInstance()->ballFilter->getUnfilteredSpeed();
+    ball_packet->mutable_velocity_raw()->set_x(ball_raw_velocity.X());
+    ball_packet->mutable_velocity_raw()->set_y(ball_raw_velocity.Y());
+    ball_packet->mutable_velocity_raw()->set_teta(0);
 
 
     ball_packet->set_id(0);

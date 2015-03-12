@@ -325,6 +325,35 @@ void MainWindow::plotBallvelocity(BallState state)
     plotList["ball_y"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
     }
 
+    if(!plotList.contains("ball_mag")) {
+        PlotWidget* plot = addPlot(1, "ball_mag");
+        plotList.insert("ball_mag", plot);
+    }
+    {
+    QVector<double> values;
+    values << state.velocity.lenght();
+    plotList["ball_mag"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
+    }
+
+    if(!plotList.contains("ball_teta")) {
+        PlotWidget* plot = addPlot(1, "ball_teta");
+        plotList.insert("ball_teta", plot);
+    }
+    {
+    QVector<double> values;
+    values << state.velocity.arctan();
+    plotList["ball_teta"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
+    }
+
+    if(!plotList.contains("ball_displacement")) {
+        PlotWidget* plot = addPlot(1, "ball_displacement");
+        plotList.insert("ball_displacement", plot);
+    }
+    {
+    QVector<double> values;
+    values << state.displacement.lenght();
+    plotList["ball_displacement"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
+    }
 }
 
 void MainWindow::setGameRunningState(bool game_running)

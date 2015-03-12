@@ -11,7 +11,7 @@ using namespace Net;
 
 class SSLVision //: public UDP //, public SSLListener
 {
-    static UDP udp_socket;
+    static UDP simple_socket;
     static IPPacket m_temp_packet;
 
     pthread_t ssl_vision_thread;

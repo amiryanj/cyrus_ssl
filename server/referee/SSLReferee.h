@@ -12,7 +12,7 @@
 #include "../../common/thirdparty/socket/netraw.h"
 #include "../../common/thirdparty/socket/IPPacket.h"
 #include "../../common/tools/SSLListener.h"
-#include <QtNetwork/QUdpSocket>
+//#include <QtNetwork/QUdpSocket>
 
 using namespace Net;
 
@@ -35,7 +35,8 @@ public:
     SSLReferee(int port, string address);
 	virtual ~SSLReferee();
     void check();
-    QUdpSocket socket_;
+    UDP simple_socket;
+//    QUdpSocket qudp_socket;
 
     long packet_time_stamp;
 
