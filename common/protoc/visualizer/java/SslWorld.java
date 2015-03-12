@@ -8,75 +8,254 @@ public final class SslWorld {
   }
   public interface ssl_world_packetOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // repeated .ssl_world_packet.Ball field_balls = 1;
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     java.util.List<SslWorld.ssl_world_packet.Ball> 
         getFieldBallsList();
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     SslWorld.ssl_world_packet.Ball getFieldBalls(int index);
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     int getFieldBallsCount();
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     java.util.List<? extends SslWorld.ssl_world_packet.BallOrBuilder> 
         getFieldBallsOrBuilderList();
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     SslWorld.ssl_world_packet.BallOrBuilder getFieldBallsOrBuilder(
         int index);
-    
+
     // required .ssl_world_packet.Team blue_team = 2;
+    /**
+     * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+     */
     boolean hasBlueTeam();
+    /**
+     * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+     */
     SslWorld.ssl_world_packet.Team getBlueTeam();
+    /**
+     * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+     */
     SslWorld.ssl_world_packet.TeamOrBuilder getBlueTeamOrBuilder();
-    
+
     // required .ssl_world_packet.Team yellow_team = 3;
+    /**
+     * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+     */
     boolean hasYellowTeam();
+    /**
+     * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+     */
     SslWorld.ssl_world_packet.Team getYellowTeam();
+    /**
+     * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+     */
     SslWorld.ssl_world_packet.TeamOrBuilder getYellowTeamOrBuilder();
-    
+
     // required string referee_state = 4;
+    /**
+     * <code>required string referee_state = 4;</code>
+     */
     boolean hasRefereeState();
-    String getRefereeState();
-    
+    /**
+     * <code>required string referee_state = 4;</code>
+     */
+    java.lang.String getRefereeState();
+    /**
+     * <code>required string referee_state = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getRefereeStateBytes();
+
     // optional string comment = 5;
+    /**
+     * <code>optional string comment = 5;</code>
+     */
     boolean hasComment();
-    String getComment();
+    /**
+     * <code>optional string comment = 5;</code>
+     */
+    java.lang.String getComment();
+    /**
+     * <code>optional string comment = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getCommentBytes();
   }
+  /**
+   * Protobuf type {@code ssl_world_packet}
+   */
   public static final class ssl_world_packet extends
       com.google.protobuf.GeneratedMessage
       implements ssl_world_packetOrBuilder {
     // Use ssl_world_packet.newBuilder() to construct.
-    private ssl_world_packet(Builder builder) {
+    private ssl_world_packet(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private ssl_world_packet(boolean noInit) {}
-    
+    private ssl_world_packet(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final ssl_world_packet defaultInstance;
     public static ssl_world_packet getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public ssl_world_packet getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ssl_world_packet(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                fieldBalls_ = new java.util.ArrayList<SslWorld.ssl_world_packet.Ball>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              fieldBalls_.add(input.readMessage(SslWorld.ssl_world_packet.Ball.PARSER, extensionRegistry));
+              break;
+            }
+            case 18: {
+              SslWorld.ssl_world_packet.Team.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = blueTeam_.toBuilder();
+              }
+              blueTeam_ = input.readMessage(SslWorld.ssl_world_packet.Team.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(blueTeam_);
+                blueTeam_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 26: {
+              SslWorld.ssl_world_packet.Team.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = yellowTeam_.toBuilder();
+              }
+              yellowTeam_ = input.readMessage(SslWorld.ssl_world_packet.Team.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(yellowTeam_);
+                yellowTeam_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 34: {
+              bitField0_ |= 0x00000004;
+              refereeState_ = input.readBytes();
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000008;
+              comment_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          fieldBalls_ = java.util.Collections.unmodifiableList(fieldBalls_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslWorld.internal_static_ssl_world_packet_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslWorld.internal_static_ssl_world_packet_fieldAccessorTable;
+      return SslWorld.internal_static_ssl_world_packet_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslWorld.ssl_world_packet.class, SslWorld.ssl_world_packet.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<ssl_world_packet> PARSER =
+        new com.google.protobuf.AbstractParser<ssl_world_packet>() {
+      public ssl_world_packet parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ssl_world_packet(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ssl_world_packet> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code ssl_world_packet.Side}
+     */
     public enum Side
         implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>left = -1;</code>
+       */
       left(0, -1),
+      /**
+       * <code>right = 1;</code>
+       */
       right(1, 1),
       ;
-      
+
+      /**
+       * <code>left = -1;</code>
+       */
       public static final int left_VALUE = -1;
+      /**
+       * <code>right = 1;</code>
+       */
       public static final int right_VALUE = 1;
-      
-      
+
+
       public final int getNumber() { return value; }
-      
+
       public static Side valueOf(int value) {
         switch (value) {
           case -1: return left;
@@ -84,7 +263,7 @@ public final class SslWorld {
           default: return null;
         }
       }
-      
+
       public static com.google.protobuf.Internal.EnumLiteMap<Side>
           internalGetValueMap() {
         return internalValueMap;
@@ -96,7 +275,7 @@ public final class SslWorld {
                 return Side.valueOf(number);
               }
             };
-      
+
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
         return getDescriptor().getValues().get(index);
@@ -109,11 +288,9 @@ public final class SslWorld {
           getDescriptor() {
         return SslWorld.ssl_world_packet.getDescriptor().getEnumTypes().get(0);
       }
-      
-      private static final Side[] VALUES = {
-        left, right, 
-      };
-      
+
+      private static final Side[] VALUES = values();
+
       public static Side valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
@@ -122,396 +299,99 @@ public final class SslWorld {
         }
         return VALUES[desc.getIndex()];
       }
-      
+
       private final int index;
       private final int value;
-      
+
       private Side(int index, int value) {
         this.index = index;
         this.value = value;
       }
-      
+
       // @@protoc_insertion_point(enum_scope:ssl_world_packet.Side)
     }
-    
+
     public interface vector_3dOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
-      
+
       // required float x = 1;
+      /**
+       * <code>required float x = 1;</code>
+       */
       boolean hasX();
+      /**
+       * <code>required float x = 1;</code>
+       */
       float getX();
-      
+
       // required float y = 2;
+      /**
+       * <code>required float y = 2;</code>
+       */
       boolean hasY();
+      /**
+       * <code>required float y = 2;</code>
+       */
       float getY();
-      
+
       // required float teta = 3;
+      /**
+       * <code>required float teta = 3;</code>
+       */
       boolean hasTeta();
+      /**
+       * <code>required float teta = 3;</code>
+       */
       float getTeta();
     }
+    /**
+     * Protobuf type {@code ssl_world_packet.vector_3d}
+     */
     public static final class vector_3d extends
         com.google.protobuf.GeneratedMessage
         implements vector_3dOrBuilder {
       // Use vector_3d.newBuilder() to construct.
-      private vector_3d(Builder builder) {
+      private vector_3d(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
         super(builder);
+        this.unknownFields = builder.getUnknownFields();
       }
-      private vector_3d(boolean noInit) {}
-      
+      private vector_3d(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
       private static final vector_3d defaultInstance;
       public static vector_3d getDefaultInstance() {
         return defaultInstance;
       }
-      
+
       public vector_3d getDefaultInstanceForType() {
         return defaultInstance;
       }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return SslWorld.internal_static_ssl_world_packet_vector_3d_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return SslWorld.internal_static_ssl_world_packet_vector_3d_fieldAccessorTable;
-      }
-      
-      private int bitField0_;
-      // required float x = 1;
-      public static final int X_FIELD_NUMBER = 1;
-      private float x_;
-      public boolean hasX() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public float getX() {
-        return x_;
-      }
-      
-      // required float y = 2;
-      public static final int Y_FIELD_NUMBER = 2;
-      private float y_;
-      public boolean hasY() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public float getY() {
-        return y_;
-      }
-      
-      // required float teta = 3;
-      public static final int TETA_FIELD_NUMBER = 3;
-      private float teta_;
-      public boolean hasTeta() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public float getTeta() {
-        return teta_;
-      }
-      
-      private void initFields() {
-        x_ = 0F;
-        y_ = 0F;
-        teta_ = 0F;
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        if (!hasX()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasY()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasTeta()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeFloat(1, x_);
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeFloat(2, y_);
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeFloat(3, teta_);
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(1, x_);
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(2, y_);
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(3, teta_);
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
       @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
       }
-      
-      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
+      private vector_3d(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(SslWorld.ssl_world_packet.vector_3d prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements SslWorld.ssl_world_packet.vector_3dOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return SslWorld.internal_static_ssl_world_packet_vector_3d_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return SslWorld.internal_static_ssl_world_packet_vector_3d_fieldAccessorTable;
-        }
-        
-        // Construct using SslWorld.ssl_world_packet.vector_3d.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          x_ = 0F;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          y_ = 0F;
-          bitField0_ = (bitField0_ & ~0x00000002);
-          teta_ = 0F;
-          bitField0_ = (bitField0_ & ~0x00000004);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return SslWorld.ssl_world_packet.vector_3d.getDescriptor();
-        }
-        
-        public SslWorld.ssl_world_packet.vector_3d getDefaultInstanceForType() {
-          return SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
-        }
-        
-        public SslWorld.ssl_world_packet.vector_3d build() {
-          SslWorld.ssl_world_packet.vector_3d result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private SslWorld.ssl_world_packet.vector_3d buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          SslWorld.ssl_world_packet.vector_3d result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public SslWorld.ssl_world_packet.vector_3d buildPartial() {
-          SslWorld.ssl_world_packet.vector_3d result = new SslWorld.ssl_world_packet.vector_3d(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.x_ = x_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.y_ = y_;
-          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-            to_bitField0_ |= 0x00000004;
-          }
-          result.teta_ = teta_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof SslWorld.ssl_world_packet.vector_3d) {
-            return mergeFrom((SslWorld.ssl_world_packet.vector_3d)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(SslWorld.ssl_world_packet.vector_3d other) {
-          if (other == SslWorld.ssl_world_packet.vector_3d.getDefaultInstance()) return this;
-          if (other.hasX()) {
-            setX(other.getX());
-          }
-          if (other.hasY()) {
-            setY(other.getY());
-          }
-          if (other.hasTeta()) {
-            setTeta(other.getTeta());
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          if (!hasX()) {
-            
-            return false;
-          }
-          if (!hasY()) {
-            
-            return false;
-          }
-          if (!hasTeta()) {
-            
-            return false;
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
             int tag = input.readTag();
             switch (tag) {
               case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
+                break;
               default: {
                 if (!parseUnknownField(input, unknownFields,
                                        extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
+                  done = true;
                 }
                 break;
               }
@@ -532,176 +412,820 @@ public final class SslWorld {
               }
             }
           }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
         }
-        
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return SslWorld.internal_static_ssl_world_packet_vector_3d_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return SslWorld.internal_static_ssl_world_packet_vector_3d_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslWorld.ssl_world_packet.vector_3d.class, SslWorld.ssl_world_packet.vector_3d.Builder.class);
+      }
+
+      public static com.google.protobuf.Parser<vector_3d> PARSER =
+          new com.google.protobuf.AbstractParser<vector_3d>() {
+        public vector_3d parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new vector_3d(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<vector_3d> getParserForType() {
+        return PARSER;
+      }
+
+      private int bitField0_;
+      // required float x = 1;
+      public static final int X_FIELD_NUMBER = 1;
+      private float x_;
+      /**
+       * <code>required float x = 1;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required float x = 1;</code>
+       */
+      public float getX() {
+        return x_;
+      }
+
+      // required float y = 2;
+      public static final int Y_FIELD_NUMBER = 2;
+      private float y_;
+      /**
+       * <code>required float y = 2;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required float y = 2;</code>
+       */
+      public float getY() {
+        return y_;
+      }
+
+      // required float teta = 3;
+      public static final int TETA_FIELD_NUMBER = 3;
+      private float teta_;
+      /**
+       * <code>required float teta = 3;</code>
+       */
+      public boolean hasTeta() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required float teta = 3;</code>
+       */
+      public float getTeta() {
+        return teta_;
+      }
+
+      private void initFields() {
+        x_ = 0F;
+        y_ = 0F;
+        teta_ = 0F;
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+
+        if (!hasX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasY()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasTeta()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeFloat(1, x_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeFloat(2, y_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeFloat(3, teta_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(1, x_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(2, y_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(3, teta_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+
+      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static SslWorld.ssl_world_packet.vector_3d parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(SslWorld.ssl_world_packet.vector_3d prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code ssl_world_packet.vector_3d}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements SslWorld.ssl_world_packet.vector_3dOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return SslWorld.internal_static_ssl_world_packet_vector_3d_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return SslWorld.internal_static_ssl_world_packet_vector_3d_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  SslWorld.ssl_world_packet.vector_3d.class, SslWorld.ssl_world_packet.vector_3d.Builder.class);
+        }
+
+        // Construct using SslWorld.ssl_world_packet.vector_3d.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+
+        public Builder clear() {
+          super.clear();
+          x_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          y_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          teta_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          return this;
+        }
+
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return SslWorld.internal_static_ssl_world_packet_vector_3d_descriptor;
+        }
+
+        public SslWorld.ssl_world_packet.vector_3d getDefaultInstanceForType() {
+          return SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        }
+
+        public SslWorld.ssl_world_packet.vector_3d build() {
+          SslWorld.ssl_world_packet.vector_3d result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public SslWorld.ssl_world_packet.vector_3d buildPartial() {
+          SslWorld.ssl_world_packet.vector_3d result = new SslWorld.ssl_world_packet.vector_3d(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.x_ = x_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.y_ = y_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.teta_ = teta_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof SslWorld.ssl_world_packet.vector_3d) {
+            return mergeFrom((SslWorld.ssl_world_packet.vector_3d)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(SslWorld.ssl_world_packet.vector_3d other) {
+          if (other == SslWorld.ssl_world_packet.vector_3d.getDefaultInstance()) return this;
+          if (other.hasX()) {
+            setX(other.getX());
+          }
+          if (other.hasY()) {
+            setY(other.getY());
+          }
+          if (other.hasTeta()) {
+            setTeta(other.getTeta());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          if (!hasX()) {
+            
+            return false;
+          }
+          if (!hasY()) {
+            
+            return false;
+          }
+          if (!hasTeta()) {
+            
+            return false;
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          SslWorld.ssl_world_packet.vector_3d parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (SslWorld.ssl_world_packet.vector_3d) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
         private int bitField0_;
-        
+
         // required float x = 1;
         private float x_ ;
+        /**
+         * <code>required float x = 1;</code>
+         */
         public boolean hasX() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
+        /**
+         * <code>required float x = 1;</code>
+         */
         public float getX() {
           return x_;
         }
+        /**
+         * <code>required float x = 1;</code>
+         */
         public Builder setX(float value) {
           bitField0_ |= 0x00000001;
           x_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required float x = 1;</code>
+         */
         public Builder clearX() {
           bitField0_ = (bitField0_ & ~0x00000001);
           x_ = 0F;
           onChanged();
           return this;
         }
-        
+
         // required float y = 2;
         private float y_ ;
+        /**
+         * <code>required float y = 2;</code>
+         */
         public boolean hasY() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
+        /**
+         * <code>required float y = 2;</code>
+         */
         public float getY() {
           return y_;
         }
+        /**
+         * <code>required float y = 2;</code>
+         */
         public Builder setY(float value) {
           bitField0_ |= 0x00000002;
           y_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required float y = 2;</code>
+         */
         public Builder clearY() {
           bitField0_ = (bitField0_ & ~0x00000002);
           y_ = 0F;
           onChanged();
           return this;
         }
-        
+
         // required float teta = 3;
         private float teta_ ;
+        /**
+         * <code>required float teta = 3;</code>
+         */
         public boolean hasTeta() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
+        /**
+         * <code>required float teta = 3;</code>
+         */
         public float getTeta() {
           return teta_;
         }
+        /**
+         * <code>required float teta = 3;</code>
+         */
         public Builder setTeta(float value) {
           bitField0_ |= 0x00000004;
           teta_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required float teta = 3;</code>
+         */
         public Builder clearTeta() {
           bitField0_ = (bitField0_ & ~0x00000004);
           teta_ = 0F;
           onChanged();
           return this;
         }
-        
+
         // @@protoc_insertion_point(builder_scope:ssl_world_packet.vector_3d)
       }
-      
+
       static {
         defaultInstance = new vector_3d(true);
         defaultInstance.initFields();
       }
-      
+
       // @@protoc_insertion_point(class_scope:ssl_world_packet.vector_3d)
     }
-    
+
     public interface BallOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
-      
+
       // required uint32 id = 1;
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       boolean hasId();
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       int getId();
-      
+
       // required .ssl_world_packet.vector_3d position = 2;
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       boolean hasPosition();
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       SslWorld.ssl_world_packet.vector_3d getPosition();
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       SslWorld.ssl_world_packet.vector_3dOrBuilder getPositionOrBuilder();
-      
-      // required .ssl_world_packet.vector_3d velecity = 3;
-      boolean hasVelecity();
-      SslWorld.ssl_world_packet.vector_3d getVelecity();
-      SslWorld.ssl_world_packet.vector_3dOrBuilder getVelecityOrBuilder();
+
+      // required .ssl_world_packet.vector_3d velocity = 3;
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      boolean hasVelocity();
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      SslWorld.ssl_world_packet.vector_3d getVelocity();
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityOrBuilder();
+
+      // optional .ssl_world_packet.vector_3d displacement = 4;
+      /**
+       * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+       */
+      boolean hasDisplacement();
+      /**
+       * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+       */
+      SslWorld.ssl_world_packet.vector_3d getDisplacement();
+      /**
+       * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+       */
+      SslWorld.ssl_world_packet.vector_3dOrBuilder getDisplacementOrBuilder();
+
+      // optional .ssl_world_packet.vector_3d velocity_raw = 5;
+      /**
+       * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+       */
+      boolean hasVelocityRaw();
+      /**
+       * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+       */
+      SslWorld.ssl_world_packet.vector_3d getVelocityRaw();
+      /**
+       * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+       */
+      SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityRawOrBuilder();
     }
+    /**
+     * Protobuf type {@code ssl_world_packet.Ball}
+     */
     public static final class Ball extends
         com.google.protobuf.GeneratedMessage
         implements BallOrBuilder {
       // Use Ball.newBuilder() to construct.
-      private Ball(Builder builder) {
+      private Ball(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
         super(builder);
+        this.unknownFields = builder.getUnknownFields();
       }
-      private Ball(boolean noInit) {}
-      
+      private Ball(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
       private static final Ball defaultInstance;
       public static Ball getDefaultInstance() {
         return defaultInstance;
       }
-      
+
       public Ball getDefaultInstanceForType() {
         return defaultInstance;
       }
-      
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Ball(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 8: {
+                bitField0_ |= 0x00000001;
+                id_ = input.readUInt32();
+                break;
+              }
+              case 18: {
+                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                  subBuilder = position_.toBuilder();
+                }
+                position_ = input.readMessage(SslWorld.ssl_world_packet.vector_3d.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(position_);
+                  position_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000002;
+                break;
+              }
+              case 26: {
+                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                  subBuilder = velocity_.toBuilder();
+                }
+                velocity_ = input.readMessage(SslWorld.ssl_world_packet.vector_3d.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(velocity_);
+                  velocity_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000004;
+                break;
+              }
+              case 34: {
+                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000008) == 0x00000008)) {
+                  subBuilder = displacement_.toBuilder();
+                }
+                displacement_ = input.readMessage(SslWorld.ssl_world_packet.vector_3d.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(displacement_);
+                  displacement_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000008;
+                break;
+              }
+              case 42: {
+                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000010) == 0x00000010)) {
+                  subBuilder = velocityRaw_.toBuilder();
+                }
+                velocityRaw_ = input.readMessage(SslWorld.ssl_world_packet.vector_3d.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(velocityRaw_);
+                  velocityRaw_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000010;
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return SslWorld.internal_static_ssl_world_packet_Ball_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslWorld.internal_static_ssl_world_packet_Ball_fieldAccessorTable;
+        return SslWorld.internal_static_ssl_world_packet_Ball_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslWorld.ssl_world_packet.Ball.class, SslWorld.ssl_world_packet.Ball.Builder.class);
       }
-      
+
+      public static com.google.protobuf.Parser<Ball> PARSER =
+          new com.google.protobuf.AbstractParser<Ball>() {
+        public Ball parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Ball(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Ball> getParserForType() {
+        return PARSER;
+      }
+
       private int bitField0_;
       // required uint32 id = 1;
       public static final int ID_FIELD_NUMBER = 1;
       private int id_;
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       public int getId() {
         return id_;
       }
-      
+
       // required .ssl_world_packet.vector_3d position = 2;
       public static final int POSITION_FIELD_NUMBER = 2;
       private SslWorld.ssl_world_packet.vector_3d position_;
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       public boolean hasPosition() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       public SslWorld.ssl_world_packet.vector_3d getPosition() {
         return position_;
       }
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       public SslWorld.ssl_world_packet.vector_3dOrBuilder getPositionOrBuilder() {
         return position_;
       }
-      
-      // required .ssl_world_packet.vector_3d velecity = 3;
-      public static final int VELECITY_FIELD_NUMBER = 3;
-      private SslWorld.ssl_world_packet.vector_3d velecity_;
-      public boolean hasVelecity() {
+
+      // required .ssl_world_packet.vector_3d velocity = 3;
+      public static final int VELOCITY_FIELD_NUMBER = 3;
+      private SslWorld.ssl_world_packet.vector_3d velocity_;
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      public boolean hasVelocity() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public SslWorld.ssl_world_packet.vector_3d getVelecity() {
-        return velecity_;
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      public SslWorld.ssl_world_packet.vector_3d getVelocity() {
+        return velocity_;
       }
-      public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelecityOrBuilder() {
-        return velecity_;
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityOrBuilder() {
+        return velocity_;
       }
-      
+
+      // optional .ssl_world_packet.vector_3d displacement = 4;
+      public static final int DISPLACEMENT_FIELD_NUMBER = 4;
+      private SslWorld.ssl_world_packet.vector_3d displacement_;
+      /**
+       * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+       */
+      public boolean hasDisplacement() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+       */
+      public SslWorld.ssl_world_packet.vector_3d getDisplacement() {
+        return displacement_;
+      }
+      /**
+       * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+       */
+      public SslWorld.ssl_world_packet.vector_3dOrBuilder getDisplacementOrBuilder() {
+        return displacement_;
+      }
+
+      // optional .ssl_world_packet.vector_3d velocity_raw = 5;
+      public static final int VELOCITY_RAW_FIELD_NUMBER = 5;
+      private SslWorld.ssl_world_packet.vector_3d velocityRaw_;
+      /**
+       * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+       */
+      public boolean hasVelocityRaw() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+       */
+      public SslWorld.ssl_world_packet.vector_3d getVelocityRaw() {
+        return velocityRaw_;
+      }
+      /**
+       * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+       */
+      public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityRawOrBuilder() {
+        return velocityRaw_;
+      }
+
       private void initFields() {
         id_ = 0;
         position_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
-        velecity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        velocity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        displacement_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        velocityRaw_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
-        
+
         if (!hasId()) {
           memoizedIsInitialized = 0;
           return false;
@@ -710,7 +1234,7 @@ public final class SslWorld {
           memoizedIsInitialized = 0;
           return false;
         }
-        if (!hasVelecity()) {
+        if (!hasVelocity()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -718,14 +1242,26 @@ public final class SslWorld {
           memoizedIsInitialized = 0;
           return false;
         }
-        if (!getVelecity().isInitialized()) {
+        if (!getVelocity().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
+        }
+        if (hasDisplacement()) {
+          if (!getDisplacement().isInitialized()) {
+            memoizedIsInitialized = 0;
+            return false;
+          }
+        }
+        if (hasVelocityRaw()) {
+          if (!getVelocityRaw().isInitialized()) {
+            memoizedIsInitialized = 0;
+            return false;
+          }
         }
         memoizedIsInitialized = 1;
         return true;
       }
-      
+
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
         getSerializedSize();
@@ -736,16 +1272,22 @@ public final class SslWorld {
           output.writeMessage(2, position_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeMessage(3, velecity_);
+          output.writeMessage(3, velocity_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeMessage(4, displacement_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeMessage(5, velocityRaw_);
         }
         getUnknownFields().writeTo(output);
       }
-      
+
       private int memoizedSerializedSize = -1;
       public int getSerializedSize() {
         int size = memoizedSerializedSize;
         if (size != -1) return size;
-      
+
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
@@ -757,100 +1299,97 @@ public final class SslWorld {
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(3, velecity_);
+            .computeMessageSize(3, velocity_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(4, displacement_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(5, velocityRaw_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
         return size;
       }
-      
+
       private static final long serialVersionUID = 0L;
       @java.lang.Override
       protected java.lang.Object writeReplace()
           throws java.io.ObjectStreamException {
         return super.writeReplace();
       }
-      
+
       public static SslWorld.ssl_world_packet.Ball parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
+        return PARSER.parseFrom(data);
       }
       public static SslWorld.ssl_world_packet.Ball parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(data, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Ball parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
+        return PARSER.parseFrom(data);
       }
       public static SslWorld.ssl_world_packet.Ball parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(data, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Ball parseFrom(java.io.InputStream input)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
+        return PARSER.parseFrom(input);
       }
       public static SslWorld.ssl_world_packet.Ball parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(input, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Ball parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
+        return PARSER.parseDelimitedFrom(input);
       }
       public static SslWorld.ssl_world_packet.Ball parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Ball parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
+        return PARSER.parseFrom(input);
       }
       public static SslWorld.ssl_world_packet.Ball parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(input, extensionRegistry);
       }
-      
+
       public static Builder newBuilder() { return Builder.create(); }
       public Builder newBuilderForType() { return newBuilder(); }
       public static Builder newBuilder(SslWorld.ssl_world_packet.Ball prototype) {
         return newBuilder().mergeFrom(prototype);
       }
       public Builder toBuilder() { return newBuilder(this); }
-      
+
       @java.lang.Override
       protected Builder newBuilderForType(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         Builder builder = new Builder(parent);
         return builder;
       }
+      /**
+       * Protobuf type {@code ssl_world_packet.Ball}
+       */
       public static final class Builder extends
           com.google.protobuf.GeneratedMessage.Builder<Builder>
          implements SslWorld.ssl_world_packet.BallOrBuilder {
@@ -858,31 +1397,36 @@ public final class SslWorld {
             getDescriptor() {
           return SslWorld.internal_static_ssl_world_packet_Ball_descriptor;
         }
-        
+
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return SslWorld.internal_static_ssl_world_packet_Ball_fieldAccessorTable;
+          return SslWorld.internal_static_ssl_world_packet_Ball_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  SslWorld.ssl_world_packet.Ball.class, SslWorld.ssl_world_packet.Ball.Builder.class);
         }
-        
+
         // Construct using SslWorld.ssl_world_packet.Ball.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
-        
-        private Builder(BuilderParent parent) {
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
           super(parent);
           maybeForceBuilderInitialization();
         }
         private void maybeForceBuilderInitialization() {
           if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
             getPositionFieldBuilder();
-            getVelecityFieldBuilder();
+            getVelocityFieldBuilder();
+            getDisplacementFieldBuilder();
+            getVelocityRawFieldBuilder();
           }
         }
         private static Builder create() {
           return new Builder();
         }
-        
+
         public Builder clear() {
           super.clear();
           id_ = 0;
@@ -893,28 +1437,40 @@ public final class SslWorld {
             positionBuilder_.clear();
           }
           bitField0_ = (bitField0_ & ~0x00000002);
-          if (velecityBuilder_ == null) {
-            velecity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+          if (velocityBuilder_ == null) {
+            velocity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
           } else {
-            velecityBuilder_.clear();
+            velocityBuilder_.clear();
           }
           bitField0_ = (bitField0_ & ~0x00000004);
+          if (displacementBuilder_ == null) {
+            displacement_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+          } else {
+            displacementBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000008);
+          if (velocityRawBuilder_ == null) {
+            velocityRaw_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+          } else {
+            velocityRawBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000010);
           return this;
         }
-        
+
         public Builder clone() {
           return create().mergeFrom(buildPartial());
         }
-        
+
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return SslWorld.ssl_world_packet.Ball.getDescriptor();
+          return SslWorld.internal_static_ssl_world_packet_Ball_descriptor;
         }
-        
+
         public SslWorld.ssl_world_packet.Ball getDefaultInstanceForType() {
           return SslWorld.ssl_world_packet.Ball.getDefaultInstance();
         }
-        
+
         public SslWorld.ssl_world_packet.Ball build() {
           SslWorld.ssl_world_packet.Ball result = buildPartial();
           if (!result.isInitialized()) {
@@ -922,17 +1478,7 @@ public final class SslWorld {
           }
           return result;
         }
-        
-        private SslWorld.ssl_world_packet.Ball buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          SslWorld.ssl_world_packet.Ball result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
+
         public SslWorld.ssl_world_packet.Ball buildPartial() {
           SslWorld.ssl_world_packet.Ball result = new SslWorld.ssl_world_packet.Ball(this);
           int from_bitField0_ = bitField0_;
@@ -952,16 +1498,32 @@ public final class SslWorld {
           if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
             to_bitField0_ |= 0x00000004;
           }
-          if (velecityBuilder_ == null) {
-            result.velecity_ = velecity_;
+          if (velocityBuilder_ == null) {
+            result.velocity_ = velocity_;
           } else {
-            result.velecity_ = velecityBuilder_.build();
+            result.velocity_ = velocityBuilder_.build();
+          }
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          if (displacementBuilder_ == null) {
+            result.displacement_ = displacement_;
+          } else {
+            result.displacement_ = displacementBuilder_.build();
+          }
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          if (velocityRawBuilder_ == null) {
+            result.velocityRaw_ = velocityRaw_;
+          } else {
+            result.velocityRaw_ = velocityRawBuilder_.build();
           }
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
         }
-        
+
         public Builder mergeFrom(com.google.protobuf.Message other) {
           if (other instanceof SslWorld.ssl_world_packet.Ball) {
             return mergeFrom((SslWorld.ssl_world_packet.Ball)other);
@@ -970,7 +1532,7 @@ public final class SslWorld {
             return this;
           }
         }
-        
+
         public Builder mergeFrom(SslWorld.ssl_world_packet.Ball other) {
           if (other == SslWorld.ssl_world_packet.Ball.getDefaultInstance()) return this;
           if (other.hasId()) {
@@ -979,13 +1541,19 @@ public final class SslWorld {
           if (other.hasPosition()) {
             mergePosition(other.getPosition());
           }
-          if (other.hasVelecity()) {
-            mergeVelecity(other.getVelecity());
+          if (other.hasVelocity()) {
+            mergeVelocity(other.getVelocity());
+          }
+          if (other.hasDisplacement()) {
+            mergeDisplacement(other.getDisplacement());
+          }
+          if (other.hasVelocityRaw()) {
+            mergeVelocityRaw(other.getVelocityRaw());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
-        
+
         public final boolean isInitialized() {
           if (!hasId()) {
             
@@ -995,7 +1563,7 @@ public final class SslWorld {
             
             return false;
           }
-          if (!hasVelecity()) {
+          if (!hasVelocity()) {
             
             return false;
           }
@@ -1003,93 +1571,90 @@ public final class SslWorld {
             
             return false;
           }
-          if (!getVelecity().isInitialized()) {
+          if (!getVelocity().isInitialized()) {
             
             return false;
           }
+          if (hasDisplacement()) {
+            if (!getDisplacement().isInitialized()) {
+              
+              return false;
+            }
+          }
+          if (hasVelocityRaw()) {
+            if (!getVelocityRaw().isInitialized()) {
+              
+              return false;
+            }
+          }
           return true;
         }
-        
+
         public Builder mergeFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 8: {
-                bitField0_ |= 0x00000001;
-                id_ = input.readUInt32();
-                break;
-              }
-              case 18: {
-                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = SslWorld.ssl_world_packet.vector_3d.newBuilder();
-                if (hasPosition()) {
-                  subBuilder.mergeFrom(getPosition());
-                }
-                input.readMessage(subBuilder, extensionRegistry);
-                setPosition(subBuilder.buildPartial());
-                break;
-              }
-              case 26: {
-                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = SslWorld.ssl_world_packet.vector_3d.newBuilder();
-                if (hasVelecity()) {
-                  subBuilder.mergeFrom(getVelecity());
-                }
-                input.readMessage(subBuilder, extensionRegistry);
-                setVelecity(subBuilder.buildPartial());
-                break;
-              }
+          SslWorld.ssl_world_packet.Ball parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (SslWorld.ssl_world_packet.Ball) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
             }
           }
+          return this;
         }
-        
         private int bitField0_;
-        
+
         // required uint32 id = 1;
         private int id_ ;
+        /**
+         * <code>required uint32 id = 1;</code>
+         */
         public boolean hasId() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
+        /**
+         * <code>required uint32 id = 1;</code>
+         */
         public int getId() {
           return id_;
         }
+        /**
+         * <code>required uint32 id = 1;</code>
+         */
         public Builder setId(int value) {
           bitField0_ |= 0x00000001;
           id_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required uint32 id = 1;</code>
+         */
         public Builder clearId() {
           bitField0_ = (bitField0_ & ~0x00000001);
           id_ = 0;
           onChanged();
           return this;
         }
-        
+
         // required .ssl_world_packet.vector_3d position = 2;
         private SslWorld.ssl_world_packet.vector_3d position_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> positionBuilder_;
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public boolean hasPosition() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public SslWorld.ssl_world_packet.vector_3d getPosition() {
           if (positionBuilder_ == null) {
             return position_;
@@ -1097,6 +1662,9 @@ public final class SslWorld {
             return positionBuilder_.getMessage();
           }
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public Builder setPosition(SslWorld.ssl_world_packet.vector_3d value) {
           if (positionBuilder_ == null) {
             if (value == null) {
@@ -1110,6 +1678,9 @@ public final class SslWorld {
           bitField0_ |= 0x00000002;
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public Builder setPosition(
             SslWorld.ssl_world_packet.vector_3d.Builder builderForValue) {
           if (positionBuilder_ == null) {
@@ -1121,6 +1692,9 @@ public final class SslWorld {
           bitField0_ |= 0x00000002;
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public Builder mergePosition(SslWorld.ssl_world_packet.vector_3d value) {
           if (positionBuilder_ == null) {
             if (((bitField0_ & 0x00000002) == 0x00000002) &&
@@ -1137,6 +1711,9 @@ public final class SslWorld {
           bitField0_ |= 0x00000002;
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public Builder clearPosition() {
           if (positionBuilder_ == null) {
             position_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
@@ -1147,11 +1724,17 @@ public final class SslWorld {
           bitField0_ = (bitField0_ & ~0x00000002);
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public SslWorld.ssl_world_packet.vector_3d.Builder getPositionBuilder() {
           bitField0_ |= 0x00000002;
           onChanged();
           return getPositionFieldBuilder().getBuilder();
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public SslWorld.ssl_world_packet.vector_3dOrBuilder getPositionOrBuilder() {
           if (positionBuilder_ != null) {
             return positionBuilder_.getMessageOrBuilder();
@@ -1159,6 +1742,9 @@ public final class SslWorld {
             return position_;
           }
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         private com.google.protobuf.SingleFieldBuilder<
             SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> 
             getPositionFieldBuilder() {
@@ -1172,200 +1758,602 @@ public final class SslWorld {
           }
           return positionBuilder_;
         }
-        
-        // required .ssl_world_packet.vector_3d velecity = 3;
-        private SslWorld.ssl_world_packet.vector_3d velecity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+
+        // required .ssl_world_packet.vector_3d velocity = 3;
+        private SslWorld.ssl_world_packet.vector_3d velocity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
-            SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> velecityBuilder_;
-        public boolean hasVelecity() {
+            SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> velocityBuilder_;
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public boolean hasVelocity() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
-        public SslWorld.ssl_world_packet.vector_3d getVelecity() {
-          if (velecityBuilder_ == null) {
-            return velecity_;
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3d getVelocity() {
+          if (velocityBuilder_ == null) {
+            return velocity_;
           } else {
-            return velecityBuilder_.getMessage();
+            return velocityBuilder_.getMessage();
           }
         }
-        public Builder setVelecity(SslWorld.ssl_world_packet.vector_3d value) {
-          if (velecityBuilder_ == null) {
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public Builder setVelocity(SslWorld.ssl_world_packet.vector_3d value) {
+          if (velocityBuilder_ == null) {
             if (value == null) {
               throw new NullPointerException();
             }
-            velecity_ = value;
+            velocity_ = value;
             onChanged();
           } else {
-            velecityBuilder_.setMessage(value);
+            velocityBuilder_.setMessage(value);
           }
           bitField0_ |= 0x00000004;
           return this;
         }
-        public Builder setVelecity(
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public Builder setVelocity(
             SslWorld.ssl_world_packet.vector_3d.Builder builderForValue) {
-          if (velecityBuilder_ == null) {
-            velecity_ = builderForValue.build();
+          if (velocityBuilder_ == null) {
+            velocity_ = builderForValue.build();
             onChanged();
           } else {
-            velecityBuilder_.setMessage(builderForValue.build());
+            velocityBuilder_.setMessage(builderForValue.build());
           }
           bitField0_ |= 0x00000004;
           return this;
         }
-        public Builder mergeVelecity(SslWorld.ssl_world_packet.vector_3d value) {
-          if (velecityBuilder_ == null) {
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public Builder mergeVelocity(SslWorld.ssl_world_packet.vector_3d value) {
+          if (velocityBuilder_ == null) {
             if (((bitField0_ & 0x00000004) == 0x00000004) &&
-                velecity_ != SslWorld.ssl_world_packet.vector_3d.getDefaultInstance()) {
-              velecity_ =
-                SslWorld.ssl_world_packet.vector_3d.newBuilder(velecity_).mergeFrom(value).buildPartial();
+                velocity_ != SslWorld.ssl_world_packet.vector_3d.getDefaultInstance()) {
+              velocity_ =
+                SslWorld.ssl_world_packet.vector_3d.newBuilder(velocity_).mergeFrom(value).buildPartial();
             } else {
-              velecity_ = value;
+              velocity_ = value;
             }
             onChanged();
           } else {
-            velecityBuilder_.mergeFrom(value);
+            velocityBuilder_.mergeFrom(value);
           }
           bitField0_ |= 0x00000004;
           return this;
         }
-        public Builder clearVelecity() {
-          if (velecityBuilder_ == null) {
-            velecity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public Builder clearVelocity() {
+          if (velocityBuilder_ == null) {
+            velocity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
             onChanged();
           } else {
-            velecityBuilder_.clear();
+            velocityBuilder_.clear();
           }
           bitField0_ = (bitField0_ & ~0x00000004);
           return this;
         }
-        public SslWorld.ssl_world_packet.vector_3d.Builder getVelecityBuilder() {
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3d.Builder getVelocityBuilder() {
           bitField0_ |= 0x00000004;
           onChanged();
-          return getVelecityFieldBuilder().getBuilder();
+          return getVelocityFieldBuilder().getBuilder();
         }
-        public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelecityOrBuilder() {
-          if (velecityBuilder_ != null) {
-            return velecityBuilder_.getMessageOrBuilder();
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityOrBuilder() {
+          if (velocityBuilder_ != null) {
+            return velocityBuilder_.getMessageOrBuilder();
           } else {
-            return velecity_;
+            return velocity_;
           }
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
         private com.google.protobuf.SingleFieldBuilder<
             SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> 
-            getVelecityFieldBuilder() {
-          if (velecityBuilder_ == null) {
-            velecityBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            getVelocityFieldBuilder() {
+          if (velocityBuilder_ == null) {
+            velocityBuilder_ = new com.google.protobuf.SingleFieldBuilder<
                 SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder>(
-                    velecity_,
+                    velocity_,
                     getParentForChildren(),
                     isClean());
-            velecity_ = null;
+            velocity_ = null;
           }
-          return velecityBuilder_;
+          return velocityBuilder_;
         }
-        
+
+        // optional .ssl_world_packet.vector_3d displacement = 4;
+        private SslWorld.ssl_world_packet.vector_3d displacement_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        private com.google.protobuf.SingleFieldBuilder<
+            SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> displacementBuilder_;
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        public boolean hasDisplacement() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3d getDisplacement() {
+          if (displacementBuilder_ == null) {
+            return displacement_;
+          } else {
+            return displacementBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        public Builder setDisplacement(SslWorld.ssl_world_packet.vector_3d value) {
+          if (displacementBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            displacement_ = value;
+            onChanged();
+          } else {
+            displacementBuilder_.setMessage(value);
+          }
+          bitField0_ |= 0x00000008;
+          return this;
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        public Builder setDisplacement(
+            SslWorld.ssl_world_packet.vector_3d.Builder builderForValue) {
+          if (displacementBuilder_ == null) {
+            displacement_ = builderForValue.build();
+            onChanged();
+          } else {
+            displacementBuilder_.setMessage(builderForValue.build());
+          }
+          bitField0_ |= 0x00000008;
+          return this;
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        public Builder mergeDisplacement(SslWorld.ssl_world_packet.vector_3d value) {
+          if (displacementBuilder_ == null) {
+            if (((bitField0_ & 0x00000008) == 0x00000008) &&
+                displacement_ != SslWorld.ssl_world_packet.vector_3d.getDefaultInstance()) {
+              displacement_ =
+                SslWorld.ssl_world_packet.vector_3d.newBuilder(displacement_).mergeFrom(value).buildPartial();
+            } else {
+              displacement_ = value;
+            }
+            onChanged();
+          } else {
+            displacementBuilder_.mergeFrom(value);
+          }
+          bitField0_ |= 0x00000008;
+          return this;
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        public Builder clearDisplacement() {
+          if (displacementBuilder_ == null) {
+            displacement_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+            onChanged();
+          } else {
+            displacementBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000008);
+          return this;
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3d.Builder getDisplacementBuilder() {
+          bitField0_ |= 0x00000008;
+          onChanged();
+          return getDisplacementFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3dOrBuilder getDisplacementOrBuilder() {
+          if (displacementBuilder_ != null) {
+            return displacementBuilder_.getMessageOrBuilder();
+          } else {
+            return displacement_;
+          }
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d displacement = 4;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilder<
+            SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> 
+            getDisplacementFieldBuilder() {
+          if (displacementBuilder_ == null) {
+            displacementBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder>(
+                    displacement_,
+                    getParentForChildren(),
+                    isClean());
+            displacement_ = null;
+          }
+          return displacementBuilder_;
+        }
+
+        // optional .ssl_world_packet.vector_3d velocity_raw = 5;
+        private SslWorld.ssl_world_packet.vector_3d velocityRaw_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        private com.google.protobuf.SingleFieldBuilder<
+            SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> velocityRawBuilder_;
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        public boolean hasVelocityRaw() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3d getVelocityRaw() {
+          if (velocityRawBuilder_ == null) {
+            return velocityRaw_;
+          } else {
+            return velocityRawBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        public Builder setVelocityRaw(SslWorld.ssl_world_packet.vector_3d value) {
+          if (velocityRawBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            velocityRaw_ = value;
+            onChanged();
+          } else {
+            velocityRawBuilder_.setMessage(value);
+          }
+          bitField0_ |= 0x00000010;
+          return this;
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        public Builder setVelocityRaw(
+            SslWorld.ssl_world_packet.vector_3d.Builder builderForValue) {
+          if (velocityRawBuilder_ == null) {
+            velocityRaw_ = builderForValue.build();
+            onChanged();
+          } else {
+            velocityRawBuilder_.setMessage(builderForValue.build());
+          }
+          bitField0_ |= 0x00000010;
+          return this;
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        public Builder mergeVelocityRaw(SslWorld.ssl_world_packet.vector_3d value) {
+          if (velocityRawBuilder_ == null) {
+            if (((bitField0_ & 0x00000010) == 0x00000010) &&
+                velocityRaw_ != SslWorld.ssl_world_packet.vector_3d.getDefaultInstance()) {
+              velocityRaw_ =
+                SslWorld.ssl_world_packet.vector_3d.newBuilder(velocityRaw_).mergeFrom(value).buildPartial();
+            } else {
+              velocityRaw_ = value;
+            }
+            onChanged();
+          } else {
+            velocityRawBuilder_.mergeFrom(value);
+          }
+          bitField0_ |= 0x00000010;
+          return this;
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        public Builder clearVelocityRaw() {
+          if (velocityRawBuilder_ == null) {
+            velocityRaw_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+            onChanged();
+          } else {
+            velocityRawBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000010);
+          return this;
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3d.Builder getVelocityRawBuilder() {
+          bitField0_ |= 0x00000010;
+          onChanged();
+          return getVelocityRawFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityRawOrBuilder() {
+          if (velocityRawBuilder_ != null) {
+            return velocityRawBuilder_.getMessageOrBuilder();
+          } else {
+            return velocityRaw_;
+          }
+        }
+        /**
+         * <code>optional .ssl_world_packet.vector_3d velocity_raw = 5;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilder<
+            SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> 
+            getVelocityRawFieldBuilder() {
+          if (velocityRawBuilder_ == null) {
+            velocityRawBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder>(
+                    velocityRaw_,
+                    getParentForChildren(),
+                    isClean());
+            velocityRaw_ = null;
+          }
+          return velocityRawBuilder_;
+        }
+
         // @@protoc_insertion_point(builder_scope:ssl_world_packet.Ball)
       }
-      
+
       static {
         defaultInstance = new Ball(true);
         defaultInstance.initFields();
       }
-      
+
       // @@protoc_insertion_point(class_scope:ssl_world_packet.Ball)
     }
-    
+
     public interface RobotOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
-      
+
       // required uint32 id = 1;
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       boolean hasId();
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       int getId();
-      
+
       // required .ssl_world_packet.vector_3d position = 2;
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       boolean hasPosition();
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       SslWorld.ssl_world_packet.vector_3d getPosition();
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       SslWorld.ssl_world_packet.vector_3dOrBuilder getPositionOrBuilder();
-      
-      // required .ssl_world_packet.vector_3d velecity = 3;
-      boolean hasVelecity();
-      SslWorld.ssl_world_packet.vector_3d getVelecity();
-      SslWorld.ssl_world_packet.vector_3dOrBuilder getVelecityOrBuilder();
+
+      // required .ssl_world_packet.vector_3d velocity = 3;
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      boolean hasVelocity();
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      SslWorld.ssl_world_packet.vector_3d getVelocity();
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityOrBuilder();
     }
+    /**
+     * Protobuf type {@code ssl_world_packet.Robot}
+     */
     public static final class Robot extends
         com.google.protobuf.GeneratedMessage
         implements RobotOrBuilder {
       // Use Robot.newBuilder() to construct.
-      private Robot(Builder builder) {
+      private Robot(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
         super(builder);
+        this.unknownFields = builder.getUnknownFields();
       }
-      private Robot(boolean noInit) {}
-      
+      private Robot(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
       private static final Robot defaultInstance;
       public static Robot getDefaultInstance() {
         return defaultInstance;
       }
-      
+
       public Robot getDefaultInstanceForType() {
         return defaultInstance;
       }
-      
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Robot(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 8: {
+                bitField0_ |= 0x00000001;
+                id_ = input.readUInt32();
+                break;
+              }
+              case 18: {
+                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                  subBuilder = position_.toBuilder();
+                }
+                position_ = input.readMessage(SslWorld.ssl_world_packet.vector_3d.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(position_);
+                  position_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000002;
+                break;
+              }
+              case 26: {
+                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                  subBuilder = velocity_.toBuilder();
+                }
+                velocity_ = input.readMessage(SslWorld.ssl_world_packet.vector_3d.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(velocity_);
+                  velocity_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000004;
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return SslWorld.internal_static_ssl_world_packet_Robot_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslWorld.internal_static_ssl_world_packet_Robot_fieldAccessorTable;
+        return SslWorld.internal_static_ssl_world_packet_Robot_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslWorld.ssl_world_packet.Robot.class, SslWorld.ssl_world_packet.Robot.Builder.class);
       }
-      
+
+      public static com.google.protobuf.Parser<Robot> PARSER =
+          new com.google.protobuf.AbstractParser<Robot>() {
+        public Robot parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Robot(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Robot> getParserForType() {
+        return PARSER;
+      }
+
       private int bitField0_;
       // required uint32 id = 1;
       public static final int ID_FIELD_NUMBER = 1;
       private int id_;
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       public int getId() {
         return id_;
       }
-      
+
       // required .ssl_world_packet.vector_3d position = 2;
       public static final int POSITION_FIELD_NUMBER = 2;
       private SslWorld.ssl_world_packet.vector_3d position_;
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       public boolean hasPosition() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       public SslWorld.ssl_world_packet.vector_3d getPosition() {
         return position_;
       }
+      /**
+       * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+       */
       public SslWorld.ssl_world_packet.vector_3dOrBuilder getPositionOrBuilder() {
         return position_;
       }
-      
-      // required .ssl_world_packet.vector_3d velecity = 3;
-      public static final int VELECITY_FIELD_NUMBER = 3;
-      private SslWorld.ssl_world_packet.vector_3d velecity_;
-      public boolean hasVelecity() {
+
+      // required .ssl_world_packet.vector_3d velocity = 3;
+      public static final int VELOCITY_FIELD_NUMBER = 3;
+      private SslWorld.ssl_world_packet.vector_3d velocity_;
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      public boolean hasVelocity() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public SslWorld.ssl_world_packet.vector_3d getVelecity() {
-        return velecity_;
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      public SslWorld.ssl_world_packet.vector_3d getVelocity() {
+        return velocity_;
       }
-      public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelecityOrBuilder() {
-        return velecity_;
+      /**
+       * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+       */
+      public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityOrBuilder() {
+        return velocity_;
       }
-      
+
       private void initFields() {
         id_ = 0;
         position_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
-        velecity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        velocity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
-        
+
         if (!hasId()) {
           memoizedIsInitialized = 0;
           return false;
@@ -1374,7 +2362,7 @@ public final class SslWorld {
           memoizedIsInitialized = 0;
           return false;
         }
-        if (!hasVelecity()) {
+        if (!hasVelocity()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -1382,14 +2370,14 @@ public final class SslWorld {
           memoizedIsInitialized = 0;
           return false;
         }
-        if (!getVelecity().isInitialized()) {
+        if (!getVelocity().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
         memoizedIsInitialized = 1;
         return true;
       }
-      
+
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
         getSerializedSize();
@@ -1400,16 +2388,16 @@ public final class SslWorld {
           output.writeMessage(2, position_);
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeMessage(3, velecity_);
+          output.writeMessage(3, velocity_);
         }
         getUnknownFields().writeTo(output);
       }
-      
+
       private int memoizedSerializedSize = -1;
       public int getSerializedSize() {
         int size = memoizedSerializedSize;
         if (size != -1) return size;
-      
+
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
@@ -1421,100 +2409,89 @@ public final class SslWorld {
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(3, velecity_);
+            .computeMessageSize(3, velocity_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
         return size;
       }
-      
+
       private static final long serialVersionUID = 0L;
       @java.lang.Override
       protected java.lang.Object writeReplace()
           throws java.io.ObjectStreamException {
         return super.writeReplace();
       }
-      
+
       public static SslWorld.ssl_world_packet.Robot parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
+        return PARSER.parseFrom(data);
       }
       public static SslWorld.ssl_world_packet.Robot parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(data, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Robot parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
+        return PARSER.parseFrom(data);
       }
       public static SslWorld.ssl_world_packet.Robot parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(data, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Robot parseFrom(java.io.InputStream input)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
+        return PARSER.parseFrom(input);
       }
       public static SslWorld.ssl_world_packet.Robot parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(input, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Robot parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
+        return PARSER.parseDelimitedFrom(input);
       }
       public static SslWorld.ssl_world_packet.Robot parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Robot parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
+        return PARSER.parseFrom(input);
       }
       public static SslWorld.ssl_world_packet.Robot parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(input, extensionRegistry);
       }
-      
+
       public static Builder newBuilder() { return Builder.create(); }
       public Builder newBuilderForType() { return newBuilder(); }
       public static Builder newBuilder(SslWorld.ssl_world_packet.Robot prototype) {
         return newBuilder().mergeFrom(prototype);
       }
       public Builder toBuilder() { return newBuilder(this); }
-      
+
       @java.lang.Override
       protected Builder newBuilderForType(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         Builder builder = new Builder(parent);
         return builder;
       }
+      /**
+       * Protobuf type {@code ssl_world_packet.Robot}
+       */
       public static final class Builder extends
           com.google.protobuf.GeneratedMessage.Builder<Builder>
          implements SslWorld.ssl_world_packet.RobotOrBuilder {
@@ -1522,31 +2499,34 @@ public final class SslWorld {
             getDescriptor() {
           return SslWorld.internal_static_ssl_world_packet_Robot_descriptor;
         }
-        
+
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return SslWorld.internal_static_ssl_world_packet_Robot_fieldAccessorTable;
+          return SslWorld.internal_static_ssl_world_packet_Robot_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  SslWorld.ssl_world_packet.Robot.class, SslWorld.ssl_world_packet.Robot.Builder.class);
         }
-        
+
         // Construct using SslWorld.ssl_world_packet.Robot.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
-        
-        private Builder(BuilderParent parent) {
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
           super(parent);
           maybeForceBuilderInitialization();
         }
         private void maybeForceBuilderInitialization() {
           if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
             getPositionFieldBuilder();
-            getVelecityFieldBuilder();
+            getVelocityFieldBuilder();
           }
         }
         private static Builder create() {
           return new Builder();
         }
-        
+
         public Builder clear() {
           super.clear();
           id_ = 0;
@@ -1557,28 +2537,28 @@ public final class SslWorld {
             positionBuilder_.clear();
           }
           bitField0_ = (bitField0_ & ~0x00000002);
-          if (velecityBuilder_ == null) {
-            velecity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+          if (velocityBuilder_ == null) {
+            velocity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
           } else {
-            velecityBuilder_.clear();
+            velocityBuilder_.clear();
           }
           bitField0_ = (bitField0_ & ~0x00000004);
           return this;
         }
-        
+
         public Builder clone() {
           return create().mergeFrom(buildPartial());
         }
-        
+
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return SslWorld.ssl_world_packet.Robot.getDescriptor();
+          return SslWorld.internal_static_ssl_world_packet_Robot_descriptor;
         }
-        
+
         public SslWorld.ssl_world_packet.Robot getDefaultInstanceForType() {
           return SslWorld.ssl_world_packet.Robot.getDefaultInstance();
         }
-        
+
         public SslWorld.ssl_world_packet.Robot build() {
           SslWorld.ssl_world_packet.Robot result = buildPartial();
           if (!result.isInitialized()) {
@@ -1586,17 +2566,7 @@ public final class SslWorld {
           }
           return result;
         }
-        
-        private SslWorld.ssl_world_packet.Robot buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          SslWorld.ssl_world_packet.Robot result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
+
         public SslWorld.ssl_world_packet.Robot buildPartial() {
           SslWorld.ssl_world_packet.Robot result = new SslWorld.ssl_world_packet.Robot(this);
           int from_bitField0_ = bitField0_;
@@ -1616,16 +2586,16 @@ public final class SslWorld {
           if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
             to_bitField0_ |= 0x00000004;
           }
-          if (velecityBuilder_ == null) {
-            result.velecity_ = velecity_;
+          if (velocityBuilder_ == null) {
+            result.velocity_ = velocity_;
           } else {
-            result.velecity_ = velecityBuilder_.build();
+            result.velocity_ = velocityBuilder_.build();
           }
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
         }
-        
+
         public Builder mergeFrom(com.google.protobuf.Message other) {
           if (other instanceof SslWorld.ssl_world_packet.Robot) {
             return mergeFrom((SslWorld.ssl_world_packet.Robot)other);
@@ -1634,7 +2604,7 @@ public final class SslWorld {
             return this;
           }
         }
-        
+
         public Builder mergeFrom(SslWorld.ssl_world_packet.Robot other) {
           if (other == SslWorld.ssl_world_packet.Robot.getDefaultInstance()) return this;
           if (other.hasId()) {
@@ -1643,13 +2613,13 @@ public final class SslWorld {
           if (other.hasPosition()) {
             mergePosition(other.getPosition());
           }
-          if (other.hasVelecity()) {
-            mergeVelecity(other.getVelecity());
+          if (other.hasVelocity()) {
+            mergeVelocity(other.getVelocity());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
-        
+
         public final boolean isInitialized() {
           if (!hasId()) {
             
@@ -1659,7 +2629,7 @@ public final class SslWorld {
             
             return false;
           }
-          if (!hasVelecity()) {
+          if (!hasVelocity()) {
             
             return false;
           }
@@ -1667,93 +2637,78 @@ public final class SslWorld {
             
             return false;
           }
-          if (!getVelecity().isInitialized()) {
+          if (!getVelocity().isInitialized()) {
             
             return false;
           }
           return true;
         }
-        
+
         public Builder mergeFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 8: {
-                bitField0_ |= 0x00000001;
-                id_ = input.readUInt32();
-                break;
-              }
-              case 18: {
-                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = SslWorld.ssl_world_packet.vector_3d.newBuilder();
-                if (hasPosition()) {
-                  subBuilder.mergeFrom(getPosition());
-                }
-                input.readMessage(subBuilder, extensionRegistry);
-                setPosition(subBuilder.buildPartial());
-                break;
-              }
-              case 26: {
-                SslWorld.ssl_world_packet.vector_3d.Builder subBuilder = SslWorld.ssl_world_packet.vector_3d.newBuilder();
-                if (hasVelecity()) {
-                  subBuilder.mergeFrom(getVelecity());
-                }
-                input.readMessage(subBuilder, extensionRegistry);
-                setVelecity(subBuilder.buildPartial());
-                break;
-              }
+          SslWorld.ssl_world_packet.Robot parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (SslWorld.ssl_world_packet.Robot) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
             }
           }
+          return this;
         }
-        
         private int bitField0_;
-        
+
         // required uint32 id = 1;
         private int id_ ;
+        /**
+         * <code>required uint32 id = 1;</code>
+         */
         public boolean hasId() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
+        /**
+         * <code>required uint32 id = 1;</code>
+         */
         public int getId() {
           return id_;
         }
+        /**
+         * <code>required uint32 id = 1;</code>
+         */
         public Builder setId(int value) {
           bitField0_ |= 0x00000001;
           id_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required uint32 id = 1;</code>
+         */
         public Builder clearId() {
           bitField0_ = (bitField0_ & ~0x00000001);
           id_ = 0;
           onChanged();
           return this;
         }
-        
+
         // required .ssl_world_packet.vector_3d position = 2;
         private SslWorld.ssl_world_packet.vector_3d position_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> positionBuilder_;
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public boolean hasPosition() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public SslWorld.ssl_world_packet.vector_3d getPosition() {
           if (positionBuilder_ == null) {
             return position_;
@@ -1761,6 +2716,9 @@ public final class SslWorld {
             return positionBuilder_.getMessage();
           }
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public Builder setPosition(SslWorld.ssl_world_packet.vector_3d value) {
           if (positionBuilder_ == null) {
             if (value == null) {
@@ -1774,6 +2732,9 @@ public final class SslWorld {
           bitField0_ |= 0x00000002;
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public Builder setPosition(
             SslWorld.ssl_world_packet.vector_3d.Builder builderForValue) {
           if (positionBuilder_ == null) {
@@ -1785,6 +2746,9 @@ public final class SslWorld {
           bitField0_ |= 0x00000002;
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public Builder mergePosition(SslWorld.ssl_world_packet.vector_3d value) {
           if (positionBuilder_ == null) {
             if (((bitField0_ & 0x00000002) == 0x00000002) &&
@@ -1801,6 +2765,9 @@ public final class SslWorld {
           bitField0_ |= 0x00000002;
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public Builder clearPosition() {
           if (positionBuilder_ == null) {
             position_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
@@ -1811,11 +2778,17 @@ public final class SslWorld {
           bitField0_ = (bitField0_ & ~0x00000002);
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public SslWorld.ssl_world_packet.vector_3d.Builder getPositionBuilder() {
           bitField0_ |= 0x00000002;
           onChanged();
           return getPositionFieldBuilder().getBuilder();
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         public SslWorld.ssl_world_packet.vector_3dOrBuilder getPositionOrBuilder() {
           if (positionBuilder_ != null) {
             return positionBuilder_.getMessageOrBuilder();
@@ -1823,6 +2796,9 @@ public final class SslWorld {
             return position_;
           }
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d position = 2;</code>
+         */
         private com.google.protobuf.SingleFieldBuilder<
             SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> 
             getPositionFieldBuilder() {
@@ -1836,185 +2812,338 @@ public final class SslWorld {
           }
           return positionBuilder_;
         }
-        
-        // required .ssl_world_packet.vector_3d velecity = 3;
-        private SslWorld.ssl_world_packet.vector_3d velecity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+
+        // required .ssl_world_packet.vector_3d velocity = 3;
+        private SslWorld.ssl_world_packet.vector_3d velocity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
-            SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> velecityBuilder_;
-        public boolean hasVelecity() {
+            SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> velocityBuilder_;
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public boolean hasVelocity() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
-        public SslWorld.ssl_world_packet.vector_3d getVelecity() {
-          if (velecityBuilder_ == null) {
-            return velecity_;
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3d getVelocity() {
+          if (velocityBuilder_ == null) {
+            return velocity_;
           } else {
-            return velecityBuilder_.getMessage();
+            return velocityBuilder_.getMessage();
           }
         }
-        public Builder setVelecity(SslWorld.ssl_world_packet.vector_3d value) {
-          if (velecityBuilder_ == null) {
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public Builder setVelocity(SslWorld.ssl_world_packet.vector_3d value) {
+          if (velocityBuilder_ == null) {
             if (value == null) {
               throw new NullPointerException();
             }
-            velecity_ = value;
+            velocity_ = value;
             onChanged();
           } else {
-            velecityBuilder_.setMessage(value);
+            velocityBuilder_.setMessage(value);
           }
           bitField0_ |= 0x00000004;
           return this;
         }
-        public Builder setVelecity(
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public Builder setVelocity(
             SslWorld.ssl_world_packet.vector_3d.Builder builderForValue) {
-          if (velecityBuilder_ == null) {
-            velecity_ = builderForValue.build();
+          if (velocityBuilder_ == null) {
+            velocity_ = builderForValue.build();
             onChanged();
           } else {
-            velecityBuilder_.setMessage(builderForValue.build());
+            velocityBuilder_.setMessage(builderForValue.build());
           }
           bitField0_ |= 0x00000004;
           return this;
         }
-        public Builder mergeVelecity(SslWorld.ssl_world_packet.vector_3d value) {
-          if (velecityBuilder_ == null) {
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public Builder mergeVelocity(SslWorld.ssl_world_packet.vector_3d value) {
+          if (velocityBuilder_ == null) {
             if (((bitField0_ & 0x00000004) == 0x00000004) &&
-                velecity_ != SslWorld.ssl_world_packet.vector_3d.getDefaultInstance()) {
-              velecity_ =
-                SslWorld.ssl_world_packet.vector_3d.newBuilder(velecity_).mergeFrom(value).buildPartial();
+                velocity_ != SslWorld.ssl_world_packet.vector_3d.getDefaultInstance()) {
+              velocity_ =
+                SslWorld.ssl_world_packet.vector_3d.newBuilder(velocity_).mergeFrom(value).buildPartial();
             } else {
-              velecity_ = value;
+              velocity_ = value;
             }
             onChanged();
           } else {
-            velecityBuilder_.mergeFrom(value);
+            velocityBuilder_.mergeFrom(value);
           }
           bitField0_ |= 0x00000004;
           return this;
         }
-        public Builder clearVelecity() {
-          if (velecityBuilder_ == null) {
-            velecity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public Builder clearVelocity() {
+          if (velocityBuilder_ == null) {
+            velocity_ = SslWorld.ssl_world_packet.vector_3d.getDefaultInstance();
             onChanged();
           } else {
-            velecityBuilder_.clear();
+            velocityBuilder_.clear();
           }
           bitField0_ = (bitField0_ & ~0x00000004);
           return this;
         }
-        public SslWorld.ssl_world_packet.vector_3d.Builder getVelecityBuilder() {
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3d.Builder getVelocityBuilder() {
           bitField0_ |= 0x00000004;
           onChanged();
-          return getVelecityFieldBuilder().getBuilder();
+          return getVelocityFieldBuilder().getBuilder();
         }
-        public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelecityOrBuilder() {
-          if (velecityBuilder_ != null) {
-            return velecityBuilder_.getMessageOrBuilder();
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
+        public SslWorld.ssl_world_packet.vector_3dOrBuilder getVelocityOrBuilder() {
+          if (velocityBuilder_ != null) {
+            return velocityBuilder_.getMessageOrBuilder();
           } else {
-            return velecity_;
+            return velocity_;
           }
         }
+        /**
+         * <code>required .ssl_world_packet.vector_3d velocity = 3;</code>
+         */
         private com.google.protobuf.SingleFieldBuilder<
             SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder> 
-            getVelecityFieldBuilder() {
-          if (velecityBuilder_ == null) {
-            velecityBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            getVelocityFieldBuilder() {
+          if (velocityBuilder_ == null) {
+            velocityBuilder_ = new com.google.protobuf.SingleFieldBuilder<
                 SslWorld.ssl_world_packet.vector_3d, SslWorld.ssl_world_packet.vector_3d.Builder, SslWorld.ssl_world_packet.vector_3dOrBuilder>(
-                    velecity_,
+                    velocity_,
                     getParentForChildren(),
                     isClean());
-            velecity_ = null;
+            velocity_ = null;
           }
-          return velecityBuilder_;
+          return velocityBuilder_;
         }
-        
+
         // @@protoc_insertion_point(builder_scope:ssl_world_packet.Robot)
       }
-      
+
       static {
         defaultInstance = new Robot(true);
         defaultInstance.initFields();
       }
-      
+
       // @@protoc_insertion_point(class_scope:ssl_world_packet.Robot)
     }
-    
+
     public interface TeamOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
-      
+
       // repeated .ssl_world_packet.Robot robots = 1;
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       java.util.List<SslWorld.ssl_world_packet.Robot> 
           getRobotsList();
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       SslWorld.ssl_world_packet.Robot getRobots(int index);
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       int getRobotsCount();
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       java.util.List<? extends SslWorld.ssl_world_packet.RobotOrBuilder> 
           getRobotsOrBuilderList();
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       SslWorld.ssl_world_packet.RobotOrBuilder getRobotsOrBuilder(
           int index);
-      
+
       // required .ssl_world_packet.Side side = 2;
+      /**
+       * <code>required .ssl_world_packet.Side side = 2;</code>
+       */
       boolean hasSide();
+      /**
+       * <code>required .ssl_world_packet.Side side = 2;</code>
+       */
       SslWorld.ssl_world_packet.Side getSide();
     }
+    /**
+     * Protobuf type {@code ssl_world_packet.Team}
+     */
     public static final class Team extends
         com.google.protobuf.GeneratedMessage
         implements TeamOrBuilder {
       // Use Team.newBuilder() to construct.
-      private Team(Builder builder) {
+      private Team(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
         super(builder);
+        this.unknownFields = builder.getUnknownFields();
       }
-      private Team(boolean noInit) {}
-      
+      private Team(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
       private static final Team defaultInstance;
       public static Team getDefaultInstance() {
         return defaultInstance;
       }
-      
+
       public Team getDefaultInstanceForType() {
         return defaultInstance;
       }
-      
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Team(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 10: {
+                if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                  robots_ = new java.util.ArrayList<SslWorld.ssl_world_packet.Robot>();
+                  mutable_bitField0_ |= 0x00000001;
+                }
+                robots_.add(input.readMessage(SslWorld.ssl_world_packet.Robot.PARSER, extensionRegistry));
+                break;
+              }
+              case 16: {
+                int rawValue = input.readEnum();
+                SslWorld.ssl_world_packet.Side value = SslWorld.ssl_world_packet.Side.valueOf(rawValue);
+                if (value == null) {
+                  unknownFields.mergeVarintField(2, rawValue);
+                } else {
+                  bitField0_ |= 0x00000001;
+                  side_ = value;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+            robots_ = java.util.Collections.unmodifiableList(robots_);
+          }
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return SslWorld.internal_static_ssl_world_packet_Team_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslWorld.internal_static_ssl_world_packet_Team_fieldAccessorTable;
+        return SslWorld.internal_static_ssl_world_packet_Team_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslWorld.ssl_world_packet.Team.class, SslWorld.ssl_world_packet.Team.Builder.class);
       }
-      
+
+      public static com.google.protobuf.Parser<Team> PARSER =
+          new com.google.protobuf.AbstractParser<Team>() {
+        public Team parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Team(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Team> getParserForType() {
+        return PARSER;
+      }
+
       private int bitField0_;
       // repeated .ssl_world_packet.Robot robots = 1;
       public static final int ROBOTS_FIELD_NUMBER = 1;
       private java.util.List<SslWorld.ssl_world_packet.Robot> robots_;
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       public java.util.List<SslWorld.ssl_world_packet.Robot> getRobotsList() {
         return robots_;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       public java.util.List<? extends SslWorld.ssl_world_packet.RobotOrBuilder> 
           getRobotsOrBuilderList() {
         return robots_;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       public int getRobotsCount() {
         return robots_.size();
       }
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       public SslWorld.ssl_world_packet.Robot getRobots(int index) {
         return robots_.get(index);
       }
+      /**
+       * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+       */
       public SslWorld.ssl_world_packet.RobotOrBuilder getRobotsOrBuilder(
           int index) {
         return robots_.get(index);
       }
-      
+
       // required .ssl_world_packet.Side side = 2;
       public static final int SIDE_FIELD_NUMBER = 2;
       private SslWorld.ssl_world_packet.Side side_;
+      /**
+       * <code>required .ssl_world_packet.Side side = 2;</code>
+       */
       public boolean hasSide() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required .ssl_world_packet.Side side = 2;</code>
+       */
       public SslWorld.ssl_world_packet.Side getSide() {
         return side_;
       }
-      
+
       private void initFields() {
         robots_ = java.util.Collections.emptyList();
         side_ = SslWorld.ssl_world_packet.Side.left;
@@ -2023,7 +3152,7 @@ public final class SslWorld {
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
-        
+
         if (!hasSide()) {
           memoizedIsInitialized = 0;
           return false;
@@ -2037,7 +3166,7 @@ public final class SslWorld {
         memoizedIsInitialized = 1;
         return true;
       }
-      
+
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
         getSerializedSize();
@@ -2049,12 +3178,12 @@ public final class SslWorld {
         }
         getUnknownFields().writeTo(output);
       }
-      
+
       private int memoizedSerializedSize = -1;
       public int getSerializedSize() {
         int size = memoizedSerializedSize;
         if (size != -1) return size;
-      
+
         size = 0;
         for (int i = 0; i < robots_.size(); i++) {
           size += com.google.protobuf.CodedOutputStream
@@ -2068,94 +3197,83 @@ public final class SslWorld {
         memoizedSerializedSize = size;
         return size;
       }
-      
+
       private static final long serialVersionUID = 0L;
       @java.lang.Override
       protected java.lang.Object writeReplace()
           throws java.io.ObjectStreamException {
         return super.writeReplace();
       }
-      
+
       public static SslWorld.ssl_world_packet.Team parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
+        return PARSER.parseFrom(data);
       }
       public static SslWorld.ssl_world_packet.Team parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(data, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Team parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
+        return PARSER.parseFrom(data);
       }
       public static SslWorld.ssl_world_packet.Team parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(data, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Team parseFrom(java.io.InputStream input)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
+        return PARSER.parseFrom(input);
       }
       public static SslWorld.ssl_world_packet.Team parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(input, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Team parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
+        return PARSER.parseDelimitedFrom(input);
       }
       public static SslWorld.ssl_world_packet.Team parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
       }
       public static SslWorld.ssl_world_packet.Team parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
+        return PARSER.parseFrom(input);
       }
       public static SslWorld.ssl_world_packet.Team parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
+        return PARSER.parseFrom(input, extensionRegistry);
       }
-      
+
       public static Builder newBuilder() { return Builder.create(); }
       public Builder newBuilderForType() { return newBuilder(); }
       public static Builder newBuilder(SslWorld.ssl_world_packet.Team prototype) {
         return newBuilder().mergeFrom(prototype);
       }
       public Builder toBuilder() { return newBuilder(this); }
-      
+
       @java.lang.Override
       protected Builder newBuilderForType(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         Builder builder = new Builder(parent);
         return builder;
       }
+      /**
+       * Protobuf type {@code ssl_world_packet.Team}
+       */
       public static final class Builder extends
           com.google.protobuf.GeneratedMessage.Builder<Builder>
          implements SslWorld.ssl_world_packet.TeamOrBuilder {
@@ -2163,18 +3281,21 @@ public final class SslWorld {
             getDescriptor() {
           return SslWorld.internal_static_ssl_world_packet_Team_descriptor;
         }
-        
+
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return SslWorld.internal_static_ssl_world_packet_Team_fieldAccessorTable;
+          return SslWorld.internal_static_ssl_world_packet_Team_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  SslWorld.ssl_world_packet.Team.class, SslWorld.ssl_world_packet.Team.Builder.class);
         }
-        
+
         // Construct using SslWorld.ssl_world_packet.Team.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
-        
-        private Builder(BuilderParent parent) {
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
           super(parent);
           maybeForceBuilderInitialization();
         }
@@ -2186,7 +3307,7 @@ public final class SslWorld {
         private static Builder create() {
           return new Builder();
         }
-        
+
         public Builder clear() {
           super.clear();
           if (robotsBuilder_ == null) {
@@ -2199,20 +3320,20 @@ public final class SslWorld {
           bitField0_ = (bitField0_ & ~0x00000002);
           return this;
         }
-        
+
         public Builder clone() {
           return create().mergeFrom(buildPartial());
         }
-        
+
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return SslWorld.ssl_world_packet.Team.getDescriptor();
+          return SslWorld.internal_static_ssl_world_packet_Team_descriptor;
         }
-        
+
         public SslWorld.ssl_world_packet.Team getDefaultInstanceForType() {
           return SslWorld.ssl_world_packet.Team.getDefaultInstance();
         }
-        
+
         public SslWorld.ssl_world_packet.Team build() {
           SslWorld.ssl_world_packet.Team result = buildPartial();
           if (!result.isInitialized()) {
@@ -2220,17 +3341,7 @@ public final class SslWorld {
           }
           return result;
         }
-        
-        private SslWorld.ssl_world_packet.Team buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          SslWorld.ssl_world_packet.Team result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
+
         public SslWorld.ssl_world_packet.Team buildPartial() {
           SslWorld.ssl_world_packet.Team result = new SslWorld.ssl_world_packet.Team(this);
           int from_bitField0_ = bitField0_;
@@ -2252,7 +3363,7 @@ public final class SslWorld {
           onBuilt();
           return result;
         }
-        
+
         public Builder mergeFrom(com.google.protobuf.Message other) {
           if (other instanceof SslWorld.ssl_world_packet.Team) {
             return mergeFrom((SslWorld.ssl_world_packet.Team)other);
@@ -2261,7 +3372,7 @@ public final class SslWorld {
             return this;
           }
         }
-        
+
         public Builder mergeFrom(SslWorld.ssl_world_packet.Team other) {
           if (other == SslWorld.ssl_world_packet.Team.getDefaultInstance()) return this;
           if (robotsBuilder_ == null) {
@@ -2296,7 +3407,7 @@ public final class SslWorld {
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
-        
+
         public final boolean isInitialized() {
           if (!hasSide()) {
             
@@ -2310,53 +3421,26 @@ public final class SslWorld {
           }
           return true;
         }
-        
+
         public Builder mergeFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 10: {
-                SslWorld.ssl_world_packet.Robot.Builder subBuilder = SslWorld.ssl_world_packet.Robot.newBuilder();
-                input.readMessage(subBuilder, extensionRegistry);
-                addRobots(subBuilder.buildPartial());
-                break;
-              }
-              case 16: {
-                int rawValue = input.readEnum();
-                SslWorld.ssl_world_packet.Side value = SslWorld.ssl_world_packet.Side.valueOf(rawValue);
-                if (value == null) {
-                  unknownFields.mergeVarintField(2, rawValue);
-                } else {
-                  bitField0_ |= 0x00000002;
-                  side_ = value;
-                }
-                break;
-              }
+          SslWorld.ssl_world_packet.Team parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (SslWorld.ssl_world_packet.Team) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
             }
           }
+          return this;
         }
-        
         private int bitField0_;
-        
+
         // repeated .ssl_world_packet.Robot robots = 1;
         private java.util.List<SslWorld.ssl_world_packet.Robot> robots_ =
           java.util.Collections.emptyList();
@@ -2366,10 +3450,13 @@ public final class SslWorld {
             bitField0_ |= 0x00000001;
            }
         }
-        
+
         private com.google.protobuf.RepeatedFieldBuilder<
             SslWorld.ssl_world_packet.Robot, SslWorld.ssl_world_packet.Robot.Builder, SslWorld.ssl_world_packet.RobotOrBuilder> robotsBuilder_;
-        
+
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public java.util.List<SslWorld.ssl_world_packet.Robot> getRobotsList() {
           if (robotsBuilder_ == null) {
             return java.util.Collections.unmodifiableList(robots_);
@@ -2377,6 +3464,9 @@ public final class SslWorld {
             return robotsBuilder_.getMessageList();
           }
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public int getRobotsCount() {
           if (robotsBuilder_ == null) {
             return robots_.size();
@@ -2384,6 +3474,9 @@ public final class SslWorld {
             return robotsBuilder_.getCount();
           }
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public SslWorld.ssl_world_packet.Robot getRobots(int index) {
           if (robotsBuilder_ == null) {
             return robots_.get(index);
@@ -2391,6 +3484,9 @@ public final class SslWorld {
             return robotsBuilder_.getMessage(index);
           }
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder setRobots(
             int index, SslWorld.ssl_world_packet.Robot value) {
           if (robotsBuilder_ == null) {
@@ -2405,6 +3501,9 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder setRobots(
             int index, SslWorld.ssl_world_packet.Robot.Builder builderForValue) {
           if (robotsBuilder_ == null) {
@@ -2416,6 +3515,9 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder addRobots(SslWorld.ssl_world_packet.Robot value) {
           if (robotsBuilder_ == null) {
             if (value == null) {
@@ -2429,6 +3531,9 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder addRobots(
             int index, SslWorld.ssl_world_packet.Robot value) {
           if (robotsBuilder_ == null) {
@@ -2443,6 +3548,9 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder addRobots(
             SslWorld.ssl_world_packet.Robot.Builder builderForValue) {
           if (robotsBuilder_ == null) {
@@ -2454,6 +3562,9 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder addRobots(
             int index, SslWorld.ssl_world_packet.Robot.Builder builderForValue) {
           if (robotsBuilder_ == null) {
@@ -2465,6 +3576,9 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder addAllRobots(
             java.lang.Iterable<? extends SslWorld.ssl_world_packet.Robot> values) {
           if (robotsBuilder_ == null) {
@@ -2476,6 +3590,9 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder clearRobots() {
           if (robotsBuilder_ == null) {
             robots_ = java.util.Collections.emptyList();
@@ -2486,6 +3603,9 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public Builder removeRobots(int index) {
           if (robotsBuilder_ == null) {
             ensureRobotsIsMutable();
@@ -2496,10 +3616,16 @@ public final class SslWorld {
           }
           return this;
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public SslWorld.ssl_world_packet.Robot.Builder getRobotsBuilder(
             int index) {
           return getRobotsFieldBuilder().getBuilder(index);
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public SslWorld.ssl_world_packet.RobotOrBuilder getRobotsOrBuilder(
             int index) {
           if (robotsBuilder_ == null) {
@@ -2507,6 +3633,9 @@ public final class SslWorld {
             return robotsBuilder_.getMessageOrBuilder(index);
           }
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public java.util.List<? extends SslWorld.ssl_world_packet.RobotOrBuilder> 
              getRobotsOrBuilderList() {
           if (robotsBuilder_ != null) {
@@ -2515,15 +3644,24 @@ public final class SslWorld {
             return java.util.Collections.unmodifiableList(robots_);
           }
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public SslWorld.ssl_world_packet.Robot.Builder addRobotsBuilder() {
           return getRobotsFieldBuilder().addBuilder(
               SslWorld.ssl_world_packet.Robot.getDefaultInstance());
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public SslWorld.ssl_world_packet.Robot.Builder addRobotsBuilder(
             int index) {
           return getRobotsFieldBuilder().addBuilder(
               index, SslWorld.ssl_world_packet.Robot.getDefaultInstance());
         }
+        /**
+         * <code>repeated .ssl_world_packet.Robot robots = 1;</code>
+         */
         public java.util.List<SslWorld.ssl_world_packet.Robot.Builder> 
              getRobotsBuilderList() {
           return getRobotsFieldBuilder().getBuilderList();
@@ -2542,15 +3680,24 @@ public final class SslWorld {
           }
           return robotsBuilder_;
         }
-        
+
         // required .ssl_world_packet.Side side = 2;
         private SslWorld.ssl_world_packet.Side side_ = SslWorld.ssl_world_packet.Side.left;
+        /**
+         * <code>required .ssl_world_packet.Side side = 2;</code>
+         */
         public boolean hasSide() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
+        /**
+         * <code>required .ssl_world_packet.Side side = 2;</code>
+         */
         public SslWorld.ssl_world_packet.Side getSide() {
           return side_;
         }
+        /**
+         * <code>required .ssl_world_packet.Side side = 2;</code>
+         */
         public Builder setSide(SslWorld.ssl_world_packet.Side value) {
           if (value == null) {
             throw new NullPointerException();
@@ -2560,136 +3707,194 @@ public final class SslWorld {
           onChanged();
           return this;
         }
+        /**
+         * <code>required .ssl_world_packet.Side side = 2;</code>
+         */
         public Builder clearSide() {
           bitField0_ = (bitField0_ & ~0x00000002);
           side_ = SslWorld.ssl_world_packet.Side.left;
           onChanged();
           return this;
         }
-        
+
         // @@protoc_insertion_point(builder_scope:ssl_world_packet.Team)
       }
-      
+
       static {
         defaultInstance = new Team(true);
         defaultInstance.initFields();
       }
-      
+
       // @@protoc_insertion_point(class_scope:ssl_world_packet.Team)
     }
-    
+
     private int bitField0_;
     // repeated .ssl_world_packet.Ball field_balls = 1;
     public static final int FIELD_BALLS_FIELD_NUMBER = 1;
     private java.util.List<SslWorld.ssl_world_packet.Ball> fieldBalls_;
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     public java.util.List<SslWorld.ssl_world_packet.Ball> getFieldBallsList() {
       return fieldBalls_;
     }
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     public java.util.List<? extends SslWorld.ssl_world_packet.BallOrBuilder> 
         getFieldBallsOrBuilderList() {
       return fieldBalls_;
     }
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     public int getFieldBallsCount() {
       return fieldBalls_.size();
     }
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     public SslWorld.ssl_world_packet.Ball getFieldBalls(int index) {
       return fieldBalls_.get(index);
     }
+    /**
+     * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+     */
     public SslWorld.ssl_world_packet.BallOrBuilder getFieldBallsOrBuilder(
         int index) {
       return fieldBalls_.get(index);
     }
-    
+
     // required .ssl_world_packet.Team blue_team = 2;
     public static final int BLUE_TEAM_FIELD_NUMBER = 2;
     private SslWorld.ssl_world_packet.Team blueTeam_;
+    /**
+     * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+     */
     public boolean hasBlueTeam() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+     */
     public SslWorld.ssl_world_packet.Team getBlueTeam() {
       return blueTeam_;
     }
+    /**
+     * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+     */
     public SslWorld.ssl_world_packet.TeamOrBuilder getBlueTeamOrBuilder() {
       return blueTeam_;
     }
-    
+
     // required .ssl_world_packet.Team yellow_team = 3;
     public static final int YELLOW_TEAM_FIELD_NUMBER = 3;
     private SslWorld.ssl_world_packet.Team yellowTeam_;
+    /**
+     * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+     */
     public boolean hasYellowTeam() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
+    /**
+     * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+     */
     public SslWorld.ssl_world_packet.Team getYellowTeam() {
       return yellowTeam_;
     }
+    /**
+     * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+     */
     public SslWorld.ssl_world_packet.TeamOrBuilder getYellowTeamOrBuilder() {
       return yellowTeam_;
     }
-    
+
     // required string referee_state = 4;
     public static final int REFEREE_STATE_FIELD_NUMBER = 4;
     private java.lang.Object refereeState_;
+    /**
+     * <code>required string referee_state = 4;</code>
+     */
     public boolean hasRefereeState() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public String getRefereeState() {
+    /**
+     * <code>required string referee_state = 4;</code>
+     */
+    public java.lang.String getRefereeState() {
       java.lang.Object ref = refereeState_;
-      if (ref instanceof String) {
-        return (String) ref;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
           refereeState_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getRefereeStateBytes() {
+    /**
+     * <code>required string referee_state = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRefereeStateBytes() {
       java.lang.Object ref = refereeState_;
-      if (ref instanceof String) {
+      if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
         refereeState_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-    
+
     // optional string comment = 5;
     public static final int COMMENT_FIELD_NUMBER = 5;
     private java.lang.Object comment_;
+    /**
+     * <code>optional string comment = 5;</code>
+     */
     public boolean hasComment() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    public String getComment() {
+    /**
+     * <code>optional string comment = 5;</code>
+     */
+    public java.lang.String getComment() {
       java.lang.Object ref = comment_;
-      if (ref instanceof String) {
-        return (String) ref;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
           comment_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getCommentBytes() {
+    /**
+     * <code>optional string comment = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCommentBytes() {
       java.lang.Object ref = comment_;
-      if (ref instanceof String) {
+      if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
         comment_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-    
+
     private void initFields() {
       fieldBalls_ = java.util.Collections.emptyList();
       blueTeam_ = SslWorld.ssl_world_packet.Team.getDefaultInstance();
@@ -2701,7 +3906,7 @@ public final class SslWorld {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasBlueTeam()) {
         memoizedIsInitialized = 0;
         return false;
@@ -2731,7 +3936,7 @@ public final class SslWorld {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -2752,12 +3957,12 @@ public final class SslWorld {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       for (int i = 0; i < fieldBalls_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -2783,94 +3988,83 @@ public final class SslWorld {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslWorld.ssl_world_packet parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslWorld.ssl_world_packet parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslWorld.ssl_world_packet parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslWorld.ssl_world_packet parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslWorld.ssl_world_packet parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslWorld.ssl_world_packet parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslWorld.ssl_world_packet parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslWorld.ssl_world_packet parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslWorld.ssl_world_packet parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslWorld.ssl_world_packet parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslWorld.ssl_world_packet prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ssl_world_packet}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslWorld.ssl_world_packetOrBuilder {
@@ -2878,18 +4072,21 @@ public final class SslWorld {
           getDescriptor() {
         return SslWorld.internal_static_ssl_world_packet_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslWorld.internal_static_ssl_world_packet_fieldAccessorTable;
+        return SslWorld.internal_static_ssl_world_packet_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslWorld.ssl_world_packet.class, SslWorld.ssl_world_packet.Builder.class);
       }
-      
+
       // Construct using SslWorld.ssl_world_packet.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -2903,7 +4100,7 @@ public final class SslWorld {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         if (fieldBallsBuilder_ == null) {
@@ -2930,20 +4127,20 @@ public final class SslWorld {
         bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslWorld.ssl_world_packet.getDescriptor();
+        return SslWorld.internal_static_ssl_world_packet_descriptor;
       }
-      
+
       public SslWorld.ssl_world_packet getDefaultInstanceForType() {
         return SslWorld.ssl_world_packet.getDefaultInstance();
       }
-      
+
       public SslWorld.ssl_world_packet build() {
         SslWorld.ssl_world_packet result = buildPartial();
         if (!result.isInitialized()) {
@@ -2951,17 +4148,7 @@ public final class SslWorld {
         }
         return result;
       }
-      
-      private SslWorld.ssl_world_packet buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslWorld.ssl_world_packet result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslWorld.ssl_world_packet buildPartial() {
         SslWorld.ssl_world_packet result = new SslWorld.ssl_world_packet(this);
         int from_bitField0_ = bitField0_;
@@ -3003,7 +4190,7 @@ public final class SslWorld {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslWorld.ssl_world_packet) {
           return mergeFrom((SslWorld.ssl_world_packet)other);
@@ -3012,7 +4199,7 @@ public final class SslWorld {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslWorld.ssl_world_packet other) {
         if (other == SslWorld.ssl_world_packet.getDefaultInstance()) return this;
         if (fieldBallsBuilder_ == null) {
@@ -3048,15 +4235,19 @@ public final class SslWorld {
           mergeYellowTeam(other.getYellowTeam());
         }
         if (other.hasRefereeState()) {
-          setRefereeState(other.getRefereeState());
+          bitField0_ |= 0x00000008;
+          refereeState_ = other.refereeState_;
+          onChanged();
         }
         if (other.hasComment()) {
-          setComment(other.getComment());
+          bitField0_ |= 0x00000010;
+          comment_ = other.comment_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasBlueTeam()) {
           
@@ -3086,70 +4277,26 @@ public final class SslWorld {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              SslWorld.ssl_world_packet.Ball.Builder subBuilder = SslWorld.ssl_world_packet.Ball.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addFieldBalls(subBuilder.buildPartial());
-              break;
-            }
-            case 18: {
-              SslWorld.ssl_world_packet.Team.Builder subBuilder = SslWorld.ssl_world_packet.Team.newBuilder();
-              if (hasBlueTeam()) {
-                subBuilder.mergeFrom(getBlueTeam());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setBlueTeam(subBuilder.buildPartial());
-              break;
-            }
-            case 26: {
-              SslWorld.ssl_world_packet.Team.Builder subBuilder = SslWorld.ssl_world_packet.Team.newBuilder();
-              if (hasYellowTeam()) {
-                subBuilder.mergeFrom(getYellowTeam());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setYellowTeam(subBuilder.buildPartial());
-              break;
-            }
-            case 34: {
-              bitField0_ |= 0x00000008;
-              refereeState_ = input.readBytes();
-              break;
-            }
-            case 42: {
-              bitField0_ |= 0x00000010;
-              comment_ = input.readBytes();
-              break;
-            }
+        SslWorld.ssl_world_packet parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslWorld.ssl_world_packet) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // repeated .ssl_world_packet.Ball field_balls = 1;
       private java.util.List<SslWorld.ssl_world_packet.Ball> fieldBalls_ =
         java.util.Collections.emptyList();
@@ -3159,10 +4306,13 @@ public final class SslWorld {
           bitField0_ |= 0x00000001;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           SslWorld.ssl_world_packet.Ball, SslWorld.ssl_world_packet.Ball.Builder, SslWorld.ssl_world_packet.BallOrBuilder> fieldBallsBuilder_;
-      
+
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public java.util.List<SslWorld.ssl_world_packet.Ball> getFieldBallsList() {
         if (fieldBallsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(fieldBalls_);
@@ -3170,6 +4320,9 @@ public final class SslWorld {
           return fieldBallsBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public int getFieldBallsCount() {
         if (fieldBallsBuilder_ == null) {
           return fieldBalls_.size();
@@ -3177,6 +4330,9 @@ public final class SslWorld {
           return fieldBallsBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public SslWorld.ssl_world_packet.Ball getFieldBalls(int index) {
         if (fieldBallsBuilder_ == null) {
           return fieldBalls_.get(index);
@@ -3184,6 +4340,9 @@ public final class SslWorld {
           return fieldBallsBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder setFieldBalls(
           int index, SslWorld.ssl_world_packet.Ball value) {
         if (fieldBallsBuilder_ == null) {
@@ -3198,6 +4357,9 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder setFieldBalls(
           int index, SslWorld.ssl_world_packet.Ball.Builder builderForValue) {
         if (fieldBallsBuilder_ == null) {
@@ -3209,6 +4371,9 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder addFieldBalls(SslWorld.ssl_world_packet.Ball value) {
         if (fieldBallsBuilder_ == null) {
           if (value == null) {
@@ -3222,6 +4387,9 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder addFieldBalls(
           int index, SslWorld.ssl_world_packet.Ball value) {
         if (fieldBallsBuilder_ == null) {
@@ -3236,6 +4404,9 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder addFieldBalls(
           SslWorld.ssl_world_packet.Ball.Builder builderForValue) {
         if (fieldBallsBuilder_ == null) {
@@ -3247,6 +4418,9 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder addFieldBalls(
           int index, SslWorld.ssl_world_packet.Ball.Builder builderForValue) {
         if (fieldBallsBuilder_ == null) {
@@ -3258,6 +4432,9 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder addAllFieldBalls(
           java.lang.Iterable<? extends SslWorld.ssl_world_packet.Ball> values) {
         if (fieldBallsBuilder_ == null) {
@@ -3269,6 +4446,9 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder clearFieldBalls() {
         if (fieldBallsBuilder_ == null) {
           fieldBalls_ = java.util.Collections.emptyList();
@@ -3279,6 +4459,9 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public Builder removeFieldBalls(int index) {
         if (fieldBallsBuilder_ == null) {
           ensureFieldBallsIsMutable();
@@ -3289,10 +4472,16 @@ public final class SslWorld {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public SslWorld.ssl_world_packet.Ball.Builder getFieldBallsBuilder(
           int index) {
         return getFieldBallsFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public SslWorld.ssl_world_packet.BallOrBuilder getFieldBallsOrBuilder(
           int index) {
         if (fieldBallsBuilder_ == null) {
@@ -3300,6 +4489,9 @@ public final class SslWorld {
           return fieldBallsBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public java.util.List<? extends SslWorld.ssl_world_packet.BallOrBuilder> 
            getFieldBallsOrBuilderList() {
         if (fieldBallsBuilder_ != null) {
@@ -3308,15 +4500,24 @@ public final class SslWorld {
           return java.util.Collections.unmodifiableList(fieldBalls_);
         }
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public SslWorld.ssl_world_packet.Ball.Builder addFieldBallsBuilder() {
         return getFieldBallsFieldBuilder().addBuilder(
             SslWorld.ssl_world_packet.Ball.getDefaultInstance());
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public SslWorld.ssl_world_packet.Ball.Builder addFieldBallsBuilder(
           int index) {
         return getFieldBallsFieldBuilder().addBuilder(
             index, SslWorld.ssl_world_packet.Ball.getDefaultInstance());
       }
+      /**
+       * <code>repeated .ssl_world_packet.Ball field_balls = 1;</code>
+       */
       public java.util.List<SslWorld.ssl_world_packet.Ball.Builder> 
            getFieldBallsBuilderList() {
         return getFieldBallsFieldBuilder().getBuilderList();
@@ -3335,14 +4536,20 @@ public final class SslWorld {
         }
         return fieldBallsBuilder_;
       }
-      
+
       // required .ssl_world_packet.Team blue_team = 2;
       private SslWorld.ssl_world_packet.Team blueTeam_ = SslWorld.ssl_world_packet.Team.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslWorld.ssl_world_packet.Team, SslWorld.ssl_world_packet.Team.Builder, SslWorld.ssl_world_packet.TeamOrBuilder> blueTeamBuilder_;
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       public boolean hasBlueTeam() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       public SslWorld.ssl_world_packet.Team getBlueTeam() {
         if (blueTeamBuilder_ == null) {
           return blueTeam_;
@@ -3350,6 +4557,9 @@ public final class SslWorld {
           return blueTeamBuilder_.getMessage();
         }
       }
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       public Builder setBlueTeam(SslWorld.ssl_world_packet.Team value) {
         if (blueTeamBuilder_ == null) {
           if (value == null) {
@@ -3363,6 +4573,9 @@ public final class SslWorld {
         bitField0_ |= 0x00000002;
         return this;
       }
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       public Builder setBlueTeam(
           SslWorld.ssl_world_packet.Team.Builder builderForValue) {
         if (blueTeamBuilder_ == null) {
@@ -3374,6 +4587,9 @@ public final class SslWorld {
         bitField0_ |= 0x00000002;
         return this;
       }
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       public Builder mergeBlueTeam(SslWorld.ssl_world_packet.Team value) {
         if (blueTeamBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002) &&
@@ -3390,6 +4606,9 @@ public final class SslWorld {
         bitField0_ |= 0x00000002;
         return this;
       }
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       public Builder clearBlueTeam() {
         if (blueTeamBuilder_ == null) {
           blueTeam_ = SslWorld.ssl_world_packet.Team.getDefaultInstance();
@@ -3400,11 +4619,17 @@ public final class SslWorld {
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       public SslWorld.ssl_world_packet.Team.Builder getBlueTeamBuilder() {
         bitField0_ |= 0x00000002;
         onChanged();
         return getBlueTeamFieldBuilder().getBuilder();
       }
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       public SslWorld.ssl_world_packet.TeamOrBuilder getBlueTeamOrBuilder() {
         if (blueTeamBuilder_ != null) {
           return blueTeamBuilder_.getMessageOrBuilder();
@@ -3412,6 +4637,9 @@ public final class SslWorld {
           return blueTeam_;
         }
       }
+      /**
+       * <code>required .ssl_world_packet.Team blue_team = 2;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslWorld.ssl_world_packet.Team, SslWorld.ssl_world_packet.Team.Builder, SslWorld.ssl_world_packet.TeamOrBuilder> 
           getBlueTeamFieldBuilder() {
@@ -3425,14 +4653,20 @@ public final class SslWorld {
         }
         return blueTeamBuilder_;
       }
-      
+
       // required .ssl_world_packet.Team yellow_team = 3;
       private SslWorld.ssl_world_packet.Team yellowTeam_ = SslWorld.ssl_world_packet.Team.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslWorld.ssl_world_packet.Team, SslWorld.ssl_world_packet.Team.Builder, SslWorld.ssl_world_packet.TeamOrBuilder> yellowTeamBuilder_;
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       public boolean hasYellowTeam() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       public SslWorld.ssl_world_packet.Team getYellowTeam() {
         if (yellowTeamBuilder_ == null) {
           return yellowTeam_;
@@ -3440,6 +4674,9 @@ public final class SslWorld {
           return yellowTeamBuilder_.getMessage();
         }
       }
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       public Builder setYellowTeam(SslWorld.ssl_world_packet.Team value) {
         if (yellowTeamBuilder_ == null) {
           if (value == null) {
@@ -3453,6 +4690,9 @@ public final class SslWorld {
         bitField0_ |= 0x00000004;
         return this;
       }
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       public Builder setYellowTeam(
           SslWorld.ssl_world_packet.Team.Builder builderForValue) {
         if (yellowTeamBuilder_ == null) {
@@ -3464,6 +4704,9 @@ public final class SslWorld {
         bitField0_ |= 0x00000004;
         return this;
       }
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       public Builder mergeYellowTeam(SslWorld.ssl_world_packet.Team value) {
         if (yellowTeamBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004) &&
@@ -3480,6 +4723,9 @@ public final class SslWorld {
         bitField0_ |= 0x00000004;
         return this;
       }
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       public Builder clearYellowTeam() {
         if (yellowTeamBuilder_ == null) {
           yellowTeam_ = SslWorld.ssl_world_packet.Team.getDefaultInstance();
@@ -3490,11 +4736,17 @@ public final class SslWorld {
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       public SslWorld.ssl_world_packet.Team.Builder getYellowTeamBuilder() {
         bitField0_ |= 0x00000004;
         onChanged();
         return getYellowTeamFieldBuilder().getBuilder();
       }
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       public SslWorld.ssl_world_packet.TeamOrBuilder getYellowTeamOrBuilder() {
         if (yellowTeamBuilder_ != null) {
           return yellowTeamBuilder_.getMessageOrBuilder();
@@ -3502,6 +4754,9 @@ public final class SslWorld {
           return yellowTeam_;
         }
       }
+      /**
+       * <code>required .ssl_world_packet.Team yellow_team = 3;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslWorld.ssl_world_packet.Team, SslWorld.ssl_world_packet.Team.Builder, SslWorld.ssl_world_packet.TeamOrBuilder> 
           getYellowTeamFieldBuilder() {
@@ -3515,23 +4770,50 @@ public final class SslWorld {
         }
         return yellowTeamBuilder_;
       }
-      
+
       // required string referee_state = 4;
       private java.lang.Object refereeState_ = "";
+      /**
+       * <code>required string referee_state = 4;</code>
+       */
       public boolean hasRefereeState() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public String getRefereeState() {
+      /**
+       * <code>required string referee_state = 4;</code>
+       */
+      public java.lang.String getRefereeState() {
         java.lang.Object ref = refereeState_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           refereeState_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setRefereeState(String value) {
+      /**
+       * <code>required string referee_state = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRefereeStateBytes() {
+        java.lang.Object ref = refereeState_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          refereeState_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string referee_state = 4;</code>
+       */
+      public Builder setRefereeState(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -3540,34 +4822,72 @@ public final class SslWorld {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string referee_state = 4;</code>
+       */
       public Builder clearRefereeState() {
         bitField0_ = (bitField0_ & ~0x00000008);
         refereeState_ = getDefaultInstance().getRefereeState();
         onChanged();
         return this;
       }
-      void setRefereeState(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000008;
+      /**
+       * <code>required string referee_state = 4;</code>
+       */
+      public Builder setRefereeStateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
         refereeState_ = value;
         onChanged();
+        return this;
       }
-      
+
       // optional string comment = 5;
       private java.lang.Object comment_ = "";
+      /**
+       * <code>optional string comment = 5;</code>
+       */
       public boolean hasComment() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public String getComment() {
+      /**
+       * <code>optional string comment = 5;</code>
+       */
+      public java.lang.String getComment() {
         java.lang.Object ref = comment_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           comment_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setComment(String value) {
+      /**
+       * <code>optional string comment = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCommentBytes() {
+        java.lang.Object ref = comment_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          comment_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string comment = 5;</code>
+       */
+      public Builder setComment(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -3576,29 +4896,40 @@ public final class SslWorld {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string comment = 5;</code>
+       */
       public Builder clearComment() {
         bitField0_ = (bitField0_ & ~0x00000010);
         comment_ = getDefaultInstance().getComment();
         onChanged();
         return this;
       }
-      void setComment(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000010;
+      /**
+       * <code>optional string comment = 5;</code>
+       */
+      public Builder setCommentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
         comment_ = value;
         onChanged();
+        return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:ssl_world_packet)
     }
-    
+
     static {
       defaultInstance = new ssl_world_packet(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:ssl_world_packet)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_ssl_world_packet_descriptor;
   private static
@@ -3624,7 +4955,7 @@ public final class SslWorld {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ssl_world_packet_Team_fieldAccessorTable;
-  
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -3633,22 +4964,24 @@ public final class SslWorld {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017ssl_world.proto\"\322\004\n\020ssl_world_packet\022+" +
+      "\n\017ssl_world.proto\"\271\005\n\020ssl_world_packet\022+" +
       "\n\013field_balls\030\001 \003(\0132\026.ssl_world_packet.B" +
       "all\022)\n\tblue_team\030\002 \002(\0132\026.ssl_world_packe" +
       "t.Team\022+\n\013yellow_team\030\003 \002(\0132\026.ssl_world_" +
       "packet.Team\022\025\n\rreferee_state\030\004 \002(\t\022\017\n\007co" +
       "mment\030\005 \001(\t\032/\n\tvector_3d\022\t\n\001x\030\001 \002(\002\022\t\n\001y" +
-      "\030\002 \002(\002\022\014\n\004teta\030\003 \002(\002\032p\n\004Ball\022\n\n\002id\030\001 \002(\r" +
-      "\022-\n\010position\030\002 \002(\0132\033.ssl_world_packet.ve" +
-      "ctor_3d\022-\n\010velecity\030\003 \002(\0132\033.ssl_world_pa" +
-      "cket.vector_3d\032q\n\005Robot\022\n\n\002id\030\001 \002(\r\022-\n\010p",
-      "osition\030\002 \002(\0132\033.ssl_world_packet.vector_" +
-      "3d\022-\n\010velecity\030\003 \002(\0132\033.ssl_world_packet." +
-      "vector_3d\032U\n\004Team\022\'\n\006robots\030\001 \003(\0132\027.ssl_" +
-      "world_packet.Robot\022$\n\004side\030\002 \002(\0162\026.ssl_w" +
-      "orld_packet.Side\"$\n\004Side\022\021\n\004left\020\377\377\377\377\377\377\377" +
-      "\377\377\001\022\t\n\005right\020\001"
+      "\030\002 \002(\002\022\014\n\004teta\030\003 \002(\002\032\326\001\n\004Ball\022\n\n\002id\030\001 \002(" +
+      "\r\022-\n\010position\030\002 \002(\0132\033.ssl_world_packet.v" +
+      "ector_3d\022-\n\010velocity\030\003 \002(\0132\033.ssl_world_p" +
+      "acket.vector_3d\0221\n\014displacement\030\004 \001(\0132\033.",
+      "ssl_world_packet.vector_3d\0221\n\014velocity_r" +
+      "aw\030\005 \001(\0132\033.ssl_world_packet.vector_3d\032q\n" +
+      "\005Robot\022\n\n\002id\030\001 \002(\r\022-\n\010position\030\002 \002(\0132\033.s" +
+      "sl_world_packet.vector_3d\022-\n\010velocity\030\003 " +
+      "\002(\0132\033.ssl_world_packet.vector_3d\032U\n\004Team" +
+      "\022\'\n\006robots\030\001 \003(\0132\027.ssl_world_packet.Robo" +
+      "t\022$\n\004side\030\002 \002(\0162\026.ssl_world_packet.Side\"" +
+      "$\n\004Side\022\021\n\004left\020\377\377\377\377\377\377\377\377\377\001\022\t\n\005right\020\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3660,41 +4993,31 @@ public final class SslWorld {
           internal_static_ssl_world_packet_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_world_packet_descriptor,
-              new java.lang.String[] { "FieldBalls", "BlueTeam", "YellowTeam", "RefereeState", "Comment", },
-              SslWorld.ssl_world_packet.class,
-              SslWorld.ssl_world_packet.Builder.class);
+              new java.lang.String[] { "FieldBalls", "BlueTeam", "YellowTeam", "RefereeState", "Comment", });
           internal_static_ssl_world_packet_vector_3d_descriptor =
             internal_static_ssl_world_packet_descriptor.getNestedTypes().get(0);
           internal_static_ssl_world_packet_vector_3d_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_world_packet_vector_3d_descriptor,
-              new java.lang.String[] { "X", "Y", "Teta", },
-              SslWorld.ssl_world_packet.vector_3d.class,
-              SslWorld.ssl_world_packet.vector_3d.Builder.class);
+              new java.lang.String[] { "X", "Y", "Teta", });
           internal_static_ssl_world_packet_Ball_descriptor =
             internal_static_ssl_world_packet_descriptor.getNestedTypes().get(1);
           internal_static_ssl_world_packet_Ball_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_world_packet_Ball_descriptor,
-              new java.lang.String[] { "Id", "Position", "Velecity", },
-              SslWorld.ssl_world_packet.Ball.class,
-              SslWorld.ssl_world_packet.Ball.Builder.class);
+              new java.lang.String[] { "Id", "Position", "Velocity", "Displacement", "VelocityRaw", });
           internal_static_ssl_world_packet_Robot_descriptor =
             internal_static_ssl_world_packet_descriptor.getNestedTypes().get(2);
           internal_static_ssl_world_packet_Robot_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_world_packet_Robot_descriptor,
-              new java.lang.String[] { "Id", "Position", "Velecity", },
-              SslWorld.ssl_world_packet.Robot.class,
-              SslWorld.ssl_world_packet.Robot.Builder.class);
+              new java.lang.String[] { "Id", "Position", "Velocity", });
           internal_static_ssl_world_packet_Team_descriptor =
             internal_static_ssl_world_packet_descriptor.getNestedTypes().get(3);
           internal_static_ssl_world_packet_Team_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_world_packet_Team_descriptor,
-              new java.lang.String[] { "Robots", "Side", },
-              SslWorld.ssl_world_packet.Team.class,
-              SslWorld.ssl_world_packet.Team.Builder.class);
+              new java.lang.String[] { "Robots", "Side", });
           return null;
         }
       };
@@ -3703,6 +5026,6 @@ public final class SslWorld {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }

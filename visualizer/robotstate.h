@@ -30,6 +30,9 @@ public:
     Vector2D position;
     Vector2D velocity;
 
+    Vector2D rawVelocity;
+    Vector2D displacement;
+
     int ID;
 
     void print();

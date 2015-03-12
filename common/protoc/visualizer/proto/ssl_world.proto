@@ -9,14 +9,17 @@ message ssl_world_packet {
 	message Ball {
 		required uint32 id = 1;
 		required vector_3d position = 2; 
-		required vector_3d velecity = 3; 
+		required vector_3d velocity = 3; 
+                optional vector_3d displacement = 4;
+                optional vector_3d velocity_raw = 5;
+
 	};
 	repeated Ball field_balls = 1;
 
 	message Robot {
 		required uint32 id = 1;
 		required vector_3d position = 2; 
-		required vector_3d velecity = 3; 
+                required vector_3d velocity = 3;
 	};
 
 	enum Side {left = -1; right = 1;};

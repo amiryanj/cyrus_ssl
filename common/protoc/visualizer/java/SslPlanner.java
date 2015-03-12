@@ -8,382 +8,85 @@ public final class SslPlanner {
   }
   public interface planner_vec3dOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required float x = 1;
+    /**
+     * <code>required float x = 1;</code>
+     */
     boolean hasX();
+    /**
+     * <code>required float x = 1;</code>
+     */
     float getX();
-    
+
     // required float y = 2;
+    /**
+     * <code>required float y = 2;</code>
+     */
     boolean hasY();
+    /**
+     * <code>required float y = 2;</code>
+     */
     float getY();
-    
+
     // required float teta = 3;
+    /**
+     * <code>required float teta = 3;</code>
+     */
     boolean hasTeta();
+    /**
+     * <code>required float teta = 3;</code>
+     */
     float getTeta();
   }
+  /**
+   * Protobuf type {@code planner_vec3d}
+   */
   public static final class planner_vec3d extends
       com.google.protobuf.GeneratedMessage
       implements planner_vec3dOrBuilder {
     // Use planner_vec3d.newBuilder() to construct.
-    private planner_vec3d(Builder builder) {
+    private planner_vec3d(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private planner_vec3d(boolean noInit) {}
-    
+    private planner_vec3d(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final planner_vec3d defaultInstance;
     public static planner_vec3d getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public planner_vec3d getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return SslPlanner.internal_static_planner_vec3d_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return SslPlanner.internal_static_planner_vec3d_fieldAccessorTable;
-    }
-    
-    private int bitField0_;
-    // required float x = 1;
-    public static final int X_FIELD_NUMBER = 1;
-    private float x_;
-    public boolean hasX() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public float getX() {
-      return x_;
-    }
-    
-    // required float y = 2;
-    public static final int Y_FIELD_NUMBER = 2;
-    private float y_;
-    public boolean hasY() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public float getY() {
-      return y_;
-    }
-    
-    // required float teta = 3;
-    public static final int TETA_FIELD_NUMBER = 3;
-    private float teta_;
-    public boolean hasTeta() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public float getTeta() {
-      return teta_;
-    }
-    
-    private void initFields() {
-      x_ = 0F;
-      y_ = 0F;
-      teta_ = 0F;
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (!hasX()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasY()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTeta()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeFloat(1, x_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeFloat(2, y_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeFloat(3, teta_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(1, x_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, y_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, teta_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
     }
-    
-    public static SslPlanner.planner_vec3d parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static SslPlanner.planner_vec3d parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static SslPlanner.planner_vec3d parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static SslPlanner.planner_vec3d parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static SslPlanner.planner_vec3d parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static SslPlanner.planner_vec3d parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static SslPlanner.planner_vec3d parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static SslPlanner.planner_vec3d parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static SslPlanner.planner_vec3d parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static SslPlanner.planner_vec3d parseFrom(
+    private planner_vec3d(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(SslPlanner.planner_vec3d prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements SslPlanner.planner_vec3dOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return SslPlanner.internal_static_planner_vec3d_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return SslPlanner.internal_static_planner_vec3d_fieldAccessorTable;
-      }
-      
-      // Construct using SslPlanner.planner_vec3d.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        x_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        y_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        teta_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return SslPlanner.planner_vec3d.getDescriptor();
-      }
-      
-      public SslPlanner.planner_vec3d getDefaultInstanceForType() {
-        return SslPlanner.planner_vec3d.getDefaultInstance();
-      }
-      
-      public SslPlanner.planner_vec3d build() {
-        SslPlanner.planner_vec3d result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private SslPlanner.planner_vec3d buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslPlanner.planner_vec3d result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public SslPlanner.planner_vec3d buildPartial() {
-        SslPlanner.planner_vec3d result = new SslPlanner.planner_vec3d(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.x_ = x_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.y_ = y_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.teta_ = teta_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof SslPlanner.planner_vec3d) {
-          return mergeFrom((SslPlanner.planner_vec3d)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(SslPlanner.planner_vec3d other) {
-        if (other == SslPlanner.planner_vec3d.getDefaultInstance()) return this;
-        if (other.hasX()) {
-          setX(other.getX());
-        }
-        if (other.hasY()) {
-          setY(other.getY());
-        }
-        if (other.hasTeta()) {
-          setTeta(other.getTeta());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (!hasX()) {
-          
-          return false;
-        }
-        if (!hasY()) {
-          
-          return false;
-        }
-        if (!hasTeta()) {
-          
-          return false;
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
+              done = true;
+              break;
             default: {
               if (!parseUnknownField(input, unknownFields,
                                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
               }
               break;
             }
@@ -404,144 +107,643 @@ public final class SslPlanner {
             }
           }
         }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
       }
-      
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return SslPlanner.internal_static_planner_vec3d_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return SslPlanner.internal_static_planner_vec3d_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslPlanner.planner_vec3d.class, SslPlanner.planner_vec3d.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<planner_vec3d> PARSER =
+        new com.google.protobuf.AbstractParser<planner_vec3d>() {
+      public planner_vec3d parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new planner_vec3d(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<planner_vec3d> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required float x = 1;
+    public static final int X_FIELD_NUMBER = 1;
+    private float x_;
+    /**
+     * <code>required float x = 1;</code>
+     */
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required float x = 1;</code>
+     */
+    public float getX() {
+      return x_;
+    }
+
+    // required float y = 2;
+    public static final int Y_FIELD_NUMBER = 2;
+    private float y_;
+    /**
+     * <code>required float y = 2;</code>
+     */
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required float y = 2;</code>
+     */
+    public float getY() {
+      return y_;
+    }
+
+    // required float teta = 3;
+    public static final int TETA_FIELD_NUMBER = 3;
+    private float teta_;
+    /**
+     * <code>required float teta = 3;</code>
+     */
+    public boolean hasTeta() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required float teta = 3;</code>
+     */
+    public float getTeta() {
+      return teta_;
+    }
+
+    private void initFields() {
+      x_ = 0F;
+      y_ = 0F;
+      teta_ = 0F;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasY()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTeta()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeFloat(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeFloat(2, y_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeFloat(3, teta_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(1, x_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, y_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, teta_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static SslPlanner.planner_vec3d parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static SslPlanner.planner_vec3d parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static SslPlanner.planner_vec3d parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static SslPlanner.planner_vec3d parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static SslPlanner.planner_vec3d parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static SslPlanner.planner_vec3d parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static SslPlanner.planner_vec3d parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static SslPlanner.planner_vec3d parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static SslPlanner.planner_vec3d parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static SslPlanner.planner_vec3d parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(SslPlanner.planner_vec3d prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code planner_vec3d}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements SslPlanner.planner_vec3dOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return SslPlanner.internal_static_planner_vec3d_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return SslPlanner.internal_static_planner_vec3d_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslPlanner.planner_vec3d.class, SslPlanner.planner_vec3d.Builder.class);
+      }
+
+      // Construct using SslPlanner.planner_vec3d.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        x_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        y_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        teta_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return SslPlanner.internal_static_planner_vec3d_descriptor;
+      }
+
+      public SslPlanner.planner_vec3d getDefaultInstanceForType() {
+        return SslPlanner.planner_vec3d.getDefaultInstance();
+      }
+
+      public SslPlanner.planner_vec3d build() {
+        SslPlanner.planner_vec3d result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public SslPlanner.planner_vec3d buildPartial() {
+        SslPlanner.planner_vec3d result = new SslPlanner.planner_vec3d(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.y_ = y_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.teta_ = teta_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof SslPlanner.planner_vec3d) {
+          return mergeFrom((SslPlanner.planner_vec3d)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(SslPlanner.planner_vec3d other) {
+        if (other == SslPlanner.planner_vec3d.getDefaultInstance()) return this;
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
+        }
+        if (other.hasTeta()) {
+          setTeta(other.getTeta());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasX()) {
+          
+          return false;
+        }
+        if (!hasY()) {
+          
+          return false;
+        }
+        if (!hasTeta()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        SslPlanner.planner_vec3d parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslPlanner.planner_vec3d) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
       private int bitField0_;
-      
+
       // required float x = 1;
       private float x_ ;
+      /**
+       * <code>required float x = 1;</code>
+       */
       public boolean hasX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required float x = 1;</code>
+       */
       public float getX() {
         return x_;
       }
+      /**
+       * <code>required float x = 1;</code>
+       */
       public Builder setX(float value) {
         bitField0_ |= 0x00000001;
         x_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required float x = 1;</code>
+       */
       public Builder clearX() {
         bitField0_ = (bitField0_ & ~0x00000001);
         x_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // required float y = 2;
       private float y_ ;
+      /**
+       * <code>required float y = 2;</code>
+       */
       public boolean hasY() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required float y = 2;</code>
+       */
       public float getY() {
         return y_;
       }
+      /**
+       * <code>required float y = 2;</code>
+       */
       public Builder setY(float value) {
         bitField0_ |= 0x00000002;
         y_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required float y = 2;</code>
+       */
       public Builder clearY() {
         bitField0_ = (bitField0_ & ~0x00000002);
         y_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // required float teta = 3;
       private float teta_ ;
+      /**
+       * <code>required float teta = 3;</code>
+       */
       public boolean hasTeta() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
+      /**
+       * <code>required float teta = 3;</code>
+       */
       public float getTeta() {
         return teta_;
       }
+      /**
+       * <code>required float teta = 3;</code>
+       */
       public Builder setTeta(float value) {
         bitField0_ |= 0x00000004;
         teta_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required float teta = 3;</code>
+       */
       public Builder clearTeta() {
         bitField0_ = (bitField0_ & ~0x00000004);
         teta_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:planner_vec3d)
     }
-    
+
     static {
       defaultInstance = new planner_vec3d(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:planner_vec3d)
   }
-  
+
   public interface planner_point2dOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required float x = 1;
+    /**
+     * <code>required float x = 1;</code>
+     */
     boolean hasX();
+    /**
+     * <code>required float x = 1;</code>
+     */
     float getX();
-    
+
     // required float y = 2;
+    /**
+     * <code>required float y = 2;</code>
+     */
     boolean hasY();
+    /**
+     * <code>required float y = 2;</code>
+     */
     float getY();
   }
+  /**
+   * Protobuf type {@code planner_point2d}
+   */
   public static final class planner_point2d extends
       com.google.protobuf.GeneratedMessage
       implements planner_point2dOrBuilder {
     // Use planner_point2d.newBuilder() to construct.
-    private planner_point2d(Builder builder) {
+    private planner_point2d(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private planner_point2d(boolean noInit) {}
-    
+    private planner_point2d(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final planner_point2d defaultInstance;
     public static planner_point2d getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public planner_point2d getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private planner_point2d(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 13: {
+              bitField0_ |= 0x00000001;
+              x_ = input.readFloat();
+              break;
+            }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              y_ = input.readFloat();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslPlanner.internal_static_planner_point2d_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslPlanner.internal_static_planner_point2d_fieldAccessorTable;
+      return SslPlanner.internal_static_planner_point2d_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslPlanner.planner_point2d.class, SslPlanner.planner_point2d.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<planner_point2d> PARSER =
+        new com.google.protobuf.AbstractParser<planner_point2d>() {
+      public planner_point2d parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new planner_point2d(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<planner_point2d> getParserForType() {
+      return PARSER;
+    }
+
     private int bitField0_;
     // required float x = 1;
     public static final int X_FIELD_NUMBER = 1;
     private float x_;
+    /**
+     * <code>required float x = 1;</code>
+     */
     public boolean hasX() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>required float x = 1;</code>
+     */
     public float getX() {
       return x_;
     }
-    
+
     // required float y = 2;
     public static final int Y_FIELD_NUMBER = 2;
     private float y_;
+    /**
+     * <code>required float y = 2;</code>
+     */
     public boolean hasY() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
+    /**
+     * <code>required float y = 2;</code>
+     */
     public float getY() {
       return y_;
     }
-    
+
     private void initFields() {
       x_ = 0F;
       y_ = 0F;
@@ -550,7 +752,7 @@ public final class SslPlanner {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasX()) {
         memoizedIsInitialized = 0;
         return false;
@@ -562,7 +764,7 @@ public final class SslPlanner {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -574,12 +776,12 @@ public final class SslPlanner {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -593,94 +795,83 @@ public final class SslPlanner {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslPlanner.planner_point2d parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_point2d parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_point2d parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_point2d parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_point2d parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_point2d parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_point2d parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslPlanner.planner_point2d parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_point2d parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_point2d parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslPlanner.planner_point2d prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code planner_point2d}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslPlanner.planner_point2dOrBuilder {
@@ -688,18 +879,21 @@ public final class SslPlanner {
           getDescriptor() {
         return SslPlanner.internal_static_planner_point2d_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslPlanner.internal_static_planner_point2d_fieldAccessorTable;
+        return SslPlanner.internal_static_planner_point2d_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslPlanner.planner_point2d.class, SslPlanner.planner_point2d.Builder.class);
       }
-      
+
       // Construct using SslPlanner.planner_point2d.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -710,7 +904,7 @@ public final class SslPlanner {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         x_ = 0F;
@@ -719,20 +913,20 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslPlanner.planner_point2d.getDescriptor();
+        return SslPlanner.internal_static_planner_point2d_descriptor;
       }
-      
+
       public SslPlanner.planner_point2d getDefaultInstanceForType() {
         return SslPlanner.planner_point2d.getDefaultInstance();
       }
-      
+
       public SslPlanner.planner_point2d build() {
         SslPlanner.planner_point2d result = buildPartial();
         if (!result.isInitialized()) {
@@ -740,17 +934,7 @@ public final class SslPlanner {
         }
         return result;
       }
-      
-      private SslPlanner.planner_point2d buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslPlanner.planner_point2d result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslPlanner.planner_point2d buildPartial() {
         SslPlanner.planner_point2d result = new SslPlanner.planner_point2d(this);
         int from_bitField0_ = bitField0_;
@@ -767,7 +951,7 @@ public final class SslPlanner {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslPlanner.planner_point2d) {
           return mergeFrom((SslPlanner.planner_point2d)other);
@@ -776,7 +960,7 @@ public final class SslPlanner {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslPlanner.planner_point2d other) {
         if (other == SslPlanner.planner_point2d.getDefaultInstance()) return this;
         if (other.hasX()) {
@@ -788,7 +972,7 @@ public final class SslPlanner {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasX()) {
           
@@ -800,177 +984,308 @@ public final class SslPlanner {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 13: {
-              bitField0_ |= 0x00000001;
-              x_ = input.readFloat();
-              break;
-            }
-            case 21: {
-              bitField0_ |= 0x00000002;
-              y_ = input.readFloat();
-              break;
-            }
+        SslPlanner.planner_point2d parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslPlanner.planner_point2d) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // required float x = 1;
       private float x_ ;
+      /**
+       * <code>required float x = 1;</code>
+       */
       public boolean hasX() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required float x = 1;</code>
+       */
       public float getX() {
         return x_;
       }
+      /**
+       * <code>required float x = 1;</code>
+       */
       public Builder setX(float value) {
         bitField0_ |= 0x00000001;
         x_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required float x = 1;</code>
+       */
       public Builder clearX() {
         bitField0_ = (bitField0_ & ~0x00000001);
         x_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // required float y = 2;
       private float y_ ;
+      /**
+       * <code>required float y = 2;</code>
+       */
       public boolean hasY() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required float y = 2;</code>
+       */
       public float getY() {
         return y_;
       }
+      /**
+       * <code>required float y = 2;</code>
+       */
       public Builder setY(float value) {
         bitField0_ |= 0x00000002;
         y_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required float y = 2;</code>
+       */
       public Builder clearY() {
         bitField0_ = (bitField0_ & ~0x00000002);
         y_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:planner_point2d)
     }
-    
+
     static {
       defaultInstance = new planner_point2d(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:planner_point2d)
   }
-  
+
   public interface planner_circleOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required .planner_point2d center = 1;
+    /**
+     * <code>required .planner_point2d center = 1;</code>
+     */
     boolean hasCenter();
+    /**
+     * <code>required .planner_point2d center = 1;</code>
+     */
     SslPlanner.planner_point2d getCenter();
+    /**
+     * <code>required .planner_point2d center = 1;</code>
+     */
     SslPlanner.planner_point2dOrBuilder getCenterOrBuilder();
-    
+
     // required float radius = 2;
+    /**
+     * <code>required float radius = 2;</code>
+     */
     boolean hasRadius();
+    /**
+     * <code>required float radius = 2;</code>
+     */
     float getRadius();
-    
+
     // optional float orien = 3;
+    /**
+     * <code>optional float orien = 3;</code>
+     */
     boolean hasOrien();
+    /**
+     * <code>optional float orien = 3;</code>
+     */
     float getOrien();
   }
+  /**
+   * Protobuf type {@code planner_circle}
+   */
   public static final class planner_circle extends
       com.google.protobuf.GeneratedMessage
       implements planner_circleOrBuilder {
     // Use planner_circle.newBuilder() to construct.
-    private planner_circle(Builder builder) {
+    private planner_circle(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private planner_circle(boolean noInit) {}
-    
+    private planner_circle(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final planner_circle defaultInstance;
     public static planner_circle getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public planner_circle getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private planner_circle(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              SslPlanner.planner_point2d.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = center_.toBuilder();
+              }
+              center_ = input.readMessage(SslPlanner.planner_point2d.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(center_);
+                center_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 21: {
+              bitField0_ |= 0x00000002;
+              radius_ = input.readFloat();
+              break;
+            }
+            case 29: {
+              bitField0_ |= 0x00000004;
+              orien_ = input.readFloat();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslPlanner.internal_static_planner_circle_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslPlanner.internal_static_planner_circle_fieldAccessorTable;
+      return SslPlanner.internal_static_planner_circle_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslPlanner.planner_circle.class, SslPlanner.planner_circle.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<planner_circle> PARSER =
+        new com.google.protobuf.AbstractParser<planner_circle>() {
+      public planner_circle parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new planner_circle(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<planner_circle> getParserForType() {
+      return PARSER;
+    }
+
     private int bitField0_;
     // required .planner_point2d center = 1;
     public static final int CENTER_FIELD_NUMBER = 1;
     private SslPlanner.planner_point2d center_;
+    /**
+     * <code>required .planner_point2d center = 1;</code>
+     */
     public boolean hasCenter() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>required .planner_point2d center = 1;</code>
+     */
     public SslPlanner.planner_point2d getCenter() {
       return center_;
     }
+    /**
+     * <code>required .planner_point2d center = 1;</code>
+     */
     public SslPlanner.planner_point2dOrBuilder getCenterOrBuilder() {
       return center_;
     }
-    
+
     // required float radius = 2;
     public static final int RADIUS_FIELD_NUMBER = 2;
     private float radius_;
+    /**
+     * <code>required float radius = 2;</code>
+     */
     public boolean hasRadius() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
+    /**
+     * <code>required float radius = 2;</code>
+     */
     public float getRadius() {
       return radius_;
     }
-    
+
     // optional float orien = 3;
     public static final int ORIEN_FIELD_NUMBER = 3;
     private float orien_;
+    /**
+     * <code>optional float orien = 3;</code>
+     */
     public boolean hasOrien() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
+    /**
+     * <code>optional float orien = 3;</code>
+     */
     public float getOrien() {
       return orien_;
     }
-    
+
     private void initFields() {
       center_ = SslPlanner.planner_point2d.getDefaultInstance();
       radius_ = 0F;
@@ -980,7 +1295,7 @@ public final class SslPlanner {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasCenter()) {
         memoizedIsInitialized = 0;
         return false;
@@ -996,7 +1311,7 @@ public final class SslPlanner {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -1011,12 +1326,12 @@ public final class SslPlanner {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1034,94 +1349,83 @@ public final class SslPlanner {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslPlanner.planner_circle parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_circle parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_circle parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_circle parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_circle parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_circle parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_circle parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslPlanner.planner_circle parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_circle parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_circle parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslPlanner.planner_circle prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code planner_circle}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslPlanner.planner_circleOrBuilder {
@@ -1129,18 +1433,21 @@ public final class SslPlanner {
           getDescriptor() {
         return SslPlanner.internal_static_planner_circle_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslPlanner.internal_static_planner_circle_fieldAccessorTable;
+        return SslPlanner.internal_static_planner_circle_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslPlanner.planner_circle.class, SslPlanner.planner_circle.Builder.class);
       }
-      
+
       // Construct using SslPlanner.planner_circle.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1152,7 +1459,7 @@ public final class SslPlanner {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         if (centerBuilder_ == null) {
@@ -1167,20 +1474,20 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslPlanner.planner_circle.getDescriptor();
+        return SslPlanner.internal_static_planner_circle_descriptor;
       }
-      
+
       public SslPlanner.planner_circle getDefaultInstanceForType() {
         return SslPlanner.planner_circle.getDefaultInstance();
       }
-      
+
       public SslPlanner.planner_circle build() {
         SslPlanner.planner_circle result = buildPartial();
         if (!result.isInitialized()) {
@@ -1188,17 +1495,7 @@ public final class SslPlanner {
         }
         return result;
       }
-      
-      private SslPlanner.planner_circle buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslPlanner.planner_circle result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslPlanner.planner_circle buildPartial() {
         SslPlanner.planner_circle result = new SslPlanner.planner_circle(this);
         int from_bitField0_ = bitField0_;
@@ -1223,7 +1520,7 @@ public final class SslPlanner {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslPlanner.planner_circle) {
           return mergeFrom((SslPlanner.planner_circle)other);
@@ -1232,7 +1529,7 @@ public final class SslPlanner {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslPlanner.planner_circle other) {
         if (other == SslPlanner.planner_circle.getDefaultInstance()) return this;
         if (other.hasCenter()) {
@@ -1247,7 +1544,7 @@ public final class SslPlanner {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasCenter()) {
           
@@ -1263,62 +1560,39 @@ public final class SslPlanner {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              SslPlanner.planner_point2d.Builder subBuilder = SslPlanner.planner_point2d.newBuilder();
-              if (hasCenter()) {
-                subBuilder.mergeFrom(getCenter());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setCenter(subBuilder.buildPartial());
-              break;
-            }
-            case 21: {
-              bitField0_ |= 0x00000002;
-              radius_ = input.readFloat();
-              break;
-            }
-            case 29: {
-              bitField0_ |= 0x00000004;
-              orien_ = input.readFloat();
-              break;
-            }
+        SslPlanner.planner_circle parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslPlanner.planner_circle) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // required .planner_point2d center = 1;
       private SslPlanner.planner_point2d center_ = SslPlanner.planner_point2d.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_point2d, SslPlanner.planner_point2d.Builder, SslPlanner.planner_point2dOrBuilder> centerBuilder_;
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       public boolean hasCenter() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       public SslPlanner.planner_point2d getCenter() {
         if (centerBuilder_ == null) {
           return center_;
@@ -1326,6 +1600,9 @@ public final class SslPlanner {
           return centerBuilder_.getMessage();
         }
       }
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       public Builder setCenter(SslPlanner.planner_point2d value) {
         if (centerBuilder_ == null) {
           if (value == null) {
@@ -1339,6 +1616,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000001;
         return this;
       }
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       public Builder setCenter(
           SslPlanner.planner_point2d.Builder builderForValue) {
         if (centerBuilder_ == null) {
@@ -1350,6 +1630,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000001;
         return this;
       }
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       public Builder mergeCenter(SslPlanner.planner_point2d value) {
         if (centerBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001) &&
@@ -1366,6 +1649,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000001;
         return this;
       }
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       public Builder clearCenter() {
         if (centerBuilder_ == null) {
           center_ = SslPlanner.planner_point2d.getDefaultInstance();
@@ -1376,11 +1662,17 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       public SslPlanner.planner_point2d.Builder getCenterBuilder() {
         bitField0_ |= 0x00000001;
         onChanged();
         return getCenterFieldBuilder().getBuilder();
       }
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       public SslPlanner.planner_point2dOrBuilder getCenterOrBuilder() {
         if (centerBuilder_ != null) {
           return centerBuilder_.getMessageOrBuilder();
@@ -1388,6 +1680,9 @@ public final class SslPlanner {
           return center_;
         }
       }
+      /**
+       * <code>required .planner_point2d center = 1;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_point2d, SslPlanner.planner_point2d.Builder, SslPlanner.planner_point2dOrBuilder> 
           getCenterFieldBuilder() {
@@ -1401,137 +1696,281 @@ public final class SslPlanner {
         }
         return centerBuilder_;
       }
-      
+
       // required float radius = 2;
       private float radius_ ;
+      /**
+       * <code>required float radius = 2;</code>
+       */
       public boolean hasRadius() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required float radius = 2;</code>
+       */
       public float getRadius() {
         return radius_;
       }
+      /**
+       * <code>required float radius = 2;</code>
+       */
       public Builder setRadius(float value) {
         bitField0_ |= 0x00000002;
         radius_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required float radius = 2;</code>
+       */
       public Builder clearRadius() {
         bitField0_ = (bitField0_ & ~0x00000002);
         radius_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // optional float orien = 3;
       private float orien_ ;
+      /**
+       * <code>optional float orien = 3;</code>
+       */
       public boolean hasOrien() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
+      /**
+       * <code>optional float orien = 3;</code>
+       */
       public float getOrien() {
         return orien_;
       }
+      /**
+       * <code>optional float orien = 3;</code>
+       */
       public Builder setOrien(float value) {
         bitField0_ |= 0x00000004;
         orien_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>optional float orien = 3;</code>
+       */
       public Builder clearOrien() {
         bitField0_ = (bitField0_ & ~0x00000004);
         orien_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:planner_circle)
     }
-    
+
     static {
       defaultInstance = new planner_circle(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:planner_circle)
   }
-  
+
   public interface planner_polygonOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // repeated .planner_point2d vertex = 1;
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     java.util.List<SslPlanner.planner_point2d> 
         getVertexList();
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     SslPlanner.planner_point2d getVertex(int index);
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     int getVertexCount();
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     java.util.List<? extends SslPlanner.planner_point2dOrBuilder> 
         getVertexOrBuilderList();
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     SslPlanner.planner_point2dOrBuilder getVertexOrBuilder(
         int index);
-    
+
     // optional float orien = 2;
+    /**
+     * <code>optional float orien = 2;</code>
+     */
     boolean hasOrien();
+    /**
+     * <code>optional float orien = 2;</code>
+     */
     float getOrien();
   }
+  /**
+   * Protobuf type {@code planner_polygon}
+   */
   public static final class planner_polygon extends
       com.google.protobuf.GeneratedMessage
       implements planner_polygonOrBuilder {
     // Use planner_polygon.newBuilder() to construct.
-    private planner_polygon(Builder builder) {
+    private planner_polygon(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private planner_polygon(boolean noInit) {}
-    
+    private planner_polygon(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final planner_polygon defaultInstance;
     public static planner_polygon getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public planner_polygon getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private planner_polygon(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                vertex_ = new java.util.ArrayList<SslPlanner.planner_point2d>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              vertex_.add(input.readMessage(SslPlanner.planner_point2d.PARSER, extensionRegistry));
+              break;
+            }
+            case 21: {
+              bitField0_ |= 0x00000001;
+              orien_ = input.readFloat();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          vertex_ = java.util.Collections.unmodifiableList(vertex_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslPlanner.internal_static_planner_polygon_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslPlanner.internal_static_planner_polygon_fieldAccessorTable;
+      return SslPlanner.internal_static_planner_polygon_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslPlanner.planner_polygon.class, SslPlanner.planner_polygon.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<planner_polygon> PARSER =
+        new com.google.protobuf.AbstractParser<planner_polygon>() {
+      public planner_polygon parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new planner_polygon(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<planner_polygon> getParserForType() {
+      return PARSER;
+    }
+
     private int bitField0_;
     // repeated .planner_point2d vertex = 1;
     public static final int VERTEX_FIELD_NUMBER = 1;
     private java.util.List<SslPlanner.planner_point2d> vertex_;
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     public java.util.List<SslPlanner.planner_point2d> getVertexList() {
       return vertex_;
     }
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     public java.util.List<? extends SslPlanner.planner_point2dOrBuilder> 
         getVertexOrBuilderList() {
       return vertex_;
     }
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     public int getVertexCount() {
       return vertex_.size();
     }
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     public SslPlanner.planner_point2d getVertex(int index) {
       return vertex_.get(index);
     }
+    /**
+     * <code>repeated .planner_point2d vertex = 1;</code>
+     */
     public SslPlanner.planner_point2dOrBuilder getVertexOrBuilder(
         int index) {
       return vertex_.get(index);
     }
-    
+
     // optional float orien = 2;
     public static final int ORIEN_FIELD_NUMBER = 2;
     private float orien_;
+    /**
+     * <code>optional float orien = 2;</code>
+     */
     public boolean hasOrien() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>optional float orien = 2;</code>
+     */
     public float getOrien() {
       return orien_;
     }
-    
+
     private void initFields() {
       vertex_ = java.util.Collections.emptyList();
       orien_ = 0F;
@@ -1540,7 +1979,7 @@ public final class SslPlanner {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       for (int i = 0; i < getVertexCount(); i++) {
         if (!getVertex(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -1550,7 +1989,7 @@ public final class SslPlanner {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -1562,12 +2001,12 @@ public final class SslPlanner {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       for (int i = 0; i < vertex_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -1581,94 +2020,83 @@ public final class SslPlanner {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslPlanner.planner_polygon parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_polygon parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_polygon parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_polygon parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_polygon parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_polygon parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_polygon parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslPlanner.planner_polygon parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_polygon parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_polygon parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslPlanner.planner_polygon prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code planner_polygon}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslPlanner.planner_polygonOrBuilder {
@@ -1676,18 +2104,21 @@ public final class SslPlanner {
           getDescriptor() {
         return SslPlanner.internal_static_planner_polygon_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslPlanner.internal_static_planner_polygon_fieldAccessorTable;
+        return SslPlanner.internal_static_planner_polygon_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslPlanner.planner_polygon.class, SslPlanner.planner_polygon.Builder.class);
       }
-      
+
       // Construct using SslPlanner.planner_polygon.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1699,7 +2130,7 @@ public final class SslPlanner {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         if (vertexBuilder_ == null) {
@@ -1712,20 +2143,20 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslPlanner.planner_polygon.getDescriptor();
+        return SslPlanner.internal_static_planner_polygon_descriptor;
       }
-      
+
       public SslPlanner.planner_polygon getDefaultInstanceForType() {
         return SslPlanner.planner_polygon.getDefaultInstance();
       }
-      
+
       public SslPlanner.planner_polygon build() {
         SslPlanner.planner_polygon result = buildPartial();
         if (!result.isInitialized()) {
@@ -1733,17 +2164,7 @@ public final class SslPlanner {
         }
         return result;
       }
-      
-      private SslPlanner.planner_polygon buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslPlanner.planner_polygon result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslPlanner.planner_polygon buildPartial() {
         SslPlanner.planner_polygon result = new SslPlanner.planner_polygon(this);
         int from_bitField0_ = bitField0_;
@@ -1765,7 +2186,7 @@ public final class SslPlanner {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslPlanner.planner_polygon) {
           return mergeFrom((SslPlanner.planner_polygon)other);
@@ -1774,7 +2195,7 @@ public final class SslPlanner {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslPlanner.planner_polygon other) {
         if (other == SslPlanner.planner_polygon.getDefaultInstance()) return this;
         if (vertexBuilder_ == null) {
@@ -1809,7 +2230,7 @@ public final class SslPlanner {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         for (int i = 0; i < getVertexCount(); i++) {
           if (!getVertex(i).isInitialized()) {
@@ -1819,47 +2240,26 @@ public final class SslPlanner {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              SslPlanner.planner_point2d.Builder subBuilder = SslPlanner.planner_point2d.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addVertex(subBuilder.buildPartial());
-              break;
-            }
-            case 21: {
-              bitField0_ |= 0x00000002;
-              orien_ = input.readFloat();
-              break;
-            }
+        SslPlanner.planner_polygon parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslPlanner.planner_polygon) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // repeated .planner_point2d vertex = 1;
       private java.util.List<SslPlanner.planner_point2d> vertex_ =
         java.util.Collections.emptyList();
@@ -1869,10 +2269,13 @@ public final class SslPlanner {
           bitField0_ |= 0x00000001;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           SslPlanner.planner_point2d, SslPlanner.planner_point2d.Builder, SslPlanner.planner_point2dOrBuilder> vertexBuilder_;
-      
+
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public java.util.List<SslPlanner.planner_point2d> getVertexList() {
         if (vertexBuilder_ == null) {
           return java.util.Collections.unmodifiableList(vertex_);
@@ -1880,6 +2283,9 @@ public final class SslPlanner {
           return vertexBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public int getVertexCount() {
         if (vertexBuilder_ == null) {
           return vertex_.size();
@@ -1887,6 +2293,9 @@ public final class SslPlanner {
           return vertexBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public SslPlanner.planner_point2d getVertex(int index) {
         if (vertexBuilder_ == null) {
           return vertex_.get(index);
@@ -1894,6 +2303,9 @@ public final class SslPlanner {
           return vertexBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder setVertex(
           int index, SslPlanner.planner_point2d value) {
         if (vertexBuilder_ == null) {
@@ -1908,6 +2320,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder setVertex(
           int index, SslPlanner.planner_point2d.Builder builderForValue) {
         if (vertexBuilder_ == null) {
@@ -1919,6 +2334,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder addVertex(SslPlanner.planner_point2d value) {
         if (vertexBuilder_ == null) {
           if (value == null) {
@@ -1932,6 +2350,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder addVertex(
           int index, SslPlanner.planner_point2d value) {
         if (vertexBuilder_ == null) {
@@ -1946,6 +2367,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder addVertex(
           SslPlanner.planner_point2d.Builder builderForValue) {
         if (vertexBuilder_ == null) {
@@ -1957,6 +2381,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder addVertex(
           int index, SslPlanner.planner_point2d.Builder builderForValue) {
         if (vertexBuilder_ == null) {
@@ -1968,6 +2395,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder addAllVertex(
           java.lang.Iterable<? extends SslPlanner.planner_point2d> values) {
         if (vertexBuilder_ == null) {
@@ -1979,6 +2409,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder clearVertex() {
         if (vertexBuilder_ == null) {
           vertex_ = java.util.Collections.emptyList();
@@ -1989,6 +2422,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public Builder removeVertex(int index) {
         if (vertexBuilder_ == null) {
           ensureVertexIsMutable();
@@ -1999,10 +2435,16 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public SslPlanner.planner_point2d.Builder getVertexBuilder(
           int index) {
         return getVertexFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public SslPlanner.planner_point2dOrBuilder getVertexOrBuilder(
           int index) {
         if (vertexBuilder_ == null) {
@@ -2010,6 +2452,9 @@ public final class SslPlanner {
           return vertexBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public java.util.List<? extends SslPlanner.planner_point2dOrBuilder> 
            getVertexOrBuilderList() {
         if (vertexBuilder_ != null) {
@@ -2018,15 +2463,24 @@ public final class SslPlanner {
           return java.util.Collections.unmodifiableList(vertex_);
         }
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public SslPlanner.planner_point2d.Builder addVertexBuilder() {
         return getVertexFieldBuilder().addBuilder(
             SslPlanner.planner_point2d.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public SslPlanner.planner_point2d.Builder addVertexBuilder(
           int index) {
         return getVertexFieldBuilder().addBuilder(
             index, SslPlanner.planner_point2d.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_point2d vertex = 1;</code>
+       */
       public java.util.List<SslPlanner.planner_point2d.Builder> 
            getVertexBuilderList() {
         return getVertexFieldBuilder().getBuilderList();
@@ -2045,132 +2499,288 @@ public final class SslPlanner {
         }
         return vertexBuilder_;
       }
-      
+
       // optional float orien = 2;
       private float orien_ ;
+      /**
+       * <code>optional float orien = 2;</code>
+       */
       public boolean hasOrien() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>optional float orien = 2;</code>
+       */
       public float getOrien() {
         return orien_;
       }
+      /**
+       * <code>optional float orien = 2;</code>
+       */
       public Builder setOrien(float value) {
         bitField0_ |= 0x00000002;
         orien_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>optional float orien = 2;</code>
+       */
       public Builder clearOrien() {
         bitField0_ = (bitField0_ & ~0x00000002);
         orien_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:planner_polygon)
     }
-    
+
     static {
       defaultInstance = new planner_polygon(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:planner_polygon)
   }
-  
+
   public interface planner_obstaclesOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // repeated .planner_circle circles = 1;
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     java.util.List<SslPlanner.planner_circle> 
         getCirclesList();
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     SslPlanner.planner_circle getCircles(int index);
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     int getCirclesCount();
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     java.util.List<? extends SslPlanner.planner_circleOrBuilder> 
         getCirclesOrBuilderList();
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     SslPlanner.planner_circleOrBuilder getCirclesOrBuilder(
         int index);
-    
+
     // repeated .planner_polygon polygons = 2;
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     java.util.List<SslPlanner.planner_polygon> 
         getPolygonsList();
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     SslPlanner.planner_polygon getPolygons(int index);
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     int getPolygonsCount();
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     java.util.List<? extends SslPlanner.planner_polygonOrBuilder> 
         getPolygonsOrBuilderList();
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     SslPlanner.planner_polygonOrBuilder getPolygonsOrBuilder(
         int index);
   }
+  /**
+   * Protobuf type {@code planner_obstacles}
+   */
   public static final class planner_obstacles extends
       com.google.protobuf.GeneratedMessage
       implements planner_obstaclesOrBuilder {
     // Use planner_obstacles.newBuilder() to construct.
-    private planner_obstacles(Builder builder) {
+    private planner_obstacles(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private planner_obstacles(boolean noInit) {}
-    
+    private planner_obstacles(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final planner_obstacles defaultInstance;
     public static planner_obstacles getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public planner_obstacles getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private planner_obstacles(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                circles_ = new java.util.ArrayList<SslPlanner.planner_circle>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              circles_.add(input.readMessage(SslPlanner.planner_circle.PARSER, extensionRegistry));
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                polygons_ = new java.util.ArrayList<SslPlanner.planner_polygon>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              polygons_.add(input.readMessage(SslPlanner.planner_polygon.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          circles_ = java.util.Collections.unmodifiableList(circles_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          polygons_ = java.util.Collections.unmodifiableList(polygons_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslPlanner.internal_static_planner_obstacles_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslPlanner.internal_static_planner_obstacles_fieldAccessorTable;
+      return SslPlanner.internal_static_planner_obstacles_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslPlanner.planner_obstacles.class, SslPlanner.planner_obstacles.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<planner_obstacles> PARSER =
+        new com.google.protobuf.AbstractParser<planner_obstacles>() {
+      public planner_obstacles parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new planner_obstacles(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<planner_obstacles> getParserForType() {
+      return PARSER;
+    }
+
     // repeated .planner_circle circles = 1;
     public static final int CIRCLES_FIELD_NUMBER = 1;
     private java.util.List<SslPlanner.planner_circle> circles_;
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     public java.util.List<SslPlanner.planner_circle> getCirclesList() {
       return circles_;
     }
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     public java.util.List<? extends SslPlanner.planner_circleOrBuilder> 
         getCirclesOrBuilderList() {
       return circles_;
     }
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     public int getCirclesCount() {
       return circles_.size();
     }
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     public SslPlanner.planner_circle getCircles(int index) {
       return circles_.get(index);
     }
+    /**
+     * <code>repeated .planner_circle circles = 1;</code>
+     */
     public SslPlanner.planner_circleOrBuilder getCirclesOrBuilder(
         int index) {
       return circles_.get(index);
     }
-    
+
     // repeated .planner_polygon polygons = 2;
     public static final int POLYGONS_FIELD_NUMBER = 2;
     private java.util.List<SslPlanner.planner_polygon> polygons_;
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     public java.util.List<SslPlanner.planner_polygon> getPolygonsList() {
       return polygons_;
     }
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     public java.util.List<? extends SslPlanner.planner_polygonOrBuilder> 
         getPolygonsOrBuilderList() {
       return polygons_;
     }
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     public int getPolygonsCount() {
       return polygons_.size();
     }
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     public SslPlanner.planner_polygon getPolygons(int index) {
       return polygons_.get(index);
     }
+    /**
+     * <code>repeated .planner_polygon polygons = 2;</code>
+     */
     public SslPlanner.planner_polygonOrBuilder getPolygonsOrBuilder(
         int index) {
       return polygons_.get(index);
     }
-    
+
     private void initFields() {
       circles_ = java.util.Collections.emptyList();
       polygons_ = java.util.Collections.emptyList();
@@ -2179,7 +2789,7 @@ public final class SslPlanner {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       for (int i = 0; i < getCirclesCount(); i++) {
         if (!getCircles(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -2195,7 +2805,7 @@ public final class SslPlanner {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -2207,12 +2817,12 @@ public final class SslPlanner {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       for (int i = 0; i < circles_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -2226,94 +2836,83 @@ public final class SslPlanner {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslPlanner.planner_obstacles parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_obstacles parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_obstacles parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_obstacles parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_obstacles parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_obstacles parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_obstacles parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslPlanner.planner_obstacles parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_obstacles parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_obstacles parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslPlanner.planner_obstacles prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code planner_obstacles}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslPlanner.planner_obstaclesOrBuilder {
@@ -2321,18 +2920,21 @@ public final class SslPlanner {
           getDescriptor() {
         return SslPlanner.internal_static_planner_obstacles_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslPlanner.internal_static_planner_obstacles_fieldAccessorTable;
+        return SslPlanner.internal_static_planner_obstacles_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslPlanner.planner_obstacles.class, SslPlanner.planner_obstacles.Builder.class);
       }
-      
+
       // Construct using SslPlanner.planner_obstacles.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -2345,7 +2947,7 @@ public final class SslPlanner {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         if (circlesBuilder_ == null) {
@@ -2362,20 +2964,20 @@ public final class SslPlanner {
         }
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslPlanner.planner_obstacles.getDescriptor();
+        return SslPlanner.internal_static_planner_obstacles_descriptor;
       }
-      
+
       public SslPlanner.planner_obstacles getDefaultInstanceForType() {
         return SslPlanner.planner_obstacles.getDefaultInstance();
       }
-      
+
       public SslPlanner.planner_obstacles build() {
         SslPlanner.planner_obstacles result = buildPartial();
         if (!result.isInitialized()) {
@@ -2383,17 +2985,7 @@ public final class SslPlanner {
         }
         return result;
       }
-      
-      private SslPlanner.planner_obstacles buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslPlanner.planner_obstacles result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslPlanner.planner_obstacles buildPartial() {
         SslPlanner.planner_obstacles result = new SslPlanner.planner_obstacles(this);
         int from_bitField0_ = bitField0_;
@@ -2418,7 +3010,7 @@ public final class SslPlanner {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslPlanner.planner_obstacles) {
           return mergeFrom((SslPlanner.planner_obstacles)other);
@@ -2427,7 +3019,7 @@ public final class SslPlanner {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslPlanner.planner_obstacles other) {
         if (other == SslPlanner.planner_obstacles.getDefaultInstance()) return this;
         if (circlesBuilder_ == null) {
@@ -2485,7 +3077,7 @@ public final class SslPlanner {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         for (int i = 0; i < getCirclesCount(); i++) {
           if (!getCircles(i).isInitialized()) {
@@ -2501,48 +3093,26 @@ public final class SslPlanner {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              SslPlanner.planner_circle.Builder subBuilder = SslPlanner.planner_circle.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addCircles(subBuilder.buildPartial());
-              break;
-            }
-            case 18: {
-              SslPlanner.planner_polygon.Builder subBuilder = SslPlanner.planner_polygon.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addPolygons(subBuilder.buildPartial());
-              break;
-            }
+        SslPlanner.planner_obstacles parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslPlanner.planner_obstacles) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // repeated .planner_circle circles = 1;
       private java.util.List<SslPlanner.planner_circle> circles_ =
         java.util.Collections.emptyList();
@@ -2552,10 +3122,13 @@ public final class SslPlanner {
           bitField0_ |= 0x00000001;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           SslPlanner.planner_circle, SslPlanner.planner_circle.Builder, SslPlanner.planner_circleOrBuilder> circlesBuilder_;
-      
+
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public java.util.List<SslPlanner.planner_circle> getCirclesList() {
         if (circlesBuilder_ == null) {
           return java.util.Collections.unmodifiableList(circles_);
@@ -2563,6 +3136,9 @@ public final class SslPlanner {
           return circlesBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public int getCirclesCount() {
         if (circlesBuilder_ == null) {
           return circles_.size();
@@ -2570,6 +3146,9 @@ public final class SslPlanner {
           return circlesBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public SslPlanner.planner_circle getCircles(int index) {
         if (circlesBuilder_ == null) {
           return circles_.get(index);
@@ -2577,6 +3156,9 @@ public final class SslPlanner {
           return circlesBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder setCircles(
           int index, SslPlanner.planner_circle value) {
         if (circlesBuilder_ == null) {
@@ -2591,6 +3173,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder setCircles(
           int index, SslPlanner.planner_circle.Builder builderForValue) {
         if (circlesBuilder_ == null) {
@@ -2602,6 +3187,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder addCircles(SslPlanner.planner_circle value) {
         if (circlesBuilder_ == null) {
           if (value == null) {
@@ -2615,6 +3203,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder addCircles(
           int index, SslPlanner.planner_circle value) {
         if (circlesBuilder_ == null) {
@@ -2629,6 +3220,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder addCircles(
           SslPlanner.planner_circle.Builder builderForValue) {
         if (circlesBuilder_ == null) {
@@ -2640,6 +3234,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder addCircles(
           int index, SslPlanner.planner_circle.Builder builderForValue) {
         if (circlesBuilder_ == null) {
@@ -2651,6 +3248,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder addAllCircles(
           java.lang.Iterable<? extends SslPlanner.planner_circle> values) {
         if (circlesBuilder_ == null) {
@@ -2662,6 +3262,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder clearCircles() {
         if (circlesBuilder_ == null) {
           circles_ = java.util.Collections.emptyList();
@@ -2672,6 +3275,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public Builder removeCircles(int index) {
         if (circlesBuilder_ == null) {
           ensureCirclesIsMutable();
@@ -2682,10 +3288,16 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public SslPlanner.planner_circle.Builder getCirclesBuilder(
           int index) {
         return getCirclesFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public SslPlanner.planner_circleOrBuilder getCirclesOrBuilder(
           int index) {
         if (circlesBuilder_ == null) {
@@ -2693,6 +3305,9 @@ public final class SslPlanner {
           return circlesBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public java.util.List<? extends SslPlanner.planner_circleOrBuilder> 
            getCirclesOrBuilderList() {
         if (circlesBuilder_ != null) {
@@ -2701,15 +3316,24 @@ public final class SslPlanner {
           return java.util.Collections.unmodifiableList(circles_);
         }
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public SslPlanner.planner_circle.Builder addCirclesBuilder() {
         return getCirclesFieldBuilder().addBuilder(
             SslPlanner.planner_circle.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public SslPlanner.planner_circle.Builder addCirclesBuilder(
           int index) {
         return getCirclesFieldBuilder().addBuilder(
             index, SslPlanner.planner_circle.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_circle circles = 1;</code>
+       */
       public java.util.List<SslPlanner.planner_circle.Builder> 
            getCirclesBuilderList() {
         return getCirclesFieldBuilder().getBuilderList();
@@ -2728,7 +3352,7 @@ public final class SslPlanner {
         }
         return circlesBuilder_;
       }
-      
+
       // repeated .planner_polygon polygons = 2;
       private java.util.List<SslPlanner.planner_polygon> polygons_ =
         java.util.Collections.emptyList();
@@ -2738,10 +3362,13 @@ public final class SslPlanner {
           bitField0_ |= 0x00000002;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           SslPlanner.planner_polygon, SslPlanner.planner_polygon.Builder, SslPlanner.planner_polygonOrBuilder> polygonsBuilder_;
-      
+
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public java.util.List<SslPlanner.planner_polygon> getPolygonsList() {
         if (polygonsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(polygons_);
@@ -2749,6 +3376,9 @@ public final class SslPlanner {
           return polygonsBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public int getPolygonsCount() {
         if (polygonsBuilder_ == null) {
           return polygons_.size();
@@ -2756,6 +3386,9 @@ public final class SslPlanner {
           return polygonsBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public SslPlanner.planner_polygon getPolygons(int index) {
         if (polygonsBuilder_ == null) {
           return polygons_.get(index);
@@ -2763,6 +3396,9 @@ public final class SslPlanner {
           return polygonsBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder setPolygons(
           int index, SslPlanner.planner_polygon value) {
         if (polygonsBuilder_ == null) {
@@ -2777,6 +3413,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder setPolygons(
           int index, SslPlanner.planner_polygon.Builder builderForValue) {
         if (polygonsBuilder_ == null) {
@@ -2788,6 +3427,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder addPolygons(SslPlanner.planner_polygon value) {
         if (polygonsBuilder_ == null) {
           if (value == null) {
@@ -2801,6 +3443,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder addPolygons(
           int index, SslPlanner.planner_polygon value) {
         if (polygonsBuilder_ == null) {
@@ -2815,6 +3460,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder addPolygons(
           SslPlanner.planner_polygon.Builder builderForValue) {
         if (polygonsBuilder_ == null) {
@@ -2826,6 +3474,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder addPolygons(
           int index, SslPlanner.planner_polygon.Builder builderForValue) {
         if (polygonsBuilder_ == null) {
@@ -2837,6 +3488,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder addAllPolygons(
           java.lang.Iterable<? extends SslPlanner.planner_polygon> values) {
         if (polygonsBuilder_ == null) {
@@ -2848,6 +3502,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder clearPolygons() {
         if (polygonsBuilder_ == null) {
           polygons_ = java.util.Collections.emptyList();
@@ -2858,6 +3515,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public Builder removePolygons(int index) {
         if (polygonsBuilder_ == null) {
           ensurePolygonsIsMutable();
@@ -2868,10 +3528,16 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public SslPlanner.planner_polygon.Builder getPolygonsBuilder(
           int index) {
         return getPolygonsFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public SslPlanner.planner_polygonOrBuilder getPolygonsOrBuilder(
           int index) {
         if (polygonsBuilder_ == null) {
@@ -2879,6 +3545,9 @@ public final class SslPlanner {
           return polygonsBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public java.util.List<? extends SslPlanner.planner_polygonOrBuilder> 
            getPolygonsOrBuilderList() {
         if (polygonsBuilder_ != null) {
@@ -2887,15 +3556,24 @@ public final class SslPlanner {
           return java.util.Collections.unmodifiableList(polygons_);
         }
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public SslPlanner.planner_polygon.Builder addPolygonsBuilder() {
         return getPolygonsFieldBuilder().addBuilder(
             SslPlanner.planner_polygon.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public SslPlanner.planner_polygon.Builder addPolygonsBuilder(
           int index) {
         return getPolygonsFieldBuilder().addBuilder(
             index, SslPlanner.planner_polygon.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_polygon polygons = 2;</code>
+       */
       public java.util.List<SslPlanner.planner_polygon.Builder> 
            getPolygonsBuilderList() {
         return getPolygonsFieldBuilder().getBuilderList();
@@ -2914,185 +3592,460 @@ public final class SslPlanner {
         }
         return polygonsBuilder_;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:planner_obstacles)
     }
-    
+
     static {
       defaultInstance = new planner_obstacles(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:planner_obstacles)
   }
-  
+
   public interface planner_planOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required uint32 id = 1;
+    /**
+     * <code>required uint32 id = 1;</code>
+     */
     boolean hasId();
+    /**
+     * <code>required uint32 id = 1;</code>
+     */
     int getId();
-    
+
     // repeated .planner_vec3d pathState = 2;
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     java.util.List<SslPlanner.planner_vec3d> 
         getPathStateList();
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     SslPlanner.planner_vec3d getPathState(int index);
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     int getPathStateCount();
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     java.util.List<? extends SslPlanner.planner_vec3dOrBuilder> 
         getPathStateOrBuilderList();
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     SslPlanner.planner_vec3dOrBuilder getPathStateOrBuilder(
         int index);
-    
+
     // required .planner_vec3d initState = 3;
+    /**
+     * <code>required .planner_vec3d initState = 3;</code>
+     */
     boolean hasInitState();
+    /**
+     * <code>required .planner_vec3d initState = 3;</code>
+     */
     SslPlanner.planner_vec3d getInitState();
+    /**
+     * <code>required .planner_vec3d initState = 3;</code>
+     */
     SslPlanner.planner_vec3dOrBuilder getInitStateOrBuilder();
-    
+
     // required .planner_vec3d goalState = 4;
+    /**
+     * <code>required .planner_vec3d goalState = 4;</code>
+     */
     boolean hasGoalState();
+    /**
+     * <code>required .planner_vec3d goalState = 4;</code>
+     */
     SslPlanner.planner_vec3d getGoalState();
+    /**
+     * <code>required .planner_vec3d goalState = 4;</code>
+     */
     SslPlanner.planner_vec3dOrBuilder getGoalStateOrBuilder();
-    
+
     // required .planner_vec3d desiredVel = 5;
+    /**
+     * <code>required .planner_vec3d desiredVel = 5;</code>
+     */
     boolean hasDesiredVel();
+    /**
+     * <code>required .planner_vec3d desiredVel = 5;</code>
+     */
     SslPlanner.planner_vec3d getDesiredVel();
+    /**
+     * <code>required .planner_vec3d desiredVel = 5;</code>
+     */
     SslPlanner.planner_vec3dOrBuilder getDesiredVelOrBuilder();
-    
+
     // required .planner_vec3d appliedVel = 6;
+    /**
+     * <code>required .planner_vec3d appliedVel = 6;</code>
+     */
     boolean hasAppliedVel();
+    /**
+     * <code>required .planner_vec3d appliedVel = 6;</code>
+     */
     SslPlanner.planner_vec3d getAppliedVel();
+    /**
+     * <code>required .planner_vec3d appliedVel = 6;</code>
+     */
     SslPlanner.planner_vec3dOrBuilder getAppliedVelOrBuilder();
-    
+
     // optional .planner_obstacles obstacleSet = 7;
+    /**
+     * <code>optional .planner_obstacles obstacleSet = 7;</code>
+     */
     boolean hasObstacleSet();
+    /**
+     * <code>optional .planner_obstacles obstacleSet = 7;</code>
+     */
     SslPlanner.planner_obstacles getObstacleSet();
+    /**
+     * <code>optional .planner_obstacles obstacleSet = 7;</code>
+     */
     SslPlanner.planner_obstaclesOrBuilder getObstacleSetOrBuilder();
   }
+  /**
+   * Protobuf type {@code planner_plan}
+   */
   public static final class planner_plan extends
       com.google.protobuf.GeneratedMessage
       implements planner_planOrBuilder {
     // Use planner_plan.newBuilder() to construct.
-    private planner_plan(Builder builder) {
+    private planner_plan(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private planner_plan(boolean noInit) {}
-    
+    private planner_plan(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final planner_plan defaultInstance;
     public static planner_plan getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public planner_plan getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private planner_plan(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                pathState_ = new java.util.ArrayList<SslPlanner.planner_vec3d>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              pathState_.add(input.readMessage(SslPlanner.planner_vec3d.PARSER, extensionRegistry));
+              break;
+            }
+            case 26: {
+              SslPlanner.planner_vec3d.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = initState_.toBuilder();
+              }
+              initState_ = input.readMessage(SslPlanner.planner_vec3d.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(initState_);
+                initState_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 34: {
+              SslPlanner.planner_vec3d.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = goalState_.toBuilder();
+              }
+              goalState_ = input.readMessage(SslPlanner.planner_vec3d.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(goalState_);
+                goalState_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+            case 42: {
+              SslPlanner.planner_vec3d.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
+                subBuilder = desiredVel_.toBuilder();
+              }
+              desiredVel_ = input.readMessage(SslPlanner.planner_vec3d.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(desiredVel_);
+                desiredVel_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000008;
+              break;
+            }
+            case 50: {
+              SslPlanner.planner_vec3d.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000010) == 0x00000010)) {
+                subBuilder = appliedVel_.toBuilder();
+              }
+              appliedVel_ = input.readMessage(SslPlanner.planner_vec3d.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(appliedVel_);
+                appliedVel_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000010;
+              break;
+            }
+            case 58: {
+              SslPlanner.planner_obstacles.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000020) == 0x00000020)) {
+                subBuilder = obstacleSet_.toBuilder();
+              }
+              obstacleSet_ = input.readMessage(SslPlanner.planner_obstacles.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(obstacleSet_);
+                obstacleSet_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000020;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          pathState_ = java.util.Collections.unmodifiableList(pathState_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslPlanner.internal_static_planner_plan_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslPlanner.internal_static_planner_plan_fieldAccessorTable;
+      return SslPlanner.internal_static_planner_plan_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslPlanner.planner_plan.class, SslPlanner.planner_plan.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<planner_plan> PARSER =
+        new com.google.protobuf.AbstractParser<planner_plan>() {
+      public planner_plan parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new planner_plan(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<planner_plan> getParserForType() {
+      return PARSER;
+    }
+
     private int bitField0_;
     // required uint32 id = 1;
     public static final int ID_FIELD_NUMBER = 1;
     private int id_;
+    /**
+     * <code>required uint32 id = 1;</code>
+     */
     public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>required uint32 id = 1;</code>
+     */
     public int getId() {
       return id_;
     }
-    
+
     // repeated .planner_vec3d pathState = 2;
     public static final int PATHSTATE_FIELD_NUMBER = 2;
     private java.util.List<SslPlanner.planner_vec3d> pathState_;
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     public java.util.List<SslPlanner.planner_vec3d> getPathStateList() {
       return pathState_;
     }
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     public java.util.List<? extends SslPlanner.planner_vec3dOrBuilder> 
         getPathStateOrBuilderList() {
       return pathState_;
     }
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     public int getPathStateCount() {
       return pathState_.size();
     }
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     public SslPlanner.planner_vec3d getPathState(int index) {
       return pathState_.get(index);
     }
+    /**
+     * <code>repeated .planner_vec3d pathState = 2;</code>
+     */
     public SslPlanner.planner_vec3dOrBuilder getPathStateOrBuilder(
         int index) {
       return pathState_.get(index);
     }
-    
+
     // required .planner_vec3d initState = 3;
     public static final int INITSTATE_FIELD_NUMBER = 3;
     private SslPlanner.planner_vec3d initState_;
+    /**
+     * <code>required .planner_vec3d initState = 3;</code>
+     */
     public boolean hasInitState() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
+    /**
+     * <code>required .planner_vec3d initState = 3;</code>
+     */
     public SslPlanner.planner_vec3d getInitState() {
       return initState_;
     }
+    /**
+     * <code>required .planner_vec3d initState = 3;</code>
+     */
     public SslPlanner.planner_vec3dOrBuilder getInitStateOrBuilder() {
       return initState_;
     }
-    
+
     // required .planner_vec3d goalState = 4;
     public static final int GOALSTATE_FIELD_NUMBER = 4;
     private SslPlanner.planner_vec3d goalState_;
+    /**
+     * <code>required .planner_vec3d goalState = 4;</code>
+     */
     public boolean hasGoalState() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
+    /**
+     * <code>required .planner_vec3d goalState = 4;</code>
+     */
     public SslPlanner.planner_vec3d getGoalState() {
       return goalState_;
     }
+    /**
+     * <code>required .planner_vec3d goalState = 4;</code>
+     */
     public SslPlanner.planner_vec3dOrBuilder getGoalStateOrBuilder() {
       return goalState_;
     }
-    
+
     // required .planner_vec3d desiredVel = 5;
     public static final int DESIREDVEL_FIELD_NUMBER = 5;
     private SslPlanner.planner_vec3d desiredVel_;
+    /**
+     * <code>required .planner_vec3d desiredVel = 5;</code>
+     */
     public boolean hasDesiredVel() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
+    /**
+     * <code>required .planner_vec3d desiredVel = 5;</code>
+     */
     public SslPlanner.planner_vec3d getDesiredVel() {
       return desiredVel_;
     }
+    /**
+     * <code>required .planner_vec3d desiredVel = 5;</code>
+     */
     public SslPlanner.planner_vec3dOrBuilder getDesiredVelOrBuilder() {
       return desiredVel_;
     }
-    
+
     // required .planner_vec3d appliedVel = 6;
     public static final int APPLIEDVEL_FIELD_NUMBER = 6;
     private SslPlanner.planner_vec3d appliedVel_;
+    /**
+     * <code>required .planner_vec3d appliedVel = 6;</code>
+     */
     public boolean hasAppliedVel() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
+    /**
+     * <code>required .planner_vec3d appliedVel = 6;</code>
+     */
     public SslPlanner.planner_vec3d getAppliedVel() {
       return appliedVel_;
     }
+    /**
+     * <code>required .planner_vec3d appliedVel = 6;</code>
+     */
     public SslPlanner.planner_vec3dOrBuilder getAppliedVelOrBuilder() {
       return appliedVel_;
     }
-    
+
     // optional .planner_obstacles obstacleSet = 7;
     public static final int OBSTACLESET_FIELD_NUMBER = 7;
     private SslPlanner.planner_obstacles obstacleSet_;
+    /**
+     * <code>optional .planner_obstacles obstacleSet = 7;</code>
+     */
     public boolean hasObstacleSet() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
+    /**
+     * <code>optional .planner_obstacles obstacleSet = 7;</code>
+     */
     public SslPlanner.planner_obstacles getObstacleSet() {
       return obstacleSet_;
     }
+    /**
+     * <code>optional .planner_obstacles obstacleSet = 7;</code>
+     */
     public SslPlanner.planner_obstaclesOrBuilder getObstacleSetOrBuilder() {
       return obstacleSet_;
     }
-    
+
     private void initFields() {
       id_ = 0;
       pathState_ = java.util.Collections.emptyList();
@@ -3106,7 +4059,7 @@ public final class SslPlanner {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasId()) {
         memoizedIsInitialized = 0;
         return false;
@@ -3158,7 +4111,7 @@ public final class SslPlanner {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -3185,12 +4138,12 @@ public final class SslPlanner {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -3224,94 +4177,83 @@ public final class SslPlanner {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslPlanner.planner_plan parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_plan parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_plan parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.planner_plan parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.planner_plan parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_plan parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_plan parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslPlanner.planner_plan parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslPlanner.planner_plan parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.planner_plan parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslPlanner.planner_plan prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code planner_plan}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslPlanner.planner_planOrBuilder {
@@ -3319,18 +4261,21 @@ public final class SslPlanner {
           getDescriptor() {
         return SslPlanner.internal_static_planner_plan_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslPlanner.internal_static_planner_plan_fieldAccessorTable;
+        return SslPlanner.internal_static_planner_plan_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslPlanner.planner_plan.class, SslPlanner.planner_plan.Builder.class);
       }
-      
+
       // Construct using SslPlanner.planner_plan.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -3347,7 +4292,7 @@ public final class SslPlanner {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         id_ = 0;
@@ -3390,20 +4335,20 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslPlanner.planner_plan.getDescriptor();
+        return SslPlanner.internal_static_planner_plan_descriptor;
       }
-      
+
       public SslPlanner.planner_plan getDefaultInstanceForType() {
         return SslPlanner.planner_plan.getDefaultInstance();
       }
-      
+
       public SslPlanner.planner_plan build() {
         SslPlanner.planner_plan result = buildPartial();
         if (!result.isInitialized()) {
@@ -3411,17 +4356,7 @@ public final class SslPlanner {
         }
         return result;
       }
-      
-      private SslPlanner.planner_plan buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslPlanner.planner_plan result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslPlanner.planner_plan buildPartial() {
         SslPlanner.planner_plan result = new SslPlanner.planner_plan(this);
         int from_bitField0_ = bitField0_;
@@ -3483,7 +4418,7 @@ public final class SslPlanner {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslPlanner.planner_plan) {
           return mergeFrom((SslPlanner.planner_plan)other);
@@ -3492,7 +4427,7 @@ public final class SslPlanner {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslPlanner.planner_plan other) {
         if (other == SslPlanner.planner_plan.getDefaultInstance()) return this;
         if (other.hasId()) {
@@ -3542,7 +4477,7 @@ public final class SslPlanner {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasId()) {
           
@@ -3594,113 +4529,59 @@ public final class SslPlanner {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              id_ = input.readUInt32();
-              break;
-            }
-            case 18: {
-              SslPlanner.planner_vec3d.Builder subBuilder = SslPlanner.planner_vec3d.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addPathState(subBuilder.buildPartial());
-              break;
-            }
-            case 26: {
-              SslPlanner.planner_vec3d.Builder subBuilder = SslPlanner.planner_vec3d.newBuilder();
-              if (hasInitState()) {
-                subBuilder.mergeFrom(getInitState());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setInitState(subBuilder.buildPartial());
-              break;
-            }
-            case 34: {
-              SslPlanner.planner_vec3d.Builder subBuilder = SslPlanner.planner_vec3d.newBuilder();
-              if (hasGoalState()) {
-                subBuilder.mergeFrom(getGoalState());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setGoalState(subBuilder.buildPartial());
-              break;
-            }
-            case 42: {
-              SslPlanner.planner_vec3d.Builder subBuilder = SslPlanner.planner_vec3d.newBuilder();
-              if (hasDesiredVel()) {
-                subBuilder.mergeFrom(getDesiredVel());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setDesiredVel(subBuilder.buildPartial());
-              break;
-            }
-            case 50: {
-              SslPlanner.planner_vec3d.Builder subBuilder = SslPlanner.planner_vec3d.newBuilder();
-              if (hasAppliedVel()) {
-                subBuilder.mergeFrom(getAppliedVel());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setAppliedVel(subBuilder.buildPartial());
-              break;
-            }
-            case 58: {
-              SslPlanner.planner_obstacles.Builder subBuilder = SslPlanner.planner_obstacles.newBuilder();
-              if (hasObstacleSet()) {
-                subBuilder.mergeFrom(getObstacleSet());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setObstacleSet(subBuilder.buildPartial());
-              break;
-            }
+        SslPlanner.planner_plan parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslPlanner.planner_plan) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // required uint32 id = 1;
       private int id_ ;
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       public int getId() {
         return id_;
       }
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       public Builder setId(int value) {
         bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 id = 1;</code>
+       */
       public Builder clearId() {
         bitField0_ = (bitField0_ & ~0x00000001);
         id_ = 0;
         onChanged();
         return this;
       }
-      
+
       // repeated .planner_vec3d pathState = 2;
       private java.util.List<SslPlanner.planner_vec3d> pathState_ =
         java.util.Collections.emptyList();
@@ -3710,10 +4591,13 @@ public final class SslPlanner {
           bitField0_ |= 0x00000002;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> pathStateBuilder_;
-      
+
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public java.util.List<SslPlanner.planner_vec3d> getPathStateList() {
         if (pathStateBuilder_ == null) {
           return java.util.Collections.unmodifiableList(pathState_);
@@ -3721,6 +4605,9 @@ public final class SslPlanner {
           return pathStateBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public int getPathStateCount() {
         if (pathStateBuilder_ == null) {
           return pathState_.size();
@@ -3728,6 +4615,9 @@ public final class SslPlanner {
           return pathStateBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public SslPlanner.planner_vec3d getPathState(int index) {
         if (pathStateBuilder_ == null) {
           return pathState_.get(index);
@@ -3735,6 +4625,9 @@ public final class SslPlanner {
           return pathStateBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder setPathState(
           int index, SslPlanner.planner_vec3d value) {
         if (pathStateBuilder_ == null) {
@@ -3749,6 +4642,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder setPathState(
           int index, SslPlanner.planner_vec3d.Builder builderForValue) {
         if (pathStateBuilder_ == null) {
@@ -3760,6 +4656,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder addPathState(SslPlanner.planner_vec3d value) {
         if (pathStateBuilder_ == null) {
           if (value == null) {
@@ -3773,6 +4672,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder addPathState(
           int index, SslPlanner.planner_vec3d value) {
         if (pathStateBuilder_ == null) {
@@ -3787,6 +4689,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder addPathState(
           SslPlanner.planner_vec3d.Builder builderForValue) {
         if (pathStateBuilder_ == null) {
@@ -3798,6 +4703,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder addPathState(
           int index, SslPlanner.planner_vec3d.Builder builderForValue) {
         if (pathStateBuilder_ == null) {
@@ -3809,6 +4717,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder addAllPathState(
           java.lang.Iterable<? extends SslPlanner.planner_vec3d> values) {
         if (pathStateBuilder_ == null) {
@@ -3820,6 +4731,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder clearPathState() {
         if (pathStateBuilder_ == null) {
           pathState_ = java.util.Collections.emptyList();
@@ -3830,6 +4744,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public Builder removePathState(int index) {
         if (pathStateBuilder_ == null) {
           ensurePathStateIsMutable();
@@ -3840,10 +4757,16 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public SslPlanner.planner_vec3d.Builder getPathStateBuilder(
           int index) {
         return getPathStateFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public SslPlanner.planner_vec3dOrBuilder getPathStateOrBuilder(
           int index) {
         if (pathStateBuilder_ == null) {
@@ -3851,6 +4774,9 @@ public final class SslPlanner {
           return pathStateBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public java.util.List<? extends SslPlanner.planner_vec3dOrBuilder> 
            getPathStateOrBuilderList() {
         if (pathStateBuilder_ != null) {
@@ -3859,15 +4785,24 @@ public final class SslPlanner {
           return java.util.Collections.unmodifiableList(pathState_);
         }
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public SslPlanner.planner_vec3d.Builder addPathStateBuilder() {
         return getPathStateFieldBuilder().addBuilder(
             SslPlanner.planner_vec3d.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public SslPlanner.planner_vec3d.Builder addPathStateBuilder(
           int index) {
         return getPathStateFieldBuilder().addBuilder(
             index, SslPlanner.planner_vec3d.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_vec3d pathState = 2;</code>
+       */
       public java.util.List<SslPlanner.planner_vec3d.Builder> 
            getPathStateBuilderList() {
         return getPathStateFieldBuilder().getBuilderList();
@@ -3886,14 +4821,20 @@ public final class SslPlanner {
         }
         return pathStateBuilder_;
       }
-      
+
       // required .planner_vec3d initState = 3;
       private SslPlanner.planner_vec3d initState_ = SslPlanner.planner_vec3d.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> initStateBuilder_;
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       public boolean hasInitState() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       public SslPlanner.planner_vec3d getInitState() {
         if (initStateBuilder_ == null) {
           return initState_;
@@ -3901,6 +4842,9 @@ public final class SslPlanner {
           return initStateBuilder_.getMessage();
         }
       }
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       public Builder setInitState(SslPlanner.planner_vec3d value) {
         if (initStateBuilder_ == null) {
           if (value == null) {
@@ -3914,6 +4858,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000004;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       public Builder setInitState(
           SslPlanner.planner_vec3d.Builder builderForValue) {
         if (initStateBuilder_ == null) {
@@ -3925,6 +4872,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000004;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       public Builder mergeInitState(SslPlanner.planner_vec3d value) {
         if (initStateBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004) &&
@@ -3941,6 +4891,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000004;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       public Builder clearInitState() {
         if (initStateBuilder_ == null) {
           initState_ = SslPlanner.planner_vec3d.getDefaultInstance();
@@ -3951,11 +4904,17 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       public SslPlanner.planner_vec3d.Builder getInitStateBuilder() {
         bitField0_ |= 0x00000004;
         onChanged();
         return getInitStateFieldBuilder().getBuilder();
       }
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       public SslPlanner.planner_vec3dOrBuilder getInitStateOrBuilder() {
         if (initStateBuilder_ != null) {
           return initStateBuilder_.getMessageOrBuilder();
@@ -3963,6 +4922,9 @@ public final class SslPlanner {
           return initState_;
         }
       }
+      /**
+       * <code>required .planner_vec3d initState = 3;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> 
           getInitStateFieldBuilder() {
@@ -3976,14 +4938,20 @@ public final class SslPlanner {
         }
         return initStateBuilder_;
       }
-      
+
       // required .planner_vec3d goalState = 4;
       private SslPlanner.planner_vec3d goalState_ = SslPlanner.planner_vec3d.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> goalStateBuilder_;
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       public boolean hasGoalState() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       public SslPlanner.planner_vec3d getGoalState() {
         if (goalStateBuilder_ == null) {
           return goalState_;
@@ -3991,6 +4959,9 @@ public final class SslPlanner {
           return goalStateBuilder_.getMessage();
         }
       }
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       public Builder setGoalState(SslPlanner.planner_vec3d value) {
         if (goalStateBuilder_ == null) {
           if (value == null) {
@@ -4004,6 +4975,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000008;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       public Builder setGoalState(
           SslPlanner.planner_vec3d.Builder builderForValue) {
         if (goalStateBuilder_ == null) {
@@ -4015,6 +4989,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000008;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       public Builder mergeGoalState(SslPlanner.planner_vec3d value) {
         if (goalStateBuilder_ == null) {
           if (((bitField0_ & 0x00000008) == 0x00000008) &&
@@ -4031,6 +5008,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000008;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       public Builder clearGoalState() {
         if (goalStateBuilder_ == null) {
           goalState_ = SslPlanner.planner_vec3d.getDefaultInstance();
@@ -4041,11 +5021,17 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       public SslPlanner.planner_vec3d.Builder getGoalStateBuilder() {
         bitField0_ |= 0x00000008;
         onChanged();
         return getGoalStateFieldBuilder().getBuilder();
       }
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       public SslPlanner.planner_vec3dOrBuilder getGoalStateOrBuilder() {
         if (goalStateBuilder_ != null) {
           return goalStateBuilder_.getMessageOrBuilder();
@@ -4053,6 +5039,9 @@ public final class SslPlanner {
           return goalState_;
         }
       }
+      /**
+       * <code>required .planner_vec3d goalState = 4;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> 
           getGoalStateFieldBuilder() {
@@ -4066,14 +5055,20 @@ public final class SslPlanner {
         }
         return goalStateBuilder_;
       }
-      
+
       // required .planner_vec3d desiredVel = 5;
       private SslPlanner.planner_vec3d desiredVel_ = SslPlanner.planner_vec3d.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> desiredVelBuilder_;
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       public boolean hasDesiredVel() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       public SslPlanner.planner_vec3d getDesiredVel() {
         if (desiredVelBuilder_ == null) {
           return desiredVel_;
@@ -4081,6 +5076,9 @@ public final class SslPlanner {
           return desiredVelBuilder_.getMessage();
         }
       }
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       public Builder setDesiredVel(SslPlanner.planner_vec3d value) {
         if (desiredVelBuilder_ == null) {
           if (value == null) {
@@ -4094,6 +5092,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000010;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       public Builder setDesiredVel(
           SslPlanner.planner_vec3d.Builder builderForValue) {
         if (desiredVelBuilder_ == null) {
@@ -4105,6 +5106,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000010;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       public Builder mergeDesiredVel(SslPlanner.planner_vec3d value) {
         if (desiredVelBuilder_ == null) {
           if (((bitField0_ & 0x00000010) == 0x00000010) &&
@@ -4121,6 +5125,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000010;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       public Builder clearDesiredVel() {
         if (desiredVelBuilder_ == null) {
           desiredVel_ = SslPlanner.planner_vec3d.getDefaultInstance();
@@ -4131,11 +5138,17 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       public SslPlanner.planner_vec3d.Builder getDesiredVelBuilder() {
         bitField0_ |= 0x00000010;
         onChanged();
         return getDesiredVelFieldBuilder().getBuilder();
       }
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       public SslPlanner.planner_vec3dOrBuilder getDesiredVelOrBuilder() {
         if (desiredVelBuilder_ != null) {
           return desiredVelBuilder_.getMessageOrBuilder();
@@ -4143,6 +5156,9 @@ public final class SslPlanner {
           return desiredVel_;
         }
       }
+      /**
+       * <code>required .planner_vec3d desiredVel = 5;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> 
           getDesiredVelFieldBuilder() {
@@ -4156,14 +5172,20 @@ public final class SslPlanner {
         }
         return desiredVelBuilder_;
       }
-      
+
       // required .planner_vec3d appliedVel = 6;
       private SslPlanner.planner_vec3d appliedVel_ = SslPlanner.planner_vec3d.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> appliedVelBuilder_;
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       public boolean hasAppliedVel() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       public SslPlanner.planner_vec3d getAppliedVel() {
         if (appliedVelBuilder_ == null) {
           return appliedVel_;
@@ -4171,6 +5193,9 @@ public final class SslPlanner {
           return appliedVelBuilder_.getMessage();
         }
       }
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       public Builder setAppliedVel(SslPlanner.planner_vec3d value) {
         if (appliedVelBuilder_ == null) {
           if (value == null) {
@@ -4184,6 +5209,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000020;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       public Builder setAppliedVel(
           SslPlanner.planner_vec3d.Builder builderForValue) {
         if (appliedVelBuilder_ == null) {
@@ -4195,6 +5223,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000020;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       public Builder mergeAppliedVel(SslPlanner.planner_vec3d value) {
         if (appliedVelBuilder_ == null) {
           if (((bitField0_ & 0x00000020) == 0x00000020) &&
@@ -4211,6 +5242,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000020;
         return this;
       }
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       public Builder clearAppliedVel() {
         if (appliedVelBuilder_ == null) {
           appliedVel_ = SslPlanner.planner_vec3d.getDefaultInstance();
@@ -4221,11 +5255,17 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       public SslPlanner.planner_vec3d.Builder getAppliedVelBuilder() {
         bitField0_ |= 0x00000020;
         onChanged();
         return getAppliedVelFieldBuilder().getBuilder();
       }
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       public SslPlanner.planner_vec3dOrBuilder getAppliedVelOrBuilder() {
         if (appliedVelBuilder_ != null) {
           return appliedVelBuilder_.getMessageOrBuilder();
@@ -4233,6 +5273,9 @@ public final class SslPlanner {
           return appliedVel_;
         }
       }
+      /**
+       * <code>required .planner_vec3d appliedVel = 6;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_vec3d, SslPlanner.planner_vec3d.Builder, SslPlanner.planner_vec3dOrBuilder> 
           getAppliedVelFieldBuilder() {
@@ -4246,14 +5289,20 @@ public final class SslPlanner {
         }
         return appliedVelBuilder_;
       }
-      
+
       // optional .planner_obstacles obstacleSet = 7;
       private SslPlanner.planner_obstacles obstacleSet_ = SslPlanner.planner_obstacles.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_obstacles, SslPlanner.planner_obstacles.Builder, SslPlanner.planner_obstaclesOrBuilder> obstacleSetBuilder_;
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       public boolean hasObstacleSet() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       public SslPlanner.planner_obstacles getObstacleSet() {
         if (obstacleSetBuilder_ == null) {
           return obstacleSet_;
@@ -4261,6 +5310,9 @@ public final class SslPlanner {
           return obstacleSetBuilder_.getMessage();
         }
       }
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       public Builder setObstacleSet(SslPlanner.planner_obstacles value) {
         if (obstacleSetBuilder_ == null) {
           if (value == null) {
@@ -4274,6 +5326,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000040;
         return this;
       }
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       public Builder setObstacleSet(
           SslPlanner.planner_obstacles.Builder builderForValue) {
         if (obstacleSetBuilder_ == null) {
@@ -4285,6 +5340,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000040;
         return this;
       }
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       public Builder mergeObstacleSet(SslPlanner.planner_obstacles value) {
         if (obstacleSetBuilder_ == null) {
           if (((bitField0_ & 0x00000040) == 0x00000040) &&
@@ -4301,6 +5359,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000040;
         return this;
       }
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       public Builder clearObstacleSet() {
         if (obstacleSetBuilder_ == null) {
           obstacleSet_ = SslPlanner.planner_obstacles.getDefaultInstance();
@@ -4311,11 +5372,17 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       public SslPlanner.planner_obstacles.Builder getObstacleSetBuilder() {
         bitField0_ |= 0x00000040;
         onChanged();
         return getObstacleSetFieldBuilder().getBuilder();
       }
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       public SslPlanner.planner_obstaclesOrBuilder getObstacleSetOrBuilder() {
         if (obstacleSetBuilder_ != null) {
           return obstacleSetBuilder_.getMessageOrBuilder();
@@ -4323,6 +5390,9 @@ public final class SslPlanner {
           return obstacleSet_;
         }
       }
+      /**
+       * <code>optional .planner_obstacles obstacleSet = 7;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_obstacles, SslPlanner.planner_obstacles.Builder, SslPlanner.planner_obstaclesOrBuilder> 
           getObstacleSetFieldBuilder() {
@@ -4336,135 +5406,296 @@ public final class SslPlanner {
         }
         return obstacleSetBuilder_;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:planner_plan)
     }
-    
+
     static {
       defaultInstance = new planner_plan(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:planner_plan)
   }
-  
+
   public interface ssl_planner_packetOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // repeated .planner_plan plans = 1;
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     java.util.List<SslPlanner.planner_plan> 
         getPlansList();
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     SslPlanner.planner_plan getPlans(int index);
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     int getPlansCount();
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     java.util.List<? extends SslPlanner.planner_planOrBuilder> 
         getPlansOrBuilderList();
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     SslPlanner.planner_planOrBuilder getPlansOrBuilder(
         int index);
-    
+
     // optional .planner_polygon plannerBound = 2;
+    /**
+     * <code>optional .planner_polygon plannerBound = 2;</code>
+     */
     boolean hasPlannerBound();
+    /**
+     * <code>optional .planner_polygon plannerBound = 2;</code>
+     */
     SslPlanner.planner_polygon getPlannerBound();
+    /**
+     * <code>optional .planner_polygon plannerBound = 2;</code>
+     */
     SslPlanner.planner_polygonOrBuilder getPlannerBoundOrBuilder();
-    
+
     // optional string comment = 3;
+    /**
+     * <code>optional string comment = 3;</code>
+     */
     boolean hasComment();
-    String getComment();
+    /**
+     * <code>optional string comment = 3;</code>
+     */
+    java.lang.String getComment();
+    /**
+     * <code>optional string comment = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getCommentBytes();
   }
+  /**
+   * Protobuf type {@code ssl_planner_packet}
+   */
   public static final class ssl_planner_packet extends
       com.google.protobuf.GeneratedMessage
       implements ssl_planner_packetOrBuilder {
     // Use ssl_planner_packet.newBuilder() to construct.
-    private ssl_planner_packet(Builder builder) {
+    private ssl_planner_packet(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private ssl_planner_packet(boolean noInit) {}
-    
+    private ssl_planner_packet(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final ssl_planner_packet defaultInstance;
     public static ssl_planner_packet getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public ssl_planner_packet getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ssl_planner_packet(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                plans_ = new java.util.ArrayList<SslPlanner.planner_plan>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              plans_.add(input.readMessage(SslPlanner.planner_plan.PARSER, extensionRegistry));
+              break;
+            }
+            case 18: {
+              SslPlanner.planner_polygon.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = plannerBound_.toBuilder();
+              }
+              plannerBound_ = input.readMessage(SslPlanner.planner_polygon.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(plannerBound_);
+                plannerBound_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000002;
+              comment_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          plans_ = java.util.Collections.unmodifiableList(plans_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslPlanner.internal_static_ssl_planner_packet_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslPlanner.internal_static_ssl_planner_packet_fieldAccessorTable;
+      return SslPlanner.internal_static_ssl_planner_packet_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslPlanner.ssl_planner_packet.class, SslPlanner.ssl_planner_packet.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<ssl_planner_packet> PARSER =
+        new com.google.protobuf.AbstractParser<ssl_planner_packet>() {
+      public ssl_planner_packet parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ssl_planner_packet(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ssl_planner_packet> getParserForType() {
+      return PARSER;
+    }
+
     private int bitField0_;
     // repeated .planner_plan plans = 1;
     public static final int PLANS_FIELD_NUMBER = 1;
     private java.util.List<SslPlanner.planner_plan> plans_;
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     public java.util.List<SslPlanner.planner_plan> getPlansList() {
       return plans_;
     }
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     public java.util.List<? extends SslPlanner.planner_planOrBuilder> 
         getPlansOrBuilderList() {
       return plans_;
     }
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     public int getPlansCount() {
       return plans_.size();
     }
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     public SslPlanner.planner_plan getPlans(int index) {
       return plans_.get(index);
     }
+    /**
+     * <code>repeated .planner_plan plans = 1;</code>
+     */
     public SslPlanner.planner_planOrBuilder getPlansOrBuilder(
         int index) {
       return plans_.get(index);
     }
-    
+
     // optional .planner_polygon plannerBound = 2;
     public static final int PLANNERBOUND_FIELD_NUMBER = 2;
     private SslPlanner.planner_polygon plannerBound_;
+    /**
+     * <code>optional .planner_polygon plannerBound = 2;</code>
+     */
     public boolean hasPlannerBound() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>optional .planner_polygon plannerBound = 2;</code>
+     */
     public SslPlanner.planner_polygon getPlannerBound() {
       return plannerBound_;
     }
+    /**
+     * <code>optional .planner_polygon plannerBound = 2;</code>
+     */
     public SslPlanner.planner_polygonOrBuilder getPlannerBoundOrBuilder() {
       return plannerBound_;
     }
-    
+
     // optional string comment = 3;
     public static final int COMMENT_FIELD_NUMBER = 3;
     private java.lang.Object comment_;
+    /**
+     * <code>optional string comment = 3;</code>
+     */
     public boolean hasComment() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public String getComment() {
+    /**
+     * <code>optional string comment = 3;</code>
+     */
+    public java.lang.String getComment() {
       java.lang.Object ref = comment_;
-      if (ref instanceof String) {
-        return (String) ref;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
           comment_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getCommentBytes() {
+    /**
+     * <code>optional string comment = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCommentBytes() {
       java.lang.Object ref = comment_;
-      if (ref instanceof String) {
+      if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
         comment_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-    
+
     private void initFields() {
       plans_ = java.util.Collections.emptyList();
       plannerBound_ = SslPlanner.planner_polygon.getDefaultInstance();
@@ -4474,7 +5705,7 @@ public final class SslPlanner {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       for (int i = 0; i < getPlansCount(); i++) {
         if (!getPlans(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -4490,7 +5721,7 @@ public final class SslPlanner {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -4505,12 +5736,12 @@ public final class SslPlanner {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       for (int i = 0; i < plans_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -4528,94 +5759,83 @@ public final class SslPlanner {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslPlanner.ssl_planner_packet parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.ssl_planner_packet parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.ssl_planner_packet parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslPlanner.ssl_planner_packet parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslPlanner.ssl_planner_packet parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.ssl_planner_packet parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslPlanner.ssl_planner_packet parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslPlanner.ssl_planner_packet parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslPlanner.ssl_planner_packet parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslPlanner.ssl_planner_packet parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslPlanner.ssl_planner_packet prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ssl_planner_packet}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslPlanner.ssl_planner_packetOrBuilder {
@@ -4623,18 +5843,21 @@ public final class SslPlanner {
           getDescriptor() {
         return SslPlanner.internal_static_ssl_planner_packet_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslPlanner.internal_static_ssl_planner_packet_fieldAccessorTable;
+        return SslPlanner.internal_static_ssl_planner_packet_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslPlanner.ssl_planner_packet.class, SslPlanner.ssl_planner_packet.Builder.class);
       }
-      
+
       // Construct using SslPlanner.ssl_planner_packet.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -4647,7 +5870,7 @@ public final class SslPlanner {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         if (plansBuilder_ == null) {
@@ -4666,20 +5889,20 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslPlanner.ssl_planner_packet.getDescriptor();
+        return SslPlanner.internal_static_ssl_planner_packet_descriptor;
       }
-      
+
       public SslPlanner.ssl_planner_packet getDefaultInstanceForType() {
         return SslPlanner.ssl_planner_packet.getDefaultInstance();
       }
-      
+
       public SslPlanner.ssl_planner_packet build() {
         SslPlanner.ssl_planner_packet result = buildPartial();
         if (!result.isInitialized()) {
@@ -4687,17 +5910,7 @@ public final class SslPlanner {
         }
         return result;
       }
-      
-      private SslPlanner.ssl_planner_packet buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslPlanner.ssl_planner_packet result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslPlanner.ssl_planner_packet buildPartial() {
         SslPlanner.ssl_planner_packet result = new SslPlanner.ssl_planner_packet(this);
         int from_bitField0_ = bitField0_;
@@ -4727,7 +5940,7 @@ public final class SslPlanner {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslPlanner.ssl_planner_packet) {
           return mergeFrom((SslPlanner.ssl_planner_packet)other);
@@ -4736,7 +5949,7 @@ public final class SslPlanner {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslPlanner.ssl_planner_packet other) {
         if (other == SslPlanner.ssl_planner_packet.getDefaultInstance()) return this;
         if (plansBuilder_ == null) {
@@ -4769,12 +5982,14 @@ public final class SslPlanner {
           mergePlannerBound(other.getPlannerBound());
         }
         if (other.hasComment()) {
-          setComment(other.getComment());
+          bitField0_ |= 0x00000004;
+          comment_ = other.comment_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         for (int i = 0; i < getPlansCount(); i++) {
           if (!getPlans(i).isInitialized()) {
@@ -4790,56 +6005,26 @@ public final class SslPlanner {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              SslPlanner.planner_plan.Builder subBuilder = SslPlanner.planner_plan.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addPlans(subBuilder.buildPartial());
-              break;
-            }
-            case 18: {
-              SslPlanner.planner_polygon.Builder subBuilder = SslPlanner.planner_polygon.newBuilder();
-              if (hasPlannerBound()) {
-                subBuilder.mergeFrom(getPlannerBound());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setPlannerBound(subBuilder.buildPartial());
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
-              comment_ = input.readBytes();
-              break;
-            }
+        SslPlanner.ssl_planner_packet parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslPlanner.ssl_planner_packet) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // repeated .planner_plan plans = 1;
       private java.util.List<SslPlanner.planner_plan> plans_ =
         java.util.Collections.emptyList();
@@ -4849,10 +6034,13 @@ public final class SslPlanner {
           bitField0_ |= 0x00000001;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           SslPlanner.planner_plan, SslPlanner.planner_plan.Builder, SslPlanner.planner_planOrBuilder> plansBuilder_;
-      
+
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public java.util.List<SslPlanner.planner_plan> getPlansList() {
         if (plansBuilder_ == null) {
           return java.util.Collections.unmodifiableList(plans_);
@@ -4860,6 +6048,9 @@ public final class SslPlanner {
           return plansBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public int getPlansCount() {
         if (plansBuilder_ == null) {
           return plans_.size();
@@ -4867,6 +6058,9 @@ public final class SslPlanner {
           return plansBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public SslPlanner.planner_plan getPlans(int index) {
         if (plansBuilder_ == null) {
           return plans_.get(index);
@@ -4874,6 +6068,9 @@ public final class SslPlanner {
           return plansBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder setPlans(
           int index, SslPlanner.planner_plan value) {
         if (plansBuilder_ == null) {
@@ -4888,6 +6085,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder setPlans(
           int index, SslPlanner.planner_plan.Builder builderForValue) {
         if (plansBuilder_ == null) {
@@ -4899,6 +6099,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder addPlans(SslPlanner.planner_plan value) {
         if (plansBuilder_ == null) {
           if (value == null) {
@@ -4912,6 +6115,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder addPlans(
           int index, SslPlanner.planner_plan value) {
         if (plansBuilder_ == null) {
@@ -4926,6 +6132,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder addPlans(
           SslPlanner.planner_plan.Builder builderForValue) {
         if (plansBuilder_ == null) {
@@ -4937,6 +6146,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder addPlans(
           int index, SslPlanner.planner_plan.Builder builderForValue) {
         if (plansBuilder_ == null) {
@@ -4948,6 +6160,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder addAllPlans(
           java.lang.Iterable<? extends SslPlanner.planner_plan> values) {
         if (plansBuilder_ == null) {
@@ -4959,6 +6174,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder clearPlans() {
         if (plansBuilder_ == null) {
           plans_ = java.util.Collections.emptyList();
@@ -4969,6 +6187,9 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public Builder removePlans(int index) {
         if (plansBuilder_ == null) {
           ensurePlansIsMutable();
@@ -4979,10 +6200,16 @@ public final class SslPlanner {
         }
         return this;
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public SslPlanner.planner_plan.Builder getPlansBuilder(
           int index) {
         return getPlansFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public SslPlanner.planner_planOrBuilder getPlansOrBuilder(
           int index) {
         if (plansBuilder_ == null) {
@@ -4990,6 +6217,9 @@ public final class SslPlanner {
           return plansBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public java.util.List<? extends SslPlanner.planner_planOrBuilder> 
            getPlansOrBuilderList() {
         if (plansBuilder_ != null) {
@@ -4998,15 +6228,24 @@ public final class SslPlanner {
           return java.util.Collections.unmodifiableList(plans_);
         }
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public SslPlanner.planner_plan.Builder addPlansBuilder() {
         return getPlansFieldBuilder().addBuilder(
             SslPlanner.planner_plan.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public SslPlanner.planner_plan.Builder addPlansBuilder(
           int index) {
         return getPlansFieldBuilder().addBuilder(
             index, SslPlanner.planner_plan.getDefaultInstance());
       }
+      /**
+       * <code>repeated .planner_plan plans = 1;</code>
+       */
       public java.util.List<SslPlanner.planner_plan.Builder> 
            getPlansBuilderList() {
         return getPlansFieldBuilder().getBuilderList();
@@ -5025,14 +6264,20 @@ public final class SslPlanner {
         }
         return plansBuilder_;
       }
-      
+
       // optional .planner_polygon plannerBound = 2;
       private SslPlanner.planner_polygon plannerBound_ = SslPlanner.planner_polygon.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_polygon, SslPlanner.planner_polygon.Builder, SslPlanner.planner_polygonOrBuilder> plannerBoundBuilder_;
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       public boolean hasPlannerBound() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       public SslPlanner.planner_polygon getPlannerBound() {
         if (plannerBoundBuilder_ == null) {
           return plannerBound_;
@@ -5040,6 +6285,9 @@ public final class SslPlanner {
           return plannerBoundBuilder_.getMessage();
         }
       }
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       public Builder setPlannerBound(SslPlanner.planner_polygon value) {
         if (plannerBoundBuilder_ == null) {
           if (value == null) {
@@ -5053,6 +6301,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000002;
         return this;
       }
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       public Builder setPlannerBound(
           SslPlanner.planner_polygon.Builder builderForValue) {
         if (plannerBoundBuilder_ == null) {
@@ -5064,6 +6315,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000002;
         return this;
       }
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       public Builder mergePlannerBound(SslPlanner.planner_polygon value) {
         if (plannerBoundBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002) &&
@@ -5080,6 +6334,9 @@ public final class SslPlanner {
         bitField0_ |= 0x00000002;
         return this;
       }
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       public Builder clearPlannerBound() {
         if (plannerBoundBuilder_ == null) {
           plannerBound_ = SslPlanner.planner_polygon.getDefaultInstance();
@@ -5090,11 +6347,17 @@ public final class SslPlanner {
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       public SslPlanner.planner_polygon.Builder getPlannerBoundBuilder() {
         bitField0_ |= 0x00000002;
         onChanged();
         return getPlannerBoundFieldBuilder().getBuilder();
       }
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       public SslPlanner.planner_polygonOrBuilder getPlannerBoundOrBuilder() {
         if (plannerBoundBuilder_ != null) {
           return plannerBoundBuilder_.getMessageOrBuilder();
@@ -5102,6 +6365,9 @@ public final class SslPlanner {
           return plannerBound_;
         }
       }
+      /**
+       * <code>optional .planner_polygon plannerBound = 2;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.planner_polygon, SslPlanner.planner_polygon.Builder, SslPlanner.planner_polygonOrBuilder> 
           getPlannerBoundFieldBuilder() {
@@ -5115,23 +6381,50 @@ public final class SslPlanner {
         }
         return plannerBoundBuilder_;
       }
-      
+
       // optional string comment = 3;
       private java.lang.Object comment_ = "";
+      /**
+       * <code>optional string comment = 3;</code>
+       */
       public boolean hasComment() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public String getComment() {
+      /**
+       * <code>optional string comment = 3;</code>
+       */
+      public java.lang.String getComment() {
         java.lang.Object ref = comment_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           comment_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setComment(String value) {
+      /**
+       * <code>optional string comment = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCommentBytes() {
+        java.lang.Object ref = comment_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          comment_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string comment = 3;</code>
+       */
+      public Builder setComment(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -5140,29 +6433,40 @@ public final class SslPlanner {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string comment = 3;</code>
+       */
       public Builder clearComment() {
         bitField0_ = (bitField0_ & ~0x00000004);
         comment_ = getDefaultInstance().getComment();
         onChanged();
         return this;
       }
-      void setComment(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000004;
+      /**
+       * <code>optional string comment = 3;</code>
+       */
+      public Builder setCommentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
         comment_ = value;
         onChanged();
+        return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:ssl_planner_packet)
     }
-    
+
     static {
       defaultInstance = new ssl_planner_packet(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:ssl_planner_packet)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_planner_vec3d_descriptor;
   private static
@@ -5198,7 +6502,7 @@ public final class SslPlanner {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ssl_planner_packet_fieldAccessorTable;
-  
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -5236,57 +6540,43 @@ public final class SslPlanner {
           internal_static_planner_vec3d_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_planner_vec3d_descriptor,
-              new java.lang.String[] { "X", "Y", "Teta", },
-              SslPlanner.planner_vec3d.class,
-              SslPlanner.planner_vec3d.Builder.class);
+              new java.lang.String[] { "X", "Y", "Teta", });
           internal_static_planner_point2d_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_planner_point2d_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_planner_point2d_descriptor,
-              new java.lang.String[] { "X", "Y", },
-              SslPlanner.planner_point2d.class,
-              SslPlanner.planner_point2d.Builder.class);
+              new java.lang.String[] { "X", "Y", });
           internal_static_planner_circle_descriptor =
             getDescriptor().getMessageTypes().get(2);
           internal_static_planner_circle_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_planner_circle_descriptor,
-              new java.lang.String[] { "Center", "Radius", "Orien", },
-              SslPlanner.planner_circle.class,
-              SslPlanner.planner_circle.Builder.class);
+              new java.lang.String[] { "Center", "Radius", "Orien", });
           internal_static_planner_polygon_descriptor =
             getDescriptor().getMessageTypes().get(3);
           internal_static_planner_polygon_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_planner_polygon_descriptor,
-              new java.lang.String[] { "Vertex", "Orien", },
-              SslPlanner.planner_polygon.class,
-              SslPlanner.planner_polygon.Builder.class);
+              new java.lang.String[] { "Vertex", "Orien", });
           internal_static_planner_obstacles_descriptor =
             getDescriptor().getMessageTypes().get(4);
           internal_static_planner_obstacles_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_planner_obstacles_descriptor,
-              new java.lang.String[] { "Circles", "Polygons", },
-              SslPlanner.planner_obstacles.class,
-              SslPlanner.planner_obstacles.Builder.class);
+              new java.lang.String[] { "Circles", "Polygons", });
           internal_static_planner_plan_descriptor =
             getDescriptor().getMessageTypes().get(5);
           internal_static_planner_plan_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_planner_plan_descriptor,
-              new java.lang.String[] { "Id", "PathState", "InitState", "GoalState", "DesiredVel", "AppliedVel", "ObstacleSet", },
-              SslPlanner.planner_plan.class,
-              SslPlanner.planner_plan.Builder.class);
+              new java.lang.String[] { "Id", "PathState", "InitState", "GoalState", "DesiredVel", "AppliedVel", "ObstacleSet", });
           internal_static_ssl_planner_packet_descriptor =
             getDescriptor().getMessageTypes().get(6);
           internal_static_ssl_planner_packet_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_planner_packet_descriptor,
-              new java.lang.String[] { "Plans", "PlannerBound", "Comment", },
-              SslPlanner.ssl_planner_packet.class,
-              SslPlanner.ssl_planner_packet.Builder.class);
+              new java.lang.String[] { "Plans", "PlannerBound", "Comment", });
           return null;
         }
       };
@@ -5295,6 +6585,6 @@ public final class SslPlanner {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }

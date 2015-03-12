@@ -12,7 +12,7 @@ void VectorGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 {
     if(globalOrien)
         this->setRotation(-this->parentItem()->rotation());
-    painter->setPen(QPen(color, 7));
+    painter->setPen(QPen(color, 15));
     painter->drawLine(QPointF(0,0), end);
 }
 
@@ -23,8 +23,8 @@ QRectF VectorGraphicsItem::boundingRect() const
 
 void VectorGraphicsItem::setEnd(double x, double y)
 {
-    this->end.setX(x/10);
-    this->end.setY(y/10);
+    this->end.setX(x/2);
+    this->end.setY(y/2);
     //    qDebug() << "V_x = " << x << " , V_y = " << y;
 }
 

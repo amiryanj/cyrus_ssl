@@ -157,10 +157,10 @@ void FieldScene::updateRobotPlan(int id, QVector<RobotState> path, QVector3D des
     if(isShowingPlans)
     {
         plan[id]->setPath(pathToShow);
+        desiredVel[id]->setEnd(desired_vel.x(), -desired_vel.y());
+        appliedVel[id]->setEnd(applied_vel.x(), -applied_vel.y());
     }
 
-    desiredVel[id]->setEnd(desired_vel.x(), -desired_vel.y());
-    appliedVel[id]->setEnd(applied_vel.x(), -applied_vel.y());
     //    appliedVel[id]->setPos(robot[ourColor][id]->pos().x(), -robot[ourColor][id]->pos().y());
 //    appliedVel[id]->rotate(-appliedVel[id]->parentItem()->rotation());
 //    appliedVel[id]->setPos(robot[ourColor][id]->x(), -robot[ourColor][id]->y());

@@ -51,9 +51,20 @@ void BallFilter::putNewFrame(const Frame &fr)
 
 void BallFilter::putNewFrameWithManyBalls(vector<Frame> balls_)
 {
-//    cerr << "ERROR:  XXXXXXXXXXXXXXXXXXX Code Not Completed XXXXXXXXXXXXXXXXXXXX" << endl;
-    if(!balls_.empty())
-        this->putNewFrame(balls_[0]);
+    if(balls_.size() > 1)
+        cout << "many balls on field" << endl;
+
+    double min_dist = INFINITY;
+    int min_index = -1;
+    for(uint i=0; i<balls_.size(); i++) {
+        double dist_i = (((Frame)balls_[i]).position.to2D() - m_filteredPosition).lenght();
+        if(dist_i < min_dist) {
+            min_dist = dist_i;
+            min_index = i;
+        }
+    }
+    if(min_index >0)
+        this->putNewFrame(balls_[min_index]);
 }
 
 void BallFilter::runFilter()
@@ -86,9 +97,9 @@ void BallFilter::runFilter()
     double last_delta_t_sec = getRawData(0).timeStamp_second - getRawData(1).timeStamp_second;
 
     naiveFilter.predict(last_delta_t_sec);
-    naiveFilter.m_alfa = 0.1 + 0.9 * exp( -0.000005 * disp_error_);
-    naiveFilter.m_beta = (0.1 + 0.9 * exp( -0.01 * turn_error_))
-                        *(0.1 + 0.9 * exp( -0.000005 * disp_error_));
+    naiveFilter.m_alfa = 0.1 + 0.5 * exp( -0.000005 * disp_error_);
+    naiveFilter.m_beta = (0.1 + 0.5 * exp( -0.01 * turn_error_))
+                        *(0.1 + 0.6 * exp( -0.000005 * disp_error_));
     naiveFilter.observe(getRawData(0).position.to3D(),
                         getRawData(0).velocity.to3D(),
                         getRawData(0).acceleration.to3D());
