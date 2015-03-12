@@ -8,294 +8,108 @@ public final class SslVisualizer {
   }
   public interface ssl_visualizer_packetOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-
+    
     // optional .ssl_world_packet world_data = 1;
-    /**
-     * <code>optional .ssl_world_packet world_data = 1;</code>
-     */
     boolean hasWorldData();
-    /**
-     * <code>optional .ssl_world_packet world_data = 1;</code>
-     */
     SslWorld.ssl_world_packet getWorldData();
-    /**
-     * <code>optional .ssl_world_packet world_data = 1;</code>
-     */
     SslWorld.ssl_world_packetOrBuilder getWorldDataOrBuilder();
-
+    
     // optional .ssl_analyzer_packet analyzer_data = 2;
-    /**
-     * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-     */
     boolean hasAnalyzerData();
-    /**
-     * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-     */
     SslAnalyzer.ssl_analyzer_packet getAnalyzerData();
-    /**
-     * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-     */
     SslAnalyzer.ssl_analyzer_packetOrBuilder getAnalyzerDataOrBuilder();
-
+    
     // optional .ssl_decision_packet decision_data = 3;
-    /**
-     * <code>optional .ssl_decision_packet decision_data = 3;</code>
-     */
     boolean hasDecisionData();
-    /**
-     * <code>optional .ssl_decision_packet decision_data = 3;</code>
-     */
     SslDecision.ssl_decision_packet getDecisionData();
-    /**
-     * <code>optional .ssl_decision_packet decision_data = 3;</code>
-     */
     SslDecision.ssl_decision_packetOrBuilder getDecisionDataOrBuilder();
-
+    
     // optional .ssl_planner_packet planner_data = 4;
-    /**
-     * <code>optional .ssl_planner_packet planner_data = 4;</code>
-     */
     boolean hasPlannerData();
-    /**
-     * <code>optional .ssl_planner_packet planner_data = 4;</code>
-     */
     SslPlanner.ssl_planner_packet getPlannerData();
-    /**
-     * <code>optional .ssl_planner_packet planner_data = 4;</code>
-     */
     SslPlanner.ssl_planner_packetOrBuilder getPlannerDataOrBuilder();
   }
-  /**
-   * Protobuf type {@code ssl_visualizer_packet}
-   */
   public static final class ssl_visualizer_packet extends
       com.google.protobuf.GeneratedMessage
       implements ssl_visualizer_packetOrBuilder {
     // Use ssl_visualizer_packet.newBuilder() to construct.
-    private ssl_visualizer_packet(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ssl_visualizer_packet(Builder builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ssl_visualizer_packet(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
+    private ssl_visualizer_packet(boolean noInit) {}
+    
     private static final ssl_visualizer_packet defaultInstance;
     public static ssl_visualizer_packet getDefaultInstance() {
       return defaultInstance;
     }
-
+    
     public ssl_visualizer_packet getDefaultInstanceForType() {
       return defaultInstance;
     }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ssl_visualizer_packet(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              SslWorld.ssl_world_packet.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
-                subBuilder = worldData_.toBuilder();
-              }
-              worldData_ = input.readMessage(SslWorld.ssl_world_packet.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(worldData_);
-                worldData_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000001;
-              break;
-            }
-            case 18: {
-              SslAnalyzer.ssl_analyzer_packet.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) == 0x00000002)) {
-                subBuilder = analyzerData_.toBuilder();
-              }
-              analyzerData_ = input.readMessage(SslAnalyzer.ssl_analyzer_packet.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(analyzerData_);
-                analyzerData_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000002;
-              break;
-            }
-            case 26: {
-              SslDecision.ssl_decision_packet.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000004) == 0x00000004)) {
-                subBuilder = decisionData_.toBuilder();
-              }
-              decisionData_ = input.readMessage(SslDecision.ssl_decision_packet.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(decisionData_);
-                decisionData_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000004;
-              break;
-            }
-            case 34: {
-              SslPlanner.ssl_planner_packet.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000008) == 0x00000008)) {
-                subBuilder = plannerData_.toBuilder();
-              }
-              plannerData_ = input.readMessage(SslPlanner.ssl_planner_packet.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(plannerData_);
-                plannerData_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000008;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
+    
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslVisualizer.internal_static_ssl_visualizer_packet_descriptor;
     }
-
+    
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslVisualizer.internal_static_ssl_visualizer_packet_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              SslVisualizer.ssl_visualizer_packet.class, SslVisualizer.ssl_visualizer_packet.Builder.class);
+      return SslVisualizer.internal_static_ssl_visualizer_packet_fieldAccessorTable;
     }
-
-    public static com.google.protobuf.Parser<ssl_visualizer_packet> PARSER =
-        new com.google.protobuf.AbstractParser<ssl_visualizer_packet>() {
-      public ssl_visualizer_packet parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ssl_visualizer_packet(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ssl_visualizer_packet> getParserForType() {
-      return PARSER;
-    }
-
+    
     private int bitField0_;
     // optional .ssl_world_packet world_data = 1;
     public static final int WORLD_DATA_FIELD_NUMBER = 1;
     private SslWorld.ssl_world_packet worldData_;
-    /**
-     * <code>optional .ssl_world_packet world_data = 1;</code>
-     */
     public boolean hasWorldData() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    /**
-     * <code>optional .ssl_world_packet world_data = 1;</code>
-     */
     public SslWorld.ssl_world_packet getWorldData() {
       return worldData_;
     }
-    /**
-     * <code>optional .ssl_world_packet world_data = 1;</code>
-     */
     public SslWorld.ssl_world_packetOrBuilder getWorldDataOrBuilder() {
       return worldData_;
     }
-
+    
     // optional .ssl_analyzer_packet analyzer_data = 2;
     public static final int ANALYZER_DATA_FIELD_NUMBER = 2;
     private SslAnalyzer.ssl_analyzer_packet analyzerData_;
-    /**
-     * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-     */
     public boolean hasAnalyzerData() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    /**
-     * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-     */
     public SslAnalyzer.ssl_analyzer_packet getAnalyzerData() {
       return analyzerData_;
     }
-    /**
-     * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-     */
     public SslAnalyzer.ssl_analyzer_packetOrBuilder getAnalyzerDataOrBuilder() {
       return analyzerData_;
     }
-
+    
     // optional .ssl_decision_packet decision_data = 3;
     public static final int DECISION_DATA_FIELD_NUMBER = 3;
     private SslDecision.ssl_decision_packet decisionData_;
-    /**
-     * <code>optional .ssl_decision_packet decision_data = 3;</code>
-     */
     public boolean hasDecisionData() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    /**
-     * <code>optional .ssl_decision_packet decision_data = 3;</code>
-     */
     public SslDecision.ssl_decision_packet getDecisionData() {
       return decisionData_;
     }
-    /**
-     * <code>optional .ssl_decision_packet decision_data = 3;</code>
-     */
     public SslDecision.ssl_decision_packetOrBuilder getDecisionDataOrBuilder() {
       return decisionData_;
     }
-
+    
     // optional .ssl_planner_packet planner_data = 4;
     public static final int PLANNER_DATA_FIELD_NUMBER = 4;
     private SslPlanner.ssl_planner_packet plannerData_;
-    /**
-     * <code>optional .ssl_planner_packet planner_data = 4;</code>
-     */
     public boolean hasPlannerData() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    /**
-     * <code>optional .ssl_planner_packet planner_data = 4;</code>
-     */
     public SslPlanner.ssl_planner_packet getPlannerData() {
       return plannerData_;
     }
-    /**
-     * <code>optional .ssl_planner_packet planner_data = 4;</code>
-     */
     public SslPlanner.ssl_planner_packetOrBuilder getPlannerDataOrBuilder() {
       return plannerData_;
     }
-
+    
     private void initFields() {
       worldData_ = SslWorld.ssl_world_packet.getDefaultInstance();
       analyzerData_ = SslAnalyzer.ssl_analyzer_packet.getDefaultInstance();
@@ -306,7 +120,7 @@ public final class SslVisualizer {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-
+      
       if (hasWorldData()) {
         if (!getWorldData().isInitialized()) {
           memoizedIsInitialized = 0;
@@ -334,7 +148,7 @@ public final class SslVisualizer {
       memoizedIsInitialized = 1;
       return true;
     }
-
+    
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -352,12 +166,12 @@ public final class SslVisualizer {
       }
       getUnknownFields().writeTo(output);
     }
-
+    
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-
+    
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -379,83 +193,94 @@ public final class SslVisualizer {
       memoizedSerializedSize = size;
       return size;
     }
-
+    
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-
+    
     public static SslVisualizer.ssl_visualizer_packet parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static SslVisualizer.ssl_visualizer_packet parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static SslVisualizer.ssl_visualizer_packet parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static SslVisualizer.ssl_visualizer_packet parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
     }
     public static SslVisualizer.ssl_visualizer_packet parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static SslVisualizer.ssl_visualizer_packet parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
     public static SslVisualizer.ssl_visualizer_packet parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static SslVisualizer.ssl_visualizer_packet parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static SslVisualizer.ssl_visualizer_packet parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static SslVisualizer.ssl_visualizer_packet parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
     }
-
+    
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslVisualizer.ssl_visualizer_packet prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-
+    
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * Protobuf type {@code ssl_visualizer_packet}
-     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslVisualizer.ssl_visualizer_packetOrBuilder {
@@ -463,21 +288,18 @@ public final class SslVisualizer {
           getDescriptor() {
         return SslVisualizer.internal_static_ssl_visualizer_packet_descriptor;
       }
-
+      
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslVisualizer.internal_static_ssl_visualizer_packet_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                SslVisualizer.ssl_visualizer_packet.class, SslVisualizer.ssl_visualizer_packet.Builder.class);
+        return SslVisualizer.internal_static_ssl_visualizer_packet_fieldAccessorTable;
       }
-
+      
       // Construct using SslVisualizer.ssl_visualizer_packet.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      
+      private Builder(BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -492,7 +314,7 @@ public final class SslVisualizer {
       private static Builder create() {
         return new Builder();
       }
-
+      
       public Builder clear() {
         super.clear();
         if (worldDataBuilder_ == null) {
@@ -521,20 +343,20 @@ public final class SslVisualizer {
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
-
+      
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-
+      
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslVisualizer.internal_static_ssl_visualizer_packet_descriptor;
+        return SslVisualizer.ssl_visualizer_packet.getDescriptor();
       }
-
+      
       public SslVisualizer.ssl_visualizer_packet getDefaultInstanceForType() {
         return SslVisualizer.ssl_visualizer_packet.getDefaultInstance();
       }
-
+      
       public SslVisualizer.ssl_visualizer_packet build() {
         SslVisualizer.ssl_visualizer_packet result = buildPartial();
         if (!result.isInitialized()) {
@@ -542,7 +364,17 @@ public final class SslVisualizer {
         }
         return result;
       }
-
+      
+      private SslVisualizer.ssl_visualizer_packet buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        SslVisualizer.ssl_visualizer_packet result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
       public SslVisualizer.ssl_visualizer_packet buildPartial() {
         SslVisualizer.ssl_visualizer_packet result = new SslVisualizer.ssl_visualizer_packet(this);
         int from_bitField0_ = bitField0_;
@@ -583,7 +415,7 @@ public final class SslVisualizer {
         onBuilt();
         return result;
       }
-
+      
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslVisualizer.ssl_visualizer_packet) {
           return mergeFrom((SslVisualizer.ssl_visualizer_packet)other);
@@ -592,7 +424,7 @@ public final class SslVisualizer {
           return this;
         }
       }
-
+      
       public Builder mergeFrom(SslVisualizer.ssl_visualizer_packet other) {
         if (other == SslVisualizer.ssl_visualizer_packet.getDefaultInstance()) return this;
         if (other.hasWorldData()) {
@@ -610,7 +442,7 @@ public final class SslVisualizer {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-
+      
       public final boolean isInitialized() {
         if (hasWorldData()) {
           if (!getWorldData().isInitialized()) {
@@ -638,39 +470,79 @@ public final class SslVisualizer {
         }
         return true;
       }
-
+      
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        SslVisualizer.ssl_visualizer_packet parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (SslVisualizer.ssl_visualizer_packet) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              SslWorld.ssl_world_packet.Builder subBuilder = SslWorld.ssl_world_packet.newBuilder();
+              if (hasWorldData()) {
+                subBuilder.mergeFrom(getWorldData());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setWorldData(subBuilder.buildPartial());
+              break;
+            }
+            case 18: {
+              SslAnalyzer.ssl_analyzer_packet.Builder subBuilder = SslAnalyzer.ssl_analyzer_packet.newBuilder();
+              if (hasAnalyzerData()) {
+                subBuilder.mergeFrom(getAnalyzerData());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setAnalyzerData(subBuilder.buildPartial());
+              break;
+            }
+            case 26: {
+              SslDecision.ssl_decision_packet.Builder subBuilder = SslDecision.ssl_decision_packet.newBuilder();
+              if (hasDecisionData()) {
+                subBuilder.mergeFrom(getDecisionData());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setDecisionData(subBuilder.buildPartial());
+              break;
+            }
+            case 34: {
+              SslPlanner.ssl_planner_packet.Builder subBuilder = SslPlanner.ssl_planner_packet.newBuilder();
+              if (hasPlannerData()) {
+                subBuilder.mergeFrom(getPlannerData());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setPlannerData(subBuilder.buildPartial());
+              break;
+            }
           }
         }
-        return this;
       }
+      
       private int bitField0_;
-
+      
       // optional .ssl_world_packet world_data = 1;
       private SslWorld.ssl_world_packet worldData_ = SslWorld.ssl_world_packet.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslWorld.ssl_world_packet, SslWorld.ssl_world_packet.Builder, SslWorld.ssl_world_packetOrBuilder> worldDataBuilder_;
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       public boolean hasWorldData() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       public SslWorld.ssl_world_packet getWorldData() {
         if (worldDataBuilder_ == null) {
           return worldData_;
@@ -678,9 +550,6 @@ public final class SslVisualizer {
           return worldDataBuilder_.getMessage();
         }
       }
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       public Builder setWorldData(SslWorld.ssl_world_packet value) {
         if (worldDataBuilder_ == null) {
           if (value == null) {
@@ -694,9 +563,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000001;
         return this;
       }
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       public Builder setWorldData(
           SslWorld.ssl_world_packet.Builder builderForValue) {
         if (worldDataBuilder_ == null) {
@@ -708,9 +574,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000001;
         return this;
       }
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       public Builder mergeWorldData(SslWorld.ssl_world_packet value) {
         if (worldDataBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001) &&
@@ -727,9 +590,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000001;
         return this;
       }
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       public Builder clearWorldData() {
         if (worldDataBuilder_ == null) {
           worldData_ = SslWorld.ssl_world_packet.getDefaultInstance();
@@ -740,17 +600,11 @@ public final class SslVisualizer {
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       public SslWorld.ssl_world_packet.Builder getWorldDataBuilder() {
         bitField0_ |= 0x00000001;
         onChanged();
         return getWorldDataFieldBuilder().getBuilder();
       }
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       public SslWorld.ssl_world_packetOrBuilder getWorldDataOrBuilder() {
         if (worldDataBuilder_ != null) {
           return worldDataBuilder_.getMessageOrBuilder();
@@ -758,9 +612,6 @@ public final class SslVisualizer {
           return worldData_;
         }
       }
-      /**
-       * <code>optional .ssl_world_packet world_data = 1;</code>
-       */
       private com.google.protobuf.SingleFieldBuilder<
           SslWorld.ssl_world_packet, SslWorld.ssl_world_packet.Builder, SslWorld.ssl_world_packetOrBuilder> 
           getWorldDataFieldBuilder() {
@@ -774,20 +625,14 @@ public final class SslVisualizer {
         }
         return worldDataBuilder_;
       }
-
+      
       // optional .ssl_analyzer_packet analyzer_data = 2;
       private SslAnalyzer.ssl_analyzer_packet analyzerData_ = SslAnalyzer.ssl_analyzer_packet.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslAnalyzer.ssl_analyzer_packet, SslAnalyzer.ssl_analyzer_packet.Builder, SslAnalyzer.ssl_analyzer_packetOrBuilder> analyzerDataBuilder_;
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       public boolean hasAnalyzerData() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       public SslAnalyzer.ssl_analyzer_packet getAnalyzerData() {
         if (analyzerDataBuilder_ == null) {
           return analyzerData_;
@@ -795,9 +640,6 @@ public final class SslVisualizer {
           return analyzerDataBuilder_.getMessage();
         }
       }
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       public Builder setAnalyzerData(SslAnalyzer.ssl_analyzer_packet value) {
         if (analyzerDataBuilder_ == null) {
           if (value == null) {
@@ -811,9 +653,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000002;
         return this;
       }
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       public Builder setAnalyzerData(
           SslAnalyzer.ssl_analyzer_packet.Builder builderForValue) {
         if (analyzerDataBuilder_ == null) {
@@ -825,9 +664,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000002;
         return this;
       }
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       public Builder mergeAnalyzerData(SslAnalyzer.ssl_analyzer_packet value) {
         if (analyzerDataBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002) &&
@@ -844,9 +680,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000002;
         return this;
       }
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       public Builder clearAnalyzerData() {
         if (analyzerDataBuilder_ == null) {
           analyzerData_ = SslAnalyzer.ssl_analyzer_packet.getDefaultInstance();
@@ -857,17 +690,11 @@ public final class SslVisualizer {
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       public SslAnalyzer.ssl_analyzer_packet.Builder getAnalyzerDataBuilder() {
         bitField0_ |= 0x00000002;
         onChanged();
         return getAnalyzerDataFieldBuilder().getBuilder();
       }
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       public SslAnalyzer.ssl_analyzer_packetOrBuilder getAnalyzerDataOrBuilder() {
         if (analyzerDataBuilder_ != null) {
           return analyzerDataBuilder_.getMessageOrBuilder();
@@ -875,9 +702,6 @@ public final class SslVisualizer {
           return analyzerData_;
         }
       }
-      /**
-       * <code>optional .ssl_analyzer_packet analyzer_data = 2;</code>
-       */
       private com.google.protobuf.SingleFieldBuilder<
           SslAnalyzer.ssl_analyzer_packet, SslAnalyzer.ssl_analyzer_packet.Builder, SslAnalyzer.ssl_analyzer_packetOrBuilder> 
           getAnalyzerDataFieldBuilder() {
@@ -891,20 +715,14 @@ public final class SslVisualizer {
         }
         return analyzerDataBuilder_;
       }
-
+      
       // optional .ssl_decision_packet decision_data = 3;
       private SslDecision.ssl_decision_packet decisionData_ = SslDecision.ssl_decision_packet.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslDecision.ssl_decision_packet, SslDecision.ssl_decision_packet.Builder, SslDecision.ssl_decision_packetOrBuilder> decisionDataBuilder_;
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       public boolean hasDecisionData() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       public SslDecision.ssl_decision_packet getDecisionData() {
         if (decisionDataBuilder_ == null) {
           return decisionData_;
@@ -912,9 +730,6 @@ public final class SslVisualizer {
           return decisionDataBuilder_.getMessage();
         }
       }
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       public Builder setDecisionData(SslDecision.ssl_decision_packet value) {
         if (decisionDataBuilder_ == null) {
           if (value == null) {
@@ -928,9 +743,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000004;
         return this;
       }
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       public Builder setDecisionData(
           SslDecision.ssl_decision_packet.Builder builderForValue) {
         if (decisionDataBuilder_ == null) {
@@ -942,9 +754,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000004;
         return this;
       }
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       public Builder mergeDecisionData(SslDecision.ssl_decision_packet value) {
         if (decisionDataBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004) &&
@@ -961,9 +770,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000004;
         return this;
       }
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       public Builder clearDecisionData() {
         if (decisionDataBuilder_ == null) {
           decisionData_ = SslDecision.ssl_decision_packet.getDefaultInstance();
@@ -974,17 +780,11 @@ public final class SslVisualizer {
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       public SslDecision.ssl_decision_packet.Builder getDecisionDataBuilder() {
         bitField0_ |= 0x00000004;
         onChanged();
         return getDecisionDataFieldBuilder().getBuilder();
       }
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       public SslDecision.ssl_decision_packetOrBuilder getDecisionDataOrBuilder() {
         if (decisionDataBuilder_ != null) {
           return decisionDataBuilder_.getMessageOrBuilder();
@@ -992,9 +792,6 @@ public final class SslVisualizer {
           return decisionData_;
         }
       }
-      /**
-       * <code>optional .ssl_decision_packet decision_data = 3;</code>
-       */
       private com.google.protobuf.SingleFieldBuilder<
           SslDecision.ssl_decision_packet, SslDecision.ssl_decision_packet.Builder, SslDecision.ssl_decision_packetOrBuilder> 
           getDecisionDataFieldBuilder() {
@@ -1008,20 +805,14 @@ public final class SslVisualizer {
         }
         return decisionDataBuilder_;
       }
-
+      
       // optional .ssl_planner_packet planner_data = 4;
       private SslPlanner.ssl_planner_packet plannerData_ = SslPlanner.ssl_planner_packet.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.ssl_planner_packet, SslPlanner.ssl_planner_packet.Builder, SslPlanner.ssl_planner_packetOrBuilder> plannerDataBuilder_;
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       public boolean hasPlannerData() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       public SslPlanner.ssl_planner_packet getPlannerData() {
         if (plannerDataBuilder_ == null) {
           return plannerData_;
@@ -1029,9 +820,6 @@ public final class SslVisualizer {
           return plannerDataBuilder_.getMessage();
         }
       }
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       public Builder setPlannerData(SslPlanner.ssl_planner_packet value) {
         if (plannerDataBuilder_ == null) {
           if (value == null) {
@@ -1045,9 +833,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000008;
         return this;
       }
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       public Builder setPlannerData(
           SslPlanner.ssl_planner_packet.Builder builderForValue) {
         if (plannerDataBuilder_ == null) {
@@ -1059,9 +844,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000008;
         return this;
       }
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       public Builder mergePlannerData(SslPlanner.ssl_planner_packet value) {
         if (plannerDataBuilder_ == null) {
           if (((bitField0_ & 0x00000008) == 0x00000008) &&
@@ -1078,9 +860,6 @@ public final class SslVisualizer {
         bitField0_ |= 0x00000008;
         return this;
       }
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       public Builder clearPlannerData() {
         if (plannerDataBuilder_ == null) {
           plannerData_ = SslPlanner.ssl_planner_packet.getDefaultInstance();
@@ -1091,17 +870,11 @@ public final class SslVisualizer {
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       public SslPlanner.ssl_planner_packet.Builder getPlannerDataBuilder() {
         bitField0_ |= 0x00000008;
         onChanged();
         return getPlannerDataFieldBuilder().getBuilder();
       }
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       public SslPlanner.ssl_planner_packetOrBuilder getPlannerDataOrBuilder() {
         if (plannerDataBuilder_ != null) {
           return plannerDataBuilder_.getMessageOrBuilder();
@@ -1109,9 +882,6 @@ public final class SslVisualizer {
           return plannerData_;
         }
       }
-      /**
-       * <code>optional .ssl_planner_packet planner_data = 4;</code>
-       */
       private com.google.protobuf.SingleFieldBuilder<
           SslPlanner.ssl_planner_packet, SslPlanner.ssl_planner_packet.Builder, SslPlanner.ssl_planner_packetOrBuilder> 
           getPlannerDataFieldBuilder() {
@@ -1125,24 +895,24 @@ public final class SslVisualizer {
         }
         return plannerDataBuilder_;
       }
-
+      
       // @@protoc_insertion_point(builder_scope:ssl_visualizer_packet)
     }
-
+    
     static {
       defaultInstance = new ssl_visualizer_packet(true);
       defaultInstance.initFields();
     }
-
+    
     // @@protoc_insertion_point(class_scope:ssl_visualizer_packet)
   }
-
+  
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_ssl_visualizer_packet_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ssl_visualizer_packet_fieldAccessorTable;
-
+  
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -1170,7 +940,9 @@ public final class SslVisualizer {
           internal_static_ssl_visualizer_packet_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_visualizer_packet_descriptor,
-              new java.lang.String[] { "WorldData", "AnalyzerData", "DecisionData", "PlannerData", });
+              new java.lang.String[] { "WorldData", "AnalyzerData", "DecisionData", "PlannerData", },
+              SslVisualizer.ssl_visualizer_packet.class,
+              SslVisualizer.ssl_visualizer_packet.Builder.class);
           return null;
         }
       };
@@ -1183,6 +955,6 @@ public final class SslVisualizer {
           SslPlanner.getDescriptor(),
         }, assigner);
   }
-
+  
   // @@protoc_insertion_point(outer_class_scope)
 }
