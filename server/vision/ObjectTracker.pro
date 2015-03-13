@@ -46,7 +46,8 @@ SOURCES +=\
     ../../common/thirdparty/socket/IPPacket.cpp \
     ../../visualizer/plotwidget.cpp \
     ObjectTracker.cpp \
-    ../paramater-manager/parametermanager.cpp
+    ../paramater-manager/parametermanager.cpp \
+    ../paramater-manager/iniparser.cpp
 
 HEADERS  += mainwindow.h \
     VisionFilter.h \
@@ -73,7 +74,8 @@ HEADERS  += mainwindow.h \
     ../../common/thirdparty/socket/netraw.h \
     ../../common/thirdparty/socket/IPPacket.h \
     ../../visualizer/plotwidget.h \
-    ../paramater-manager/parametermanager.h
+    ../paramater-manager/parametermanager.h \
+    ../paramater-manager/iniparser.h
 
 FORMS    += mainwindow.ui \
     ../../visualizer/plotwidget.ui

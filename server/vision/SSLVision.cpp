@@ -2,6 +2,7 @@
 #include "Frame.h"
 #include "VisionFilter.h"
 #include "paramater-manager/parametermanager.h"
+
 IPPacket SSLVision::m_temp_packet;
 ofstream SSLVision::file;
 UDP SSLVision::simple_socket;
@@ -86,7 +87,7 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             temp_frame.camera_id = wrapper.detection().camera_id();
             balls_vec.push_back(temp_frame);
 
-            file << "BALL POSITION [" <<i << "] " << temp_frame.timeStampMilliSec<< ": ";
+            file <<i << " , " << temp_frame.timeStampMilliSec<< ", ";
             file << Ball.x() <<" , " << Ball.y() << endl;
         }
         VisionFilter::getInstance()->setBallFrames(balls_vec);
