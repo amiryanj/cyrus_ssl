@@ -2,14 +2,14 @@
 #define PARSER_H
 
 #include <QObject>
+#include <QMap>
+#include <QVector3D>
 #include <QVector>
 #include "robotstate.h"
-#include "proto/cpp/ssl_world.pb.h"
-#include "proto/cpp/ssl_analyzer.pb.h"
-#include "proto/cpp/ssl_decision.pb.h"
-#include "proto/cpp/ssl_planner.pb.h"
-#include <QVector3D>
-#include <QMap>
+#include "protoc/visualizer/cpp/ssl_world.pb.h"
+#include "protoc/visualizer/cpp/ssl_analyzer.pb.h"
+#include "protoc/visualizer/cpp/ssl_decision.pb.h"
+#include "protoc/visualizer/cpp/ssl_planner.pb.h"
 
 class PacketParser : public QObject
 {

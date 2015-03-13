@@ -3,8 +3,9 @@
 #include "VisionFilter.h"
 #include "paramater-manager/parametermanager.h"
 IPPacket SSLVision::m_temp_packet;
-UDP SSLVision::udp_socket;
 ofstream SSLVision::file;
+UDP SSLVision::simple_socket;
+
 SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener()
 {
 //    m_socket = new QUdpSocket();
@@ -15,11 +16,12 @@ SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener(
 
     ParameterManager* pm = ParameterManager::getInstance();
     file.open(pm->get<string>("debug.ball").c_str());
-    udp_socket.open(port, true, true);
+    simple_socket.open(port, true, true);
     Address multi_, interface_;
     multi_.setHost(address.c_str(), port);
     interface_.setAny();
-    udp_socket.addMulticast(multi_, interface_);
+    simple_socket.addMulticast(multi_, interface_);
+
     pthread_create(&ssl_vision_thread, NULL, &check, NULL);
 
 
@@ -32,9 +34,9 @@ void* SSLVision::check(void *)
     Address sender_adress;
     while(true)
     {
-        if(udp_socket.havePendingData())
+        if(simple_socket.havePendingData())
         {
-            m_temp_packet.length = udp_socket.recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
+            m_temp_packet.length = simple_socket.recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
             cout << "Vision-Packet received. Packet Lenght: [" << m_temp_packet.length << "]" << endl;
 
             SSL_WrapperPacket wrapper;
