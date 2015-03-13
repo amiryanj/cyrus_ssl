@@ -1,10 +1,10 @@
 #include "SSLVision.h"
 #include "Frame.h"
 #include "VisionFilter.h"
-
+#include "paramater-manager/parametermanager.h"
 IPPacket SSLVision::m_temp_packet;
 UDP SSLVision::udp_socket;
-
+ofstream SSLVision::file;
 SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener()
 {
 //    m_socket = new QUdpSocket();
@@ -13,15 +13,19 @@ SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener(
 //    QObject::connect(m_socket, SIGNAL(readyRead()), this, SLOT(readSocket()));
 //    QObject::connect(this, SIGNAL(testSignal()), this, SLOT(readSocket()));
 
+    ParameterManager* pm = ParameterManager::getInstance();
+    file.open(pm->get<string>("debug.ball").c_str());
     udp_socket.open(port, true, true);
     Address multi_, interface_;
     multi_.setHost(address.c_str(), port);
     interface_.setAny();
     udp_socket.addMulticast(multi_, interface_);
     pthread_create(&ssl_vision_thread, NULL, &check, NULL);
+
+
 }
 
-SSLVision::~SSLVision() { }
+SSLVision::~SSLVision() { file.close();}
 
 void* SSLVision::check(void *)
 {
@@ -79,6 +83,9 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             temp_frame.confidence = Ball.confidence();
             temp_frame.camera_id = wrapper.detection().camera_id();
             balls_vec.push_back(temp_frame);
+
+            file << "BALL POSITION [" <<i << "] " << temp_frame.timeStampMilliSec<< ": ";
+            file << Ball.x() <<" , " << Ball.y() << endl;
         }
         VisionFilter::getInstance()->setBallFrames(balls_vec);
     }
