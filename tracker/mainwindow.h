@@ -3,10 +3,10 @@
 
 #include <QMainWindow>
 #include <QTimer>
-#include "../../visualizer/plotwidget.h"
-#include "../ai/SSLWorldModel.h"
-#include "VisionFilter.h"
-#include "BallFilter.h"
+#include "../visualizer/plotwidget.h"
+#include "../server/ai/SSLWorldModel.h"
+#include "../server/vision/VisionFilter.h"
+#include "../server/vision/BallFilter.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +23,8 @@ public:
 private slots:
     void timerOVF();
     
+    void on_actionPlayStop_toggled(bool arg1);
+
 private:
     Ui::MainWindow *ui;
     PlotWidget *pw_;

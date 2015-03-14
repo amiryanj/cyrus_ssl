@@ -1,9 +1,9 @@
 #include <QtGui/QApplication>
 #include "mainwindow.h"
 
-#include "SSLVision.h"
-#include "../../common/general.h"
-#include "../paramater-manager/parametermanager.h"
+#include "../server/vision/SSLVision.h"
+#include "../common/general.h"
+#include "../server/paramater-manager/parametermanager.h"
 
 int main(int argc, char *argv[])
 {

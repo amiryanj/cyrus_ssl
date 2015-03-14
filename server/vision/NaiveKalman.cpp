@@ -79,7 +79,7 @@ FilterState NaiveKalman::filter()
 
     // crop the results
     if(abs(m_state.acc.X()) > max_acceleration_crop.X())
-        m_observed.acc.setX(sgn(m_state.acc.X())*max_acceleration_crop.X());
+        m_state.acc.setX(sgn(m_state.acc.X())*max_acceleration_crop.X());
 
     if(abs(m_state.acc.Y()) > max_acceleration_crop.Y())
         m_state.acc.setY(sgn(m_state.acc.Y())*max_acceleration_crop.Y());

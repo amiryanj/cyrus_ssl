@@ -80,7 +80,7 @@ void RobotFilter::runFilter()
     Frame last_frame = rawPositionList.front();
     /* javad's prediction */
 
-    for (int i = 0 ; i < MAX_ROBOT_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
+    for (uint i = 0 ; i < MAX_ROBOT_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
         if (fabs(((rawPositionList[i].position - rawPositionList[i+1].position)
                   / (rawPositionList[i].timeStampMilliSec - rawPositionList[i+1].timeStampMilliSec)).lenght2D()
                 - m_medianFilteredSpeed.lenght2D()) <= EPS)

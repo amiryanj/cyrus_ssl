@@ -1,11 +1,12 @@
 #include "SSLVision.h"
 #include "Frame.h"
 #include "VisionFilter.h"
-#include "paramater-manager/parametermanager.h"
+#include "../paramater-manager/parametermanager.h"
 
 IPPacket SSLVision::m_temp_packet;
 ofstream SSLVision::file;
 UDP SSLVision::simple_socket;
+RoboCupSSLClient* SSLVision::client;
 
 SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener()
 {
@@ -15,13 +16,17 @@ SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener(
 //    QObject::connect(m_socket, SIGNAL(readyRead()), this, SLOT(readSocket()));
 //    QObject::connect(this, SIGNAL(testSignal()), this, SLOT(readSocket()));
 
+    client = new RoboCupSSLClient(port, address, "");
+    client->open(true);
+
     ParameterManager* pm = ParameterManager::getInstance();
     file.open(pm->get<string>("debug.ball").c_str());
-    simple_socket.open(port, true, true);
-    Address multi_, interface_;
-    multi_.setHost(address.c_str(), port);
-    interface_.setAny();
-    simple_socket.addMulticast(multi_, interface_);
+
+//    simple_socket.open(port, true, true);
+//    Address multi_, interface_;
+//    multi_.setHost(address.c_str(), port);
+//    interface_.setAny();
+//    simple_socket.addMulticast(multi_, interface_);
 
     pthread_create(&ssl_vision_thread, NULL, &check, NULL);
 
@@ -32,28 +37,48 @@ SSLVision::~SSLVision() { file.close();}
 
 void* SSLVision::check(void *)
 {
-    Address sender_adress;
-    while(true)
-    {
-        if(simple_socket.havePendingData())
-        {
-            m_temp_packet.length = simple_socket.recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
-            cout << "Vision-Packet received. Packet Lenght: [" << m_temp_packet.length << "]" << endl;
+    static long packet_counter = 0;
+    SSL_WrapperPacket wrapper;
+    while(true) {
+        if(client->receive(wrapper)) {
+            cout << "Vision Packet received # [ " << packet_counter ++ << " ]" << endl;
+            if(wrapper.has_detection()){
+                cout << "Frame Number: " << wrapper.detection().frame_number() << endl;
+                cout << "Frame time:" << (long)(wrapper.detection().t_sent() *1000.0) << endl;
 
-            SSL_WrapperPacket wrapper;
-            wrapper.Clear();
-            wrapper.ParseFromArray(m_temp_packet.buffer, m_temp_packet.length);
-
-            updateFilterModule(wrapper);            
+            }
+            updateFilterModule(wrapper);
+            VisionFilter::getInstance()->check();
+            usleep(2000);
         }
-        VisionFilter::getInstance()->check();
-        usleep(1000);
     }
+//    Address sender_adress;
+//    while(true)
+//    {
+//        if(simple_socket.havePendingData())
+//        {
+//            m_temp_packet.length = simple_socket.recv(m_temp_packet.buffer, MAX_BUFFER_SIZE, sender_adress);
+//            if(m_temp_packet.length == 0)
+//                continue;
+//            packet_counter ++;
+//            cout << packet_counter << "] Vision-Packet received. Packet Lenght: [" << m_temp_packet.length << "]" << endl;
+
+//            SSL_WrapperPacket wrapper;
+//            wrapper.Clear();
+//            wrapper.ParseFromArray(m_temp_packet.buffer, m_temp_packet.length);
+
+//            updateFilterModule(wrapper);
+//        }
+//        VisionFilter::getInstance()->check();
+//        usleep(1000);
+//    }
+    return 0;
 }
 
 void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
 {
 	//TODO: update world model from wrapper    
+
     if(wrapper.has_detection())
     {        
         Frame temp_frame;
@@ -87,7 +112,7 @@ void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
             temp_frame.camera_id = wrapper.detection().camera_id();
             balls_vec.push_back(temp_frame);
 
-            file <<i << " , " << temp_frame.timeStampMilliSec<< ", ";
+            file <<i << " , " << (long)temp_frame.timeStampMilliSec<< " , ";
             file << Ball.x() <<" , " << Ball.y() << endl;
         }
         VisionFilter::getInstance()->setBallFrames(balls_vec);

@@ -5,6 +5,7 @@
 #include "../../common/protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.h"
 
 #include "../../common/thirdparty/socket/netraw.h"
+#include "robocup_ssl_client.h"
 #include <fstream>
 
 using namespace Net;
@@ -18,6 +19,8 @@ class SSLVision //: public UDP //, public SSLListener
     static IPPacket m_temp_packet;
     static ofstream file;
     pthread_t ssl_vision_thread;
+
+    static RoboCupSSLClient *client;
 
     static void *check(void *);
     static void updateFilterModule(const SSL_WrapperPacket& wrapper);

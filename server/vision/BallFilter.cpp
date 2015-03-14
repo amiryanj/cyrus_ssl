@@ -46,6 +46,13 @@ void BallFilter::putNewFrame(const Frame &fr)
         rawData.pop_back();
     }
 
+    if(getRawData(0).displacement.X() == 0)  {
+        cout << "$$$$$$$$$$$ zero velocity $$$$$$$$$$" << endl;
+        int dummy = 0;
+        dummy ++;
+    }
+
+
     assert( rawData.size() == MAX_BALL_MEMORY );
 }
 
@@ -78,15 +85,15 @@ void BallFilter::runFilter()
         SSLWorldModel::getInstance()->mainBall()->setStopped(BALL_NOT_STOPPED);
     }
 
-    m_rawPosition = getRawData(0).position;
+    m_rawPosition  = getRawData(0).position;
     m_displacement = getRawData(0).displacement;
-    m_rawVelocity = getRawData(0).velocity;
+    m_rawVelocity  = getRawData(0).velocity;
 
     m_filteredPosition = getRawData(0).position;
     m_filteredVelocity = getRawData(0).velocity;
-    m_accleration = getRawData(0).acceleration;
+    m_accleration      = getRawData(0).acceleration;
 
-    if(SSLWorldModel::getInstance()->mainBall()->isStopped()) {
+    if( SSLWorldModel::getInstance()->mainBall()->isStopped() ) {
         m_filteredVelocity = Vector2D(0, 0);
 //    } else {
     }
@@ -107,7 +114,8 @@ void BallFilter::runFilter()
     FilterState fs = naiveFilter.filter();
     this->m_filteredPosition = fs.pos.to2D();
     this->m_filteredVelocity = fs.vel.to2D();
-    this->m_accleration = fs.acc.to2D();
+
+//    this->m_accleration = fs.acc.to2D();
 }
 
 Vector2D BallFilter::getUnfilteredSpeed() const
@@ -151,11 +159,11 @@ bool BallFilter::getBallStoppedState()
                                          getRawData(2).turnInDegree() ;
 
         if(minimum_distance < 30) { // there is very close robot
-            if(totoal_rotation_5_frame < 50)
+            if( totoal_rotation_5_frame < 50 )
                 return false;
         }
 
-        int large_displacement_counter= (getRawData(0).displacement.lenght() > 15) +
+        int large_displacement_counter = (getRawData(0).displacement.lenght() > 15) +
                                         (getRawData(1).displacement.lenght() > 15) +
                                         (getRawData(2).displacement.lenght() > 15) +
                                         (getRawData(3).displacement.lenght() > 15) +

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "../definition/SSLBall.h"
+#include "../server/definition/SSLBall.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -8,10 +8,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    pw_ = new PlotWidget(2, this);
+    pw_ = new PlotWidget(3, this);
     ui->verticalLayout->addWidget(pw_);
 
-    timer.setInterval(50);
+    timer.setInterval(10);
     connect(&timer, SIGNAL(timeout()), this, SLOT(timerOVF()));
     timer.start();
 }
@@ -28,8 +28,9 @@ void MainWindow::timerOVF()
 
 //    double ball_err = SSLWorldModel::getInstance()->mainBall()->Speed().lenght();
 
-    double data_1 = VisionFilter::getInstance()->ballFilter->getUnfilteredSpeed().lenght();
-    double data_2 = VisionFilter::getInstance()->ballFilter->getFilteredSpeed().lenght();
+    double data_0 = VisionFilter::getInstance()->ballFilter->getRawData(0).displacement.X();
+    double data_1 = VisionFilter::getInstance()->ballFilter->getRawData(0).displacement.Y();
+    double data_2 = VisionFilter::getInstance()->ballFilter->getRawData(2).displacement.X();
 
     double alfa = VisionFilter::getInstance()->ballFilter->naiveFilter.m_alfa;
 
@@ -37,6 +38,15 @@ void MainWindow::timerOVF()
 //             << "Ball Raw Displacement = " << ball_disp;
 
     QVector<double> values;
-    values << data_1 << data_2;
+//    if(data_1 != 0.0)
+    values << data_0 << data_1 ;
     pw_->addValue( counter /10.0, values );
+}
+
+void MainWindow::on_actionPlayStop_toggled(bool arg1)
+{
+    if(arg1)
+        timer.start();
+    else
+        timer.stop();
 }

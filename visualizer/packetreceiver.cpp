@@ -58,12 +58,19 @@ void PacketReceiver::disconnectNetwork()
 
 void PacketReceiver::processPendingData()
 {
-    qDebug() << "new data packet received";
+
+    receivedData.clear();
+
     while (socket.hasPendingDatagrams())
     {
         receivedData.resize(socket.pendingDatagramSize());
         socket.readDatagram(receivedData.data(), receivedData.size());
     }
+
+    qDebug() << "new data packet received. size # " << receivedData.size();
+
+    if( receivedData.size() == 0 )
+        return ;
 
     timer.start();
     vis_packet.ParseFromArray(receivedData,receivedData.size());

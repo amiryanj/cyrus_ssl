@@ -108,7 +108,8 @@ SOURCES += \
     ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc \
     paramater-manager/parametermanager.cpp \
     paramater-manager/iniparser.cpp \
-    vision/alphabetafilter.cpp
+    vision/alphabetafilter.cpp \
+    vision/robocup_ssl_client.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -186,7 +187,8 @@ HEADERS += \
     iniparser/parametermanager.h \
     paramater-manager/parametermanager.h \
     paramater-manager/iniparser.h \
-    vision/alphabetafilter.h
+    vision/alphabetafilter.h \
+    vision/robocup_ssl_client.h
 
 OTHER_FILES += \    
     planner/planning/Planner.pri \

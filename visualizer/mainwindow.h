@@ -48,8 +48,6 @@ private slots:
 
     void on_actionQuit_triggered();
 
-    void on_actionConnect_Server_triggered();
-
     void on_actionFull_Screen_toggled(bool arg1);
 
     void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);

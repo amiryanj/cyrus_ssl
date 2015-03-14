@@ -35,4 +35,6 @@ Frame &Frame::operator =(const Frame &other)
     this->camera_id = other.camera_id;
     this->confidence = other.confidence;
     this->position = other.position;
+
+    return (*this);
 }
