@@ -11,6 +11,7 @@
 
 class RobotFilter //: public Kalman::EKFilter<double, 1>
 {
+    friend class VisionFilter;
 public:
     RobotFilter();
     void putNewFrame(const Frame &fr);
@@ -19,9 +20,6 @@ public:
 
     // main method for updating state vectors
     void runFilter();
-
-    Vector3D getFilteredSpeed() const;
-    Vector3D getFilteredPosition() const;
 
 private:
     std::vector<Frame> rawPositionList;

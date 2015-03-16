@@ -27,7 +27,7 @@ void BallFilter::putNewFrame(const Frame &fr)
         m_filteredPosition = fr.position.to2D();
         m_displacement = Vector2D(0.0, 0.0);
         m_filteredVelocity = Vector2D(0.0, 0.0);
-        m_accleration = Vector2D(0.0, 0.0);
+        m_acceleration = Vector2D(0.0, 0.0);
     }
 
     else {
@@ -81,9 +81,6 @@ void BallFilter::runFilter()
         return;
     }
     // check for changing the ball state
-    if(getBallStoppedState() == BALL_NOT_STOPPED) {
-        SSLWorldModel::getInstance()->mainBall()->setStopped(BALL_NOT_STOPPED);
-    }
 
     m_rawPosition  = getRawData(0).position;
     m_displacement = getRawData(0).displacement;
@@ -91,15 +88,18 @@ void BallFilter::runFilter()
 
     m_filteredPosition = getRawData(0).position;
     m_filteredVelocity = getRawData(0).velocity;
-    m_accleration      = getRawData(0).acceleration;
+    m_acceleration      = getRawData(0).acceleration;
+
+    SSLWorldModel::getInstance()->mainBall()->setStopped(getBallStoppedState());
 
     if( SSLWorldModel::getInstance()->mainBall()->isStopped() ) {
         m_filteredVelocity = Vector2D(0, 0);
+        return;
 //    } else {
     }
 
-    double disp_error_ = m_accleration.lenght(); // / m_filteredVelocity.lenght();
-    double turn_error_ = m_accleration.arctan();
+    double disp_error_ = m_acceleration.lenght(); // / m_filteredVelocity.lenght();
+    double turn_error_ = m_acceleration.arctan();
 
     double last_delta_t_sec = getRawData(0).timeStamp_second - getRawData(1).timeStamp_second;
 
@@ -118,38 +118,13 @@ void BallFilter::runFilter()
 //    this->m_accleration = fs.acc.to2D();
 }
 
-Vector2D BallFilter::getUnfilteredSpeed() const
-{
-    return m_rawVelocity;
-}
-
-Vector2D BallFilter::getFilteredSpeed() const
-{
-    return m_filteredVelocity;
-}
-
-Vector2D BallFilter::getFilteredPosition() const
-{
-    return m_filteredPosition;
-}
-
-Vector2D BallFilter::getAcceleration() const
-{
-    return m_accleration;
-}
-
-Vector2D BallFilter::getDisplacement() const
-{
-    return m_displacement;
-}
-
 bool BallFilter::getBallStoppedState()
 {
     if(SSLWorldModel::getInstance()->mainBall()->isStopped()) {
         vector<SSLRobot *> all_robots = SSLWorldModel::getInstance()->all_inFields();
         double minimum_distance = INFINITY;
         for(uint i=0; i<all_robots.size(); i++) {
-            double dist_i = (((SSLRobot*)(all_robots.at(i)))->Position().to2D() - getFilteredPosition()).lenght();
+            double dist_i = (((SSLRobot*)(all_robots.at(i)))->Position().to2D() - m_filteredPosition).lenght();
             dist_i -= SSLWorldModel::getInstance()->mainBall()->m_radius - ((SSLRobot*)(all_robots.at(i)))->m_radius;
             minimum_distance = min(dist_i, minimum_distance);
         }
@@ -182,5 +157,7 @@ bool BallFilter::getBallStoppedState()
     } else {
         // we dont consider the moments where ball get stopped during a game
         // set stop is just called by referee signals
+        return false;
     }
+
 }

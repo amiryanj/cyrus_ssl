@@ -6,7 +6,6 @@
 
 #include "../../common/thirdparty/socket/netraw.h"
 #include "robocup_ssl_client.h"
-#include <fstream>
 
 using namespace Net;
 
@@ -16,8 +15,7 @@ using namespace Net;
 class SSLVision //: public UDP //, public SSLListener
 {
     static UDP simple_socket;
-    static IPPacket m_temp_packet;
-    static ofstream file;
+    static IPPacket m_temp_packet;    
     pthread_t ssl_vision_thread;
 
     static RoboCupSSLClient *client;

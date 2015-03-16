@@ -147,12 +147,12 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
     ball_packet->mutable_velocity()->set_y(world->mainBall()->Speed().Y());
     ball_packet->mutable_velocity()->set_teta(0);
 
-    Vector2D ball_displacement = VisionFilter::getInstance()->ballFilter->getDisplacement();
+    Vector2D ball_displacement = VisionFilter::getInstance()->ballFilter->m_displacement;
     ball_packet->mutable_displacement()->set_x(ball_displacement.X());
     ball_packet->mutable_displacement()->set_y(ball_displacement.Y());
     ball_packet->mutable_displacement()->set_teta(0);
 
-    Vector2D ball_raw_velocity = VisionFilter::getInstance()->ballFilter->getUnfilteredSpeed();
+    Vector2D ball_raw_velocity = VisionFilter::getInstance()->ballFilter->m_rawVelocity;
     ball_packet->mutable_velocity_raw()->set_x(ball_raw_velocity.X());
     ball_packet->mutable_velocity_raw()->set_y(ball_raw_velocity.Y());
     ball_packet->mutable_velocity_raw()->set_teta(0);

@@ -1,5 +1,6 @@
 #include "VisionFilter.h"
 #include "../definition/SSLBall.h"
+#include "../paramater-manager/parametermanager.h"
 
 VisionFilter* VisionFilter::module = NULL;
 
@@ -8,23 +9,33 @@ VisionFilter *VisionFilter::getInstance()
     if(module == NULL)
         module = new VisionFilter();
     return module;
-
 }
 
 VisionFilter::VisionFilter()
 {
+    // initializing filter objects
     for(int i=0; i<NUM_TEAMS; ++i)
         for(int j=0; j<MAX_ID_NUM; ++j)
             robotFilter[i][j] = new RobotFilter();
 
     ballFilter = new BallFilter();
+
+    for (int i=0; i<MAX_CAMERA_COUNT; i++)
+        last_frame_time[i] = 0;
+
+    ParameterManager* pm = ParameterManager::getInstance();
+    file.open(pm->get<string>("debug.ball").c_str());
+}
+
+VisionFilter::~VisionFilter()
+{
+    file.close();
 }
 
 void VisionFilter::check()
 {
     for(int tm=0; tm<NUM_TEAMS; ++tm)
-        for(int i=0; i<MAX_ID_NUM; ++i)
-        {
+        for(int i=0; i<MAX_ID_NUM; ++i) {
             robotFilter[tm][i]->runFilter();
         }
 
@@ -34,72 +45,86 @@ void VisionFilter::check()
 
 }
 
+
 void VisionFilter::updateWorldModel()
 {
     for(int i=0; i<NUM_TEAMS; ++i)
         for(int j=0; j<MAX_ID_NUM; ++j)
         {
-            world->updateRobotState((SSL::Color)i, j,robotFilter[i][j]->getFilteredPosition(),
-                                                  robotFilter[i][j]->getFilteredSpeed());
+            world->updateRobotState((SSL::Color)i, j,robotFilter[i][j]->m_filteredPosition,
+                                                  robotFilter[i][j]->m_filteredSpeed);
             world->updateRobotAvailability((SSL::Color)i, j, robotFilter[i][j]->isOnField());
         }
 
-    world->updateBallState(0, ballFilter->getFilteredPosition(),
-                           ballFilter->getFilteredSpeed(), ballFilter->getAcceleration());
+    world->updateBallState(0, ballFilter->m_filteredPosition,
+                           ballFilter->m_filteredVelocity, ballFilter->m_acceleration);
 
 }
 
-void VisionFilter::setRobotFrame(SSL::Color color, unsigned int id, Frame &fr)
+void VisionFilter::update(const SSL_WrapperPacket &packet)
 {
+    if(packet.has_detection())
+    {
+        if( packet.detection().camera_id() < MAX_CAMERA_COUNT )
+        {
+            double frame_time = packet.detection().t_capture();
+            if( frame_time <=  last_frame_time[packet.detection().camera_id()] ) {
+                cerr << "Warning: Decayed packet !!!!" << endl;
+                return;
+            }
+            else
+                last_frame_time[packet.detection().camera_id()] = frame_time;
+        }
 
-//    if(fr.camera_id == 1)
-//        return;
-//    if(fr.camera_id == 1 && fabs(fr.position.X()) < 100)
-//        return;
-    if(((int) color > 2) || (id >= MAX_ID_NUM))
-        throw "invalid color or id of robot";
-    robotFilter[color][id]->putNewFrame(fr);
+        Frame temp_frame;
+        temp_frame.camera_id = packet.detection().camera_id();
+        temp_frame.frame_number = packet.detection().frame_number();
+
+//        temp_frame.setToCurrentTimeMilliSec();
+        temp_frame.timeStampMilliSec = packet.detection().t_capture() * 1000.0;
+
+        for(int i=0; i < packet.detection().robots_blue_size(); i++)
+        {
+            SSL_DetectionRobot Robot = packet.detection().robots_blue(i);
+            temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+            temp_frame.confidence = Robot.confidence();
+            robotFilter[SSL::Blue][Robot.robot_id()]->putNewFrame(temp_frame);
+        }
+
+        for(int i=0; i< packet.detection().robots_yellow_size(); i++)
+        {
+            SSL_DetectionRobot Robot = packet.detection().robots_yellow(i);
+            temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+            temp_frame.confidence = Robot.confidence();
+            robotFilter[SSL::Yellow][Robot.robot_id()]->putNewFrame(temp_frame);
+        }
+
+        vector<Frame> balls_vec;
+        for(int i=0; i< packet.detection().balls_size(); i++)
+        {
+            SSL_DetectionBall Ball = packet.detection().balls(i);
+            temp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();
+            temp_frame.confidence = Ball.confidence();
+            balls_vec.push_back(temp_frame);
+
+//            file <<i << " , " << (long)temp_frame.timeStampMilliSec<< " , ";
+//            file << Ball.x() <<" , " << Ball.y() << endl;
+        }
+
+        if(balls_vec.empty()) {
+            cout << "Warning:: No ball exists in current frame" << endl;
+        }
+        else if(balls_vec.size() == 1) {
+            ballFilter->putNewFrame(balls_vec[0]);
+        }
+        else {
+            cout << "Warning:: More than One ball exist in current frame" << endl;
+            ballFilter->putNewFrameWithManyBalls(balls_vec);
+        }
+    }
+    if(packet.has_geometry())
+    {
+        SSL_GeometryData geometryData = packet.geometry();
+        // and so on
+    }
 }
-
-void VisionFilter::setBallFrames(vector<Frame> frs)
-{
-    if(frs.empty()) {
-        cout << "Warning:: No ball exists in current frame" << endl;
-    }
-    else if(frs.size() == 1) {
-        ballFilter->putNewFrame(frs[0]);
-    }
-    else {
-        cout << "Warning:: More than One ball exist in current frame" << endl;
-        ballFilter->putNewFrameWithManyBalls(frs);
-    }
-//    for (int j = 0; j<MAX_BALL_NUM; j++) {
-//        if(frs.empty())
-//            break;
-//        float min_dist = INFINITY;
-//        short candid_id = 0;
-//        for(int i=0; i<frs.size(); i++) {
-//            float dist_i = (world->balls[j]->Position() - frs[i].position.to2D()).lenght();
-//            if(dist_i < min_dist) {
-//                candid_id = j;
-//                min_dist = dist_i;
-//            }
-//        }
-//        if(j==0)
-//            ballFilter->putNewFrame(frs[candid_id]);
-//        else
-//            world->balls[j]->setPosition(frs[candid_id].position.to2D());
-//        //    if(frs[candid_id].position.X() > 0)
-//        //      return;
-//        //    if(frs[candid_id].camera_id == 1)
-//        //      return;
-//        // skip out-of field balls, they are not important during a real game
-//        if(fabs(frs[candid_id].position.X() > (30 + FIELD_LENGTH / 2))
-//                ||  fabs(frs[candid_id].position.Y())> (30 +FIELD_WIDTH / 2))
-//            return;
-
-//        frs.erase(frs.begin() + candid_id);
-//    }
-}
-
-

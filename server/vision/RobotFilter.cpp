@@ -104,13 +104,3 @@ void RobotFilter::runFilter()
 
 }
 
-Vector3D RobotFilter::getFilteredPosition() const
-{
-    return m_filteredPosition;
-}
-
-Vector3D RobotFilter::getFilteredSpeed() const
-{
-    return m_filteredSpeed;
-}
-

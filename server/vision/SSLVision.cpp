@@ -4,7 +4,6 @@
 #include "../paramater-manager/parametermanager.h"
 
 IPPacket SSLVision::m_temp_packet;
-ofstream SSLVision::file;
 UDP SSLVision::simple_socket;
 RoboCupSSLClient* SSLVision::client;
 
@@ -19,9 +18,6 @@ SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener(
     client = new RoboCupSSLClient(port, address, "");
     client->open(true);
 
-    ParameterManager* pm = ParameterManager::getInstance();
-    file.open(pm->get<string>("debug.ball").c_str());
-
 //    simple_socket.open(port, true, true);
 //    Address multi_, interface_;
 //    multi_.setHost(address.c_str(), port);
@@ -33,7 +29,7 @@ SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener(
 
 }
 
-SSLVision::~SSLVision() { file.close();}
+SSLVision::~SSLVision() { }
 
 void* SSLVision::check(void *)
 {
@@ -41,15 +37,15 @@ void* SSLVision::check(void *)
     SSL_WrapperPacket wrapper;
     while(true) {
         if(client->receive(wrapper)) {
-            cout << "Vision Packet received # [ " << packet_counter ++ << " ]" << endl;
             if(wrapper.has_detection()){
-                cout << "Frame Number: " << wrapper.detection().frame_number() << endl;
-                cout << "Frame time:" << (long)(wrapper.detection().t_sent() *1000.0) << endl;
-
+                cout << "Vision Packet # [" << packet_counter ++ << "]" ;
+                cout << "\tCamera ID: " << wrapper.detection().camera_id();
+                cout << "\tFrame Number: " << wrapper.detection().frame_number() << endl;
+                cout << "\t Frame capture time:" << (long)(wrapper.detection().t_capture() *1000000.0) << " (us)" << endl;
+                VisionFilter::getInstance()->update(wrapper);
             }
-            updateFilterModule(wrapper);
             VisionFilter::getInstance()->check();
-            usleep(2000);
+//            usleep(2000);
         }
     }
 //    Address sender_adress;
@@ -75,54 +71,7 @@ void* SSLVision::check(void *)
     return 0;
 }
 
-void SSLVision::updateFilterModule(const SSL_WrapperPacket &wrapper)
-{
-	//TODO: update world model from wrapper    
 
-    if(wrapper.has_detection())
-    {        
-        Frame temp_frame;
-        for(int i=0; i < wrapper.detection().robots_blue_size(); i++)
-        {
-            SSL_DetectionRobot Robot = wrapper.detection().robots_blue(i);
-            temp_frame.setToCurrentTimeMilliSec();
-            temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
-            temp_frame.confidence = Robot.confidence();
-            temp_frame.camera_id = wrapper.detection().camera_id();
-            VisionFilter::getInstance()->setRobotFrame(SSL::Blue, Robot.robot_id(), temp_frame);
-        }
-
-        for(int i=0; i< wrapper.detection().robots_yellow_size(); i++)
-        {
-            SSL_DetectionRobot Robot = wrapper.detection().robots_yellow(i);
-            temp_frame.setToCurrentTimeMilliSec();
-            temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
-            temp_frame.confidence = Robot.confidence();
-            temp_frame.camera_id = wrapper.detection().camera_id();
-            VisionFilter::getInstance()->setRobotFrame(SSL::Yellow, Robot.robot_id(), temp_frame);
-        }
-
-        vector<Frame> balls_vec;
-        for(int i=0; i< wrapper.detection().balls_size(); i++)
-        {
-            SSL_DetectionBall Ball = wrapper.detection().balls(i);
-            temp_frame.setToCurrentTimeMilliSec();
-            temp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();            
-            temp_frame.confidence = Ball.confidence();
-            temp_frame.camera_id = wrapper.detection().camera_id();
-            balls_vec.push_back(temp_frame);
-
-            file <<i << " , " << (long)temp_frame.timeStampMilliSec<< " , ";
-            file << Ball.x() <<" , " << Ball.y() << endl;
-        }
-        VisionFilter::getInstance()->setBallFrames(balls_vec);
-    }
-    if(wrapper.has_geometry())
-    {
-        SSL_GeometryData geometryData = wrapper.geometry();
-        // and so on
-    }
-}
 
 //void SSLVision::readSocket()
 //{

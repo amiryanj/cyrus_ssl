@@ -26,6 +26,8 @@ struct BallKinematic {
 class BallFilter
 {
     friend class MainWindow;
+    friend class GUIHandler;
+    friend class VisionFilter;
 public:
     BallFilter();
 
@@ -34,12 +36,6 @@ public:
 
     // main method for updating state vectors
     void runFilter();
-
-    Vector2D getFilteredSpeed() const;
-    Vector2D getUnfilteredSpeed() const;
-    Vector2D getFilteredPosition() const;
-    Vector2D getAcceleration() const;
-    Vector2D getDisplacement() const;
 
 protected:
     BallKinematic& getRawData(uint i) {return rawData[i];}
@@ -59,7 +55,7 @@ protected:
     Vector2D m_rawVelocity;
     Vector2D m_filteredVelocity;
 
-    Vector2D m_accleration;
+    Vector2D m_acceleration;
 
     NaiveKalman naiveFilter;
 
