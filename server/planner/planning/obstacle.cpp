@@ -1,11 +1,11 @@
 #include "obstacle.h"
 
-Obstacle::Obstacle(ObstacleType type, b2Vec2 center, double radius, double orien)
+Obstacle::Obstacle(ObstacleType type, b2Vec2 center, double radius)
 {
     shape = new b2CircleShape();
     b2CircleShape* circle = (b2CircleShape*) shape;
     circle->m_p.SetZero(); // = 0
-    this->m_transform.Set(center, orien);
+    this->m_transform.Set(center, 0);
 
     shape->m_radius = radius;
 

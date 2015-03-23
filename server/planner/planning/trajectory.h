@@ -10,28 +10,57 @@
 class Trajectory
 {
 public:
-    Trajectory();    
-    double cost();
+    Trajectory();
 
-    uint lenght() const;
+    struct PlanCost {
+        float length;
+        float safety;
+        float smoothness;
+        void setZero() {
+            length = 0;
+            safety = 0;
+            smoothness = 0;
+        }
+        PlanCost& operator =(const PlanCost &other) {
+            this->length = other.length;
+            this->safety = other.safety;
+            this->smoothness = other.smoothness;
+            return *this;
+        }
+    } cost;
 
-    void prependVertex(RRTVertex* ver);
+    static PlanCost cost_weights;
+
+
+    void computeCost();
+    double getCost(float length_w = cost_weights.length,
+                   float smooth_w = cost_weights.smoothness,
+                   float safety_w = cost_weights.safety) const;
+
+    int length() const;
+    bool isEmpty() const;
+
+    void prependState(Station st);
+    void appendState(Station st);
+    Station removeLastState();
 
     void printToStream(std::ostream& stream);
 
 //    void setRoot(RRTVertex* m_root);
 //    RRTVertex* getRoot() const;
 
-    Station getStation(uint index);
+    Station& getStation(uint index);
+    void EditStation(uint index, Station &new_st);
+    Station getFirstStation();
+    Station getLastStation();    
     vector<Station> getAllStations();
-    RRTVertex* getVertex(uint index);
 
     void clear();
+    void copyFrom(Trajectory &other);
 
 private:
-    vector<RRTVertex*> m_vertex_vec;
-
-
+    Station dummy_station;
+    vector<Station> m_states_vec;
 };
 
 #endif // TRAJECTORY_H

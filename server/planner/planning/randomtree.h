@@ -13,21 +13,22 @@ class RandomTree
 {
 public:
     RandomTree();
-    ~RandomTree();
     void clear();
     int count() const;
 
-    RRTVertex *addNewVertex(RRTVertex* parent, Station &st);
+    void setRoot(RRTVertex* root);
+    RRTVertex* getRoot() const;
+    RRTVertex* addNewVertex(RRTVertex* parent, Station &st);
 
     RRTVertex* nearest(const Station& st);
     RRTVertex* lastAddedVertex();
 
-private:
-    RRTVertex* m_vertices[MAX_TREE_CAP];
+    RRTVertex* getVertex(int i) const;
 
+    vector<Station> getStations() const;
 protected:
-    RRTVertex* m_root;
-    int m_vertices_count; // 0 -> MAX_TREE_CAP
+    vector<RRTVertex*> vertices;
+    RRTVertex* root;
 
 };
 

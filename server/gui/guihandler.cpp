@@ -257,7 +257,7 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         goal->set_teta(agent->tempTarget.Teta());
         planner_obstacles* obstacles = plan->mutable_obstacleset(); // not filled yet
         if(agent->planner.planningResult)
-            for(uint i = 0; i< agent->planner.getTrajectory().lenght(); i++)
+            for(uint i = 0; i< agent->planner.getTrajectory().length(); i++)
             {
                 Vector3D pos = agent->planner.getTrajectory().getStation(i).getPosition();
                 planner_vec3d* state = plan->add_pathstate();

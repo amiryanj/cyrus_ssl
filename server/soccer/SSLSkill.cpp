@@ -48,48 +48,52 @@ void SSLSkill::goToPoint(SSLAgent *agent, Vector3D target, const Vector3D &toler
 }
 
 void SSLSkill::goToPointWithPlanner(SSLAgent* agent, const Vector3D &target, const Vector3D &tolerance,
-                                    bool considerPenaltyArea, float ball_ob_radius, float robot_ob_radius)
+                                    bool considerPenaltyArea, float ball_obs_radius, float robot_obs_radius)
 {
     cout << "Agent Number [" << agent->getID() << "] => Go to point with planner" << endl;
 
     agent->skill_in_use = "Plan and go to point";
+
     Station init_state;
     init_state.setPosition(agent->robot->Position());
     init_state.setVelocity(agent->robot->Speed());
-
     agent->planner.setInitialState(init_state);
+
     GoalState goal;
-    goal.goal_point.position = target;
-    goal.tolerance.position = tolerance;
+    goal.goal_point.setPosition(target);
+    goal.tolerance.setPosition(tolerance);
     agent->planner.setGoalRegion(goal);
 
     agent->tempTarget = target;
 
-    ObstacleSet tmpAllObstacles;
-    tmpAllObstacles.reserve(2*MAX_ID_NUM + 6);
+    ObstacleSet allObstacles;
+    allObstacles.reserve(2*MAX_ID_NUM + 6);
 
-    if(considerPenaltyArea)
-        tmpAllObstacles.insert(tmpAllObstacles.begin(), game->penaltyAreaObs.begin(), game->penaltyAreaObs.end());
+    if(considerPenaltyArea)    {// for all robots except goal keeper
+        // insert all static obstacles related to penalty area
+        allObstacles.insert(allObstacles.begin(),
+                            game->penaltyAreaObs.begin(), game->penaltyAreaObs.end());
+    }
 
     // update position of obstacles
-    if(robot_ob_radius != 0) {
+    if(robot_obs_radius != 0) {
         vector<SSLRobot* > all_actual_robots = SSLWorldModel::getInstance()->all_inFieldsExcept(agent->robot);
         for(uint i =0; i<all_actual_robots.size(); i++)
         {
             SSLRobot* rob_ = all_actual_robots[i];
             Obstacle* ob_  = game->allRobotsObs[i];
-            ob_->shape->m_radius = robot_ob_radius;
+            ob_->shape->m_radius = robot_obs_radius;
             ob_->m_transform.Set(Vector2D(rob_->Position().X(), rob_->Position().Y()).toB2vec2(), rob_->Position().Teta());
-            tmpAllObstacles.push_back(ob_);
+            allObstacles.push_back(ob_);
         }
     }
 
-    if(ball_ob_radius != 0) {
-        game->ballOb->shape->m_radius = ball_ob_radius;
-        tmpAllObstacles.push_back(game->ballOb);
+    if(ball_obs_radius != 0) {
+        game->ballOb->shape->m_radius = ball_obs_radius;
+        allObstacles.push_back(game->ballOb);
     }
 
-    agent->planner.setStaticObstacles(tmpAllObstacles);
+    agent->planner.setStaticObstacles(allObstacles);
 
     agent->planner.solve();
 //        assert(planner.planningResult == true); // this assumption is not true

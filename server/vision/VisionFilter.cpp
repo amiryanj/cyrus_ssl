@@ -111,7 +111,7 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
                 throw "Warning:: No ball exists in current frame";
             }
             if(ballFilter->isEmpty()) {
-                ballFilter->initial(balls_vec[0]);
+                ballFilter->initialize(balls_vec[0]);
                 throw "Initializing ball filter module";
             }
             if(balls_vec.size() == 1) {

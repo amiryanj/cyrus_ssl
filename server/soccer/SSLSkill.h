@@ -30,8 +30,8 @@ public:
 
     static void goToPointWithPlanner(SSLAgent *agent, const Vector3D &target, const Vector3D &tolerance,
                                      bool considerPenaltyArea = true,
-                                     float ball_ob_radius = BALL_RADIUS,
-                                     float robot_ob_radius = ROBOT_RADIUS);
+                                     float ball_obs_radius = BALL_RADIUS,
+                                     float robot_obs_radius = ROBOT_RADIUS);
 
     // ********************* Kick Skill ***************************
     static void goAndKick(SSLAgent* agent, Vector2D kick_target, double kickStrenghtNormal = 1);

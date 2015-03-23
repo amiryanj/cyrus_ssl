@@ -5,16 +5,16 @@
 #include <Box2D/Common/b2Math.h>
 #include <Box2D/Collision/Shapes/b2CircleShape.h>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
-#include "math/vector3d.h"
-#include "math/vector2d.h"
+#include "../../common/math/vector3d.h"
+#include "../../common/math/vector2d.h"
 #include <vector>
 
 class Obstacle
 {
 public:
-    enum ObstacleType{ Ball, Robot, Field};
+    enum ObstacleType{ eBall, eRobot, eStatic};
 
-    Obstacle(ObstacleType type, b2Vec2 center, double radius, double orien);
+    Obstacle(ObstacleType type, b2Vec2 center, double radius);
     Obstacle(ObstacleType type, b2Vec2 center, double width, double height, double orien);
     ~Obstacle();
 

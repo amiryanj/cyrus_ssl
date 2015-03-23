@@ -35,7 +35,7 @@ class BallFilter
 public:
     BallFilter();
 
-    void initial(const SSLFrame &first_frame);
+    void initialize(const SSLFrame &first_frame);
 
     void putNewFrame(const SSLFrame &detected_ball);
     void putNewFrameWithManyBalls(vector<SSLFrame> detected_balls);

@@ -6,7 +6,6 @@
 #include <cmath>
 #include <string>
 #include <vector>
-#include "Concepts.h"
 #include "math/vector3d.h"
 #include "math/vector2d.h"
 //using namespace std;

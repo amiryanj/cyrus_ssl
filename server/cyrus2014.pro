@@ -63,19 +63,7 @@ SOURCES += \
     transmitter/commandtransmitter.cpp \
     ../common/math/sslmath.cpp \
     referee/SSLReferee.cpp \    
-    controller/pidcontroller.cpp \
-    planner/planning/velocity.cpp \
-    planner/planning/trajectory.cpp \
-    planner/planning/station.cpp \
-    planner/planning/rrtvertex.cpp \
-    planner/planning/randomtree.cpp \
-    planner/planning/planningproblem.cpp \
-    planner/planning/planningagent.cpp \
-    planner/planning/plannermath.cpp \
-    planner/planning/obstacle.cpp \
-    planner/planning/goalstate.cpp \
-    planner/planning/fieldbound.cpp \
-    planner/planning/dynamicobstacle.cpp \
+    controller/pidcontroller.cpp \    
     soccer/sslstrategymanager.cpp \
     soccer/SSLSkill.cpp \
     soccer/sslrolemanager.cpp \
@@ -109,7 +97,18 @@ SOURCES += \
     paramater-manager/iniparser.cpp \
     vision/alphabetafilter.cpp \
     vision/robocup_ssl_client.cpp \
-    vision/sslframe.cpp
+    vision/sslframe.cpp \
+    planner/planning/planningproblem.cpp \
+    planner/planning/randomtree.cpp \
+    planner/planning/trajectory.cpp \
+    planner/planning/station.cpp \
+    planner/planning/goalstate.cpp \
+    planner/planning/planningagent.cpp \
+    planner/planning/motionplan.cpp \
+    planner/planning/obstacle.cpp \
+    planner/planning/fieldbound.cpp \
+    planner/planning/dynamicobstacle.cpp \
+    planner/planning/rrtvertex.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -125,7 +124,6 @@ HEADERS += \
     definition/SSLObject.h \
     definition/SSLBall.h \
     definition/SSLRobotPhysic.h \
-    ../common/Concepts.h \
     ai/SSLGame.h \
     transmitter/RobotCommandPacket.h \
     ../common/math/vector3d.h \
@@ -152,19 +150,7 @@ HEADERS += \
     soccer/roles/defender.h \
     soccer/roles/blocker.h \
     soccer/roles/activerole.h \
-    controller/pidcontroller.h \
-    planner/planning/velocity.h \
-    planner/planning/trajectory.h \
-    planner/planning/station.h \
-    planner/planning/rrtvertex.h \
-    planner/planning/randomtree.h \
-    planner/planning/planningproblem.h \
-    planner/planning/planningagent.h \
-    planner/planning/plannermath.h \
-    planner/planning/obstacle.h \
-    planner/planning/goalstate.h \
-    planner/planning/fieldbound.h \
-    planner/planning/dynamicobstacle.h \
+    controller/pidcontroller.h \    
     vision/VisionFilter.h \
     vision/RobotFilter.h \
     vision/BallFilter.h \
@@ -189,11 +175,20 @@ HEADERS += \
     vision/alphabetafilter.h \
     vision/robocup_ssl_client.h \
     ../common/math/linesegment.h \
-    vision/sslframe.h
+    vision/sslframe.h \
+    planner/planning/obstacle.h \
+    planner/planning/planningproblem.h \
+    planner/planning/fieldbound.h \
+    planner/planning/station.h \
+    planner/planning/trajectory.h \
+    planner/planning/goalstate.h \
+    planner/planning/motionplan.h \
+    planner/planning/randomtree.h \
+    planner/planning/rrtvertex.h \
+    planner/planning/planningagent.h \
+    planner/planning/dynamicobstacle.h
 
-OTHER_FILES += \    
-    planner/planning/Planner.pri \
-    /etc/sslrefbox/referee.conf \
+OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \
     ../common/protoc/referee/compile.sh \
     ../common/protoc/vision/proto/messages_robocup_ssl_wrapper.proto \
