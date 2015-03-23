@@ -1,9 +1,11 @@
 #ifndef _ROBOTFILTER_H
 #define _ROBOTFILTER_H
 
+#include <vector>
+#include "sslframe.h"
+#include "alphabetafilter.h"
 #include "../../common/math/vector3d.h"
-#include "NaiveKalman.h"
-#include "Frame.h"
+
 
 #define MAX_RAW_DATA_MEMORY 30
 #define MAX_ROBOT_MEDIAN_MEMORY 11
@@ -14,15 +16,15 @@ class RobotFilter //: public Kalman::EKFilter<double, 1>
     friend class VisionFilter;
 public:
     RobotFilter();
-    void putNewFrame(const Frame &fr);
+    void putNewFrame(const SSLFrame &fr);
     bool isEmpty();
     bool isOnField();
 
     // main method for updating state vectors
-    void runFilter();
+    void run();
 
 private:
-    std::vector<Frame> rawPositionList;
+    std::vector<SSLFrame> rawPositionList;
     Vector3D rawSpeedList[MAX_ROBOT_MEDIAN_MEMORY];
     double last_update_time_msec;
     double last_delta_t_sec;
@@ -31,7 +33,7 @@ private:
     Vector3D m_filteredSpeed;
     Vector3D m_medianFilteredSpeed;
 
-    NaiveKalman naiveFilter;
+    AlphaBetaFilter alphaBetaFilter;
 
     int __medianFilterIndex;
 };

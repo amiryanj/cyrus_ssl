@@ -9,7 +9,7 @@ GRSimSender::GRSimSender(Color our_color)
 bool GRSimSender::openSocket()
 {
     ParameterManager* pm = ParameterManager::getInstance();
-    openSocket(pm->get<int>("network.GRSIM_COMMAND_PORT"));
+    return openSocket(pm->get<int>("network.GRSIM_COMMAND_PORT"));
 }
 
 bool GRSimSender::openSocket(int port)

@@ -13,8 +13,10 @@ ParameterManager::ParameterManager()
 
 ParameterManager *ParameterManager::getInstance()
 {
-    if(instance == NULL)
+    if(instance == NULL) {
+        cout << "Parameter Manager initiated" <<endl;
         instance = new ParameterManager();
+    }
     return instance;
 }
 

@@ -3,12 +3,19 @@
 #include <QDebug>
 #include <QVector3D>
 
+
 FieldScene::FieldScene(Color our_color, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::FieldScene)
+    QWidget(parent)
+//    ,ui(new Ui::FieldScene)
 {
     ourColor = our_color;
-    ui->setupUi(this);
+
+    view = new FieldView(this);
+    layout = new QHBoxLayout(this);
+    layout->addWidget(view);
+
+    setMouseTracking(true);
+
     for(int tm=0; tm<2; tm++)
         for(int i=0; i< MAX_ID_NUM; i++)
         {
@@ -65,6 +72,13 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
     scene.addItem(ball);
     ball->setZValue(7);
 
+    ballZone = scene.addEllipse(-500, -500, 1000, 1000, QPen(QColor(20, 50, 30), 3), QBrush(Qt::red));
+    ballZone->setParentItem(ball);
+    ballZone->setOpacity(0.6);
+    ballZone->setZValue(6);
+
+    showBallStopZone(false);
+
     ballTail = new BallGraphicsItem(Qt::red);
     scene.addItem(ballTail);
     ballTail->setZValue(9);
@@ -75,13 +89,10 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
 
     drawBounds();
 
-    ui->graphicsView->setScene(&scene);
-  //  ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground);
+    view->setScene(&scene);
+  //  view->setCacheMode(QGraphicsView::CacheBackground);
 
-    ui->graphicsView->scale(0.08, 0.08);
-
-    connect(this, SIGNAL(zoomWheel(int)), this, SLOT(updateZoom(int)));
-   // connect(ui->verticalSlider,SIGNAL(valueChanged(int)),this,SLOT(updateZoom(int)));
+    view->scale(0.08, 0.08);
 
     this->lastNearBlueID = 0;
     this->lastNearYellowID = 0;
@@ -89,20 +100,14 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
 
     isShowingIntersects = false;
     isShowingPlans = false;
-
-
-
 }
 
 FieldScene::~FieldScene()
 {
-    delete ui;
+//    delete ui;
 }
 
-void FieldScene::wheelEvent(QWheelEvent * wheelEvent)
-{
-    emit zoomWheel(wheelEvent->delta());
-}
+
 void FieldScene::setIsShowingIntersects(bool show)
 {
     isShowingIntersects = show;
@@ -112,7 +117,6 @@ void FieldScene::setIsShowingPlans(bool show)
 {
     isShowingPlans = show;
 }
-
 
 void FieldScene::updateRobotState(const RobotState &st)
 {
@@ -176,13 +180,14 @@ void FieldScene::updateZoom(int zoom)
 
     QTransform t;
     t.scale(zoomPercent, zoomPercent);
-    ui->graphicsView->setTransform(t);
-    //    ui->graphicsView->scale(zoomPercent, zoomPercent);
+    view->setTransform(t);
+    //    view->scale(zoomPercent, zoomPercent);
 }
 
 void FieldScene::updateCurrentStrategy(QString name, QMap<int, QString> robot_roles)
 {
-    foreach (int id, robot_roles.keys()) {
+    Q_UNUSED(name)
+    foreach (int id, robot_roles.keys())   {
         number[ourColor][id]->setText(robot_roles.value(id));
     }
 }
@@ -301,6 +306,11 @@ void FieldScene::updateRobotIntersect(float time, RobotState st)
         robotIntersect[team][id]->isInvisible = true;
         robotIntersect[team][id]->setPos(st.position.X(),-st.position.Y());
     }
+}
+
+void FieldScene::showBallStopZone(bool show)
+{
+    ballZone->setVisible(show);
 }
 
 void FieldScene::drawBounds()

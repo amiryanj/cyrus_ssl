@@ -53,7 +53,7 @@ vector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(SSLRobot *excep)
 
 }
 
-vector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(Color color, int id)
+vector<SSLRobot *> SSLWorldModel::all_inFieldsExcept(Color color, uint id)
 {
     vector<SSLRobot*> all_;
     all_.reserve(MAX_TEAM_PLAYER*2 - 1);
@@ -93,7 +93,7 @@ vector<SSLRobot *> SSLWorldModel::allRobotsExcept(SSLRobot *excep)
     return allRobotsExcept(excep->color, excep->id);
 }
 
-vector<SSLRobot *> SSLWorldModel::allRobotsExcept(SSL::Color color, int id)
+vector<SSLRobot *> SSLWorldModel::allRobotsExcept(SSL::Color color, uint id)
 {
     vector<SSLRobot*> all_;
     all_.reserve(MAX_ID_NUM * 2);

@@ -19,6 +19,8 @@ public:
     void addValue(double key, double val);
     void addValue(QDateTime dateTime, double value);
     void addValue(double value);
+
+    void setYAxisRange(double lower, double upper);
     ~PlotWidget();
     
 private:

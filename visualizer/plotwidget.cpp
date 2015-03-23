@@ -124,6 +124,11 @@ void PlotWidget::addValue(double value)
     addValue(counter/10.0, value);
 }
 
+void PlotWidget::setYAxisRange(double lower, double upper)
+{
+     ui->myPlot->yAxis->setRange(lower, upper);
+}
+
 PlotWidget::~PlotWidget()
 {
     delete ui;

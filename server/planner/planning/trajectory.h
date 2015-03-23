@@ -3,9 +3,9 @@
 
 #include <vector>
 #include <stdlib.h>
+#include <ostream>
 #include "station.h"
 #include "randomtree.h"
-#include "ostream"
 
 class Trajectory
 {
@@ -13,7 +13,7 @@ public:
     Trajectory();    
     double cost();
 
-    int lenght() const;
+    uint lenght() const;
 
     void prependVertex(RRTVertex* ver);
 
@@ -22,9 +22,9 @@ public:
 //    void setRoot(RRTVertex* m_root);
 //    RRTVertex* getRoot() const;
 
-    Station getStation(int index);
+    Station getStation(uint index);
     vector<Station> getAllStations();
-    RRTVertex* getVertex(int index);
+    RRTVertex* getVertex(uint index);
 
     void clear();
 

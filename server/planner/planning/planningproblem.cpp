@@ -316,7 +316,7 @@ void PlanningProblem::buildVelocityProfile()
 {
     // build velocity directions (forward direction)
     if(trajec.lenght() == 0) return;
-    for(int i=0; i<trajec.lenght(); i++) {
+    for(uint i=0; i<trajec.lenght(); i++) {
         RRTVertex* node = trajec.getVertex(i);
         RRTVertex* child = node->child;
         if(child == NULL) continue;
@@ -331,7 +331,7 @@ void PlanningProblem::buildVelocityProfile()
     float align_radius = 600; // millimeter
     bool myFlag = false;
     float start_teta, MADTG;
-    for(int i=0; i<trajec.lenght(); i++) {
+    for(uint i=0; i<trajec.lenght(); i++) {
         RRTVertex* current_node = trajec.getVertex(i);
         RRTVertex* parent = current_node->parent;
         if(parent == NULL) continue;
@@ -340,9 +340,9 @@ void PlanningProblem::buildVelocityProfile()
         float rotate_val;
         float MDTG = goal.minDistTo(current_node->state); // min dist to goal
         if(MDTG > align_radius) {
-            float d_teta_a = SSL::minAngleDistToRange(parent->state.position.Teta(),
+            float d_teta_a = SSL::minimumRequiredRotationToReachAngleRange(parent->state.position.Teta(),
                                         current_node->state.velo.to2D().arctan(), current_node->state.velo.to2D().arctan());
-            float d_teta_b = SSL::minAngleDistToRange(parent->state.position.Teta(),
+            float d_teta_b = SSL::minimumRequiredRotationToReachAngleRange(parent->state.position.Teta(),
                                         M_PI+current_node->state.velo.to2D().arctan(), M_PI+current_node->state.velo.to2D().arctan());
             float d_teta = (fabs(d_teta_a) < fabs(d_teta_b))? d_teta_a:d_teta_b;
             assert(fabs(d_teta) < M_PI);
@@ -355,7 +355,7 @@ void PlanningProblem::buildVelocityProfile()
                 myFlag = true;
                 float target_teta_s = goal.goal_point.position.Teta() - goal.tolerance.position.Teta();
                 float target_teta_e = goal.goal_point.position.Teta() + goal.tolerance.position.Teta();
-                MADTG = SSL::minAngleDistToRange(start_teta, target_teta_s, target_teta_e);
+                MADTG = SSL::minimumRequiredRotationToReachAngleRange(start_teta, target_teta_s, target_teta_e);
                 if(MADTG == 0)
                     break;
             }

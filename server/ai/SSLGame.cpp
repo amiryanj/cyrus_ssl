@@ -88,7 +88,7 @@ void SSLGame::check()
 
     updateObstacles();
 
-    for(int i=0; i<m_agents.size(); i++) {
+    for(uint i=0; i<m_agents.size(); i++) {
         SSLAgent* agent = m_agents[i];
         agent->run();
     }
@@ -116,7 +116,7 @@ SSLAgent *SSLGame::getAgent(unsigned int ID) const
     for(unsigned int i=0; i<this->m_agents.size(); ++i)
     {
         agent = m_agents.at(i);
-        if(ID == agent->getID())
+        if((int)ID == agent->getID())
             return agent;
     }
     return NULL;

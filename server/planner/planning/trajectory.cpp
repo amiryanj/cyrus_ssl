@@ -5,7 +5,7 @@ Trajectory::Trajectory()
 {
 }
 
-Station Trajectory::getStation(int index)
+Station Trajectory::getStation(uint index)
 {
     if(index < m_vertex_vec.size())
         return ((RRTVertex*)(m_vertex_vec.at(index)))->state;
@@ -15,12 +15,12 @@ Station Trajectory::getStation(int index)
 vector<Station> Trajectory::getAllStations()
 {
     vector<Station> tempVec;
-    for(int i = 0; i<m_vertex_vec.size(); i++)
+    for(uint i = 0; i<m_vertex_vec.size(); i++)
         tempVec.push_back(((RRTVertex*)(m_vertex_vec[i]))->state);
     return tempVec;
 }
 
-RRTVertex *Trajectory::getVertex(int i)
+RRTVertex *Trajectory::getVertex(uint i)
 {
     if(i >= m_vertex_vec.size())
         return NULL;
@@ -32,7 +32,7 @@ void Trajectory::clear()
     m_vertex_vec.clear();
 }
 
-int Trajectory::lenght() const
+uint Trajectory::lenght() const
 {
     return m_vertex_vec.size();
 }

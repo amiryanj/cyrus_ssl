@@ -21,110 +21,115 @@ VisionFilter::VisionFilter()
     ballFilter = new BallFilter();
 
     for (int i=0; i<MAX_CAMERA_COUNT; i++)
-        last_frame_time[i] = 0;
+        cameraLastFrameTime[i] = 0;
 
     ParameterManager* pm = ParameterManager::getInstance();
-    file.open(pm->get<string>("debug.ball").c_str());
+    txtlogFile.open(pm->get<string>("debug.ball").c_str());
 }
 
 VisionFilter::~VisionFilter()
 {
-    file.close();
+    txtlogFile.close();
 }
 
 void VisionFilter::check()
 {
-    for(int tm=0; tm<NUM_TEAMS; ++tm)
-        for(int i=0; i<MAX_ID_NUM; ++i) {
-            robotFilter[tm][i]->runFilter();
+    mtx_.lock();
+
+    //    update World Model
+    for( int tm = 0 ; tm < NUM_TEAMS; tm++ )   {
+        for( int i = 0; i < MAX_ID_NUM; i++ )   {
+            robotFilter[tm][i]->run();
+            world->updateRobotState( (SSL::Color)tm, i ,
+                                     robotFilter[tm][i]->m_filteredPosition ,
+                                     robotFilter[tm][i]->m_filteredSpeed  );
+            world->updateRobotAvailability( (SSL::Color)tm, i,
+                                            robotFilter[tm][i]->isOnField());
         }
+    }
 
-    ballFilter->runFilter();
+    ballFilter->run();
+    world->updateBallState( 0, ballFilter->m_filteredPosition,
+                               ballFilter->m_filteredVelocity,
+                               ballFilter->m_acceleration );
 
-    updateWorldModel();
-
-}
-
-
-void VisionFilter::updateWorldModel()
-{
-    for(int i=0; i<NUM_TEAMS; ++i)
-        for(int j=0; j<MAX_ID_NUM; ++j)
-        {
-            world->updateRobotState((SSL::Color)i, j,robotFilter[i][j]->m_filteredPosition,
-                                                  robotFilter[i][j]->m_filteredSpeed);
-            world->updateRobotAvailability((SSL::Color)i, j, robotFilter[i][j]->isOnField());
-        }
-
-    world->updateBallState(0, ballFilter->m_filteredPosition,
-                           ballFilter->m_filteredVelocity, ballFilter->m_acceleration);
-
+    mtx_.unlock();
 }
 
 void VisionFilter::update(const SSL_WrapperPacket &packet)
 {
-    if(packet.has_detection())
-    {
-        if( packet.detection().camera_id() < MAX_CAMERA_COUNT )
+    mtx_.lock();
+    try {
+        if(packet.has_detection())
         {
-            double frame_time = packet.detection().t_capture();
-            if( frame_time <=  last_frame_time[packet.detection().camera_id()] ) {
-                cerr << "Warning: Decayed packet !!!!" << endl;
-                return;
+            if( packet.detection().camera_id() < MAX_CAMERA_COUNT )
+            {
+                double frame_time = packet.detection().t_capture();
+                if( frame_time <=  cameraLastFrameTime[packet.detection().camera_id()] ) {
+                    throw "Warning: Decayed packet !!!!" ;
+                }
+                else
+                    cameraLastFrameTime[packet.detection().camera_id()] = frame_time;
             }
-            else
-                last_frame_time[packet.detection().camera_id()] = frame_time;
+
+            SSLFrame frame;
+            frame.camera_id = packet.detection().camera_id();
+            frame.frame_number = packet.detection().frame_number();
+
+    //        temp_frame.setToCurrentTimeMilliSec();
+            frame.timeStampMilliSec = packet.detection().t_capture() * 1000.0;
+
+            for(int i=0; i < packet.detection().robots_blue_size(); i++)
+            {
+                SSL_DetectionRobot Robot = packet.detection().robots_blue(i);
+                frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+                frame.confidence = Robot.confidence();
+                robotFilter[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
+            }
+
+            for(int i=0; i< packet.detection().robots_yellow_size(); i++)
+            {
+                SSL_DetectionRobot Robot = packet.detection().robots_yellow(i);
+                frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+                frame.confidence = Robot.confidence();
+                robotFilter[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
+            }
+
+            vector<SSLFrame> balls_vec;
+            for(int i=0; i< packet.detection().balls_size(); i++)
+            {
+                SSL_DetectionBall Ball = packet.detection().balls(i);
+                frame.position = Vector2D(Ball.x(), Ball.y()).to3D();
+                frame.confidence = Ball.confidence();
+                balls_vec.push_back(frame);
+
+            //  file <<i << " , " << (long)temp_frame.timeStampMilliSec<< " , ";
+            //  file << Ball.x() <<" , " << Ball.y() << endl;
+            }
+
+            if(balls_vec.empty()) {
+                throw "Warning:: No ball exists in current frame";
+            }
+            if(ballFilter->isEmpty()) {
+                ballFilter->initial(balls_vec[0]);
+                throw "Initializing ball filter module";
+            }
+            if(balls_vec.size() == 1) {
+                ballFilter->putNewFrame(balls_vec[0]);
+            }
+            else {
+                ballFilter->putNewFrameWithManyBalls(balls_vec);
+                throw "Warning:: More than One ball exist in current frame" ;
+            }
         }
 
-        Frame temp_frame;
-        temp_frame.camera_id = packet.detection().camera_id();
-        temp_frame.frame_number = packet.detection().frame_number();
-
-//        temp_frame.setToCurrentTimeMilliSec();
-        temp_frame.timeStampMilliSec = packet.detection().t_capture() * 1000.0;
-
-        for(int i=0; i < packet.detection().robots_blue_size(); i++)
-        {
-            SSL_DetectionRobot Robot = packet.detection().robots_blue(i);
-            temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
-            temp_frame.confidence = Robot.confidence();
-            robotFilter[SSL::Blue][Robot.robot_id()]->putNewFrame(temp_frame);
+        if(packet.has_geometry())   {
+            // SSL_GeometryData geometryData = packet.geometry();
         }
 
-        for(int i=0; i< packet.detection().robots_yellow_size(); i++)
-        {
-            SSL_DetectionRobot Robot = packet.detection().robots_yellow(i);
-            temp_frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
-            temp_frame.confidence = Robot.confidence();
-            robotFilter[SSL::Yellow][Robot.robot_id()]->putNewFrame(temp_frame);
-        }
-
-        vector<Frame> balls_vec;
-        for(int i=0; i< packet.detection().balls_size(); i++)
-        {
-            SSL_DetectionBall Ball = packet.detection().balls(i);
-            temp_frame.position = Vector2D(Ball.x(), Ball.y()).to3D();
-            temp_frame.confidence = Ball.confidence();
-            balls_vec.push_back(temp_frame);
-
-//            file <<i << " , " << (long)temp_frame.timeStampMilliSec<< " , ";
-//            file << Ball.x() <<" , " << Ball.y() << endl;
-        }
-
-        if(balls_vec.empty()) {
-            cout << "Warning:: No ball exists in current frame" << endl;
-        }
-        else if(balls_vec.size() == 1) {
-            ballFilter->putNewFrame(balls_vec[0]);
-        }
-        else {
-            cout << "Warning:: More than One ball exist in current frame" << endl;
-            ballFilter->putNewFrameWithManyBalls(balls_vec);
-        }
     }
-    if(packet.has_geometry())
-    {
-        SSL_GeometryData geometryData = packet.geometry();
-        // and so on
+    catch (const char* msg) {
+        cout << msg << endl;
     }
+    mtx_.unlock();
 }

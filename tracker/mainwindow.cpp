@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     timer.setInterval(10);
     connect(&timer, SIGNAL(timeout()), this, SLOT(timerOVF()));
     timer.start();
+
+    pw_->setYAxisRange(-10, 10);
 }
 
 MainWindow::~MainWindow()
@@ -26,21 +28,23 @@ void MainWindow::timerOVF()
     static int counter = 0;
     counter ++;
 
+    VisionFilter::getInstance()->check();
+
 //    double ball_err = SSLWorldModel::getInstance()->mainBall()->Speed().lenght();
 
-    double data_0 = VisionFilter::getInstance()->ballFilter->getRawData(0).displacement.X();
-    double data_1 = VisionFilter::getInstance()->ballFilter->getRawData(0).displacement.Y();
-    double data_2 = VisionFilter::getInstance()->ballFilter->getRawData(2).displacement.X();
+    double ax_len = VisionFilter::getInstance()->ballFilter->m_acceleration.lenght();
+    double ax_arc = VisionFilter::getInstance()->ballFilter->m_acceleration.arctan();
 
     double alfa = VisionFilter::getInstance()->ballFilter->naiveFilter.m_alfa;
+    double beta = VisionFilter::getInstance()->ballFilter->naiveFilter.m_beta;
 
 //    qDebug() << "Ball Raw Acceleration = " << data_1;
 //             << "Ball Raw Displacement = " << ball_disp;
 
     QVector<double> values;
 //    if(data_1 != 0.0)
-    values << data_0 << data_1 ;
-    pw_->addValue( counter /10.0, values );
+    values << ax_len /1000000.0 << alfa;
+    pw_->addValue( counter /30.0, values );
 }
 
 void MainWindow::on_actionPlayStop_toggled(bool arg1)

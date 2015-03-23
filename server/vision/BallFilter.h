@@ -1,10 +1,14 @@
 #ifndef _BALLFILTER_H
 #define _BALLFILTER_H
 
-#include "../../common/math/vector2d.h"
 #include <vector>
-#include "NaiveKalman.h"
-#include "Frame.h"
+#include <cmath>
+#include <math.h>
+#include <stdlib.h>
+#include "sslframe.h"
+#include "alphabetafilter.h"
+#include "../../common/math/vector2d.h"
+
 
 #define MAX_BALL_MEMORY 13
 #define MAX_BALL_MEDIAN_MEMORY 12
@@ -31,11 +35,15 @@ class BallFilter
 public:
     BallFilter();
 
-    void putNewFrame(const Frame &fr);
-    void putNewFrameWithManyBalls(vector<Frame> balls_);
+    void initial(const SSLFrame &first_frame);
+
+    void putNewFrame(const SSLFrame &detected_ball);
+    void putNewFrameWithManyBalls(vector<SSLFrame> detected_balls);
 
     // main method for updating state vectors
-    void runFilter();
+    void run();
+
+    bool isEmpty() const;
 
 protected:
     BallKinematic& getRawData(uint i) {return rawData[i];}
@@ -43,10 +51,7 @@ protected:
 
     bool getBallStoppedState();
 
-    vector<Frame> rawPositions;
-
-    Vector2D rawSpeeds[MAX_BALL_MEDIAN_MEMORY];
-    Vector2D rawAccelerations;
+    vector<SSLFrame> rawPositions;
 
     Vector2D m_rawPosition;
     Vector2D m_displacement;
@@ -57,7 +62,9 @@ protected:
 
     Vector2D m_acceleration;
 
-    NaiveKalman naiveFilter;
+    AlphaBetaFilter alphaBetaFilter;
+
+
 
 //    int __medianFilterIndex;
 };

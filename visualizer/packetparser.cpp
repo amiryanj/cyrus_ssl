@@ -40,7 +40,8 @@ void PacketParser::handleWorldPacket(ssl_world_packet p)
         qDebug()<<"world packet : ball pos : "<<ball->position().x() << ball->position().y();
         ball_state.position = Vector2D(ball->position().x(), ball->position().y());
         ball_state.velocity = Vector2D(ball->velocity().x(), ball->velocity().y());
-        ball_state.rawVelocity = Vector2D(ball->velocity_raw().x(), ball->velocity_raw().y());
+        ball_state.acceleration = Vector2D(ball->acceleration().x(), ball->acceleration().y());
+        ball_state.rawVelocity  = Vector2D(ball->velocity_raw().x(), ball->velocity_raw().y());
         ball_state.displacement = Vector2D(ball->displacement().x(), ball->displacement().y());
 
         emit newBallState(ball_state);

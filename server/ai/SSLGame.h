@@ -2,6 +2,7 @@
 #define SSLGAME_H
 
 #include "../general.h"
+#include "../../common/sslnamespace.h"
 #include "SSLListener.h"
 #include "../planner/planning/planningproblem.h"
 

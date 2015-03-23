@@ -27,4 +27,6 @@ PlanningAgent &PlanningAgent::operator =(const PlanningAgent &other)
     this->velocity_limit = other.velocity_limit;
     this->max_accel = other.max_accel;
     this->mass = other.mass;
+
+    return (*this);
 }

@@ -21,7 +21,7 @@ NaiveKalman::NaiveKalman()
     max_acceleration_crop.set(3000, 3000, 2*M_PI);
 }
 
-FilterState NaiveKalman::predict(double delta_t_sec)
+SSLObjectState NaiveKalman::predict(double delta_t_sec)
 {
     m_predicted.acc = m_state.acc;
     m_predicted.vel = m_state.vel * m_speed_discount_rate + (m_state.acc * delta_t_sec) * m_acc_effect;
@@ -64,7 +64,7 @@ void NaiveKalman::observe(Vector3D new_pos, Vector3D new_vel, Vector3D new_acc)
     m_observed.pos = new_pos;
 }
 
-FilterState NaiveKalman::filter()
+SSLObjectState NaiveKalman::filter()
 {
     double teta_ = m_predicted.pos.Teta();
     if(m_observed.pos.Teta() > 0)

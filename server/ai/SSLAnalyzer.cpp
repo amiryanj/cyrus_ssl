@@ -400,7 +400,7 @@ vector<pair<float,float> > SSLAnalyzer::openAngleToGoal(const Vector2D targetPoi
     while (start < blockedAngles.size()) {
         float limit = blockedAngles[start].second;
         last = start + 1;
-        if (last == int(blockedAngles.size()))
+        if (last == blockedAngles.size())
             break;
         while (last < blockedAngles.size()) {
             if (blockedAngles[last].first < limit) {

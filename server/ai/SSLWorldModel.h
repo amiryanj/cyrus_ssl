@@ -2,7 +2,7 @@
 #define SSLWORLDMODEL_H_
 
 #include "../../common/general.h"
-#include "../../common/Concepts.h"
+#include "../common/sslnamespace.h"
 #include "../referee/SSLReferee.h"
 
 class SSLTeam;
@@ -28,11 +28,11 @@ public:
 
     vector<SSLRobot*> all_inFields();
     vector<SSLRobot*> all_inFieldsExcept(SSLRobot* excep);
-    vector<SSLRobot*> all_inFieldsExcept(SSL::Color color, int id);
+    vector<SSLRobot*> all_inFieldsExcept(SSL::Color color, uint id);
 
     vector<SSLRobot*> allRobots();
     vector<SSLRobot*> allRobotsExcept(SSLRobot* excep);
-    vector<SSLRobot*> allRobotsExcept(SSL::Color color, int id);
+    vector<SSLRobot*> allRobotsExcept(SSL::Color color, uint id);
 
     SSLReferee::RefereeState m_refereeState;
     static float FOELD_LENGTH;

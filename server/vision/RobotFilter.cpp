@@ -16,14 +16,13 @@ RobotFilter::RobotFilter()
 }
 
 // insert new frame in the list and remove expired frames
-void RobotFilter::putNewFrame(const Frame &fr)
+void RobotFilter::putNewFrame(const SSLFrame &fr)
 {
+    last_update_time_msec = SSL::currentTimeMSec();
     rawPositionList.insert(rawPositionList.begin(), fr);
 //    std::cout << "Robot Confidence = " <<fr.confidence << std::endl;
     if(rawPositionList.size() > MAX_RAW_DATA_MEMORY)
-        rawPositionList.pop_back();
-    last_delta_t_sec = (fr.timeStampMilliSec - last_update_time_msec)/ 1000.0;
-    last_update_time_msec = fr.timeStampMilliSec;
+        rawPositionList.pop_back();    
 
     Vector3D currentSpeed_;
     if (rawPositionList.size() >= ROBOT_SPEED_LIMIT_FILTER) {
@@ -47,24 +46,16 @@ bool RobotFilter::isEmpty()
 
 bool RobotFilter::isOnField()
 {
-    return (rawPositionList.size() >= 7);
+    return (rawPositionList.size() >= 5);
 }
 
-void RobotFilter::runFilter()
+void RobotFilter::run()
 {
-    // remove decayed frames
-    Frame fake_frame;
-    fake_frame.setToCurrentTimeMilliSec();
-    while(!rawPositionList.empty())
-    {
-        Frame listed_fr = rawPositionList.back();
-        if((fake_frame.timeStampMilliSec - listed_fr.timeStampMilliSec) > ((2 * MAX_RAW_DATA_MEMORY)/(CAMERA_FPS/1000.0)))
-            rawPositionList.pop_back();
-        else
-            break;
-    }
+    // removing decayed frames
+    if((SSL::currentTimeMSec() - last_update_time_msec) > 10000)
+        rawPositionList.clear();
 
-    if( rawPositionList.size() == 0 )
+    if( rawPositionList.size() < 2 )
         return;
 
     //first is length, second is index
@@ -77,7 +68,7 @@ void RobotFilter::runFilter()
     m_medianFilteredSpeed = rawSpeedList[medianFilteredSpeed_Index];
 
 
-    Frame last_frame = rawPositionList.front();
+    SSLFrame last_frame = rawPositionList.front();
     /* javad's prediction */
 
     for (uint i = 0 ; i < MAX_ROBOT_MEDIAN_MEMORY && i+1 < rawPositionList.size(); i++)
@@ -94,9 +85,10 @@ void RobotFilter::runFilter()
 
     Vector3D last_observe = last_frame.position;
 
-    naiveFilter.predict(last_delta_t_sec);
-    naiveFilter.observe(last_observe, m_medianFilteredSpeed, Vector3D(0.0, 0.0, 0.0));
-    FilterState fs = naiveFilter.filter();
+    alphaBetaFilter.predict(last_frame.timeStampMilliSec / 1000.0
+                           - rawPositionList[1].timeStampMilliSec / 1000.0);
+    alphaBetaFilter.observe(last_observe, m_medianFilteredSpeed, Vector3D(0.0, 0.0, 0.0));
+    SSLObjectState fs = alphaBetaFilter.filter();
     this->m_filteredPosition = fs.pos;
     this->m_filteredSpeed = fs.vel * 10;
 

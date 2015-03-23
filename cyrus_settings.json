@@ -10,7 +10,7 @@
         "ssl_referee_port":10001,
 
 
-        "vision_address" : "224.5.23.2",
+        "vision_address" : "127.0.0.1",
         "vision_port" : 10002,
 
         "grsim_vision_address":"224.5.23.2",
@@ -27,6 +27,7 @@
 
     "kalman":
     {
+        "vision_delay_ms": "200",
         "default":
         {
             "alfa" : "0.25",

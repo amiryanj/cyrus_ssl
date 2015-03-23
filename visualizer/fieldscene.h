@@ -1,7 +1,7 @@
 #ifndef FIELDSCENE_H
 #define FIELDSCENE_H
 
-#include <QWidget>
+#include <QHBoxLayout>
 #include <QGraphicsView>
 #include "graphics/graphic_bot.h"
 #include "graphics/graphic_num.h"
@@ -13,25 +13,24 @@
 #include "Concepts.h"
 #include "robotstate.h"
 #include <QWheelEvent>
+#include "fieldview.h"
 
 namespace Ui {
 class FieldScene;
 }
+
 using namespace SSL;
 class FieldScene : public QWidget
 {
     Q_OBJECT
-    
-public:
 
+public:
     void setIsShowingIntersects(bool show);
     void setIsShowingPlans(bool show);
 
     explicit FieldScene(SSL::Color our_color, QWidget *parent = 0);
     ~FieldScene();
     SSL::Color ourColor; // just should be set by mainwindow
-
-    void wheelEvent(QWheelEvent *);
 
 signals:
 
@@ -47,17 +46,22 @@ public slots:
     void updateCurrentStrategy(QString name, QMap<int, QString> robot_roles);
     void updateNearestRobotToBall(int blueID,int yellowID,SSL::Color possessorTeam, bool nearestCacnKick);
     void updateRobotIntersect(float time, RobotState st);
-    
+    void showBallStopZone(bool show);
+
 private:
-    Ui::FieldScene *ui;
+//    Ui::FieldScene *ui;
     RobotGraphicsItem *robot[2][MAX_ID_NUM];
     NumberGraphicsItem *number[2][MAX_ID_NUM];
     VectorGraphicsItem *robotActualVel[2][MAX_ID_NUM];
     IntersectGraphicsItem *robotIntersect[2][MAX_ID_NUM];
 
+    QPointF lastPositionMousePressed;
+
     PlanGraphicsItem* plan[MAX_ID_NUM];
     VectorGraphicsItem *desiredVel[MAX_ID_NUM];
     VectorGraphicsItem *appliedVel[MAX_ID_NUM];
+
+    QGraphicsItem *ballZone;
 
 
     CircleGraphicsItem *ball;
@@ -72,6 +76,8 @@ private:
     bool isShowingPlans;
 
     QGraphicsScene scene;
+    FieldView* view;
+    QHBoxLayout *layout;
 
     void drawBounds();
 };

@@ -58,6 +58,7 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     ui->actionShow_Plans->setChecked(true);
     ui->actionShow_Targets->setChecked(true);
     ui->actionConnect_Server->setChecked(true);
+
 }
 
 MainWindow::~MainWindow()
@@ -367,6 +368,7 @@ void MainWindow::setGameRunningState(bool game_running)
 void MainWindow::setRefereeState(QString state)
 {
     ui->refereeLabel->setText("Referee: " + state);
+    field->showBallStopZone( state.toLower().contains("stop") );
 }
 
 void MainWindow::updateCurrentStrategy(QString strategy_name)
@@ -394,4 +396,9 @@ void MainWindow::on_actionConnect_Server_triggered(bool checked)
         receiver->timer.stop();
         receiver->disconnectNetwork();
     }
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *e)
+{
+    e->ignore();
 }

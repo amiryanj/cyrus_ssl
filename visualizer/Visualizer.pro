@@ -55,7 +55,8 @@ SOURCES += main.cpp\
     ../common/protoc/visualizer/cpp/ssl_planner.pb.cc \
     ../common/protoc/visualizer/cpp/ssl_decision.pb.cc \
     ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc \
-    ../common/math/sslmath.cpp
+    ../common/math/sslmath.cpp \
+    fieldview.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -84,7 +85,8 @@ HEADERS  += mainwindow.h \
     ../common/protoc/visualizer/cpp/ssl_planner.pb.h \
     ../common/protoc/visualizer/cpp/ssl_decision.pb.h \
     ../common/protoc/visualizer/cpp/ssl_analyzer.pb.h \
-    ../common/math/sslmath.h
+    ../common/math/sslmath.h \
+    fieldview.h
 
 FORMS    += mainwindow.ui \
     plotwidget.ui \

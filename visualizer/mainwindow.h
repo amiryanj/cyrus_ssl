@@ -66,6 +66,8 @@ private slots:
 
     void on_actionConnect_Server_triggered(bool checked);
 
+    void mouseMoveEvent(QMouseEvent *e);
+
 private:
 
     Ui::MainWindow *ui;

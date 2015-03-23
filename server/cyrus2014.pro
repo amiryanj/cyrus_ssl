@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core network
-QT       -= gui
+#QT       += core network
+#QT       -= gui
 
 LIBS += -lprotobuf -lboost_system -lBox2D
 
@@ -92,7 +92,6 @@ SOURCES += \
     vision/NaiveKalman.cpp \
     vision/BallFilter.cpp \
     vision/RobotFilter.cpp \
-    vision/Frame.cpp \
     ../common/protoc/grSim/cpp/grSim_Replacement.pb.cc \
     ../common/protoc/grSim/cpp/grSim_Packet.pb.cc \
     ../common/protoc/grSim/cpp/grSim_Commands.pb.cc \
@@ -109,7 +108,8 @@ SOURCES += \
     paramater-manager/parametermanager.cpp \
     paramater-manager/iniparser.cpp \
     vision/alphabetafilter.cpp \
-    vision/robocup_ssl_client.cpp
+    vision/robocup_ssl_client.cpp \
+    vision/sslframe.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -169,7 +169,6 @@ HEADERS += \
     vision/RobotFilter.h \
     vision/BallFilter.h \
     vision/NaiveKalman.h \
-    vision/Frame.h \
     ../common/protoc/grSim/cpp/grSim_Replacement.pb.h \
     ../common/protoc/grSim/cpp/grSim_Packet.pb.h \
     ../common/protoc/grSim/cpp/grSim_Commands.pb.h \
@@ -188,7 +187,9 @@ HEADERS += \
     paramater-manager/parametermanager.h \
     paramater-manager/iniparser.h \
     vision/alphabetafilter.h \
-    vision/robocup_ssl_client.h
+    vision/robocup_ssl_client.h \
+    ../common/math/linesegment.h \
+    vision/sslframe.h
 
 OTHER_FILES += \    
     planner/planning/Planner.pri \

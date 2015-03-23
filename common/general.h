@@ -12,13 +12,6 @@
 //using namespace std;
 //-------------------------------------------------------
 
-typedef double time_sec;
-typedef double time_msec;
-
-typedef double pose_meter;
-typedef double pose_mmeter;
-
-typedef Vector3D point3D;
 
 #define SERIAL_PORT "/dev/ttyUSB0"
 #define SERIAL_BAUD 115200

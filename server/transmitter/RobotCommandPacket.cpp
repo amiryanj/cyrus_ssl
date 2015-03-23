@@ -109,6 +109,8 @@ RobotCommandPacket &RobotCommandPacket::operator =(RobotCommandPacket &other)
     this->v[2] = other.v[2];
     this->v[3] = other.v[3];
 
+    return (*this);
+
 }
 
 
@@ -148,7 +150,7 @@ double RobotCommandPacket::getWheelAngle(int i)
     }
     catch (const char* msg) {
         cerr << "Exception: RobotCommandPacket: " << msg << endl;
-        return 0;
     }
+    return 0;
 
 }

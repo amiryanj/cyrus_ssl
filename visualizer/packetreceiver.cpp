@@ -28,8 +28,8 @@ void PacketReceiver::check()
 
 void PacketReceiver::timerTimeout()
 {
+    timer.stop();
     this->joinNetwork();
-    timer.start();
 }
 
 bool PacketReceiver::joinNetwork(QString IP, int port)
@@ -39,8 +39,10 @@ bool PacketReceiver::joinNetwork(QString IP, int port)
         qDebug() << "Binded Successfully" ;
     else
         qDebug() << "Failed to Bind";
-    if(socket.state() !=QAbstractSocket::BoundState)
+    if(socket.state() != QAbstractSocket::BoundState) {
           qDebug() << "Not Bind State";
+          timer.start();
+    }
 
     bool joinResultFlag = socket.joinMulticastGroup(QHostAddress(IP));
 //    if(joinResultFlag)

@@ -62,8 +62,9 @@ void SSLRoleManager::AssignRole(SSLStrategy *strategy, vector<SSLAgent*> agents)
                         SSLAgent* agent = agents[j];
                         if(agent->isNull())
                             continue;
-                        if(role->m_type == SSLRole::e_GoalKeeper && (agent->getID() == GOALKEPPER_DEFAULT_ID) ||
-                             role->m_type == SSLRole::e_Active && (agent->getID() == ACTIVEROLE_DEFAULT_ID)) {
+                        if((role->m_type == SSLRole::e_GoalKeeper && (agent->getID() == GOALKEPPER_DEFAULT_ID))
+                            || (role->m_type == SSLRole::e_Active && (agent->getID() == ACTIVEROLE_DEFAULT_ID)))
+                        {
                             selected_agent = agent;
                             selected_index = j;
                             break;

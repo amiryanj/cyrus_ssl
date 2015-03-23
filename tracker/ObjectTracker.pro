@@ -80,3 +80,6 @@ HEADERS  += \
 
 FORMS    += mainwindow.ui \
     ../visualizer/plotwidget.ui
+
+OTHER_FILES += \
+    ../cyrus_settings.json

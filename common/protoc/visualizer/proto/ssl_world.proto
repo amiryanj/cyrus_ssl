@@ -9,9 +9,10 @@ message ssl_world_packet {
 	message Ball {
 		required uint32 id = 1;
 		required vector_3d position = 2; 
-		required vector_3d velocity = 3; 
-                optional vector_3d displacement = 4;
-                optional vector_3d velocity_raw = 5;
+		required vector_3d velocity = 3;
+		required vector_3d acceleration = 4;  
+                optional vector_3d displacement = 5;
+                optional vector_3d velocity_raw = 6;
 
 	};
 	repeated Ball field_balls = 1;

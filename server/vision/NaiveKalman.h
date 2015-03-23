@@ -6,22 +6,19 @@
 //#include <eigen3/Eigen/Eigen>
 
 #include "../../common/math/vector3d.h"
+#include "../../common/sslnamespace.h"
 
-struct FilterState {
-    Vector3D acc;
-    Vector3D vel;
-    Vector3D pos;
-};
+using namespace SSL;
 
 class NaiveKalman
 {
 public:
     NaiveKalman();
-    FilterState predict(double delta_t_sec);
+    SSLObjectState predict(double delta_t_sec);
     void observe(Vector3D new_pos, Vector3D new_vel, Vector3D new_acc);
-    FilterState filter();
+    SSLObjectState filter();
 
-    FilterState m_state;
+    SSLObjectState m_state;
 
     double m_alfa, m_beta, m_gama;
     double m_acc_effect;
@@ -30,8 +27,8 @@ public:
     Vector3D max_speed_crop;
     Vector3D max_acceleration_crop;
 private:
-    FilterState m_observed;
-    FilterState m_predicted;
+    SSLObjectState m_observed;
+    SSLObjectState m_predicted;
 
 //    FilterState m_pos_k_1;
 

@@ -236,18 +236,26 @@ class ssl_world_packet_Ball : public ::google::protobuf::Message {
   inline ::ssl_world_packet_vector_3d* mutable_velocity();
   inline ::ssl_world_packet_vector_3d* release_velocity();
   
-  // optional .ssl_world_packet.vector_3d displacement = 4;
+  // required .ssl_world_packet.vector_3d acceleration = 4;
+  inline bool has_acceleration() const;
+  inline void clear_acceleration();
+  static const int kAccelerationFieldNumber = 4;
+  inline const ::ssl_world_packet_vector_3d& acceleration() const;
+  inline ::ssl_world_packet_vector_3d* mutable_acceleration();
+  inline ::ssl_world_packet_vector_3d* release_acceleration();
+  
+  // optional .ssl_world_packet.vector_3d displacement = 5;
   inline bool has_displacement() const;
   inline void clear_displacement();
-  static const int kDisplacementFieldNumber = 4;
+  static const int kDisplacementFieldNumber = 5;
   inline const ::ssl_world_packet_vector_3d& displacement() const;
   inline ::ssl_world_packet_vector_3d* mutable_displacement();
   inline ::ssl_world_packet_vector_3d* release_displacement();
   
-  // optional .ssl_world_packet.vector_3d velocity_raw = 5;
+  // optional .ssl_world_packet.vector_3d velocity_raw = 6;
   inline bool has_velocity_raw() const;
   inline void clear_velocity_raw();
-  static const int kVelocityRawFieldNumber = 5;
+  static const int kVelocityRawFieldNumber = 6;
   inline const ::ssl_world_packet_vector_3d& velocity_raw() const;
   inline ::ssl_world_packet_vector_3d* mutable_velocity_raw();
   inline ::ssl_world_packet_vector_3d* release_velocity_raw();
@@ -260,6 +268,8 @@ class ssl_world_packet_Ball : public ::google::protobuf::Message {
   inline void clear_has_position();
   inline void set_has_velocity();
   inline void clear_has_velocity();
+  inline void set_has_acceleration();
+  inline void clear_has_acceleration();
   inline void set_has_displacement();
   inline void clear_has_displacement();
   inline void set_has_velocity_raw();
@@ -269,12 +279,13 @@ class ssl_world_packet_Ball : public ::google::protobuf::Message {
   
   ::ssl_world_packet_vector_3d* position_;
   ::ssl_world_packet_vector_3d* velocity_;
+  ::ssl_world_packet_vector_3d* acceleration_;
   ::ssl_world_packet_vector_3d* displacement_;
   ::ssl_world_packet_vector_3d* velocity_raw_;
   ::google::protobuf::uint32 id_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
   
   friend void  protobuf_AddDesc_ssl_5fworld_2eproto();
   friend void protobuf_AssignDesc_ssl_5fworld_2eproto();
@@ -803,15 +814,44 @@ inline ::ssl_world_packet_vector_3d* ssl_world_packet_Ball::release_velocity() {
   return temp;
 }
 
-// optional .ssl_world_packet.vector_3d displacement = 4;
-inline bool ssl_world_packet_Ball::has_displacement() const {
+// required .ssl_world_packet.vector_3d acceleration = 4;
+inline bool ssl_world_packet_Ball::has_acceleration() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void ssl_world_packet_Ball::set_has_displacement() {
+inline void ssl_world_packet_Ball::set_has_acceleration() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void ssl_world_packet_Ball::clear_has_displacement() {
+inline void ssl_world_packet_Ball::clear_has_acceleration() {
   _has_bits_[0] &= ~0x00000008u;
+}
+inline void ssl_world_packet_Ball::clear_acceleration() {
+  if (acceleration_ != NULL) acceleration_->::ssl_world_packet_vector_3d::Clear();
+  clear_has_acceleration();
+}
+inline const ::ssl_world_packet_vector_3d& ssl_world_packet_Ball::acceleration() const {
+  return acceleration_ != NULL ? *acceleration_ : *default_instance_->acceleration_;
+}
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Ball::mutable_acceleration() {
+  set_has_acceleration();
+  if (acceleration_ == NULL) acceleration_ = new ::ssl_world_packet_vector_3d;
+  return acceleration_;
+}
+inline ::ssl_world_packet_vector_3d* ssl_world_packet_Ball::release_acceleration() {
+  clear_has_acceleration();
+  ::ssl_world_packet_vector_3d* temp = acceleration_;
+  acceleration_ = NULL;
+  return temp;
+}
+
+// optional .ssl_world_packet.vector_3d displacement = 5;
+inline bool ssl_world_packet_Ball::has_displacement() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ssl_world_packet_Ball::set_has_displacement() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ssl_world_packet_Ball::clear_has_displacement() {
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void ssl_world_packet_Ball::clear_displacement() {
   if (displacement_ != NULL) displacement_->::ssl_world_packet_vector_3d::Clear();
@@ -832,15 +872,15 @@ inline ::ssl_world_packet_vector_3d* ssl_world_packet_Ball::release_displacement
   return temp;
 }
 
-// optional .ssl_world_packet.vector_3d velocity_raw = 5;
+// optional .ssl_world_packet.vector_3d velocity_raw = 6;
 inline bool ssl_world_packet_Ball::has_velocity_raw() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void ssl_world_packet_Ball::set_has_velocity_raw() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void ssl_world_packet_Ball::clear_has_velocity_raw() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void ssl_world_packet_Ball::clear_velocity_raw() {
   if (velocity_raw_ != NULL) velocity_raw_->::ssl_world_packet_vector_3d::Clear();

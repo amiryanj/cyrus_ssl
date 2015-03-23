@@ -1,10 +1,8 @@
 #include "SSLVision.h"
-#include "Frame.h"
 #include "VisionFilter.h"
 #include "../paramater-manager/parametermanager.h"
 
-IPPacket SSLVision::m_temp_packet;
-UDP SSLVision::simple_socket;
+Net::UDP SSLVision::simple_socket;
 RoboCupSSLClient* SSLVision::client;
 
 SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener()
@@ -26,10 +24,11 @@ SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener(
 
     pthread_create(&ssl_vision_thread, NULL, &check, NULL);
 
-
 }
 
-SSLVision::~SSLVision() { }
+SSLVision::~SSLVision()
+{
+}
 
 void* SSLVision::check(void *)
 {
@@ -44,7 +43,6 @@ void* SSLVision::check(void *)
                 cout << "\t Frame capture time:" << (long)(wrapper.detection().t_capture() *1000000.0) << " (us)" << endl;
                 VisionFilter::getInstance()->update(wrapper);
             }
-            VisionFilter::getInstance()->check();
 //            usleep(2000);
         }
     }

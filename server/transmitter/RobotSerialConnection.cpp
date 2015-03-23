@@ -44,8 +44,6 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
 //    byteArray[6] = (unsigned char) ((packet.m_isForceKick) ? 255 :
 //    		fabs(round(packet.m_kickPower * 255))
     byteArray[6] = (packet.m_kickPower * 4 + packet.m_kickPower * 4 * 16);
-    int dummy = 1;
-
 
 
     //transmit data to serial port

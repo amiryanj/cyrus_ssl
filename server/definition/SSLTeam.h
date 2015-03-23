@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "../../common/sslnamespace.h"
 #include "../../common/general.h"
 #include "SSLRobotPhysic.h"
 
