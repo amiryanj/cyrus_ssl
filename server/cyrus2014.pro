@@ -108,7 +108,10 @@ SOURCES += \
     planner/planning/obstacle.cpp \
     planner/planning/fieldbound.cpp \
     planner/planning/dynamicobstacle.cpp \
-    planner/planning/rrtvertex.cpp
+    planner/planning/rrtvertex.cpp \
+    ../common/math/ellipse.cpp \
+    ../common/math/shape.cpp \
+    test/testserver.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -186,7 +189,10 @@ HEADERS += \
     planner/planning/randomtree.h \
     planner/planning/rrtvertex.h \
     planner/planning/planningagent.h \
-    planner/planning/dynamicobstacle.h
+    planner/planning/dynamicobstacle.h \
+    ../common/math/ellipse.h \
+    ../common/math/shape.h \
+    test/testserver.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \

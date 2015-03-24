@@ -10,6 +10,7 @@ Obstacle::Obstacle(ObstacleType type, b2Vec2 center, double radius)
     shape->m_radius = radius;
 
     this->m_ObstacleType = type;
+    repulseStrenght = 1.0;
 
 //    this->dynamic = isMoving;
 }

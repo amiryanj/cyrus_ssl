@@ -1,7 +1,7 @@
 #include "planningproblem.h"
 #include <Box2D/Collision/b2Distance.h>
-#include "../../../common/math/sslmath.h"
 #include <iostream>
+#include "../../../common/math/sslmath.h"
 //#include "../GA/planningchromosom.h"
 
 using namespace SSL;
@@ -30,22 +30,18 @@ bool PlanningProblem::solve()
     }
 
     if(goal.minDistTo(initialState) == 0) { // if it is already in the goal region
-        tree.clear();
         trajec.clear();
         planningResult = true;
     }
-
-    else if(!CheckValidity(initialState))
-        solveInvalidInitialState();
+//    else if(!CheckValidity(initialState))
+//        solveInvalidInitialState();
 
     else {  // normal way of solvgin motion planning problem
         ObstacleSet desired_ob_set = stat_obstacles;
         desired_ob_set.insert(desired_ob_set.end(), dyna_obstacles.begin(), dyna_obstacles.end());
-        vector<float> coeffs;
-        for(uint i=0; i<desired_ob_set.size(); i++) {
-            coeffs.push_back(1.0f);
-        }
-        PotentialFieldSolve(desired_ob_set, coeffs);
+        Trajectory apft_ = PotentialFieldSolve(desired_ob_set);
+        Trajectory pt_ = PruneTrajectory(apft_, desired_ob_set);
+        trajec.copyFrom(pt_);
 //        if(!planningResult) {
 //            GRRTsolve();
 //            buildTrajectoryFromTree();
@@ -154,17 +150,18 @@ Vector2D PlanningProblem::GoalAttractiveForce(const Station &st)
     return diff_to_goal.normalized() * stren;
 }
 
-Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set, const vector<float> &coeffs)
+Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set)
 {
     Trajectory temp_trajec;
     temp_trajec.appendState(initialState);
 
-    const float extension_len = agent.radius();
+    const float extension_len = agent.radius() * 1.5;
 
     for(int step = 1; step <= MAX_RRT_STEP_TRY; step++) {
         // check reaching the goal state
         Station current_station = temp_trajec.getLastStation();
         if(goal.minDistTo(current_station) < extension_len) {
+            temp_trajec.appendState(goal.goal_point);
             planningResult = true;
             return temp_trajec;
         }
@@ -174,55 +171,78 @@ Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set, const
 
         vector<Vector2D> ob_forces = ObstacleForces(current_station, ob_set);
         for(uint i=0; i<ob_forces.size(); i++)
-            total_force += ob_forces[i] * coeffs[i];
+            total_force += ob_forces[i] * ob_set[i]->repulseStrenght;
+        Vector2D new_pos = current_station.getPosition().to2D();
+        Station new_station;
+        float delta_orien;
+        switch (agent.motionModel)   {
+        case MP::eDifferentialWheel :
+            delta_orien = SSL::continuousRadian(total_force.arctan()
+                                                      - current_station.getPosition().Teta(), -M_PI);
 
-        float delta_orien = SSL::continuousRadian(total_force.arctan() - current_station.getPosition().Teta(), -M_PI);
-        float f_delta_orien = atan(delta_orien * 0.8);
-        Vector2D new_pos(current_station.getPosition().to2D()
-                         + Vector2D::unitVector(current_station.getPosition().Teta() + f_delta_orien/2.0) * extension_len);
-        Station new_st(Vector3D(new_pos, continuousRadian(f_delta_orien +current_station.getPosition().Teta(), -M_PI)));
+            new_pos += Vector2D::unitVector(current_station.getPosition().Teta()
+                                                    + atan(delta_orien * 0.8)/2.0) * extension_len;
+            new_station.setPosition( ( Vector3D(new_pos ,
+                                                continuousRadian( current_station.getPosition().Teta()
+                                                                  + atan(delta_orien * 0.8), -M_PI )) ));
+            break;
+        case MP::eOmniDirectional :
+            delta_orien = SSL::continuousRadian(goal.goal_point.getPosition().Teta()
+                                                     - current_station.getPosition().Teta(), -M_PI);
+//            if (abs(delta_orien) > (M_PI/8.0f)) {
+////                new_pos += total_force.normalized() * extension_len * 0.2;
+//                new_station.setPosition(Vector3D( new_pos, current_station.getPosition().Teta() +
+//                                                  sgn (delta_orien) * M_PI / 8.0));
+//            }
+//            else
+            {
+                new_pos += total_force.normalized() * extension_len;
+                new_station.setPosition(Vector3D(new_pos, goal.goal_point.getPosition().Teta()));
+            }
+            break;
+        }
 
-        temp_trajec.appendState(new_st);
+        temp_trajec.appendState(new_station);
     }
     return temp_trajec;
 }
 
-Trajectory PlanningProblem::RRT_APF_Solve(Trajectory &rrt_plan_, const ObstacleSet &ob_set, PlanningChromosom& params)
-{
-    Trajectory new_trajec;
-    new_trajec.appendState(initialState);
+//Trajectory PlanningProblem::RRT_APF_Solve(Trajectory &rrt_plan_, const ObstacleSet &ob_set, PlanningChromosom& params)
+//{
+//    Trajectory new_trajec;
+//    new_trajec.appendState(initialState);
 
-    const float extension_len = agent.radius();
+//    const float extension_len = agent.radius();
 
-    for(int step = 1; step <= MAX_RRT_STEP_TRY; step++) {
-        // check reaching the goal state
-        Station current_station = new_trajec.getLastStation();
-        if(goal.minDistTo(current_station) < extension_len) {
-            return new_trajec;
-        }
+//    for(int step = 1; step <= MAX_RRT_STEP_TRY; step++) {
+//        // check reaching the goal state
+//        Station current_station = new_trajec.getLastStation();
+//        if(goal.minDistTo(current_station) < extension_len) {
+//            return new_trajec;
+//        }
 
-//        Vector2D diff_to_goal((goal.goal_point.getPosition() - current_station.getPosition()).to2D());
-//        Vector2D attract_force = diff_to_goal.normalized();
-        Vector2D total_force;
+////        Vector2D diff_to_goal((goal.goal_point.getPosition() - current_station.getPosition()).to2D());
+////        Vector2D attract_force = diff_to_goal.normalized();
+//        Vector2D total_force;
 
-        vector<Vector2D> ob_forces = ObstacleForces(current_station, ob_set);
-        for(uint i=0; i<ob_forces.size(); i++)
-            total_force += ob_forces[i] * params.obstacleCoeff(i);
+//        vector<Vector2D> ob_forces = ObstacleForces(current_station, ob_set);
+//        for(uint i=0; i<ob_forces.size(); i++)
+//            total_force += ob_forces[i] * params.obstacleCoeff(i);
 
-        total_force *= params.obstaclesTotalCoeff();
+//        total_force *= params.obstaclesTotalCoeff();
 
-        total_force += RRTDirectedForce(current_station, rrt_plan_) * params.RRTPathCoeff();
+//        total_force += RRTDirectedForce(current_station, rrt_plan_) * params.RRTPathCoeff();
 
-        float delta_orien = SSL::continuousRadian(total_force.arctan() - current_station.getPosition().Teta(), -M_PI);
-        float f_delta_orien = atan(delta_orien * 1.1);
-        Vector2D new_pos(current_station.getPosition().to2D()
-                         + Vector2D::unitVector(current_station.getPosition().Teta() + f_delta_orien/2.0) * extension_len);
-        Station new_st(Vector3D(new_pos, continuousRadian(f_delta_orien +current_station.getPosition().Teta(), -M_PI)));
+//        float delta_orien = SSL::continuousRadian(total_force.arctan() - current_station.getPosition().Teta(), -M_PI);
+//        float f_delta_orien = atan(delta_orien * 1.1);
+//        Vector2D new_pos(current_station.getPosition().to2D()
+//                         + Vector2D::unitVector(current_station.getPosition().Teta() + f_delta_orien/2.0) * extension_len);
+//        Station new_st(Vector3D(new_pos, continuousRadian(f_delta_orien +current_station.getPosition().Teta(), -M_PI)));
 
-        new_trajec.appendState(new_st);
-    }
-    return new_trajec;
-}
+//        new_trajec.appendState(new_st);
+//    }
+//    return new_trajec;
+//}
 
 Trajectory PlanningProblem::GRRTsolve()
 {
@@ -334,24 +354,24 @@ void PlanningProblem::deactive()
     this->tree.clear();
 }
 
-Trajectory PlanningProblem::PruneRRT(Trajectory &p, const ObstacleSet& ob_set)
+Trajectory PlanningProblem::PruneTrajectory(Trajectory &input_plan, const ObstacleSet& ob_set)
 {
-    if(p.length() < 3)
-        return p;
+    if(input_plan.length() < 3)
+        return input_plan;
 
-    Trajectory opt_plan;
+    Trajectory prunned_plan;
     int st_index = 1;
-    opt_plan.appendState(p.getStation(0));
-    while((p.length() - st_index) > 1) {
-        Station st_A = opt_plan.getLastStation();
-        Station st_B = p.getStation(st_index +1);
+    prunned_plan.appendState(input_plan.getStation(0));
+    while((input_plan.length() - st_index) > 1) {
+        Station st_A = prunned_plan.getLastStation();
+        Station st_B = input_plan.getStation(st_index +1);
         if(pathHasCollision(st_A, st_B, ob_set)) {
-            opt_plan.appendState(p.getStation(st_index));
+            prunned_plan.appendState(input_plan.getStation(st_index));
         }
         st_index ++;
     }
-    opt_plan.appendState(p.getLastStation());
-    return opt_plan;
+    prunned_plan.appendState(input_plan.getLastStation());
+    return prunned_plan;
 //    for(int i=0; i< p.length(); i++) {
 //        if(i == 0) {
 //            opt_plan.appendState(p.getStation(0));
@@ -650,8 +670,9 @@ bool PlanningProblem::pathHasCollision(Station &from, Station &to, const Obstacl
     b2PolygonShape road_from_to;
     Vector2D center((from.getPosition() + to.getPosition()).to2D() /2.0);
     Vector2D half_diff((to.getPosition() - from.getPosition()).to2D() /2.0);
-    float safet_latera_bound = 0.1;
-    road_from_to.SetAsBox(agent.radius() * (1 + safet_latera_bound), half_diff.lenght() + agent.radius(),
+    float safety_lateral_bound = -0.20;
+    road_from_to.SetAsBox(agent.radius() * (1 + safety_lateral_bound),
+                          half_diff.lenght() + agent.radius() * (1+safety_lateral_bound),
                           center.toB2vec2(), M_PI_2 + half_diff.arctan());
 
     for(unsigned int i=0; i<ob_set.size(); i++)
@@ -920,7 +941,7 @@ Trajectory PlanningProblem::getTrajectory() const
     return trajec;
 }
 
-Velocity PlanningProblem::getControl(unsigned int i)
+Velocity PlanningProblem::getControl(uint i)
 {
     Velocity c;
     if(i < trajec.length()) {

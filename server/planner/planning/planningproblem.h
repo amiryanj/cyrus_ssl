@@ -61,7 +61,7 @@ public:
 
     RandomTree &getTree();
     Trajectory getTrajectory() const;
-    Velocity getControl(unsigned int i = 0);
+    Velocity getControl(uint i = 0);
     Velocity getNextControl(Trajectory tr_);
     Trajectory getPlan();
 
@@ -75,9 +75,9 @@ public:
     Trajectory ERRTsolve();
     Trajectory GRRTsolve();
     Trajectory RRTConnectSolve(double arg1);
-    Trajectory PruneRRT(Trajectory& p, const ObstacleSet &ob_set);
+    Trajectory PruneTrajectory(Trajectory& input_plan, const ObstacleSet &ob_set);
 
-    Trajectory PotentialFieldSolve(const ObstacleSet& ob_set, const vector<float>& coeffs);
+    Trajectory PotentialFieldSolve(const ObstacleSet& ob_set);
     Trajectory RRT_APF_Solve(Trajectory& rrt_plan_, const ObstacleSet& ob_set, PlanningChromosom &params);
 
     vector<Vector2D> ObstacleForces(const Station &st, const ObstacleSet &ob_set);

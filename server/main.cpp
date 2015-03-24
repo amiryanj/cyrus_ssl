@@ -7,6 +7,7 @@
 #include "gui/guihandler.h"
 #include "transmitter/commandtransmitter.h"
 #include "paramater-manager/parametermanager.h"
+#include "test/testserver.h"
 
 #include "general.h"
 
@@ -32,8 +33,9 @@ int main(int argc, char *argv[])
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
-
     transmitter->type = CommandTransmitter::GRSIM;
+
+    TestServer* tester = new TestServer();
 
     long loopCounter = 0;
     while (true)
@@ -48,6 +50,7 @@ int main(int argc, char *argv[])
             transmitter->check();
         }
         if(loopCounter % 15 == 0)  {
+            tester->check();
             gui->check();
 //            gui->testVisualizer();
         }

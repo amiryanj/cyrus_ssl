@@ -98,7 +98,8 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, const Vector3D &target, con
     agent->planner.solve();
 //        assert(planner.planningResult == true); // this assumption is not true
 
-    if(agent->planner.planningResult) {
+//    if(agent->planner.planningResult)
+    {
         Vector3D vel = agent->planner.getControl();
         vel.normalize2D();
 
@@ -125,11 +126,11 @@ void SSLSkill::goToPointWithPlanner(SSLAgent* agent, const Vector3D &target, con
         Vector3D desiredSpeed = vel * speedCoefficient;
         controlSpeed(agent, desiredSpeed, true);
     }
-    else {
-        Vector3D zeroSpeed;
-        zeroSpeed.setZero();
-        controlSpeed(agent, zeroSpeed, true);
-    }
+//    else {
+//        Vector3D zeroSpeed;
+//        zeroSpeed.setZero();
+//        controlSpeed(agent, zeroSpeed, true);
+//    }
 }
 
 
@@ -201,7 +202,7 @@ Vector2D SSLSkill::ourGoalCenter()
 
 Vector3D SSLSkill::ourMidfieldUpPosition()
 {
-    float x_ = game->ourSide() * (FIELD_LENGTH / 4) * 1.4;
+    float x_ = game->ourSide() * (FIELD_LENGTH / 4) * 1.3;
     Vector2D point(x_, +600);
     return KickStylePosition(point, opponentGoalCenter(), 0);
 }
@@ -215,7 +216,7 @@ Vector3D SSLSkill::ourMidfieldCenterPosition()
 
 Vector3D SSLSkill::ourMidfieldDownPosition()
 {
-    float x_ = game->ourSide() * (FIELD_LENGTH / 4) * 1.4;
+    float x_ = game->ourSide() * (FIELD_LENGTH / 4) * 1.3;
     Vector2D point(x_, -600);
     return KickStylePosition(point, opponentGoalCenter(), 0);
 }

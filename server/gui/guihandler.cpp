@@ -32,7 +32,8 @@ bool GUIHandler::openSocket()
 bool GUIHandler::openSocket(int port, string address)
 {
     this->close();
-    if(!this->open(port, true, true)) {
+    if(!this->open(port, true, true))
+    {
         cerr << "Unable to open UDP network port: "<< port << endl;
         return false;
     }

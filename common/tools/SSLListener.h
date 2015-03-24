@@ -5,8 +5,8 @@
  *      Author: mostafa
  */
 
-#ifndef SSLLISTENER_H_
-#define SSLLISTENER_H_
+#ifndef _SSLLISTENER_H_
+#define _SSLLISTENER_H_
 
 class SSLListener {
 public:
@@ -18,4 +18,4 @@ protected:
 
 };
 
-#endif /* SSLLISTENER_H_ */
+#endif /* _SSLLISTENER_H_ */

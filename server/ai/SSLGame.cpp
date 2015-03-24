@@ -36,17 +36,22 @@ SSLGame::SSLGame(Color ourC, Side ourS)
     penaltyAreaObs.reserve(5);
     int z = (int) ourSide();
     Obstacle* myPenaltyArea_C = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, 0),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.9);
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
     Obstacle* myPenaltyArea_T = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.9);
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
     Obstacle* myPenaltyArea_D = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.9);
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
 //    Obstacle* myPenaltyArea_C = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, 0),
 //                                                    FIELD_PENALTY_AREA_RADIUS*2 * .9, FIELD_PENALTY_AREA_WIDTH, 0);
     Obstacle* outFieldArea_R = new Obstacle(Obstacle::eStatic, b2Vec2(FIELD_LENGTH/2 + 300, 0),
                                                                     150*2 ,  FIELD_WIDTH, 0);
     Obstacle* outFieldArea_L = new Obstacle(Obstacle::eStatic, b2Vec2(-FIELD_LENGTH/2 - 300, 0),
                                                                     150*2 ,  FIELD_WIDTH, 0);
+
+    myPenaltyArea_C->repulseStrenght = 1.5;
+    myPenaltyArea_T->repulseStrenght = 1.5;
+    myPenaltyArea_D->repulseStrenght = 1.5;
+
     penaltyAreaObs.push_back(myPenaltyArea_C);
     penaltyAreaObs.push_back(myPenaltyArea_T);
     penaltyAreaObs.push_back(myPenaltyArea_D);
@@ -57,6 +62,7 @@ SSLGame::SSLGame(Color ourC, Side ourS)
     allRobotsObs.reserve(MAX_ID_NUM * 2);
     for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
         Obstacle* ob_ = new Obstacle(Obstacle::eRobot, b2Vec2(0, 0), ROBOT_RADIUS);
+        ob_->repulseStrenght = 2.0;
         allRobotsObs.push_back(ob_);
     }
 

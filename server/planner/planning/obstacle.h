@@ -24,6 +24,7 @@ public:
 
     b2Shape* shape;
 
+    float repulseStrenght;
     bool dynamic;
 
 };

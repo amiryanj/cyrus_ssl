@@ -17,6 +17,7 @@ SSLAgent::SSLAgent()
               -1.1 * FIELD_WIDTH/2, 1.1 * FIELD_WIDTH/2 );
     planner.setBound(bound);
     PlanningAgent plan_agent;
+    plan_agent.motionModel = MP::eOmniDirectional;
     plan_agent.setRadius(ROBOT_RADIUS); // in milimeter
     plan_agent.mass = 3.0; // kilo gram
     plan_agent.velocity_limit.set(3000, 3000, M_PI * 1.2);

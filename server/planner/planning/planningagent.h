@@ -1,10 +1,13 @@
-#ifndef PLANNINGROBOT_H
-#define PLANNINGROBOT_H
+#ifndef _PLANNINGROBOT_H
+#define _PLANNINGROBOT_H
 
 #include <Box2D/Collision/Shapes/b2CircleShape.h>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include "station.h"
+namespace MP {
 
+    enum AgentMotionModel {eOmniDirectional, eDifferentialWheel};
+}
 class PlanningAgent
 {
 
@@ -19,6 +22,8 @@ public:
 //    double max_vel;
     double maxRotationRad; // radian
     double mass;
+
+    MP::AgentMotionModel motionModel;
 
     PlanningAgent& operator=(const PlanningAgent& other);
 
