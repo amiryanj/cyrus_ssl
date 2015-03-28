@@ -47,9 +47,7 @@ SOURCES += \
     ai/SSLWorldModel.cpp \
     definition/SSLTeam.cpp \
     definition/SSLRobot.cpp \
-    definition/SSLObject.cpp \
     definition/SSLBall.cpp \
-    definition/SSLRobotPhysic.cpp \
     ai/SSLGame.cpp \
     transmitter/RobotCommandPacket.cpp \
     ../common/math/vector3d.cpp \
@@ -111,7 +109,8 @@ SOURCES += \
     planner/planning/rrtvertex.cpp \
     ../common/math/ellipse.cpp \
     ../common/math/shape.cpp \
-    test/testserver.cpp
+    test/testserver.cpp \
+    soccer/sslgamepositions.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -126,7 +125,6 @@ HEADERS += \
     definition/SSLRobot.h \
     definition/SSLObject.h \
     definition/SSLBall.h \
-    definition/SSLRobotPhysic.h \
     ai/SSLGame.h \
     transmitter/RobotCommandPacket.h \
     ../common/math/vector3d.h \
@@ -192,7 +190,8 @@ HEADERS += \
     planner/planning/dynamicobstacle.h \
     ../common/math/ellipse.h \
     ../common/math/shape.h \
-    test/testserver.h
+    test/testserver.h \
+    soccer/sslgamepositions.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \

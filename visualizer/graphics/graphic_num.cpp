@@ -20,7 +20,7 @@ void NumberGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
         painter->setPen((myColor == Qt::blue)? Qt::black : Qt::black);
         painter->drawText(-20,-50, myText);
     }
-    this->setRotation(-this->parentItem()->rotation());
+//    this->setRotation(-this->parentItem()->rotation());
 }
 
 QRectF NumberGraphicsItem::boundingRect() const

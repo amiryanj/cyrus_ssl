@@ -21,14 +21,14 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
         {
             Qt::GlobalColor robot_color = ((Color)tm == Yellow)? Qt::yellow:Qt::blue;
             robot[tm][i] = new RobotGraphicsItem(robot_color, i);
-            scene.addItem(robot[tm][i]);
             robot[tm][i]->setZValue(2);
+            scene.addItem(robot[tm][i]);
 
             number[tm][i] = new NumberGraphicsItem(i);
             number[tm][i]->setColor(((Color)tm == Yellow)? Qt::yellow:Qt::blue);
             number[tm][i]->setZValue(3);
-            number[tm][i]->setParentItem(robot[tm][i]);
-//            scene.addItem(number[tm][i]);
+//            number[tm][i]->setParentItem(robot[tm][i]);
+            scene.addItem(number[tm][i]);
 
             robotActualVel[tm][i] = new VectorGraphicsItem(Qt::green);
 //            robotActualVel[tm][i]->setParentItem(robot[tm][i]);
@@ -50,15 +50,16 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
                 scene.addItem(plan[i]);
 
                 desiredVel[i] = new VectorGraphicsItem(Qt::magenta);
-                desiredVel[i]->setParentItem(robot[tm][i]);
                 desiredVel[i]->setZValue(5);
                 desiredVel[i]->setGlobalOrien(true);
+                scene.addItem(desiredVel[i]);
+//                desiredVel[i]->setParentItem(robot[tm][i]);
 
                 appliedVel[i] = new VectorGraphicsItem(Qt::red);
-//                scene.addItem(appliedVel[i]);
-                appliedVel[i]->setParentItem(robot[tm][i]);
                 appliedVel[i]->setZValue(6);
                 appliedVel[i]->setGlobalOrien(false);
+//                appliedVel[i]->setParentItem(robot[tm][i]);
+                scene.addItem(appliedVel[i]);
 
             }
 
@@ -107,7 +108,6 @@ FieldScene::~FieldScene()
 //    delete ui;
 }
 
-
 void FieldScene::setIsShowingIntersects(bool show)
 {
     isShowingIntersects = show;
@@ -128,12 +128,18 @@ void FieldScene::updateRobotState(const RobotState &st)
         return;
     }
     robot[team][id]->setPos(st.position.X(), -st.position.Y()); // ok
-    robot[team][id]->setRotation(-st.position.Teta() * 180/M_PI); // ok
+    robot[team][id]->setRotation(-st.position.Teta() * 180.0/M_PI); // ok
 
     robotActualVel[team][id]->setEnd(20*st.velocity.X(), -20*st.velocity.Y());
 
     if(isShowingIntersects)
         robotIntersect[team][id]->setRobotPosition(st.position.X(),-st.position.Y());
+
+    if(st.color == ourColor) {
+        desiredVel[id]->setPos(st.position.X(), -st.position.Y());
+        appliedVel[id]->setPos(st.position.X(), -st.position.Y());
+    }
+    number[team][id]->setPos(st.position.X(), -st.position.Y());
 
 }
 

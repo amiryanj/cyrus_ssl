@@ -36,15 +36,16 @@ public:
         m_acceleration = acceleration_;
     }
 
-    double m_radius;
+    float m_radius;
 
 protected:
     VectorType m_position;
     VectorType m_speed;
     VectorType m_acceleration;
 
-    SSL_OBJECT_TYPE m_type;
     double m_mass;
+
+    SSL_OBJECT_TYPE m_type; // unused parameter
 
 };
 

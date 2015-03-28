@@ -28,12 +28,13 @@ public:
 
     static void goToPoint(SSLAgent* agent, Vector3D target, const Vector3D &tolerance);
 
-    static void goToPointWithPlanner(SSLAgent *agent, const Vector3D &target, const Vector3D &tolerance,
+    static void goToPointWithPlanner(SSLAgent *agent, const Vector3D &target,
+                                     const Vector3D &tolerance,
                                      bool considerPenaltyArea = true,
                                      float ball_obs_radius = BALL_RADIUS,
                                      float robot_obs_radius = ROBOT_RADIUS);
 
-    // ********************* Kick Skill ***************************
+    // ************************** Kick Skill *******************************
     static void goAndKick(SSLAgent* agent, Vector2D kick_target, double kickStrenghtNormal = 1);
 
     static void goAndChip(SSLAgent* agent, double chipStrenghtNormal = 1);
@@ -44,34 +45,11 @@ public:
 //    void goToPointKickForBlock(SSLRobot*);
 //    void forcKick(SSLRobot*);
 //    void forceStop(SSLRobot*);
-//    void stopCommands(SSLRobot*);
-
-    static Vector2D opponentPenaltyPoint();
-    static Vector2D opponentGoalCenter();
-    static Vector2D ourGoalCenter();
-    static Vector3D ourMidfieldUpPosition();
-    static Vector3D ourMidfieldDownPosition();
-    static Vector3D ourMidfieldCenterPosition();
-
-    static Vector3D opponentMidfieldUpPosition();
-    static Vector3D opponentMidfieldDownPosition();
-
-    static Vector3D midlineUpPosition();
-    static Vector3D midlineDownPosition();
-
-    static Vector3D wallStandFrontBall(int number);
-
-    static Vector3D KickStylePosition(const Vector2D &kick_point, const Vector2D &kickTarget, float dist = 100);
-    static Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point,
-                                         float dist_from_risky = 2 * ROBOT_RADIUS);
+//    void stopCommands(SSLRobot*); 
     
 private:
-    static void buildAndSendPacket(int id, Vector3D &vel, float kickSpeed = 0);
-    static void printRobotAppliedSpeed(SSLAgent* agent, std::ostream& stream);
     static Vector3D calcSpeed(const Vector3D &current, const Vector3D &target);
     static void controlSpeed(SSLAgent* agent, const Vector3D &speed, bool use_controller);
-
-    static const int OLD_ID_NUMS[];
 
 };
 

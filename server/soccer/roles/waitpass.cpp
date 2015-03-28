@@ -23,18 +23,18 @@ Vector3D WaitPass::expectedPosition()
     Vector3D target;
     if(analyzer->isGameRunning()) {
         if(analyzer->ballPossessorTeam()->color == game->ourColor()) {
-            target = SSLSkill::opponentMidfieldUpPosition();
+            target = SSL::Position::opponentMidfieldUpPosition();
         }
         else
-            target = SSLSkill::ourMidfieldDownPosition();
+            target = SSL::Position::ourMidfieldDownPosition();
     }
 
     else if(world->m_refereeState == SSLReferee::Stop) {
-        target = SSLSkill::wallStandFrontBall(1);
+        target = SSL::Position::wallStandFrontBall(1, world->mainBall()->Position());
     }
 
     else { // other restart states
-        target = SSLSkill::ourMidfieldCenterPosition();
+        target = SSL::Position::ourMidfieldDownPosition();
     }
     return target;
 }

@@ -5,24 +5,26 @@
 #include <string>
 #include "../../common/sslnamespace.h"
 #include "../../common/general.h"
-#include "SSLRobotPhysic.h"
 
 using namespace std;
 using namespace SSL;
 
 class SSLRobot;
+class SSLRobotPhysics;
 
 class SSLTeam
 {
 public:
     //SSLTeam();
-    SSLTeam(const Color color, const SSLRobotPhysic &physic);
+    SSLTeam(const Color color, const SSLRobotPhysics &physic);
     SSLRobot *robot[MAX_ID_NUM];
-    unsigned int numInFields() const;
-    vector<SSLRobot*> inFields();
-    vector<SSLRobot*> inFieldsExcept(int id);
-    vector<SSLRobot*> inFieldsExcept(SSLRobot* robot);
-    vector<SSLRobot*> allRobots();
+
+    unsigned int numInFieldRobots() const;
+
+    vector<SSLRobot*> getAllRobots();
+    vector<SSLRobot*> getInFieldRobots();
+    vector<SSLRobot*> getInFieldRobotsExcept(int id);
+    vector<SSLRobot*> getInFieldRobotsExcept(SSLRobot* robot);
 
     Color color;
     std::string colorStr();

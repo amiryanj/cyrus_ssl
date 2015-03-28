@@ -122,7 +122,7 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
     for(int tm=0; tm<2 ; ++tm)
     {
 //        vector<SSLRobot* > team_robots = world->getTeam((Color)tm)->inFields();
-        vector<SSLRobot* > team_robots = world->getTeam((Color)tm)->allRobots();
+        vector<SSLRobot* > team_robots = world->getTeam((Color)tm)->getAllRobots();
         for(uint i=0; i < team_robots.size() ; ++i)
         {
             const SSLRobot* robot = team_robots[i];
@@ -222,7 +222,7 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
         packet->set_nearest_can_kick(false);
     packet->set_is_game_running(analyzer->isGameRunning());
 
-    vector<SSLRobot*> all_inFields = world->all_inFields();
+    vector<SSLRobot*> all_inFields = world->getInFieldRobots();
     for(uint i=0; i< all_inFields.size(); i++) {
         SSLRobot* robot = all_inFields.at(i);
         SSLAnalyzer::RobotIntersectTime intersect_ = analyzer->whenWhereCanRobotCatchTheBall(robot);

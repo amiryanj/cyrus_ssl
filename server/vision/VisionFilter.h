@@ -16,9 +16,10 @@ const static int MAX_CAMERA_COUNT = 4;
 
 class VisionFilter : public SSLListener
 {
+    friend class MainWindow;
     VisionFilter();
     ~VisionFilter();
-    static VisionFilter* module;
+    static VisionFilter* instance;
 
 public:
     static VisionFilter* getInstance();

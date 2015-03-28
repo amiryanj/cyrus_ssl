@@ -10,8 +10,8 @@ VectorGraphicsItem::VectorGraphicsItem(Qt::GlobalColor color)
 
 void VectorGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    if(globalOrien)
-        this->setRotation(-this->parentItem()->rotation());
+//    if(globalOrien)
+//        this->setRotation(-this->parentItem()->rotation());
     painter->setPen(QPen(color, 15));
     painter->drawLine(QPointF(0,0), end);
 }

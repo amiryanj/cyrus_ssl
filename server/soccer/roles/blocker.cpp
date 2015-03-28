@@ -20,23 +20,24 @@ Vector3D Blocker::expectedPosition()
     Vector3D target;
 
     if(world->m_refereeState == SSLReferee::Stop) {
-        target = SSLSkill::wallStandFrontBall(-1);
+        target = SSL::Position::wallStandFrontBall(-1, world->mainBall()->Position());
     }
 
     else if(analyzer->isOpponentPenaltyPosition() || analyzer->isOpponentPenaltyKick()) {
-        target = SSLSkill::ourMidfieldDownPosition();
+        target = SSL::Position::ourMidfieldDownPosition();
     }
 
     else {
 
-        SSLRobot* near_to_ball = analyzer->nearestToBall(game->opponentTeam()->inFields(), m_index - 1);
+        SSLRobot* near_to_ball = analyzer->nearestToBall(game->opponentTeam()->getInFieldRobots(), m_index - 1);
         if(near_to_ball != NULL) {
-            SSLRobot* near_to_goal = analyzer->nearestToPoint(game->opponentTeam()->inFieldsExcept(near_to_ball),
-                                                              SSLSkill::ourGoalCenter());
+            SSLRobot* near_to_goal = analyzer->nearestToPoint(game->opponentTeam()->getInFieldRobotsExcept(near_to_ball),
+                                                              SSL::Position::ourGoalCenter());
             if(near_to_goal != NULL) {
-                float near_to_goal_dist = (near_to_goal->Position().to2D() - SSLSkill::ourGoalCenter()).lenght();
+                float near_to_goal_dist = (near_to_goal->Position().to2D() - SSL::Position::ourGoalCenter()).lenght();
                 near_to_goal_dist = fabs(near_to_goal_dist - FIELD_PENALTY_AREA_RADIUS * 1.5);
-                target = SSLSkill::DefenseStylePosition(near_to_goal->Position().to2D(), SSLSkill::ourGoalCenter(), near_to_goal_dist/2);
+                target = SSL::Position::DefenseStylePosition(near_to_goal->Position().to2D(),
+                                                             SSL::Position::ourGoalCenter(), near_to_goal_dist/2);
                 if(!analyzer->isRobotWithinOurPenaltyArea(target) && analyzer->isPointInOurSide(target.to2D())) {
                    return target;
                 }
@@ -45,10 +46,10 @@ Vector3D Blocker::expectedPosition()
     }
 
     if(m_index == 1) {
-        target = SSLSkill::ourMidfieldDownPosition();
+        target = SSL::Position::ourMidfieldDownPosition();
     }
     else {
-        target = SSLSkill::ourMidfieldUpPosition();
+        target = SSL::Position::ourMidfieldUpPosition();
     }
 
     return target;

@@ -33,7 +33,7 @@ SSLGame::SSLGame(Color ourC, Side ourS)
 
     // initializing field obstacles for agent
     // ****************************************************************************************
-    penaltyAreaObs.reserve(5);
+    penaltyAreaObstacles.reserve(5);
     int z = (int) ourSide();
     Obstacle* myPenaltyArea_C = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, 0),
                                                     FIELD_PENALTY_AREA_RADIUS * 0.98);
@@ -52,21 +52,21 @@ SSLGame::SSLGame(Color ourC, Side ourS)
     myPenaltyArea_T->repulseStrenght = 1.5;
     myPenaltyArea_D->repulseStrenght = 1.5;
 
-    penaltyAreaObs.push_back(myPenaltyArea_C);
-    penaltyAreaObs.push_back(myPenaltyArea_T);
-    penaltyAreaObs.push_back(myPenaltyArea_D);
+    penaltyAreaObstacles.push_back(myPenaltyArea_C);
+    penaltyAreaObstacles.push_back(myPenaltyArea_T);
+    penaltyAreaObstacles.push_back(myPenaltyArea_D);
 
-    penaltyAreaObs.push_back(outFieldArea_L);
-    penaltyAreaObs.push_back(outFieldArea_R);
+    penaltyAreaObstacles.push_back(outFieldArea_L);
+    penaltyAreaObstacles.push_back(outFieldArea_R);
 
-    allRobotsObs.reserve(MAX_ID_NUM * 2);
+    allRobotsObstacles.reserve(MAX_ID_NUM * 2);
     for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
         Obstacle* ob_ = new Obstacle(Obstacle::eRobot, b2Vec2(0, 0), ROBOT_RADIUS);
         ob_->repulseStrenght = 2.0;
-        allRobotsObs.push_back(ob_);
+        allRobotsObstacles.push_back(ob_);
     }
 
-    ballOb = new Obstacle(Obstacle::eBall, b2Vec2(0,0), BALL_RADIUS);
+    ballObstacle = new Obstacle(Obstacle::eBall, b2Vec2(0,0), BALL_RADIUS);
     // ****************************************************************************************
 
 }
@@ -107,12 +107,12 @@ SSLGame::~SSLGame()
 
 SSLTeam *SSLGame::ourTeam()
 {
-    return world->team[m_ourColor];
+    return world->getTeam(m_ourColor);
 }
 
 SSLTeam *SSLGame::opponentTeam()
 {
-    return world->team[(int)opponentColor()];
+    return world->getTeam(opponentColor());
 }
 
 SSLAgent *SSLGame::getAgent(unsigned int ID) const
@@ -150,7 +150,7 @@ Side SSLGame::opponentSide() const
 
 void SSLGame::updateAgents(bool &anyChange)
 {
-    vector<SSLRobot* > ours = ourTeam()->inFields();
+    vector<SSLRobot* > ours = ourTeam()->getInFieldRobots();
     for(unsigned int i=0; i<this->m_agents.size(); i++) {
         SSLAgent* agent = m_agents.at(i);
         if(ours.empty()) {
@@ -185,5 +185,5 @@ void SSLGame::updateObstacles()
 //    }
 
     SSLBall* actual_ball = world->mainBall();
-    ballOb->m_transform.Set(b2Vec2(actual_ball->Position().X(), actual_ball->Position().Y()), 0);
+    ballObstacle->m_transform.Set(b2Vec2(actual_ball->Position().X(), actual_ball->Position().Y()), 0);
 }

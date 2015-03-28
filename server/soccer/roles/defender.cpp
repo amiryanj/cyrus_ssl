@@ -15,11 +15,11 @@ Vector3D Defender::expectedPosition()
 {
     float x = (float)(m_defenderCount + 1)/2.0;
     float displaceAngle = (m_defenderIndex - x) * (1.6 *ROBOT_RADIUS /FIELD_PENALTY_AREA_RADIUS);
-    Vector2D dir(world->mainBall()->Position() - SSLSkill::ourGoalCenter());
+    Vector2D dir(world->mainBall()->Position() - SSL::Position::ourGoalCenter());
     dir.normalize();
     dir.rotate(displaceAngle);
     dir *= FIELD_PENALTY_AREA_RADIUS * 1.33;
-    Vector3D target(dir + SSLSkill::ourGoalCenter(), dir.arctan());
+    Vector3D target(dir + SSL::Position::ourGoalCenter(), dir.arctan());
     return target;
 }
 
@@ -47,11 +47,11 @@ void Defender::run()
 {
     float x = (float)(m_defenderCount + 1)/2.0;
     float displaceAngle = (m_defenderIndex - x) * (2 *ROBOT_RADIUS /FIELD_PENALTY_AREA_RADIUS);
-    Vector2D dir(world->mainBall()->Position() - SSLSkill::ourGoalCenter());
+    Vector2D dir(world->mainBall()->Position() - SSL::Position::ourGoalCenter());
     dir.normalize();
     dir.rotate(displaceAngle);
     dir *= FIELD_PENALTY_AREA_RADIUS * 1.3;
-    Vector3D target(dir + SSLSkill::ourGoalCenter(), dir.arctan());
+    Vector3D target(dir + SSL::Position::ourGoalCenter(), dir.arctan());
     Vector3D tolerance(100, 100, M_PI_4);
     SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 0, 0);
 

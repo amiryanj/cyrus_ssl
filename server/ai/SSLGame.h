@@ -35,22 +35,19 @@ public:
     SSLAgent* getAgent(unsigned int ID) const;
     SSLStrategy* currentStrategy;
 
-    bool hasAgent();
     Color ourColor() const;    
     Side ourSide() const;
     Color opponentColor() const;
     Side opponentSide() const;
 
 
-    ObstacleSet allRobotsObs;
-    Obstacle* ballOb;
-    ObstacleSet penaltyAreaObs;
+    Obstacle* ballObstacle;
+    ObstacleSet allRobotsObstacles;
+    ObstacleSet penaltyAreaObstacles;
 
 private:
     Color m_ourColor;
     Side m_ourSide;
-
-    ObstacleSet myDynamicObstacleSet;
 
     void updateAgents(bool &anyChange);
     void updateObstacles();

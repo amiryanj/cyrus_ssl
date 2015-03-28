@@ -2,12 +2,11 @@
 #define _BALLFILTER_H
 
 #include <vector>
-#include <cmath>
-#include <math.h>
 #include <stdlib.h>
 #include "sslframe.h"
 #include "alphabetafilter.h"
 #include "../../common/math/vector2d.h"
+#include "../definition/SSLBall.h"
 
 
 #define MAX_BALL_MEMORY 13
@@ -15,17 +14,6 @@
 #define BALL_SPEED_LIMIT_FILTER 7
 
 using namespace std;
-
-struct BallKinematic {
-    double timeStamp_second; // variable unit = second  : SSSS.mmm
-    Vector2D position; // mili meter
-    Vector2D displacement; // mili meter
-    Vector2D velocity; // mili meter per second
-    Vector2D acceleration; // mili meter per second^2
-    float turnInDegree() const {return acceleration.arctan() * 180.0/M_PI;}
-//    bool hasSuddenChange() const {return ((acceleration.lenght() > )
-//                                          || turnInDegree());}
-};
 
 class BallFilter
 {
@@ -35,19 +23,21 @@ class BallFilter
 public:
     BallFilter();
 
-    void initialize(const SSLFrame &first_frame);
+    void initialize(const SSLFrame &initial_frame);
 
     void putNewFrame(const SSLFrame &detected_ball);
     void putNewFrameWithManyBalls(vector<SSLFrame> detected_balls);
 
     // main method for updating state vectors
     void run();
+    void executeAlphaBetaFilter();
+    void executeClusterFilter();
 
     bool isEmpty() const;
 
 protected:
-    BallKinematic& getRawData(uint i) {return rawData[i];}
-    vector<BallKinematic> rawData;
+    SSLBallState& getRawData(uint i) {return rawData[i];}
+    vector<SSLBallState> rawData;
 
     bool getBallStoppedState();
 
@@ -56,6 +46,8 @@ protected:
     Vector2D m_rawPosition;
     Vector2D m_displacement;
     Vector2D m_filteredPosition;
+
+    Vector2D m_clusteredVelocity;
 
     Vector2D m_rawVelocity;
     Vector2D m_filteredVelocity;

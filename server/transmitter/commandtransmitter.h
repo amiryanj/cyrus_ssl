@@ -23,7 +23,7 @@ public:
 
     TransmitType type;
 
-
+    void buildAndSendPacket(int id, Vector3D &vel, float kickPower = 0);
 private:
     RobotCommandPacket packets[MAX_ID_NUM];
     bool notSent[MAX_ID_NUM];
@@ -31,6 +31,8 @@ private:
 
     RobotSerialConnection* serial;
     GRSimSender* grsim;
+
+    vector<int> OLD_ID_NUMS;
 };
 
 #endif // COMMANDTRANSMITTER_H

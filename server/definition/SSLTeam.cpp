@@ -2,7 +2,7 @@
 
 #include "SSLRobot.h"
 
-SSLTeam::SSLTeam(const Color color, const SSLRobotPhysic &physic)
+SSLTeam::SSLTeam(const Color color, const SSLRobotPhysics &physic)
 {
 
     for(int i = 0; i < MAX_ID_NUM; i++ )
@@ -23,7 +23,7 @@ std::string SSLTeam::colorStr()
 }
 
 // this method returns in-field robots of the team, sorted by their ID's
-vector<SSLRobot *> SSLTeam::inFields()
+vector<SSLRobot *> SSLTeam::getInFieldRobots()
 {
     vector<SSLRobot*> robotList;
     robotList.reserve(MAX_TEAM_PLAYER);
@@ -33,7 +33,7 @@ vector<SSLRobot *> SSLTeam::inFields()
     return robotList;
 }
 
-vector<SSLRobot *> SSLTeam::inFieldsExcept(int id)
+vector<SSLRobot *> SSLTeam::getInFieldRobotsExcept(int id)
 {
     vector<SSLRobot*> robotList;
     robotList.reserve(MAX_TEAM_PLAYER - 1);
@@ -43,16 +43,16 @@ vector<SSLRobot *> SSLTeam::inFieldsExcept(int id)
     return robotList;
 }
 
-vector<SSLRobot *> SSLTeam::inFieldsExcept(SSLRobot *robot)
+vector<SSLRobot *> SSLTeam::getInFieldRobotsExcept(SSLRobot *robot)
 {
     int id = -1;
     if(robot != NULL) {
         id = robot->id;
     }
-    return inFieldsExcept(id);
+    return getInFieldRobotsExcept(id);
 }
 
-vector<SSLRobot *> SSLTeam::allRobots()
+vector<SSLRobot *> SSLTeam::getAllRobots()
 {
     vector<SSLRobot*> robotList;
     robotList.reserve(MAX_ID_NUM);
@@ -61,7 +61,7 @@ vector<SSLRobot *> SSLTeam::allRobots()
     return robotList;
 }
 
-unsigned int SSLTeam::numInFields() const
+unsigned int SSLTeam::numInFieldRobots() const
 {
     int count=0;
     for(int i=0;i<MAX_ID_NUM;++i)

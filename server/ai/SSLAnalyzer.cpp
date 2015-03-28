@@ -154,7 +154,7 @@ SSLRobot *SSLAnalyzer::whichRobotCanKick()
 {
     if (f_whichRobotCanKick == 0) {
         f_whichRobotCanKick = 1;
-        vector<SSLRobot* > robots = world->all_inFields();
+        vector<SSLRobot* > robots = world->getInFieldRobots();
 
         for(uint i = 0 ; i < robots.size() ; i ++)
         {
@@ -196,12 +196,12 @@ bool SSLAnalyzer::canKick(SSLRobot *robot)
 // TODO : Farzad ***************************************************************************
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotIntersectBall(uint index)
 {    
-    return nearestRobotIntersectBall(world->all_inFields(), index);
+    return nearestRobotIntersectBall(world->getInFieldRobots(), index);
 }
 
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotIntersectBall(Color teamColor, uint index)
 {
-    return nearestRobotIntersectBall(world->getTeam(teamColor)->inFields(), index);
+    return nearestRobotIntersectBall(world->getTeam(teamColor)->getInFieldRobots(), index);
 }
 
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotIntersectBall(const vector<SSLRobot *> &robots, uint index)
@@ -238,12 +238,12 @@ SSLRobot *SSLAnalyzer::nearestToBall(const vector<SSLRobot *> robots, uint index
 // TODO : Nariman*****************************************************************************
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToPoint(const Vector2D &point, uint index)
 {
-    return nearestRobotToPoint(world->all_inFields(), point, index);
+    return nearestRobotToPoint(world->getInFieldRobots(), point, index);
 }
 
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToPoint(Color teamColor, const Vector2D &point, uint index)
 {
-    return nearestRobotToPoint(world->getTeam(teamColor)->inFields(), point, index);
+    return nearestRobotToPoint(world->getTeam(teamColor)->getInFieldRobots(), point, index);
 }
 
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotToPoint(const vector<SSLRobot *> &robots, const Vector2D &point, uint index)
@@ -316,7 +316,7 @@ vector<SSLRobot *> SSLAnalyzer::blockersFromPoint(const Vector2D targetPoint)
         float xDelta = -(game->ourSide())*FIELD_LENGTH/2.0 - targetPoint.X();
         float m = (y2 - targetPoint.Y()) / xDelta;
         float b = m*(-targetPoint.X());
-        vector<SSLRobot*> robots = world->all_inFields();
+        vector<SSLRobot*> robots = world->getInFieldRobots();
         for(uint j = 0 ; j < robots.size() ; j++)
         {
             SSLRobot* robot = robots[j];

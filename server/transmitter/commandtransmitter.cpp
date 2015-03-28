@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "RobotSerialConnection.h"
+#include "../paramater-manager/parametermanager.h"
 
 using namespace std;
 
@@ -9,6 +10,12 @@ CommandTransmitter* CommandTransmitter::transmitter = NULL;
 
 CommandTransmitter::CommandTransmitter()
 {
+//    ParameterManager::getInstance()->get<>;
+    OLD_ID_NUMS.push_back(0);
+    OLD_ID_NUMS.push_back(4);
+    OLD_ID_NUMS.push_back(6);
+    OLD_ID_NUMS.push_back(10);
+
     try {
         this->serial = new RobotSerialConnection(SERIAL_PORT, 38400);
         this->grsim = new GRSimSender(SSLGame::getInstance()->ourColor());
@@ -25,6 +32,22 @@ CommandTransmitter *CommandTransmitter::getInstance()
     if(transmitter == NULL)
         transmitter= new CommandTransmitter();
     return transmitter;
+}
+
+void CommandTransmitter::buildAndSendPacket(int id, Vector3D &vel, float kickPower)
+{
+    bool useNewRobotWheelAngles = true;
+
+    for(int i=0; i<OLD_ID_NUMS.size(); i++) {
+        if(id == OLD_ID_NUMS[i]) {
+            useNewRobotWheelAngles = false;
+            break;
+        }
+    }
+
+    RobotCommandPacket pkt(vel, useNewRobotWheelAngles, kickPower);
+
+    this->send(id, pkt);
 }
 
 void CommandTransmitter::send(int robot_id, RobotCommandPacket packet)

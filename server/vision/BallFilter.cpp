@@ -13,20 +13,23 @@ BallFilter::BallFilter()
     rawData.reserve(MAX_BALL_MEMORY + 1);
 }
 
-void BallFilter::initialize(const SSLFrame &first_frame)
+void BallFilter::initialize(const SSLFrame &initial_frame)
 {
+    float default_fps = ParameterManager::getInstance()->get<float>("global.default_frame_per_second");
+
     if(rawData.empty())  { // initial raw data when the first frame received
         for(int i=0; i< MAX_BALL_MEMORY; i++) {
-            BallKinematic bk_;
-            bk_.timeStamp_second = first_frame.timeStampMilliSec /1000.0 - (i *0.0166); // avoid dividing by zero
+            SSLBallState ball_;
+            ball_.camera_id = initial_frame.camera_id;
+            ball_.timeStamp_second = initial_frame.timeStampMilliSec /1000.0 - (i / default_fps); // avoid dividing by zero
                                                                                // in following computations
-            bk_.position = first_frame.position.to2D();
-            bk_.displacement = Vector2D(0.0, 0.0);
-            bk_.velocity = Vector2D(0.0, 0.0);
-            bk_.acceleration = Vector2D(0.0, 0.0);
-            rawData.insert(rawData.begin(), bk_);
+            ball_.position = initial_frame.position.to2D();
+            ball_.displacement = Vector2D(0.0, 0.0);
+            ball_.velocity = Vector2D(0.0, 0.0);
+            ball_.acceleration = Vector2D(0.0, 0.0);
+            rawData.insert(rawData.begin(), ball_);
         }
-        m_filteredPosition = first_frame.position.to2D();
+        m_filteredPosition = initial_frame.position.to2D();
         m_displacement = Vector2D(0.0, 0.0);
         m_filteredVelocity = Vector2D(0.0, 0.0);
         m_acceleration = Vector2D(0.0, 0.0);
@@ -35,24 +38,39 @@ void BallFilter::initialize(const SSLFrame &first_frame)
 
 void BallFilter::putNewFrame(const SSLFrame &detected_ball)
 {
-    BallKinematic bk_;
-    bk_.timeStamp_second = detected_ball.timeStampMilliSec / 1000.0;
-    bk_.position = detected_ball.position.to2D();
-    bk_.displacement = (bk_.position - getRawData(0).position);
-    bk_.velocity = bk_.displacement / (bk_.timeStamp_second - getRawData(0).timeStamp_second);
+    // drop the balls in a new camera while the capture time
+    // of last detected ball is not past more than 10 ms
 
-    bk_.acceleration = (bk_.velocity - getRawData(0).velocity) /
-            (bk_.timeStamp_second - getRawData(0).timeStamp_second);
+    float default_fps = ParameterManager::getInstance()->get<float>("global.default_frame_per_second");
+    if( ( detected_ball.camera_id != getRawData(0).camera_id)
+      && (detected_ball.timeStampMilliSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
+    {
+        return;
+    }
 
-    rawData.insert(rawData.begin(), bk_);
+    SSLBallState ball_;
+    ball_.timeStamp_second = detected_ball.timeStampMilliSec / 1000.0;
+    ball_.camera_id        = detected_ball.camera_id;
+    ball_.position         = detected_ball.position.to2D();
+    ball_.displacement     = (ball_.position - getRawData(0).position);
+    ball_.velocity         = ball_.displacement / (ball_.timeStamp_second - getRawData(0).timeStamp_second);
+
+    ball_.acceleration     = (ball_.velocity - getRawData(0).velocity) /
+                              (ball_.timeStamp_second - getRawData(0).timeStamp_second);
+
+   rawData.insert(rawData.begin(), ball_);
+
+    m_rawPosition  = getRawData(0).position;
+    m_displacement = getRawData(0).displacement;
+    m_rawVelocity  = getRawData(0).velocity;
+    m_acceleration = getRawData(0).acceleration;
+
+    // we are sure that raw data array size always remains constant
     rawData.pop_back();
 }
 
 void BallFilter::putNewFrameWithManyBalls(vector<SSLFrame> detected_balls)
 {
-    if(detected_balls.size() > 1)
-        cout << "many balls on field" << endl;
-
     double min_dist = INFINITY;
     int min_index = -1;
     for(uint i=0; i<detected_balls.size(); i++) {
@@ -70,31 +88,34 @@ void BallFilter::putNewFrameWithManyBalls(vector<SSLFrame> detected_balls)
 void BallFilter::run()
 {
     if( rawData.empty() ) {
-//        cerr << "No ball deteceted in the field" << endl;
+        SSLWorldModel::getInstance()->mainBall()->setStopped(true);
+        cerr << "Ball Filter is not initialized." << endl;
         return;
     }
+
     // check for changing the ball state
-
-    m_rawPosition  = getRawData(0).position;
-    m_displacement = getRawData(0).displacement;
-    m_rawVelocity  = getRawData(0).velocity;
-
-    m_acceleration     = getRawData(0).acceleration;
-//    m_filteredPosition = getRawData(0).position;
-//    m_filteredVelocity = getRawData(0).velocity;
-
     bool isBallStopped = getBallStoppedState();
     SSLWorldModel::getInstance()->mainBall()->setStopped(isBallStopped);
-
-    if( isBallStopped ) {
+    if( isBallStopped )   {
         m_filteredVelocity = Vector2D(0, 0);
         return;
-    //  } else   {
-    }
+    }    
 
+    executeClusterFilter();
+    executeAlphaBetaFilter();
+    m_filteredVelocity = m_clusteredVelocity;
+
+    ParameterManager* pm = ParameterManager::getInstance();
+    float vision_delay = pm->get<double>("kalman.vision_delay_ms") * 0.001;
+//    SSLObjectState predict_result = alphaBetaFilter.predict(vision_delay);
+    //    this->m_filteredPosition = predict_result.pos.to2D();
+    this->m_filteredPosition = alphaBetaFilter.m_state.pos.to2D() + m_clusteredVelocity * vision_delay;
+}
+
+void BallFilter::executeAlphaBetaFilter()
+{
     double disp_error_ = m_acceleration.lenght(); // / m_filteredVelocity.lenght();
     disp_error_ = log10(disp_error_) /7.0;
-
 
     double turn_error_ = m_acceleration.arctan();
 
@@ -110,11 +131,56 @@ void BallFilter::run()
 
     SSLObjectState filter_result = alphaBetaFilter.filter();
     this->m_filteredPosition = filter_result.pos.to2D();
-    this->m_filteredVelocity = filter_result.vel.to2D();
+    this->m_filteredVelocity = filter_result.vel.to2D();   
+}
 
-   ParameterManager* pm = ParameterManager::getInstance();
-   SSLObjectState predict_result = alphaBetaFilter.predict(0.001 * pm->get<double>("kalman.vision_delay_ms"));
-   this->m_filteredPosition = predict_result.pos.to2D();
+void BallFilter::executeClusterFilter()
+{
+    int clusterSize = 5;
+    const float dataCoefficient[] = { 1.00, 0.80, 0.65,
+                                      0.50, 0.43, 0.37, 0.33 }; // sum = 1.0
+    vector<Vector2D> clusterData;
+    int raw_data_index = 0;
+    float sum_coeff = 0;
+    while(clusterData.size() < clusterSize)  {
+        if(getRawData(raw_data_index).velocity.lenght() < 15000)  {
+            clusterData.push_back(getRawData(raw_data_index).velocity);
+        }
+        raw_data_index ++;
+        if(raw_data_index >= rawData.size())
+            break;
+    }
+
+    Vector2D clusterMean;
+    for ( int i=0; i<clusterSize; i++ )   {
+        clusterMean += clusterData[i] * dataCoefficient[i];
+        sum_coeff += dataCoefficient[i];
+    }
+    clusterMean = clusterMean / sum_coeff;
+
+    vector<float> dataErrors;
+    for ( int i=0; i<clusterSize; i++ )   {
+        float err_i = ( clusterData[i] - clusterMean ).lenght();
+        dataErrors.push_back(err_i);
+    }
+
+    for(int i=0; i<3; i++)   {
+        vector<float>::iterator max_error_pntr =  max_element(dataErrors.begin(), dataErrors.end());
+        if((*max_error_pntr) > 500*pow(2.0, (double)i))   {
+            clusterData.erase( (max_error_pntr-dataErrors.begin()) + clusterData.begin() );
+            dataErrors.erase( max_error_pntr );
+        }
+        else {
+            break;
+        }
+    }
+
+    clusterSize = clusterData.size();
+    clusterMean.setZero();
+    for ( int i=0; i<clusterSize; i++ )   {
+        clusterMean += clusterData[i] / clusterSize;
+    }
+    m_clusteredVelocity = clusterMean;
 }
 
 bool BallFilter::isEmpty() const
@@ -125,7 +191,7 @@ bool BallFilter::isEmpty() const
 bool BallFilter::getBallStoppedState()
 {
     if(SSLWorldModel::getInstance()->mainBall()->isStopped()) {
-        vector<SSLRobot *> all_robots = SSLWorldModel::getInstance()->all_inFields();
+        vector<SSLRobot *> all_robots = SSLWorldModel::getInstance()->getInFieldRobots();
         double minimum_distance = INFINITY;
         for(uint i=0; i<all_robots.size(); i++) {
             double dist_i = (((SSLRobot*)(all_robots.at(i)))->Position().to2D() - m_filteredPosition).lenght();

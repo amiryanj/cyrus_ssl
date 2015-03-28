@@ -14,34 +14,36 @@ void ActiveRole::run()
 
     if(analyzer->isGameRunning() == false) {  // stop states
         if(world->m_refereeState == SSLReferee::Stop) {
-            Vector3D target = SSLSkill::wallStandFrontBall(0);
+            Vector3D target = SSL::Position::wallStandFrontBall(0, world->mainBall()->Position());
 //            Vector3D target = SSLSkill::DefenseStylePosition(world->mainBall()->Position(), SSLSkill::ourGoalCenter(), 500);
             SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 1.3*BALL_RADIUS, ROBOT_RADIUS);
         }
         else if(analyzer->isOurKickOffPosition() || analyzer->isOurPenaltyPosition()) {
-            Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter(), 80);
+            Vector3D target = SSL::Position::KickStylePosition(world->mainBall()->Position(),
+                                                               SSL::Position::opponentGoalCenter(), 80);
             SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, BALL_RADIUS, ROBOT_RADIUS);
         }
         else if(analyzer->isOurKickOffKick()) { // the robot is ready for kick
-            SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1);
+            SSLSkill::goAndKick(m_agent, SSL::Position::opponentGoalCenter(), 1);
         }
         else if(analyzer->isOurPenaltyKick()) { // the robot is ready for kick
-            SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1);
+            SSLSkill::goAndKick(m_agent, SSL::Position::opponentGoalCenter(), 1);
         }
         else if(analyzer->isOurDirectKick() || analyzer->isOurIndirectKick()) {
-            Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter(), 80);
+            Vector3D target = SSL::Position::KickStylePosition(world->mainBall()->Position(),
+                                                               SSL::Position::opponentGoalCenter(), 80);
             if((m_agent->robot->Position() - target).lenght2D() < 100)
-                SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1);
+                SSLSkill::goAndKick(m_agent, SSL::Position::opponentGoalCenter(), 1);
             else
                 SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 2*BALL_RADIUS, ROBOT_RADIUS);
         }
         else if(analyzer->isOpponentKickOffPosition() || analyzer->isOpponentKickOffKick() ||
                 analyzer->isOpponentDirectKick() || analyzer->isOpponentIndirectKick() ) {
-            Vector3D target = SSLSkill::wallStandFrontBall(0);
+            Vector3D target = SSL::Position::wallStandFrontBall(0, world->mainBall()->Position());
             SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, BALL_RADIUS, ROBOT_RADIUS);
         }
         else if (analyzer->isOpponentPenaltyPosition() || analyzer->isOpponentPenaltyKick()) {
-            Vector3D target = SSLSkill::ourMidfieldUpPosition();
+            Vector3D target = SSL::Position::ourMidfieldUpPosition();
             SSLSkill::goToPointWithPlanner(m_agent, target, tolerance * 2, true, 2*BALL_RADIUS, ROBOT_RADIUS);
         }
         return;
@@ -49,9 +51,10 @@ void ActiveRole::run()
 
     // ************** game is running *****************************************************
     // if the ball is in our penalty area, the actve player should approach our defense area
-    Vector3D target = SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentGoalCenter(), 100);
+    Vector3D target = SSL::Position::KickStylePosition(world->mainBall()->Position(),
+                                                       SSL::Position::opponentGoalCenter(), 100);
     if(analyzer->isPointWithinOurPenaltyArea(target.to2D())) {
-        target = SSLSkill::ourMidfieldUpPosition();
+        target = SSL::Position::ourMidfieldUpPosition();
         SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
     }
     else {
@@ -71,10 +74,10 @@ void ActiveRole::run()
 
         switch (m_state) {
         case e_CanKick:
-            SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1);
+            SSLSkill::goAndKick(m_agent, SSL::Position::opponentGoalCenter(), 1);
             break;
         case e_NearBall:
-            SSLSkill::goAndKick(m_agent, SSLSkill::opponentGoalCenter(), 1);
+            SSLSkill::goAndKick(m_agent, SSL::Position::opponentGoalCenter(), 1);
             break;
         case e_FarFromBall:
             Vector3D tolerance(ROBOT_RADIUS, ROBOT_RADIUS, M_PI_4);
@@ -86,5 +89,6 @@ void ActiveRole::run()
 
 Vector3D ActiveRole::expectedPosition()
 {
-    return SSLSkill::KickStylePosition(world->mainBall()->Position(), SSLSkill::opponentPenaltyPoint());
+    return SSL::Position::KickStylePosition(world->mainBall()->Position(),
+                                            SSL::Position::opponentPenaltyPoint(), 100);
 }

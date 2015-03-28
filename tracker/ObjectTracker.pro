@@ -25,8 +25,7 @@ SOURCES += \
     ../server/vision/VisionFilter.cpp \
     ../server/vision/SSLVision.cpp \
     ../server/vision/RobotFilter.cpp \
-    ../server/vision/NaiveKalman.cpp \
-    ../server/vision/Frame.cpp \
+    ../server/vision/NaiveKalman.cpp \    
     ../server/vision/BallFilter.cpp \
     ../server/ai/SSLWorldModel.cpp \
     ../server/definition/SSLObject.cpp \
@@ -47,15 +46,16 @@ SOURCES += \
     ../common/thirdparty/socket/IPPacket.cpp \
     ../visualizer/plotwidget.cpp \
     ../server/paramater-manager/parametermanager.cpp \
-    ../server/vision/robocup_ssl_client.cpp
+    ../server/vision/robocup_ssl_client.cpp \
+    ../server/vision/sslframe.cpp \
+    ../server/vision/alphabetafilter.cpp
 
 HEADERS  += \
     mainwindow.h \
     ../server/vision/VisionFilter.h \
     ../server/vision/SSLVision.h \
     ../server/vision/RobotFilter.h \
-    ../server/vision/NaiveKalman.h \
-    ../server/vision/Frame.h \
+    ../server/vision/NaiveKalman.h \    
     ../server/vision/BallFilter.h \
     ../server/ai/SSLWorldModel.h \
     ../server/definition/SSLObject.h \
@@ -76,7 +76,9 @@ HEADERS  += \
     ../common/thirdparty/socket/IPPacket.h \
     ../visualizer/plotwidget.h \
     ../server/paramater-manager/parametermanager.h \
-    ../server/vision/robocup_ssl_client.h
+    ../server/vision/robocup_ssl_client.h \
+    ../server/vision/sslframe.h \
+    ../server/vision/alphabetafilter.h
 
 FORMS    += mainwindow.ui \
     ../visualizer/plotwidget.ui

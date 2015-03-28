@@ -1,8 +1,8 @@
-#ifndef SSLWORLDMODEL_H_
-#define SSLWORLDMODEL_H_
+#ifndef _SSLWORLDMODEL_H_
+#define _SSLWORLDMODEL_H_
 
 #include "../../common/general.h"
-#include "../common/sslnamespace.h"
+#include "../../common/sslnamespace.h"
 #include "../referee/SSLReferee.h"
 
 class SSLTeam;
@@ -15,10 +15,10 @@ class SSLRobot;
 
 class SSLWorldModel {
 public:
-    void updateRobotState(SSL::Color color, int ID, Vector3D position, Vector3D speed);
-    void updateRobotAvailability(SSL::Color color, int ID, bool available);
-    void updateBallState(int ID, Vector2D position, Vector2D speed, Vector2D acceleration);
     static SSLWorldModel *getInstance();
+
+    void updateRobotState(SSL::Color color, int ID, Vector3D position, Vector3D speed, bool inField);
+    void updateBallState(int ID, Vector2D position, Vector2D speed, Vector2D acceleration);
 
     SSLTeam* team[2];
     SSLTeam* getTeam(SSL::Color c);
@@ -26,19 +26,18 @@ public:
     SSLBall* balls[MAX_BALL_NUM];
     SSLBall* mainBall();
 
-    vector<SSLRobot*> all_inFields();
-    vector<SSLRobot*> all_inFieldsExcept(SSLRobot* excep);
-    vector<SSLRobot*> all_inFieldsExcept(SSL::Color color, uint id);
+    vector<SSLRobot*> getInFieldRobots();
+    vector<SSLRobot*> getInFieldRobotsExcept(SSLRobot* excep);
+    vector<SSLRobot*> getInFieldRobotsExcept(SSL::Color color, uint id);
 
-    vector<SSLRobot*> allRobots();
-    vector<SSLRobot*> allRobotsExcept(SSLRobot* excep);
-    vector<SSLRobot*> allRobotsExcept(SSL::Color color, uint id);
+    vector<SSLRobot*> getAllRobots();
+    vector<SSLRobot*> getAllRobotsExcept(SSLRobot* excep);
+    vector<SSLRobot*> getAllRobotsExcept(SSL::Color color, uint id);
 
     SSLReferee::RefereeState m_refereeState;
-    static float FOELD_LENGTH;
 private:
     SSLWorldModel();
-    virtual ~SSLWorldModel();
+    virtual ~SSLWorldModel() {}
     static SSLWorldModel *world_instance;
 
 };

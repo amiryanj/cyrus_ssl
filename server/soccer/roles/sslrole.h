@@ -7,6 +7,7 @@
 
 #include "../../definition/SSLBall.h"
 #include "../SSLSkill.h"
+#include "../sslgamepositions.h"
 
 class SSLAgent;
 

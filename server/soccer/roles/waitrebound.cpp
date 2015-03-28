@@ -19,13 +19,12 @@ void WaitRebound::setBestPosition(const Vector3D &value)
 
 Vector3D WaitRebound::expectedPosition()
 {
-    return SSLSkill::opponentMidfieldUpPosition();
-
+    return SSL::Position::opponentMidfieldUpPosition();
 }
 
 void WaitRebound::run()
 {
-    Vector3D target = SSLSkill::opponentMidfieldUpPosition();
+    Vector3D target = SSL::Position::opponentMidfieldUpPosition();
     Vector3D tolerance(100, 100, M_PI/4);
     SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true);
 }

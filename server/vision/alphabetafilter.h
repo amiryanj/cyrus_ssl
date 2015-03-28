@@ -23,8 +23,8 @@ public:
     Vector3D max_speed_crop;
     Vector3D max_acceleration_crop;
 
-private:
     SSLObjectState m_state;
+private:
     SSLObjectState m_observed;
     SSLObjectState m_predicted;
 };

@@ -8,14 +8,53 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    pw_ = new PlotWidget(3, this);
-    ui->verticalLayout->addWidget(pw_);
+    // ---------------------- plotter configuration ---------------------------
+    ui->plot_1->addGraph(); // blue line
+    ui->plot_1->graph(0)->setPen(QPen(Qt::blue));
+    ui->plot_1->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
+    ui->plot_1->graph(0)->setAntialiasedFill(false);
 
-    timer.setInterval(10);
+    ui->plot_1->xAxis->setAutoTickStep(true);
+    ui->plot_1->xAxis->setTickStep(2);
+    ui->plot_1->axisRect()->setupFullAxesBox();
+    ui->plot_1->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+
+    // make left and bottom axes transfer their ranges to right and top axes:
+    connect(ui->plot_1->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot_1->xAxis2, SLOT(setRange(QCPRange)));
+    connect(ui->plot_1->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot_1->yAxis2, SLOT(setRange(QCPRange)));
+
+
+    // ----------------------- Scatter Configuration ---------------------------
+    ui->plot_2->addGraph(); // blue line
+    ui->plot_2->graph(0)->setPen(QPen(Qt::blue));
+    ui->plot_2->graph(0)->setLineStyle(QCPGraph::lsNone);
+    ui->plot_2->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssPlusCircle, 4));
+
+    ui->plot_2->addGraph(); // blue line
+    ui->plot_2->graph(1)->setPen(QPen(Qt::red));
+    ui->plot_2->graph(1)->setLineStyle(QCPGraph::lsNone);
+    ui->plot_2->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssPlusCircle, 6));
+
+    ui->plot_2->addGraph(); // blue line
+    ui->plot_2->graph(2)->setPen(QPen(Qt::green));
+    ui->plot_2->graph(2)->setLineStyle(QCPGraph::lsNone);
+    ui->plot_2->graph(2)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 30));
+
+
+    ui->plot_2->xAxis->setTickStep(2);
+    ui->plot_2->axisRect()->setupFullAxesBox();
+    ui->plot_2->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    ui->plot_2->xAxis->setRange(-10000, 10000);
+    ui->plot_2->yAxis->setRange(-10000, 10000);
+
+    // make left and bottom axes transfer their ranges to right and top axes:
+    connect(ui->plot_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot_2->xAxis2, SLOT(setRange(QCPRange)));
+    connect(ui->plot_2->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot_2->yAxis2, SLOT(setRange(QCPRange)));
+
+    timer.setInterval(50);
     connect(&timer, SIGNAL(timeout()), this, SLOT(timerOVF()));
     timer.start();
 
-    pw_->setYAxisRange(-10, 10);
 }
 
 MainWindow::~MainWindow()
@@ -25,8 +64,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::timerOVF()
 {
-    static int counter = 0;
-    counter ++;
+    static double start_time;
 
     VisionFilter::getInstance()->check();
 
@@ -35,22 +73,70 @@ void MainWindow::timerOVF()
     double ax_len = VisionFilter::getInstance()->ballFilter->m_acceleration.lenght();
     double ax_arc = VisionFilter::getInstance()->ballFilter->m_acceleration.arctan();
 
-    double alfa = VisionFilter::getInstance()->ballFilter->naiveFilter.m_alfa;
-    double beta = VisionFilter::getInstance()->ballFilter->naiveFilter.m_beta;
+    double alfa = VisionFilter::getInstance()->ballFilter->alphaBetaFilter.m_alfa;
+    double beta = VisionFilter::getInstance()->ballFilter->alphaBetaFilter.m_beta;
 
+    Vector2D clusteredSpeed__ = VisionFilter::getInstance()->ballFilter->m_clusteredVelocity;
 //    qDebug() << "Ball Raw Acceleration = " << data_1;
 //             << "Ball Raw Displacement = " << ball_disp;
 
     QVector<double> values;
-//    if(data_1 != 0.0)
-    values << ax_len /1000000.0 << alfa;
-    pw_->addValue( counter /30.0, values );
+    values << clusteredSpeed__.X() << ax_len /1000000.0 << alfa;
+//    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
+//    if(VisionFilter::getInstance()->cameraLastFrameTime[0] == 0) {
+//        start_time = key;
+//    }
+//    key -= start_time;
+
+    double key = VisionFilter::getInstance()->cameraLastFrameTime[0];
+    key-= ((int)key/1000) * 1000.0;
+
+    ui->plot_1->graph(0)->addData(key, values[0]);
+    ui->plot_1->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->plot_1->replot();
+
+    if (key == 0)
+        return;
+
+    static QVector<double> last_k_data_x;
+    static QVector<double> last_k_data_y;
+    Vector2D speed = VisionFilter::getInstance()->ballFilter->m_rawVelocity;
+    if(!last_k_data_x.empty())
+        if(qFuzzyCompare(speed.X(), last_k_data_x[0]))
+            return;
+    last_k_data_x.push_front(speed.X());
+    last_k_data_y.push_front(speed.Y());
+    if(last_k_data_x.count() > 7) {
+        last_k_data_x.pop_back();
+        last_k_data_y.pop_back();
+    }
+    ui->plot_2->graph(0)->addData(speed.X(), speed.Y());
+    ui->plot_2->graph(1)->setData(last_k_data_x, last_k_data_y);
+
+    double mean_speed_x=0, mean_speed_y=0;
+    for( int i=0; i<min(last_k_data_x.size(), 7); i++)  {
+        mean_speed_x += last_k_data_x[i];
+        mean_speed_y += last_k_data_y[i];
+    }
+
+    ui->plot_2->graph(2)->clearData();
+    Vector2D clusteredSpeed = VisionFilter::getInstance()->ballFilter->m_clusteredVelocity;
+    ui->plot_2->graph(2)->addData( clusteredSpeed.X(), clusteredSpeed.Y() );
+
+    ui->plot_2->replot();
 }
 
 void MainWindow::on_actionPlayStop_toggled(bool arg1)
 {
-    if(arg1)
+    if(arg1) {
         timer.start();
+        VisionFilter::getInstance()->cameraLastFrameTime[0] = 0;
+        VisionFilter::getInstance()->cameraLastFrameTime[1] = 0;
+
+        ui->plot_2->graph(0)->clearData();
+        ui->plot_2->graph(1)->clearData();
+        ui->plot_2->graph(2)->clearData();
+    }
     else
         timer.stop();
 }

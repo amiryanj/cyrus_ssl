@@ -2,13 +2,13 @@
 #include "../definition/SSLBall.h"
 #include "../paramater-manager/parametermanager.h"
 
-VisionFilter* VisionFilter::module = NULL;
+VisionFilter* VisionFilter::instance = NULL;
 
 VisionFilter *VisionFilter::getInstance()
 {
-    if(module == NULL)
-        module = new VisionFilter();
-    return module;
+    if(instance == NULL)
+        instance = new VisionFilter();
+    return instance;
 }
 
 VisionFilter::VisionFilter()
@@ -42,9 +42,8 @@ void VisionFilter::check()
             robotFilter[tm][i]->run();
             world->updateRobotState( (SSL::Color)tm, i ,
                                      robotFilter[tm][i]->m_filteredPosition ,
-                                     robotFilter[tm][i]->m_filteredSpeed  );
-            world->updateRobotAvailability( (SSL::Color)tm, i,
-                                            robotFilter[tm][i]->isOnField());
+                                     robotFilter[tm][i]->m_filteredSpeed,
+                                     robotFilter[tm][i]->isOnField());
         }
     }
 
