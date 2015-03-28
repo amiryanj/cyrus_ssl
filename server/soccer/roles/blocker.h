@@ -1,9 +1,7 @@
 #ifndef _BLOCKER_H
 #define _BLOCKER_H
 
-#include "sslrole.h"
-#include "../../definition/SSLRobot.h"
-#include "../SSLSkill.h"
+#include "../sslrole.h"
 
 class Blocker : public SSLRole
 {

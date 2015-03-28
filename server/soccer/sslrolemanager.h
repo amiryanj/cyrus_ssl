@@ -2,8 +2,8 @@
 #define SSLROLEMANAGER_H
 
 #include "../general.h"
-#include "../definition/sslagent.h"
-#include "../definition/sslstrategy.h"
+#include "../soccer/sslstrategy.h"
+#include "../soccer/sslagent.h"
 #include "roles/defender.h"
 #include "roles/blocker.h"
 #include "roles/opponentmarker.h"

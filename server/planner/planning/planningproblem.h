@@ -65,6 +65,8 @@ public:
     Velocity getNextControl(Trajectory tr_);
     Trajectory getPlan();
 
+    Station getFirstSubGoal();
+
     // each of this planners manipulate tree, trajec, planningResult, planningTime
     bool solve();
     bool testFunc();

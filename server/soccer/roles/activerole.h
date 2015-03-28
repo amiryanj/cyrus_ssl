@@ -1,7 +1,7 @@
 #ifndef _ACTIVEROLE_H
 #define _ACTIVEROLE_H
 
-#include "sslrole.h"
+#include "../sslrole.h"
 
 class ActiveRole : public SSLRole
 {

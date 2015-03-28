@@ -1,4 +1,7 @@
 #include "blocker.h"
+#include "../sslagent.h"
+#include "../sslskill.h"
+#include "../../definition/SSLRobot.h"
 
 Blocker::Blocker(int index_)
 {
@@ -12,7 +15,7 @@ void Blocker::run()
 {
     Vector3D target = expectedPosition();
     Vector3D tolerance(100, 100, M_PI);
-    SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true);
+    m_agent->skill->goToPointWithPlanner(target, tolerance, true);
 }
 
 Vector3D Blocker::expectedPosition()

@@ -2,8 +2,8 @@
 
 #include "SSLWorldModel.h"
 #include "../soccer/sslstrategymanager.h"
-#include "../definition/sslstrategy.h"
-#include "../definition/sslagent.h"
+#include "../soccer/sslstrategy.h"
+#include "../soccer/sslagent.h"
 #include "../soccer/sslrolemanager.h"
 
 SSLGame* SSLGame::game_instance = NULL;
@@ -29,46 +29,6 @@ SSLGame::SSLGame(Color ourC, Side ourS)
         m_agents.push_back(agent_);
     }
     currentStrategy = NULL;
-
-
-    // initializing field obstacles for agent
-    // ****************************************************************************************
-    penaltyAreaObstacles.reserve(5);
-    int z = (int) ourSide();
-    Obstacle* myPenaltyArea_C = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, 0),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
-    Obstacle* myPenaltyArea_T = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
-    Obstacle* myPenaltyArea_D = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
-//    Obstacle* myPenaltyArea_C = new Obstacle(b2Vec2(z* FIELD_LENGTH/2, 0),
-//                                                    FIELD_PENALTY_AREA_RADIUS*2 * .9, FIELD_PENALTY_AREA_WIDTH, 0);
-    Obstacle* outFieldArea_R = new Obstacle(Obstacle::eStatic, b2Vec2(FIELD_LENGTH/2 + 300, 0),
-                                                                    150*2 ,  FIELD_WIDTH, 0);
-    Obstacle* outFieldArea_L = new Obstacle(Obstacle::eStatic, b2Vec2(-FIELD_LENGTH/2 - 300, 0),
-                                                                    150*2 ,  FIELD_WIDTH, 0);
-
-    myPenaltyArea_C->repulseStrenght = 1.5;
-    myPenaltyArea_T->repulseStrenght = 1.5;
-    myPenaltyArea_D->repulseStrenght = 1.5;
-
-    penaltyAreaObstacles.push_back(myPenaltyArea_C);
-    penaltyAreaObstacles.push_back(myPenaltyArea_T);
-    penaltyAreaObstacles.push_back(myPenaltyArea_D);
-
-    penaltyAreaObstacles.push_back(outFieldArea_L);
-    penaltyAreaObstacles.push_back(outFieldArea_R);
-
-    allRobotsObstacles.reserve(MAX_ID_NUM * 2);
-    for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
-        Obstacle* ob_ = new Obstacle(Obstacle::eRobot, b2Vec2(0, 0), ROBOT_RADIUS);
-        ob_->repulseStrenght = 2.0;
-        allRobotsObstacles.push_back(ob_);
-    }
-
-    ballObstacle = new Obstacle(Obstacle::eBall, b2Vec2(0,0), BALL_RADIUS);
-    // ****************************************************************************************
-
 }
 
 void SSLGame::SetColor_Side(Color ourC, Side ourS)
@@ -91,8 +51,6 @@ void SSLGame::check()
         currentStrategy = newStrategy;
         roleManager->AssignRole(currentStrategy, this->m_agents);
     }
-
-    updateObstacles();
 
     for(uint i=0; i<m_agents.size(); i++) {
         SSLAgent* agent = m_agents[i];
@@ -168,22 +126,4 @@ void SSLGame::updateAgents(bool &anyChange)
     }
 }
 
-void SSLGame::updateObstacles()
-{
-    // it is done in SSLSkill for each robot individually
-//    vector<SSLRobot* > all_actual_robots = world->allRobots();
-//    for(unsigned int i=0; i < allRobotsObs.size(); i++)
-//    {
-//        Obstacle* ob_  = allRobotsObs.at(i);
-//        SSLRobot* rob_ = all_actual_robots.at(i);
-//        if(rob_->isInField) {
-//            ob_->m_transform.Set(Vector2D(rob_->Position().X(), rob_->Position().Y()).b2vec2(), rob_->Position().Teta());
-//        }
-//        else {
-//            ob_->m_transform.Set(Vector2D(INFINITY, INFINITY).b2vec2(), 0);
-//        }
-//    }
 
-    SSLBall* actual_ball = world->mainBall();
-    ballObstacle->m_transform.Set(b2Vec2(actual_ball->Position().X(), actual_ball->Position().Y()), 0);
-}

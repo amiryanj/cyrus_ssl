@@ -1,5 +1,6 @@
 #include "waitpass.h"
 #include "../../definition/SSLTeam.h"
+#include "../sslagent.h"
 
 WaitPass::WaitPass()
 {
@@ -47,5 +48,5 @@ void WaitPass::run()
     Vector3D target = expectedPosition();
 
 //    Vector3D target(game->ourSide() * (FIELD_LENGTH / 2.0) + 10, 10, 0); // for test invalid goal point
-    SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true);
+    m_agent->skill->goToPointWithPlanner(target, tolerance, true);
 }

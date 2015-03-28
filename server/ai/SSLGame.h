@@ -40,17 +40,11 @@ public:
     Color opponentColor() const;
     Side opponentSide() const;
 
-
-    Obstacle* ballObstacle;
-    ObstacleSet allRobotsObstacles;
-    ObstacleSet penaltyAreaObstacles;
-
 private:
     Color m_ourColor;
     Side m_ourSide;
 
     void updateAgents(bool &anyChange);
-    void updateObstacles();
 };
 
 #endif // SSLGAME_H

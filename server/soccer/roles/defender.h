@@ -1,8 +1,8 @@
 #ifndef _DEFENDER_H
 #define _DEFENDER_H
 
-#include "sslrole.h"
-#include "../SSLSkill.h"
+#include "../sslrole.h"
+#include "../sslskill.h"
 
 class Defender : public SSLRole
 {

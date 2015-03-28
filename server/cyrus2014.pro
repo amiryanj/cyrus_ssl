@@ -54,8 +54,8 @@ SOURCES += \
     ../common/math/vector2d.cpp \
     ../common/thirdparty/socket/netraw.cpp \
     ai/SSLAnalyzer.cpp \
-    definition/sslagent.cpp \
-    definition/sslstrategy.cpp \
+    soccer/sslagent.cpp \
+    soccer/sslstrategy.cpp \
     gui/guihandler.cpp \    
     transmitter/grsimsender.cpp \    
     transmitter/commandtransmitter.cpp \
@@ -63,9 +63,8 @@ SOURCES += \
     referee/SSLReferee.cpp \    
     controller/pidcontroller.cpp \    
     soccer/sslstrategymanager.cpp \
-    soccer/SSLSkill.cpp \
     soccer/sslrolemanager.cpp \
-    soccer/roles/sslrole.cpp \
+    soccer/sslrole.cpp \
     soccer/roles/waitrebound.cpp \
     soccer/roles/waitpass.cpp \
     soccer/roles/positionrole.cpp \
@@ -110,7 +109,8 @@ SOURCES += \
     ../common/math/ellipse.cpp \
     ../common/math/shape.cpp \
     test/testserver.cpp \
-    soccer/sslgamepositions.cpp
+    soccer/sslgamepositions.cpp \
+    soccer/sslskill.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -132,16 +132,15 @@ HEADERS += \
     ../common/thirdparty/socket/netraw.h \
     ../common/thirdparty/util.h \
     ai/SSLAnalyzer.h \
-    definition/sslagent.h \
-    definition/sslstrategy.h \
+    soccer/sslagent.h \
+    soccer/sslstrategy.h \
     gui/guihandler.h \
     transmitter/grsimsender.h \
     transmitter/commandtransmitter.h \
     ../common/math/sslmath.h \
     referee/SSLReferee.h \
-    soccer/SSLSkill.h \
     soccer/sslstrategymanager.h \
-    soccer/roles/sslrole.h \
+    soccer/sslrole.h \
     soccer/sslrolemanager.h \
     soccer/roles/waitrebound.h \
     soccer/roles/waitpass.h \
@@ -191,7 +190,8 @@ HEADERS += \
     ../common/math/ellipse.h \
     ../common/math/shape.h \
     test/testserver.h \
-    soccer/sslgamepositions.h
+    soccer/sslgamepositions.h \
+    soccer/sslskill.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \

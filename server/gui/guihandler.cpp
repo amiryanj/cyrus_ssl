@@ -2,10 +2,10 @@
 //#include "boost/shared_ptr.hpp"
 #include "paramater-manager/parametermanager.h"
 #include "../definition/SSLRobot.h"
-#include "../definition/sslagent.h"
 #include "../definition/SSLBall.h"
-#include "../definition/sslstrategy.h"
-#include "../soccer/roles/sslrole.h"
+#include "../soccer/sslstrategy.h"
+#include "../soccer/sslagent.h"
+#include "../soccer/sslrole.h"
 #include "../vision/VisionFilter.h"
 
 GUIHandler* GUIHandler::instance = NULL;
@@ -253,26 +253,26 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         initial->set_teta(agent->robot->Position().Teta());
 
         planner_vec3d* goal = plan->mutable_goalstate();
-        goal->set_x(agent->tempTarget.X());
-        goal->set_y(agent->tempTarget.Y());
-        goal->set_teta(agent->tempTarget.Teta());
+        goal->set_x(agent->skill->target.X());
+        goal->set_y(agent->skill->target.Y());
+        goal->set_teta(agent->skill->target.Teta());
         planner_obstacles* obstacles = plan->mutable_obstacleset(); // not filled yet
-        if(agent->planner.planningResult)
-            for(uint i = 0; i< agent->planner.getTrajectory().length(); i++)
+        if(agent->skill->planner.planningResult)
+            for(uint i = 0; i< agent->skill->planner.getTrajectory().length(); i++)
             {
-                Vector3D pos = agent->planner.getTrajectory().getStation(i).getPosition();
+                Vector3D pos = agent->skill->planner.getTrajectory().getStation(i).getPosition();
                 planner_vec3d* state = plan->add_pathstate();
                 state->set_x(pos.X());
                 state->set_y(pos.Y());
                 state->set_teta(pos.Teta());
             }
-        plan->mutable_desiredvel()->set_x(agent->desiredGlobalSpeed.X() * 2000);
-        plan->mutable_desiredvel()->set_y(agent->desiredGlobalSpeed.Y() * 2000);
-        plan->mutable_desiredvel()->set_teta(agent->desiredGlobalSpeed.Teta() * 2000);
+        plan->mutable_desiredvel()->set_x(agent->skill->desiredGlobalSpeed.X() * 2000);
+        plan->mutable_desiredvel()->set_y(agent->skill->desiredGlobalSpeed.Y() * 2000);
+        plan->mutable_desiredvel()->set_teta(agent->skill->desiredGlobalSpeed.Teta() * 2000);
 
-        plan->mutable_appliedvel()->set_x(agent->appliedGlobalSpeed.X() * 2000);
-        plan->mutable_appliedvel()->set_y(agent->appliedGlobalSpeed.Y() * 2000);
-        plan->mutable_appliedvel()->set_teta(agent->appliedGlobalSpeed.Teta() * 2000);
+        plan->mutable_appliedvel()->set_x(agent->skill->appliedGlobalSpeed.X() * 2000);
+        plan->mutable_appliedvel()->set_y(agent->skill->appliedGlobalSpeed.Y() * 2000);
+        plan->mutable_appliedvel()->set_teta(agent->skill->appliedGlobalSpeed.Teta() * 2000);
     }
 }
 
@@ -293,7 +293,7 @@ void GUIHandler::generateDecisionPacket(ssl_decision_packet *packet)
         robot_role->set_robot_id(agent->getID());
         string role_name = typeid(*(agent->role)).name();
         robot_role->set_current_role(role_name);
-        robot_role->set_current_skill(agent->skill_in_use);
+        robot_role->set_current_skill(agent->skill->name);
     }
 }
 

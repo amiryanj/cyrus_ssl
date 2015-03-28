@@ -11,7 +11,7 @@
  */
 
 #include "../general.h"
-#include "../definition/sslstrategy.h"
+#include "../soccer/sslstrategy.h"
 
 #define strategyManager  SSLStrategyManager::getInstance()
 

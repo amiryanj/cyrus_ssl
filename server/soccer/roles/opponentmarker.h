@@ -1,9 +1,9 @@
 #ifndef _OPPONENTMARKER_H
 #define _OPPONENTMARKER_H
 
-#include "sslrole.h"
+#include "../sslrole.h"
 #include "../../definition/SSLRobot.h"
-#include "../SSLSkill.h"
+#include "../sslskill.h"
 
 class OpponentMarker : public SSLRole
 {

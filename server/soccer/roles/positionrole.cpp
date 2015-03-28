@@ -1,4 +1,5 @@
 #include "positionrole.h"
+#include "../sslagent.h"
 
 PositionRole::PositionRole()
 {
@@ -14,7 +15,7 @@ Vector3D PositionRole::expectedPosition()
 
 void PositionRole::run()
 {
-    SSLSkill::goToPointWithPlanner(m_agent, m_position, m_tolerance, true);
+    m_agent->skill->goToPointWithPlanner(m_position, m_tolerance, true);
 }
 
 Vector3D PositionRole::getPosition() const

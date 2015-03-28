@@ -1,8 +1,8 @@
 #ifndef _WAITPASS_H
 #define _WAITPASS_H
 
-#include "sslrole.h"
-#include "../SSLSkill.h"
+#include "../sslrole.h"
+#include "../sslskill.h"
 
 class WaitPass : public SSLRole
 {

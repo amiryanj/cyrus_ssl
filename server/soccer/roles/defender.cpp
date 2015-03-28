@@ -1,4 +1,5 @@
 #include "defender.h"
+#include "../sslagent.h"
 
 Defender::Defender(int ind, int count)
 {
@@ -53,6 +54,6 @@ void Defender::run()
     dir *= FIELD_PENALTY_AREA_RADIUS * 1.3;
     Vector3D target(dir + SSL::Position::ourGoalCenter(), dir.arctan());
     Vector3D tolerance(100, 100, M_PI_4);
-    SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true, 0, 0);
+    m_agent->skill->goToPointWithPlanner(target, tolerance, true, 0, 0);
 
 }

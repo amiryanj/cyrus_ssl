@@ -1,7 +1,8 @@
 #ifndef _WAITREBOUND_H
 #define _WAITREBOUND_H
 
-#include "sslrole.h"
+#include "../sslrole.h"
+#include "../sslagent.h"
 
 class WaitRebound : public SSLRole
 {

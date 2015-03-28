@@ -974,3 +974,12 @@ Trajectory PlanningProblem::getPlan()
 {
     return bestPlan;
 }
+
+Station PlanningProblem::getFirstSubGoal()
+{
+    Station st;
+    if( trajec.length() > 1 )   {
+        st = trajec.getStation(1);
+    }
+    return st;
+}

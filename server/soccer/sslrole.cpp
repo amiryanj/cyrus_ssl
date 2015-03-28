@@ -1,5 +1,5 @@
 #include "sslrole.h"
-#include "../../definition/sslagent.h"
+#include "sslagent.h"
 
 SSLRole::SSLRole()
 {
@@ -13,7 +13,7 @@ void SSLRole::setAgent(SSLAgent *agent)
 
 bool SSLRole::Halt()
 {
-    SSLSkill::halt(m_agent);
+    m_agent->skill->halt();
     return true;
 }
 

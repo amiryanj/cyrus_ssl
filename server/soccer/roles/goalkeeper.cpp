@@ -1,8 +1,8 @@
 #include "goalkeeper.h"
-#include "../SSLSkill.h"
+#include "../sslskill.h"
 #include "../../definition/SSLTeam.h"
 #include "../../definition/SSLRobot.h"
-#include "../../definition/sslagent.h"
+#include "../sslagent.h"
 
 GoalKeeper::GoalKeeper()
 {
@@ -16,16 +16,16 @@ void GoalKeeper::run()
     Vector3D tolerance(30, 30, M_PI_4 * 2);
     if(analyzer->isOpponentPenaltyPosition()) {
         Vector3D target = SSL::Position::wallStandFrontBall(0, world->mainBall()->Position());
-        SSLSkill::goToPoint(m_agent, target, tolerance);
+        m_agent->skill->goToPoint(target, tolerance);
     }
 
     else if(analyzer->isOpponentPenaltyKick()) {
         Vector3D target = SSL::Position::wallStandFrontBall(0, world->mainBall()->Position());
-        SSLSkill::goToPoint(m_agent, target, tolerance);
+        m_agent->skill->goToPoint(target, tolerance);
     }
 
     else if(analyzer->isPointWithinOurPenaltyArea(world->mainBall()->Position())) {
-        SSLSkill::goAndKick(m_agent, SSL::Position::opponentGoalCenter(), 1); // goAndChip()
+        m_agent->skill->goAndKick(SSL::Position::opponentGoalCenter(), 1); // goAndChip()
     }
 
     else if(analyzer->isPointWithinOurCorner(world->mainBall()->Position()))
@@ -41,7 +41,7 @@ void GoalKeeper::run()
             Vector3D target = (diff + SSL::Position::ourGoalCenter()).to3D();
             target = SSL::Position::DefenseStylePosition(target.to2D(),
                                                          SSL::Position::ourGoalCenter(), 30);
-            SSLSkill::goToPoint(m_agent, target, tolerance);
+            m_agent->skill->goToPoint(target, tolerance);
             return;
         }
     }
@@ -61,7 +61,7 @@ void GoalKeeper::run()
             if(analyzer->isPointWithinOurPenaltyArea(near_goalie_robot->Position().to2D())) {
                 target = SSL::Position::DefenseStylePosition(near_goalie_robot->Position().to2D(),
                                                         SSL::Position::ourGoalCenter(), -50);
-                SSLSkill::goToPoint(m_agent, target, tolerance);
+                m_agent->skill->goToPoint(target, tolerance);
                 return;
             }
         }
@@ -93,7 +93,7 @@ void GoalKeeper::run()
 
         target.set(target_x, target_y, target_teta);
 
-        SSLSkill::goToPoint(m_agent, target, tolerance);
+        m_agent->skill->goToPoint(target, tolerance);
         return;
     }
 

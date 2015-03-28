@@ -26,5 +26,5 @@ void WaitRebound::run()
 {
     Vector3D target = SSL::Position::opponentMidfieldUpPosition();
     Vector3D tolerance(100, 100, M_PI/4);
-    SSLSkill::goToPointWithPlanner(m_agent, target, tolerance, true);
+    m_agent->skill->goToPointWithPlanner(target, tolerance, true);
 }

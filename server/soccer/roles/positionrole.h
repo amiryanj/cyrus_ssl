@@ -1,8 +1,8 @@
 #ifndef POSITIONROLE_H
 #define POSITIONROLE_H
 
-#include "sslrole.h"
-#include "../SSLSkill.h"
+#include "../sslrole.h"
+#include "../sslskill.h"
 
 class PositionRole : public SSLRole
 {

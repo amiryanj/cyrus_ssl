@@ -1,7 +1,7 @@
 #ifndef _GOALKEEPER_H
 #define _GOALKEEPER_H
 
-#include "sslrole.h"
+#include "../sslrole.h"
 
 class GoalKeeper : public SSLRole
 {

@@ -2,7 +2,7 @@
 #include "../ai/SSLGame.h"
 #include "../transmitter/RobotCommandPacket.h"
 #include "../transmitter/commandtransmitter.h"
-#include "../soccer/roles/sslrole.h"
+#include "../soccer/sslrole.h"
 
 using namespace std;
 
@@ -10,18 +10,7 @@ SSLAgent::SSLAgent()
 {    
     this->role = NULL;
     this->robot = NULL;
-
-    // initialize planner
-    FieldBound bound;
-    bound.set(-1.1 * FIELD_LENGTH/2, 1.1 * FIELD_LENGTH/2,
-              -1.1 * FIELD_WIDTH/2, 1.1 * FIELD_WIDTH/2 );
-    planner.setBound(bound);
-    PlanningAgent plan_agent;
-    plan_agent.motionModel = MP::eOmniDirectional;
-    plan_agent.setRadius(ROBOT_RADIUS); // in milimeter
-    plan_agent.mass = 3.0; // kilo gram
-    plan_agent.velocity_limit.set(3000, 3000, M_PI * 1.2);
-    planner.setPlanningAgent(plan_agent);
+    this->skill = new SSLSkill(this);
 
     // initialize controller
     // ********************************************************
@@ -66,8 +55,10 @@ void SSLAgent::run()
             role->Halt();
             throw "Agent in HALT State ";
         }
-        else
+        else {
+            skill->updateObstacles();
             role->run();
+        }
     }
 
     catch(const char* msg) {
