@@ -98,30 +98,23 @@ void MainWindow::timerOVF()
     if (key == 0)
         return;
 
-    static QVector<double> last_k_data_x;
-    static QVector<double> last_k_data_y;
+    QVector<double> last_k_data_x;
+    QVector<double> last_k_data_y;
     Vector2D speed = VisionFilter::getInstance()->ballFilter->m_rawVelocity;
-    if(!last_k_data_x.empty())
-        if(qFuzzyCompare(speed.X(), last_k_data_x[0]))
-            return;
-    last_k_data_x.push_front(speed.X());
-    last_k_data_y.push_front(speed.Y());
-    if(last_k_data_x.count() > 7) {
-        last_k_data_x.pop_back();
-        last_k_data_y.pop_back();
+    for(int i=0; i<4; i++) {
+        if( i >= VisionFilter::getInstance()->ballFilter->rawData.size() )
+            break;
+        Vector2D speed_ = VisionFilter::getInstance()->ballFilter->getRawData(i).velocity;
+        last_k_data_x.push_back(speed_.X());
+        last_k_data_y.push_back(speed_.Y());
     }
+
     ui->plot_2->graph(0)->addData(speed.X(), speed.Y());
     ui->plot_2->graph(1)->setData(last_k_data_x, last_k_data_y);
 
-    double mean_speed_x=0, mean_speed_y=0;
-    for( int i=0; i<min(last_k_data_x.size(), 7); i++)  {
-        mean_speed_x += last_k_data_x[i];
-        mean_speed_y += last_k_data_y[i];
-    }
-
     ui->plot_2->graph(2)->clearData();
-    Vector2D clusteredSpeed = VisionFilter::getInstance()->ballFilter->m_clusteredVelocity;
-    ui->plot_2->graph(2)->addData( clusteredSpeed.X(), clusteredSpeed.Y() );
+    Vector2D filteredSpeed = VisionFilter::getInstance()->ballFilter->m_filteredVelocity;
+    ui->plot_2->graph(2)->addData( filteredSpeed.X(), filteredSpeed.Y() );
 
     ui->plot_2->replot();
 }

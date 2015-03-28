@@ -28,10 +28,8 @@ SOURCES += \
     ../server/vision/NaiveKalman.cpp \    
     ../server/vision/BallFilter.cpp \
     ../server/ai/SSLWorldModel.cpp \
-    ../server/definition/SSLObject.cpp \
     ../server/definition/SSLBall.cpp \
     ../server/definition/SSLTeam.cpp \
-    ../server/definition/SSLRobotPhysic.cpp \
     ../server/definition/SSLRobot.cpp \
     ../common/protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.cc \
     ../common/protoc/vision/cpp/messages_robocup_ssl_refbox_log.pb.cc \
@@ -61,7 +59,6 @@ HEADERS  += \
     ../server/definition/SSLObject.h \
     ../server/definition/SSLBall.h \
     ../server/definition/SSLTeam.h \
-    ../server/definition/SSLRobotPhysic.h \
     ../server/definition/SSLRobot.h \
     ../common/protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.h \
     ../common/protoc/vision/cpp/messages_robocup_ssl_refbox_log.pb.h \

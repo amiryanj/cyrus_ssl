@@ -42,8 +42,8 @@ void* SSLVision::check(void *)
                 cout << "\tFrame Number: " << wrapper.detection().frame_number() << endl;
                 cout << "\t Frame capture time:" << (long)(wrapper.detection().t_capture() *1000000.0) << " (us)" << endl;
                 VisionFilter::getInstance()->update(wrapper);
+                VisionFilter::getInstance()->check();
             }
-//            usleep(2000);
         }
     }
 //    Address sender_adress;

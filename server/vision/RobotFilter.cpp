@@ -19,16 +19,18 @@ RobotFilter::RobotFilter()
 // insert new frame in the list and remove expired frames
 void RobotFilter::putNewFrame(const SSLFrame &fr)
 {
-    last_update_time_msec = SSL::currentTimeMSec();
+
     // drop the balls in a new camera while the capture time
     // of last detected ball is not past more than 10 ms
-
     float default_fps = ParameterManager::getInstance()->get<float>("global.default_frame_per_second");
     if( ( fr.camera_id != getRawData(0).camera_id)
       && (fr.timeStampMilliSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
     {
         return;
     }
+
+    hasUnprocessedData = true;
+    last_update_time_msec = SSL::currentTimeMSec();
 
     SSLRobotState robot_;
     robot_.timeStamp_second = fr.timeStampMilliSec / 1000.0;
@@ -62,9 +64,14 @@ bool RobotFilter::isOnField()
 void RobotFilter::run()
 {
     // removing decayed frames
-    if((SSL::currentTimeMSec() - last_update_time_msec) > 7000.0) {
+    if((SSL::currentTimeMSec() - last_update_time_msec) > 5000.0) {
         rawData.clear();
     }
+
+    if(!hasUnprocessedData) {
+        return;
+    }
+    hasUnprocessedData = false;
 
     if( rawData.size() < 2 )
         return;

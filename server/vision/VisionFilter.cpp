@@ -65,7 +65,7 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
             {
                 double frame_time = packet.detection().t_capture();
                 if( frame_time <=  cameraLastFrameTime[packet.detection().camera_id()] ) {
-                    throw "Warning: Decayed packet !!!!" ;
+                    throw "Vision: Decayed packet !!!!" ;
                 }
                 else
                     cameraLastFrameTime[packet.detection().camera_id()] = frame_time;
@@ -128,7 +128,7 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
 
     }
     catch (const char* msg) {
-        cout << msg << endl;
+//        cout << msg << endl;
     }
     mtx_.unlock();
 }

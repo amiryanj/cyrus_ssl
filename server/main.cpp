@@ -43,17 +43,21 @@ int main(int argc, char *argv[])
         loopCounter ++;
         referee->check();
 //        vision->check(); // in thread 2
-        filter->check();
         analyzer->check();
         if((loopCounter % 10) ==0) {
+            double tic = SSL::currentTimeMSec();
             gameModule->check();
+            double toc = SSL::currentTimeMSec();
+            double process_time = toc - tic;
+            printf("Process Time = \t%f milli second\n", process_time);
             transmitter->check();
         }
         if(loopCounter % 15 == 0)  {
-            tester->check();
+//            tester->check();
+            filter->check();
             gui->check();
 //            gui->testVisualizer();
         }
-        usleep(3000);
+        usleep(1000);
     }
 }

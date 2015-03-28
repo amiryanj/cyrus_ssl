@@ -140,7 +140,7 @@ void SSLSkill::goToPointWithPlanner(const Vector3D &target, const Vector3D &tole
     }
 
     // update position of obstacles
-    if(robot_obs_radius != 0) {
+    if(robot_obs_radius != 0)  {
         vector<SSLRobot* > all_actual_robots = SSLWorldModel::getInstance()->getInFieldRobotsExcept(owner_agent->robot);
         for(uint i =0; i<all_actual_robots.size(); i++)
         {
@@ -232,7 +232,7 @@ Vector3D SSLSkill::calcSpeed(const Vector3D &current_pos, const Vector3D &target
     diff.normalize2D();
 
     Vector3D speed(diff.X() * Coeffs[0], diff.Y() * Coeffs[1], diff.Teta() * Coeffs[2]);
-    cout << speed.X() << " " << speed.Y() << " " << speed.Teta() << endl;
+//    cout << speed.X() << " " << speed.Y() << " " << speed.Teta() << endl;
     return speed;
 }
 

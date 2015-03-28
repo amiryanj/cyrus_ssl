@@ -18,7 +18,7 @@ void BallFilter::initialize(const SSLFrame &initial_frame)
     float default_fps = ParameterManager::getInstance()->get<float>("global.default_frame_per_second");
 
     if(rawData.empty())  { // initial raw data when the first frame received
-        for(int i=0; i< MAX_BALL_MEMORY; i++) {
+        for(int i=0; i< MAX_BALL_MEMORY; i++)  {
             SSLBallState ball_;
             ball_.camera_id = initial_frame.camera_id;
             ball_.timeStamp_second = initial_frame.timeStampMilliSec /1000.0 - (i / default_fps); // avoid dividing by zero
@@ -38,9 +38,10 @@ void BallFilter::initialize(const SSLFrame &initial_frame)
 
 void BallFilter::putNewFrame(const SSLFrame &detected_ball)
 {
+    hasUnprocessedData = true;
+
     // drop the balls in a new camera while the capture time
     // of last detected ball is not past more than 10 ms
-
     float default_fps = ParameterManager::getInstance()->get<float>("global.default_frame_per_second");
     if( ( detected_ball.camera_id != getRawData(0).camera_id)
       && (detected_ball.timeStampMilliSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
@@ -87,11 +88,18 @@ void BallFilter::putNewFrameWithManyBalls(vector<SSLFrame> detected_balls)
 
 void BallFilter::run()
 {
+    if(!hasUnprocessedData) {
+        return;
+    }
+    hasUnprocessedData = false;
+
     if( rawData.empty() ) {
         SSLWorldModel::getInstance()->mainBall()->setStopped(true);
         cerr << "Ball Filter is not initialized." << endl;
         return;
     }
+
+    executeClusterFilter();
 
     // check for changing the ball state
     bool isBallStopped = getBallStoppedState();
@@ -101,7 +109,6 @@ void BallFilter::run()
         return;
     }    
 
-    executeClusterFilter();
     executeAlphaBetaFilter();
     m_filteredVelocity = m_clusteredVelocity;
 
@@ -109,7 +116,7 @@ void BallFilter::run()
     float vision_delay = pm->get<double>("kalman.vision_delay_ms") * 0.001;
 //    SSLObjectState predict_result = alphaBetaFilter.predict(vision_delay);
     //    this->m_filteredPosition = predict_result.pos.to2D();
-    this->m_filteredPosition = alphaBetaFilter.m_state.pos.to2D() + m_clusteredVelocity * vision_delay;
+    this->m_filteredPosition = alphaBetaFilter.m_state.pos.to2D() + m_filteredVelocity * vision_delay;
 }
 
 void BallFilter::executeAlphaBetaFilter()
@@ -121,13 +128,17 @@ void BallFilter::executeAlphaBetaFilter()
 
     double last_delta_t_sec = getRawData(0).timeStamp_second - getRawData(1).timeStamp_second;
 
+
     alphaBetaFilter.predict(last_delta_t_sec);
-    alphaBetaFilter.m_alfa = SSL::bound(1.0 - disp_error_, 0.1, 0.8);
+    alphaBetaFilter.m_alfa = SSL::bound(1.0 - disp_error_, 0.1, 0.4);
     alphaBetaFilter.m_beta = SSL::sigmoid(turn_error_ / M_PI_4 , 0.1, 0.3 );
 
-    alphaBetaFilter.observe(getRawData(0).position.to3D(),
-                        getRawData(0).velocity.to3D(),
-                        getRawData(0).acceleration.to3D());
+    if(m_rawVelocity.lenght() < 10000)
+    {
+        alphaBetaFilter.observe(getRawData(0).position.to3D(),
+                                getRawData(0).velocity.to3D(),
+                                getRawData(0).acceleration.to3D() );
+    }
 
     SSLObjectState filter_result = alphaBetaFilter.filter();
     this->m_filteredPosition = filter_result.pos.to2D();
@@ -136,7 +147,7 @@ void BallFilter::executeAlphaBetaFilter()
 
 void BallFilter::executeClusterFilter()
 {
-    int clusterSize = 5;
+    int clusterSize = 4;
     const float dataCoefficient[] = { 1.00, 0.80, 0.65,
                                       0.50, 0.43, 0.37, 0.33 }; // sum = 1.0
     vector<Vector2D> clusterData;
@@ -152,23 +163,27 @@ void BallFilter::executeClusterFilter()
     }
 
     Vector2D clusterMean;
-    for ( int i=0; i<clusterSize; i++ )   {
-        clusterMean += clusterData[i] * dataCoefficient[i];
-        sum_coeff += dataCoefficient[i];
-    }
-    clusterMean = clusterMean / sum_coeff;
-
-    vector<float> dataErrors;
-    for ( int i=0; i<clusterSize; i++ )   {
-        float err_i = ( clusterData[i] - clusterMean ).lenght();
-        dataErrors.push_back(err_i);
-    }
 
     for(int i=0; i<3; i++)   {
-        vector<float>::iterator max_error_pntr =  max_element(dataErrors.begin(), dataErrors.end());
-        if((*max_error_pntr) > 500*pow(2.0, (double)i))   {
-            clusterData.erase( (max_error_pntr-dataErrors.begin()) + clusterData.begin() );
-            dataErrors.erase( max_error_pntr );
+        clusterMean.setZero();
+        for ( int i=0; i<clusterSize; i++ )   {
+            clusterMean += clusterData[i] * dataCoefficient[i];
+            sum_coeff += dataCoefficient[i];
+        }
+        clusterMean = clusterMean / sum_coeff;
+        float max_err = 0;
+        short max_index = -1;
+        for(int j=0; j<clusterData.size(); j++) {
+            float err_j = ( clusterData[j] - clusterMean ).lenght();
+            if(err_j >= max_err) {
+                max_err = err_j;
+                max_index = j;
+            }
+        }
+        if( max_index < 0 )
+            break;
+        if((max_err) > 500*pow(2.0, (double)i))   {
+            clusterData.erase( clusterData.begin() + max_index );
         }
         else {
             break;

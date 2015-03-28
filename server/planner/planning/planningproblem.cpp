@@ -83,7 +83,7 @@ bool PlanningProblem::solve()
 
     double finish_time = currentTimeMSec();
     double total_time = finish_time - start_time ;
-    cout << "Planning Succeed in (ms): " << total_time << endl;
+//    cout << "Planning Succeed in (ms): " << total_time << endl;
     return planningResult;
 }
 
@@ -161,6 +161,12 @@ Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set)
         // check reaching the goal state
         Station current_station = temp_trajec.getLastStation();
         if(goal.minDistTo(current_station) < extension_len) {
+            temp_trajec.appendState(goal.goal_point);
+            planningResult = true;
+            return temp_trajec;
+        }
+
+        if(!pathHasCollision(current_station, goal.goal_point, ob_set)) {
             temp_trajec.appendState(goal.goal_point);
             planningResult = true;
             return temp_trajec;
@@ -294,7 +300,7 @@ Trajectory PlanningProblem::GRRTsolve()
     {
         float finish_time = SSL::currentTimeMSec();
         this->planningTime = finish_time - start_time;
-        cout << "Greedy RRT Planning succeed in " << planningTime << "mili seconds" << endl;
+//        cout << "Greedy RRT Planning succeed in " << planningTime << "mili seconds" << endl;
         return buildTrajectoryFromTree();
     }
     return Trajectory();
@@ -683,7 +689,7 @@ bool PlanningProblem::pathHasCollision(Station &from, Station &to, const Obstacl
         bool result = b2TestOverlap(ob->shape, 0, &road_from_to, 1, ob->m_transform, identity_trans);
         if(result)
         {
-            std::cout << "collision with obstacle " << i << endl;
+//            std::cout << "collision with obstacle " << i << endl;
             return true;
         }
     }

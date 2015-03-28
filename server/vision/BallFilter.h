@@ -56,6 +56,7 @@ protected:
 
     AlphaBetaFilter alphaBetaFilter;
 
+    bool hasUnprocessedData;
 
 
 //    int __medianFilterIndex;

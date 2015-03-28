@@ -39,6 +39,8 @@ private:
     AlphaBetaFilter alphaBetaFilter;
 
     int __medianFilterIndex;
+
+    bool hasUnprocessedData;
 };
 
 #endif // _ROBOTFILTER_H
