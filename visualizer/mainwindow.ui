@@ -76,185 +76,179 @@ QTabBar::tab {
    <enum>QTabWidget::Triangular</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,6">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
     <property name="spacing">
-     <number>0</number>
+     <number>2</number>
     </property>
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
+    <property name="margin">
+     <number>2</number>
     </property>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1,0,0,0">
-      <property name="spacing">
-       <number>2</number>
+     <widget class="QSplitter" name="splitter_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
-      <item>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="title">
-         <string>Game State</string>
+      <property name="handleWidth">
+       <number>3</number>
+      </property>
+      <widget class="QWidget" name="">
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1,0,0">
+        <property name="spacing">
+         <number>2</number>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QLabel" name="gameRunningLabel">
-           <property name="text">
-            <string>Game Running</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="refereeLabel">
-           <property name="text">
-            <string>Referee</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="strategyLabel">
-           <property name="text">
-            <string>Strategy</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>OurColor</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTableWidget" name="ourRobotsTableWidget">
-        <property name="font">
-         <font>
-          <family>Ubuntu</family>
-          <pointsize>-1</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>60</number>
-        </attribute>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTreeWidget" name="treeWidget">
-        <column>
-         <property name="text">
-          <string>1</string>
-         </property>
-        </column>
         <item>
-         <property name="text">
-          <string>Ball</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>position</string>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Game State</string>
           </property>
-          <item>
-           <property name="text">
-            <string>x</string>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <property name="spacing">
+            <number>3</number>
            </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>y</string>
+           <property name="margin">
+            <number>2</number>
            </property>
-          </item>
-         </item>
-         <item>
-          <property name="text">
-           <string>speed</string>
-          </property>
-          <item>
-           <property name="text">
-            <string>speed_x</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>speed_y</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>speed_mag</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>speed_teta</string>
-           </property>
-          </item>
-         </item>
+           <item>
+            <widget class="QLabel" name="gameRunningLabel">
+             <property name="text">
+              <string>Game Running</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="refereeLabel">
+             <property name="text">
+              <string>Referee</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="strategyLabel">
+             <property name="text">
+              <string>Strategy</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
         </item>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTabWidget" name="tabWidget_2">
-        <property name="tabPosition">
-         <enum>QTabWidget::South</enum>
-        </property>
-        <widget class="QWidget" name="tab_2">
-         <attribute name="title">
-          <string>Tab 2</string>
-         </attribute>
-        </widget>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="widget" native="true"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayoutRight" stretch="10,1">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>OurColor</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="ourRobotsTableWidget">
+          <property name="font">
+           <font>
+            <family>Ubuntu</family>
+            <pointsize>-1</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>60</number>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTreeWidget" name="treeWidget">
+          <column>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </column>
+          <item>
+           <property name="text">
+            <string>Ball</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>position</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>x</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>y</string>
+             </property>
+            </item>
+           </item>
+           <item>
+            <property name="text">
+             <string>speed</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>speed_x</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>speed_y</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>speed_mag</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>speed_teta</string>
+             </property>
+            </item>
+           </item>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_1" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="handleWidth">
+        <number>3</number>
+       </property>
        <widget class="QWidget" name="fieldWidget" native="true">
         <property name="enabled">
          <bool>true</bool>
@@ -265,20 +259,15 @@ QTabBar::tab {
           <height>0</height>
          </size>
         </property>
-        <widget class="QWidget" name="formLayoutWidget">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>180</y>
-           <width>160</width>
-           <height>80</height>
-          </rect>
+        <layout class="QVBoxLayout" name="fieldWidgetLayout">
+         <property name="spacing">
+          <number>2</number>
          </property>
-         <layout class="QFormLayout" name="formLayout"/>
-        </widget>
+         <property name="margin">
+          <number>1</number>
+         </property>
+        </layout>
        </widget>
-      </item>
-      <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -308,8 +297,8 @@ QTabBar::tab {
          <bool>true</bool>
         </property>
        </widget>
-      </item>
-     </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>

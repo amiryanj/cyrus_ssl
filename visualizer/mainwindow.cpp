@@ -12,19 +12,11 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // ourColor = SSL::Yellow;
     ourColor = our_color;
     field = new FieldScene(ourColor);
 
-    QHBoxLayout* fieldLayout = new QHBoxLayout;
-    fieldLayout->setMargin(1);
-
-    this->setStatusBar(0);
-
-    fieldLayout->addWidget(field);
-
-//    ourColor = SSL::Yellow;
-
-    ui->fieldWidget->setLayout(fieldLayout);
+    ui->fieldWidgetLayout->addWidget(field);
 
     receiver = new PacketReceiver();
 
@@ -254,10 +246,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
     QString tab_text = ui->tabWidget->tabText(index);
     this->plotList.remove(tab_text);
     ui->tabWidget->removeTab(index);
-    if(ui->tabWidget->count() == 0) {
-        ui->verticalLayoutRight->setStretch(0,10);
-        ui->verticalLayoutRight->setStretch(1,1);
-    }
+
     // TO DO
     // delete the plot widget that would be closed
 //    ui->tabWidget->
@@ -272,16 +261,12 @@ void MainWindow::on_actionQuit_triggered()
 void MainWindow::on_actionFull_Screen_toggled(bool arg1)
 {
     if(arg1) {
-        ui->verticalLayoutRight->setStretch(0,10);
-        ui->verticalLayoutRight->setStretch(1,1);
         field->updateZoom(100);
         this->setWindowFlags(Qt::FramelessWindowHint);
         this->showNormal();
         this->showMaximized();
     }
     else {
-        ui->verticalLayoutRight->setStretch(0,2);
-        ui->verticalLayoutRight->setStretch(1,1);
         this->setWindowFlags(Qt::Window);
         this->showNormal();
     }

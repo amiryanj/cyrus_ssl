@@ -7,7 +7,7 @@
 #include "rrtvertex.h"
 
 using namespace std;
-#define MAX_TREE_CAP  500
+#define MAX_TREE_CAP  10
 
 class RandomTree
 {

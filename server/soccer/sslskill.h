@@ -33,7 +33,9 @@ public:
     void halt();
 
     void goToPoint(Vector3D target, const Vector3D &tolerance);
+    void goToPoint(Vector3D target);
     void goToPoint(Vector2D target, const Vector2D &tolerance);
+    void goToPoint(Vector2D target);
 
     void goToPointWithPlanner( const Vector3D &target,
                                const Vector3D &tolerance,
@@ -58,7 +60,7 @@ public:
     
     void updateObstacles();
 private:
-    static Vector3D calcSpeed(const Vector3D &current_pos, const Vector3D &target_pos);
+    void move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance);
     void controlSpeed(const Vector3D &speed, bool use_controller);
 
     SSLAgent* owner_agent;
@@ -75,6 +77,8 @@ private:
     Obstacle* ballObstacle;
     ObstacleSet allRobotsObstacles;
     ObstacleSet penaltyAreaObstacles;
+
+    Vector3D defaultTolerance;
 
 
 };

@@ -29,14 +29,15 @@ bool PlanningProblem::solve()
         solveInvalidGoalState();
     }
 
-    if(goal.minDistTo(initialState) == 0) { // if it is already in the goal region
-        trajec.clear();
-        planningResult = true;
-    }
+//    if(goal.minDistTo(initialState) == 0) { // if it is already in the goal region
+//        trajec.clear();
+//        planningResult = true;
+//    }
 //    else if(!CheckValidity(initialState))
 //        solveInvalidInitialState();
 
-    else {  // normal way of solvgin motion planning problem
+//    else
+    {  // normal way of solvgin motion planning problem
         ObstacleSet desired_ob_set = stat_obstacles;
         desired_ob_set.insert(desired_ob_set.end(), dyna_obstacles.begin(), dyna_obstacles.end());
         Trajectory apft_ = PotentialFieldSolve(desired_ob_set);

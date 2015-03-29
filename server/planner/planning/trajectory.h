@@ -59,7 +59,6 @@ public:
     void copyFrom(Trajectory &other);
 
 private:
-    Station dummy_station;
     vector<Station> m_states_vec;
 };
 

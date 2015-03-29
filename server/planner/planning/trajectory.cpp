@@ -19,8 +19,7 @@ void Trajectory::computeCost()
     this->cost.smoothness = 0;
     this->cost.safety = 0;
 
-    for (uint i=0; i< m_states_vec.size(); i++) {
-
+    for (uint i=0; i< m_states_vec.size(); i++)  {
         if(i == 0) {
             m_states_vec[i].cost.setZero();
             continue;
@@ -40,7 +39,7 @@ Station &Trajectory::getStation(uint index)
 {
     if(index < m_states_vec.size())
         return m_states_vec[index];
-    return dummy_station;
+    assert(0);
 }
 
 void Trajectory::EditStation(uint index, Station &new_st)
