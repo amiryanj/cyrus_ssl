@@ -35,7 +35,11 @@ void PacketReceiver::timerTimeout()
 bool PacketReceiver::joinNetwork(QString IP, int port)
 {
     socket.close();
+#if QT_VERSION >= 0x050000
     if(socket.bind(QHostAddress::AnyIPv4, port, QUdpSocket::ShareAddress))
+#else
+    if(socket.bind(QHostAddress::Any, port, QUdpSocket::ShareAddress))
+#endif
         qDebug() << "Binded Successfully" ;
     else
         qDebug() << "Failed to Bind";

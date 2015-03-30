@@ -17,7 +17,7 @@ debug: DESTDIR = $$PWD/../../debug_cyrus/visualizer
 debug: MOC_DIR = $$PWD/../../debug_cyrus/visualizer/mocs
 debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/visualizer/objs
 
-LIBS += -lprotobuf
+LIBS += -lprotobuf -lboost_system -lboost_filesystem
 
 TARGET = Visualizer
 TEMPLATE = app
