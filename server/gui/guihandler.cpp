@@ -284,7 +284,8 @@ void GUIHandler::generateDecisionPacket(ssl_decision_packet *packet)
     packet->set_our_side((game->ourSide() == SSL::Left)?
                 ssl_decision_packet_Side_left:ssl_decision_packet_Side_right);
 
-    packet->set_strategy_name(game->currentStrategy->m_name);
+    if(game->currentStrategy != NULL)
+        packet->set_strategy_name(game->currentStrategy->m_name);
     for(uint i=0; i<game->m_agents.size(); i++) {
         SSLAgent* agent = game->m_agents[i];
         if(agent->isNull())

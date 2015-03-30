@@ -56,7 +56,7 @@ void CommandTransmitter::send(int robot_id, RobotCommandPacket packet)
         if((robot_id > MAX_ID_NUM) || (robot_id <0))
             throw "Invalid ID Number";
         this->packets[robot_id] = packet;
-        this->notSent[robot_id] = true;
+        this->notSent[robot_id] = true;        
     }
     catch (const char* msg) {
         cerr << "Exception: CommandTransmitter: " << msg << endl;
@@ -84,6 +84,13 @@ void CommandTransmitter::flush()
     }
     catch (const char* msg) {
         cerr << "Exception: CommandTransmitter: " << msg << endl;
+    }
+}
+
+void CommandTransmitter::clear()
+{
+    for(int i=0; i<MAX_ID_NUM; i++) {
+        notSent[i] = false;
     }
 }
 

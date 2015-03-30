@@ -229,7 +229,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
         linear_vel_strenght = 1;
     }
 
-    float Coeffs[3] = {1, 1, 1};
+    float Coeffs[3] = {1, 1, 0.1};
     if( diff.lenght2D() < 800 )  {
         if(diff.lenght2D() > 300.0)  {   // milli meter
             Coeffs[0] = diff.lenght2D() / 1000.0;
@@ -250,7 +250,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
 
     Vector3D speed(diff.X() * Coeffs[0] * linear_vel_strenght,
                    diff.Y() * Coeffs[1] * linear_vel_strenght,
-                   omega);
+                   omega    * Coeffs[2]);
     controlSpeed(speed, true);
 }
 

@@ -19,6 +19,8 @@ public:
     void send(int robot_id, RobotCommandPacket packet);
     void flush();
 
+    void clear();
+
     void check();
 
     TransmitType type;

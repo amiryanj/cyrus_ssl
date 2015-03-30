@@ -1,9 +1,9 @@
-#include "testserver.h"
+#include "testvisioninput.h"
 #include "../vision/VisionFilter.h"
 #include "../../common/math/sslmath.h"
 #include "../paramater-manager/parametermanager.h"
 
-TestServer::TestServer()
+TestVisionInput::TestVisionInput()
 {
     SSL_DetectionRobot* our_robot[4] = {0, 0};
     ParameterManager* pm = ParameterManager::getInstance();
@@ -33,19 +33,20 @@ TestServer::TestServer()
     our_robot[2]->set_y(1100.0);
     our_robot[2]->set_orientation(0.5);
 
+    usleep(50);
     our_robot[3]->set_robot_id(3);
-    our_robot[3]->set_x(400.0);
-    our_robot[3]->set_y(-200.0);
+    int rand_1 = rand();
+    int rand_2 = rand();
+    our_robot[3]->set_x(rand_1 % 3000);
+    our_robot[3]->set_y(rand_2 % 500);
     our_robot[3]->set_orientation(0.5);
 
     SSL_DetectionBall* ball = wrapper_packet.mutable_detection()->add_balls();
     ball->set_x(1400);
     ball->set_y(-700);
-
-
 }
 
-void TestServer::check()
+void TestVisionInput::check()
 {
     static int frame_counter = 0;
     frame_counter ++;

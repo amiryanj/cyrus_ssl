@@ -108,9 +108,10 @@ SOURCES += \
     planner/planning/rrtvertex.cpp \
     ../common/math/ellipse.cpp \
     ../common/math/shape.cpp \
-    test/testserver.cpp \
     soccer/sslgamepositions.cpp \
-    soccer/sslskill.cpp
+    soccer/sslskill.cpp \
+    test/testvisioninput.cpp \
+    test/testgotopoint.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -189,9 +190,10 @@ HEADERS += \
     planner/planning/dynamicobstacle.h \
     ../common/math/ellipse.h \
     ../common/math/shape.h \
-    test/testserver.h \
     soccer/sslgamepositions.h \
-    soccer/sslskill.h
+    soccer/sslskill.h \
+    test/testvisioninput.h \
+    test/testgotopoint.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \

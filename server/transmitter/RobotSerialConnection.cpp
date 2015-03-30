@@ -6,6 +6,8 @@
  */
 
 #include "RobotSerialConnection.h"
+#include <stdio.h>
+#include "../../common/math/sslmath.h"
 
 
 RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)
@@ -45,6 +47,14 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
 //    		fabs(round(packet.m_kickPower * 255))
     byteArray[6] = (packet.m_kickPower * 4 + packet.m_kickPower * 4 * 16);
 
+    printf( "(time=%.6f) Robot[%d] (m1=%d m2=%d m3=%d m4=%d) [Vx=%.4f, Vy=%.4f, Wz=%.4f]\n",
+            SSL::currentTimeMSec()/1000.0,
+            robotID,
+            byteArray[2], byteArray[3],
+            byteArray[4], byteArray[5],
+            packet.getVelocity().X(),
+            packet.getVelocity().Y(),
+            packet.getVelocity().Teta());
 
     //transmit data to serial port
     serial.Write(byteArray,7);

@@ -1,13 +1,16 @@
 #include "ai/SSLGame.h"
 #include "ai/SSLAnalyzer.h"
 
+#include <time.h>
+
 #include "vision/SSLVision.h"
 #include "vision/VisionFilter.h"
 #include "referee/SSLReferee.h"
 #include "gui/guihandler.h"
 #include "transmitter/commandtransmitter.h"
 #include "paramater-manager/parametermanager.h"
-#include "test/testserver.h"
+#include "test/testvisioninput.h"
+#include "test/testgotopoint.h"
 
 #include "general.h"
 
@@ -16,6 +19,9 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     cout << "Main is running ... " << endl;
+
+    srand(time(0));
+//    SSL::server_startup_time = currentTimeMSec();
 
     ParameterManager* pm = ParameterManager::getInstance();
 
@@ -28,14 +34,16 @@ int main(int argc, char *argv[])
     VisionFilter *filter =  VisionFilter::getInstance();
 
     SSLGame *gameModule = SSLGame::getInstance((Color)pm->get<int>("game.our_color"),
-                                               (Side)pm->get<int>("game.our_side"));
+                                                (Side)pm->get<int>("game.our_side"));
 
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
-    transmitter->type = CommandTransmitter::GRSIM;
+    transmitter->type = CommandTransmitter::SERIAL;
 
-    TestServer* tester = new TestServer();
+    TestVisionInput* vision_tester = new TestVisionInput();
+    TestGoToPoint* gotopoint_tester = new TestGoToPoint();
+
 
     long loopCounter = 0;
     while (true)
@@ -50,10 +58,14 @@ int main(int argc, char *argv[])
             double toc = SSL::currentTimeMSec();
             double process_time = toc - tic;
             printf("Process Time = \t%f milli second\n", process_time);
+
+            transmitter->clear();
+            gotopoint_tester->check();
+
             transmitter->check();
         }
         if(loopCounter % 15 == 0)  {
-//            tester->check();
+            vision_tester->check();
             filter->check();
             gui->check();
 //            gui->testVisualizer();

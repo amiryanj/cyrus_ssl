@@ -1,5 +1,5 @@
-#ifndef SSLGAME_H
-#define SSLGAME_H
+#ifndef _SSLGAME_H
+#define _SSLGAME_H
 
 #include "../general.h"
 #include "../../common/sslnamespace.h"
