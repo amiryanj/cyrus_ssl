@@ -8,23 +8,19 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    MainWindow* w;
     ParameterManager* pm = ParameterManager::getInstance();
 
-    SelectColorDialog *dialog = new SelectColorDialog;
-    if(dialog->exec() == QDialog::Accepted)  {
-        w = new MainWindow(dialog->getOurColor(), dialog->getOurSide(), 0);
-        if(!w->joinCyrusServer())  {
-            dialog->setStatusText("Couldn't connect to Cyrus Server");
-//            sleep(2);
-        }
+//    SelectColorDialog *dialog = new SelectColorDialog;
+    SSL::Color _color = (Color)pm->get<int>("general.game.our_color");
+    SSL::Side  _side  = (Side)pm->get<int>("general.game.our_side");
 
+    MainWindow* w = new MainWindow(_color, _side, 0);
+    w->joinCyrusServer();
 
-        w->show();
-//        w->showFullScreen();
-    }
-    else
-        return 0;
+    w->show();
+
+//    else
+//        return 0;
 
     return a.exec();
 }

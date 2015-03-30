@@ -21,9 +21,10 @@ PacketReceiver::~PacketReceiver()
     this->disconnectNetwork();
 }
 
-void PacketReceiver::check()
+void PacketReceiver::setNetworkSettings(int port, QString address)
 {
-
+    this->mPort = port;
+    this->mAddress = address;
 }
 
 void PacketReceiver::timerTimeout()
@@ -32,13 +33,13 @@ void PacketReceiver::timerTimeout()
     this->joinNetwork();
 }
 
-bool PacketReceiver::joinNetwork(QString IP, int port)
+bool PacketReceiver::joinNetwork()
 {
     socket.close();
 #if QT_VERSION >= 0x050000
     if(socket.bind(QHostAddress::AnyIPv4, port, QUdpSocket::ShareAddress))
 #else
-    if(socket.bind(QHostAddress::Any, port, QUdpSocket::ShareAddress))
+    if(socket.bind(QHostAddress::Any, mPort, QUdpSocket::ShareAddress))
 #endif
         qDebug() << "Binded Successfully" ;
     else
@@ -48,7 +49,7 @@ bool PacketReceiver::joinNetwork(QString IP, int port)
           timer.start();
     }
 
-    bool joinResultFlag = socket.joinMulticastGroup(QHostAddress(IP));
+    bool joinResultFlag = socket.joinMulticastGroup(QHostAddress(mAddress));
 //    if(joinResultFlag)
 //        qDebug() << "Successfully connected to Cyrus Server ..." ;
 //    else
