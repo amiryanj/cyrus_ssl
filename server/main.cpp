@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
             transmitter->check();
         }
         if(loopCounter % 15 == 0)  {
-//            vision_tester->check();
+            vision_tester->check();
             filter->check();
             gui->check();
 //            gui->testVisualizer();

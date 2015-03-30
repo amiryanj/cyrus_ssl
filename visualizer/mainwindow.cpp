@@ -5,6 +5,8 @@
 #include <QPicture>
 #include <QStringList>
 #include "selectplotdialog.h"
+#include "../server/paramater-manager/parametermanager.h"
+#include <string>
 
 MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     QMainWindow(parent),
@@ -69,7 +71,11 @@ PlotWidget* MainWindow::addPlot(uint graph_num, QString label)
 
 bool MainWindow::joinCyrusServer()
 {
-    return receiver->joinNetwork(VISUALIZER_IP, VISUALIZER_PORT);
+    ParameterManager* pm = ParameterManager::getInstance();
+    int _port = pm->get<int>("network.VISUALIZER_PORT");
+    QString _address = ((string)pm->get<std::string>("network.VISUALIZER_ADDRESS")).c_str();
+    receiver->setNetworkSettings(_port, _address);
+    return receiver->joinNetwork();
 }
 
 void MainWindow::setupTable()

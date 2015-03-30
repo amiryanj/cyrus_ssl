@@ -14,9 +14,6 @@
 #include "protoc/visualizer/cpp/ssl_decision.pb.h"
 #include "protoc/visualizer/cpp/ssl_planner.pb.h"
 
-#define VISUALIZER_IP "127.0.0.1"
-#define VISUALIZER_PORT  4001
-
 class PacketReceiver : public QObject
 {
     Q_OBJECT
@@ -26,12 +23,12 @@ public:
     QTimer timer;
 
 public slots:
-    bool joinNetwork(QString IP = QString(VISUALIZER_IP), int port = VISUALIZER_PORT);
+    void setNetworkSettings(int port, QString address);
+    bool joinNetwork();
     void disconnectNetwork();
 
 private slots:
     void processPendingData();
-    void check();
     void timerTimeout();
 
 
@@ -40,6 +37,8 @@ private:
       QByteArray receivedData;
 
       ssl_visualizer_packet vis_packet;
+      QString mAddress;
+      int mPort;
 
 signals:
       void newWorldPacket(ssl_world_packet packet);
