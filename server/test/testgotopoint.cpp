@@ -11,7 +11,7 @@ TestGoToPoint::TestGoToPoint()
 
 void TestGoToPoint::check()
 {
-    Vector3D target(200, 300, 0.0);
+    Vector3D target(-200, -300, 0.0);
     SSLAgent* agent = SSLGame::getInstance()->getAgent(ParameterManager::getInstance()->
                                                        get<int>("general.test.robot_num"));
 

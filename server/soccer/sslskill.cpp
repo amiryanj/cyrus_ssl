@@ -247,7 +247,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
     Coeffs[2] = 0.1;
 
     diff.normalize2D();
-
+    linear_vel_strenght = ParameterManager::getInstance()->get<double>("general.test.vel");
     Vector3D speed(diff.X() * Coeffs[0] * linear_vel_strenght,
                    diff.Y() * Coeffs[1] * linear_vel_strenght,
                    omega    * Coeffs[2]);
