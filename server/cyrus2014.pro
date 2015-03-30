@@ -209,7 +209,5 @@ OTHER_FILES += \
     ../common/protoc/visualizer/proto/ssl_decision.proto \
     ../common/protoc/visualizer/proto/ssl_analyzer.proto \
     ../common/protoc/visualizer/proto/compile.sh \
-    ../settings/general.json \
-    ../settings/kalman.json \
-    ../settings/network.json \
-    ../settings/robot_properties.json
+    ../settings/*.json
+

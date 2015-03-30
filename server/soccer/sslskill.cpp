@@ -15,9 +15,9 @@ SSLSkill::SSLSkill(SSLAgent *parent)
     ParameterManager* pm = ParameterManager::getInstance();
 
     this->owner_agent = parent;
-    defaultTolerance.setX(   pm->get<float>("general.skill.default_tolerance.x")    );
-    defaultTolerance.setY(   pm->get<float>("general.skill.default_tolerance.x")    );
-    defaultTolerance.setTeta(pm->get<float>("general.skill.default_tolerance.teta_deg")*M_PI/180.0);
+    defaultTolerance.setX(   pm->get<float>("skills.default_tolerance.x")    );
+    defaultTolerance.setY(   pm->get<float>("skills.default_tolerance.x")    );
+    defaultTolerance.setTeta(pm->get<float>("skills.default_tolerance.teta_deg")*M_PI/180.0);
 
   // initialize planner
     FieldBound bound;
