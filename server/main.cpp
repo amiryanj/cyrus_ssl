@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
 
     VisionFilter *filter =  VisionFilter::getInstance();
 
-    SSLGame *gameModule = SSLGame::getInstance((Color)pm->get<int>("game.our_color"),
-                                               (Side)pm->get<int>("game.our_side"));
+    SSLGame *gameModule = SSLGame::getInstance((Color)pm->get<int>("general.game.our_color"),
+                                               (Side)pm->get<int>("general.game.our_side"));
 
     GUIHandler *gui = GUIHandler::getInstance();
 

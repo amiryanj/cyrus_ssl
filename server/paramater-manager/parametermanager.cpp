@@ -1,13 +1,32 @@
 #include "parametermanager.h"
-
-const string ParameterManager::filename = "../../cyrus2014/cyrus_settings.json";
+#include <boost/filesystem.hpp>
+using namespace boost::filesystem;
+const string ParameterManager::path = "../../cyrus2014/settings";
 
 ParameterManager* ParameterManager::instance = NULL;
 
 ParameterManager::ParameterManager()
 {
+
     mtx_.lock();
-    read_json(filename, pt);
+    boost::property_tree::ptree temp;
+
+
+    directory_iterator end_itr;
+    for ( directory_iterator itr( path );
+            itr != end_itr;
+            ++itr )
+    {
+        if ( !is_directory(itr->status()) )
+        {
+         //   read_json(itr->path().string(), temp);
+            string filename = itr->path().leaf().string();
+            string justname = filename.substr(0,filename.size()-5);
+            read_json(itr->path().string(),pts[justname]);
+            //cout << justname << endl;
+        }
+
+    }
     mtx_.unlock();
 }
 

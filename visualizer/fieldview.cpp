@@ -25,10 +25,10 @@ void FieldView::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons() & Qt::LeftButton) {
         mTransform = this->transform();
-        QPointF translation = event->posF() - mouseLastPosition;
+        QPointF translation = event->localPos() - mouseLastPosition;
 //        mTransform.translate( translation.x()*2000, translation.y()*2000 );
 //        this->setTransform(mTransform);
-        mouseLastPosition = event->posF();
+        mouseLastPosition = event->localPos();
         QScrollBar *h_scroll_bar = this->horizontalScrollBar();
         h_scroll_bar->setValue(h_scroll_bar->value() - translation.x());
         QScrollBar *v_scroll_bar = this->verticalScrollBar();
@@ -39,7 +39,7 @@ void FieldView::mouseMoveEvent(QMouseEvent *event)
 void FieldView::mousePressEvent(QMouseEvent *event)
 {
 //    event->ignore();
-    mouseLastPosition = event->posF();
+    mouseLastPosition = event->localPos();
 }
 
 

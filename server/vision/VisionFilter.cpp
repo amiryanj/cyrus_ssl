@@ -24,7 +24,7 @@ VisionFilter::VisionFilter()
         cameraLastFrameTime[i] = 0;
 
     ParameterManager* pm = ParameterManager::getInstance();
-    txtlogFile.open(pm->get<string>("debug.ball").c_str());
+    txtlogFile.open(pm->get<string>("general.debug.ball").c_str());
 }
 
 VisionFilter::~VisionFilter()
@@ -64,10 +64,10 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
             if( packet.detection().camera_id() < MAX_CAMERA_COUNT )
             {
                 double frame_time = packet.detection().t_capture();
-                if( frame_time <=  cameraLastFrameTime[packet.detection().camera_id()] ) {
-                    throw "Vision: Decayed packet !!!!" ;
-                }
-                else
+//                if( frame_time <=  cameraLastFrameTime[packet.detection().camera_id()] ) {
+               //     throw "Vision: Decayed packet !!!!" ;
+//                }
+//                else
                     cameraLastFrameTime[packet.detection().camera_id()] = frame_time;
             }
 

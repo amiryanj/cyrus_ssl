@@ -40,7 +40,7 @@ SSLWorldModel::SSLWorldModel()
     enemy_physics.max_ang_acc_rad_ps2 = pm->get<float>("robot_properties.enemy.max_angular_acceleration")* (M_PI/180.0);
 
     for(int i=0; i< NUM_TEAMS; ++i) {
-        if(pm->get<int>("game.our_color") == i)     {
+        if(pm->get<int>("general.game.our_color") == i)     {
             team[i] = new SSLTeam((Color)i, cyrus_physics);
         }  else {
             team[i] = new SSLTeam((Color)i, enemy_physics);

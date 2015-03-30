@@ -7,7 +7,7 @@ TestServer::TestServer()
 {
     SSL_DetectionRobot* our_robot[4] = {0, 0};
     ParameterManager* pm = ParameterManager::getInstance();
-    if( (Color)pm->get<int>("game.our_color") == SSL::Blue )   {
+    if( (Color)pm->get<int>("general.game.our_color") == SSL::Blue )   {
         our_robot[0] = wrapper_packet.mutable_detection()->add_robots_blue();
         our_robot[1] = wrapper_packet.mutable_detection()->add_robots_blue();
         our_robot[2] = wrapper_packet.mutable_detection()->add_robots_blue();

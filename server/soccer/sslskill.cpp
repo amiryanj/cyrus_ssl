@@ -15,9 +15,9 @@ SSLSkill::SSLSkill(SSLAgent *parent)
     ParameterManager* pm = ParameterManager::getInstance();
 
     this->owner_agent = parent;
-    defaultTolerance.setX(   pm->get<float>("skill.default_tolerance.x")    );
-    defaultTolerance.setY(   pm->get<float>("skill.default_tolerance.x")    );
-    defaultTolerance.setTeta(pm->get<float>("skill.default_tolerance.teta_deg")*M_PI/180.0);
+    defaultTolerance.setX(   pm->get<float>("general.skill.default_tolerance.x")    );
+    defaultTolerance.setY(   pm->get<float>("general.skill.default_tolerance.x")    );
+    defaultTolerance.setTeta(pm->get<float>("general.skill.default_tolerance.teta_deg")*M_PI/180.0);
 
   // initialize planner
     FieldBound bound;
@@ -34,7 +34,7 @@ SSLSkill::SSLSkill(SSLAgent *parent)
     // initializing field obstacles for agent
     // ****************************************************************************************
     penaltyAreaObstacles.reserve(5);
-    int z = pm->get<int>("game.our_color");
+    int z = pm->get<int>("general.game.our_color");
     Obstacle* myPenaltyArea_C = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, 0),
                                                     FIELD_PENALTY_AREA_RADIUS * 0.98);
     Obstacle* myPenaltyArea_T = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
