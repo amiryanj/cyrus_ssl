@@ -1,0 +1,26 @@
+{
+        "cyrus":
+        {
+            "mass"                      : 2.800,
+            "radius"                    : 90.0,
+            "front_flat_angle_deg"      : 30.0,
+            "max_linear_velocity"       : 3000,
+            "max_linear_acceleration"   : 2000,
+            "max_angular_velocity"      : 120.0,
+            "max_angular_acceleration"  : 80.0,
+            "max_kick_speed"            : 8000
+        },
+
+        "enemy":
+        {
+            "mass"                      : 2.800,
+            "radius"                    : 90.0,
+            "front_flat_angle_deg"      : 30.0,
+            "max_linear_velocity"       : 3000,
+            "max_linear_acceleration"   : 2000,
+            "max_angular_velocity"      : 120.0,
+            "max_angular_acceleration"  : 80.0,
+            "max_kick_speed"            : 8000
+        }
+
+}

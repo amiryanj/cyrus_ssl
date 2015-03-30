@@ -34,10 +34,10 @@ private:
 
     // in clock-wise direction, the wheels are considered.
     // new robot: 1) 33.7   2) -45.0       3) -135.0       4) +146.3
-    const static double wheelAngle_1_new = +33.70 * M_PI/180.0;
+    const static double wheelAngle_1_new = +30.00 * M_PI/180.0;
     const static double wheelAngle_2_new = -45.00 * M_PI/180.0;
     const static double wheelAngle_3_new = -135.0 *M_PI/180.0;
-    const static double wheelAngle_4_new = +146.3 *M_PI/180.0;
+    const static double wheelAngle_4_new = +150.0 *M_PI/180.0;
 
     // old robot: 1) 33     2) -38          3) -142         4) 147
     const static double wheelAngle_1_old = +33.0 * M_PI/180.0;

@@ -7,7 +7,7 @@
 #QT       += core network
 #QT       -= gui
 
-LIBS += -lprotobuf -lboost_system -lBox2D
+LIBS += -lprotobuf -lboost_system -lboost_filesystem -lBox2D
 
 DEFINES += _USE_BOX2D_
 
@@ -209,5 +209,7 @@ OTHER_FILES += \
     ../common/protoc/visualizer/proto/ssl_decision.proto \
     ../common/protoc/visualizer/proto/ssl_analyzer.proto \
     ../common/protoc/visualizer/proto/compile.sh \
-    ../cyrus_settings.json
-
+    ../settings/general.json \
+    ../settings/kalman.json \
+    ../settings/network.json \
+    ../settings/robot_properties.json

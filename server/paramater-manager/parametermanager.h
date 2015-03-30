@@ -9,17 +9,18 @@
 #include <locale>
 #include <sstream>
 #include <iostream>
+#include <map>
 
 
 using namespace std;
 class ParameterManager
 {
 private:
-    static const string filename;
+    static const string path;
     //IniParser parser;
     boost::signals2::mutex mtx_;
+    map< string , boost::property_tree::ptree> pts;
     boost::property_tree::ptree pt;
-
     static ParameterManager* instance;
     vector<string> groups;
     ParameterManager();
@@ -40,8 +41,15 @@ public :
         string global_key;
         for(int i = 0 ; i < groups.size() ;  i++)
             global_key+=toLower(groups[i])+".";
-        global_key+=toLower(key);
-        return pt.get<T>(global_key);
+        string filename = key.substr(0,key.find('.'));
+      //  cout << filename << endl;
+        global_key+=toLower(key.substr(key.find('.')+1));
+        if(pts.find(filename) == pts.end())
+        {
+            cerr << "No such setting file" << endl;
+            throw "No such setting file";
+        }
+        return pts[filename].get<T>(global_key);
     }
 
 };
