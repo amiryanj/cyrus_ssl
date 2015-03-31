@@ -13,6 +13,7 @@
 #include "test/testgotopoint.h"
 #include "test/testreferee.h"
 #include "test/testmathfunctions.h"
+#include "logger/logger.h"
 
 #include "general.h"
 
@@ -27,6 +28,7 @@ int main(int argc, char *argv[])
 //    SSL::server_startup_time = currentTimeMSec();
 
     ParameterManager* pm = ParameterManager::getInstance();
+    logger* l = logger::getInstance();
 
     SSLReferee *referee = new SSLReferee(pm->get<int>("network.REFEREE_PORT"),
                                          pm->get<string>("network.REFEREE_ADDRESS"));

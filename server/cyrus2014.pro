@@ -113,7 +113,8 @@ SOURCES += \
     test/testvisioninput.cpp \
     test/testgotopoint.cpp \
     test/testreferee.cpp \
-    ../common/math/linesegment.cpp
+    ../common/math/linesegment.cpp \
+    logger/logger.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -197,7 +198,8 @@ HEADERS += \
     test/testvisioninput.h \
     test/testgotopoint.h \
     test/testreferee.h \
-    test/testmathfunctions.h
+    test/testmathfunctions.h \
+    logger/logger.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \

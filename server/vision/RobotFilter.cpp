@@ -22,7 +22,7 @@ void RobotFilter::putNewFrame(const SSLFrame &fr)
 
     // drop the balls in a new camera while the capture time
     // of last detected ball is not past more than 10 ms
-    float default_fps = ParameterManager::getInstance()->get<float>("general.global.default_frame_per_second");
+    float default_fps = ParameterManager::getInstance()->get<float>("vision.default_frame_per_second");
     if( ( fr.camera_id != getRawData(0).camera_id)
       && (fr.timeStampMilliSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
     {

@@ -54,7 +54,7 @@ void SSLGame::check()
 
     for(uint i=0; i<m_agents.size(); i++) {
         SSLAgent* agent = m_agents[i];
-        agent->run();
+       // agent->run();
     }
 
 }

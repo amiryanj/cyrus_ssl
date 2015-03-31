@@ -12,7 +12,7 @@ TestReferee::TestReferee()
 void TestReferee::check()
 {
     ParameterManager* pm = ParameterManager::getInstance();
-    string command_str = pm->get<string>("referee_test.command");
+    string command_str = pm->get<string>("referee.test_command");
     SSLReferee::RefereeState state_;
 
 //      Unknown, Halt, Stop, ForceStart,

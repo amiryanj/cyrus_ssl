@@ -1,33 +1,9 @@
 {
-    "global":
-    {
-        "default_frame_per_second" : 60.0
-    },
-
-    "skill":
-    {
-    "default_tolerance" :{  "x"         : 30.0,
-                            "y"         : 30.0,
-                            "teta_deg"  : 30.0 }
-    },
-    "test":
-    {
-      "robot_num" : 0,
-       "vel":0.5
-
-    },
-
     "game":
     {
         "our_color" : 1,
         "our_side" : -1,
         "comment" : "Yellow = 0, Blue = 1 Left = -1, Right = 1"
 
-    },
-
-    "debug":
-    {
-      "ball" : "shoot1.log"
     }
-
 }

@@ -15,7 +15,7 @@ BallFilter::BallFilter()
 
 void BallFilter::initialize(const SSLFrame &initial_frame)
 {
-    float default_fps = ParameterManager::getInstance()->get<float>("general.global.default_frame_per_second");
+    float default_fps = ParameterManager::getInstance()->get<float>("vision.default_frame_per_second");
 
     if(rawData.empty())  { // initial raw data when the first frame received
         for(int i=0; i< MAX_BALL_MEMORY; i++)  {
@@ -42,7 +42,7 @@ void BallFilter::putNewFrame(const SSLFrame &detected_ball)
 
     // drop the balls in a new camera while the capture time
     // of last detected ball is not past more than 10 ms
-    float default_fps = ParameterManager::getInstance()->get<float>("general.global.default_frame_per_second");
+    float default_fps = ParameterManager::getInstance()->get<float>("vision.default_frame_per_second");
     if( ( detected_ball.camera_id != getRawData(0).camera_id)
       && (detected_ball.timeStampMilliSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
     {
