@@ -1,4 +1,8 @@
 *~
+# settings temporal files
+ui_settings.ini
+general.json
+
 # C++ objects and libs
 
 *.slo
