@@ -6,21 +6,21 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
+
+    app.setOrganizationName("Cyrus Robotics");
+    app.setOrganizationDomain("robocup.sbu.ac.ir");
+    app.setApplicationName("Cyrus-Visualizer");
 
     ParameterManager* pm = ParameterManager::getInstance();
 
-//    SelectColorDialog *dialog = new SelectColorDialog;
     SSL::Color _color = (Color)pm->get<int>("general.game.our_color");
     SSL::Side  _side  = (Side)pm->get<int>("general.game.our_side");
 
     MainWindow* w = new MainWindow(_color, _side, 0);
     w->joinCyrusServer();
 
-    w->show();
+    w->showFullScreen();
 
-//    else
-//        return 0;
-
-    return a.exec();
+    return app.exec();
 }

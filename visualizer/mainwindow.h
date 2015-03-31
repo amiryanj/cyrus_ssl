@@ -7,12 +7,14 @@
 #include "fieldscene.h"
 #include "packetparser.h"
 #include <QMap>
+#include <QSettings>
 #include <QTreeWidgetItem>
 
 #include "robotpropertieswidget.h"
 #include "packetreceiver.h"
 
 class QTableWidgetItem;
+class QLabel;
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +34,8 @@ public:
     bool joinCyrusServer();
 
 private slots:
+    void closeEvent(QCloseEvent *e);
+
     void setupTable();
 
     void setupTree();
@@ -69,6 +73,12 @@ private slots:
     void mouseMoveEvent(QMouseEvent *e);
 
 private:
+
+    QSettings *ui_settings;
+    QLabel* status_strategy;
+    QLabel* status_referee;
+    QLabel* status_led_game_running;
+
 
     Ui::MainWindow *ui;
     FieldScene *field;

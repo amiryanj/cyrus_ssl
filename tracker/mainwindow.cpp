@@ -76,7 +76,7 @@ void MainWindow::timerOVF()
     double alfa = VisionFilter::getInstance()->ballFilter->alphaBetaFilter.m_alfa;
     double beta = VisionFilter::getInstance()->ballFilter->alphaBetaFilter.m_beta;
 
-    Vector2D clusteredSpeed__ = VisionFilter::getInstance()->ballFilter->m_clusteredVelocity;
+    Vector2D clusteredSpeed__ = VisionFilter::getInstance()->robotFilter[SSL::Yellow][0]->m_filteredSpeed.to2D();
 //    qDebug() << "Ball Raw Acceleration = " << data_1;
 //             << "Ball Raw Displacement = " << ball_disp;
 
@@ -100,21 +100,21 @@ void MainWindow::timerOVF()
 
     QVector<double> last_k_data_x;
     QVector<double> last_k_data_y;
-    Vector2D speed = VisionFilter::getInstance()->ballFilter->m_rawVelocity;
+    Vector2D speed = clusteredSpeed__; //VisionFilter::getInstance()->ballFilter->m_rawVelocity;
     for(int i=0; i<4; i++) {
         if( i >= VisionFilter::getInstance()->ballFilter->rawData.size() )
             break;
         Vector2D speed_ = VisionFilter::getInstance()->ballFilter->getRawData(i).velocity;
-        last_k_data_x.push_back(speed_.X());
-        last_k_data_y.push_back(speed_.Y());
     }
+    last_k_data_x.push_back(speed.X());
+    last_k_data_y.push_back(speed.Y());
 
     ui->plot_2->graph(0)->addData(speed.X(), speed.Y());
-    ui->plot_2->graph(1)->setData(last_k_data_x, last_k_data_y);
+//    ui->plot_2->graph(1)->setData(last_k_data_x, last_k_data_y);
 
-    ui->plot_2->graph(2)->clearData();
-    Vector2D filteredSpeed = VisionFilter::getInstance()->ballFilter->m_filteredVelocity;
-    ui->plot_2->graph(2)->addData( filteredSpeed.X(), filteredSpeed.Y() );
+//    ui->plot_2->graph(2)->clearData();
+//    Vector2D filteredSpeed = VisionFilter::getInstance()->ballFilter->m_filteredVelocity;
+//    ui->plot_2->graph(2)->addData( filteredSpeed.X(), filteredSpeed.Y() );
 
     ui->plot_2->replot();
 }
