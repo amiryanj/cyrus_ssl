@@ -12,8 +12,8 @@
     },
     "test":
     {
-      "robot_num" : 0,
-       "vel":0.5
+      "robot_num" : 2,
+       "vel":0.7
 
     },
 

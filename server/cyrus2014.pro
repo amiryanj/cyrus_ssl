@@ -111,7 +111,8 @@ SOURCES += \
     soccer/sslgamepositions.cpp \
     soccer/sslskill.cpp \
     test/testvisioninput.cpp \
-    test/testgotopoint.cpp
+    test/testgotopoint.cpp \
+    logger/logger.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -193,7 +194,8 @@ HEADERS += \
     soccer/sslgamepositions.h \
     soccer/sslskill.h \
     test/testvisioninput.h \
-    test/testgotopoint.h
+    test/testgotopoint.h \
+    logger/logger.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \

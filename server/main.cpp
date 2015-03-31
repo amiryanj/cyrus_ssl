@@ -11,7 +11,7 @@
 #include "paramater-manager/parametermanager.h"
 #include "test/testvisioninput.h"
 #include "test/testgotopoint.h"
-
+#include "logger/logger.h"
 #include "general.h"
 
 using namespace std;
@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 //    SSL::server_startup_time = currentTimeMSec();
 
     ParameterManager* pm = ParameterManager::getInstance();
+    logger* l = logger::getInstance();
 
     SSLReferee *referee = new SSLReferee(pm->get<int>("network.REFEREE_PORT"),
                                          pm->get<string>("network.REFEREE_ADDRESS"));
@@ -65,7 +66,7 @@ int main(int argc, char *argv[])
             transmitter->check();
         }
         if(loopCounter % 15 == 0)  {
-            vision_tester->check();
+         //   vision_tester->check();
             filter->check();
             gui->check();
 //            gui->testVisualizer();

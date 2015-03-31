@@ -5,12 +5,13 @@
 PIDController::PIDController()
 {
     m_crop_control.set(.92, .97, .15 * M_PI);
-    this->setParameters(0.03, 0.02, 0.0);
+    this->setParameters(0.1, 0.002, 0.0);
 //    this->setParameters(0.0, 0.0, 0.0);
 }
 
 void PIDController::setParameters(double kp, double ki, double kd)
 {
+    control = Vector3D(0,0,0);
     this->k_p = kp;
     this->k_i = ki;
     this->k_d = kd;
@@ -20,7 +21,8 @@ void PIDController::setPoint(Vector3D desired, Vector3D actual)
 {
     currentDesired = desired;
     currentActual = actual;
-    last_error = currentDesired - currentActual;
+    const double ratio = 1.8054e+03;
+    last_error = (currentDesired - currentActual)/ratio;
 
     if(fabs(desired.lenght2D()) < fabs(actual.lenght2D())) { // brake the robot
         last_error.setX(last_error.X() * 1.3);
@@ -35,9 +37,9 @@ void PIDController::setPoint(Vector3D desired, Vector3D actual)
     sum_on_time *= 0.93;
     sum_on_time += last_error;
 
-//    errorHistory.insert(errorHistory.begin(), last_error);
-//    if(errorHistory.size() > MAX_HISTORY_SIZE)
-//        errorHistory.pop_back();
+    errorHistory.insert(errorHistory.begin(), last_error);
+    if(errorHistory.size() > MAX_HISTORY_SIZE)
+        errorHistory.pop_back();
 }
 
 void PIDController::clearHistory()
@@ -47,7 +49,7 @@ void PIDController::clearHistory()
 
 Vector3D PIDController::getControl()
 {
-    Vector3D control;
+   // Vector3D control;
     try {
         if(k_p < 0 || k_i < 0 || k_d<0)
             throw "Invalid Parameters";
@@ -55,12 +57,12 @@ Vector3D PIDController::getControl()
 //            throw "There is no set point!";
         control += last_error * k_p;
 
-//        Vector3D errorSum(0, 0, 0);
-//        for(int i=0; i<errorHistory.size(); i++)
-//            errorSum += errorHistory[i]/pow(1.1, i);
-//        control += errorSum * k_i;
-
-        control += sum_on_time * k_i;
+       /* Vector3D errorSum(0, 0, 0);
+        for(int i=0; i<errorHistory.size(); i++)
+            errorSum += errorHistory[i]/pow(1.1, i);
+        control += errorSum * k_i;
+*/
+       // control += sum_on_time * k_i;
 
         if(errorHistory.size() < 2)
             throw "There is no enough set point!";
@@ -73,9 +75,11 @@ Vector3D PIDController::getControl()
         cerr << "Exception: " << "PID COntroller" << msg << endl;
     }
 
-    control = control + currentDesired;
+//    control = control + currentDesired;
 
-    if(control.X() > m_crop_control.X())
+    if(control.lenght2D() > 1)
+        control.normalize2D();
+    /*if(control.X() > m_crop_control.X())
         control.setX(m_crop_control.X());
     else if(control.X() < - m_crop_control.X())
         control.setX(-m_crop_control.X());
@@ -84,7 +88,7 @@ Vector3D PIDController::getControl()
         control.setY(m_crop_control.Y());
     else if(control.Y() < - m_crop_control.Y())
         control.setY(-m_crop_control.Y());
-
+*/
     if(control.Teta() > m_crop_control.Teta())
         control.setTeta(m_crop_control.Teta());
     else if(control.Teta() < - m_crop_control.Teta())

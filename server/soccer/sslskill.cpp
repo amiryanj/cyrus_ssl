@@ -9,7 +9,7 @@
 #include "sslagent.h"
 #include "sslgamepositions.h"
 #include "../paramater-manager/parametermanager.h"
-
+#include "../logger/logger.h"
 SSLSkill::SSLSkill(SSLAgent *parent)
 {
     ParameterManager* pm = ParameterManager::getInstance();
@@ -204,10 +204,28 @@ void SSLSkill::goBehindBall(Vector2D ball_position)
 {
     assert(0);
 }
+double VelbyDis(double dis , double maxspeed)
+{
+    logger * l = logger::getInstance();
+    //double maxspeed =800;
+  //  Vector3D diff = target - mypos;
+    double ratio =(dis /(2*maxspeed))*0.7;
 
+    (*l)[1] << dis<<" " <<maxspeed << " " << ratio<<endl;
+    if(dis > 2*maxspeed )
+    {
+        return 200.0;
+    }
+
+    if(ratio < 1)
+        return 1;
+    return ratio;
+
+
+}
 void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance)
 {
-    Vector3D diff = target_pos - current_pos;
+    Vector3D diff = target_pos - (current_pos+this->owner_agent->robot->Speed()*0.15);
     diff.setTeta(continuousRadian(diff.Teta(), -M_PI));
 
     float omega = 0;
@@ -228,26 +246,31 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
         omega = 0;
         linear_vel_strenght = 1;
     }
-
+    linear_vel_strenght = ParameterManager::getInstance()->get<double>("general.test.vel");
     float Coeffs[3] = {1, 1, 0.1};
     if( diff.lenght2D() < 800 )  {
         if(diff.lenght2D() > 300.0)  {   // milli meter
-            Coeffs[0] = diff.lenght2D() / 1000.0;
-            Coeffs[1] = 1.1 * diff.lenght2D() / 1000.0;
+            //Coeffs[0] = diff.lenght2D() / 1000.0;
+            //Coeffs[1] = 1.1 * diff.lenght2D() / 1000.0;
+            linear_vel_strenght = 0.3;
         }  else if (diff.lenght2D() > 100.0)   {
-            Coeffs[0] = 300.0 / 1000.0;
-            Coeffs[1] = 350.0 / 1000.0;
+           // Coeffs[0] = 300.0 / 1000.0;
+           // Coeffs[1] = 350.0 / 1000.0;
+        linear_vel_strenght = 0.1;
         }
         else  {
-            Coeffs[0] = 150.0 / 1000.0;
-            Coeffs[1] = 180.0 / 1000.0;
+          //  Coeffs[0] = 150.0 / 1000.0;
+         //   Coeffs[1] = 180.0 / 1000.0;
+            linear_vel_strenght = 0.05;
         }
     }
 
-    Coeffs[2] = 0.1;
+  linear_vel_strenght = VelbyDis(diff.lenght2D() , this->owner_agent->robot->Speed().lenght2D());
+    Coeffs[2] = 0.3;
+    //linear_vel_strenght = 0;
 
     diff.normalize2D();
-    linear_vel_strenght = ParameterManager::getInstance()->get<double>("general.test.vel");
+
     Vector3D speed(diff.X() * Coeffs[0] * linear_vel_strenght,
                    diff.Y() * Coeffs[1] * linear_vel_strenght,
                    omega    * Coeffs[2]);
@@ -256,16 +279,21 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
 
 void SSLSkill::controlSpeed(const Vector3D& speed, bool use_controller)
 {
-    this->desiredGlobalSpeed = speed;
-    // because controller is not working yet
-//    if(use_controller) {
-//        controller.setPoint(agent->desiredGlobalSpeed, agent->robot->Speed()/400);
-//        appliedGlobalSpeed = controller.getControl();
-//    }
-//    else {
-    this->appliedGlobalSpeed = desiredGlobalSpeed;
-//    }
 
+    logger* l = logger::getInstance();
+    Vector3D myspeed = this->owner_agent->robot->Speed();
+    this->desiredGlobalSpeed = speed;
+    // because controller is not working yet/
+    if(use_controller) {
+        controller.setPoint(this->desiredGlobalSpeed,myspeed);
+        appliedGlobalSpeed = controller.getControl();
+    }
+    else {
+        this->appliedGlobalSpeed = desiredGlobalSpeed;
+    }
+
+    (*l)[0]<<desiredGlobalSpeed.X()<<" "<<desiredGlobalSpeed.Y()<<" ";
+    (*l)[0]<<myspeed.X()<<" "<<myspeed.Y() << " " << myspeed.lenght2D()/desiredGlobalSpeed.lenght2D()<<endl;
     Vector3D appliedLocalSpeed = appliedGlobalSpeed;
     appliedLocalSpeed.rotate( -1 * Position().Teta());
 
