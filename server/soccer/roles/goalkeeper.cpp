@@ -1,7 +1,8 @@
 #include "goalkeeper.h"
-#include "../sslskill.h"
+#include "../../../common/math/linesegment.h"
 #include "../../definition/SSLTeam.h"
 #include "../../definition/SSLRobot.h"
+#include "../sslskill.h"
 #include "../sslagent.h"
 
 GoalKeeper::GoalKeeper()
@@ -13,13 +14,36 @@ GoalKeeper::GoalKeeper()
 
 void GoalKeeper::run()
 {
-    if(analyzer->isOpponentPenaltyPosition()) {
-        Vector3D target = SSL::Position::wallStandFrontBall(0, world->mainBall()->Position());
+    if( analyzer->isOpponentPenaltyPosition() ) {
+        Vector3D target = SSL::Position::goalKeeperPosition(0.03f, 0.0f, world->mainBall()->Position());
         m_agent->skill->goToPoint(target);
     }
 
     else if(analyzer->isOpponentPenaltyKick()) {
-        Vector3D target = SSL::Position::wallStandFrontBall(0, world->mainBall()->Position());
+        Vector3D target = SSL::Position::goalKeeperPosition(0.03f, 0.0f, world->mainBall()->Position());;
+
+        SSLAnalyzer::RobotIntersectTime op_penalty_kicker =
+                analyzer->nearestRobotToPoint(game->opponentColor(), SSL::Position::ourPenaltyPoint());
+        if(op_penalty_kicker.isValid())
+        {
+            float op_orien = op_penalty_kicker.m_robot->orien();
+            Vector2D p1 = op_penalty_kicker.m_robot->Position().to2D();
+            Vector2D p2 = p1 + Vector2D::unitVector(op_orien) * FIELD_LENGTH;
+
+            LineSegment l1(p1, p2);
+            LineSegment l2 = SSL::Position::ourGoalLine();
+
+            Vector2D intersection_pnt = LineSegment::intersection(l1, l2);
+            if(intersection_pnt.X() != INFINITY) {
+                intersection_pnt.setY( SSL::bound(intersection_pnt.Y(),
+                                                  -FIELD_GOAL_WIDTH/2,
+                                                   FIELD_GOAL_WIDTH/2 ) );
+                target = SSL::Position::goalKeeperPosition(0.0,
+                                                           intersection_pnt.Y()/(FIELD_GOAL_WIDTH/2 - ROBOT_RADIUS),
+                                                           world->mainBall()->Position());
+
+            }
+        }
         m_agent->skill->goToPoint(target);
     }
 

@@ -3,12 +3,15 @@
 
 #include "../../common/math/vector2d.h"
 #include "../../common/math/vector3d.h"
+#include "../../common/math/linesegment.h"
 
 
 namespace SSL {
 namespace Position {
 
     Vector2D opponentPenaltyPoint();
+    Vector2D ourPenaltyPoint();
+
     Vector2D opponentGoalCenter();
     Vector2D ourGoalCenter();
 
@@ -22,6 +25,13 @@ namespace Position {
     Vector3D wallStandFrontBall(int number, Vector2D ball_position);
     Vector3D KickStylePosition(const Vector2D &kick_point, const Vector2D &target, float dist);
     Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point, float dist_from_risky);
+
+    Vector3D goalKeeperPosition(float normalized_x_offset, float normalized_y_offset, const Vector2D &toward_point);
+
+    LineSegment ourGoalLine();
+    LineSegment opponentGoalLine();
+    LineSegment HalfLine();
+    LineSegment MidLine();
 
 }
 }
