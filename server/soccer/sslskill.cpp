@@ -106,7 +106,7 @@ void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance)
             target2 = this->Position() + diff*thr2;
             target2.setTeta(diff.to2D().arctan());
             this->planner.trajec.prependState(Station(target2));
-            move(this->Position(), target2, tolerance, 0.5);
+            move(this->Position(), target2, tolerance, 1.0);
 
         }else
         {
@@ -232,13 +232,7 @@ double VelbyDis(double dis , double maxspeed)
     double ratio =(dis /(max_speed / 2)) * 0.7;
     ratio *= sqrt(ratio);
     (*l)[1] << dis<<" " <<maxspeed << " " << ratio<<endl;
-    if(dis > max_speed/2  )
-    {
-        return 0.7;
-    }
-
-    if(ratio < 0.08)
-        return 0.08;
+    ratio = bound(ratio , 0.08 , 0.7);
     return ratio ;
 
 
@@ -252,15 +246,16 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
     if(speed_coeff > 0)
         linear_vel_strenght = speed_coeff;
     float omega = 0;
-    if ( abs(diff.Teta()) > M_PI_2 )  {
+    cout << "Teta diff:" << diff.Teta() << endl;
+    if ( fabs(diff.Teta()) > M_PI_2 )  {
         omega = 0.2 * sgn(diff.Teta());
         linear_vel_strenght = 0.2;
     }
-    else if ( diff.Teta() > M_PI_4 ) {
+    else if ( fabs(diff.Teta()) > M_PI_4 ) {
         omega = 0.05 * sgn(diff.Teta());
         linear_vel_strenght = 0.4;
     }
-    else if (abs(diff.Teta() > tolerance.Teta())) {
+    else if ( fabs(diff.Teta()) > tolerance.Teta()) {
         omega = 0.05 * sgn(diff.Teta());
         linear_vel_strenght = 0.6;
     }
@@ -268,7 +263,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
         omega = 0;
 //        linear_vel_strenght = 1;
     }
-    linear_vel_strenght *= max_speed ;
+    linear_vel_strenght *= max_speed;
     float Coeffs[3] = {1, 1, 0.1};
     /*if( diff.lenght2D() < 800 )  {
         if(diff.lenght2D() > 300.0)  {   // milli meter
@@ -287,7 +282,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
         }
     }
 */
-    Coeffs[2] = 0.5;
+    Coeffs[2] = 0.8;
     //linear_vel_strenght = 0;
 
     diff.normalize2D();

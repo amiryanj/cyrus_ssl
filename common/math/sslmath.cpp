@@ -12,7 +12,6 @@ float SSL::continuousRadian(float angle, float start_ang) {
             std::cout << "Error : continuous radian: angle = " << angle << std::endl;
         }
 //        assert(fabs(angle) < 2*M_PI);
-        std::cout << "Warning! teta of some parameter might be invalid (too large)." << std::endl;
     }
     while (angle < start_ang) {
         angle += 2 * M_PI;
