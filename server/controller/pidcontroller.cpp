@@ -5,7 +5,7 @@
 PIDController::PIDController()
 {
     m_crop_control.set(.92, .97, .15 * M_PI);
-    this->setParameters(0.05, 0.002, 0.0);
+    this->setParameters(0.1, 0.002, 0.0);
 //    this->setParameters(0.0, 0.0, 0.0);
 }
 
@@ -32,9 +32,9 @@ void PIDController::setPoint(Vector3D desired, Vector3D actual)
     currentActual = actual;
 
 
-    const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
 
-    last_error = (currentDesired - currentActual)/max_speed;
+    const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
+    last_error = (currentDesired - currentActual);
 /*
     if(fabs(desired.lenght2D()) < fabs(actual.lenght2D())) { // brake the robot
         last_error.setX(last_error.X() * 1.3);
@@ -49,7 +49,7 @@ void PIDController::setPoint(Vector3D desired, Vector3D actual)
     sum_on_time *= 0.93;
     sum_on_time += last_error;
 
-    errorHistory.insert(errorHistory.begin(), last_error);
+    errorHistory.insert(errorHistory.begin(), last_error/max_speed);
     if(errorHistory.size() > MAX_HISTORY_SIZE)
         errorHistory.pop_back();
 }
@@ -67,20 +67,34 @@ Vector3D PIDController::getControl()
             throw "Invalid Parameters";
 //        if(errorHistory.size() < 1)
 //            throw "There is no set point!";
+        const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
+
+
+
+
+        control =currentDesired/max_speed;
+        if(last_error.lenght2D() > 200)
+            control/=3;
+
+        last_error /= max_speed;
+
         control += last_error * k_p;
 
-        Vector3D errorSum(0, 0, 0);
-        for(int i=0; i<errorHistory.size(); i++)
-            errorSum += errorHistory[i];
-        control += errorSum * k_i;
+//        Vector3D errorSum(0, 0, 0);
+//        for(int i=0; i<errorHistory.size(); i++)
+//            errorSum += errorHistory[i];
+//        control += errorSum * k_i;
 
        // control += sum_on_time * k_i;
 
-        if(errorHistory.size() < 2)
-            throw "There is no enough set point!";
-        Vector3D d_error = errorHistory.at(0) - errorHistory.at(1);
-        control += d_error * k_d;
+    //    if(errorHistory.size() < 2)
+      //      throw "There is no enough set point!";
+//        Vector3D d_error = errorHistory.at(0) - errorHistory.at(1);
+  //      control += d_error * k_d;
+
+
         control.setTeta(currentDesired.Teta());
+
         this->lastOutput = control;
     }
     catch (const char* msg)  {

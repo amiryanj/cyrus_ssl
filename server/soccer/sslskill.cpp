@@ -106,7 +106,7 @@ void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance)
             target2 = this->Position() + diff*thr2;
             target2.setTeta(diff.to2D().arctan());
             this->planner.trajec.prependState(Station(target2));
-            move(this->Position(), target2, tolerance, 1.0);
+            move(this->Position(), target2, tolerance, 0.5);
 
         }else
         {
@@ -229,12 +229,12 @@ double VelbyDis(double dis , double maxspeed)
 
     //double maxspeed =800;
   //  Vector3D diff = target - mypos;
-    double ratio =(dis /(max_speed / 2));
+    double ratio =(dis /(max_speed / 2)) * 0.7;
     ratio *= sqrt(ratio);
     (*l)[1] << dis<<" " <<maxspeed << " " << ratio<<endl;
     if(dis > max_speed/2  )
     {
-        return 1;
+        return 0.7;
     }
 
     if(ratio < 0.08)
@@ -245,7 +245,7 @@ double VelbyDis(double dis , double maxspeed)
 }
 void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff)
 {
-    Vector3D diff = target_pos - (current_pos+this->owner_agent->robot->Speed()*0.2);
+    Vector3D diff = target_pos - (current_pos+this->owner_agent->robot->Speed()*0.0);
     diff.setTeta(continuousRadian(diff.Teta(), -M_PI));
     const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
     double linear_vel_strenght =  VelbyDis(diff.lenght2D() , this->owner_agent->robot->Speed().lenght2D());
@@ -287,7 +287,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
         }
     }
 */
-    Coeffs[2] = 0.3;
+    Coeffs[2] = 0.5;
     //linear_vel_strenght = 0;
 
     diff.normalize2D();
@@ -295,7 +295,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
     Vector3D speed(diff.X() * Coeffs[0] * linear_vel_strenght,
                    diff.Y() * Coeffs[1] * linear_vel_strenght,
                    omega    * Coeffs[2]);
-    controlSpeed(speed, false);
+    controlSpeed(speed, true);
 }
 
 void SSLSkill::controlSpeed(const Vector3D& speed, bool use_controller)
@@ -325,7 +325,7 @@ void SSLSkill::controlSpeed(const Vector3D& speed, bool use_controller)
 
 
     Vector3D appliedLocalSpeed = appliedGlobalSpeed ;
-
+    cout << "THETA" << appliedGlobalSpeed.Teta()<<endl;
     appliedLocalSpeed.rotate( -1 * Position().Teta());
 
     CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), appliedLocalSpeed);
