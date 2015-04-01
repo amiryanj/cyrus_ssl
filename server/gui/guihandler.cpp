@@ -356,7 +356,7 @@ bool GUIHandler::sendPacket(const ssl_visualizer_packet &p)
     }
     else
     {
-        cout << buffer.length() << " Bytes of ( Visualizer Packet ) has been sent." << endl;
+//        cout << buffer.length() << " Bytes of ( Visualizer Packet ) sent." << endl;
     }
     return(result);
 }

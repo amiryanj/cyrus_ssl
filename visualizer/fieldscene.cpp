@@ -62,7 +62,7 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
 //                appliedVel[i]->setParentItem(robot[tm][i]);
                 scene.addItem(appliedVel[i]);
 
-                robotRotation[i] = new ArcGraphicsItem(Qt::yellow);
+                robotRotation[i] = new ArcGraphicsItem(Qt::darkRed);
                 robotRotation[i]->setZValue(6.5);
                 robotRotation[i]->setParentItem(robot[tm][i]);
 
@@ -166,10 +166,11 @@ void FieldScene::updateRobotPlan(int id, QVector<RobotState> path, QVector3D des
     }
 
     if(path.size() > 1) {
+        qDebug() << robot[ourColor][id]->rotation() * M_PI/180;
         float robot_rotation =
-                continuousRadian(path[1].position.Teta() - (robot[ourColor][id]->rotation() * M_PI / 180.0),
+                continuousRadian(path[1].position.Teta() + (robot[ourColor][id]->rotation() * M_PI / 180.0),
                                  -M_PI);
-        robotRotation[id]->setArcLenght(-robot_rotation * 180.0/M_PI);
+        robotRotation[id]->setArcLenght(robot_rotation * 180.0/M_PI);
     }
     else {
         robotRotation[id]->setArcLenght(0);

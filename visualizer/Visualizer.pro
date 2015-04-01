@@ -58,7 +58,8 @@ SOURCES += main.cpp\
     ../common/math/sslmath.cpp \
     fieldview.cpp \
     ../server/paramater-manager/parametermanager.cpp \
-    graphics/graphic_arc.cpp
+    graphics/graphic_arc.cpp \
+    scatterplotwidget.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -90,14 +91,16 @@ HEADERS  += mainwindow.h \
     ../common/math/sslmath.h \
     fieldview.h \
     ../server/paramater-manager/parametermanager.h \
-    graphics/graphic_arc.h
+    graphics/graphic_arc.h \
+    scatterplotwidget.h
 
 FORMS    += mainwindow.ui \
     plotwidget.ui \
     fieldscene.ui \
     selectcolordialog.ui \
     selectplotdialog.ui \
-    robotpropertieswidget.ui
+    robotpropertieswidget.ui \
+    scatterplotwidget.ui
 
 RESOURCES += \
     icons.qrc

@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QMessageBox>
 
+
 MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -21,6 +22,8 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     field = new FieldScene(ourColor);
 
     ui->fieldWidgetLayout->addWidget(field);
+    scatter = new ScatterPlotWidget(this);
+    ui->scatterLayout->addWidget(scatter);
 
     status_strategy = new QLabel(this);
     status_referee = new QLabel(this);
@@ -65,6 +68,7 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     ui_settings = new QSettings("../../cyrus2014/settings/ui_settings.ini", QSettings::IniFormat, this);
     ui->splitter_1->restoreState(ui_settings->value("splitter_1").toByteArray());
     ui->splitter_2->restoreState(ui_settings->value("splitter_2").toByteArray());
+    ui->splitter_3->restoreState(ui_settings->value("splitter_3").toByteArray());
 
     resize( ui_settings->value("mainwindow_size").toSize() );
     restoreState( ui_settings->value("mainwindow_state").toByteArray() );
@@ -77,9 +81,9 @@ MainWindow::~MainWindow()
 
 PlotWidget* MainWindow::addPlot(uint graph_num, QString label)
 {
-    PlotWidget *plot = new PlotWidget(graph_num, ui->tabWidget);
+    PlotWidget *plot = new PlotWidget(graph_num, ui->plotContainerTabWidget);
 
-    ui->tabWidget->addTab(plot, label);
+    ui->plotContainerTabWidget->addTab(plot, label);
 
     return plot;
 }
@@ -100,6 +104,7 @@ void MainWindow::closeEvent(QCloseEvent *e)
 
     ui_settings->setValue("splitter_1", ui->splitter_1->saveState());
     ui_settings->setValue("splitter_2", ui->splitter_2->saveState());
+    ui_settings->setValue("splitter_3", ui->splitter_3->saveState());
 }
 
 void MainWindow::setupTable()
@@ -212,7 +217,7 @@ void MainWindow::on_ourRobotsTableWidget_cellDoubleClicked(int row, int column)
         plot = addPlot(3, plotName);
     else
         plot = plotList[plotName];
-    ui->tabWidget->setCurrentWidget(plot);
+    ui->plotContainerTabWidget->setCurrentWidget(plot);
     this->plotList.insert(plotName, plot);
 }
 
@@ -237,7 +242,7 @@ void MainWindow::on_opRobotsTableWidget_cellDoubleClicked(int row, int column)
         plot = addPlot(3, plotName);
     else
         plot = plotList[plotName];
-    ui->tabWidget->setCurrentWidget(plot);
+    ui->plotContainerTabWidget->setCurrentWidget(plot);
     this->plotList.insert(plotName, plot);
 }
 
@@ -249,6 +254,18 @@ void MainWindow::updateRobotVelocity(RobotState state)
 
 void MainWindow::plotRobotVelocity(int id, QVector3D desired, QVector3D applied)
 {
+    static QVector<QPoint> desired_points;
+    static QVector<QPoint> applied_points;
+    if(id == 0) {
+        desired_points.append(desired.toPoint());
+        applied_points.append(applied.toPoint());
+        if(desired_points.size() > 15) {
+            desired_points.pop_front();
+            applied_points.pop_front();
+        }
+    }
+    scatter->setData(desired_points, applied_points);
+
     QStringList str_list;
     str_list << "X" << "Y" << "M" << "T";
     for(int i = 0 ; i < str_list.size() ; i++)
@@ -273,9 +290,9 @@ void MainWindow::plotRobotVelocity(int id, QVector3D desired, QVector3D applied)
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
 {
-    QString tab_text = ui->tabWidget->tabText(index);
+    QString tab_text = ui->plotContainerTabWidget->tabText(index);
     this->plotList.remove(tab_text);
-    ui->tabWidget->removeTab(index);
+    ui->plotContainerTabWidget->removeTab(index);
 
     // TO DO
     // delete the plot widget that would be closed
@@ -314,7 +331,7 @@ void MainWindow::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
     qDebug() << "Salam:   " << a;
     if(a.contains("Robot")) {
         RobotPropertiesWidget *widget = new RobotPropertiesWidget();
-        ui->tabWidget->addTab(widget, a);
+        ui->plotContainerTabWidget->addTab(widget, a);
         this->robotWidgetList.insert(a, widget);
     }
 //    if(item->)

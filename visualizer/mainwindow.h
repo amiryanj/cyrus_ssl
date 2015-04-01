@@ -12,6 +12,7 @@
 
 #include "robotpropertieswidget.h"
 #include "packetreceiver.h"
+#include "scatterplotwidget.h"
 
 class QTableWidgetItem;
 class QLabel;
@@ -96,6 +97,8 @@ private:
     QVBoxLayout leftVLayout;
     QVBoxLayout middleVLayout;
     QVBoxLayout rightVLayout;
+
+    ScatterPlotWidget* scatter;
 
 };
 
