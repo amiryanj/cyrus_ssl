@@ -4,7 +4,7 @@
 #include "../ai/SSLGame.h"
 #include "../soccer/sslagent.h"
 #include "../soccer/sslskill.h"
-#include "paramater-manager/parametermanager.h"
+
 TestGoToPoint::TestGoToPoint()
 {
     target[0]= Vector3D(-500,-1500,M_PI);

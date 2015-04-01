@@ -7,6 +7,7 @@
 #include "selectplotdialog.h"
 #include "../server/paramater-manager/parametermanager.h"
 #include <string>
+#include <QLabel>
 
 MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     QMainWindow(parent),
@@ -20,8 +21,15 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
 
     ui->fieldWidgetLayout->addWidget(field);
 
-    receiver = new PacketReceiver();
+    status_strategy = new QLabel(this);
+    status_referee = new QLabel(this);
+    status_led_game_running = new QLabel(this);
 
+    statusBar()->addWidget(status_led_game_running, 1);
+    statusBar()->addWidget(status_referee, 2);
+    statusBar()->addWidget(status_strategy, 2);
+
+    receiver = new PacketReceiver();
     parser = new PacketParser();
 
     connect(receiver, SIGNAL(newWorldPacket(ssl_world_packet)), parser, SLOT(handleWorldPacket(ssl_world_packet)));
@@ -53,6 +61,12 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     ui->actionShow_Targets->setChecked(true);
     ui->actionConnect_Server->setChecked(true);
 
+    ui_settings = new QSettings("../settings/ui_settings.ini", QSettings::IniFormat, this);
+    ui->splitter_1->restoreState(ui_settings->value("splitter_1").toByteArray());
+    ui->splitter_2->restoreState(ui_settings->value("splitter_2").toByteArray());
+
+    resize( ui_settings->value("mainwindow_size").toSize() );
+    restoreState( ui_settings->value("mainwindow_state").toByteArray() );
 }
 
 MainWindow::~MainWindow()
@@ -76,6 +90,15 @@ bool MainWindow::joinCyrusServer()
     QString _address = ((string)pm->get<std::string>("network.VISUALIZER_ADDRESS")).c_str();
     receiver->setNetworkSettings(_port, _address);
     return receiver->joinNetwork();
+}
+
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+    ui_settings->setValue("mainwindow_size", this->size());
+    ui_settings->setValue("mainwindow_state", this->saveState());
+
+    ui_settings->setValue("splitter_1", ui->splitter_1->saveState());
+    ui_settings->setValue("splitter_2", ui->splitter_2->saveState());
 }
 
 void MainWindow::setupTable()
@@ -364,7 +387,9 @@ void MainWindow::setRefereeState(QString state)
 
 void MainWindow::updateCurrentStrategy(QString strategy_name)
 {
-    ui->strategyLabel->setText("Strategy: "+  strategy_name);
+    QString str = "Strategy: "+  strategy_name;
+    ui->strategyLabel->setText(str);
+    status_strategy->setText(str);
 }
 void MainWindow::on_actionShowIntersects_toggled(bool arg1)
 {

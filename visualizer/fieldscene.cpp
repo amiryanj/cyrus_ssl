@@ -13,19 +13,20 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
     view = new FieldView(this);
     layout = new QHBoxLayout(this);
     layout->addWidget(view);
+    layout->setContentsMargins(1, 1, 1, 1);
 
     setMouseTracking(true);
 
     for(int tm=0; tm<2; tm++)
         for(int i=0; i< MAX_ID_NUM; i++)
         {
-            Qt::GlobalColor robot_color = ((Color)tm == Yellow)? Qt::yellow:Qt::blue;
+            Qt::GlobalColor robot_color = ((Color)tm == Yellow)? Qt::yellow : Qt::blue;
             robot[tm][i] = new RobotGraphicsItem(robot_color, i);
             robot[tm][i]->setZValue(2);
             scene.addItem(robot[tm][i]);
 
             number[tm][i] = new NumberGraphicsItem(i);
-            number[tm][i]->setColor(((Color)tm == Yellow)? Qt::yellow:Qt::blue);
+            number[tm][i]->setColor(((Color)tm == Yellow)? Qt::yellow : Qt::blue);
             number[tm][i]->setZValue(3);
 //            number[tm][i]->setParentItem(robot[tm][i]);
             scene.addItem(number[tm][i]);
@@ -321,13 +322,13 @@ void FieldScene::showBallStopZone(bool show)
 
 void FieldScene::drawBounds()
 {
-    double FIELD_MAIN_LENGHT = 7400;
-    double FIELD_MAIN_WIDTH = 5400;
+    double FIELD_MAIN_LENGHT = 10400;
+    double FIELD_MAIN_WIDTH  = 7400;
     scene.setSceneRect(-FIELD_MAIN_LENGHT/2, -FIELD_MAIN_WIDTH/2, FIELD_MAIN_LENGHT, FIELD_MAIN_WIDTH);
 //    scene.setSceneRect(-FIELD_MAIN_LENGHT/2, -FIELD_MAIN_WIDTH/2, FIELD_MAIN_LENGHT, FIELD_MAIN_WIDTH);
 
     scene.addRect(-FIELD_MAIN_LENGHT/2, -FIELD_MAIN_WIDTH/2,
-                  FIELD_MAIN_LENGHT, FIELD_MAIN_WIDTH,QPen(Qt::green),QBrush(Qt::green));
+                   FIELD_MAIN_LENGHT, FIELD_MAIN_WIDTH,QPen(Qt::green),QBrush(Qt::green));
 
     QPen drawBoundsPen(QBrush(Qt::white),10.0);
     scene.addLine(-FIELD_LENGTH/2, -FIELD_WIDTH/2, -FIELD_LENGTH/2, FIELD_WIDTH/2, drawBoundsPen);
@@ -362,11 +363,17 @@ void FieldScene::drawBounds()
                        2*FIELD_PENALTY_AREA_RADIUS,2*FIELD_PENALTY_AREA_RADIUS,180,90);
     scene.addPath(rightPenaltyArea, drawBoundsPen);
 
+    scene.addEllipse(FIELD_LENGTH/2 - (FIELD_PENALTY_DISTANCE + BALL_RADIUS), -BALL_RADIUS,
+                     BALL_RADIUS, BALL_RADIUS, QPen(Qt::white, 2));
+
     QPainterPath Goal2;
     Goal2.moveTo(FIELD_LENGTH/2,-FIELD_GOAL_WIDTH/2);
     Goal2.lineTo(FIELD_LENGTH/2+180,-FIELD_GOAL_WIDTH/2);
     Goal2.lineTo(FIELD_LENGTH/2+180,FIELD_GOAL_WIDTH/2);
     Goal2.lineTo(FIELD_LENGTH/2,FIELD_GOAL_WIDTH/2);
     scene.addPath(Goal2,QPen(QColor(Qt::black),20));
+
+    scene.addEllipse(-FIELD_LENGTH/2 + (FIELD_PENALTY_DISTANCE - BALL_RADIUS), -BALL_RADIUS,
+                     BALL_RADIUS, BALL_RADIUS, QPen(Qt::white, 2));
 
 }

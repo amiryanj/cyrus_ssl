@@ -17,7 +17,7 @@ debug: DESTDIR = $$PWD/../../debug_cyrus/tracker
 debug: MOC_DIR = $$PWD/../../debug_cyrus/tracker/mocs
 debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/tracker/objs
 
-LIBS += -lprotobuf -lboost_system -lqcustomplot
+LIBS += -lprotobuf -lboost_system -lboost_filesystem -lqcustomplot
 
 SOURCES += \
     mainwindow.cpp \

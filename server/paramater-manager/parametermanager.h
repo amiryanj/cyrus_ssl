@@ -46,7 +46,7 @@ public :
         global_key+=toLower(key.substr(key.find('.')+1));
         if(pts.find(filename) == pts.end())
         {
-            cerr << "No such setting file" << endl;
+            cerr << "No such setting file:" << filename.c_str() << endl;
             throw "No such setting file";
         }
         return pts[filename].get<T>(global_key);

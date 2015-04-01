@@ -18,6 +18,7 @@ using namespace Net;
 
 class SSLReferee : public SSLListener
 {
+    friend class TestReferee;
 private:
     IPPacket m_temp_packet;
     void updateState();

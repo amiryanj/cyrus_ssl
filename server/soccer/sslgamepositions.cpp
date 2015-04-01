@@ -10,6 +10,11 @@ Vector2D opponentPenaltyPoint()
     return Vector2D(game->opponentSide() * (FIELD_LENGTH/2 - FIELD_PENALTY_DISTANCE), 0);
 }
 
+Vector2D ourPenaltyPoint()
+{
+    return Vector2D(game->ourSide() * (FIELD_LENGTH/2 - FIELD_PENALTY_DISTANCE), 0);
+}
+
 Vector2D opponentGoalCenter()
 {
     return Vector2D(game->opponentSide() * (FIELD_LENGTH/2), 0);
@@ -99,6 +104,43 @@ Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defen
     Vector3D pos(risky_point - dir * (dist_from_risky + ROBOT_RADIUS), orien);
     return pos;
 }
+
+Vector3D goalKeeperPosition(float normalized_x_offset, float normalized_y_offset, const Vector2D &toward_point)
+{
+//    assert(fabs(normalized_x_offset) <= 1);
+//    assert(fabs(normalized_y_offset) <= 1);
+
+    float pos_x = game->ourSide() * (FIELD_LENGTH/2 -
+                            (ROBOT_RADIUS + normalized_x_offset*FIELD_PENALTY_AREA_RADIUS));
+    float pos_y = normalized_y_offset * (FIELD_GOAL_WIDTH/2 - ROBOT_RADIUS);
+    float orien =  (toward_point - Vector2D(pos_x, pos_y)).arctan();
+    return Vector3D(pos_x, pos_y, orien);
+}
+
+LineSegment ourGoalLine()
+{
+    return LineSegment(game->ourSide() * FIELD_LENGTH/2, -FIELD_WIDTH/2,
+                       game->ourSide() * FIELD_LENGTH/2,  FIELD_WIDTH/2);
+}
+
+LineSegment opponentGoalLine()
+{
+    return LineSegment(game->opponentSide() * FIELD_LENGTH/2, -FIELD_WIDTH/2,
+                       game->opponentSide() * FIELD_LENGTH/2,  FIELD_WIDTH/2);
+}
+
+LineSegment HalfLine()
+{
+    return LineSegment(0, -FIELD_WIDTH/2,
+                       0,  FIELD_WIDTH/2);
+}
+
+LineSegment MidLine()
+{
+    return LineSegment(-FIELD_LENGTH/2, 0,
+                        FIELD_LENGTH/2, 0);
+}
+
 
 }
 }

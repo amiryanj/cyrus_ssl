@@ -1,5 +1,5 @@
-#ifndef _LINE_H
-#define _LINE_H
+#ifndef _LINESEGMENT_H
+#define _LINESEGMENT_H
 
 #include "vector2d.h"
 
@@ -34,6 +34,9 @@ public:
     inline void setP2(const Vector2D &p2);
     inline void setPoints(const Vector2D &p1, const Vector2D &p2);
     inline void setLine(float x1, float y1, float x2, float y2);
+
+    static Vector2D intersection(const LineSegment l1, const LineSegment& l2);
+    float slope() const;
 
     inline bool operator==(const LineSegment &d) const;
     inline bool operator!=(const LineSegment &d) const { return !(*this == d); }
@@ -146,4 +149,4 @@ inline bool LineSegment::operator==(const LineSegment &d) const
     return pt1 == d.pt1 && pt2 == d.pt2;
 }
 
-#endif // _LINE_H
+#endif // _LINESEGMENT_H

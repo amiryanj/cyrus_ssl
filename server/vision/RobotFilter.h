@@ -16,6 +16,7 @@
 class RobotFilter //: public Kalman::EKFilter<double, 1>
 {
     friend class VisionFilter;
+    friend class MainWindow;
 public:
     RobotFilter();
     void putNewFrame(const SSLFrame &fr);

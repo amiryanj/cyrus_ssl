@@ -11,13 +11,17 @@
 #include "paramater-manager/parametermanager.h"
 #include "test/testvisioninput.h"
 #include "test/testgotopoint.h"
+#include "test/testreferee.h"
+#include "test/testmathfunctions.h"
 #include "logger/logger.h"
+
 #include "general.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
+
     cout << "Main is running ... " << endl;
 
     srand(time(0));
@@ -44,6 +48,7 @@ int main(int argc, char *argv[])
 
     TestVisionInput* vision_tester = new TestVisionInput();
     TestGoToPoint* gotopoint_tester = new TestGoToPoint();
+    TestReferee* referee_tester = new TestReferee();
 
 
     long loopCounter = 0;
@@ -51,6 +56,8 @@ int main(int argc, char *argv[])
     {
         loopCounter ++;
         referee->check();
+        referee_tester->check();
+
 //        vision->check(); // in thread 2
         analyzer->check();
         if((loopCounter % 10) ==0) {
@@ -60,13 +67,13 @@ int main(int argc, char *argv[])
             double process_time = toc - tic;
             printf("Process Time = \t%f milli second\n", process_time);
 
-            transmitter->clear();
-            gotopoint_tester->check();
+//            transmitter->clear();
+//            gotopoint_tester->check();
 
             transmitter->check();
         }
-        if(loopCounter % 15 == 0)  {
-         //   vision_tester->check();
+        if(loopCounter % 40 == 0)  {
+            vision_tester->check();
             filter->check();
             gui->check();
 //            gui->testVisualizer();

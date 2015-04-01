@@ -76,11 +76,11 @@ void SSLReferee::check()
             case 'S':
                 new_command = SSL_Referee_Command_STOP;
                 break;
-            case 's':
-                new_command = SSL_Referee_Command_FORCE_START;
-                break;
             case '\n':
                 new_command = SSL_Referee_Command_NORMAL_START;
+                break;
+            case 's':
+                new_command = SSL_Referee_Command_FORCE_START;
                 break;
             case 'k':
                 new_command = SSL_Referee_Command_PREPARE_KICKOFF_YELLOW;

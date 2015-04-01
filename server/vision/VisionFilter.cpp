@@ -24,7 +24,7 @@ VisionFilter::VisionFilter()
         cameraLastFrameTime[i] = 0;
 
     ParameterManager* pm = ParameterManager::getInstance();
-    txtlogFile.open(pm->get<string>("general.debug.ball").c_str());
+//    txtlogFile.open(pm->get<string>("general.debug.ball").c_str());
 }
 
 VisionFilter::~VisionFilter()

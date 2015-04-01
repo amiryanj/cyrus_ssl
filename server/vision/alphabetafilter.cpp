@@ -8,11 +8,11 @@ AlphaBetaFilter::AlphaBetaFilter()
     // default parameters
     ParameterManager* pm = ParameterManager::getInstance();
 
-    m_alfa = pm->get<double>("kalman.default.alfa");   // position coefficient
-    m_beta = pm->get<double>("kalman.default.beta");   // velocity coefficient
-    m_gama = pm->get<double>("kalman.default.gama");   // accelera coefficient
+    m_alfa = pm->get<double>("vision.filter.default.alfa");   // position coefficient
+    m_beta = pm->get<double>("vision.filter.default.beta");   // velocity coefficient
+    m_gama = pm->get<double>("vision.filter.default.gama");   // accelera coefficient
 
-    m_acc_effect = pm->get<double>("kalman.default.acc_effect"); // default = 0
+    m_acc_effect = pm->get<double>("vision.filter.default.acc_effect"); // default = 0
     m_speed_discount_rate = 0.9;
 
     max_speed_crop.set(10000, 10000, 3*M_PI);

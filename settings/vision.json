@@ -1,24 +1,25 @@
-    {
-        "vision_delay_ms": "200",
-        "default":
-        {
+{
+    "vision_delay_ms": "200",
+    "default_frame_per_second" : 60.0,
+
+    "filter" : {
+        "default": {
             "alfa" : "0.25",
             "beta" : "0.05",
             "gama" : "0.15",
             "acc_effect" : "0.0"
         },
-        "ball":
-        {
+        "ball": {
             "alfa" : "0.25",
             "beta" : "0.05",
             "gama" : "0.15",
             "acc_effect" : "0.0"
         },
-        "robot":
-        {
+        "robot": {
             "alfa" : "0.25",
             "beta" : "0.05",
             "gama" : "0.15",
             "acc_effect" : "0.0"
         }
     }
+}

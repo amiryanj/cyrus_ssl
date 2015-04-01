@@ -112,6 +112,8 @@ SOURCES += \
     soccer/sslskill.cpp \
     test/testvisioninput.cpp \
     test/testgotopoint.cpp \
+    test/testreferee.cpp \
+    ../common/math/linesegment.cpp \
     logger/logger.cpp
 
 HEADERS += \
@@ -195,6 +197,8 @@ HEADERS += \
     soccer/sslskill.h \
     test/testvisioninput.h \
     test/testgotopoint.h \
+    test/testreferee.h \
+    test/testmathfunctions.h \
     logger/logger.h
 
 OTHER_FILES += \            
