@@ -8,6 +8,7 @@
 #include "../server/paramater-manager/parametermanager.h"
 #include <string>
 #include <QLabel>
+#include <QMessageBox>
 
 MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     QMainWindow(parent),
@@ -48,7 +49,7 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     connect(parser, SIGNAL(currentStrategy(QString,QMap<int,QString>)), field, SLOT(updateCurrentStrategy(QString,QMap<int,QString>)));
     connect(parser, SIGNAL(currentStrategy(QString,QMap<int,QString>)), this, SLOT(updateCurrentStrategy(QString)));
 
-    connect(parser, SIGNAL(newNearestRobotToBall(int,int,SSL::Color,bool)),  field,SLOT(updateNearestRobotToBall(int,int,SSL::Color,bool)));
+    connect(parser, SIGNAL(newNearestRobotToBall(int,int,SSL::Color,bool)), field, SLOT(updateNearestRobotToBall(int,int,SSL::Color,bool)));
     connect(parser, SIGNAL(gameRunning(bool)), this, SLOT(setGameRunningState(bool)));
     connect(parser, SIGNAL(newIntersectPoint(float,RobotState)), field, SLOT(updateRobotIntersect(float,RobotState)));
     connect(parser, SIGNAL(newRefereeState(QString)), this, SLOT(setRefereeState(QString)));
@@ -284,7 +285,13 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 
 void MainWindow::on_actionQuit_triggered()
 {
-    this->close();
+//    QMessageBox msgBox(this);
+//    msgBox.setText("Do you want to exit?");
+//    msgBox.setButtonText(1, "No");
+//    msgBox.addButton("Yes", );
+//    msgBox.setButtonText(0, "No");
+//    if(msgBox.exec() == QDialog::Accepted)
+        this->close();
 }
 
 void MainWindow::on_actionFull_Screen_toggled(bool arg1)

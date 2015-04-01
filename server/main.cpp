@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
-    transmitter->type = CommandTransmitter::SERIAL;
+    transmitter->type = CommandTransmitter::GRSIM;
 
     TestVisionInput* vision_tester = new TestVisionInput();
     TestGoToPoint* gotopoint_tester = new TestGoToPoint();

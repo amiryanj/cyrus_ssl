@@ -207,48 +207,51 @@ void SSLSkill::goBehindBall(Vector2D ball_position)
 double VelbyDis(double dis , double maxspeed)
 {
     logger * l = logger::getInstance();
+    const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
+
     //double maxspeed =800;
   //  Vector3D diff = target - mypos;
-    double ratio =(dis /(2*maxspeed))*0.7;
-
+    double ratio =(dis /(3*max_speed / 4));
+    ratio *= sqrt(ratio);
     (*l)[1] << dis<<" " <<maxspeed << " " << ratio<<endl;
-    if(dis > 2*maxspeed )
+    if(dis > 3*max_speed/4  )
     {
-        return 200.0;
+        return 1;
     }
 
-    if(ratio < 1)
-        return 1;
-    return ratio;
+    if(ratio < 0.01)
+        return 0.01;
+    return ratio ;
 
 
 }
 void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance)
 {
-    Vector3D diff = target_pos - (current_pos+this->owner_agent->robot->Speed()*0.15);
+    Vector3D diff = target_pos - (current_pos+this->owner_agent->robot->Speed()*0.2);
     diff.setTeta(continuousRadian(diff.Teta(), -M_PI));
+    const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
+    double linear_vel_strenght =  VelbyDis(diff.lenght2D() , this->owner_agent->robot->Speed().lenght2D());
 
     float omega = 0;
-    float linear_vel_strenght = 1.0;
     if ( abs(diff.Teta()) > M_PI_2 )  {
-        omega = 0.5 * sgn(diff.Teta());
-        linear_vel_strenght = 0.2;
+        omega = 0.2 * sgn(diff.Teta());
+        linear_vel_strenght = 0.02;
     }
     else if ( diff.Teta() > M_PI_4 ) {
-        omega = 0.2 * sgn(diff.Teta());
-        linear_vel_strenght = 0.4;
+        omega = 0.05 * sgn(diff.Teta());
+        linear_vel_strenght = 0.04;
     }
     else if (abs(diff.Teta() > tolerance.Teta())) {
-        omega = 0.2 * sgn(diff.Teta());
-        linear_vel_strenght = 0.6;
+        omega = 0.05 * sgn(diff.Teta());
+        linear_vel_strenght = 0.06;
     }
     else {
         omega = 0;
-        linear_vel_strenght = 1;
+//        linear_vel_strenght = 1;
     }
-    linear_vel_strenght = ParameterManager::getInstance()->get<double>("skills.test_vel");
+    linear_vel_strenght *= max_speed ;
     float Coeffs[3] = {1, 1, 0.1};
-    if( diff.lenght2D() < 800 )  {
+    /*if( diff.lenght2D() < 800 )  {
         if(diff.lenght2D() > 300.0)  {   // milli meter
             //Coeffs[0] = diff.lenght2D() / 1000.0;
             //Coeffs[1] = 1.1 * diff.lenght2D() / 1000.0;
@@ -264,8 +267,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
             linear_vel_strenght = 0.05;
         }
     }
-
-  linear_vel_strenght = VelbyDis(diff.lenght2D() , this->owner_agent->robot->Speed().lenght2D());
+*/
     Coeffs[2] = 0.3;
     //linear_vel_strenght = 0;
 
@@ -283,18 +285,28 @@ void SSLSkill::controlSpeed(const Vector3D& speed, bool use_controller)
     logger* l = logger::getInstance();
     Vector3D myspeed = this->owner_agent->robot->Speed();
     this->desiredGlobalSpeed = speed;
+
+    const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
+
     // because controller is not working yet/
     if(use_controller) {
         controller.setPoint(this->desiredGlobalSpeed,myspeed);
         appliedGlobalSpeed = controller.getControl();
     }
     else {
-        this->appliedGlobalSpeed = desiredGlobalSpeed;
+        this->appliedGlobalSpeed = desiredGlobalSpeed ;
+        this->appliedGlobalSpeed.setX(this->appliedGlobalSpeed.X() / max_speed);
+        this->appliedGlobalSpeed.setY(this->appliedGlobalSpeed.Y() / max_speed);
+
     }
 
     (*l)[0]<<desiredGlobalSpeed.X()<<" "<<desiredGlobalSpeed.Y()<<" ";
-    (*l)[0]<<myspeed.X()<<" "<<myspeed.Y() << " " << myspeed.lenght2D()/desiredGlobalSpeed.lenght2D()<<endl;
-    Vector3D appliedLocalSpeed = appliedGlobalSpeed;
+    (*l)[0]<<myspeed.X()<<" "<<myspeed.Y() << " ";
+    (*l)[0]<<appliedGlobalSpeed.X()<<" "<<appliedGlobalSpeed.Y()<<endl;
+
+
+    Vector3D appliedLocalSpeed = appliedGlobalSpeed ;
+
     appliedLocalSpeed.rotate( -1 * Position().Teta());
 
     CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), appliedLocalSpeed);

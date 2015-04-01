@@ -363,8 +363,9 @@ void FieldScene::drawBounds()
                        2*FIELD_PENALTY_AREA_RADIUS,2*FIELD_PENALTY_AREA_RADIUS,180,90);
     scene.addPath(rightPenaltyArea, drawBoundsPen);
 
-    scene.addEllipse(FIELD_LENGTH/2 - (FIELD_PENALTY_DISTANCE + BALL_RADIUS), -BALL_RADIUS,
-                     BALL_RADIUS, BALL_RADIUS, QPen(Qt::white, 2));
+    scene.addEllipse( FIELD_LENGTH/2 - FIELD_PENALTY_DISTANCE - BALL_RADIUS,
+                      -BALL_RADIUS,
+                      2*BALL_RADIUS, 2*BALL_RADIUS, QPen(Qt::white, 7) );
 
     QPainterPath Goal2;
     Goal2.moveTo(FIELD_LENGTH/2,-FIELD_GOAL_WIDTH/2);
@@ -374,6 +375,6 @@ void FieldScene::drawBounds()
     scene.addPath(Goal2,QPen(QColor(Qt::black),20));
 
     scene.addEllipse(-FIELD_LENGTH/2 + (FIELD_PENALTY_DISTANCE - BALL_RADIUS), -BALL_RADIUS,
-                     BALL_RADIUS, BALL_RADIUS, QPen(Qt::white, 2));
+                     2*BALL_RADIUS, 2*BALL_RADIUS, QPen(Qt::white, 7));
 
 }

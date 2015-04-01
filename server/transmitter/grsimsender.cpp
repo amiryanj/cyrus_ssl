@@ -46,7 +46,7 @@ void GRSimSender::sendPacket(int robotID, RobotCommandPacket rawPacket)
 
     grSim_Robot_Command* command = grSimPacket.mutable_commands()->add_robot_commands();
     command->set_id(robotID);
-    double max_lin_vel = 0.05; // you should set this parameter
+    double max_lin_vel = 0.01; // you should set this parameter
     command->set_wheel1(rawPacket.getWheelSpeed(4)/max_lin_vel);
     command->set_wheel2(rawPacket.getWheelSpeed(3)/max_lin_vel);
     command->set_wheel3(rawPacket.getWheelSpeed(2)/max_lin_vel);
