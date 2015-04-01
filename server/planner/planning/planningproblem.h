@@ -117,7 +117,7 @@ private:
     Station GaussinaStateSample(Station mean, double var);
 
     Velocity UniformControlSample();
-
+    friend class SSLSkill;
     bool CheckValidity(Station A);
     bool hasCollision(Station &st, const ObstacleSet& ob_set);
     bool hasCollision(Station &st, const Obstacle& ob);

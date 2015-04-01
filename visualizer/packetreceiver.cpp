@@ -37,7 +37,7 @@ bool PacketReceiver::joinNetwork()
 {
     socket.close();
 #if QT_VERSION >= 0x050000
-    if(socket.bind(QHostAddress::AnyIPv4, port, QUdpSocket::ShareAddress))
+    if(socket.bind(QHostAddress::AnyIPv4, mPort, QUdpSocket::ShareAddress))
 #else
     if(socket.bind(QHostAddress::Any, mPort, QUdpSocket::ShareAddress))
 #endif

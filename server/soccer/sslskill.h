@@ -60,7 +60,7 @@ public:
     
     void updateObstacles();
 private:
-    void move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance);
+    void move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff = 0.0);
     void controlSpeed(const Vector3D &speed, bool use_controller);
 
     SSLAgent* owner_agent;
