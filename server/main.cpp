@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
             gameModule->check();
             double toc = SSL::currentTimeMSec();
             double process_time = toc - tic;
-            printf("Process Time = \t%f milli second\n", process_time);
+//            printf("Process Time = \t%f milli second\n", process_time);
 
 //            transmitter->clear();
             gotopoint_tester->check();
