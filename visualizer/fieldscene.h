@@ -10,6 +10,7 @@
 #include "graphics/graphic_circle.h"
 #include "graphics/graphic_intersect.h"
 #include "graphics/graphic_ball.h"
+#include "graphics/graphic_arc.h"
 #include "Concepts.h"
 #include "robotstate.h"
 #include <QWheelEvent>
@@ -60,6 +61,7 @@ private:
     PlanGraphicsItem* plan[MAX_ID_NUM];
     VectorGraphicsItem *desiredVel[MAX_ID_NUM];
     VectorGraphicsItem *appliedVel[MAX_ID_NUM];
+    ArcGraphicsItem *robotRotation[MAX_ID_NUM];
 
     QGraphicsItem *ballZone;
 

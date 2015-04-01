@@ -57,7 +57,8 @@ SOURCES += main.cpp\
     ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc \
     ../common/math/sslmath.cpp \
     fieldview.cpp \
-    ../server/paramater-manager/parametermanager.cpp
+    ../server/paramater-manager/parametermanager.cpp \
+    graphics/graphic_arc.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -88,7 +89,8 @@ HEADERS  += mainwindow.h \
     ../common/protoc/visualizer/cpp/ssl_analyzer.pb.h \
     ../common/math/sslmath.h \
     fieldview.h \
-    ../server/paramater-manager/parametermanager.h
+    ../server/paramater-manager/parametermanager.h \
+    graphics/graphic_arc.h
 
 FORMS    += mainwindow.ui \
     plotwidget.ui \

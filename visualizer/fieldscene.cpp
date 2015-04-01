@@ -2,7 +2,7 @@
 #include "ui_fieldscene.h"
 #include <QDebug>
 #include <QVector3D>
-
+#include "../common/math/sslmath.h"
 
 FieldScene::FieldScene(Color our_color, QWidget *parent) :
     QWidget(parent)
@@ -61,6 +61,10 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
                 appliedVel[i]->setGlobalOrien(false);
 //                appliedVel[i]->setParentItem(robot[tm][i]);
                 scene.addItem(appliedVel[i]);
+
+                robotRotation[i] = new ArcGraphicsItem(Qt::yellow);
+                robotRotation[i]->setZValue(6.5);
+                robotRotation[i]->setParentItem(robot[tm][i]);
 
             }
 
@@ -151,16 +155,26 @@ void FieldScene::updateBallState(const BallState &st)
     this->ballVel->setEnd(st.velocity.X(), -st.velocity.Y());
 
     ballTail->setNewPosition(QVector2D(st.position.X(), st.position.Y()));
-
 }
 
 void FieldScene::updateRobotPlan(int id, QVector<RobotState> path, QVector3D desired_vel, QVector3D applied_vel)
 {
     QVector<QVector3D> pathToShow;
-    foreach (RobotState state, path) {
-        QVector3D pos(state.position.X(), state.position.Y(), state.position.Teta());
+    for ( int i=0; i<path.size(); i++ ) {
+        QVector3D pos(path[i].position.X(), path[i].position.Y(), path[i].position.Teta());
         pathToShow.append(pos);
     }
+
+    if(path.size() > 1) {
+        float robot_rotation =
+                continuousRadian(path[1].position.Teta() - (robot[ourColor][id]->rotation() * M_PI / 180.0),
+                                 -M_PI);
+        robotRotation[id]->setArcLenght(-robot_rotation * 180.0/M_PI);
+    }
+    else {
+        robotRotation[id]->setArcLenght(0);
+    }
+
     if(id <0 || id>=MAX_ID_NUM)  {
         qErrnoWarning("Error: invalid id for planner");
         return;
