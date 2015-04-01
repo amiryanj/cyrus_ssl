@@ -12,14 +12,15 @@
     },
     "test":
     {
-      "robot_num" : 2,
-       "vel":0.7
+      "robot_num" : 0,
+       "vel":0.7 ,
+       "max_speed" : 3000
 
     },
 
     "game":
     {
-        "our_color" : 0,
+        "our_color" : 1,
         "our_side" : -1,
         "comment" : "Yellow = 0, Blue = 1 Left = -1, Right = 1"
 
