@@ -1,0 +1,10 @@
+message Plotter_Packet {
+	required string name = 1;
+	repeated double values = 2;
+	optional double key  = 3;
+	repeated string legends = 4;
+	optional bool clear_history = 5;
+	optional string sender_name = 6;
+}
+
+

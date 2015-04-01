@@ -228,7 +228,7 @@ SSLAnalyzer::RobotIntersectTime SSLAnalyzer::nearestRobotIntersectBall(const vec
 SSLRobot *SSLAnalyzer::nearestToBall(const vector<SSLRobot *> robots, uint index)
 {
     RobotIntersectTime intersect_(nearestRobotIntersectBall(robots, index));
-    if(intersect_.isValid()) {
+    if(intersect_.isValid())  {
         return intersect_.m_robot;
     }
     return NULL;

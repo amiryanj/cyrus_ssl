@@ -95,7 +95,7 @@ float Vector2D::distToLine(const LineSegment &ls) const
     Vector2D ac = (c-a);
     Vector2D ab = (b-a);
     float cross = ac.X()*ab.Y() + ac.Y()*ab.X();
-    return abs(cross)/ distancePointPoint;
+    return fabs(cross)/ distancePointPoint;
 
      */
 

@@ -115,7 +115,9 @@ SOURCES += \
     test/testgotopoint.cpp \
     test/testreferee.cpp \
     ../common/math/linesegment.cpp \
-    logger/logger.cpp
+    log-tools/logger.cpp \
+    log-tools/networkplotter.cpp \
+    ../common/protoc/plotter/cpp/message_plotter.pb.cc
 
 HEADERS += \
     vision/SSLVision.h \
@@ -200,7 +202,9 @@ HEADERS += \
     test/testgotopoint.h \
     test/testreferee.h \
     test/testmathfunctions.h \
-    logger/logger.h
+    log-tools/logger.h \
+    log-tools/networkplotter.h \
+    ../common/protoc/plotter/cpp/message_plotter.pb.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \

@@ -137,7 +137,7 @@ void GoalKeeper::run()
     target.setY(((double)FIELD_LENGTH / (double)2) - (double)ROBOT_RADIUS);
     if(ball.X() == goalCenter.X()){
         target.setX(0);
-    }else if(ball.Y() == goalCenter.Y() || abs(ball.Y()) > (double)FIELD_LENGTH/(double)2){
+    }else if(ball.Y() == goalCenter.Y() || fabs(ball.Y()) > (double)FIELD_LENGTH/(double)2){
         if(ball.Y() > 0){
             target.setX((double)FIELD_GOAL_WIDTH / (double)2);
         }else{

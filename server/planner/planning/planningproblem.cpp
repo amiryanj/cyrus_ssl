@@ -196,7 +196,7 @@ Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set)
         case MP::eOmniDirectional :
             delta_orien = SSL::continuousRadian(goal.goal_point.getPosition().Teta()
                                                      - current_station.getPosition().Teta(), -M_PI);
-//            if (abs(delta_orien) > (M_PI/8.0f)) {
+//            if (fabs(delta_orien) > (M_PI/8.0f)) {
 ////                new_pos += total_force.normalized() * extension_len * 0.2;
 //                new_station.setPosition(Vector3D( new_pos, current_station.getPosition().Teta() +
 //                                                  sgn (delta_orien) * M_PI / 8.0));

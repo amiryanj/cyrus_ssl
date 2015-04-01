@@ -42,7 +42,7 @@ SOURCES += \
     ../common/math/sslmath.cpp \
     ../common/thirdparty/socket/netraw.cpp \
     ../common/thirdparty/socket/IPPacket.cpp \
-    ../visualizer/plotwidget.cpp \
+    ../visualizer/plot-manager/plotwidget.cpp \
     ../server/paramater-manager/parametermanager.cpp \
     ../server/vision/robocup_ssl_client.cpp \
     ../server/vision/sslframe.cpp \
@@ -71,14 +71,14 @@ HEADERS  += \
     ../common/math/sslmath.h \
     ../common/thirdparty/socket/netraw.h \
     ../common/thirdparty/socket/IPPacket.h \
-    ../visualizer/plotwidget.h \
+    ../visualizer/plot-manager/plotwidget.h \
     ../server/paramater-manager/parametermanager.h \
     ../server/vision/robocup_ssl_client.h \
     ../server/vision/sslframe.h \
     ../server/vision/alphabetafilter.h
 
 FORMS    += mainwindow.ui \
-    ../visualizer/plotwidget.ui
+    ../visualizer/plot-manager/plotwidget.ui
 
 OTHER_FILES += \
     ../cyrus_settings.json

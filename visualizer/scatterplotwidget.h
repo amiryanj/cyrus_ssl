@@ -2,6 +2,7 @@
 #define _SCATTERPLOTWIDGET_H
 
 #include <QWidget>
+#include "plot-manager/qcustomplot.h"
 
 namespace Ui {
 class ScatterPlotWidget;

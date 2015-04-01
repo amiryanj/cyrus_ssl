@@ -13,7 +13,8 @@
 #include "test/testgotopoint.h"
 #include "test/testreferee.h"
 #include "test/testmathfunctions.h"
-#include "logger/logger.h"
+#include "log-tools/logger.h"
+#include "log-tools/networkplotter.h"
 
 #include "general.h"
 
@@ -28,6 +29,8 @@ int main(int argc, char *argv[])
 
     ParameterManager* pm = ParameterManager::getInstance();
     logger* l = logger::getInstance();
+
+    NetworkPlotter* plotter = NetworkPlotter::getInstance();
 
     SSLReferee *referee = new SSLReferee(pm->get<int>("network.REFEREE_PORT"),
                                          pm->get<string>("network.REFEREE_ADDRESS"));
@@ -54,6 +57,7 @@ int main(int argc, char *argv[])
     while (true)
     {
         loopCounter ++;
+        NetworkPlotter::getInstance()->buildAndSendPacket("Loop counter", loopCounter);
         referee->check();
         referee_tester->check();
 
@@ -64,6 +68,7 @@ int main(int argc, char *argv[])
             gameModule->check();
             double toc = SSL::currentTimeMSec();
             double process_time = toc - tic;
+            NetworkPlotter::getInstance()->buildAndSendPacket("Process Time", process_time);
 //            printf("Process Time = \t%f milli second\n", process_time);
 
 //            transmitter->clear();

@@ -30,8 +30,8 @@ INCLUDEPATH += ../common \
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    qcustomplot.cpp \
-    plotwidget.cpp \
+    plot-manager/qcustomplot.cpp \
+    plot-manager/plotwidget.cpp \
     fieldscene.cpp \
     graphics/graphic_bot.cpp \
     robotstate.cpp \
@@ -59,11 +59,13 @@ SOURCES += main.cpp\
     fieldview.cpp \
     ../server/paramater-manager/parametermanager.cpp \
     graphics/graphic_arc.cpp \
-    scatterplotwidget.cpp
+    scatterplotwidget.cpp \
+    plot-manager/plotmanagerwidget.cpp \
+    ../common/protoc/plotter/cpp/message_plotter.pb.cc
 
 HEADERS  += mainwindow.h \
-    qcustomplot.h \
-    plotwidget.h \
+    plot-manager/qcustomplot.h \
+    plot-manager/plotwidget.h \
     fieldscene.h \
     graphics/graphic_bot.h \
     Concepts.h \
@@ -92,15 +94,18 @@ HEADERS  += mainwindow.h \
     fieldview.h \
     ../server/paramater-manager/parametermanager.h \
     graphics/graphic_arc.h \
-    scatterplotwidget.h
+    scatterplotwidget.h \
+    plot-manager/plotmanagerwidget.h \
+    ../common/protoc/plotter/cpp/message_plotter.pb.h
 
 FORMS    += mainwindow.ui \
-    plotwidget.ui \
+    plot-manager/plotwidget.ui \
     fieldscene.ui \
     selectcolordialog.ui \
     selectplotdialog.ui \
     robotpropertieswidget.ui \
-    scatterplotwidget.ui
+    scatterplotwidget.ui \
+    plot-manager/plotmanagerwidget.ui
 
 RESOURCES += \
     icons.qrc

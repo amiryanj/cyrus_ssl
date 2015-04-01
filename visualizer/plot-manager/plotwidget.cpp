@@ -8,14 +8,7 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
     ui->setupUi(this);
 
     // Add Drag, Zoom and ... capabilities
-    ui->myPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
-                                QCP::iSelectLegend | QCP::iSelectPlottables);
-
-    // connect slot that ties some axis selections together (especially opposite axes):
-    connect(ui->myPlot, SIGNAL(selectionChangedByUser()), this, SLOT(selectionChanged()));
-    // connect slots that takes care that when an axis is selected, only that direction can be dragged and zoomed:
-    connect(ui->myPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(mousePress()));
-    connect(ui->myPlot, SIGNAL(mouseWheel(QWheelEvent*)), this, SLOT(mouseWheel()));
+    ui->myPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 
     // make bottom and left axes transfer their ranges to top and right axes:
     connect(ui->myPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->myPlot->xAxis2, SLOT(setRange(QCPRange)));
@@ -24,65 +17,64 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
     // connect slot that shows a message in the status bar when a graph is clicked:
     connect(ui->myPlot, SIGNAL(plottableClick(QCPAbstractPlottable*,QMouseEvent*)), this, SLOT(graphClicked(QCPAbstractPlottable*)));
 
-    // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
-//    connect(&dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
-
-    // ************************************************
-    // ************** Set a new title *****************
-    // ************************************************
-//    ui->myPlot->plotLayout()->insertRow(0);     // Adding a row to insterting new Title
-//    ui->myPlot->plotLayout()->addElement(0, 0, new QCPPlotTitle(ui->myPlot, "Robot States"));
-
-    // ************************************************
     // ************* Set Axis Settings ****************
-    // ************************************************
-//    ui->myPlot->xAxis->setTickLabelType(QCPAxis::ltNumber);
     ui->myPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
     ui->myPlot->xAxis->setDateTimeFormat("mm:ss");
-    ui->myPlot->xAxis->setAutoTickStep(false);
+    ui->myPlot->xAxis->setAutoTickStep(true);
     ui->myPlot->xAxis->setTickStep(1);
     ui->myPlot->xAxis->setTickLabelRotation(30);
 
-    ui->myPlot->yAxis->setRange(100, 50000);
-//    ui->myPlot->yAxis->setLabel("Velo (mm/s)");
+    ui->myPlot->yAxis->setRange(0, 1);
 
-//    ui->myPlot->axisRect()->setupFullAxesBox();
-
-
-    // ************************************************
     // ************* Adding New Graph *****************
-    // ************************************************
-    this->numGraphs = numGraphs;
+    QVector<QColor> colorList;
+    colorList << Qt::green << Qt::yellow << Qt::red << Qt::darkGreen << Qt::darkYellow << Qt::darkRed;
+    this->graphsCount = numGraphs;
     for(int i=0; i< numGraphs; i++) {
         ui->myPlot->addGraph(/*ui->myPlot->xAxis,ui->myPlot->yAxis*/);
-        if(i==0) {
-            ui->myPlot->graph(2*i)->setPen(QPen(Qt::red));
-            ui->myPlot->graph(2*i)->setName(QString("Actual Vel"));
-        }
-        else if(i==1) {
-            ui->myPlot->graph(2*i)->setPen(QPen(Qt::green));
-            ui->myPlot->graph(2*i)->setName(QString("Desired Vel"));
-        }
-        else {
-            ui->myPlot->graph(2*i)->setPen(QPen(Qt::yellow));
-            ui->myPlot->graph(2*i)->setName(QString("Applied Vel%1"));
-        }
+        ui->myPlot->graph(2*i)->setPen(colorList[i%numGraphs]);
+
         // Add a blue dot in end of graph
         ui->myPlot->addGraph();
+        ui->myPlot->legend->removeItem(ui->myPlot->legend->itemCount()-1); // don't show two graphs in legend
         ui->myPlot->graph(2*i+1)->setPen(QPen(Qt::blue));
         ui->myPlot->graph(2*i+1)->setLineStyle(QCPGraph::lsNone);
         ui->myPlot->graph(2*i+1)->setScatterStyle(QCPScatterStyle::ssDisc);
+    }
+    connected = true;
+}
+
+void PlotWidget::setName(QString name)
+{
+    this->plotName = name;
+    ui->minimizeButton->setToolTip("Plot: " + name);
+}
+
+void PlotWidget::setLegends(QStringList legends)
+{
+    ui->myPlot->legend->setVisible(true);
+    ui->myPlot->legend->setFont(QFont("Ubuntu", 9));
+    ui->myPlot->legend->setRowSpacing(-3);
+
+    for(int i=0; i< legends.size(); i++) {
+        ui->myPlot->graph(2*i)->setName(legends[i]);
     }
 }
 
 void PlotWidget::addValue(double key, QVector<double> val)
 {
-    for(int i=0; i<(qMin(numGraphs, val.size())); i++) {
+    if(!this->connected)
+        return;
+    for(int i=0; i<(qMin(graphsCount, val.size())); i++) {
           // add data to lines:
           ui->myPlot->graph(2*i)->addData(key, val[i]);
           ui->myPlot->graph(2*i)->removeDataBefore(key-30);
           ui->myPlot->graph(2*i+1)->clearData();
           ui->myPlot->graph(2*i+1)->addData(key, val[i]);
+          if(val[i] > ui->myPlot->yAxis->range().upper)
+              ui->myPlot->yAxis->setRangeUpper(val[i]);
+          if(val[i] < ui->myPlot->yAxis->range().lower)
+              ui->myPlot->yAxis->setRangeLower(val[i]);
     }
     // make key axis range scroll with the data (at a constant range size of 8):
     ui->myPlot->xAxis->setRange(key+2, 20, Qt::AlignRight);
@@ -91,13 +83,11 @@ void PlotWidget::addValue(double key, QVector<double> val)
     // calculate frames per second:
     static double lastFpsKey;
     static int frameCount;
-    ++frameCount;
+    frameCount ++;
     if (key-lastFpsKey > 2) // average fps over 2 seconds
     {
-      //ui->statusBar->showMessage(QString("%1 FPS, Total Data points: %2")
-        //.arg(frameCount/(key-lastFpsKey), 0, 'f', 0).arg(ui->myPlot->graph(0)->data()->count()+ui->myPlot->graph(2)->data()->count()), 0);
-      lastFpsKey = key;
-      frameCount = 0;
+        lastFpsKey = key;
+        frameCount = 0;
     }
 }
 
@@ -122,6 +112,11 @@ void PlotWidget::addValue(double value)
     counter++;
 
     addValue(counter/10.0, value);
+}
+
+void PlotWidget::setConnected(bool connected)
+{
+    this->connected = connected;
 }
 
 void PlotWidget::setYAxisRange(double lower, double upper)
@@ -208,3 +203,32 @@ void PlotWidget::graphClicked(QCPAbstractPlottable *plottable)
 //    ui->vel_label->setText(plottable->name());
 }
 
+
+void PlotWidget::on_closeButton_clicked()
+{
+    emit closeMe(this->plotName);
+}
+
+void PlotWidget::on_minimizeButton_clicked(bool checked)
+{
+    if(checked) {
+        ui->myPlot->hide();
+        ui->closeButton->hide();
+        ui->pauseButton->hide();
+//        emit setMeMinimized(name, true);
+        this->resize(100, 40);
+
+    }
+    else {
+        ui->myPlot->show();
+        ui->closeButton->show();
+        ui->pauseButton->show();
+
+//        emit setMeMinimized(plotName, true);
+    }
+}
+
+void PlotWidget::on_pauseButton_clicked(bool checked)
+{
+    this->connected = !checked;
+}

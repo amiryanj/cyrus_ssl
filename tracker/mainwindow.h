@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QTimer>
-#include "../visualizer/plotwidget.h"
 #include "../server/ai/SSLWorldModel.h"
 #include "../server/vision/VisionFilter.h"
 #include "../server/vision/BallFilter.h"
@@ -27,7 +26,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    PlotWidget *pw_;
     QTimer timer;
 
 };

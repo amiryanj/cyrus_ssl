@@ -1,6 +1,6 @@
 #include "robotpropertieswidget.h"
 #include "ui_robotpropertieswidget.h"
-#include "plotwidget.h"
+#include "plot-manager/plotwidget.h"
 
 RobotPropertiesWidget::RobotPropertiesWidget(bool isOurs, QWidget *parent) :
     QWidget(parent),

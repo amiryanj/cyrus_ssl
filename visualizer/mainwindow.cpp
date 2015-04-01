@@ -25,6 +25,9 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     scatter = new ScatterPlotWidget(this);
     ui->scatterLayout->addWidget(scatter);
 
+    plotManager = new PlotManagerWidget(this);
+    ui->plotManagerLayout->addWidget(plotManager);
+
     status_strategy = new QLabel(this);
     status_referee = new QLabel(this);
     status_led_game_running = new QLabel(this);
@@ -46,8 +49,6 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     connect(parser, SIGNAL(newPlan(int,QVector<RobotState>,QVector3D,QVector3D)), field, SLOT(updateRobotPlan(int,QVector<RobotState>,QVector3D,QVector3D)));
 
     connect(parser, SIGNAL(newRobotState(RobotState)), this, SLOT(updateRobotVelocity(RobotState)));
-    connect(parser, SIGNAL(newRobotVelocity(int,QVector3D,QVector3D)), this, SLOT(plotRobotVelocity(int,QVector3D,QVector3D)));
-    connect(parser, SIGNAL(newBallState(BallState)), this, SLOT(plotBallvelocity(BallState)));
 
     connect(parser, SIGNAL(currentStrategy(QString,QMap<int,QString>)), field, SLOT(updateCurrentStrategy(QString,QMap<int,QString>)));
     connect(parser, SIGNAL(currentStrategy(QString,QMap<int,QString>)), this, SLOT(updateCurrentStrategy(QString)));
@@ -77,15 +78,6 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-PlotWidget* MainWindow::addPlot(uint graph_num, QString label)
-{
-    PlotWidget *plot = new PlotWidget(graph_num, ui->plotContainerTabWidget);
-
-    ui->plotContainerTabWidget->addTab(plot, label);
-
-    return plot;
 }
 
 bool MainWindow::joinCyrusServer()
@@ -197,107 +189,10 @@ void MainWindow::setupTree()
 
 }
 
-void MainWindow::on_ourRobotsTableWidget_cellDoubleClicked(int row, int column)
-{
-    QString plotName = QString((ourColor==SSL::Blue)?"Blue%1 ":"Yellow%1 ").arg(row);
-    SelectPlotDialog dialog;
-    if(dialog.exec() == QDialog::Accepted) {
-        if(dialog.is_x_selected())
-            plotName.append("X");
-        if(dialog.is_y_selected())
-            plotName.append("Y");
-        if(dialog.is_mag_selected())
-            plotName.append("M");
-        if(dialog.is_teta_selected())
-            plotName.append("T");
-    }
-
-    PlotWidget* plot;
-    if(!plotList.contains(plotName))
-        plot = addPlot(3, plotName);
-    else
-        plot = plotList[plotName];
-    ui->plotContainerTabWidget->setCurrentWidget(plot);
-    this->plotList.insert(plotName, plot);
-}
-
-void MainWindow::on_opRobotsTableWidget_cellDoubleClicked(int row, int column)
-{
-    QString plotName = QString((ourColor==SSL::Yellow)?"Blue%1 ":"Yellow%1 ").arg(row);
-    SelectPlotDialog dialog;
-    if(dialog.exec() == QDialog::Accepted) {
-        if(dialog.is_x_selected())
-            plotName.append("X");
-        if(dialog.is_y_selected())
-            plotName.append("Y");
-        if(dialog.is_mag_selected())
-            plotName.append("M");
-        if(dialog.is_teta_selected())
-            plotName.append("T");
-    }
-
-
-    PlotWidget* plot;
-    if(!plotList.contains(plotName))
-        plot = addPlot(3, plotName);
-    else
-        plot = plotList[plotName];
-    ui->plotContainerTabWidget->setCurrentWidget(plot);
-    this->plotList.insert(plotName, plot);
-}
-
 void MainWindow::updateRobotVelocity(RobotState state)
 {
     if(state.color == ourColor)
         ourActualVelocity[state.ID] = QVector3D(state.velocity.X(), state.velocity.Y(), state.velocity.Teta());
-}
-
-void MainWindow::plotRobotVelocity(int id, QVector3D desired, QVector3D applied)
-{
-    static QVector<QPoint> desired_points;
-    static QVector<QPoint> applied_points;
-    if(id == 0) {
-        desired_points.append(desired.toPoint());
-        applied_points.append(applied.toPoint());
-        if(desired_points.size() > 15) {
-            desired_points.pop_front();
-            applied_points.pop_front();
-        }
-    }
-    scatter->setData(desired_points, applied_points);
-
-    QStringList str_list;
-    str_list << "X" << "Y" << "M" << "T";
-    for(int i = 0 ; i < str_list.size() ; i++)
-    {
-        QString str = ((ourColor==SSL::Blue)? "Blue":"Yellow") + QString::number(id) + " " + str_list[i];
-        if(plotList.contains(str))
-        {
-            PlotWidget* plot = plotList[QString("%1").arg(str)];
-            QVector<double> values;
-            if(str_list.at(i) == "X")
-                values << ourActualVelocity[id].x() << desired.x() << applied.x() ;
-            else if(str_list.at(i) == "Y")
-                values << ourActualVelocity[id].y() << desired.y() << applied.y() ;
-            else if(str_list.at(i) == "M")
-                values << ourActualVelocity[id].toVector2D().length() << desired.toVector2D().length() << applied.toVector2D().length() ;
-             else if(str_list.at(i) == "Y")
-                values << ourActualVelocity[id].z() << desired.z() << applied.z() ;
-            plot->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
-        }
-    }
-}
-
-void MainWindow::on_tabWidget_tabCloseRequested(int index)
-{
-    QString tab_text = ui->plotContainerTabWidget->tabText(index);
-    this->plotList.remove(tab_text);
-    ui->plotContainerTabWidget->removeTab(index);
-
-    // TO DO
-    // delete the plot widget that would be closed
-//    ui->tabWidget->
-//    this->plotList
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -322,71 +217,6 @@ void MainWindow::on_actionFull_Screen_toggled(bool arg1)
     else {
         this->setWindowFlags(Qt::Window);
         this->showNormal();
-    }
-}
-
-void MainWindow::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
-{
-    QString a = item->text(column);
-    qDebug() << "Salam:   " << a;
-    if(a.contains("Robot")) {
-        RobotPropertiesWidget *widget = new RobotPropertiesWidget();
-        ui->plotContainerTabWidget->addTab(widget, a);
-        this->robotWidgetList.insert(a, widget);
-    }
-//    if(item->)
-}
-
-void MainWindow::plotBallvelocity(BallState state)
-{
-    if(!plotList.contains("ball_x")) {
-        PlotWidget* plot = addPlot(1, "ball_x");
-        plotList.insert("ball_x", plot);
-    }
-    {
-    QVector<double> values;
-    values << state.velocity.X();
-    plotList["ball_x"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
-    }
-
-    if(!plotList.contains("ball_y")) {
-        PlotWidget* plot = addPlot(1, "ball_y");
-        plotList.insert("ball_y", plot);
-    }
-    {
-    QVector<double> values;
-    values << state.velocity.Y();
-    plotList["ball_y"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
-    }
-
-    if(!plotList.contains("ball_mag")) {
-        PlotWidget* plot = addPlot(1, "ball_mag");
-        plotList.insert("ball_mag", plot);
-    }
-    {
-    QVector<double> values;
-    values << state.velocity.lenght();
-    plotList["ball_mag"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
-    }
-
-    if(!plotList.contains("ball_teta")) {
-        PlotWidget* plot = addPlot(1, "ball_teta");
-        plotList.insert("ball_teta", plot);
-    }
-    {
-    QVector<double> values;
-    values << state.velocity.arctan();
-    plotList["ball_teta"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
-    }
-
-    if(!plotList.contains("ball_displacement")) {
-        PlotWidget* plot = addPlot(1, "ball_displacement");
-        plotList.insert("ball_displacement", plot);
-    }
-    {
-    QVector<double> values;
-    values << state.displacement.lenght();
-    plotList["ball_displacement"]->addValue(QDateTime::currentDateTime().toTime_t()+ QTime::currentTime().msec()/1000.0, values);
     }
 }
 

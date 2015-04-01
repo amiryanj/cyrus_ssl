@@ -1,13 +1,9 @@
-#ifndef PACKETRECEIVER_H
-#define PACKETRECEIVER_H
+#ifndef _PACKETRECEIVER_H
+#define _PACKETRECEIVER_H
 
-#include "QObject"
-#include "thirdparty/socket/netraw.h"
-#include "thirdparty/socket/IPPacket.h"
-#include "robotstate.h"
 #include <QUdpSocket>
 #include <QTimer>
-#include "general.h"
+#include "robotstate.h"
 #include "protoc/visualizer/cpp/ssl_visualizer.pb.h"
 #include "protoc/visualizer/cpp/ssl_world.pb.h"
 #include "protoc/visualizer/cpp/ssl_analyzer.pb.h"

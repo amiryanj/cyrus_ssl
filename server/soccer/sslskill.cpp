@@ -9,7 +9,7 @@
 #include "sslagent.h"
 #include "sslgamepositions.h"
 #include "../paramater-manager/parametermanager.h"
-#include "../logger/logger.h"
+#include "../log-tools/logger.h"
 SSLSkill::SSLSkill(SSLAgent *parent)
 {
     ParameterManager* pm = ParameterManager::getInstance();
