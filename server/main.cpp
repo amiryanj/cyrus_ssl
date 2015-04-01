@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
-    transmitter->type = CommandTransmitter::GRSIM;
+    transmitter->type = CommandTransmitter::SERIAL;
 
     TestVisionInput* vision_tester = new TestVisionInput();
     TestGoToPoint* gotopoint_tester = new TestGoToPoint();
@@ -67,12 +67,12 @@ int main(int argc, char *argv[])
             printf("Process Time = \t%f milli second\n", process_time);
 
 //            transmitter->clear();
-//            gotopoint_tester->check();
+            gotopoint_tester->check();
 
             transmitter->check();
         }
         if(loopCounter % 40 == 0)  {
-            vision_tester->check();
+//            vision_tester->check();
             filter->check();
             gui->check();
 //            gui->testVisualizer();

@@ -296,7 +296,7 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         goal->set_y(agent->skill->target.Y());
         goal->set_teta(agent->skill->target.Teta());
         planner_obstacles* obstacles = plan->mutable_obstacleset(); // not filled yet
-        if(agent->skill->planner.planningResult)
+//        if(agent->skill->planner.planningResult)
             for(uint i = 0; i< agent->skill->planner.getTrajectory().length(); i++)
             {
                 Vector3D pos = agent->skill->planner.getTrajectory().getStation(i).getPosition();

@@ -26,6 +26,7 @@ TARGET = cyrus2014
 INCLUDEPATH += \
             $$PWD \
             /usr/local/include \
+            /home/pourya/boost_1_54_0/ \
             ../common \
             ../common/math \
             ../common/tools \

@@ -113,7 +113,7 @@ void BallFilter::run()
     m_filteredVelocity = m_clusteredVelocity;
 
     ParameterManager* pm = ParameterManager::getInstance();
-    float vision_delay = pm->get<double>("kalman.vision_delay_ms") * 0.001;
+    float vision_delay = pm->get<double>("vision.vision_delay_ms") * 0.001;
 //    SSLObjectState predict_result = alphaBetaFilter.predict(vision_delay);
     //    this->m_filteredPosition = predict_result.pos.to2D();
     this->m_filteredPosition = alphaBetaFilter.m_state.pos.to2D() + m_filteredVelocity * vision_delay;

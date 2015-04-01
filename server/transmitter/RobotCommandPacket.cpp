@@ -58,7 +58,7 @@ void RobotCommandPacket::setVelocity(const Vector3D &vel, bool use_new_wheel_ang
 
 void RobotCommandPacket::setVelocityByWheels(Vector3D vel, bool use_new_wheel_angles)
 {
-    float omega_coeff = ROBOT_RADIUS * 0.01;
+    float omega_coeff = ROBOT_RADIUS * 0.005;
     // by Jacobian Matrix
     if(use_new_wheel_angles) {
         v[0] = cos(wheelAngle_1_new) * vel.X() + sin(wheelAngle_1_new)* vel.Y() + omega_coeff * vel.Teta();

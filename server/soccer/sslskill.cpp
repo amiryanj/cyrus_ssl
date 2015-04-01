@@ -84,8 +84,12 @@ void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance)
     this->name = "Go to target";
     this->target = target;
     planner.deactive();
-
+    double thr1 = ParameterManager::getInstance()->get<double>("skills.thr1");
+    double thr2 = ParameterManager::getInstance()->get<double>("skills.thr2");
     Vector3D diff = target - this->Position();
+
+
+
     if(       ( fabs(diff.X()) < tolerance.X() )
            && ( fabs(diff.Y()) < tolerance.Y() )
            && ( fabs(diff.Teta()) < tolerance.Teta() ) )
@@ -94,7 +98,21 @@ void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance)
         controlSpeed(zeroSpeed, false);
     }
     else {
-        move(this->Position(), target, tolerance);
+        Vector3D target2;
+
+        if(diff.lenght2D() > thr1)
+        {
+            diff.normalize2D();
+            target2 = this->Position() + diff*thr2;
+            target2.setTeta(diff.to2D().arctan());
+            this->planner.trajec.prependState(Station(target2));
+            move(this->Position(), target2, tolerance, 1.0);
+
+        }else
+        {
+
+            move(this->Position(), target, tolerance);
+        }
     }
 }
 
@@ -211,39 +229,40 @@ double VelbyDis(double dis , double maxspeed)
 
     //double maxspeed =800;
   //  Vector3D diff = target - mypos;
-    double ratio =(dis /(3*max_speed / 4));
+    double ratio =(dis /(max_speed / 2));
     ratio *= sqrt(ratio);
     (*l)[1] << dis<<" " <<maxspeed << " " << ratio<<endl;
-    if(dis > 3*max_speed/4  )
+    if(dis > max_speed/2  )
     {
         return 1;
     }
 
-    if(ratio < 0.01)
-        return 0.01;
+    if(ratio < 0.08)
+        return 0.08;
     return ratio ;
 
 
 }
-void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance)
+void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff)
 {
     Vector3D diff = target_pos - (current_pos+this->owner_agent->robot->Speed()*0.2);
     diff.setTeta(continuousRadian(diff.Teta(), -M_PI));
     const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
     double linear_vel_strenght =  VelbyDis(diff.lenght2D() , this->owner_agent->robot->Speed().lenght2D());
-
+    if(speed_coeff > 0)
+        linear_vel_strenght = speed_coeff;
     float omega = 0;
     if ( abs(diff.Teta()) > M_PI_2 )  {
         omega = 0.2 * sgn(diff.Teta());
-        linear_vel_strenght = 0.02;
+        linear_vel_strenght = 0.2;
     }
     else if ( diff.Teta() > M_PI_4 ) {
         omega = 0.05 * sgn(diff.Teta());
-        linear_vel_strenght = 0.04;
+        linear_vel_strenght = 0.4;
     }
     else if (abs(diff.Teta() > tolerance.Teta())) {
         omega = 0.05 * sgn(diff.Teta());
-        linear_vel_strenght = 0.06;
+        linear_vel_strenght = 0.6;
     }
     else {
         omega = 0;
@@ -276,7 +295,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
     Vector3D speed(diff.X() * Coeffs[0] * linear_vel_strenght,
                    diff.Y() * Coeffs[1] * linear_vel_strenght,
                    omega    * Coeffs[2]);
-    controlSpeed(speed, true);
+    controlSpeed(speed, false);
 }
 
 void SSLSkill::controlSpeed(const Vector3D& speed, bool use_controller)
