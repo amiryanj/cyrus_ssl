@@ -246,7 +246,7 @@ void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, con
         omega = 0;
         linear_vel_strenght = 1;
     }
-    linear_vel_strenght = ParameterManager::getInstance()->get<double>("general.test.vel");
+    linear_vel_strenght = ParameterManager::getInstance()->get<double>("skills.test_vel");
     float Coeffs[3] = {1, 1, 0.1};
     if( diff.lenght2D() < 800 )  {
         if(diff.lenght2D() > 300.0)  {   // milli meter

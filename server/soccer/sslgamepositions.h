@@ -1,6 +1,7 @@
 #ifndef _SSLGAMEPOSITIONS_H
 #define _SSLGAMEPOSITIONS_H
 
+#include "../ai/SSLGame.h"
 #include "../../common/math/vector2d.h"
 #include "../../common/math/vector3d.h"
 #include "../../common/math/linesegment.h"
@@ -8,12 +9,6 @@
 
 namespace SSL {
 namespace Position {
-
-    Vector2D opponentPenaltyPoint();
-    Vector2D ourPenaltyPoint();
-
-    Vector2D opponentGoalCenter();
-    Vector2D ourGoalCenter();
 
     Vector3D ourMidfieldUpPosition();
     Vector3D ourMidfieldUpPosition();
@@ -26,8 +21,17 @@ namespace Position {
     Vector3D KickStylePosition(const Vector2D &kick_point, const Vector2D &target, float dist);
     Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point, float dist_from_risky);
 
-    Vector3D goalKeeperPosition(float normalized_x_offset, float normalized_y_offset, const Vector2D &toward_point);
+    Vector3D coverGoalWithFixedDistance(float x_offset, float covered_point_y, const Vector2D &shoot_point);
+    Vector3D coverGoalWithOptimumDistance(Vector3D my_position, float covered_point_y, const Vector2D &shoot_point);
 
+    Vector2D opponentPenaltyPoint();
+    Vector2D ourPenaltyPoint();
+    Vector2D opponentGoalCenter();
+    Vector2D ourGoalCenter();
+    Vector2D ourGoalEdgeTop();
+    Vector2D ourGoalEdgeDown();
+    Vector2D opponentGoalEdgeTop();
+    Vector2D opponentGoalEdgeDown();
     LineSegment ourGoalLine();
     LineSegment opponentGoalLine();
     LineSegment HalfLine();

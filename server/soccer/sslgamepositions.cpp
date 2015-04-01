@@ -1,29 +1,7 @@
 #include "sslgamepositions.h"
 
-#include "../ai/SSLGame.h"
-
 namespace SSL{
 namespace Position {
-
-Vector2D opponentPenaltyPoint()
-{
-    return Vector2D(game->opponentSide() * (FIELD_LENGTH/2 - FIELD_PENALTY_DISTANCE), 0);
-}
-
-Vector2D ourPenaltyPoint()
-{
-    return Vector2D(game->ourSide() * (FIELD_LENGTH/2 - FIELD_PENALTY_DISTANCE), 0);
-}
-
-Vector2D opponentGoalCenter()
-{
-    return Vector2D(game->opponentSide() * (FIELD_LENGTH/2), 0);
-}
-
-Vector2D ourGoalCenter()
-{
-    return Vector2D(game->ourSide() * (FIELD_LENGTH/2), 0);
-}
 
 Vector3D ourMidfieldUpPosition()
 {
@@ -105,42 +83,106 @@ Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defen
     return pos;
 }
 
-Vector3D goalKeeperPosition(float normalized_x_offset, float normalized_y_offset, const Vector2D &toward_point)
+Vector3D coverGoalWithFixedDistance(float x_offset, float covered_point_y, const Vector2D &shoot_point)
 {
-//    assert(fabs(normalized_x_offset) <= 1);
-//    assert(fabs(normalized_y_offset) <= 1);
+    float x_pos = game->ourSide() *(FIELD_LENGTH_2 -ROBOT_RADIUS - x_offset);
 
-    float pos_x = game->ourSide() * (FIELD_LENGTH/2 -
-                            (ROBOT_RADIUS + normalized_x_offset*FIELD_PENALTY_AREA_RADIUS));
-    float pos_y = normalized_y_offset * (FIELD_GOAL_WIDTH/2 - ROBOT_RADIUS);
-    float orien =  (toward_point - Vector2D(pos_x, pos_y)).arctan();
-    return Vector3D(pos_x, pos_y, orien);
+//    covered_point_y = bound(covered_point_y, ROBOT_RADIUS-FIELD_GOAL_WIDTH/2, -ROBOT_RADIUS+FIELD_GOAL_WIDTH/2 );
+
+    LineSegment vertical_line(x_pos ,-FIELD_WIDTH_2,
+                              x_pos , FIELD_WIDTH_2 );
+
+    LineSegment goal_top_edge_shoot_line(shoot_point, ourGoalEdgeTop());
+    LineSegment goal_down_edge_shoot_line(shoot_point, ourGoalEdgeDown());
+
+    float max_allowed_y = LineSegment::intersection(vertical_line, goal_top_edge_shoot_line).Y();
+    float min_allowed_y = LineSegment::intersection(vertical_line, goal_down_edge_shoot_line).Y();
+
+    LineSegment shoot_line(shoot_point,
+                           Vector2D(game->ourSide() * FIELD_LENGTH_2, covered_point_y));
+    float best_y_for_catch = LineSegment::intersection(vertical_line, shoot_line).Y();
+    best_y_for_catch = bound(best_y_for_catch,
+                             min_allowed_y + ROBOT_RADIUS + BALL_RADIUS,
+                             max_allowed_y - ROBOT_RADIUS - BALL_RADIUS);
+
+    float orien = (shoot_point - Vector2D(x_pos, best_y_for_catch)).arctan();
+    return Vector3D(x_pos, best_y_for_catch, continuousRadian(orien, -M_PI));
 }
 
-LineSegment ourGoalLine()
+// fast reation to opponent shoots, get the nearest position to save goal
+Vector3D coverGoalWithOptimumDistance(Vector3D my_position, float covered_point_y, const Vector2D &shoot_point)
 {
+    /// not tested yet
+    assert(0);
+    // limit this area to goal width
+    covered_point_y = bound( covered_point_y,
+                            -FIELD_GOAL_WIDTH_2 + ROBOT_RADIUS + BALL_RADIUS,
+                             FIELD_GOAL_WIDTH_2 - ROBOT_RADIUS - BALL_RADIUS );
+    LineSegment shoot_line(shoot_point,
+                           Vector2D(game->ourSide() * FIELD_LENGTH_2, covered_point_y));
+    float prependicular_line_slope = shoot_line.slope() + M_PI_2;
+    LineSegment prependicular_line( my_position.to2D() - Vector2D::unitVector(prependicular_line_slope) * 100000.0,
+                                    my_position.to2D() + Vector2D::unitVector(prependicular_line_slope) * 100000.0 );
+
+    Vector2D catch_ball_pos = LineSegment::intersection(shoot_line, prependicular_line);
+    if(catch_ball_pos.X() < INFINITY) {
+        return Vector3D(catch_ball_pos, my_position.Teta());
+    }
+    return my_position;
+
+}
+
+Vector2D opponentPenaltyPoint() {
+    return Vector2D(game->opponentSide() * (FIELD_LENGTH/2 - FIELD_PENALTY_DISTANCE), 0);
+}
+
+Vector2D ourPenaltyPoint() {
+    return Vector2D(game->ourSide() * (FIELD_LENGTH/2 - FIELD_PENALTY_DISTANCE), 0);
+}
+
+Vector2D opponentGoalCenter()  {
+    return Vector2D(game->opponentSide() * (FIELD_LENGTH/2), 0);
+}
+
+Vector2D ourGoalCenter()  {
+    return Vector2D(game->ourSide() * (FIELD_LENGTH/2), 0);
+}
+
+Vector2D ourGoalEdgeTop()  {
+    return Vector2D(game->ourSide() * (FIELD_LENGTH/2), FIELD_GOAL_WIDTH_2);
+}
+
+Vector2D ourGoalEdgeDown()  {
+    return Vector2D(game->ourSide() * (FIELD_LENGTH/2), -FIELD_GOAL_WIDTH_2);
+}
+
+Vector2D opponentGoalEdgeTop()  {
+    return Vector2D(game->opponentSide() * (FIELD_LENGTH/2), FIELD_GOAL_WIDTH_2);
+}
+
+Vector2D opponentGoalEdgeDown()  {
+    return Vector2D(game->opponentSide() * (FIELD_LENGTH/2), -FIELD_GOAL_WIDTH_2);
+}
+
+LineSegment ourGoalLine() {
     return LineSegment(game->ourSide() * FIELD_LENGTH/2, -FIELD_WIDTH/2,
                        game->ourSide() * FIELD_LENGTH/2,  FIELD_WIDTH/2);
 }
 
-LineSegment opponentGoalLine()
-{
+LineSegment opponentGoalLine() {
     return LineSegment(game->opponentSide() * FIELD_LENGTH/2, -FIELD_WIDTH/2,
                        game->opponentSide() * FIELD_LENGTH/2,  FIELD_WIDTH/2);
 }
 
-LineSegment HalfLine()
-{
+LineSegment HalfLine() {
     return LineSegment(0, -FIELD_WIDTH/2,
                        0,  FIELD_WIDTH/2);
 }
 
-LineSegment MidLine()
-{
+LineSegment MidLine() {
     return LineSegment(-FIELD_LENGTH/2, 0,
                         FIELD_LENGTH/2, 0);
 }
-
 
 }
 }

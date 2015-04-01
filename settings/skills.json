@@ -3,6 +3,8 @@
     "default_tolerance":{   "x"         : 30.0,
                             "y"         : 30.0,
                             "teta_deg"  : 30.0 
-			}
+                        },
+
+    "test_vel": 0.7
     
 }

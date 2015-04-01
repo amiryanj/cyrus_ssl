@@ -15,12 +15,12 @@ GoalKeeper::GoalKeeper()
 void GoalKeeper::run()
 {
     if( analyzer->isOpponentPenaltyPosition() ) {
-        Vector3D target = SSL::Position::goalKeeperPosition(0.03f, 0.0f, world->mainBall()->Position());
+        Vector3D target = SSL::Position::coverGoalWithFixedDistance(50.0f, 0.0f, world->mainBall()->Position());
         m_agent->skill->goToPoint(target);
     }
 
     else if(analyzer->isOpponentPenaltyKick()) {
-        Vector3D target = SSL::Position::goalKeeperPosition(0.03f, 0.0f, world->mainBall()->Position());;
+        Vector3D target = SSL::Position::coverGoalWithFixedDistance(50.0f, 0.0f, world->mainBall()->Position());;
 
         SSLAnalyzer::RobotIntersectTime op_penalty_kicker =
                 analyzer->nearestRobotToPoint(game->opponentColor(), SSL::Position::ourPenaltyPoint());
@@ -30,16 +30,14 @@ void GoalKeeper::run()
             Vector2D p1 = op_penalty_kicker.m_robot->Position().to2D();
             Vector2D p2 = p1 + Vector2D::unitVector(op_orien) * FIELD_LENGTH;
 
-            LineSegment l1(p1, p2);
-            LineSegment l2 = SSL::Position::ourGoalLine();
+            LineSegment aim_line(p1, p2);
+            LineSegment our_goal_line = SSL::Position::ourGoalLine();
 
-            Vector2D intersection_pnt = LineSegment::intersection(l1, l2);
-            if(intersection_pnt.X() != INFINITY) {
-                intersection_pnt.setY( SSL::bound(intersection_pnt.Y(),
-                                                  -FIELD_GOAL_WIDTH/2,
-                                                   FIELD_GOAL_WIDTH/2 ) );
-                target = SSL::Position::goalKeeperPosition(0.0,
-                                                           intersection_pnt.Y()/(FIELD_GOAL_WIDTH/2 - ROBOT_RADIUS),
+            // the point where the penalty shooter aims to kick
+            Vector2D aimed_point_by_penalty_shooter = LineSegment::intersection(aim_line, our_goal_line);
+            if(aimed_point_by_penalty_shooter.X() < INFINITY) {
+                target = SSL::Position::coverGoalWithFixedDistance(30.0f,                // x_offset (mm)
+                                                           aimed_point_by_penalty_shooter.Y(), // y_offset (mm)
                                                            world->mainBall()->Position());
 
             }

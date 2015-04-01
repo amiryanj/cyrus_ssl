@@ -21,6 +21,9 @@ ParameterManager::ParameterManager()
         {
          //   read_json(itr->path().string(), temp);
             string filename = itr->path().leaf().string();
+            if(filename.find("json") == -1) {
+                continue;
+            }
             string justname = filename.substr(0,filename.size()-5);
             read_json(itr->path().string(),pts[justname]);
             //cout << justname << endl;

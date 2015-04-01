@@ -21,7 +21,6 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-
     cout << "Main is running ... " << endl;
 
     srand(time(0));

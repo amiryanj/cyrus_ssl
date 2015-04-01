@@ -35,10 +35,10 @@ public:
     SSLAgent* getAgent(unsigned int ID) const;
     SSLStrategy* currentStrategy;
 
-    Color ourColor() const;    
-    Side ourSide() const;
-    Color opponentColor() const;
-    Side opponentSide() const;
+    inline Color ourColor() const;
+    inline Side ourSide() const;
+    inline Color opponentColor() const;
+    inline Side opponentSide() const;
 
 private:
     Color m_ourColor;
@@ -46,5 +46,26 @@ private:
 
     void updateAgents(bool &anyChange);
 };
+
+
+inline Color SSLGame::ourColor() const
+{
+    return m_ourColor;
+}
+
+inline Side SSLGame::ourSide() const
+{
+    return m_ourSide;
+}
+
+inline Color SSLGame::opponentColor() const
+{
+    return (m_ourColor==Yellow)? Blue:Yellow;
+}
+
+inline Side SSLGame::opponentSide() const
+{
+    return (m_ourSide==Left)? Right:Left;
+}
 
 #endif // SSLGAME_H

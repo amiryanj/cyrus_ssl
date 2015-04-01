@@ -54,7 +54,7 @@ void SSLGame::check()
 
     for(uint i=0; i<m_agents.size(); i++) {
         SSLAgent* agent = m_agents[i];
-       // agent->run();
+        agent->run();
     }
 
 }
@@ -84,26 +84,6 @@ SSLAgent *SSLGame::getAgent(unsigned int ID) const
             return agent;
     }
     return NULL;
-}
-
-Color SSLGame::ourColor() const
-{
-    return m_ourColor;
-}
-
-Side SSLGame::ourSide() const
-{
-    return m_ourSide;
-}
-
-Color SSLGame::opponentColor() const
-{
-    return (m_ourColor==Yellow)? Blue:Yellow;
-}
-
-Side SSLGame::opponentSide() const
-{
-    return (m_ourSide==Left)? Right:Left;
 }
 
 void SSLGame::updateAgents(bool &anyChange)
