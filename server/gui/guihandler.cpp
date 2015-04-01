@@ -166,20 +166,59 @@ void GUIHandler::generateWorldPacket(ssl_world_packet *packet)
 
     ball_packet->set_id(0);
 
+#define Str(x)  #x
+
     string referee_state_str;
     switch(world->m_refereeState) {
     case SSLReferee::Unknown:
-        referee_state_str = "unknown";
+        referee_state_str = "Unknown";
         break;
     case SSLReferee::Halt:
-        referee_state_str = "halt";
+        referee_state_str = "Halt";
         break;
     case SSLReferee::Stop:
-        referee_state_str = "stop";
+        referee_state_str = "Stop";
         break;
     case SSLReferee::ForceStart:
-        referee_state_str = "force-start";
+        referee_state_str = "Force Start";
         break;
+    case SSLReferee::BlueKickOffPosition:
+        referee_state_str = "Blue KickOff Position";
+        break;
+    case SSLReferee::YellowKickOffPosition:
+        referee_state_str = "Yellow KickOff Position";
+        break;
+    case SSLReferee::BlueKickOffKick:
+        referee_state_str = "Blue KickOff Kick";
+        break;
+    case SSLReferee::YellowKickOffKick:
+        referee_state_str = "Yellow KickOff Kick";
+        break;
+    case SSLReferee::BluePenaltyPosition:
+        referee_state_str = "Blue Penalty Position";
+        break;
+    case SSLReferee::YellowPenaltyPosition:
+        referee_state_str = "Yellow Penalty Position";
+        break;
+    case SSLReferee::BluePenaltyKick:
+        referee_state_str = "Blue Penalty Kick";
+        break;
+    case SSLReferee::YellowPenaltyKick:
+        referee_state_str = "Yellow Penalty Kick";
+        break;
+    case SSLReferee::BlueDirectKick:
+        referee_state_str = "Blue Direct Kick";
+        break;
+    case SSLReferee::YellowDirectKick:
+        referee_state_str = "Yellow Direct Kick";
+        break;
+    case SSLReferee::BlueIndirectKick:
+        referee_state_str = "Blue Indirect Kick";
+        break;
+    case SSLReferee::YellowIndirectKick:
+        referee_state_str = "Yellow Indirect Kick";
+        break;
+
     default:
         referee_state_str = "restart";
         break;
@@ -266,13 +305,13 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
                 state->set_y(pos.Y());
                 state->set_teta(pos.Teta());
             }
-        plan->mutable_desiredvel()->set_x(agent->skill->desiredGlobalSpeed.X() * 2000);
-        plan->mutable_desiredvel()->set_y(agent->skill->desiredGlobalSpeed.Y() * 2000);
-        plan->mutable_desiredvel()->set_teta(agent->skill->desiredGlobalSpeed.Teta() * 2000);
+        plan->mutable_desiredvel()->set_x(agent->skill->desiredGlobalSpeed.X());
+        plan->mutable_desiredvel()->set_y(agent->skill->desiredGlobalSpeed.Y());
+        plan->mutable_desiredvel()->set_teta(agent->skill->desiredGlobalSpeed.Teta());
 
-        plan->mutable_appliedvel()->set_x(agent->skill->appliedGlobalSpeed.X() * 2000);
-        plan->mutable_appliedvel()->set_y(agent->skill->appliedGlobalSpeed.Y() * 2000);
-        plan->mutable_appliedvel()->set_teta(agent->skill->appliedGlobalSpeed.Teta() * 2000);
+        plan->mutable_appliedvel()->set_x(agent->skill->appliedGlobalSpeed.X());
+        plan->mutable_appliedvel()->set_y(agent->skill->appliedGlobalSpeed.Y());
+        plan->mutable_appliedvel()->set_teta(agent->skill->appliedGlobalSpeed.Teta());
     }
 }
 

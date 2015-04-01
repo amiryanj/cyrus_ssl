@@ -381,7 +381,20 @@ void MainWindow::setGameRunningState(bool game_running)
 
 void MainWindow::setRefereeState(QString state)
 {
-    ui->refereeLabel->setText("Referee: " + state);
+    if(state.toLower().contains("blue") && ourColor == SSL::Blue) {
+        state.replace("Blue", "Our");
+    } else if(state.toLower().contains("blue") && ourColor == SSL::Yellow) {
+        state.replace("Blue", "Opponent");
+    } else if(state.toLower().contains("yellow") && ourColor == SSL::Blue) {
+        state.replace("Yellow", "Opponent");
+    } else if(state.toLower().contains("yellow") && ourColor == SSL::Yellow) {
+        state.replace("Yellow", "Our");
+    }
+
+    QString str = "Referee: " + state;
+    ui->refereeLabel->setText(str);
+    status_referee->setText(str);
+
     field->showBallStopZone( state.toLower().contains("stop") );
 }
 

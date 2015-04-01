@@ -70,6 +70,11 @@ QTabBar::tab {
  QTabBar::tab:!selected {
      margin-top: 0px; /* make non-selected tabs look smaller */
  }
+
+QStatusBar QLabel {
+    border: 2px solid magenta;
+	font: bold 14px;
+}
 </string>
   </property>
   <property name="tabShape">
