@@ -80,7 +80,7 @@ void ActiveRole::run()
             m_agent->skill->goAndKick(SSL::Position::opponentGoalCenter(), 1);
             break;
         case e_FarFromBall:
-            Vector3D tolerance(ROBOT_RADIUS, ROBOT_RADIUS, M_PI_4);
+            Vector3D tolerance(ROBOT_RADIUS/2, ROBOT_RADIUS/2, M_PI_4);
             m_agent->skill->goToPointWithPlanner(target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
             break;
         }

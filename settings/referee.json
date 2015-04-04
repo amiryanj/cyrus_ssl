@@ -1,4 +1,3 @@
 {       
-    "test_command": "stop"
-    
+    "test_command": "force start"
 }
