@@ -26,6 +26,7 @@ public:
     static SSLGame* getInstance(Color set_our_color, Side set_our_side);
     static SSLGame* getInstance();
     void SetColor_Side(Color ourC, Side ourS);
+    void setEnabled(bool enabled);
     void check();
     ~SSLGame();
 
@@ -45,6 +46,7 @@ public:
 private:
     Color m_ourColor;
     Side m_ourSide;
+    bool m_enabled;
 
     void updateAgents(bool &anyChange);
 };

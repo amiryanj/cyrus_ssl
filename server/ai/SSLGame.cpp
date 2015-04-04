@@ -29,12 +29,18 @@ SSLGame::SSLGame(Color ourC, Side ourS)
         m_agents.push_back(agent_);
     }
     currentStrategy = NULL;
+    m_enabled = true;
 }
 
 void SSLGame::SetColor_Side(Color ourC, Side ourS)
 {
     m_ourColor = ourC;
     m_ourSide = ourS;
+}
+
+void SSLGame::setEnabled(bool enabled)
+{
+    this->m_enabled = enabled;
 }
 
 void SSLGame::check()
@@ -53,9 +59,12 @@ void SSLGame::check()
         roleManager->AssignRole(currentStrategy, this->m_agents);
     }
 
+    if( !m_enabled )
+        return;
+
     for(uint i=0; i<m_agents.size(); i++) {
         SSLAgent* agent = m_agents[i];
-//        agent->run();
+        agent->run();
     }
 
 }

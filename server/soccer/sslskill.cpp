@@ -21,53 +21,7 @@ SSLSkill::SSLSkill(SSLAgent *parent)
     defaultTolerance.setY(   pm->get<float>("skills.default_tolerance.x")    );
     defaultTolerance.setTeta(pm->get<float>("skills.default_tolerance.teta_deg")*M_PI/180.0);
 
-  // initialize planner
-    FieldBound bound;
-    bound.set(-1.1 * FIELD_LENGTH/2, 1.1 * FIELD_LENGTH/2,
-              -1.1 * FIELD_WIDTH /2, 1.1 * FIELD_WIDTH /2 );
-    planner.setBound(bound);
-    PlanningAgent planning_agent;
-    planning_agent.motionModel = MP::eOmniDirectional;
-    planning_agent.setRadius(ROBOT_RADIUS); // in milimeter
-    planning_agent.mass = 3.0; // kilo gram
-    planning_agent.velocity_limit.set(3000, 3000, M_PI * 1.2);
-    planner.setPlanningAgent(planning_agent);
-
-    // initializing field obstacles for agent
-    // ****************************************************************************************
-    penaltyAreaObstacles.reserve(5);
-    int z = pm->get<int>("general.game.our_color");
-    Obstacle* myPenaltyArea_C = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, 0),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
-    Obstacle* myPenaltyArea_T = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
-    Obstacle* myPenaltyArea_D = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
-
-    Obstacle* outFieldArea_R = new Obstacle(Obstacle::eStatic, b2Vec2(FIELD_LENGTH/2 + 300, 0),
-                                                                    150*2 ,  FIELD_WIDTH, 0);
-    Obstacle* outFieldArea_L = new Obstacle(Obstacle::eStatic, b2Vec2(-FIELD_LENGTH/2 - 300, 0),
-                                                                    150*2 ,  FIELD_WIDTH, 0);
-
-    myPenaltyArea_C->repulseStrenght = 1.5;
-    myPenaltyArea_T->repulseStrenght = 1.5;
-    myPenaltyArea_D->repulseStrenght = 1.5;
-
-    penaltyAreaObstacles.push_back(myPenaltyArea_C);
-    penaltyAreaObstacles.push_back(myPenaltyArea_T);
-    penaltyAreaObstacles.push_back(myPenaltyArea_D);
-
-    penaltyAreaObstacles.push_back(outFieldArea_L);
-    penaltyAreaObstacles.push_back(outFieldArea_R);
-
-    allRobotsObstacles.reserve(MAX_ID_NUM * 2);
-    for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
-        Obstacle* ob_ = new Obstacle(Obstacle::eRobot, b2Vec2(0, 0), ROBOT_RADIUS);
-        ob_->repulseStrenght = 2.0;
-        allRobotsObstacles.push_back(ob_);
-    }
-
-    ballObstacle = new Obstacle(Obstacle::eBall, b2Vec2(0,0), BALL_RADIUS);
+    initializePlanner();
 }
 
 void SSLSkill::halt()
@@ -80,7 +34,6 @@ void SSLSkill::halt()
 
 // go to the final target of the robot
 // in this case the orientation should be token into account
-
 void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance)
 {
     this->name = "Go to target";
@@ -90,13 +43,11 @@ void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance)
     double thr2 = ParameterManager::getInstance()->get<double>("skills.thr2");
     Vector3D diff = target - this->Position();
 
-
-
-    if(       ( fabs(diff.X()) < tolerance.X() )
-           && ( fabs(diff.Y()) < tolerance.Y() )
+    if(       ( fabs(diff.X())    < tolerance.X() )
+           && ( fabs(diff.Y())    < tolerance.Y() )
            && ( fabs(diff.Teta()) < tolerance.Teta() ) )
     {
-        Vector3D zeroSpeed (0.0, 0.0, 0.0);
+        Vector3D zeroSpeed(0.0, 0.0, 0.0);
         controlSpeed(zeroSpeed, false);
     }
     else {
@@ -226,12 +177,23 @@ void SSLSkill::goBehindBall(Vector2D ball_position)
 {
     assert(0);
 }
-double SSLSkill::computeVelocityStrenghtbyDistance(double dis , double max_speed)
+double SSLSkill::computeVelocityStrenghtbyDistance(double dist , double max_speed)
 {
-    double ratio = (dis /(max_speed / 2.0)) * 0.8;
-    ratio = pow(ratio, 1.5);
-    ratio = bound(ratio , 0.08 , 0.8);
-    return ratio ;
+    double stop_radius_A = 500 /*mili meter*/ ; // max_speed / 1.5;
+    double stop_radius_B = 200 /*mili meter*/ ;
+    double ratio = 1;
+//    if(dist < stop_radius_B) {
+//        ratio = (dist / stop_radius_B) * 0.4;
+//        ratio = pow(ratio, 1.2);
+//    }
+//    else
+        if(dist < stop_radius_A) {
+        ratio = (dist / stop_radius_A) * 0.8;
+        ratio = pow(ratio, 1.5);
+    }
+
+    ratio = bound(ratio , 0.07 , 0.8);
+    return ratio;
 }
 void SSLSkill::move(const Vector3D &current_pos,
                     const Vector3D &target_pos,
@@ -247,22 +209,22 @@ void SSLSkill::move(const Vector3D &current_pos,
         linear_vel_strenght = speed_coeff;
     else {
         linear_vel_strenght = computeVelocityStrenghtbyDistance(diff.lenght2D(),
-                                                                   owner_agent->robot->physic.max_lin_vel_mmps);
+                                                        owner_agent->robot->physic.max_lin_vel_mmps);
     }
 
     // set omega in different orientations
     float omega = 0;
     if ( fabs(diff.Teta()) > M_PI_2 )  {
-        omega = 0.2 * sgn(diff.Teta());
-        linear_vel_strenght = 0.4;
+        omega = 0.4 * sgn(diff.Teta());
+        linear_vel_strenght = std::min(0.2, linear_vel_strenght);
     }
     else if ( fabs(diff.Teta()) > M_PI_4 ) {
         omega = 0.15 * sgn(diff.Teta());
-        linear_vel_strenght = 0.5;
+        linear_vel_strenght = std::min(0.5, linear_vel_strenght);
     }
     else if ( fabs(diff.Teta()) > tolerance.Teta()) {
         omega = 0.10 * sgn(diff.Teta());
-        linear_vel_strenght = 0.6;
+        linear_vel_strenght = std::min(0.6, linear_vel_strenght);
     }
     else {
         omega = 0;
@@ -271,11 +233,11 @@ void SSLSkill::move(const Vector3D &current_pos,
     linear_vel_strenght *= owner_agent->robot->physic.max_lin_vel_mmps;
 //    NetworkPlotter::getInstance()->buildAndSendPacket("vel_strenght", linear_vel_strenght);
 
-    float general_coeffs[3] = {.7, .7, 0.9};
+    float general_coeff[3] = {0.9, 0.9, 0.7};
 
-    Vector3D desired_gloabal_speed(diff.X() * general_coeffs[0] * linear_vel_strenght,
-                           diff.Y() * general_coeffs[1] * linear_vel_strenght,
-                           omega    * general_coeffs[2]);
+    Vector3D desired_gloabal_speed(diff.X() * general_coeff[0] * linear_vel_strenght,
+                                   diff.Y() * general_coeff[1] * linear_vel_strenght,
+                                   omega    * general_coeff[2]);
 
     controlSpeed(desired_gloabal_speed, true /*use controller*/);
 
@@ -292,20 +254,6 @@ void SSLSkill::move(const Vector3D &current_pos,
 //        NetworkPlotter::getInstance()->buildAndSendPacket("desired_speed", speed_to_sent, speed_labels);
 //    }
 
-
-    NetworkPlotter::getInstance()->buildAndSendPacket("omega", desired_gloabal_speed.Teta());
-
-    {
-        vector<double> speed_to_sent;
-        vector<string> speed_labels;
-        speed_to_sent.push_back(desired_gloabal_speed.Y());
-        speed_labels.push_back("desire");
-        speed_to_sent.push_back(owner_agent->robot->Speed().Y());
-        speed_labels.push_back("actual");
-        speed_to_sent.push_back(this->controller.lastApplied.Y() * 1000.0);
-        speed_labels.push_back("applied");
-        NetworkPlotter::getInstance()->buildAndSendPacket("control_y", speed_to_sent, speed_labels);
-    }
 }
 
 void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
@@ -328,6 +276,71 @@ void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
     appliedLocalSpeed.rotate( -1 * Position().Teta());
 
     CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), appliedLocalSpeed);
+
+    if(owner_agent->getID() == 2)
+    {
+        NetworkPlotter::getInstance()->buildAndSendPacket("omega", desiredGlobalSpeed.Teta());
+
+        vector<double> speed_to_sent;
+        vector<string> speed_labels;
+        speed_to_sent.push_back(desiredGlobalSpeed.lenght2D());
+        speed_labels.push_back("desire_len");
+        speed_to_sent.push_back(owner_agent->robot->Speed().lenght2D());
+        speed_labels.push_back("actual_len");
+        speed_to_sent.push_back(this->controller.lastApplied.lenght2D() * 1000.0);
+        speed_labels.push_back("applied_len");
+        NetworkPlotter::getInstance()->buildAndSendPacket("control_y", speed_to_sent, speed_labels);
+    }
+}
+
+void SSLSkill::initializePlanner()
+{
+    FieldBound bound;
+    bound.set(-1.1 * FIELD_LENGTH/2, 1.1 * FIELD_LENGTH/2,
+              -1.1 * FIELD_WIDTH /2, 1.1 * FIELD_WIDTH /2 );
+    planner.setBound(bound);
+    PlanningAgent planning_agent;
+    planning_agent.motionModel = MP::eOmniDirectional;
+    planning_agent.setRadius(ROBOT_RADIUS); // in milimeter
+    planning_agent.mass = 3.0; // kilo gram
+    planning_agent.velocity_limit.set(3000, 3000, M_PI * 1.2);
+    planner.setPlanningAgent(planning_agent);
+
+    // initializing field obstacles for agent
+    // ****************************************************************************************
+    penaltyAreaObstacles.reserve(5);
+    int z = ParameterManager::getInstance()->get<int>("general.game.our_color");
+    Obstacle* myPenaltyArea_C = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, 0),
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
+    Obstacle* myPenaltyArea_T = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
+    Obstacle* myPenaltyArea_D = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
+                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
+
+    Obstacle* outFieldArea_R = new Obstacle(Obstacle::eStatic, b2Vec2(FIELD_LENGTH/2 + 300, 0),
+                                                                    150*2 ,  FIELD_WIDTH, 0);
+    Obstacle* outFieldArea_L = new Obstacle(Obstacle::eStatic, b2Vec2(-FIELD_LENGTH/2 - 300, 0),
+                                                                    150*2 ,  FIELD_WIDTH, 0);
+
+    myPenaltyArea_C->repulseStrenght = 1.5;
+    myPenaltyArea_T->repulseStrenght = 1.5;
+    myPenaltyArea_D->repulseStrenght = 1.5;
+
+    penaltyAreaObstacles.push_back(myPenaltyArea_C);
+    penaltyAreaObstacles.push_back(myPenaltyArea_T);
+    penaltyAreaObstacles.push_back(myPenaltyArea_D);
+
+    penaltyAreaObstacles.push_back(outFieldArea_L);
+    penaltyAreaObstacles.push_back(outFieldArea_R);
+
+    allRobotsObstacles.reserve(MAX_ID_NUM * 2);
+    for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
+        Obstacle* ob_ = new Obstacle(Obstacle::eRobot, b2Vec2(0, 0), ROBOT_RADIUS);
+        ob_->repulseStrenght = 2.0;
+        allRobotsObstacles.push_back(ob_);
+    }
+
+    ballObstacle = new Obstacle(Obstacle::eBall, b2Vec2(0,0), BALL_RADIUS);
 }
 
 Vector3D SSLSkill::Position()

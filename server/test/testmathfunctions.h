@@ -7,6 +7,8 @@
 #include "linesegment.h"
 #include "sslmath.h"
 #include "../soccer/sslgamepositions.h"
+#include "../log-tools/networkplotter.h"
+#include "../soccer/sslskill.h"
 
 using namespace std;
 
@@ -41,6 +43,15 @@ bool testNearestPointFromLine()  {
 bool testAimedPointfRobot()  {
     Vector2D result = SSL::Position::aimedPointOfRobot(Vector2D(-4500, 0), 5*M_PI/6.0);
     printf("Aimed Point of Robot test [%.6f, %.6f]\n", result.X(), result.Y());
+    exit(1);
+}
+
+void testVelocityStrenght() {
+    for (int i=0; i<1000; i++) {
+        float result = SSLSkill::computeVelocityStrenghtbyDistance((double)i, 3000);
+        NetworkPlotter::getInstance()->buildAndSendPacket("velocity coeff", result);
+        usleep(3000);
+    }
     exit(1);
 }
 

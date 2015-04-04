@@ -152,7 +152,7 @@ Vector3D coverGoalWithFixedRadius(float radius_from_center, float covered_point_
 Vector3D coverGoalWithOptimumDistance(Vector3D my_position, float covered_point_y, const Vector2D &shoot_point)
 {
     /// not tested yet
-    assert(0);
+//    assert(0);
     // limit this area to goal width
     covered_point_y = bound( covered_point_y,
                             -FIELD_GOAL_WIDTH_2 + ROBOT_RADIUS + BALL_RADIUS,

@@ -16,17 +16,17 @@ TestGoToPoint::TestGoToPoint()
 
 void TestGoToPoint::check()
 {
-
     SSLAgent* agent = SSLGame::getInstance()->getAgent(ParameterManager::getInstance()->
                                                        get<int>("general.test.robot_num"));
 
+    SSLGame::getInstance()->setEnabled(false);
     if( agent !=0 && !agent->isNull() )  {
         agent->skill->goToPoint(target[i]);
         Vector3D diff = agent->robot->Position() - target[i];
         if(diff.lenght2D() < 100)
         {
 
-            i=(i+1)%2;
+//            i=(i+1)%2;
         }
     }
 

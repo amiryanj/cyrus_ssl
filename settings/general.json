@@ -8,8 +8,8 @@
     "skill":
     {
     "default_tolerance" :{  "x"         : 30.0,
-                            "y"         : 30.0,
-                            "teta_deg"  : 30.0 }
+                            "y"         : 50.0,
+                            "teta_deg"  : 50.0 }
     },
     "test":
     {

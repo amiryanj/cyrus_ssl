@@ -50,12 +50,14 @@ int main(int argc, char *argv[])
     TestGoToPoint* gotopoint_tester = new TestGoToPoint();
     TestReferee* referee_tester = new TestReferee();
 
+//    Test::testVelocityStrenght();
+
     long loopCounter = 0;
     while ( true )
     {
         loopCounter ++;
         referee->check();
-//        referee_tester->check();
+        referee_tester->check();
 
 //        vision->check(); // in thread 2
         analyzer->check();
@@ -68,7 +70,7 @@ int main(int argc, char *argv[])
             printf("Process Time = \t%f milli second\n", process_time);
 
 //            transmitter->clear();
-            gotopoint_tester->check();
+//            gotopoint_tester->check();
 
             transmitter->check();
         }

@@ -2,7 +2,8 @@
 #define PIDCONTROLLER_H
 
 #include <vector>
-#include "../math/vector3d.h"
+#include "../../common/math/vector3d.h"
+#include "../../common/math/vector2d.h"
 
 #define MAX_HISTORY_SIZE  20
 using namespace std;
@@ -12,7 +13,7 @@ class PIDController
 public:
     PIDController();
     void setParameters(double kp, double ki, double kd);
-    void setPoint(Vector3D desired, Vector3D actual);
+    void setPoint(const Vector3D &desired, const Vector3D &actual);
     void clearHistory();
     Vector3D getControl();
 
