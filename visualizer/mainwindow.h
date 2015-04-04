@@ -66,7 +66,6 @@ private:
     QLabel* status_referee;
     QLabel* status_led_game_running;
 
-
     Ui::MainWindow *ui;
     FieldScene *field;
     PacketReceiver *receiver;

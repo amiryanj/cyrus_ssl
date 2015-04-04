@@ -32,6 +32,9 @@ private:
     double cameraLastFrameTime[MAX_CAMERA_COUNT];
     std::ofstream txtlogFile;
 
+    float last_frame_time;
+    float FPS;
+
     boost::signals2::mutex mtx_;
 
 };

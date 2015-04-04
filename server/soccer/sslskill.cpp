@@ -178,7 +178,9 @@ void SSLSkill::goToPointWithPlanner(const Vector3D &target, const Vector3D &tole
 
     planner.setStaticObstacles(allObstacles);
 
-    planner.solve();
+    // we dont need to run all planners in every frame
+    if( (SSLGame::getInstance()->game_running_counter % MAX_ID_NUM) == owner_agent->getID())
+        planner.solve();
 //    Station subGoal = planner.getFirstSubGoal();
     int plan_lenght = planner.getTrajectory().length();
     if( plan_lenght >1 )   {

@@ -392,4 +392,8 @@ void FieldScene::drawBounds()
     scene.addEllipse(-FIELD_LENGTH/2 + (FIELD_PENALTY_DISTANCE - BALL_RADIUS), -BALL_RADIUS,
                      2*BALL_RADIUS, 2*BALL_RADIUS, QPen(Qt::white, 7));
 
+    // add midline
+    scene.addLine(-FIELD_LENGTH_2, 0 ,
+                   FIELD_LENGTH_2, 0 , QPen(Qt::white));
+
 }

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     MainWindow* w = new MainWindow(_color, _side, 0);
     w->joinCyrusServer();
 
-    w->showFullScreen();
+    w->show();
 
     return app.exec();
 }

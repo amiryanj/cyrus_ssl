@@ -5,6 +5,11 @@
 #include "../definition/SSLBall.h"
 #include "../paramater-manager/parametermanager.h"
 #include "../../common/math/sslmath.h"
+#include "../log-tools/networkplotter.h"
+
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics.hpp>
+using namespace boost;
 
 #define EPS 1e-5
 
@@ -104,10 +109,18 @@ void BallFilter::run()
     // check for changing the ball state
     bool isBallStopped = getBallStoppedState();
     SSLWorldModel::getInstance()->mainBall()->setStopped(isBallStopped);
+
     if( isBallStopped )   {
         m_filteredVelocity = Vector2D(0, 0);
+         accumulators::accumulator_set<double, accumulators::features<accumulators::tag::mean, accumulators::tag::variance> > acc_x;
+         accumulators::accumulator_set<double, accumulators::features<accumulators::tag::mean, accumulators::tag::variance> > acc_y;
+        for(int i=0; i<rawData.size(); i++) {
+            acc_x( getRawData(i).position.X() );
+            acc_y( getRawData(i).position.Y() );
+        }
+        m_filteredPosition.set(accumulators::mean(acc_x),  accumulators::mean(acc_y));
         return;
-    }    
+    }
 
     executeAlphaBetaFilter();
     m_filteredVelocity = m_clusteredVelocity;
@@ -115,14 +128,16 @@ void BallFilter::run()
     ParameterManager* pm = ParameterManager::getInstance();
     float vision_delay = pm->get<double>("vision.vision_delay_ms") * 0.001;
 //    SSLObjectState predict_result = alphaBetaFilter.predict(vision_delay);
-    //    this->m_filteredPosition = predict_result.pos.to2D();
+//    this->m_filteredPosition = predict_result.pos.to2D();
     this->m_filteredPosition = alphaBetaFilter.m_state.pos.to2D() + m_filteredVelocity * vision_delay;
 }
 
 void BallFilter::executeAlphaBetaFilter()
 {
     double disp_error_ = m_acceleration.lenght(); // / m_filteredVelocity.lenght();
-    disp_error_ = log10(disp_error_) /7.0;
+    disp_error_ = log10(disp_error_+1) /7.0;
+
+    NetworkPlotter::getInstance()->buildAndSendPacket("ball acceleration", disp_error_);
 
     double turn_error_ = m_acceleration.arctan();
 
@@ -211,7 +226,7 @@ bool BallFilter::getBallStoppedState()
         for(uint i=0; i<all_robots.size(); i++) {
             double dist_i = (((SSLRobot*)(all_robots.at(i)))->Position().to2D() - m_filteredPosition).lenght();
             dist_i -= SSLWorldModel::getInstance()->mainBall()->m_radius - ((SSLRobot*)(all_robots.at(i)))->m_radius;
-            minimum_distance = min(dist_i, minimum_distance);
+            minimum_distance = std::min(dist_i, minimum_distance);
         }
 
         double totoal_rotation_5_frame = getRawData(0).turnInDegree() +

@@ -40,6 +40,7 @@ void SSLGame::SetColor_Side(Color ourC, Side ourS)
 void SSLGame::check()
 {
     // TODO
+    game_running_counter ++;
 //    cout << "Decision (SSLGame) is running" << endl;
     bool changeInAgents = false;
     updateAgents(changeInAgents);
@@ -54,7 +55,7 @@ void SSLGame::check()
 
     for(uint i=0; i<m_agents.size(); i++) {
         SSLAgent* agent = m_agents[i];
-//        agent->run();
+        agent->run();
     }
 
 }

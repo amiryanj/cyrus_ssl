@@ -54,7 +54,7 @@ TestVisionInput::TestVisionInput()
 // -------- Opponent Robots ----------
     opp_robots[0]->set_robot_id(0);
     opp_robots[0]->set_x(-3300.0);
-    opp_robots[0]->set_y(-20.0);
+    opp_robots[0]->set_y(-1200.0);
     opp_robots[0]->set_orientation(M_PI*0.95);
 
     opp_robots[1]->set_robot_id(1);
@@ -74,8 +74,8 @@ TestVisionInput::TestVisionInput()
 
 
     SSL_DetectionBall* ball = wrapper_packet.mutable_detection()->add_balls();
-    ball->set_x(-3500);
-    ball->set_y(-0);
+    ball->set_x(-2500);
+    ball->set_y(-500);
 }
 
 void TestVisionInput::check()

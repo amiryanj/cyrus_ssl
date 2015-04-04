@@ -40,6 +40,8 @@ public:
     inline Color opponentColor() const;
     inline Side opponentSide() const;
 
+    unsigned long game_running_counter;
+
 private:
     Color m_ourColor;
     Side m_ourSide;

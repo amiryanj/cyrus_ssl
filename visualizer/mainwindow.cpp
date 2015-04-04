@@ -46,7 +46,8 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
 
     connect(parser, SIGNAL(newRobotState(RobotState)), field, SLOT(updateRobotState(RobotState)));
     connect(parser, SIGNAL(newBallState(BallState)), field, SLOT(updateBallState(BallState)));
-    connect(parser, SIGNAL(newPlan(int,QVector<RobotState>,QVector3D,QVector3D)), field, SLOT(updateRobotPlan(int,QVector<RobotState>,QVector3D,QVector3D)));
+    connect(parser, SIGNAL(newPlan(int,QVector<RobotState>,QVector3D,QVector3D)),
+            field , SLOT(updateRobotPlan(int,QVector<RobotState>,QVector3D,QVector3D)));
 
     connect(parser, SIGNAL(newRobotState(RobotState)), this, SLOT(updateRobotVelocity(RobotState)));
 
@@ -130,39 +131,6 @@ void MainWindow::setupTable()
         ui->ourRobotsTableWidget->setRowHeight(i, 20);
     }
   }
-
-
-    // op team
-  {
-//    ui->opRobotsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-//    ui->opRobotsTableWidget->setColumnCount(2);
-//    QStringList opRobotTableHeaders;
-//    opRobotTableHeaders << "Role" << "In Field" ; //<< "Position";
-//    ui->opRobotsTableWidget->setHorizontalHeaderLabels(opRobotTableHeaders);
-
-//    int reducedRows = 4;
-//    ui->opRobotsTableWidget->setRowCount(MAX_ID_NUM - reducedRows);
-
-//    QStringList opTableRobotsHeader;
-//    for (int i=0; i< MAX_ID_NUM - reducedRows; ++i) {
-//        QString temp = QString((ourColor==SSL::Blue)? "Yellow %1":"Blue %1").arg(i);
-//        opTableRobotsHeader << temp;
-//    }
-//    ui->opRobotsTableWidget->setVerticalHeaderLabels(opTableRobotsHeader);
-
-//    for(int i=0; i< MAX_ID_NUM; ++i)
-//    {
-//        for(int j=0; j< 4; j++) {
-//            op_robots[i][j] = new QTableWidgetItem();
-//            ui->opRobotsTableWidget->setItem(i, j, op_robots[i][j]);
-//        }
-//    }
-
-//    for(int i=0; i<ui->opRobotsTableWidget->rowCount(); i++) {
-//        ui->opRobotsTableWidget->setRowHeight(i, 20);
-//    }
-  }
-
 }
 
 void MainWindow::setupTree()

@@ -4,6 +4,7 @@
 #include "SSLWorldModel.h"
 #include "../definition/SSLRobot.h"
 #include "../definition/SSLBall.h"
+#include "../../common/math/linesegment.h"
 
 #include <utility>
 #include <cmath>
@@ -424,67 +425,59 @@ float SSLAnalyzer::wastedTimeForInertia(SSLRobot *robot, Vector2D target) const
     return wastedTime;
 }
 
-SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(SSLRobot* robot) {
-    /* stop case
-     solves using (x-xb)^2 + (y-yb)^2 = r(t)^2 and vb'= at + vb
-     r(t): radius robot can be in t seconds from now = ROBOT_MAX_SPEED * t
-     */
-    RobotIntersectTime stopCaseAnswer;
-    stopCaseAnswer.m_robot = robot;
-
-    const SSLBall* ball = world->mainBall();
-
-    float stopTime = fabs(ball->Speed().lenght() * 2.0) / BALL_FRICTION_COEFF;
-    Vector2D newPosition(ball->Position() + ball->Speed() * stopTime);
-
-    float distanceOfNewPositionToRobot = (robot->Position().to2D() - newPosition).lenght();
-
-    float neededTime = distanceOfNewPositionToRobot / robot->physic.max_lin_vel_mmps;
-    neededTime += wastedTimeForInertia(robot, newPosition);
-    stopCaseAnswer.m_time = neededTime;
-    stopCaseAnswer.m_position = newPosition;
-    if (ball->Speed().lenght() < BALL_SPEED_THRESHOLD_FOR_CROSS)
+SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall_imp1(SSLRobot* robot)
+{
+    if(world->mainBall()->Speed().lenght() < 1000) {
+        RobotIntersectTime stopCaseAnswer;
+        stopCaseAnswer.m_robot = robot;
+        stopCaseAnswer.m_position = world->mainBall()->Position();
+        stopCaseAnswer.m_time = distanceFromBall(robot) / robot->physic.max_lin_vel_mmps;
         return stopCaseAnswer;
+    }
 
-    /* cross case
-     solves using (x-xb)^2 + (y-yb)^2 = r(t)^2 and vb = cte
-     r(t): radius robot can be in t seconds from now
-     there will be an equation like at^2 + bt + c = 0
-    */
+    Vector2D ball_direction_vector = world->mainBall()->Speed().normalized();
 
-    RobotIntersectTime crossCaseAnswer;
-    crossCaseAnswer.m_robot = robot;
+    // multiply it by INFINITY number = field_lenght
+    ball_direction_vector *= FIELD_LENGTH;
+    Vector2D ball_target = world->mainBall()->Position() + ball_direction_vector;
 
-    float xDelta = ball->Position().X() - robot->Position().X();
-    float yDelta = ball->Position().Y() - robot->Position().Y();
+    LineSegment ball_path_line(world->mainBall()->Position(), ball_target);
+    Vector2D nearest_expected_catch_point = ball_path_line.nearestPointFrom(robot->Position().to2D());
+    float t_catch = (nearest_expected_catch_point - robot->Position().to2D()).lenght()
+                                          / robot->physic.max_lin_vel_mmps;
 
-    float a = (pow(robot->physic.max_lin_vel_mmps, 2.0) - pow(ball->Speed().lenght(), 2.0))/2.0;
-    float b = -(ball->Speed().X() * xDelta + ball->Speed().Y() * yDelta);
-    float b2_4ac = pow(robot->physic.max_lin_vel_mmps * xDelta, 2.0)
-            - pow(ball->Speed().Y() * xDelta ,2.0)
-            + 2.0 * ball->Speed().X() * ball->Speed().Y() * xDelta * yDelta
-            + pow(robot->physic.max_lin_vel_mmps * yDelta ,2.0)
-            - pow(ball->Speed().X() * yDelta ,2.0);
+    float t_arrive_ball = (nearest_expected_catch_point - world->mainBall()->Position()).lenght()
+                                          / world->mainBall()->Speed().lenght();
 
-    float neededTime1 = (-b + sqrt(b2_4ac))/(2.0*a);
-    float neededTime2 = (-b - sqrt(b2_4ac))/(2.0*a);
+    if( t_catch < t_arrive_ball) {
+        RobotIntersectTime canCatchCaseAnswer;
+        canCatchCaseAnswer.m_robot = robot;
+        canCatchCaseAnswer.m_position = nearest_expected_catch_point;
+        canCatchCaseAnswer.m_time = t_arrive_ball;
+        return canCatchCaseAnswer;
+    }
 
-    Vector2D newPosition1 = Vector2D(ball->Position() + ball->Speed() * neededTime1);
-    Vector2D newPosition2 = Vector2D(ball->Position() + ball->Speed() * neededTime2);
+    if(world->mainBall()->Speed().lenght() > robot->physic.max_lin_vel_mmps) {
+        RobotIntersectTime unableToCatchCaseAnswer;
+        unableToCatchCaseAnswer.m_robot = robot;
+        unableToCatchCaseAnswer.m_time = (FIELD_LENGTH / robot->physic.max_lin_vel_mmps)
+            + (world->mainBall()->Position() - robot->Position().to2D()).lenght() / robot->physic.max_lin_vel_mmps;
+        unableToCatchCaseAnswer.m_position = Vector2D(INFINITY, INFINITY);
+        return unableToCatchCaseAnswer;
+    }
 
-    neededTime = min(neededTime1 + wastedTimeForInertia(robot, newPosition1),
-                     neededTime2 + wastedTimeForInertia(robot, newPosition2));
-
-    crossCaseAnswer.m_time = neededTime;
-    crossCaseAnswer.m_position = newPosition;
-
-    /*
-     compare both cases and return best answer
-     */
-
-    if (stopCaseAnswer.m_time < crossCaseAnswer.m_time)
-        return stopCaseAnswer;
-    return crossCaseAnswer;
+    // in the case that robots follows the ball in the same direction
+    RobotIntersectTime tryToCatchCaseAnswer;
+    tryToCatchCaseAnswer.m_robot = robot;
+    // fisrst assume that robo
+    float time_get_current_ball_pos = (world->mainBall()->Position() - robot->Position().to2D()).lenght()/robot->physic.max_lin_vel_mmps;
+    Vector2D where_is_ball_now = world->mainBall()->Position() + world->mainBall()->Speed() * time_get_current_ball_pos;
+    float time_get_ball = fabs(robot->physic.max_lin_vel_mmps - world->mainBall()->Speed().lenght()) /
+                                       (where_is_ball_now - world->mainBall()->Position()).lenght();
+    tryToCatchCaseAnswer.m_time = time_get_ball + time_get_current_ball_pos;
+    tryToCatchCaseAnswer.m_position = world->mainBall()->Position()
+                                    + world->mainBall()->Speed() * tryToCatchCaseAnswer.m_time ;
+    return tryToCatchCaseAnswer;
 }
 
 SSLAnalyzer::RobotIntersectTime SSLAnalyzer::whenWhereCanRobotCatchTheBall(SSLRobot* robot) {
@@ -667,7 +660,7 @@ bool SSLAnalyzer::isPointWithinOurCorner(const Vector2D &point)
 bool SSLAnalyzer::isPointWithinOurUpCorner(const Vector2D &point)
 {
     float our_x = decision->ourSide() * FIELD_LENGTH/2;
-    if(fabs(point.X() - our_x) < 300 && point.Y() > FIELD_WIDTH/2 * .8)
+    if(fabs(point.X() - our_x) < 300 && point.Y() > FIELD_WIDTH_2 * .8)
         return true;
     return false;
 }
@@ -675,7 +668,7 @@ bool SSLAnalyzer::isPointWithinOurUpCorner(const Vector2D &point)
 bool SSLAnalyzer::isPointWithinOurDownCorner(const Vector2D &point)
 {
     float our_x = decision->ourSide() * FIELD_LENGTH/2;
-    if(fabs(point.X() - our_x) < 300 && point.Y() < -FIELD_WIDTH/2 * .8)
+    if(fabs(point.X() - our_x) < 300 && point.Y() < -FIELD_WIDTH_2 * .8)
         return true;
     return false;
 }

@@ -83,6 +83,20 @@ Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defen
     return pos;
 }
 
+float seePointOrientation(const Vector2D &my_position, const Vector2D & aimed_point)
+{
+    return continuousRadian((aimed_point - my_position).arctan(), -M_PI);
+}
+
+Vector2D aimedPointOfRobot(const Vector2D &Position, float orien)
+{
+    float x_ = ourGoalCenter().X();
+    if( ((fabs(orien) - M_PI_2) * x_) > 0 )
+        return Vector2D(x_, sgn(orien) * INFINITY);
+    float dy_ = tan(orien) * fabs(Position.X() - x_) * -1.0 * sgn(fabs(orien) - M_PI_2);
+    return Vector2D(x_, dy_ + Position.Y());
+}
+
 Vector3D coverGoalWithFixedDistance(float x_offset, float covered_point_y, const Vector2D &shoot_point)
 {
     float x_pos = game->ourSide() *(FIELD_LENGTH_2 -ROBOT_RADIUS - x_offset);
@@ -107,6 +121,31 @@ Vector3D coverGoalWithFixedDistance(float x_offset, float covered_point_y, const
 
     float orien = (shoot_point - Vector2D(x_pos, best_y_for_catch)).arctan();
     return Vector3D(x_pos, best_y_for_catch, continuousRadian(orien, -M_PI));
+}
+
+Vector3D coverGoalWithFixedRadius(float radius_from_center, float covered_point_y, const Vector2D &shoot_point)
+{
+    Vector2D aimed_pnt(ourGoalCenter().X(), covered_point_y);
+    Vector2D best_point = aimed_pnt + (shoot_point - aimed_pnt).normalized() * radius_from_center;
+
+    LineSegment vertical_line(best_point.X() ,-FIELD_WIDTH_2,
+                              best_point.X() , FIELD_WIDTH_2 );
+
+    LineSegment goal_top_edge_shoot_line(shoot_point, ourGoalEdgeTop());
+    LineSegment goal_down_edge_shoot_line(shoot_point, ourGoalEdgeDown());
+
+    float max_allowed_y = LineSegment::intersection(vertical_line, goal_top_edge_shoot_line).Y();
+    float min_allowed_y = LineSegment::intersection(vertical_line, goal_down_edge_shoot_line).Y();
+
+    LineSegment shoot_line(shoot_point,
+                           Vector2D(game->ourSide() * FIELD_LENGTH_2, covered_point_y));
+    float best_y_for_catch = LineSegment::intersection(vertical_line, shoot_line).Y();
+    best_y_for_catch = bound(best_y_for_catch,
+                             min_allowed_y + ROBOT_RADIUS + BALL_RADIUS,
+                             max_allowed_y - ROBOT_RADIUS - BALL_RADIUS);
+
+    float orien = (shoot_point - Vector2D(best_point.X(), best_y_for_catch)).arctan();
+    return Vector3D(best_point.X(), best_y_for_catch, continuousRadian(orien, -M_PI));
 }
 
 // fast reation to opponent shoots, get the nearest position to save goal

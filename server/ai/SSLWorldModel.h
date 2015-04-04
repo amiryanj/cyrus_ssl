@@ -11,6 +11,7 @@ class SSLRobot;
 
 #define MAX_BALL_NUM 3
 
+
 #define world SSLWorldModel::getInstance()
 
 class SSLWorldModel {

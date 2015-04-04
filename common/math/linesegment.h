@@ -35,8 +35,10 @@ public:
     inline void setPoints(const Vector2D &p1, const Vector2D &p2);
     inline void setLine(float x1, float y1, float x2, float y2);
 
-    static Vector2D intersection(const LineSegment l1, const LineSegment& l2);
-    float slope() const;
+    double slope() const;
+    static Vector2D intersection(const LineSegment &l1, const LineSegment& l2);
+    LineSegment prependicularLine(const Vector2D p) const;
+    Vector2D nearestPointFrom(const Vector2D& p) const;
 
     inline bool operator==(const LineSegment &d) const;
     inline bool operator!=(const LineSegment &d) const { return !(*this == d); }

@@ -32,6 +32,11 @@ public:
             return !(m_robot == NULL);
         }
 
+        bool isInfinite()  {
+            return ( fabs(m_position.X()) > FIELD_LENGTH_2 * 1.5
+                  || fabs(m_position.Y()) > FIELD_WIDTH_2  * 1.5);
+        }
+
         RobotIntersectTime(float time = 0.0, Vector2D position = Vector2D(0.0, 0.0), SSLRobot* robot = NULL) {
             m_time = time;
             m_position = position;

@@ -22,7 +22,11 @@ namespace Position {
     Vector3D DefenseStylePosition(const Vector2D &risky_point, const Vector2D &defense_point, float dist_from_risky);
 
     Vector3D coverGoalWithFixedDistance(float x_offset, float covered_point_y, const Vector2D &shoot_point);
+    Vector3D coverGoalWithFixedRadius(float radius_from_center, float covered_point_y, const Vector2D &shoot_point);
     Vector3D coverGoalWithOptimumDistance(Vector3D my_position, float covered_point_y, const Vector2D &shoot_point);
+
+    float seePointOrientation(const Vector2D &my_position, const Vector2D & aimed_point);
+    Vector2D aimedPointOfRobot(const Vector2D &Position, float orien);
 
     Vector2D opponentPenaltyPoint();
     Vector2D ourPenaltyPoint();

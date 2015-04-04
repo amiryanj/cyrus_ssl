@@ -30,18 +30,16 @@ int main(int argc, char *argv[])
     ParameterManager* pm = ParameterManager::getInstance();
     logger* l = logger::getInstance();
 
-    NetworkPlotter* plotter = NetworkPlotter::getInstance();
-
-    SSLReferee *referee = new SSLReferee(pm->get<int>("network.REFEREE_PORT"),
+    SSLReferee *referee = new SSLReferee(pm->get<int   >("network.REFEREE_PORT"),
                                          pm->get<string>("network.REFEREE_ADDRESS"));
 
-    SSLVision *vision = new SSLVision(pm->get<int>("network.VISION_PORT"),
+    SSLVision *vision = new SSLVision(pm->get<int   >("network.VISION_PORT"),
                                       pm->get<string>("network.VISION_ADDRESS"));
 
     VisionFilter *filter =  VisionFilter::getInstance();
 
     SSLGame *gameModule = SSLGame::getInstance((Color)pm->get<int>("general.game.our_color"),
-                                               (Side)pm->get<int>("general.game.our_side"));
+                                               (Side )pm->get<int>("general.game.our_side"));
 
     GUIHandler *gui = GUIHandler::getInstance();
 
@@ -52,14 +50,12 @@ int main(int argc, char *argv[])
     TestGoToPoint* gotopoint_tester = new TestGoToPoint();
     TestReferee* referee_tester = new TestReferee();
 
-
     long loopCounter = 0;
     while (true)
     {
         loopCounter ++;
-        NetworkPlotter::getInstance()->buildAndSendPacket("Loop counter", loopCounter);
         referee->check();
-        referee_tester->check();
+//        referee_tester->check();
 
 //        vision->check(); // in thread 2
         analyzer->check();
@@ -72,12 +68,12 @@ int main(int argc, char *argv[])
 //            printf("Process Time = \t%f milli second\n", process_time);
 
 //            transmitter->clear();
-            gotopoint_tester->check();
+//            gotopoint_tester->check();
 
             transmitter->check();
         }
         if(loopCounter % 40 == 0)   {
-//            vision_tester->check();
+            vision_tester->check();
             filter->check();
             gui->check();
 //            gui->testVisualizer();

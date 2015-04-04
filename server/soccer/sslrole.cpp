@@ -17,3 +17,10 @@ bool SSLRole::Halt()
     return true;
 }
 
+Vector3D SSLRole::myPosition()
+{
+    if(m_agent->isNull())
+        return Vector3D();
+    return m_agent->robot->Position();
+}
+

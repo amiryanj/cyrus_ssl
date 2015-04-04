@@ -64,14 +64,19 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
             if( packet.detection().camera_id() < MAX_CAMERA_COUNT )
             {
                 double frame_time = packet.detection().t_capture();
-//                if( frame_time <=  cameraLastFrameTime[packet.detection().camera_id()] ) {
-               //     throw "Vision: Decayed packet !!!!" ;
-//                }
-//                else
+                if( frame_time <=  cameraLastFrameTime[packet.detection().camera_id()] ) {
+                    throw "Vision: Decayed packet !!!!" ;
+                }
+                else
                     cameraLastFrameTime[packet.detection().camera_id()] = frame_time;
             }
 
+            float diff_time = packet.detection().t_sent() - last_frame_time;
+            FPS = 1/diff_time;
+            last_frame_time = packet.detection().t_sent();
+
             SSLFrame frame;
+
             frame.camera_id = packet.detection().camera_id();
             frame.frame_number = packet.detection().frame_number();
 

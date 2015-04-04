@@ -9,6 +9,9 @@
 #include "sslskill.h"
 #include "sslgamepositions.h"
 
+#define Ball_Position SSLWorldModel::getInstance()->mainBall()->Position()
+#define Ball_Speed    SSLWorldModel::getInstance()->mainBall()->Speed()
+
 class SSLAgent;
 
 class SSLRole
@@ -23,6 +26,8 @@ public:
     virtual void run() = 0;
     virtual Vector3D expectedPosition() = 0;
     bool Halt();
+
+    Vector3D myPosition();
 
     SSLAgent* m_agent;
     Type m_type;
