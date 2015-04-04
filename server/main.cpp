@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     TestReferee* referee_tester = new TestReferee();
 
     long loopCounter = 0;
-    while (true)
+    while ( true )
     {
         loopCounter ++;
         referee->check();
@@ -64,16 +64,16 @@ int main(int argc, char *argv[])
             gameModule->check();
             double toc = SSL::currentTimeMSec();
             double process_time = toc - tic;
-            NetworkPlotter::getInstance()->buildAndSendPacket("Process Time", process_time);
-//            printf("Process Time = \t%f milli second\n", process_time);
+//            NetworkPlotter::getInstance()->buildAndSendPacket("Process Time", process_time);
+            printf("Process Time = \t%f milli second\n", process_time);
 
 //            transmitter->clear();
-//            gotopoint_tester->check();
+            gotopoint_tester->check();
 
             transmitter->check();
         }
         if(loopCounter % 40 == 0)   {
-            vision_tester->check();
+//            vision_tester->check();
             filter->check();
             gui->check();
 //            gui->testVisualizer();

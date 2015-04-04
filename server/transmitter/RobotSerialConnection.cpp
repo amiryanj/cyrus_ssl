@@ -8,6 +8,7 @@
 #include "RobotSerialConnection.h"
 #include <stdio.h>
 #include "../../common/math/sslmath.h"
+#include "../log-tools/networkplotter.h"
 
 
 RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)

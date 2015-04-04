@@ -61,7 +61,8 @@ public:
     void updateObstacles();
 private:
     void move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff = 0.0);
-    void controlSpeed(const Vector3D &speed, bool use_controller);
+    void controlSpeed(const Vector3D &desired_speed, bool use_controller);
+    static double computeVelocityStrenghtbyDistance(double dis , double max_speed);
 
     SSLAgent* owner_agent;
     Vector3D Position();

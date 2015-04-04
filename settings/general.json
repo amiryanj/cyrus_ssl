@@ -13,11 +13,7 @@
     },
     "test":
     {
-      "robot_num" : 0,
-       "vel":0.7 ,
-       "max_speed" : 3000
-
-
+      "robot_num" : 2
     },
     "game":
     {

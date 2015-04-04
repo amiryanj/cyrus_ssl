@@ -86,7 +86,9 @@ void GoalKeeper::run()
         }
 
         float dist_risky_point_from_goal = (risky_point - SSL::Position::ourGoalCenter()).lenght();
-        Vector3D target = SSL::Position::coverGoalWithFixedRadius(500.0, aimed_point_y, risky_point);
+        Vector3D target = SSL::Position::coverGoalWithFixedRadius(FIELD_GOAL_WIDTH_2,
+                                                                  aimed_point_y,
+                                                                  risky_point);
 
         m_agent->skill->goToPoint(target);
         return;

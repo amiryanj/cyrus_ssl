@@ -137,7 +137,7 @@ void BallFilter::executeAlphaBetaFilter()
     double disp_error_ = m_acceleration.lenght(); // / m_filteredVelocity.lenght();
     disp_error_ = log10(disp_error_+1) /7.0;
 
-    NetworkPlotter::getInstance()->buildAndSendPacket("ball acceleration", disp_error_);
+//    NetworkPlotter::getInstance()->buildAndSendPacket("ball acceleration", disp_error_);
 
     double turn_error_ = m_acceleration.arctan();
 

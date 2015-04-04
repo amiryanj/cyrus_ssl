@@ -10,6 +10,8 @@
 #include "sslgamepositions.h"
 #include "../paramater-manager/parametermanager.h"
 #include "../log-tools/logger.h"
+#include "../log-tools/networkplotter.h"
+
 SSLSkill::SSLSkill(SSLAgent *parent)
 {
     ParameterManager* pm = ParameterManager::getInstance();
@@ -181,7 +183,7 @@ void SSLSkill::goToPointWithPlanner(const Vector3D &target, const Vector3D &tole
     // we dont need to run all planners in every frame
     if( (SSLGame::getInstance()->game_running_counter % MAX_ID_NUM) == owner_agent->getID())
         planner.solve();
-//    Station subGoal = planner.getFirstSubGoal();
+
     int plan_lenght = planner.getTrajectory().length();
     if( plan_lenght >1 )   {
         Station subGoal = planner.getTrajectory().getStation(1);
@@ -224,105 +226,105 @@ void SSLSkill::goBehindBall(Vector2D ball_position)
 {
     assert(0);
 }
-double VelbyDis(double dis , double maxspeed)
+double SSLSkill::computeVelocityStrenghtbyDistance(double dis , double max_speed)
 {
-    logger * l = logger::getInstance();
-    const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
-
-    //double maxspeed =800;
-  //  Vector3D diff = target - mypos;
-    double ratio =(dis /(max_speed / 2)) * 0.7;
-    ratio *= sqrt(ratio);
-    (*l)[1] << dis<<" " <<maxspeed << " " << ratio<<endl;
-    ratio = bound(ratio , 0.08 , 0.7);
+    double ratio = (dis /(max_speed / 2.0)) * 0.8;
+    ratio = pow(ratio, 1.5);
+    ratio = bound(ratio , 0.08 , 0.8);
     return ratio ;
-
-
 }
-void SSLSkill::move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff)
+void SSLSkill::move(const Vector3D &current_pos,
+                    const Vector3D &target_pos,
+                    const Vector3D &tolerance,
+                    double speed_coeff)
 {
-    Vector3D diff = target_pos - (current_pos+this->owner_agent->robot->Speed()*0.0);
+    Vector3D diff = target_pos - current_pos;
     diff.setTeta(continuousRadian(diff.Teta(), -M_PI));
-    const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
-    double linear_vel_strenght =  VelbyDis(diff.lenght2D() , this->owner_agent->robot->Speed().lenght2D());
+    diff.normalize2D();
+
+    double linear_vel_strenght;
     if(speed_coeff > 0)
         linear_vel_strenght = speed_coeff;
+    else {
+        linear_vel_strenght = computeVelocityStrenghtbyDistance(diff.lenght2D(),
+                                                                   owner_agent->robot->physic.max_lin_vel_mmps);
+    }
+
+    // set omega in different orientations
     float omega = 0;
-    cout << "Teta diff:" << diff.Teta() << endl;
     if ( fabs(diff.Teta()) > M_PI_2 )  {
         omega = 0.2 * sgn(diff.Teta());
-        linear_vel_strenght = 0.2;
-    }
-    else if ( fabs(diff.Teta()) > M_PI_4 ) {
-        omega = 0.05 * sgn(diff.Teta());
         linear_vel_strenght = 0.4;
     }
+    else if ( fabs(diff.Teta()) > M_PI_4 ) {
+        omega = 0.15 * sgn(diff.Teta());
+        linear_vel_strenght = 0.5;
+    }
     else if ( fabs(diff.Teta()) > tolerance.Teta()) {
-        omega = 0.05 * sgn(diff.Teta());
+        omega = 0.10 * sgn(diff.Teta());
         linear_vel_strenght = 0.6;
     }
     else {
         omega = 0;
-//        linear_vel_strenght = 1;
     }
-    linear_vel_strenght *= max_speed;
-    float Coeffs[3] = {1, 1, 0.1};
-    /*if( diff.lenght2D() < 800 )  {
-        if(diff.lenght2D() > 300.0)  {   // milli meter
-            //Coeffs[0] = diff.lenght2D() / 1000.0;
-            //Coeffs[1] = 1.1 * diff.lenght2D() / 1000.0;
-            linear_vel_strenght = 0.3;
-        }  else if (diff.lenght2D() > 100.0)   {
-           // Coeffs[0] = 300.0 / 1000.0;
-           // Coeffs[1] = 350.0 / 1000.0;
-        linear_vel_strenght = 0.1;
-        }
-        else  {
-          //  Coeffs[0] = 150.0 / 1000.0;
-         //   Coeffs[1] = 180.0 / 1000.0;
-            linear_vel_strenght = 0.05;
-        }
+
+    linear_vel_strenght *= owner_agent->robot->physic.max_lin_vel_mmps;
+//    NetworkPlotter::getInstance()->buildAndSendPacket("vel_strenght", linear_vel_strenght);
+
+    float general_coeffs[3] = {.7, .7, 0.9};
+
+    Vector3D desired_gloabal_speed(diff.X() * general_coeffs[0] * linear_vel_strenght,
+                           diff.Y() * general_coeffs[1] * linear_vel_strenght,
+                           omega    * general_coeffs[2]);
+
+    controlSpeed(desired_gloabal_speed, true /*use controller*/);
+
+    // send data to visualizer
+//    {
+//        vector<double> speed_to_sent;
+//        vector<string> speed_labels;
+//        speed_to_sent.push_back(desired_gloabal_speed.X());
+//        speed_to_sent.push_back(desired_gloabal_speed.Y());
+//        speed_to_sent.push_back(desired_gloabal_speed.Teta() * 1000.0);
+//        speed_labels.push_back("X");
+//        speed_labels.push_back("Y");
+//        speed_labels.push_back("W");
+//        NetworkPlotter::getInstance()->buildAndSendPacket("desired_speed", speed_to_sent, speed_labels);
+//    }
+
+
+    NetworkPlotter::getInstance()->buildAndSendPacket("omega", desired_gloabal_speed.Teta());
+
+    {
+        vector<double> speed_to_sent;
+        vector<string> speed_labels;
+        speed_to_sent.push_back(desired_gloabal_speed.Y());
+        speed_labels.push_back("desire");
+        speed_to_sent.push_back(owner_agent->robot->Speed().Y());
+        speed_labels.push_back("actual");
+        speed_to_sent.push_back(this->controller.lastApplied.Y() * 1000.0);
+        speed_labels.push_back("applied");
+        NetworkPlotter::getInstance()->buildAndSendPacket("control_y", speed_to_sent, speed_labels);
     }
-*/
-    Coeffs[2] = 0.8;
-    //linear_vel_strenght = 0;
-
-    diff.normalize2D();
-
-    Vector3D speed(diff.X() * Coeffs[0] * linear_vel_strenght,
-                   diff.Y() * Coeffs[1] * linear_vel_strenght,
-                   omega    * Coeffs[2]);
-    controlSpeed(speed, true);
 }
 
-void SSLSkill::controlSpeed(const Vector3D& speed, bool use_controller)
+void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
 {
+    Vector3D actual_speed = this->owner_agent->robot->Speed();
+    this->desiredGlobalSpeed = desired_speed;
 
-    logger* l = logger::getInstance();
-    Vector3D myspeed = this->owner_agent->robot->Speed();
-    this->desiredGlobalSpeed = speed;
-
-    const double max_speed = ParameterManager::getInstance()->get<double>("general.test.max_speed");
-
-    // because controller is not working yet/
     if(use_controller) {
-        controller.setPoint(this->desiredGlobalSpeed,myspeed);
+        controller.setPoint(desired_speed, actual_speed);
         appliedGlobalSpeed = controller.getControl();
     }
     else {
+        float max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
         this->appliedGlobalSpeed = desiredGlobalSpeed ;
         this->appliedGlobalSpeed.setX(this->appliedGlobalSpeed.X() / max_speed);
         this->appliedGlobalSpeed.setY(this->appliedGlobalSpeed.Y() / max_speed);
-
     }
 
-    (*l)[0]<<desiredGlobalSpeed.X()<<" "<<desiredGlobalSpeed.Y()<<" ";
-    (*l)[0]<<myspeed.X()<<" "<<myspeed.Y() << " ";
-    (*l)[0]<<appliedGlobalSpeed.X()<<" "<<appliedGlobalSpeed.Y()<<endl;
-
-
     Vector3D appliedLocalSpeed = appliedGlobalSpeed ;
-    cout << "THETA" << appliedGlobalSpeed.Teta()<<endl;
     appliedLocalSpeed.rotate( -1 * Position().Teta());
 
     CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), appliedLocalSpeed);

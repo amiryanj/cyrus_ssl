@@ -14,21 +14,22 @@ public:
     void setParameters(double kp, double ki, double kd);
     void setPoint(Vector3D desired, Vector3D actual);
     void clearHistory();
-    Vector3D control;
     Vector3D getControl();
-    void autoTune();
-    Vector3D lastOutput;
 
-    Vector3D m_crop_control;
 
-    Vector3D last_error;
-
+    Vector3D lastApplied;
 private:
     double k_p, k_i, k_d;
     vector<Vector3D> errorHistory;
-    Vector3D currentActual;
-    Vector3D currentDesired;
+
+    Vector3D m_crop_control;
+    Vector3D last_error;
+
+//    Vector3D currentActual;
+    Vector3D lastDesired;
     Vector3D sum_on_time;
+
+    double lastAppliedTime_ms;
 
 };
 
