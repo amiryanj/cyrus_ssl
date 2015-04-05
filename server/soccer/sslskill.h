@@ -37,6 +37,8 @@ public:
     void goToPoint(Vector2D target, const Vector2D &tolerance);
     void goToPoint(Vector2D target);
 
+    void goToSubGoal(const Vector3D &target, const Vector3D &tolerance);
+
     void goToPointWithPlanner( const Vector3D &target,
                                const Vector3D &tolerance,
                                bool considerPenaltyArea = true,
@@ -44,7 +46,7 @@ public:
                                float robot_obs_radius = ROBOT_RADIUS);
 
     // ************************** Kick Skill *******************************
-    void goAndKick(Vector2D kick_target, double kickStrenghtNormal = 1);
+    void goAndKick(const Vector2D kick_point, const Vector2D kick_target, float kickStrenghtNormal = 1);
 
     void goAndChip(double chipStrenghtNormal = 1);
 
@@ -60,6 +62,7 @@ public:
     
     void updateObstacles();
     static double computeVelocityStrenghtbyDistance(double dist , double max_speed);
+    static Vector3D defaultTolerance;
 
 private:
     void move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff = 0.0);
@@ -81,7 +84,6 @@ private:
     ObstacleSet allRobotsObstacles;
     ObstacleSet penaltyAreaObstacles;
 
-    Vector3D defaultTolerance;
 
 
 };

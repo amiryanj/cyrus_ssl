@@ -58,12 +58,15 @@ void GoalKeeper::run()
         Vector3D target = SSL::Position::coverGoalWithOptimumDistance( this->myPosition() ,
                                                                        ball_intersection_with_goal_line.Y() ,
                                                                        Ball_Position );
-        m_agent->skill->goToPoint(target);
+
+        m_agent->skill->goToPoint(target , SSLSkill::defaultTolerance);
     }
 
-    // ball is on penalty area
+    // ball is in penalty area
     else if(analyzer->isPointWithinOurPenaltyArea(world->mainBall()->Position())) {
-        m_agent->skill->goAndKick(SSL::Position::opponentGoalCenter(), 1); // goAndChip()
+        m_agent->skill->goAndKick(world->mainBall()->Position(),
+                                  SSL::Position::opponentGoalCenter(),
+                                  1); // goAndChip()
     }
 
 //    else {

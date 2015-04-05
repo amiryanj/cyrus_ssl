@@ -3,12 +3,12 @@
 #include <string>
 #include <fstream>
 #include <cstdio>
-const std::string logger::path = "../../logs/";logger* logger::instance = NULL;
-logger::logger()
+const std::string Logger::path = "../../logs/";Logger* Logger::instance = NULL;
+Logger::Logger()
 {
 }
 
-logger::~logger()
+Logger::~Logger()
 {
     for(std::map<int , std::ofstream* >::iterator it = files.begin() ; it != files.end() ; ++it)
     {
@@ -16,18 +16,18 @@ logger::~logger()
     }
 }
 
-logger *logger::getInstance()
+Logger *Logger::getInstance()
 {
     if(instance == NULL)
     {
-        instance = new logger;
+        instance = new Logger;
 //        return new logger;
     }
     return instance;
 
 }
 
-std::ofstream &logger::operator[](int i)
+std::ofstream &Logger::operator[](int i)
 {
     mtx_.lock();
     if(files.find(i) == files.end())

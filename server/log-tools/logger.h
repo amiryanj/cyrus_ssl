@@ -1,3 +1,6 @@
+#ifndef _LOGGER_H
+#define _LOGGER_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -8,19 +11,18 @@
 #include <map>
 #include <fstream>
 
-#ifndef LOGGER_H
-#define LOGGER_H
 
-class logger
+class Logger
 {
     boost::signals2::mutex mtx_;
-    static logger* instance;
+    static Logger* instance;
     static const std::string path;
     std::map < int , std::ofstream* > files;
-    logger();
-    ~logger();
+    Logger();
+    ~Logger();
+
 public:
-    static logger* getInstance();
+    static Logger* getInstance();
     std::ofstream &operator[](int i);
 
 };

@@ -24,16 +24,16 @@ void ActiveRole::run()
             m_agent->skill->goToPointWithPlanner(target, tolerance, true, BALL_RADIUS, ROBOT_RADIUS);
         }
         else if(analyzer->isOurKickOffKick()) { // the robot is ready for kick
-            m_agent->skill->goAndKick(SSL::Position::opponentGoalCenter(), 1);
+            m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
         }
         else if(analyzer->isOurPenaltyKick()) { // the robot is ready for kick
-            m_agent->skill->goAndKick(SSL::Position::opponentGoalCenter(), 1);
+            m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
         }
         else if(analyzer->isOurDirectKick() || analyzer->isOurIndirectKick()) {
             Vector3D target = SSL::Position::KickStylePosition(world->mainBall()->Position(),
                                                                SSL::Position::opponentGoalCenter(), 80);
             if((m_agent->robot->Position() - target).lenght2D() < 100)
-                m_agent->skill->goAndKick(SSL::Position::opponentGoalCenter(), 1);
+                m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
             else
                 m_agent->skill->goToPointWithPlanner(target, tolerance, true, 2*BALL_RADIUS, ROBOT_RADIUS);
         }
@@ -72,18 +72,19 @@ void ActiveRole::run()
                 m_state = e_FarFromBall;
         }
 
-        switch (m_state) {
-        case e_CanKick:
-            m_agent->skill->goAndKick(SSL::Position::opponentGoalCenter(), 1);
-            break;
-        case e_NearBall:
-            m_agent->skill->goAndKick(SSL::Position::opponentGoalCenter(), 1);
-            break;
-        case e_FarFromBall:
-            Vector3D tolerance(ROBOT_RADIUS/2, ROBOT_RADIUS/2, M_PI_4);
-            m_agent->skill->goToPointWithPlanner(target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
-            break;
-        }
+        m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
+//        switch (m_state) {
+//        case e_CanKick:
+//            m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
+//            break;
+//        case e_NearBall:
+//            m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
+//            break;
+//        case e_FarFromBall:
+//            Vector3D tolerance(ROBOT_RADIUS/2, ROBOT_RADIUS/2, M_PI_4);
+//            m_agent->skill->goToPointWithPlanner(target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
+//            break;
+//        }
     }
 }
 

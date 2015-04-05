@@ -277,7 +277,7 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
 void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
 {
     packet->set_comment("This is planning packet");
-    planner_polygon* bound = packet->mutable_plannerbound();
+//    planner_polygon* bound = packet->mutable_plannerbound();
     vector<SSLAgent*>::iterator it;
     for(it = decision->m_agents.begin(); it!=decision->m_agents.end(); ++it)
     {
@@ -295,7 +295,7 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         goal->set_x(agent->skill->target.X());
         goal->set_y(agent->skill->target.Y());
         goal->set_teta(agent->skill->target.Teta());
-        planner_obstacles* obstacles = plan->mutable_obstacleset(); // not filled yet
+//        planner_obstacles* obstacles = plan->mutable_obstacleset(); // not filled yet
 //        if(agent->skill->planner.planningResult)
             for(uint i = 0; i< agent->skill->planner.getTrajectory().length(); i++)
             {
