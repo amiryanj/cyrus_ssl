@@ -185,7 +185,7 @@ bool SSLAnalyzer::canKick(SSLRobot *robot)
         {
             Vector2D dis = world->mainBall()->Position() - robot->Position().to2D();
             double ang = dis.arctan();
-            if(fabs(robot->orien() - ang) < (M_PI / 6.0 ) )
+            if(fabs(robot->orien() - ang) < (M_PI / 9.0 ) )
                 return c_canKick[hashID] = true;
         }
         return c_canKick[hashID] = false;
