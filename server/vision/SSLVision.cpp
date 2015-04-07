@@ -37,7 +37,7 @@ void* SSLVision::check(void *)
     while(true) {
         if(client->receive(wrapper)) {
             if(wrapper.has_detection()){
-//                cout << "Vision Packet # [" << packet_counter ++ << "]" ;
+                cout << "Vision Packet # [" << packet_counter ++ << "]" << endl;
 //                cout << "\tCamera ID: " << wrapper.detection().camera_id();
 //                cout << "\tFrame Number: " << wrapper.detection().frame_number() << endl;
 //                cout << "\t Frame capture time:" << (long)(wrapper.detection().t_capture() *1000000.0) << " (us)" << endl;

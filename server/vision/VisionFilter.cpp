@@ -71,6 +71,20 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
                     cameraLastFrameTime[packet.detection().camera_id()] = frame_time;
             }
 
+            if(ParameterManager::getInstance()->get<bool>("vision.camera_0_filtered"))
+                if( packet.detection().camera_id() == 0 )
+                    throw "Vision: Camera 0 is filtered out";
+            if(ParameterManager::getInstance()->get<bool>("vision.camera_1_filtered"))
+                if( packet.detection().camera_id() == 1 )
+                    throw "Vision: Camera 1 is filtered out";
+            if(ParameterManager::getInstance()->get<bool>("vision.camera_2_filtered"))
+                if( packet.detection().camera_id() == 2 )
+                    throw "Vision: Camera 2 is filtered out";
+            if(ParameterManager::getInstance()->get<bool>("vision.camera_3_filtered"))
+                if( packet.detection().camera_id() == 3 )
+                    throw "Vision: Camera 3 is filtered out";
+
+
             float diff_time = packet.detection().t_sent() - last_frame_time;
             FPS = 1/diff_time;
             last_frame_time = packet.detection().t_sent();
@@ -96,6 +110,8 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
                 SSL_DetectionRobot Robot = packet.detection().robots_yellow(i);
                 frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
                 frame.confidence = Robot.confidence();
+//                if(Robot.x() > 0)
+//                    continue;
                 robotFilter[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
             }
 

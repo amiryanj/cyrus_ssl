@@ -2,6 +2,11 @@
     "vision_delay_ms": "200",
     "default_frame_per_second" : 60.0,
 
+    "camera_0_filtered" : true,
+    "camera_1_filtered" : true,
+    "camera_2_filtered" : false,
+    "camera_3_filtered" : true,
+
     "filter" : {
         "default": {
             "alfa" : "0.25",

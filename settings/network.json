@@ -20,7 +20,7 @@
         "grsim_command_port":20011,
 
         "visualizer_address":"127.0.0.1",
-        "visualizer_port":4001,
+        "visualizer_port":4010,
 
         "plotter_address":"127.0.0.1",
         "plotter_port":4002,
