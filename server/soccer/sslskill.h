@@ -64,8 +64,15 @@ public:
     static double computeVelocityStrenghtbyDistance(double dist , double max_speed);
     static Vector3D defaultTolerance;
 
+//    void rotateByDegree(float current_orien_deg, float rotation_deg, float omega);
+    void rotate(float omega);
+
+    void consiceMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance);
 private:
     void move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff = 0.0);
+    void slowMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff = 0.0);
+
+
     void controlSpeed(const Vector3D &desired_speed, bool use_controller);
     void initializePlanner();
 
@@ -83,6 +90,9 @@ private:
     Obstacle* ballObstacle;
     ObstacleSet allRobotsObstacles;
     ObstacleSet penaltyAreaObstacles;
+
+    double rotate_call_deadline_time_ms;
+    double avoid_rotate_deadline_time_ms;
 
 
 

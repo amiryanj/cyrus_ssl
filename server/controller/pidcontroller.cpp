@@ -9,7 +9,7 @@ PIDController::PIDController()
     m_crop_control.set(.92, .97, .15 * M_PI);
 
     //  this->setParameters(0.0, 0.0, 0.0);
-    this->setParameters(0.2 /*Kp*/, 0.002 /*Ki*/, 0.0 /*Kd*/);
+    this->setParameters(0.4 /*Kp*/, 0.002 /*Ki*/, 0.0 /*Kd*/);
 }
 
 void PIDController::setParameters(double kp, double ki, double kd)
@@ -50,7 +50,7 @@ Vector3D PIDController::getControl()
         double delta_time = (SSL::currentTimeMSec() - lastAppliedTime_ms)/1000.0;
         double max_increse_limit = 0.6 * delta_time; // about .05 per
 
-        Vector2D control_diff = control.to2D() - lastApplied.to2D();
+        Vector3D control_diff = control - lastApplied;
         if(fabs(control.X()) > fabs(lastApplied.X())) {
             if(fabs(control_diff.X()) > max_increse_limit)
                 control.setX(lastApplied.X() + max_increse_limit * SSL::sgn(control_diff.X()));
@@ -64,6 +64,11 @@ Vector3D PIDController::getControl()
         }  else  {
                 // control.y doesnt change
         }
+
+        double max_omega_increse_limit = 0.6 * delta_time; // about .05 per
+        if(fabs(control.Teta()) > fabs(lastApplied.Teta()))
+            if(fabs(control_diff.Teta()) > max_omega_increse_limit)
+                control.setTeta(lastApplied.Teta() + max_omega_increse_limit * SSL::sgn(control_diff.Teta()));
 
         if(control.lenght2D() > 1)
             control.normalize2D();

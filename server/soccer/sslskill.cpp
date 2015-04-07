@@ -23,6 +23,9 @@ SSLSkill::SSLSkill(SSLAgent *parent)
     defaultTolerance.setY(   pm->get<float>("skills.default_tolerance.y")    );
     defaultTolerance.setTeta(pm->get<float>("skills.default_tolerance.teta_deg")*M_PI/180.0);
 
+    rotate_call_deadline_time_ms = 0;
+    avoid_rotate_deadline_time_ms = 0;
+
     initializePlanner();
 }
 
@@ -75,21 +78,25 @@ void SSLSkill::goToSubGoal(const Vector3D &target, const Vector3D &tolerance)
 {
     Vector3D target2;
 
-    double thr1 = ParameterManager::getInstance()->get<double>("skills.thr1");
-    double thr2 = ParameterManager::getInstance()->get<double>("skills.thr2");
+    double large_radius = ParameterManager::getInstance()->get<double>("skills.large_radius_control");
+    double small_raduis = ParameterManager::getInstance()->get<double>("skills.small_radius_control");
     Vector3D diff = target - this->Position();
 
-    if(diff.lenght2D() > thr1)
+    if(diff.lenght2D() > large_radius)
     {
         diff.normalize2D();
-        target2 = this->Position() + diff*thr2;
+        target2 = this->Position() + diff*small_raduis;
         target2.setTeta(diff.to2D().arctan());
-//            this->planner.trajec.prependState(Station(target2));
-        move(this->Position(), target2, tolerance, 1.0);
+        move(this->Position(), target, tolerance, 1.0);
 
-    }  else
+    }
+    else if(diff.lenght2D() > small_raduis)
     {
-        move(this->Position(), target, tolerance);
+        slowMove(this->Position(), target, tolerance);
+    }
+    else {
+        Vector3D consiceTolerance(defaultTolerance.X()/3, defaultTolerance.Y()/3, M_PI/6.0);
+        consiceMove(this->Position(), target, consiceTolerance);
     }
 }
 
@@ -194,7 +201,7 @@ void SSLSkill::goAndKick(const Vector2D kick_point,const  Vector2D kick_target, 
         planner.deactive();
         Vector3D kick_ball_point = SSL::Position::KickStylePosition(kick_point, kick_target, -20);
         target = kick_ball_point;
-        Vector3D tolerance(20, 20, M_PI/4.0);
+        Vector3D tolerance(20, 20, M_PI/9.0);
         goToSubGoal(target, tolerance);
     }
     else {
@@ -241,7 +248,6 @@ void SSLSkill::move(const Vector3D &current_pos,
     Vector3D diff = target_pos - current_pos;
     diff.setTeta(continuousRadian(diff.Teta(), -M_PI));
 
-
     double linear_vel_strenght;
     if(speed_coeff > 0)
         linear_vel_strenght = speed_coeff;
@@ -252,27 +258,33 @@ void SSLSkill::move(const Vector3D &current_pos,
 
     // set omega in different orientations
     float omega = 0;
-    if ( fabs(diff.Teta()) > (2.0/3.0)*M_PI )  {
-        omega = 0.22 * sgn(diff.Teta());
-        linear_vel_strenght = std::min(0.25, linear_vel_strenght);
-    }
-    else if ( fabs(diff.Teta()) > (1.0/5.0)*M_PI ) {
-        omega = 0.15 * sgn(diff.Teta());
-        linear_vel_strenght = std::min(0.5, linear_vel_strenght);
-    }
-    else if ( fabs(diff.Teta()) > tolerance.Teta()) {
-        omega = 0.12 * sgn(diff.Teta());
-        linear_vel_strenght = std::min(0.65, linear_vel_strenght);
-    }
-    else {
-        omega = 0;
-    }
+//    if ( fabs(diff.Teta()) > (2.0/3.0)*M_PI )  {
+//        omega = 0.32 * sgn(diff.Teta());
+//        linear_vel_strenght = std::min(0.35, linear_vel_strenght);
+//    }
+//    else if ( fabs(diff.Teta()) > (1.0/5.0)*M_PI ) {
+//        omega = 0.15 * sgn(diff.Teta());
+//        linear_vel_strenght = std::min(0.65, linear_vel_strenght);
+//    }
+//    else if ( fabs(diff.Teta()) > tolerance.Teta()) {
+//        omega = 0.12 * sgn(diff.Teta());
+//        linear_vel_strenght = std::min(0.85, linear_vel_strenght);
+//    }
+//    else {
+//        omega = 0;
+//    }
+    omega = 0;
 
-    float general_linear_coeff = 0.7;
+    float general_linear_coeff = ParameterManager::getInstance()->get<double>("skills.linear_velocity_coeff");
+    general_linear_coeff = bound(general_linear_coeff, 0.1, 1);
     float general_omega_coeff  = 0.7;
 
     linear_vel_strenght *= general_linear_coeff;
-//    NetworkPlotter::getInstance()->buildAndSendPacket("vel_strenght", linear_vel_strenght);
+
+//    if(this->owner_agent->getID() == 3) {
+//        NetworkPlotter::getInstance()->buildAndSendPacket("omega", omega);
+//        NetworkPlotter::getInstance()->buildAndSendPacket("vel_strenght", linear_vel_strenght);
+//    }
 
     const float robot_linear_max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
 
@@ -294,9 +306,128 @@ void SSLSkill::move(const Vector3D &current_pos,
 //        speed_labels.push_back("Y");
 //        speed_labels.push_back("W");
 //        NetworkPlotter::getInstance()->buildAndSendPacket("desired_speed", speed_to_sent, speed_labels);
-//    }
+    //    }
 
 }
+
+void SSLSkill::slowMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance, double speed_coeff)
+{
+    Vector3D diff = target_pos - current_pos;
+    diff.setTeta(continuousRadian(diff.Teta(), -M_PI));
+
+    double linear_vel_strenght;
+    if(speed_coeff > 0)
+        linear_vel_strenght = speed_coeff;
+    else {
+        linear_vel_strenght = computeVelocityStrenghtbyDistance(diff.lenght2D(),
+                                                        owner_agent->robot->physic.max_lin_vel_mmps);
+    }
+
+    // set omega in different orientations
+    float omega = 0;
+    if ( fabs(diff.Teta()) > (2.0/3.0)*M_PI )  {
+        omega = 0.25 * sgn(diff.Teta());
+        linear_vel_strenght = std::min(0.45, linear_vel_strenght);
+    }
+    else if ( fabs(diff.Teta()) > (1.0/5.0)*M_PI ) {
+        omega = 0.18 * sgn(diff.Teta());
+        linear_vel_strenght = std::min(0.6, linear_vel_strenght);
+    }
+    else if ( fabs(diff.Teta()) > tolerance.Teta()) {
+        omega = 0.12 * sgn(diff.Teta());
+        linear_vel_strenght = std::min(0.85, linear_vel_strenght);
+    }
+    else {
+        omega = 0;
+    }
+    omega = 0;
+
+
+    float general_linear_coeff = 0.6;
+    float general_omega_coeff  = 0.4;
+
+    linear_vel_strenght *= general_linear_coeff;
+//    if(this->owner_agent->getID() == 3) {
+//        NetworkPlotter::getInstance()->buildAndSendPacket("omega", omega);
+//        NetworkPlotter::getInstance()->buildAndSendPacket("vel_strenght", linear_vel_strenght);
+//    }
+
+    const float robot_linear_max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
+
+    diff.normalize2D();
+    Vector3D desired_gloabal_speed(diff.to2D().normalized().X() * linear_vel_strenght * robot_linear_max_speed,
+                                   diff.to2D().normalized().Y() * linear_vel_strenght * robot_linear_max_speed,
+                                   omega    * general_omega_coeff);
+
+    controlSpeed(desired_gloabal_speed, true /*use controller*/);
+
+}
+
+void SSLSkill::consiceMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance)
+{
+    Vector3D diff = target_pos - current_pos;
+    diff.setTeta(continuousRadian(diff.Teta(), -M_PI));
+
+
+    // set omega in different orientations
+
+    double omega = 0.15 * sgn(diff.Teta());
+    double current_time = currentTimeMSec();
+    printf("Current Time: %.9f \n", current_time);
+//    cout << "current_time: "<< current_time << endl;
+    for(int i=0;i<1;i++) {
+        if(current_time < rotate_call_deadline_time_ms)
+        {
+            rotate(omega);
+            return;
+        }
+        else if(current_time < avoid_rotate_deadline_time_ms)
+        {
+            break;
+        } else {
+            if(fabs(diff.Teta()) > tolerance.Teta()) {
+                double diff_teta = diff.Teta();
+                const double omega_to_time_coeff = 1000.0;
+                double rotation_time = fabs(diff_teta * omega * omega_to_time_coeff);
+                printf("Rotation Time: %.56f \n \n", rotation_time);
+                rotate_call_deadline_time_ms = current_time + rotation_time;
+                avoid_rotate_deadline_time_ms = rotate_call_deadline_time_ms + 1500 /*mili sec*/;
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    double linear_vel_strenght = 0.15;
+
+    const float robot_linear_max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
+
+    diff.normalize2D();
+    Vector3D desired_gloabal_speed(diff.to2D().normalized().X() * linear_vel_strenght * robot_linear_max_speed,
+                                   diff.to2D().normalized().Y() * linear_vel_strenght * robot_linear_max_speed,
+                                   0  );
+
+    controlSpeed(desired_gloabal_speed, true /*use controller*/);
+}
+
+//void SSLSkill::rotateByDegree(float current_orien_deg, float rotation_deg, float omega)
+//{
+//    rotate(rotation_deg * (M_PI/180.0), omega);
+//}
+
+void SSLSkill::rotate(float omega)
+{
+//    orientation_counter ++;
+//    current_orien += orientation_counter * (M_PI/20);
+
+    this->name = "Rotate";
+    {
+        Vector3D rotate_speed(0, 0, omega);
+        controlSpeed(rotate_speed, true);
+    }
+}
+
 
 void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
 {
@@ -317,11 +448,13 @@ void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
     Vector3D appliedLocalSpeed = appliedGlobalSpeed ;
     appliedLocalSpeed.rotate( -1 * Position().Teta());
 
+
     CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), appliedLocalSpeed);
 
-    if(owner_agent->getID() == 2)
+    if(owner_agent->getID() == ParameterManager::getInstance()->get<int>("skills.under_test_robot"))
     {
-        NetworkPlotter::getInstance()->buildAndSendPacket("omega", desiredGlobalSpeed.Teta());
+//        NetworkPlotter::getInstance()->buildAndSendPacket("applied_strenght", desiredGlobalSpeed.Teta()*1000.0);
+        NetworkPlotter::getInstance()->buildAndSendPacket("Omega", desiredGlobalSpeed.Teta() * 100.0);
 
         vector<double> speed_to_sent;
         vector<string> speed_labels;

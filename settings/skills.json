@@ -1,14 +1,17 @@
-{
-       
+{       
     "default_tolerance":{   "x"         : 30.0,
                             "y"         : 30.0,
-                            "teta_deg"  : 10.0
+                            "teta_deg"  : 20.0
                         },
 
     "test_vel": 0.7 ,
 
-
+    "linear_velocity_coeff" : 0.7,
     
-    "thr1" : 500,
-    "thr2" : 200
+    "large_radius_control" : 400,
+    "small_radius_control" : 200,
+
+    "under_test_robot": 0
 }
+
+
