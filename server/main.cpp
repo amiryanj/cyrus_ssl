@@ -10,7 +10,7 @@
 #include "transmitter/commandtransmitter.h"
 #include "paramater-manager/parametermanager.h"
 #include "test/testvisioninput.h"
-#include "test/testgotopoint.h"
+#include "test/testskills.h"
 #include "test/testreferee.h"
 #include "test/testmathfunctions.h"
 #include "log-tools/logger.h"
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     transmitter->type = CommandTransmitter::SERIAL;
 
     TestVisionInput* vision_tester = new TestVisionInput();
-    TestGoToPoint* gotopoint_tester = new TestGoToPoint();
+    TestSkills* gotopoint_tester = new TestSkills();
     TestReferee* referee_tester = new TestReferee();
 
 //    Test::testVelocityStrenght();
@@ -69,15 +69,14 @@ int main(int argc, char *argv[])
             printf("Process Time = \t%f milli second\n", process_time);
 
 //            transmitter->clear();
-//            gotopoint_tester->check();
+            gotopoint_tester->testKickBall();
 
             transmitter->check();
         }
         if(loopCounter % 40 == 0)   {
-//            vision_tester->check();
+            vision_tester->check();
             filter->check();
             gui->check();
-//            gui->testVisualizer();
         }
         usleep(1000);
     }

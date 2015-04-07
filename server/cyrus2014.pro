@@ -112,12 +112,12 @@ SOURCES += \
     soccer/sslgamepositions.cpp \
     soccer/sslskill.cpp \
     test/testvisioninput.cpp \
-    test/testgotopoint.cpp \
     test/testreferee.cpp \
     ../common/math/linesegment.cpp \
     log-tools/logger.cpp \
     log-tools/networkplotter.cpp \
-    ../common/protoc/plotter/cpp/message_plotter.pb.cc
+    ../common/protoc/plotter/cpp/message_plotter.pb.cc \
+    test/testskills.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -199,12 +199,12 @@ HEADERS += \
     soccer/sslgamepositions.h \
     soccer/sslskill.h \
     test/testvisioninput.h \
-    test/testgotopoint.h \
     test/testreferee.h \
     test/testmathfunctions.h \
     log-tools/logger.h \
     log-tools/networkplotter.h \
-    ../common/protoc/plotter/cpp/message_plotter.pb.h
+    ../common/protoc/plotter/cpp/message_plotter.pb.h \
+    test/testskills.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \
