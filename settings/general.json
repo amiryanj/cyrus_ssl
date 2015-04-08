@@ -7,9 +7,12 @@
 
     "game":
     {
-        "our_color" : 0,
+        "our_color" : 1,
         "our_side" :  1,
         "comment" : "Yellow = 0, Blue = 1   Left = -1, Right = 1"
+    },
 
-    }
+    "goalkeeper_id"   : 0,
+    "activeplayer_id" : 2
+
 }

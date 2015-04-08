@@ -147,7 +147,7 @@ void Vector3D::rotate(float radianAngle)
 
 }
 
-float Vector3D::lenght2D()
+float Vector3D::lenght2D() const
 {
     return this->to2D().lenght();
 }

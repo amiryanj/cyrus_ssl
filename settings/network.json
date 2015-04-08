@@ -1,6 +1,6 @@
     {
-        "referee_address" : "127.0.0.1",
-        "referee_port" : 10001,
+        "referee_address" : "224.5.23.1",
+        "referee_port" : 10003,
 
         "my_referee_address":"127.0.0.1",
         "my_referee_port":10004,

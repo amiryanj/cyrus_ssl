@@ -45,7 +45,10 @@ void GoalKeeper::run()
             }
         }
         m_agent->skill->goToPoint(target, SSLSkill::eFastMove);
+        return;
     }
+
+
 
     // check if the ball is coming toward our goal
     LineSegment ball_move_line(Ball_Position , Ball_Position + Ball_Speed * 4.0 /*seconds*/);
@@ -64,9 +67,12 @@ void GoalKeeper::run()
 
     // ball is in penalty area
     else if(analyzer->isPointWithinOurPenaltyArea(world->mainBall()->Position())) {
-        m_agent->skill->goAndKick(world->mainBall()->Position(),
-                                  SSL::Position::opponentGoalCenter(),
-                                  1); // goAndChip()
+        m_agent->skill->goToPoint(SSL::Position::KickStylePosition(Ball_Position,
+                                                                   SSL::Position::opponentGoalCenter(),
+                                                                   50));
+//        m_agent->skill->goAndKick(world->mainBall()->Position(),
+//                                  SSL::Position::opponentGoalCenter(),
+//                                  1); // goAndChip()
     }
 
     else {

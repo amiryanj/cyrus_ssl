@@ -32,7 +32,7 @@ public:
     bool isInf() const;
     void normalize2D();
     void rotate(float radianAngle);
-    float lenght2D();
+    float lenght2D() const;
     void correctTeta();
     Vector3D& setZero();
 

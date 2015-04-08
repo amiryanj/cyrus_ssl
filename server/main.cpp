@@ -50,13 +50,14 @@ int main(int argc, char *argv[])
     TestReferee* referee_tester = new TestReferee();
 
 //    Test::testVelocityStrenght();
+//    Test::testContactShapes();
 
     long loopCounter = 0;
     while ( true )
     {
         loopCounter ++;
         referee->check();
-        referee_tester->check();
+//        referee_tester->check();
 
 //        vision->check(); // in thread 2
         analyzer->check();

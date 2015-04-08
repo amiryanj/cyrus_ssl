@@ -117,7 +117,8 @@ SOURCES += \
     log-tools/logger.cpp \
     log-tools/networkplotter.cpp \
     ../common/protoc/plotter/cpp/message_plotter.pb.cc \
-    test/testskills.cpp
+    test/testskills.cpp \
+    soccer/roles/sidecleaner.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -204,7 +205,8 @@ HEADERS += \
     log-tools/logger.h \
     log-tools/networkplotter.h \
     ../common/protoc/plotter/cpp/message_plotter.pb.h \
-    test/testskills.h
+    test/testskills.h \
+    soccer/roles/sidecleaner.h
 
 OTHER_FILES += \            
     ../common/protoc/referee/referee.proto \

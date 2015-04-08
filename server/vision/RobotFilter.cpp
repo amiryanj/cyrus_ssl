@@ -90,8 +90,11 @@ void RobotFilter::run()
         if(raw_data_index >= rawData.size())
             break;
     }
+    if(clusterData.size() == 0)
+        return;
 
     Vector3D meanVelocity;
+    clusterSize = clusterData.size();
     for ( int i=0; i<clusterSize; i++ )   {
         meanVelocity += ((SSLRobotState)clusterData[i]).velocity * dataCoefficient[i];
     }

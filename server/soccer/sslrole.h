@@ -18,7 +18,7 @@ class SSLRole
 {
 public:
     enum Type{ e_Active, e_Blocker, e_Defender, e_GoalKeeper, e_OpponentMarker,
-               e_PlayStarter, e_Position, e_WaitPass, e_WaitRebound, e_WallStander };
+               e_PlayStarter, e_Position, e_WaitPass, e_WaitRebound, e_WallStander, e_SideCleaner };
 
     SSLRole();
     void setAgent(SSLAgent* agent);
