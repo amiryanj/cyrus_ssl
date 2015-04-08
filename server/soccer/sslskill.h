@@ -98,6 +98,8 @@ private:
     double rotate_call_deadline_time_ms;
     double avoid_rotate_deadline_time_ms;
 
+    bool kickTheBall;
+
 
 
 };

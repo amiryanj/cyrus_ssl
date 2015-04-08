@@ -182,11 +182,12 @@ bool SSLAnalyzer::canKick(SSLRobot *robot)
     uint hashID = _getHashID(robot);
     if (f_canKick[hashID] == 0) {
         f_canKick[hashID] = 1;
-        if(distanceFromBall(robot) < ((BALL_RADIUS + ROBOT_RADIUS) * 0.95))
+        if(distanceFromBall(robot) < ((BALL_RADIUS + ROBOT_RADIUS) * 1.18)
+                && ((robot->Position().to2D() - world->mainBall()->Position()).Y() < 30))
         {
             Vector2D dis = world->mainBall()->Position() - robot->Position().to2D();
             double ang = dis.arctan();
-            if(fabs(robot->orien() - ang) < (M_PI / 9.0 ) )
+            if(fabs(robot->orien() - ang) < (M_PI / 7.0 ) )
                 return c_canKick[hashID] = true;
         }
         return c_canKick[hashID] = false;

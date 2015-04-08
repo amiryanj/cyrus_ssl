@@ -30,8 +30,14 @@ namespace Position {
 
     Vector2D opponentPenaltyPoint();
     Vector2D ourPenaltyPoint();
-    Vector2D opponentGoalCenter();
     Vector2D ourGoalCenter();
+    Vector2D opponentGoalCenter();
+
+    Vector2D ourGoalFocalPointTop();
+    Vector2D ourGoalFocalPointDown();
+    Vector2D opponenetGoalFocalPointTop();
+    Vector2D opponenetGoalFocalPointDown();
+
     Vector2D ourGoalEdgeTop();
     Vector2D ourGoalEdgeDown();
     Vector2D opponentGoalEdgeTop();

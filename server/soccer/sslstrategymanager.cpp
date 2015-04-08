@@ -7,6 +7,7 @@
 #include "roles/positionrole.h"
 #include "roles/waitpass.h"
 #include "roles/waitrebound.h"
+#include "roles/sidecleaner.h"
 //#include "roles/playstarter.h"
 //#include "roles/wallstander.h"
 
@@ -41,6 +42,24 @@ SSLStrategyManager::SSLStrategyManager()
         }
     }
 
+    {
+        defensePlay_1 = new SSLStrategy();
+        defensePlay_1->m_name = "defensePlay_1";
+        SSLRole* r[6] = {
+            new ActiveRole(),
+            new GoalKeeper(),
+            new Defender(1, 2),
+            new Defender(2, 2),
+            new Blocker(1),
+//            new Blocker(2),
+//            new ActiveRole(),
+            new SideCleaner(SideCleaner::eCleanDownField),
+//            new SideCleaner(SideCleaner::eCleanTopField),
+        };
+        for (int i=0; i<6; i++) {
+            defensePlay_1->m_roleList.push_back(r[i]);
+        }
+    }
 
     {
         offensePlay_1 = new SSLStrategy();
@@ -55,23 +74,6 @@ SSLStrategyManager::SSLStrategyManager()
         };
         for (int i=0; i<6; i++) {
             offensePlay_1->m_roleList.push_back(r[i]);
-        }
-    }
-
-
-    {
-        defensePlay_1 = new SSLStrategy();
-        defensePlay_1->m_name = "defensePlay_1";
-        SSLRole* r[6] = {
-            new ActiveRole(),
-            new GoalKeeper(),
-            new Defender(1, 2),
-            new Defender(2, 2),
-            new Blocker(1),
-            new OpponentMarker(2),
-        };
-        for (int i=0; i<6; i++) {
-            defensePlay_1->m_roleList.push_back(r[i]);
         }
     }
 

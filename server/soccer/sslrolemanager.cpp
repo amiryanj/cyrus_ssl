@@ -2,6 +2,7 @@
 #include "../ai/SSLAnalyzer.h"
 #include "../ai/SSLGame.h"
 #include "roles/goalkeeper.h"
+#include "../paramater-manager/parametermanager.h"
 
 SSLRoleManager* SSLRoleManager::manager_instance = NULL;
 
@@ -19,6 +20,9 @@ SSLRoleManager::SSLRoleManager()
     spareDefender = new Defender(3, 3);
     spareBlocker = new Blocker(2);
     spareOpponentMarker = new OpponentMarker(2);
+
+    GOALKEPPER_DEFAULT_ID = ParameterManager::getInstance()->get<int>("general.goalkeeper_id");
+    ACTIVEROLE_DEFAULT_ID = ParameterManager::getInstance()->get<int>("general.activeplayer_id");
 }
 
 SSLRoleManager *SSLRoleManager::getInstance()

@@ -46,6 +46,7 @@ void SSLSkill::halt()
 // in this case the orientation should be token into account
 void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance, MoveType move_type)
 {
+    this->kickTheBall = 0;
     target.setX(bound( target.X(),
                       -FIELD_LENGTH_2 + ROBOT_RADIUS,
                        FIELD_LENGTH_2 - ROBOT_RADIUS) );
@@ -211,21 +212,39 @@ void SSLSkill::goAndKick(const Vector2D kick_point,const  Vector2D kick_target, 
 
     }
 
-    float diff_len = (kick_point - this->Position().to2D()).lenght();
+    Vector2D diff_ = (kick_point - this->Position().to2D());
 
     if(analyzer->canKick(owner_agent->robot))  {
         planner.deactive();
         Vector3D speed(0.2, 0, 0); // go fast in forward direction to reach ball and then kick it
         CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), speed, kickStrenghtNormal);
     }
-    else if(is_robot_behind_ball && (diff_len < 500))  {
+    else if(is_robot_behind_ball && (diff_.lenght() < 500))  {
         planner.deactive();
-        Vector3D kick_ball_point = SSL::Position::KickStylePosition(kick_point, kick_target, -20);
+        Vector3D kick_ball_point = SSL::Position::KickStylePosition(kick_point, kick_target, -50);
         target = kick_ball_point;
-        Vector3D tolerance(20, 20, M_PI/9.0);
-        goToSubGoal(target, tolerance, eSlowMove);
+
+        LineSegment l((kick_point - kick_ball_point.to2D()).normalized() * 1000, kick_point);
+        float dist_to_line = this->Position().to2D().distToLine(l);
+        if(fabs(dist_to_line) > 40) {
+            target = Vector3D(kick_point + (kick_point - kick_target).normalized() * 40, target.Teta());
+            Vector3D tolerance(20, 20, M_PI/6.0);
+            this->kickTheBall = 1;
+            goToSubGoal(target, tolerance, eAccurateMove);
+        }
+        else if(fabs((target - this->Position()).Teta()) > M_PI/8.0)
+        {
+            this->kickTheBall = 1;
+            rotate( sgn((target - Position()).Teta()) * 0.14);
+        }
+        else {
+            this->kickTheBall = 1;
+            Vector3D tolerance(20, 20, M_PI/9.0);
+            goToSubGoal(target, tolerance, eAutoMove);
+        }
     }
     else {
+        this->kickTheBall = 0;
         Vector3D behind_ball_target = SSL::Position::KickStylePosition(kick_point, kick_target, 100);
         Vector3D tolerance(ROBOT_RADIUS/2, ROBOT_RADIUS/2, M_PI/4.0);
         goToPointWithPlanner(behind_ball_target, tolerance, false, 0.7 * BALL_RADIUS, 0);
@@ -245,7 +264,7 @@ void SSLSkill::goBehindBall(Vector2D ball_position)
 
 double SSLSkill::computeVelocityStrenghtbyDistance(double dist , double max_speed)
 {
-    double stop_radius_A = 450 /*mili meter*/ ; // max_speed / 1.5;
+    double stop_radius_A = 300 /*mili meter*/ ; // max_speed / 1.5;
     double stop_radius_B = 250 /*mili meter*/ ;
     double ratio = 1;
 //    if(dist < stop_radius_B) {
@@ -258,7 +277,7 @@ double SSLSkill::computeVelocityStrenghtbyDistance(double dist , double max_spee
     }
     ratio = pow(ratio, 1.5);
 
-    ratio = bound(ratio , 0.12 , 1.0);
+    ratio = bound(ratio , 0.14 , 1.0);
     return ratio;
 }
 void SSLSkill::fastMove(const Vector3D &current_pos,
@@ -271,31 +290,35 @@ void SSLSkill::fastMove(const Vector3D &current_pos,
     float linear_vel_coeff = ParameterManager::getInstance()->get<double>("skills.linear_velocity_coeff");
     linear_vel_coeff = bound(linear_vel_coeff, 0.1, 1);
 
-    if(diff.lenght2D() < 50) {
-        linear_vel_coeff = computeVelocityStrenghtbyDistance(diff.lenght2D(),
-                                                        owner_agent->robot->physic.max_lin_vel_mmps);
-    }
-
-    // set omega in different orientations
     float omega = 0;
-    if ( fabs(diff.Teta()) > (2.0/3.0)*M_PI )  {
-        omega = 0.32 * sgn(diff.Teta());
-        linear_vel_coeff *= 0.65;
-    }
-    else if ( fabs(diff.Teta()) > (1.0/5.0)*M_PI ) {
-        omega = 0.15 * sgn(diff.Teta());
-        linear_vel_coeff *= 0.75;
-    }
-    else if ( fabs(diff.Teta()) > tolerance.Teta()) {
-        omega = 0.12 * sgn(diff.Teta());
-        linear_vel_coeff *= 0.85;
-    }
-    else {
-        omega = 0;
-    }
-    omega = 0;
-
     float general_omega_coeff  = 0.7;
+    if(diff.lenght2D() < 100) {
+        linear_vel_coeff = 2.0 * computeVelocityStrenghtbyDistance(diff.lenght2D(),
+                                                        owner_agent->robot->physic.max_lin_vel_mmps);
+        if ( fabs(diff.Teta()) > (2.0/3.0)*M_PI )  {
+            omega = 0.32 * sgn(diff.Teta());
+            linear_vel_coeff *= 0.65;
+        }
+        else if ( fabs(diff.Teta()) > (1.0/5.0)*M_PI ) {
+            omega = 0.15 * sgn(diff.Teta());
+            linear_vel_coeff *= 0.75;
+        }
+        else if ( fabs(diff.Teta()) > tolerance.Teta()) {
+            omega = 0.12 * sgn(diff.Teta());
+            linear_vel_coeff *= 0.85;
+        }
+        else {
+            omega = 0;
+        }
+
+        if(diff.lenght2D() < tolerance.lenght2D())
+            if(fabs(diff.Teta()) < tolerance.Teta()) {
+                rotate(0.13 * SSL::sgn(diff.Teta()));
+                return;
+            }
+    }
+
+    // set omega in different orientations    
 
     const float robot_linear_max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
 
@@ -316,7 +339,7 @@ void SSLSkill::slowMove(const Vector3D &current_pos, const Vector3D &target_pos,
     if(speed_coeff > 0)
         linear_vel_strenght = speed_coeff;
     else {
-        linear_vel_strenght = computeVelocityStrenghtbyDistance(diff.lenght2D(),
+        linear_vel_strenght = 1.4 * computeVelocityStrenghtbyDistance(diff.lenght2D(),
                                                         owner_agent->robot->physic.max_lin_vel_mmps);
     }
 
@@ -337,10 +360,10 @@ void SSLSkill::slowMove(const Vector3D &current_pos, const Vector3D &target_pos,
     else {
         omega = 0;
     }
-    omega = 0;
+//    omega = 0;
 
 
-    float general_linear_coeff = 0.6;
+    float general_linear_coeff = 0.8;
     float general_omega_coeff  = 0.4;
 
     linear_vel_strenght *= general_linear_coeff;
@@ -396,7 +419,7 @@ void SSLSkill::accurateMove(const Vector3D &current_pos, const Vector3D &target_
         }
     }
 
-    double linear_vel_strenght = 0.15;
+    double linear_vel_strenght = 0.25;
 
     const float robot_linear_max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
 
@@ -417,6 +440,7 @@ void SSLSkill::rotate(float omega)
 {
 //    orientation_counter ++;
 //    current_orien += orientation_counter * (M_PI/20);
+
 
     this->name = "Rotate";
     {
@@ -446,7 +470,7 @@ void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
     appliedLocalSpeed.rotate( -1 * Position().Teta());
 
 
-    CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), appliedLocalSpeed);
+    CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), appliedLocalSpeed, this->kickTheBall);
 
     if(owner_agent->getID() == ParameterManager::getInstance()->get<int>("skills.under_test_robot"))
     {

@@ -148,6 +148,9 @@ void TestInput::updateVisionInput()
 
 void TestInput::updateWorldModel()
 {
+    static int counter = 0;
+    counter += 10;
+
     for(int i=0; i<6; i++) {
         world->updateRobotState(SSLGame::getInstance()->ourColor(), i,
                                Vector3D(our_robots[i]->x(), our_robots[i]->y(), our_robots[i]->orientation()),
@@ -162,7 +165,7 @@ void TestInput::updateWorldModel()
     }
 
     world->updateBallState(0,
-                           Vector2D(ball->x(), ball->y()),
+                           Vector2D(ball->x(), ball->y() + counter % (int)FIELD_WIDTH),
                            Vector2D(ball->pixel_x(), ball->pixel_y()),
                            Vector2D(0.0 ,0.0));
 

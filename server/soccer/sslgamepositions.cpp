@@ -193,6 +193,22 @@ Vector2D ourGoalCenter()  {
     return Vector2D(game->ourSide() * (FIELD_LENGTH/2), 0);
 }
 
+Vector2D ourGoalFocalPointTop() {
+    return Vector2D(game->ourSide() * FIELD_LENGTH_2, FIELD_GOAL_WIDTH/4.0);
+}
+
+Vector2D ourGoalFocalPointDown() {
+    return Vector2D(game->ourSide() * FIELD_LENGTH_2, -FIELD_GOAL_WIDTH/4.0);
+}
+
+Vector2D opponenetGoalFocalPointTop() {
+    return Vector2D(game->opponentSide() * FIELD_LENGTH_2, FIELD_GOAL_WIDTH/4.0);
+}
+
+Vector2D opponenetGoalFocalPointDown() {
+    return Vector2D(game->opponentSide() * FIELD_LENGTH_2, -FIELD_GOAL_WIDTH/4.0);
+}
+
 Vector2D ourGoalEdgeTop()  {
     return Vector2D(game->ourSide() * (FIELD_LENGTH/2), FIELD_GOAL_WIDTH_2);
 }

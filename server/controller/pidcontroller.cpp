@@ -48,27 +48,27 @@ Vector3D PIDController::getControl()
         control += last_error * k_p;
 
         double delta_time = (SSL::currentTimeMSec() - lastAppliedTime_ms)/1000.0;
-        double max_increse_limit = 0.6 * delta_time; // about .05 per
+        double max_increase_limit = 0.8 * delta_time; // about .05 per
 
         Vector3D control_diff = control - lastApplied;
         if(fabs(control.X()) > fabs(lastApplied.X())) {
-            if(fabs(control_diff.X()) > max_increse_limit)
-                control.setX(lastApplied.X() + max_increse_limit * SSL::sgn(control_diff.X()));
+            if(fabs(control_diff.X()) > max_increase_limit)
+                control.setX(lastApplied.X() + max_increase_limit * SSL::sgn(control_diff.X()));
         }  else  {
                 // control.x doesnt change
         }
 
         if(fabs(control.Y()) > fabs(lastApplied.Y())) {
-            if(fabs(control_diff.Y()) > max_increse_limit)
-                control.setY(lastApplied.Y() + max_increse_limit * SSL::sgn(control_diff.Y()));
+            if(fabs(control_diff.Y()) > max_increase_limit)
+                control.setY(lastApplied.Y() + max_increase_limit * SSL::sgn(control_diff.Y()));
         }  else  {
                 // control.y doesnt change
         }
 
-        double max_omega_increse_limit = 0.6 * delta_time; // about .05 per
+        double max_omega_increase_limit = 0.7 * delta_time; // about .05 per
         if(fabs(control.Teta()) > fabs(lastApplied.Teta()))
-            if(fabs(control_diff.Teta()) > max_omega_increse_limit)
-                control.setTeta(lastApplied.Teta() + max_omega_increse_limit * SSL::sgn(control_diff.Teta()));
+            if(fabs(control_diff.Teta()) > max_omega_increase_limit)
+                control.setTeta(lastApplied.Teta() + max_omega_increase_limit * SSL::sgn(control_diff.Teta()));
 
         if(control.lenght2D() > 1)
             control.normalize2D();

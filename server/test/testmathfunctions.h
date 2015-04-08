@@ -9,6 +9,11 @@
 #include "../soccer/sslgamepositions.h"
 #include "../log-tools/networkplotter.h"
 #include "../soccer/sslskill.h"
+#include <Box2D/Collision/b2Collision.h>
+#include <Box2D/Collision/b2Distance.h>
+#include <Box2D/Collision/Shapes/b2EdgeShape.h>
+#include <Box2D/Collision/Shapes/b2CircleShape.h>
+
 
 using namespace std;
 
@@ -54,6 +59,57 @@ void testVelocityStrenght() {
     }
     exit(1);
 }
+
+void testContactShapes() {
+    b2DistanceProxy a_proxy, b_proxy;
+    b2CircleShape pa;
+    pa.m_radius = FIELD_PENALTY_AREA_RADIUS;
+    pa.m_p.Set(SSL::Position::ourGoalFocalPointTop().X(),
+               SSL::Position::ourGoalFocalPointTop().Y());
+    b2EdgeShape edge;
+    edge.Set(b2Vec2(2000, 200), SSL::Position::ourGoalCenter().toB2vec2());
+    a_proxy.Set(&pa  , 0);
+    b_proxy.Set(&edge, 1);
+
+    b2DistanceInput dist_in;
+    dist_in.proxyA = a_proxy;
+    dist_in.proxyB = b_proxy;
+    dist_in.transformA = b2Transform();
+    dist_in.transformB = b2Transform();
+    b2SimplexCache dist_cache;
+    dist_cache.count = 0;
+    b2DistanceOutput dis_out;
+    b2Distance(&dis_out, &dist_cache, &dist_in);
+    b2Vec2 result = dis_out.pointB;
+
+
+    printf("result: %.3f   %.3f \n", result.x, result.y);
+
+
+    exit(1);
+
+//    b2DistanceProxy state_proxy, ob_proxy;
+//    state_proxy.Set(agent.shape, 0);
+//    ob_proxy.Set(ob.shape, 1);
+//    b2DistanceInput dist_in;
+//    dist_in.proxyA = state_proxy;
+//    dist_in.proxyB = ob_proxy;
+//    dist_in.transformA = b2Transform(A.getPosition().toB2vec2(),
+//                                    b2Rot(A.getPosition().Teta()));
+//    dist_in.transformB = ob.m_transform;
+//    b2SimplexCache dist_cache;
+//    dist_cache.count = 0;
+//    b2DistanceOutput dis_out;
+//    b2Distance(&dis_out, &dist_cache, &dist_in);
+//    A_point = dis_out.pointA;
+//    ob_point = dis_out.pointB;
+//    if(hasCollision(A, ob)) {
+//        return -1;
+//    }
+//    return dis_out.distance;
+}
+//    return dis_out.distance;
+
 
 }
 // -------- ---------- ---------------
