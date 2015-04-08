@@ -18,7 +18,7 @@ SSLRoleManager::SSLRoleManager()
 //    }
     spareDefender = new Defender(3, 3);
     spareBlocker = new Blocker(2);
-    spareOpponentMarker = new OpponentMarker();
+    spareOpponentMarker = new OpponentMarker(2);
 }
 
 SSLRoleManager *SSLRoleManager::getInstance()

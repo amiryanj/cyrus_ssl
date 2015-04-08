@@ -4,8 +4,13 @@
 
     "camera_0_filtered" : true,
     "camera_1_filtered" : true,
-    "camera_2_filtered" : false,
+    "camera_2_filtered" : true,
     "camera_3_filtered" : true,
+
+    "filter_blue_robots"   : false,
+    "filter_yellow_robots" : false,
+
+
 
     "filter" : {
         "default": {

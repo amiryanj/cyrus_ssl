@@ -28,22 +28,25 @@ class SSLSkill {
     friend class SSLAgent;
     friend class GUIHandler;
 public:
+    enum MoveType{eAccurateMove, eSlowMove, eFastMove, eAutoMove};
+
     SSLSkill(SSLAgent* parent);
 
     void halt();
 
-    void goToPoint(Vector3D target, const Vector3D &tolerance);
-    void goToPoint(Vector3D target);
-    void goToPoint(Vector2D target, const Vector2D &tolerance);
-    void goToPoint(Vector2D target);
+    void goToPoint(Vector3D target, const Vector3D &tolerance, MoveType move_type = eAutoMove);
+    void goToPoint(Vector3D target, MoveType move_type = eAutoMove);
+    void goToPoint(Vector2D target, const Vector2D &tolerance, MoveType move_type = eAutoMove);
+    void goToPoint(Vector2D target, MoveType move_type = eAutoMove);
 
-    void goToSubGoal(const Vector3D &target, const Vector3D &tolerance);
+    void goToSubGoal(const Vector3D &target, const Vector3D &tolerance, MoveType move_type);
 
     void goToPointWithPlanner( const Vector3D &target,
                                const Vector3D &tolerance,
                                bool considerPenaltyArea = true,
                                float ball_obs_radius = BALL_RADIUS,
-                               float robot_obs_radius = ROBOT_RADIUS);
+                               float robot_obs_radius = ROBOT_RADIUS,
+                               MoveType move_type = eAutoMove);
 
     // ************************** Kick Skill *******************************
     void goAndKick(const Vector2D kick_point, const Vector2D kick_target, float kickStrenghtNormal = 1);
@@ -63,14 +66,15 @@ public:
     void updateObstacles();
     static double computeVelocityStrenghtbyDistance(double dist , double max_speed);
     static Vector3D defaultTolerance;
+    static Vector3D accurateTolerance;
 
 //    void rotateByDegree(float current_orien_deg, float rotation_deg, float omega);
     void rotate(float omega);
 
-    void consiceMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance);
 private:
-    void move(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff = 0.0);
+    void accurateMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance);
     void slowMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance , double speed_coeff = 0.0);
+    void fastMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance);
 
 
     void controlSpeed(const Vector3D &desired_speed, bool use_controller);

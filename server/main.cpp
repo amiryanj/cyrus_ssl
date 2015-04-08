@@ -45,8 +45,8 @@ int main(int argc, char *argv[])
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
     transmitter->type = CommandTransmitter::SERIAL;
 
-    TestVisionInput* vision_tester = new TestVisionInput();
-    TestSkills* gotopoint_tester = new TestSkills();
+    TestInput* vision_tester = new TestInput();
+    TestSkills* skill_tester = new TestSkills();
     TestReferee* referee_tester = new TestReferee();
 
 //    Test::testVelocityStrenght();
@@ -66,16 +66,16 @@ int main(int argc, char *argv[])
             double toc = SSL::currentTimeMSec();
             double process_time = toc - tic;
 //            NetworkPlotter::getInstance()->buildAndSendPacket("Process Time", process_time);
-            printf("Process Time = \t%f milli second\n", process_time);
+//            printf("Process Time = \t%f milli second\n", process_time);
 
 //            transmitter->clear();
-            gotopoint_tester->testKickBall();
+//            skill_tester->testGotoPoint();
 
             transmitter->check();
         }
         if(loopCounter % 40 == 0)   {
-            vision_tester->check();
-            filter->check();
+            vision_tester->updateWorldModel();
+//            filter->check();
             gui->check();
         }
         usleep(1000);

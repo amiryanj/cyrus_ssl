@@ -18,7 +18,7 @@ void GoalKeeper::run()
     // get ready
     if( analyzer->isOpponentPenaltyPosition() ) {
         Vector3D target = SSL::Position::coverGoalWithFixedDistance(50.0f, 0.0f, world->mainBall()->Position());
-        m_agent->skill->goToPoint(target);
+        m_agent->skill->goToPoint(target, SSLSkill::eAutoMove);
     }
     // show reaction
     else if(analyzer->isOpponentPenaltyKick()) {
@@ -44,7 +44,7 @@ void GoalKeeper::run()
 
             }
         }
-        m_agent->skill->goToPoint(target);
+        m_agent->skill->goToPoint(target, SSLSkill::eFastMove);
     }
 
     // check if the ball is coming toward our goal
@@ -59,7 +59,7 @@ void GoalKeeper::run()
                                                                        ball_intersection_with_goal_line.Y() ,
                                                                        Ball_Position );
 
-        m_agent->skill->goToPoint(target , SSLSkill::defaultTolerance);
+        m_agent->skill->goToPoint(target, SSLSkill::eFastMove);
     }
 
     // ball is in penalty area
@@ -69,7 +69,7 @@ void GoalKeeper::run()
                                   1); // goAndChip()
     }
 
-//    else {
+    else {
         // normal play
         Vector2D risky_point = Ball_Position;
         float aimed_point_y = SSL::Position::ourGoalCenter().Y();
@@ -93,9 +93,9 @@ void GoalKeeper::run()
                                                                   aimed_point_y,
                                                                   risky_point);
 
-        m_agent->skill->goToPoint(target);
+        m_agent->skill->goToPoint(target, SSLSkill::eFastMove);
         return;
-//    }
+    }
 }
 
 Vector3D GoalKeeper::expectedPosition()

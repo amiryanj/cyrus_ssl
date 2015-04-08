@@ -1,7 +1,12 @@
 {       
-    "default_tolerance":{   "x"         : 30.0,
-                            "y"         : 30.0,
-                            "teta_deg"  : 20.0
+    "default_tolerance":{   "x"         : 50.0,
+                            "y"         : 50.0,
+                            "teta_deg"  : 30.0
+                        },
+
+    "accurate_tolerance": {   "x"         : 25.0,
+                              "y"         : 25.0,
+                              "teta_deg"  : 10.0
                         },
 
     "test_vel": 0.7 ,

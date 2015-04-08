@@ -17,11 +17,13 @@ TestSkills::TestSkills()
 
     agent = SSLGame::getInstance()->getAgent(ParameterManager::getInstance()->
                                                        get<int>("skills.under_test_robot"));
-    SSLGame::getInstance()->setEnabled(false);
 }
 
 void TestSkills::testGotoPoint()
 {
+    SSLGame::getInstance()->setEnabled(false);
+    agent = SSLGame::getInstance()->getAgent(ParameterManager::getInstance()->
+                                                       get<int>("skills.under_test_robot"));
     if( agent !=0 && !agent->isNull() )  {
 
         agent->skill->goToPoint(target[targetIndex]);
@@ -39,14 +41,22 @@ void TestSkills::testGotoPoint()
 
 void TestSkills::testGotoBallDefense()
 {
-    Vector3D target_ball_defense(SSL::Position::wallStandFrontBall(0,
-                                                world->mainBall()->Position()));
+    SSLGame::getInstance()->setEnabled(false);
+    agent = SSLGame::getInstance()->getAgent(ParameterManager::getInstance()->
+                                                       get<int>("skills.under_test_robot"));
+    if( agent !=0 && !agent->isNull() )  {
+        Vector3D target_ball_defense(SSL::Position::wallStandFrontBall(0,
+                                                    world->mainBall()->Position()));
 
-    agent->skill->goToPoint(target_ball_defense);
+        agent->skill->goToPoint(target_ball_defense);
+    }
 }
 
 void TestSkills::testKickBall()
 {
+    SSLGame::getInstance()->setEnabled(false);
+    agent = SSLGame::getInstance()->getAgent(ParameterManager::getInstance()->
+                                                       get<int>("skills.under_test_robot"));
     if( agent !=0 && !agent->isNull() )  {
 
         agent->skill->goAndKick(world->mainBall()->Position(), SSL::Position::opponentGoalCenter(), 1);

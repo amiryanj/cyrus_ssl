@@ -57,35 +57,16 @@ void ActiveRole::run()
         target = SSL::Position::ourMidfieldUpPosition();
         m_agent->skill->goToPointWithPlanner(target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
     }
-    else {
-        if(analyzer->canKick(m_agent->robot)) {
-            m_state = e_CanKick;
-        }
-
-        else {
-//            float distToTarget = (m_agent->robot->Position().to2D() - target.to2D()).lenght();
-//            if(distToTarget < 180 )
-            if(fabs(m_agent->robot->Position().Y() - target.Y()) < 80
-                    && fabs(m_agent->robot->Position().X() - target.X()) < 100)
-                m_state = e_NearBall;            
-            else // if(distToTarget > 150)
-                m_state = e_FarFromBall;
-        }
-
-        m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
-//        switch (m_state) {
-//        case e_CanKick:
-//            m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
-//            break;
-//        case e_NearBall:
-//            m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
-//            break;
-//        case e_FarFromBall:
-//            Vector3D tolerance(ROBOT_RADIUS/2, ROBOT_RADIUS/2, M_PI_4);
-//            m_agent->skill->goToPointWithPlanner(target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
-//            break;
-//        }
+    else if((world->mainBall()->Position() - SSL::Position::ourGoalCenter()).lenght() < 4000) {
+        Vector2D kick_out = Ball_Position + (Ball_Position - SSL::Position::ourGoalCenter()).normalized() * 1000;
+        m_agent->skill->goAndKick(Ball_Position, kick_out, 1);
     }
+    else {
+        m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
+    }
+
+
+
 }
 
 Vector3D ActiveRole::expectedPosition()

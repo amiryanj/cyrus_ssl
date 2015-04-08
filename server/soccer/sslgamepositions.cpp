@@ -143,6 +143,9 @@ Vector3D coverGoalWithFixedRadius(float radius_from_center, float covered_point_
     best_y_for_catch = bound(best_y_for_catch,
                              min_allowed_y + ROBOT_RADIUS + BALL_RADIUS,
                              max_allowed_y - ROBOT_RADIUS - BALL_RADIUS);
+    best_y_for_catch = bound( best_y_for_catch ,
+                             -FIELD_GOAL_WIDTH_2 - ROBOT_RADIUS,
+                              FIELD_GOAL_WIDTH_2 - ROBOT_RADIUS );
 
     float orien = (shoot_point - Vector2D(best_point.X(), best_y_for_catch)).arctan();
     return Vector3D(best_point.X(), best_y_for_catch, continuousRadian(orien, -M_PI));
@@ -164,6 +167,9 @@ Vector3D coverGoalWithOptimumDistance(Vector3D my_position, float covered_point_
                                     my_position.to2D() + Vector2D::unitVector(prependicular_line_slope) * 100000.0 );
 
     Vector2D catch_ball_pos = LineSegment::intersection(shoot_line, prependicular_line);
+    catch_ball_pos.setY(bound(catch_ball_pos.Y(),
+                             -FIELD_GOAL_WIDTH_2 - ROBOT_RADIUS,
+                              FIELD_GOAL_WIDTH_2 + ROBOT_RADIUS));
     if(catch_ball_pos.X() < INFINITY) {
         return Vector3D(catch_ball_pos, my_position.Teta());
     }

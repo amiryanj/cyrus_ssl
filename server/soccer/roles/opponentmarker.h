@@ -9,11 +9,13 @@ class OpponentMarker : public SSLRole
 {
 
 public:
-    OpponentMarker();
+    OpponentMarker(int index_);
 
     void run();
 
     Vector3D expectedPosition();
+
+    int m_index;
 
 private:
 };
