@@ -91,6 +91,8 @@ public:
     RobotIntersectTime nearestRobotToRobot(SSL::Color teamColor, const SSLRobot * robot, uint index = 0);
     RobotIntersectTime nearestRobotToRobot(const vector<SSLRobot*> & robots,const SSLRobot * robot, uint index = 0);
 
+    Vector2D ballIntersectionWithOurGoalLine();
+
 //   //LEVEL 2 : ROBOT & ROBOT ------------------------------------------------------------------
 //    RobotIntersectTime nearestRobotsToBlockPointOutOfOurPenaltyArea(const Vector2D targetPoint, uint index =0);
 //    RobotIntersectTime nearestRobotsToBlockPoint(const Vector2D targetPoint, uint index = 0);

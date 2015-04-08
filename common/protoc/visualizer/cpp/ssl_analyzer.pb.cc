@@ -21,6 +21,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* ssl_analyzer_packet_RobotIntersectTime_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ssl_analyzer_packet_RobotIntersectTime_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ssl_analyzer_packet_point_2d_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ssl_analyzer_packet_point_2d_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* ssl_analyzer_packet_Color_descriptor_ = NULL;
 
 }  // namespace
@@ -33,13 +36,14 @@ void protobuf_AssignDesc_ssl_5fanalyzer_2eproto() {
       "ssl_analyzer.proto");
   GOOGLE_CHECK(file != NULL);
   ssl_analyzer_packet_descriptor_ = file->message_type(0);
-  static const int ssl_analyzer_packet_offsets_[7] = {
+  static const int ssl_analyzer_packet_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet, nearest_blue_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet, nearest_yellow_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet, possessor_team_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet, nearest_can_kick_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet, is_game_running_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet, intersects_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet, ballintersectionwithourgoal_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet, comment_),
   };
   ssl_analyzer_packet_reflection_ =
@@ -72,6 +76,22 @@ void protobuf_AssignDesc_ssl_5fanalyzer_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ssl_analyzer_packet_RobotIntersectTime));
+  ssl_analyzer_packet_point_2d_descriptor_ = ssl_analyzer_packet_descriptor_->nested_type(1);
+  static const int ssl_analyzer_packet_point_2d_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet_point_2d, x_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet_point_2d, y_),
+  };
+  ssl_analyzer_packet_point_2d_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ssl_analyzer_packet_point_2d_descriptor_,
+      ssl_analyzer_packet_point_2d::default_instance_,
+      ssl_analyzer_packet_point_2d_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet_point_2d, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ssl_analyzer_packet_point_2d, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ssl_analyzer_packet_point_2d));
   ssl_analyzer_packet_Color_descriptor_ = ssl_analyzer_packet_descriptor_->enum_type(0);
 }
 
@@ -89,6 +109,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
     ssl_analyzer_packet_descriptor_, &ssl_analyzer_packet::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ssl_analyzer_packet_RobotIntersectTime_descriptor_, &ssl_analyzer_packet_RobotIntersectTime::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ssl_analyzer_packet_point_2d_descriptor_, &ssl_analyzer_packet_point_2d::default_instance());
 }
 
 }  // namespace
@@ -98,6 +120,8 @@ void protobuf_ShutdownFile_ssl_5fanalyzer_2eproto() {
   delete ssl_analyzer_packet_reflection_;
   delete ssl_analyzer_packet_RobotIntersectTime::default_instance_;
   delete ssl_analyzer_packet_RobotIntersectTime_reflection_;
+  delete ssl_analyzer_packet_point_2d::default_instance_;
+  delete ssl_analyzer_packet_point_2d_reflection_;
 }
 
 void protobuf_AddDesc_ssl_5fanalyzer_2eproto() {
@@ -107,24 +131,29 @@ void protobuf_AddDesc_ssl_5fanalyzer_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\022ssl_analyzer.proto\"\266\003\n\023ssl_analyzer_pa"
+    "\n\022ssl_analyzer.proto\"\234\004\n\023ssl_analyzer_pa"
     "cket\022\027\n\017nearest_blue_id\030\001 \002(\r\022\031\n\021nearest"
     "_yellow_id\030\002 \002(\r\0222\n\016possessor_team\030\003 \002(\016"
     "2\032.ssl_analyzer_packet.Color\022\030\n\020nearest_"
     "can_kick\030\004 \002(\010\022\027\n\017is_game_running\030\005 \002(\010\022"
     ";\n\nintersects\030\006 \003(\0132\'.ssl_analyzer_packe"
-    "t.RobotIntersectTime\022\017\n\007comment\030\007 \001(\t\032\203\001"
-    "\n\022RobotIntersectTime\022)\n\005color\030\001 \002(\0162\032.ss"
-    "l_analyzer_packet.Color\022\n\n\002id\030\002 \002(\r\022\014\n\004t"
-    "ime\030\003 \002(\002\022\023\n\013intersect_x\030\004 \002(\002\022\023\n\013inters"
-    "ect_y\030\005 \002(\002\"0\n\005Color\022\021\n\004none\020\377\377\377\377\377\377\377\377\377\001\022"
-    "\n\n\006yellow\020\000\022\010\n\004blue\020\001", 461);
+    "t.RobotIntersectTime\022B\n\033ballIntersection"
+    "WithOurGoal\030\007 \002(\0132\035.ssl_analyzer_packet."
+    "point_2d\022\017\n\007comment\030\010 \001(\t\032\203\001\n\022RobotInter"
+    "sectTime\022)\n\005color\030\001 \002(\0162\032.ssl_analyzer_p"
+    "acket.Color\022\n\n\002id\030\002 \002(\r\022\014\n\004time\030\003 \002(\002\022\023\n"
+    "\013intersect_x\030\004 \002(\002\022\023\n\013intersect_y\030\005 \002(\002\032"
+    " \n\010point_2d\022\t\n\001x\030\001 \002(\002\022\t\n\001y\030\002 \002(\002\"0\n\005Col"
+    "or\022\021\n\004none\020\377\377\377\377\377\377\377\377\377\001\022\n\n\006yellow\020\000\022\010\n\004blu"
+    "e\020\001", 563);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ssl_analyzer.proto", &protobuf_RegisterTypes);
   ssl_analyzer_packet::default_instance_ = new ssl_analyzer_packet();
   ssl_analyzer_packet_RobotIntersectTime::default_instance_ = new ssl_analyzer_packet_RobotIntersectTime();
+  ssl_analyzer_packet_point_2d::default_instance_ = new ssl_analyzer_packet_point_2d();
   ssl_analyzer_packet::default_instance_->InitAsDefaultInstance();
   ssl_analyzer_packet_RobotIntersectTime::default_instance_->InitAsDefaultInstance();
+  ssl_analyzer_packet_point_2d::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_ssl_5fanalyzer_2eproto);
 }
 
@@ -530,12 +559,257 @@ void ssl_analyzer_packet_RobotIntersectTime::Swap(ssl_analyzer_packet_RobotInter
 // -------------------------------------------------------------------
 
 #ifndef _MSC_VER
+const int ssl_analyzer_packet_point_2d::kXFieldNumber;
+const int ssl_analyzer_packet_point_2d::kYFieldNumber;
+#endif  // !_MSC_VER
+
+ssl_analyzer_packet_point_2d::ssl_analyzer_packet_point_2d()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void ssl_analyzer_packet_point_2d::InitAsDefaultInstance() {
+}
+
+ssl_analyzer_packet_point_2d::ssl_analyzer_packet_point_2d(const ssl_analyzer_packet_point_2d& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void ssl_analyzer_packet_point_2d::SharedCtor() {
+  _cached_size_ = 0;
+  x_ = 0;
+  y_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ssl_analyzer_packet_point_2d::~ssl_analyzer_packet_point_2d() {
+  SharedDtor();
+}
+
+void ssl_analyzer_packet_point_2d::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void ssl_analyzer_packet_point_2d::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ssl_analyzer_packet_point_2d::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ssl_analyzer_packet_point_2d_descriptor_;
+}
+
+const ssl_analyzer_packet_point_2d& ssl_analyzer_packet_point_2d::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ssl_5fanalyzer_2eproto();  return *default_instance_;
+}
+
+ssl_analyzer_packet_point_2d* ssl_analyzer_packet_point_2d::default_instance_ = NULL;
+
+ssl_analyzer_packet_point_2d* ssl_analyzer_packet_point_2d::New() const {
+  return new ssl_analyzer_packet_point_2d;
+}
+
+void ssl_analyzer_packet_point_2d::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    x_ = 0;
+    y_ = 0;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ssl_analyzer_packet_point_2d::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required float x = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &x_)));
+          set_has_x();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(21)) goto parse_y;
+        break;
+      }
+      
+      // required float y = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_y:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &y_)));
+          set_has_y();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void ssl_analyzer_packet_point_2d::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required float x = 1;
+  if (has_x()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->x(), output);
+  }
+  
+  // required float y = 2;
+  if (has_y()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->y(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ssl_analyzer_packet_point_2d::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required float x = 1;
+  if (has_x()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->x(), target);
+  }
+  
+  // required float y = 2;
+  if (has_y()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->y(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int ssl_analyzer_packet_point_2d::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required float x = 1;
+    if (has_x()) {
+      total_size += 1 + 4;
+    }
+    
+    // required float y = 2;
+    if (has_y()) {
+      total_size += 1 + 4;
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ssl_analyzer_packet_point_2d::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ssl_analyzer_packet_point_2d* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ssl_analyzer_packet_point_2d*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ssl_analyzer_packet_point_2d::MergeFrom(const ssl_analyzer_packet_point_2d& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_x()) {
+      set_x(from.x());
+    }
+    if (from.has_y()) {
+      set_y(from.y());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ssl_analyzer_packet_point_2d::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ssl_analyzer_packet_point_2d::CopyFrom(const ssl_analyzer_packet_point_2d& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ssl_analyzer_packet_point_2d::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  
+  return true;
+}
+
+void ssl_analyzer_packet_point_2d::Swap(ssl_analyzer_packet_point_2d* other) {
+  if (other != this) {
+    std::swap(x_, other->x_);
+    std::swap(y_, other->y_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ssl_analyzer_packet_point_2d::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ssl_analyzer_packet_point_2d_descriptor_;
+  metadata.reflection = ssl_analyzer_packet_point_2d_reflection_;
+  return metadata;
+}
+
+
+// -------------------------------------------------------------------
+
+#ifndef _MSC_VER
 const int ssl_analyzer_packet::kNearestBlueIdFieldNumber;
 const int ssl_analyzer_packet::kNearestYellowIdFieldNumber;
 const int ssl_analyzer_packet::kPossessorTeamFieldNumber;
 const int ssl_analyzer_packet::kNearestCanKickFieldNumber;
 const int ssl_analyzer_packet::kIsGameRunningFieldNumber;
 const int ssl_analyzer_packet::kIntersectsFieldNumber;
+const int ssl_analyzer_packet::kBallIntersectionWithOurGoalFieldNumber;
 const int ssl_analyzer_packet::kCommentFieldNumber;
 #endif  // !_MSC_VER
 
@@ -545,6 +819,7 @@ ssl_analyzer_packet::ssl_analyzer_packet()
 }
 
 void ssl_analyzer_packet::InitAsDefaultInstance() {
+  ballintersectionwithourgoal_ = const_cast< ::ssl_analyzer_packet_point_2d*>(&::ssl_analyzer_packet_point_2d::default_instance());
 }
 
 ssl_analyzer_packet::ssl_analyzer_packet(const ssl_analyzer_packet& from)
@@ -560,6 +835,7 @@ void ssl_analyzer_packet::SharedCtor() {
   possessor_team_ = -1;
   nearest_can_kick_ = false;
   is_game_running_ = false;
+  ballintersectionwithourgoal_ = NULL;
   comment_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -573,6 +849,7 @@ void ssl_analyzer_packet::SharedDtor() {
     delete comment_;
   }
   if (this != default_instance_) {
+    delete ballintersectionwithourgoal_;
   }
 }
 
@@ -603,6 +880,9 @@ void ssl_analyzer_packet::Clear() {
     possessor_team_ = -1;
     nearest_can_kick_ = false;
     is_game_running_ = false;
+    if (has_ballintersectionwithourgoal()) {
+      if (ballintersectionwithourgoal_ != NULL) ballintersectionwithourgoal_->::ssl_analyzer_packet_point_2d::Clear();
+    }
     if (has_comment()) {
       if (comment_ != &::google::protobuf::internal::kEmptyString) {
         comment_->clear();
@@ -715,12 +995,26 @@ bool ssl_analyzer_packet::MergePartialFromCodedStream(
           goto handle_uninterpreted;
         }
         if (input->ExpectTag(50)) goto parse_intersects;
-        if (input->ExpectTag(58)) goto parse_comment;
+        if (input->ExpectTag(58)) goto parse_ballIntersectionWithOurGoal;
         break;
       }
       
-      // optional string comment = 7;
+      // required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
       case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_ballIntersectionWithOurGoal:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_ballintersectionwithourgoal()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(66)) goto parse_comment;
+        break;
+      }
+      
+      // optional string comment = 8;
+      case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_comment:
@@ -786,13 +1080,19 @@ void ssl_analyzer_packet::SerializeWithCachedSizes(
       6, this->intersects(i), output);
   }
   
-  // optional string comment = 7;
+  // required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
+  if (has_ballintersectionwithourgoal()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, this->ballintersectionwithourgoal(), output);
+  }
+  
+  // optional string comment = 8;
   if (has_comment()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->comment().data(), this->comment().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      7, this->comment(), output);
+      8, this->comment(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -836,14 +1136,21 @@ void ssl_analyzer_packet::SerializeWithCachedSizes(
         6, this->intersects(i), target);
   }
   
-  // optional string comment = 7;
+  // required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
+  if (has_ballintersectionwithourgoal()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        7, this->ballintersectionwithourgoal(), target);
+  }
+  
+  // optional string comment = 8;
   if (has_comment()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->comment().data(), this->comment().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        7, this->comment(), target);
+        8, this->comment(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -887,7 +1194,14 @@ int ssl_analyzer_packet::ByteSize() const {
       total_size += 1 + 1;
     }
     
-    // optional string comment = 7;
+    // required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
+    if (has_ballintersectionwithourgoal()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->ballintersectionwithourgoal());
+    }
+    
+    // optional string comment = 8;
     if (has_comment()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -945,6 +1259,9 @@ void ssl_analyzer_packet::MergeFrom(const ssl_analyzer_packet& from) {
     if (from.has_is_game_running()) {
       set_is_game_running(from.is_game_running());
     }
+    if (from.has_ballintersectionwithourgoal()) {
+      mutable_ballintersectionwithourgoal()->::ssl_analyzer_packet_point_2d::MergeFrom(from.ballintersectionwithourgoal());
+    }
     if (from.has_comment()) {
       set_comment(from.comment());
     }
@@ -965,10 +1282,13 @@ void ssl_analyzer_packet::CopyFrom(const ssl_analyzer_packet& from) {
 }
 
 bool ssl_analyzer_packet::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+  if ((_has_bits_[0] & 0x0000005f) != 0x0000005f) return false;
   
   for (int i = 0; i < intersects_size(); i++) {
     if (!this->intersects(i).IsInitialized()) return false;
+  }
+  if (has_ballintersectionwithourgoal()) {
+    if (!this->ballintersectionwithourgoal().IsInitialized()) return false;
   }
   return true;
 }
@@ -981,6 +1301,7 @@ void ssl_analyzer_packet::Swap(ssl_analyzer_packet* other) {
     std::swap(nearest_can_kick_, other->nearest_can_kick_);
     std::swap(is_game_running_, other->is_game_running_);
     intersects_.Swap(&other->intersects_);
+    std::swap(ballintersectionwithourgoal_, other->ballintersectionwithourgoal_);
     std::swap(comment_, other->comment_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

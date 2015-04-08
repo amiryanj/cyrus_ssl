@@ -32,6 +32,7 @@ void protobuf_ShutdownFile_ssl_5fanalyzer_2eproto();
 
 class ssl_analyzer_packet;
 class ssl_analyzer_packet_RobotIntersectTime;
+class ssl_analyzer_packet_point_2d;
 
 enum ssl_analyzer_packet_Color {
   ssl_analyzer_packet_Color_none = -1,
@@ -177,6 +178,98 @@ class ssl_analyzer_packet_RobotIntersectTime : public ::google::protobuf::Messag
 };
 // -------------------------------------------------------------------
 
+class ssl_analyzer_packet_point_2d : public ::google::protobuf::Message {
+ public:
+  ssl_analyzer_packet_point_2d();
+  virtual ~ssl_analyzer_packet_point_2d();
+  
+  ssl_analyzer_packet_point_2d(const ssl_analyzer_packet_point_2d& from);
+  
+  inline ssl_analyzer_packet_point_2d& operator=(const ssl_analyzer_packet_point_2d& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ssl_analyzer_packet_point_2d& default_instance();
+  
+  void Swap(ssl_analyzer_packet_point_2d* other);
+  
+  // implements Message ----------------------------------------------
+  
+  ssl_analyzer_packet_point_2d* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ssl_analyzer_packet_point_2d& from);
+  void MergeFrom(const ssl_analyzer_packet_point_2d& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // required float x = 1;
+  inline bool has_x() const;
+  inline void clear_x();
+  static const int kXFieldNumber = 1;
+  inline float x() const;
+  inline void set_x(float value);
+  
+  // required float y = 2;
+  inline bool has_y() const;
+  inline void clear_y();
+  static const int kYFieldNumber = 2;
+  inline float y() const;
+  inline void set_y(float value);
+  
+  // @@protoc_insertion_point(class_scope:ssl_analyzer_packet.point_2d)
+ private:
+  inline void set_has_x();
+  inline void clear_has_x();
+  inline void set_has_y();
+  inline void clear_has_y();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  float x_;
+  float y_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_ssl_5fanalyzer_2eproto();
+  friend void protobuf_AssignDesc_ssl_5fanalyzer_2eproto();
+  friend void protobuf_ShutdownFile_ssl_5fanalyzer_2eproto();
+  
+  void InitAsDefaultInstance();
+  static ssl_analyzer_packet_point_2d* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class ssl_analyzer_packet : public ::google::protobuf::Message {
  public:
   ssl_analyzer_packet();
@@ -230,6 +323,7 @@ class ssl_analyzer_packet : public ::google::protobuf::Message {
   // nested types ----------------------------------------------------
   
   typedef ssl_analyzer_packet_RobotIntersectTime RobotIntersectTime;
+  typedef ssl_analyzer_packet_point_2d point_2d;
   
   typedef ssl_analyzer_packet_Color Color;
   static const Color none = ssl_analyzer_packet_Color_none;
@@ -305,10 +399,18 @@ class ssl_analyzer_packet : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedPtrField< ::ssl_analyzer_packet_RobotIntersectTime >*
       mutable_intersects();
   
-  // optional string comment = 7;
+  // required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
+  inline bool has_ballintersectionwithourgoal() const;
+  inline void clear_ballintersectionwithourgoal();
+  static const int kBallIntersectionWithOurGoalFieldNumber = 7;
+  inline const ::ssl_analyzer_packet_point_2d& ballintersectionwithourgoal() const;
+  inline ::ssl_analyzer_packet_point_2d* mutable_ballintersectionwithourgoal();
+  inline ::ssl_analyzer_packet_point_2d* release_ballintersectionwithourgoal();
+  
+  // optional string comment = 8;
   inline bool has_comment() const;
   inline void clear_comment();
-  static const int kCommentFieldNumber = 7;
+  static const int kCommentFieldNumber = 8;
   inline const ::std::string& comment() const;
   inline void set_comment(const ::std::string& value);
   inline void set_comment(const char* value);
@@ -328,6 +430,8 @@ class ssl_analyzer_packet : public ::google::protobuf::Message {
   inline void clear_has_nearest_can_kick();
   inline void set_has_is_game_running();
   inline void clear_has_is_game_running();
+  inline void set_has_ballintersectionwithourgoal();
+  inline void clear_has_ballintersectionwithourgoal();
   inline void set_has_comment();
   inline void clear_has_comment();
   
@@ -339,10 +443,11 @@ class ssl_analyzer_packet : public ::google::protobuf::Message {
   bool nearest_can_kick_;
   bool is_game_running_;
   ::google::protobuf::RepeatedPtrField< ::ssl_analyzer_packet_RobotIntersectTime > intersects_;
+  ::ssl_analyzer_packet_point_2d* ballintersectionwithourgoal_;
   ::std::string* comment_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
   
   friend void  protobuf_AddDesc_ssl_5fanalyzer_2eproto();
   friend void protobuf_AssignDesc_ssl_5fanalyzer_2eproto();
@@ -467,6 +572,54 @@ inline float ssl_analyzer_packet_RobotIntersectTime::intersect_y() const {
 inline void ssl_analyzer_packet_RobotIntersectTime::set_intersect_y(float value) {
   set_has_intersect_y();
   intersect_y_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ssl_analyzer_packet_point_2d
+
+// required float x = 1;
+inline bool ssl_analyzer_packet_point_2d::has_x() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ssl_analyzer_packet_point_2d::set_has_x() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ssl_analyzer_packet_point_2d::clear_has_x() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ssl_analyzer_packet_point_2d::clear_x() {
+  x_ = 0;
+  clear_has_x();
+}
+inline float ssl_analyzer_packet_point_2d::x() const {
+  return x_;
+}
+inline void ssl_analyzer_packet_point_2d::set_x(float value) {
+  set_has_x();
+  x_ = value;
+}
+
+// required float y = 2;
+inline bool ssl_analyzer_packet_point_2d::has_y() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ssl_analyzer_packet_point_2d::set_has_y() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ssl_analyzer_packet_point_2d::clear_has_y() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ssl_analyzer_packet_point_2d::clear_y() {
+  y_ = 0;
+  clear_has_y();
+}
+inline float ssl_analyzer_packet_point_2d::y() const {
+  return y_;
+}
+inline void ssl_analyzer_packet_point_2d::set_y(float value) {
+  set_has_y();
+  y_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -609,15 +762,44 @@ ssl_analyzer_packet::mutable_intersects() {
   return &intersects_;
 }
 
-// optional string comment = 7;
-inline bool ssl_analyzer_packet::has_comment() const {
+// required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
+inline bool ssl_analyzer_packet::has_ballintersectionwithourgoal() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
-inline void ssl_analyzer_packet::set_has_comment() {
+inline void ssl_analyzer_packet::set_has_ballintersectionwithourgoal() {
   _has_bits_[0] |= 0x00000040u;
 }
-inline void ssl_analyzer_packet::clear_has_comment() {
+inline void ssl_analyzer_packet::clear_has_ballintersectionwithourgoal() {
   _has_bits_[0] &= ~0x00000040u;
+}
+inline void ssl_analyzer_packet::clear_ballintersectionwithourgoal() {
+  if (ballintersectionwithourgoal_ != NULL) ballintersectionwithourgoal_->::ssl_analyzer_packet_point_2d::Clear();
+  clear_has_ballintersectionwithourgoal();
+}
+inline const ::ssl_analyzer_packet_point_2d& ssl_analyzer_packet::ballintersectionwithourgoal() const {
+  return ballintersectionwithourgoal_ != NULL ? *ballintersectionwithourgoal_ : *default_instance_->ballintersectionwithourgoal_;
+}
+inline ::ssl_analyzer_packet_point_2d* ssl_analyzer_packet::mutable_ballintersectionwithourgoal() {
+  set_has_ballintersectionwithourgoal();
+  if (ballintersectionwithourgoal_ == NULL) ballintersectionwithourgoal_ = new ::ssl_analyzer_packet_point_2d;
+  return ballintersectionwithourgoal_;
+}
+inline ::ssl_analyzer_packet_point_2d* ssl_analyzer_packet::release_ballintersectionwithourgoal() {
+  clear_has_ballintersectionwithourgoal();
+  ::ssl_analyzer_packet_point_2d* temp = ballintersectionwithourgoal_;
+  ballintersectionwithourgoal_ = NULL;
+  return temp;
+}
+
+// optional string comment = 8;
+inline bool ssl_analyzer_packet::has_comment() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void ssl_analyzer_packet::set_has_comment() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void ssl_analyzer_packet::clear_has_comment() {
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline void ssl_analyzer_packet::clear_comment() {
   if (comment_ != &::google::protobuf::internal::kEmptyString) {

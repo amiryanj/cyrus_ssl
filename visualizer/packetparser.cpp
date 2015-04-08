@@ -116,6 +116,9 @@ void PacketParser::handleAnalyzerPacket(ssl_analyzer_packet p)
         state_.position = point_.to3D();
         emit newIntersectPoint(time_, state_);
     }
+
+    emit ballIntersectionGoalLine(Vector2D(p.ballintersectionwithourgoal().x(),
+                                           p.ballintersectionwithourgoal().y() ));
 }
 
 void PacketParser::handlePlannerPacket(ssl_planner_packet p)

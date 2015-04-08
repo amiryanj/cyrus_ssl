@@ -48,6 +48,7 @@ public slots:
     void updateNearestRobotToBall(int blueID,int yellowID,SSL::Color possessorTeam, bool nearestCacnKick);
     void updateRobotIntersect(float time, RobotState st);
     void showBallStopZone(bool show);
+    void showBallIntersectionWithGoal(Vector2D point);
 
 private:
 //    Ui::FieldScene *ui;
@@ -64,6 +65,7 @@ private:
     ArcGraphicsItem *robotRotation[MAX_ID_NUM];
 
     QGraphicsItem *ballZone;
+    QGraphicsItem *ballIntersectionWithGoal;
 
 
     CircleGraphicsItem *ball;

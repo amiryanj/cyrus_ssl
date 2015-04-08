@@ -59,7 +59,7 @@ void SSLGame::check()
         roleManager->AssignRole(currentStrategy, this->m_agents);
     }
 
-    if( !m_enabled )
+    if( m_enabled == false )
         return;
 
     for(uint i=0; i<m_agents.size(); i++) {

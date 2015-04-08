@@ -80,10 +80,13 @@ FieldScene::FieldScene(Color our_color, QWidget *parent) :
 
     ballZone = scene.addEllipse(-500, -500, 1000, 1000, QPen(QColor(20, 50, 30), 3), QBrush(Qt::red));
     ballZone->setParentItem(ball);
-    ballZone->setOpacity(0.6);
+    ballZone->setOpacity(0.4);
     ballZone->setZValue(6);
 
     showBallStopZone(false);
+
+    ballIntersectionWithGoal = scene.addEllipse(-40, -40, 80, 80, QPen(Qt::cyan), QBrush(Qt::red));
+    ballIntersectionWithGoal->setZValue(7);
 
     ballTail = new BallGraphicsItem(Qt::red);
     scene.addItem(ballTail);
@@ -333,6 +336,16 @@ void FieldScene::updateRobotIntersect(float time, RobotState st)
 void FieldScene::showBallStopZone(bool show)
 {
     ballZone->setVisible(show);
+}
+
+void FieldScene::showBallIntersectionWithGoal(Vector2D point)
+{
+    if(fabs(point.Y()) < FIELD_WIDTH_2) {
+        ballIntersectionWithGoal->setOpacity(.75);
+        ballIntersectionWithGoal->setPos(point.X(), -point.Y());
+    }
+    else
+        ballIntersectionWithGoal->setOpacity(0);
 }
 
 void FieldScene::drawBounds()

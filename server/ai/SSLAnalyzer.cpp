@@ -5,6 +5,7 @@
 #include "../definition/SSLRobot.h"
 #include "../definition/SSLBall.h"
 #include "../../common/math/linesegment.h"
+#include "../soccer/sslgamepositions.h"
 
 #include <utility>
 #include <cmath>
@@ -670,4 +671,17 @@ bool SSLAnalyzer::isPointWithinOurDownCorner(const Vector2D &point)
     if(fabs(point.X() - our_x) < 300 && point.Y() < -FIELD_WIDTH_2 * .8)
         return true;
     return false;
+}
+
+Vector2D SSLAnalyzer::ballIntersectionWithOurGoalLine()
+{
+    LineSegment ball_move_line(world->mainBall()->Position() ,
+                               world->mainBall()->Position() + world->mainBall()->Speed() * 5.0/*seconds*/);
+    Vector2D ball_intersection_with_goal_line =
+            LineSegment::intersection(ball_move_line, SSL::Position::ourGoalLine());
+    if( fabs(ball_intersection_with_goal_line.Y()) < INFINITY ) {
+        return ball_intersection_with_goal_line;
+    }
+    else
+        return Vector2D(SSL::Position::ourGoalCenter().X(), INFINITY);
 }

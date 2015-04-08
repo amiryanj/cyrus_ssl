@@ -13,5 +13,11 @@ message ssl_analyzer_packet {
 		required float intersect_y = 5;
 	};
 	repeated RobotIntersectTime intersects = 6;
-	optional string comment = 7;
+	message point_2d {
+		required float x = 1;
+		required float y = 2;
+	}	
+
+	required point_2d ballIntersectionWithOurGoal = 7;
+	optional string comment = 8;
 }

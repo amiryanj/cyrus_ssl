@@ -64,7 +64,7 @@ bool RobotFilter::isOnField()
 void RobotFilter::run()
 {
     // removing decayed frames
-    if((SSL::currentTimeMSec() - last_update_time_msec) > 5000.0) {
+    if((SSL::currentTimeMSec() - last_update_time_msec) > 15000.0) {
         rawData.clear();
     }
 

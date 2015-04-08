@@ -40,6 +40,7 @@ void VisionFilter::check()
     for( int tm = 0 ; tm < NUM_TEAMS; tm++ )   {
         for( int i = 0; i < MAX_ID_NUM; i++ )   {
             robotFilter[tm][i]->run();
+//            cout << robotFilter[tm][i]->isOnField() << endl;
             world->updateRobotState( (SSL::Color)tm, i ,
                                      robotFilter[tm][i]->m_filteredPosition ,
                                      robotFilter[tm][i]->m_filteredSpeed,
@@ -97,23 +98,23 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
     //        temp_frame.setToCurrentTimeMilliSec();
             frame.timeStampMilliSec = packet.detection().t_capture() * 1000.0;
 
-            for(int i=0; i < packet.detection().robots_blue_size(); i++)
-            {
-                SSL_DetectionRobot Robot = packet.detection().robots_blue(i);
-                frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
-                frame.confidence = Robot.confidence();
-                robotFilter[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
-            }
+            if(ParameterManager::getInstance()->get<bool>("vision.filter_blue_robots") == false)
+                for(int i=0; i < packet.detection().robots_blue_size(); i++)
+                {
+                    SSL_DetectionRobot Robot = packet.detection().robots_blue(i);
+                    frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+                    frame.confidence = Robot.confidence();
+                    robotFilter[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
+                }
 
-            for(int i=0; i< packet.detection().robots_yellow_size(); i++)
-            {
-                SSL_DetectionRobot Robot = packet.detection().robots_yellow(i);
-                frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
-                frame.confidence = Robot.confidence();
-//                if(Robot.x() > 0)
-//                    continue;
-                robotFilter[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
-            }
+            if(ParameterManager::getInstance()->get<bool>("vision.filter_yellow_robots") == false)
+                for(int i=0; i< packet.detection().robots_yellow_size(); i++)
+                {
+                    SSL_DetectionRobot Robot = packet.detection().robots_yellow(i);
+                    frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
+                    frame.confidence = Robot.confidence();
+                    robotFilter[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
+                }
 
             vector<SSLFrame> balls_vec;
             for(int i=0; i< packet.detection().balls_size(); i++)

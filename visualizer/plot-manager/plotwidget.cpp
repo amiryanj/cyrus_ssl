@@ -24,7 +24,7 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
     ui->myPlot->xAxis->setTickStep(1);
     ui->myPlot->xAxis->setTickLabelRotation(30);
 
-    ui->myPlot->yAxis->setRange(0, 1);
+    ui->myPlot->yAxis->setRange(-1, 1);
 
     // ************* Adding New Graph *****************
     QVector<QColor> colorList;

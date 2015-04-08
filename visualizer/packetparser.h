@@ -30,6 +30,7 @@ signals:
     void gameRunning(bool value);
     void newIntersectPoint(float time, RobotState st);
     void newRefereeState(QString state);
+    void ballIntersectionGoalLine(Vector2D intersection);
 
 public slots:
     void handleWorldPacket(ssl_world_packet p);

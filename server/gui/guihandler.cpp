@@ -272,6 +272,9 @@ void GUIHandler::generateAnalyzerPacket(ssl_analyzer_packet *packet)
         intersect_mes->set_intersect_y(intersect_.m_position.Y());
         intersect_mes->set_time(intersect_.m_time);
     }
+    Vector2D ball_intersection_with_our_goal = SSLAnalyzer::getInstance()->ballIntersectionWithOurGoalLine();
+    packet->mutable_ballintersectionwithourgoal()->set_x(ball_intersection_with_our_goal.X());
+    packet->mutable_ballintersectionwithourgoal()->set_y(ball_intersection_with_our_goal.Y());
 }
 
 void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
@@ -297,7 +300,7 @@ void GUIHandler::generatePlannerPacket(ssl_planner_packet *packet)
         goal->set_teta(agent->skill->target.Teta());
 //        planner_obstacles* obstacles = plan->mutable_obstacleset(); // not filled yet
 //        if(agent->skill->planner.planningResult)
-            for(uint i = 0; i< agent->skill->planner.getTrajectory().length(); i++)
+            for(int i = 0; i< agent->skill->planner.getTrajectory().length(); i++)
             {
                 Vector3D pos = agent->skill->planner.getTrajectory().getStation(i).getPosition();
                 planner_vec3d* state = plan->add_pathstate();

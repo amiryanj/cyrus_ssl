@@ -58,6 +58,7 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     connect(parser, SIGNAL(gameRunning(bool)), this, SLOT(setGameRunningState(bool)));
     connect(parser, SIGNAL(newIntersectPoint(float,RobotState)), field, SLOT(updateRobotIntersect(float,RobotState)));
     connect(parser, SIGNAL(newRefereeState(QString)), this, SLOT(setRefereeState(QString)));
+    connect(parser, SIGNAL(ballIntersectionGoalLine(Vector2D)), field, SLOT(showBallIntersectionWithGoal(Vector2D)));
 
 
     setupTree();
