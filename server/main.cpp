@@ -75,8 +75,8 @@ int main(int argc, char *argv[])
             transmitter->check();
         }
         if(loopCounter % 40 == 0)   {
-            vision_tester->updateWorldModel();
-//            filter->check();
+//            vision_tester->updateWorldModel();
+            filter->check();
             gui->check();
         }
         usleep(1000);

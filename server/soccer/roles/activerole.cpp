@@ -1,9 +1,10 @@
 #include "activerole.h"
 #include "../sslagent.h"
 
-ActiveRole::ActiveRole()
+ActiveRole::ActiveRole(int index_)
 {
     m_type = SSLRole::e_Active;
+    this->m_index = index_;
 
     m_hardness = 1;
 }
@@ -53,17 +54,23 @@ void ActiveRole::run()
     // if the ball is in our penalty area, the actve player should approach our defense area
     Vector3D target = SSL::Position::KickStylePosition(world->mainBall()->Position(),
                                                        SSL::Position::opponentGoalCenter(), 100);
-    if(analyzer->isPointWithinOurPenaltyArea(target.to2D())) {
+    if(analyzer->isPointWithinOurPenaltyArea(target.to2D()))  {
         target = SSL::Position::ourMidfieldUpPosition();
         m_agent->skill->goToPointWithPlanner(target, tolerance, true, 2.0 * BALL_RADIUS, ROBOT_RADIUS);
     }
     else if((world->mainBall()->Position() - SSL::Position::ourGoalCenter()).lenght() < 4000) {
-        Vector2D kick_out = Ball_Position + (Ball_Position - SSL::Position::ourGoalCenter()).normalized() * 1000;
-        m_agent->skill->goAndKick(Ball_Position, kick_out, 1);
+        SSLRobot* op_nearest = analyzer->nearestToBall(game->opponentTeam()->getInFieldRobots());
+        if(op_nearest != NULL) {
+            if((op_nearest->Position().to2D() - Ball_Position).lenght() > 400 ) {
+                Vector2D kick_out = Ball_Position +
+                                    (Ball_Position - SSL::Position::ourGoalCenter()).normalized() * 1000;
+                m_agent->skill->goAndKick(Ball_Position, kick_out, 1);
+                return;
+            }
+        }
     }
-    else {
-        m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
-    }
+
+    m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponentGoalCenter(), 1);
 
 
 

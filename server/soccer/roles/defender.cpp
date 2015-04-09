@@ -119,8 +119,10 @@ void Defender::setDefenderCount(int ind)
 
 void Defender::run()
 {
-    if(analyzer->canKick(this->m_agent->robot)) {
-        m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponenetGoalFocalPointTop());
+    if(!analyzer->isPointWithinOurPenaltyArea(Ball_Position) && analyzer->isPointInOurSide(Ball_Position)) {
+        if(analyzer->canKick(this->m_agent->robot)) {
+            m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponenetGoalFocalPointTop());
+        }
     }
     else {
         m_agent->skill->goToPointWithPlanner(expectedPosition(),

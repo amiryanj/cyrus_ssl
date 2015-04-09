@@ -128,6 +128,7 @@ void SSLSkill::goToPointWithPlanner(const Vector3D &target,
 {
     this->name = "Plan and go to point";
     this->target = target;
+    this->kickTheBall = false;
 
     Station init_state;
     init_state.setPosition(this->Position());
@@ -192,9 +193,6 @@ void SSLSkill::goToPointWithPlanner(const Vector3D &target,
 // it should get the target to shoot
 void SSLSkill::goAndKick(const Vector2D kick_point,const  Vector2D kick_target, float kickStrenghtNormal)
 {
-    this->name = "Kick ball";
-//    planner.deactive();
-
     bool is_robot_behind_ball;
     {
     Vector2D ball_target_diff_vector(kick_target - kick_point);
@@ -208,47 +206,87 @@ void SSLSkill::goAndKick(const Vector2D kick_point,const  Vector2D kick_target, 
 
     is_robot_behind_ball =
             ( (Vector2D::dot((kick_point - kick_target), (robot_kicker_device_point - kick_point)) > 0)
-              && (dist_robot_and_ball_line > (ROBOT_RADIUS + BALL_RADIUS)) );
+              && (dist_robot_and_ball_line > (ROBOT_RADIUS + BALL_RADIUS) * .5) );
 
     }
 
-    Vector2D diff_ = (kick_point - this->Position().to2D());
-
-    if(analyzer->canKick(owner_agent->robot))  {
-        planner.deactive();
-        Vector3D speed(0.2, 0, 0); // go fast in forward direction to reach ball and then kick it
-        CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), speed, kickStrenghtNormal);
-    }
-    else if(is_robot_behind_ball && (diff_.lenght() < 500))  {
-        planner.deactive();
-        Vector3D kick_ball_point = SSL::Position::KickStylePosition(kick_point, kick_target, -50);
-        target = kick_ball_point;
-
-        LineSegment l((kick_point - kick_ball_point.to2D()).normalized() * 1000, kick_point);
-        float dist_to_line = this->Position().to2D().distToLine(l);
-        if(fabs(dist_to_line) > 40) {
-            target = Vector3D(kick_point + (kick_point - kick_target).normalized() * 40, target.Teta());
-            Vector3D tolerance(20, 20, M_PI/6.0);
-            this->kickTheBall = 1;
-            goToSubGoal(target, tolerance, eAccurateMove);
-        }
-        else if(fabs((target - this->Position()).Teta()) > M_PI/8.0)
-        {
-            this->kickTheBall = 1;
-            rotate( sgn((target - Position()).Teta()) * 0.14);
-        }
-        else {
-            this->kickTheBall = 1;
-            Vector3D tolerance(20, 20, M_PI/9.0);
-            goToSubGoal(target, tolerance, eAutoMove);
-        }
-    }
-    else {
+    if((this->Position().to2D() - kick_point).lenght() > 500 || !is_robot_behind_ball)  {
         this->kickTheBall = 0;
         Vector3D behind_ball_target = SSL::Position::KickStylePosition(kick_point, kick_target, 100);
         Vector3D tolerance(ROBOT_RADIUS/2, ROBOT_RADIUS/2, M_PI/4.0);
-        goToPointWithPlanner(behind_ball_target, tolerance, false, 0.7 * BALL_RADIUS, 0);
+        goToPointWithPlanner(behind_ball_target, tolerance, false, 0.7 * BALL_RADIUS, 0, eFastMove);
     }
+
+    else {
+        planner.deactive();
+        this->name = "Kick ball";
+        Vector2D diff_between_ball_and_target = (kick_point - kick_target);
+        LineSegment behind_ball_line(kick_point,
+                                     kick_point + diff_between_ball_and_target.normalized() * 1000);
+        float teta_diff = continuousRadian((-diff_between_ball_and_target).arctan() - this->Position().Teta(),
+                                           -M_PI);
+
+
+
+        if(this->Position().to2D().distToLine(behind_ball_line) > 40.0)  {
+            target = Vector3D(behind_ball_line.nearestPointFrom(this->Position().to2D()), 0);
+            Vector3D diff_to_target = target - this->Position();
+            controlSpeed(Vector3D(diff_to_target.to2D().normalized() * 0.2 * 3000, 0.0),
+                         kickTheBall);
+        }  else if(fabs(teta_diff) > M_PI / 10.0) {
+                rotate(0.12 * SSL::sgn(teta_diff));
+        }
+        else {
+            this->kickTheBall = true;
+            Vector3D forward_speed(.2, 0, 0);
+            forward_speed.rotate(this->Position().Teta());
+            controlSpeed(forward_speed * 3000, true);
+        }
+
+
+    }
+
+
+
+//    if( this->Position().to2D().distToLine(behind_ball_line) < 20 &&
+//            this->Position().to2D() - kick_point)  {
+//        if( fabs(this->Position().Teta() - atan(behind_ball_line.slope())) < M_PI/9.0 ) {
+
+//        }
+//    }
+
+//    if(analyzer->canKick(owner_agent->robot))  {
+//    }
+//    else if(is_robot_behind_ball && (diff_between_ball_and_target.lenght() < 500))  {
+//        planner.deactive();
+//        Vector3D kick_ball_point = SSL::Position::KickStylePosition(kick_point, kick_target, -50);
+//        target = kick_ball_point;
+
+//        LineSegment l((kick_point - kick_ball_point.to2D()).normalized() * 1000, kick_point);
+//        float dist_to_line = this->Position().to2D().distToLine(l);
+//        if(fabs(dist_to_line) > 40) {
+//            target = Vector3D(kick_point + (kick_point - kick_target).normalized() * 40, target.Teta());
+//            Vector3D tolerance(20, 20, M_PI/6.0);
+//            this->kickTheBall = 1;
+//            goToSubGoal(target, tolerance, eAccurateMove);
+//        }
+//        else if(fabs((target - this->Position()).Teta()) > M_PI/8.0)
+//        {
+//            this->kickTheBall = 1;
+//            rotate( sgn((target - Position()).Teta()) * 0.14);
+//        }
+//        else {
+//            this->kickTheBall = 1;
+//            Vector3D tolerance(20, 20, M_PI/9.0);
+//            goToSubGoal(target, tolerance, eAutoMove);
+//        }
+//    }
+//    else {
+//        this->kickTheBall = 0;
+//        Vector3D behind_ball_target = SSL::Position::KickStylePosition(kick_point, kick_target, 100);
+//        Vector3D tolerance(ROBOT_RADIUS/2, ROBOT_RADIUS/2, M_PI/4.0);
+//        goToPointWithPlanner(behind_ball_target, tolerance, false, 0.7 * BALL_RADIUS, 0);
+//    }
 }
 
 void SSLSkill::goAndChip(double chipStrenghtNormal)
@@ -470,7 +508,9 @@ void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
     appliedLocalSpeed.rotate( -1 * Position().Teta());
 
 
-    CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(), appliedLocalSpeed, this->kickTheBall);
+    CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(),
+                                                          appliedLocalSpeed,
+                                                          this->kickTheBall);
 
     if(owner_agent->getID() == ParameterManager::getInstance()->get<int>("skills.under_test_robot"))
     {

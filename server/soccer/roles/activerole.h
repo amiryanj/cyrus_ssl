@@ -6,13 +6,15 @@
 class ActiveRole : public SSLRole
 {
 public:
-    ActiveRole();
+    ActiveRole(int index_ = 1);
 
     void run();
     Vector3D expectedPosition();
 
 private:
     Vector3D myTarget();
+
+    int m_index;
 
 
 };
