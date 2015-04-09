@@ -68,7 +68,7 @@ void PlotWidget::addValue(double key, QVector<double> val)
     for(int i=0; i<(qMin(graphsCount, val.size())); i++) {
           // add data to lines:
           ui->myPlot->graph(2*i)->addData(key, val[i]);
-          ui->myPlot->graph(2*i)->removeDataBefore(key-30);
+          ui->myPlot->graph(2*i)->removeDataBefore(key-120);  // delete memory after 2 minutes
           ui->myPlot->graph(2*i+1)->clearData();
           ui->myPlot->graph(2*i+1)->addData(key, val[i]);
           if(val[i] > ui->myPlot->yAxis->range().upper)

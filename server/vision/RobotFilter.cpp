@@ -126,7 +126,8 @@ void RobotFilter::run()
     m_filteredSpeed     = meanVelocity;
     m_filteredPosition  = meanPosition;
     float vision_delay = ParameterManager::getInstance()->get<double>("vision.vision_delay_ms") * 0.001;
-    m_filteredPosition += meanVelocity * vision_delay;
+    if(m_filteredSpeed.lenght2D() > 600)
+        m_filteredPosition += meanVelocity * vision_delay * 0.7;
     m_filteredPosition.setTeta(getRawData(0).position.Teta());
                 //continuousRadian(m_filteredPosition.Teta(), -M_PI));
 }

@@ -64,7 +64,9 @@ void BallFilter::putNewFrame(const SSLFrame &detected_ball)
     ball_.acceleration     = (ball_.velocity - getRawData(0).velocity) /
                               (ball_.timeStamp_second - getRawData(0).timeStamp_second);
 
-   rawData.insert(rawData.begin(), ball_);
+    rawData.insert(rawData.begin(), ball_);
+
+    NetworkPlotter::getInstance()->buildAndSendPacket("Raw Ball Speed", ball_.velocity.lenght());
 
     m_rawPosition  = getRawData(0).position;
     m_displacement = getRawData(0).displacement;
@@ -158,6 +160,8 @@ void BallFilter::executeAlphaBetaFilter()
     SSLObjectState filter_result = alphaBetaFilter.filter();
     this->m_filteredPosition = filter_result.pos.to2D();
     this->m_filteredVelocity = filter_result.vel.to2D();   
+
+    NetworkPlotter::getInstance()->buildAndSendPacket("ball speed", m_filteredVelocity.lenght());
 }
 
 void BallFilter::executeClusterFilter()

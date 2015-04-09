@@ -1,6 +1,6 @@
 {       
-    "default_tolerance":{   "x"         : 40.0,
-                            "y"         : 40.0,
+    "default_tolerance":{   "x"         : 50.0,
+                            "y"         : 50.0,
                             "teta_deg"  : 30.0
                         },
 
@@ -11,7 +11,7 @@
 
     "test_vel": 0.7 ,
 
-    "linear_velocity_coeff" : 1.0,
+    "linear_velocity_coeff" : 0.8,
     
     "large_radius_control" : 250,
     "small_radius_control" : 150,

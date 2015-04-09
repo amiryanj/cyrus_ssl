@@ -302,7 +302,7 @@ void SSLSkill::goBehindBall(Vector2D ball_position)
 
 double SSLSkill::computeVelocityStrenghtbyDistance(double dist , double max_speed)
 {
-    double stop_radius_A = 300 /*mili meter*/ ; // max_speed / 1.5;
+    double stop_radius_A = 400 /*mili meter*/ ; // max_speed / 1.5;
     double stop_radius_B = 250 /*mili meter*/ ;
     double ratio = 1;
 //    if(dist < stop_radius_B) {
@@ -330,8 +330,8 @@ void SSLSkill::fastMove(const Vector3D &current_pos,
 
     float omega = 0;
     float general_omega_coeff  = 0.7;
-    if(diff.lenght2D() < 100) {
-        linear_vel_coeff = 2.0 * computeVelocityStrenghtbyDistance(diff.lenght2D(),
+    if(diff.lenght2D() < 150) {
+        linear_vel_coeff = 1.5 * computeVelocityStrenghtbyDistance(diff.lenght2D(),
                                                         owner_agent->robot->physic.max_lin_vel_mmps);
         if ( fabs(diff.Teta()) > (2.0/3.0)*M_PI )  {
             omega = 0.32 * sgn(diff.Teta());
