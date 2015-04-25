@@ -2,61 +2,23 @@
 #include <vector2d.h>
 #include <generalmath.h>
 
-Station::Station(Vector3D position_)
+void Station::operator =(const Station &other)
 {
-    this->position = position_;
+    this->mPosition  = other.mPosition;
+    this->mVelocity      = other.mVelocity;
+    this->cost      = other.cost;
 }
 
-void Station::setPosition(const Vector3D &pos)
+bool Station::operator ==(const Station &other)
 {
-    this->position = pos;
-}
-
-Vector3D Station::getPosition() const
-{
-    return this->position;
-}
-
-void Station::setVelocity(const Velocity &vel)
-{
-    this->velo = vel;
-}
-
-Velocity Station::getVelocity() const
-{
-    return this->velo;
-}
-
-bool Station::isValid()
-{
-    if(position.X() == INFINITY || position.Y() == INFINITY || position.Teta() == INFINITY)
-        return false;
-    return true;
-}
-
-void Station::set(Station &other)
-{
-    this->position = other.position;
-    this->velo = other.velo;
-}
-
-void Station::operator =(Station &other)
-{
-    this->position = other.position;
-    this->velo = other.velo;
-    this->cost = other.cost;
-}
-
-bool Station::operator ==(Station &other)
-{
-    if(this->position == other.position) // && this->velocity == other.velocity)
+    if(this->mPosition == other.mPosition) // && this->velocity == other.velocity)
         return true;
     return false;
 }
 
 void Station::printToStream(std::ostream &stream)
 {
-    stream << "[Station]: X= " << position.X() << " ,Y= " << position.Y() << " ,Orien:" << position.Teta()
+    stream << "[Station]: X= " << mPosition.X() << " ,Y= " << mPosition.Y() << " ,Orien:" << mPosition.Teta()
            << " Safety Cost:" << cost.safety_penalty() << ", Smooth Cost:" << fabs(cost.smooth_penalty())
            << std::endl ;
 }

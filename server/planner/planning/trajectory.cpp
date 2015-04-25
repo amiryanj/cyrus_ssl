@@ -11,6 +11,11 @@ Trajectory::Trajectory()
     cost.safety = INFINITY;
 }
 
+Trajectory::~Trajectory()
+{
+    m_states_vec.clear();
+}
+
 void Trajectory::computeCost()
 {
     if(m_states_vec.empty())
@@ -35,31 +40,34 @@ void Trajectory::computeCost()
 
 }
 
-Station &Trajectory::getStation(uint index)
-{
-    if(index < m_states_vec.size())
-        return m_states_vec[index];
-    assert(0);
-}
-
-void Trajectory::EditStation(uint index, Station &new_st)
+void Trajectory::EditStation(uint index, const Station &new_st)
 {
     assert(index < m_states_vec.size());
     this->m_states_vec[index] = new_st;
 }
 
-Station Trajectory::getFirstStation()
+Station &Trajectory::getStation(uint index) const
 {
-    if(!m_states_vec.empty())
-        return m_states_vec.front();
-    return Station();
+    Station st;
+    if(index < m_states_vec.size()) {
+        st = m_states_vec[index];
+        return st;
+    }
+    assert(0);
 }
 
-Station Trajectory::getLastStation()
+Station Trajectory::getFirstStation() const
 {
-    if(!m_states_vec.empty())
-        return m_states_vec.back();
-    return Station();
+    if(this->isEmpty())
+        return Station();
+    return getStation(0);
+}
+
+Station Trajectory::getLastStation() const
+{
+    if(this->isEmpty())
+        return Station();
+    return getStation(this->length() - 1);
 }
 
 vector<Station> Trajectory::getAllStations()
@@ -82,6 +90,11 @@ void Trajectory::copyFrom(Trajectory &other)
     this->cost = other.cost;
 }
 
+//Trajectory &Trajectory::operator =(Trajectory &other)
+//{
+//    this->copyFrom(other);
+//}
+
 double Trajectory::getCost(float length_w, float smooth_w, float safety_w) const
 {
     return (fabs(cost.length) * length_w + fabs(cost.smoothness) * smooth_w + fabs(cost.safety) * safety_w);
@@ -97,12 +110,12 @@ bool Trajectory::isEmpty() const
     return m_states_vec.empty();
 }
 
-void Trajectory::prependState(Station st)
+void Trajectory::prependState(const Station &st)
 {
     this->m_states_vec.insert(m_states_vec.begin(), st);
 }
 
-void Trajectory::appendState(Station st)
+void Trajectory::appendState(const Station &st)
 {
     this->m_states_vec.insert(m_states_vec.end(), st);
 }

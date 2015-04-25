@@ -4,9 +4,9 @@
 #include <vector>
 #include "station.h"
 #include "goalstate.h"
-#include "fieldbound.h"
+#include "rectangularfieldbound.h"
 #include "obstacle.h"
-#include "randomtree.h"
+#include "spatialtree.h"
 #include "trajectory.h"
 #include "planningagent.h"
 #include "generalmath.h"
@@ -17,6 +17,7 @@
 #define MAX_SAMPLING_TRY 10
 #define MAX_STATION_CATCH_SIZE 50
 #define MAX_RRT_STEP_TRY 1200
+#define MAX_APF_STEP_TRY 1000
 #define GOAL_PROB 0.25
 
 using namespace DMP;
@@ -25,7 +26,7 @@ class PlanningChromosom;
 
 class PlanningProblem
 {
-    enum ExtendResult {Trapped, Advanced, Reached};
+    enum ExtendResult {eTrapped, eAdvanced, eReached};
 public:
     PlanningProblem();
 
@@ -33,13 +34,13 @@ public:
     static PlanningProblem* instance;
     static PlanningProblem* getInstance();
 
-    void setPlanningAgent(PlanningAgent ag);
-    PlanningAgent getPlanningAgent() const;
+    void setPlanningAgent(PlanningAgent *ag);
+    PlanningAgent *getPlanningAgent() const;
 
     void computeCost(Trajectory &p);
 
-    void setBound(FieldBound fb);
-    FieldBound getBound() const;
+    void setBound(FieldBound *fb);
+    FieldBound *getBound() const;
 
     void setStaticObstacles(ObstacleSet st_obs);
     ObstacleSet getStaticObstacles() const;
@@ -47,7 +48,7 @@ public:
     void setDynamicObstacles(ObstacleSet dy_obs);
     ObstacleSet getDynamicObstacles() const;
 
-    void clearObstacles(bool dynamix = true, bool statix = true);
+    void clearObstacles();
 
     void setInitialState(Station st);
     Station getInitialState() const;
@@ -59,31 +60,31 @@ public:
     void setPenaltyWeights(Trajectory::PlanCost cost_weights);
     Trajectory::PlanCost getPenaltyWeights() const;
 
-    RandomTree &getTree();
+    SpatialTree &getTree();
     Trajectory getTrajectory() const;
     Velocity getControl(uint i = 0);
     Velocity getNextControl(Trajectory tr_);
-    Trajectory getPlan();
+    Trajectory getBestPlan();
 
     Station getFirstSubGoal();
 
-    // each of this planners manipulate tree, trajec, planningResult, planningTime
+    void deactivate();
+
     bool solve();
-    bool testFunc();
+    bool replan(const ObstacleSet &ob_set, Trajectory &trajec);
 
-
-    void deactive();
-    Trajectory RRTsolve(float arg1);
+    // each of this planners manipulate tree, trajec, planningResult, planningTime
+    Trajectory RRTsolve(float arg1, float max_len);
     Trajectory ERRTsolve();
     Trajectory GRRTsolve();
     Trajectory RRTConnectSolve(double arg1);
     Trajectory PruneTrajectory(Trajectory& input_plan, const ObstacleSet &ob_set);
 
-    Trajectory PotentialFieldSolve(const ObstacleSet& ob_set);
-    Trajectory RRT_APF_Solve(Trajectory& rrt_plan_, const ObstacleSet& ob_set, PlanningChromosom &params);
+    Trajectory *APFSolve(const ObstacleSet& ob_set, bool stop_when_collid);
+    Trajectory *RRT_APF_Solve(const ObstacleSet& ob_set, Trajectory &prior_plan, bool stop_when_collid);
 
     vector<Vector2D> ObstacleForces(const Station &st, const ObstacleSet &ob_set);
-    Vector2D RRTDirectedForce(const Station& st, Trajectory& rrt_);
+    Vector2D PathDirectedForce(const Station& st, Trajectory &path_);
     Vector2D GoalAttractiveForce(const Station& st);
 
 
@@ -92,44 +93,43 @@ public:
 
     float distToObstacle(Station A, const Obstacle& ob, b2Vec2 &A_point, b2Vec2 &ob_point);
 
-    RandomTree backward_tree; // backward_tree for rrt-connect algorithm
+    SpatialTree backward_tree; // backward_tree for rrt-connect algorithm
     double search_diameter;
 
 private:
     Station initialState;
     GoalState goal;
 
-    PlanningAgent agent;
-    FieldBound actualBound;
-    FieldBound temporalBound;
+    PlanningAgent *agent;
+    FieldBound* actualBound;
     ObstacleSet stat_obstacles;
     ObstacleSet dyna_obstacles;
 
-    RandomTree tree;
+    SpatialTree randomTree;
 
     Trajectory trajec;
 
     Trajectory bestPlan;
 
-    Station SampleState();
     Station SampleStateUniform();
     Station SampleStateInEllipse(const Ellipse &ell_);
     Station GaussinaStateSample(Station mean, double var);
 
     Velocity UniformControlSample();
     friend class SSLSkill;
-    bool CheckValidity(Station A);
-    bool hasCollision(Station &st, const ObstacleSet& ob_set);
-    bool hasCollision(Station &st, const Obstacle& ob);
+    bool CheckValidity(const Station &A);
+    bool hasCollision(const Station &st, const ObstacleSet& ob_set);
+    bool hasCollision(const Station &st, const Obstacle& ob);
 
-    bool pathHasCollision(Station &from, Station &to, const ObstacleSet& ob_set);
+    bool pathHasCollision(const Station &from, const Station &to, const ObstacleSet& ob_set);
     bool pathHasCollision(Station &from, Station &to, const Obstacle &ob);
 
-    Obstacle* nearestObstacle(Station A, const ObstacleSet& obset, float &dist, b2Vec2 &A_point, b2Vec2 &ob_point);
+    Obstacle* nearestObstacle(const Station &A, const ObstacleSet& obset,
+                              float &dist, b2Vec2 &A_point, b2Vec2 &ob_point);
 
     Station RRTExtend(const Station &start, const Station &target, float extension_len);
-    ExtendResult RRTStep(RandomTree &tree, float extension_len);
-    Trajectory buildTrajectoryFromTree();
+    ExtendResult RRTStep(float extension_len, float max_len);
+    Trajectory buildTrajectoryFromRandomTree();
     void buildVelocityProfile();
     void solveInvalidInitialState();
     void solveInvalidGoalState();

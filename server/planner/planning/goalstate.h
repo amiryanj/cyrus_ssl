@@ -18,7 +18,7 @@ public:
 
     GoalState& operator =(GoalState other);
 
-    double minDistTo(Station p);
+    double minDistTo(const Station &p);
 };
 
 #endif // _GOALSTATE_H

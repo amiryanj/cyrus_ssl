@@ -1,16 +1,41 @@
-#ifndef TRAJECTORY_H
-#define TRAJECTORY_H
+#ifndef _TRAJECTORY_H
+#define _TRAJECTORY_H
 
 #include <vector>
 #include <stdlib.h>
 #include <ostream>
 #include "station.h"
-#include "randomtree.h"
+#include "spatialtree.h"
+#include "vector2d.h"
+#include "vector3d.h"
+#include "utility/generalmath.h"
 
 class Trajectory
 {
 public:
     Trajectory();
+
+    ~Trajectory();
+    void clear();
+
+    void copyFrom(Trajectory &other);
+//    Trajectory& operator =(Trajectory & other);
+
+    int length() const;
+    bool isEmpty() const;
+
+    void prependState(const Station &st);
+    void appendState(const Station &st);
+    Station removeLastState();
+
+
+    void EditStation(uint index, const Station &new_st);
+
+    Station& getStation(uint index) const;
+    Station getFirstStation() const;
+    Station getLastStation() const;
+    vector<Station> getAllStations();
+
 
     struct PlanCost {
         float length;
@@ -30,34 +55,12 @@ public:
     } cost;
 
     static PlanCost cost_weights;
-
-
     void computeCost();
     double getCost(float length_w = cost_weights.length,
                    float smooth_w = cost_weights.smoothness,
                    float safety_w = cost_weights.safety) const;
 
-    int length() const;
-    bool isEmpty() const;
-
-    void prependState(Station st);
-    void appendState(Station st);
-    Station removeLastState();
-
     void printToStream(std::ostream& stream);
-
-//    void setRoot(RRTVertex* m_root);
-//    RRTVertex* getRoot() const;
-
-    Station& getStation(uint index);
-    void EditStation(uint index, Station &new_st);
-    Station getFirstStation();
-    Station getLastStation();    
-    vector<Station> getAllStations();
-
-    void clear();
-    void copyFrom(Trajectory &other);
-
 private:
     vector<Station> m_states_vec;
 };

@@ -8,7 +8,7 @@
     "game":
     {
         "our_color" : 1,
-        "our_side" :  -1,
+        "our_side" :  1,
         "comment" : "Yellow = 0, Blue = 1   Left = -1, Right = 1"
     },
 

@@ -116,12 +116,12 @@ Vector2D Vector2D::operator -(const Vector2D &vector) const
     return Vector2D( _x - vector._x, _y - vector._y);
 }
 
-Vector2D Vector2D::operator *(float s)
+Vector2D Vector2D::operator *(float s) const
 {
     return Vector2D( _x*s, _y*s);
 }
 
-Vector2D Vector2D::operator /(float s)
+Vector2D Vector2D::operator /(float s) const
 {
     float oneOverS = 1.0f / s;
     return Vector2D( _x*oneOverS, _y*oneOverS);
@@ -204,20 +204,20 @@ Vector3D Vector2D::to3D()
 }
 
 #ifdef _USE_BOX2D_
-Vector2D::Vector2D(b2Vec2 vec)
+Vector2D::Vector2D(const b2Vec2 &vec)
 {
     _x = vec.x;
     _y = vec.y;
 }
 
-b2Vec3 Vector2D::toB2vec3()
-{
-    return b2Vec3(this->_x, this->_y, 0);
-}
-
-b2Vec2 Vector2D::toB2vec2()
+b2Vec2 Vector2D::toB2vec2() const
 {
     return b2Vec2(this->_x, this->_y);
+}
+
+b2Vec3 Vector2D::toB2vec3() const
+{
+    return b2Vec3(this->_x, this->_y, 0);
 }
 #endif
 

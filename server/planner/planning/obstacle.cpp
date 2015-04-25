@@ -1,40 +1,40 @@
 #include "obstacle.h"
+#include <Box2D/Collision/Shapes/b2CircleShape.h>
+#include <Box2D/Collision/Shapes/b2PolygonShape.h>
 
-Obstacle::Obstacle(ObstacleType type, b2Vec2 center, double radius)
+Obstacle::Obstacle(Vector2D center, float radius, const char *details_)
 {
-    shape = new b2CircleShape();
+    shape = new b2CircleShape;
     b2CircleShape* circle = (b2CircleShape*) shape;
-    circle->m_p.SetZero(); // = 0
-    this->m_transform.Set(center, 0);
-
+    circle->m_p.SetZero();
     shape->m_radius = radius;
 
-    this->m_ObstacleType = type;
-    repulseStrenght = 1.0;
+    transform.Set(center.toB2vec2(), 0);
 
-//    this->dynamic = isMoving;
+    repulseStrenght = 1.0;
+    speed.setZero();
+    detail_text.assign( details_ );
 }
 
-Obstacle::Obstacle(ObstacleType type, b2Vec2 center, double width, double height, double orien)
+Obstacle::Obstacle(Vector2D center, float width, float height, float orien, const char *details_)
 {
-    shape = new b2PolygonShape();
+    shape = new b2PolygonShape;
     shape->m_type = b2Shape::e_polygon;    
 
     ((b2PolygonShape*)shape)->SetAsBox(width/2, height/2); // , center, orien);
-    this->m_transform.Set(center, orien);
+    transform.Set(center.toB2vec2(), orien);
 
-    this->m_ObstacleType = type;
-
-//    this->dynamic = isMoving;
+    repulseStrenght = 1.0;
+    speed.setZero();
+    detail_text.assign( details_ );
 }
 
-Obstacle::~Obstacle()
+b2Transform Obstacle::predictedTransform(float time_step_sec) const
 {
-    if(this->shape)
-        delete shape;
+    b2Transform t;
+    Vector2D new_position = Vector2D(transform.p) + speed * time_step_sec;
+    t.Set(new_position.toB2vec2(), transform.q.GetAngle());
+    return t;
 }
 
-void Obstacle::getOut()
-{
-    this->m_transform.Set(b2Vec2(INFINITY, INFINITY), 0);
-}
+

@@ -93,6 +93,7 @@ bool MainWindow::joinCyrusServer()
 
 void MainWindow::closeEvent(QCloseEvent *e)
 {
+    Q_UNUSED(e);
     ui_settings->setValue("mainwindow_size", this->size());
     ui_settings->setValue("mainwindow_state", this->saveState());
 

@@ -44,8 +44,8 @@ public:
     Vector2D operator -() const;
     Vector2D operator +(const Vector2D &vector) const;
     Vector2D operator -(const Vector2D &vector) const;
-    Vector2D operator *(float s);
-    Vector2D operator /(float s);
+    Vector2D operator *(float s) const;
+    Vector2D operator /(float s) const;
 
     Vector2D &operator +=(const Vector2D &vector);
     Vector2D &operator -=(const Vector2D &vector);
@@ -56,9 +56,9 @@ public:
     Vector3D to3D();
 
 #ifdef _USE_BOX2D_
-    Vector2D(b2Vec2 vec);
-    b2Vec2 toB2vec2();
-    b2Vec3 toB2vec3();
+    Vector2D(const b2Vec2 &vec);
+    b2Vec2 toB2vec2() const;
+    b2Vec3 toB2vec3() const;
 #endif
 
 #ifdef _USE_QT_

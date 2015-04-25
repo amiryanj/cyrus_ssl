@@ -10,6 +10,15 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 LIBS += -lprotobuf
 
+release: DESTDIR = $$PWD/../../release_cyrus/team_manager
+release: MOC_DIR = $$PWD/../../release_cyrus/team_manager/mocs
+release: OBJECTS_DIR = $$PWD/../../release_cyrus/team_manager/objs
+
+debug: DESTDIR = $$PWD/../../debug_cyrus/team_manager
+debug: MOC_DIR = $$PWD/../../debug_cyrus/team_manager/mocs
+debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/team_manager/objs
+
+
 TARGET = TeamManager
 TEMPLATE = app
 

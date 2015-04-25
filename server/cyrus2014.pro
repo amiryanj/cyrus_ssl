@@ -90,7 +90,6 @@ SOURCES += \
     vision/robocup_ssl_client.cpp \
     vision/sslframe.cpp \
     planner/planning/planningproblem.cpp \
-    planner/planning/randomtree.cpp \
     planner/planning/trajectory.cpp \
     planner/planning/station.cpp \
     planner/planning/goalstate.cpp \
@@ -99,7 +98,6 @@ SOURCES += \
     planner/planning/obstacle.cpp \
     planner/planning/fieldbound.cpp \
     planner/planning/dynamicobstacle.cpp \
-    planner/planning/rrtvertex.cpp \
     ../shared/utility/ellipse.cpp \
     ../shared/utility/shape.cpp \
     soccer/sslgamepositions.cpp \
@@ -113,7 +111,10 @@ SOURCES += \
     test/testskills.cpp \
     soccer/roles/sidecleaner.cpp \
     ../shared/utility/randomsampling.cpp \
-    ../shared/utility/generalmath.cpp
+    ../shared/utility/generalmath.cpp \
+    planner/planning/sslplanningagent.cpp \
+    planner/planning/spatialtree.cpp \
+    planner/planning/rectangularfieldbound.cpp
 
 HEADERS += \
     vision/SSLVision.h \
@@ -185,8 +186,6 @@ HEADERS += \
     planner/planning/trajectory.h \
     planner/planning/goalstate.h \
     planner/planning/motionplan.h \
-    planner/planning/randomtree.h \
-    planner/planning/rrtvertex.h \
     planner/planning/planningagent.h \
     planner/planning/dynamicobstacle.h \
     ../shared/utility/ellipse.h \
@@ -202,7 +201,11 @@ HEADERS += \
     test/testskills.h \
     soccer/roles/sidecleaner.h \
     ../shared/utility/randomsampling.h \
-    ../shared/utility/util.h
+    ../shared/utility/util.h \
+    planner/planning/sslplanningagent.h \
+    planner/planning/spatialvertex.h \
+    planner/planning/spatialtree.h \
+    planner/planning/rectangularfieldbound.h
 
 OTHER_FILES += \            
     ../shared/proto/referee/proto/*.proto \

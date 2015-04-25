@@ -1,5 +1,6 @@
 #include "planningproblem.h"
 #include <Box2D/Collision/b2Distance.h>
+#include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <iostream>
 #include "../../../shared/utility/generalmath.h"
 #include "../../../shared/utility/randomsampling.h"
@@ -16,6 +17,7 @@ PlanningProblem *PlanningProblem::getInstance()
 
 PlanningProblem::PlanningProblem() {
     identity_trans.SetIdentity();
+    actualBound = NULL;
 }
 
 bool PlanningProblem::solve()
@@ -38,9 +40,9 @@ bool PlanningProblem::solve()
 //    else
     {  // normal way of solvgin motion planning problem
         ObstacleSet desired_ob_set = stat_obstacles;
-        desired_ob_set.insert(desired_ob_set.end(), dyna_obstacles.begin(), dyna_obstacles.end());
-        Trajectory apft_ = PotentialFieldSolve(desired_ob_set);
-        Trajectory pt_ = PruneTrajectory(apft_, desired_ob_set);
+        Trajectory *apft_ = APFSolve(desired_ob_set, false);
+        Trajectory pt_ = PruneTrajectory(*apft_, desired_ob_set);
+        delete apft_;
         trajec.copyFrom(pt_);
 //        if(!planningResult) {
 //            GRRTsolve();
@@ -51,7 +53,7 @@ bool PlanningProblem::solve()
 //        }
 
         if(planningResult) {
-            if(goal.minDistTo(trajec.getLastStation()) > agent.radius())
+            if(goal.minDistTo(trajec.getLastStation()) > agent->radius())
                 return true;
 //            computeCost(trajec);
 //            // just when current plan get invalid
@@ -87,10 +89,22 @@ bool PlanningProblem::solve()
     return planningResult;
 }
 
-bool PlanningProblem::testFunc()
+bool PlanningProblem::replan(const ObstacleSet &ob_set, Trajectory &trajec)
 {
-    //    cout << "Test Distance Function from init state to ob_1: " << distToObstacle(initialState, *stat_obstacles[0], ) << endl;
-    return false;
+    if(trajec.length() < 2)
+        return false;
+
+    Vector2D goals_diff = (goal.goal_point.getPosition() - trajec.getLastStation().getPosition()).to2D();
+    if(goals_diff.lenght() > agent->radius())
+        return false;
+
+    Vector2D inits_dist = (initialState.getPosition() - trajec.getFirstStation().getPosition()).to2D();
+    if(inits_dist.lenght() > agent->radius())
+        return false;
+
+    trajec.EditStation(0, initialState);
+    trajec.EditStation(trajec.length() -1, goal.goal_point);
+    return true;
 }
 
 vector<Vector2D> PlanningProblem::ObstacleForces(const Station &st, const ObstacleSet &ob_set)
@@ -98,7 +112,7 @@ vector<Vector2D> PlanningProblem::ObstacleForces(const Station &st, const Obstac
     vector<Vector2D> ob_force_list;
     ob_force_list.reserve(ob_set.size());
 
-    float extension_len = agent.radius();
+    float extension_len = agent->radius();
     for(uint i=0; i<ob_set.size(); i++) {
         const Obstacle* ob = ob_set[i];
         b2Vec2 agent_colid_pnt, ob_colid_pnt;
@@ -108,7 +122,8 @@ vector<Vector2D> PlanningProblem::ObstacleForces(const Station &st, const Obstac
         float repulse_strenght = min(extension_len /fabs(dist_to_ob), 1.099f);
         Vector2D ob_force;
         if(dist_to_ob < 0)  // in collision state
-            ob_force = (st.getPosition().to2D() - Vector2D(ob->m_transform.p)).normalized() * repulse_strenght;
+            ob_force = (st.getPosition().to2D() - Vector2D(ob->predictedTransform(0).p))
+                                                                           .normalized() * repulse_strenght;
 
         else ob_force = Vector2D(agent_colid_pnt - ob_colid_pnt).normalized() * repulse_strenght;
         ob_force_list.push_back(ob_force);
@@ -116,18 +131,19 @@ vector<Vector2D> PlanningProblem::ObstacleForces(const Station &st, const Obstac
     return ob_force_list;
 }
 
-Vector2D PlanningProblem::RRTDirectedForce(const Station &st, Trajectory &rrt_)
+Vector2D PlanningProblem::PathDirectedForce(const Station &st, Trajectory &path_)
 {
-    if(rrt_.isEmpty())
+    if(path_.length() < 2)
         return Vector2D(0, 0);
 
     float max_memberance = 0;
     int nearest_segment = -1;
-    for(uint i=1; i<rrt_.length(); i++) { // it doesnt use the last segment (go towards goal on last segment)
-        Vector2D pnt_1 = rrt_.getStation(i-1).getPosition().to2D();
-        Vector2D pnt_2 = rrt_.getStation(i).getPosition().to2D();    
+    for(uint i=1; i<path_.length(); i++) { // it doesnt use the last segment (go towards goal on last segment)
+        Vector2D pnt_1 = path_.getStation(i-1).getPosition().to2D();
+        Vector2D pnt_2 = path_.getStation(i).getPosition().to2D();
 
-        float dist_st_segment = (st.getPosition().to2D() - pnt_1).lenght() + (st.getPosition().to2D() - pnt_2).lenght();
+        float dist_st_segment = (st.getPosition().to2D() - pnt_1).lenght() +
+                                                (st.getPosition().to2D() - pnt_2).lenght();
         float segment_len = (pnt_1 - pnt_2).lenght();
 
         float segment_mem = segment_len /dist_st_segment;
@@ -137,9 +153,10 @@ Vector2D PlanningProblem::RRTDirectedForce(const Station &st, Trajectory &rrt_)
         }
     }
 
-    if(nearest_segment == rrt_.length()-1)
+    if(nearest_segment == path_.length()-1)
         return (goal.goal_point.getPosition() - st.getPosition()).to2D().normalized();
-    return (rrt_.getStation(nearest_segment).getPosition()- rrt_.getStation(nearest_segment-1).getPosition()).to2D().normalized();
+    return (path_.getStation(nearest_segment).getPosition() -
+                    path_.getStation(nearest_segment-1).getPosition()).to2D().normalized();
 
 }
 
@@ -150,113 +167,64 @@ Vector2D PlanningProblem::GoalAttractiveForce(const Station &st)
     return diff_to_goal.normalized() * stren;
 }
 
-Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set)
+Trajectory *PlanningProblem::APFSolve(const ObstacleSet &ob_set, bool stop_when_collid)
 {
-    Trajectory temp_trajec;
-    temp_trajec.appendState(initialState);
+    Trajectory empty_trajec;
+    return RRT_APF_Solve(ob_set, empty_trajec, stop_when_collid);
+}
 
-    const float extension_len = agent.radius() * 1.5;
+Trajectory *PlanningProblem::RRT_APF_Solve(const ObstacleSet &ob_set,
+                                           Trajectory &prior_plan,
+                                           bool stop_when_collid)
+{
+    Trajectory *temp_trajec = new Trajectory();
+    temp_trajec->appendState(initialState);
 
-    for(int step = 1; step <= MAX_RRT_STEP_TRY; step++) {
+    for(int step = 1; step <= MAX_APF_STEP_TRY; step++) {
         // check reaching the goal state
-        Station current_station = temp_trajec.getLastStation();
-        if(goal.minDistTo(current_station) < extension_len) {
-            temp_trajec.appendState(goal.goal_point);
+        Station current_station = temp_trajec->getLastStation();
+        if( (goal.minDistTo(current_station) < agent->radius() * 1.5)
+               || !pathHasCollision(current_station, goal.goal_point, ob_set))
+        {
+            temp_trajec->appendState(goal.goal_point);
             planningResult = true;
-            return temp_trajec;
-        }
-
-        if(!pathHasCollision(current_station, goal.goal_point, ob_set)) {
-            temp_trajec.appendState(goal.goal_point);
-            planningResult = true;
-            return temp_trajec;
+            break;
         }
 
         Vector2D total_force;
-        total_force += GoalAttractiveForce(current_station);
+        if(prior_plan.length() > 2)
+            total_force += PathDirectedForce(current_station, prior_plan);
+        else
+            total_force += GoalAttractiveForce(current_station);
 
         vector<Vector2D> ob_forces = ObstacleForces(current_station, ob_set);
-        for(uint i=0; i<ob_forces.size(); i++)
-            total_force += ob_forces[i] * ob_set[i]->repulseStrenght;
-        Vector2D new_pos = current_station.getPosition().to2D();
-        Station new_station;
-        float delta_orien;
-        switch (agent.motionModel)   {
-        case MP::eDifferentialWheel :
-            delta_orien = continuousRadian(total_force.arctan()
-                                                      - current_station.getPosition().Teta(), -M_PI);
-
-            new_pos += Vector2D::unitVector(current_station.getPosition().Teta()
-                                                    + atan(delta_orien * 0.8)/2.0) * extension_len;
-            new_station.setPosition( ( Vector3D(new_pos ,
-                                                continuousRadian( current_station.getPosition().Teta()
-                                                                  + atan(delta_orien * 0.8), -M_PI )) ));
-            break;
-        case MP::eOmniDirectional :
-            delta_orien = continuousRadian(goal.goal_point.getPosition().Teta()
-                                                     - current_station.getPosition().Teta(), -M_PI);
-//            if (fabs(delta_orien) > (M_PI/8.0f)) {
-////                new_pos += total_force.normalized() * extension_len * 0.2;
-//                new_station.setPosition(Vector3D( new_pos, current_station.getPosition().Teta() +
-//                                                  sgn (delta_orien) * M_PI / 8.0));
-//            }
-//            else
-            {
-                new_pos += total_force.normalized() * extension_len;
-                new_station.setPosition(Vector3D(new_pos, goal.goal_point.getPosition().Teta()));
-            }
-            break;
+        for(uint i=0; i<ob_forces.size(); i++) {
+            float ob_repulsive_strenght = ((Obstacle*)(ob_set[i]))->repulseStrenght;
+            total_force += ob_forces[i] * ob_repulsive_strenght;
         }
 
-        temp_trajec.appendState(new_station);
+        Station new_station;
+        new_station = agent->step(current_station,
+                                  (total_force.normalized()).to3D(),
+                                  0.10 /*100 mili sec*/);
+        if(stop_when_collid) {
+            if( !CheckValidity(new_station) ) {
+                planningResult = false;
+                break;
+            }
+        }
+        temp_trajec->appendState(new_station);
     }
     return temp_trajec;
 }
 
-//Trajectory PlanningProblem::RRT_APF_Solve(Trajectory &rrt_plan_, const ObstacleSet &ob_set, PlanningChromosom& params)
-//{
-//    Trajectory new_trajec;
-//    new_trajec.appendState(initialState);
-
-//    const float extension_len = agent.radius();
-
-//    for(int step = 1; step <= MAX_RRT_STEP_TRY; step++) {
-//        // check reaching the goal state
-//        Station current_station = new_trajec.getLastStation();
-//        if(goal.minDistTo(current_station) < extension_len) {
-//            return new_trajec;
-//        }
-
-////        Vector2D diff_to_goal((goal.goal_point.getPosition() - current_station.getPosition()).to2D());
-////        Vector2D attract_force = diff_to_goal.normalized();
-//        Vector2D total_force;
-
-//        vector<Vector2D> ob_forces = ObstacleForces(current_station, ob_set);
-//        for(uint i=0; i<ob_forces.size(); i++)
-//            total_force += ob_forces[i] * params.obstacleCoeff(i);
-
-//        total_force *= params.obstaclesTotalCoeff();
-
-//        total_force += RRTDirectedForce(current_station, rrt_plan_) * params.RRTPathCoeff();
-
-//        float delta_orien = continuousRadian(total_force.arctan() - current_station.getPosition().Teta(), -M_PI);
-//        float f_delta_orien = atan(delta_orien * 1.1);
-//        Vector2D new_pos(current_station.getPosition().to2D()
-//                         + Vector2D::unitVector(current_station.getPosition().Teta() + f_delta_orien/2.0) * extension_len);
-//        Station new_st(Vector3D(new_pos, continuousRadian(f_delta_orien +current_station.getPosition().Teta(), -M_PI)));
-
-//        new_trajec.appendState(new_st);
-//    }
-//    return new_trajec;
-//}
-
 Trajectory PlanningProblem::GRRTsolve()
 {
     this->planningResult = false;
-    tree.clear();
+    randomTree.clear();
     float start_time = currentTimeMSec();
     int tryExtensionCounter = 0;
-    tree.addNewVertex(NULL, initialState);
+    randomTree.appendNewStation(NULL, initialState);
 
     for(int step=0; step < MAX_RRT_STEP_TRY/5; step++)
     {
@@ -272,19 +240,19 @@ Trajectory PlanningProblem::GRRTsolve()
         if( !target.isValid() )
             continue;
 //            throw "can not sampled!";
-        RRTVertex* near_ver = tree.nearest(target);
+        SpatialVertex* near_ver = randomTree.getNearestVertex(target);
         if(near_ver == NULL)
             continue;
 
         int greedyCounter = 0;
         while(greedyCounter < 5){
             tryExtensionCounter ++;
-            Station extended = RRTExtend(near_ver->state, target, agent.radius() * 2);
+            Station extended = RRTExtend(near_ver->state, target, agent->radius() * 2);
             if(!extended.isValid())
                 break;
-            tree.addNewVertex(near_ver, extended);
-            if(Station::dubinDistance(extended, target) < agent.radius() ) {
-                if((target.getPosition() - goal.goal_point.getPosition()).lenght2D() < agent.radius() /2)
+            randomTree.appendNewStation(near_ver, extended);
+            if(Station::dubinDistance(extended, target) < agent->radius() ) {
+                if((target.getPosition() - goal.goal_point.getPosition()).lenght2D() < agent->radius() /2)
                     planningResult = true;
                 break;
             }
@@ -301,7 +269,7 @@ Trajectory PlanningProblem::GRRTsolve()
         float finish_time = currentTimeMSec();
         this->planningTime = finish_time - start_time;
 //        cout << "Greedy RRT Planning succeed in " << planningTime << "mili seconds" << endl;
-        return buildTrajectoryFromTree();
+        return buildTrajectoryFromRandomTree();
     }
     return Trajectory();
 }
@@ -312,41 +280,41 @@ Trajectory PlanningProblem::GRRTsolve()
 Trajectory PlanningProblem::RRTConnectSolve(double arg1)
 {
     double start_time = currentTimeMSec();
-    tree.clear();
+    randomTree.clear();
     backward_tree.clear();
-    tree.addNewVertex(NULL, initialState);
-    backward_tree.addNewVertex(NULL, goal.goal_point);
+    randomTree.appendNewStation(NULL, initialState);
+    backward_tree.appendNewStation(NULL, goal.goal_point);
 
     for(uint i=0; i< MAX_RRT_STEP_TRY ; ++i)
     {
         Station randSt = SampleStateUniform();
         if(!randSt.isValid())
             continue;
-        RRTVertex* near_ver = tree.nearest(randSt);
+        SpatialVertex* near_ver = randomTree.getNearestVertex(randSt);
         if(near_ver == NULL)
             continue;
         Station extended_ = RRTExtend(near_ver->state, randSt, arg1);
         if(!extended_.isValid())
             continue;
-        tree.addNewVertex(near_ver, extended_);
+        randomTree.appendNewStation(near_ver, extended_);
 
         for(int j=0; j<10; j++) {
-            RRTVertex* back_near = backward_tree.nearest(extended_);
+            SpatialVertex* back_near = backward_tree.getNearestVertex(extended_);
             Station back_extended = RRTExtend(back_near->state, extended_, arg1);
             if(!back_extended.isValid())
                 break;
-            backward_tree.addNewVertex(back_near, back_extended);
+            backward_tree.appendNewStation(back_near, back_extended);
 
-            if(Station::euclideanDistance(back_extended, extended_) < agent.radius()) {
+            if(Station::euclideanDistance(back_extended, extended_) < agent->radius()) {
                 while(back_near != NULL) {
                     Station on_back_tree_st = back_near->state;
                     on_back_tree_st.setPosition(Vector3D(back_near->state.getPosition().to2D(),
                                                          back_near->state.getPosition().Teta() + M_PI));
-                    tree.addNewVertex(tree.lastAddedVertex(), on_back_tree_st);
+                    randomTree.appendNewStation(randomTree.lastAddedVertex(), on_back_tree_st);
                     back_near = back_near->parent;
                 }
                 planningTime = currentTimeMSec() - start_time;
-                return buildTrajectoryFromTree();
+                return buildTrajectoryFromRandomTree();
             }
         }
     }
@@ -354,10 +322,10 @@ Trajectory PlanningProblem::RRTConnectSolve(double arg1)
     return Trajectory();
 }
 
-void PlanningProblem::deactive()
+void PlanningProblem::deactivate()
 {
     this->trajec.clear();
-    this->tree.clear();
+    this->randomTree.clear();
 }
 
 Trajectory PlanningProblem::PruneTrajectory(Trajectory &input_plan, const ObstacleSet& ob_set)
@@ -388,7 +356,7 @@ Trajectory PlanningProblem::PruneTrajectory(Trajectory &input_plan, const Obstac
 //        b2Vec2 st_colid_point;
 //        b2Vec2 ob_colid_point;
 //        Obstacle* ob_ = nearestObstacle(_st, stat_obstacles, min_dist_to_ob, st_colid_point, ob_colid_point);
-//        if(ob_ != NULL && min_dist_to_ob < agent.radius() * 1.5) {
+//        if(ob_ != NULL && min_dist_to_ob < agent->radius() * 1.5) {
 //            Vector2D bad_direc = (Vector2D(ob_colid_point) - Vector2D(st_colid_point)).normalized();
 //            _st.setPosition(_st.getPosition() - bad_direc.to3D() * 0.5);
 //        }
@@ -406,26 +374,26 @@ Trajectory PlanningProblem::ERRTsolve()
     return Trajectory();
 }
 
-Trajectory PlanningProblem::RRTsolve(float arg1)
+Trajectory PlanningProblem::RRTsolve(float arg1, float max_len)
 {
 //    if(tree.count() > MAX_TREE_SIZE * 0.75)
-        tree.clear();
+    randomTree.clear();
+       this->planningResult = false;
 
-    double start_time = currentTimeMSec();
-    tree.addNewVertex(NULL, initialState);
-    for(uint i=0; i< MAX_RRT_STEP_TRY ; ++i)
-    {
-        if(RRTStep(tree, arg1) == Reached)
-        {
-            this->planningResult = true;
-            double finish_time = currentTimeMSec();
-            this->planningTime = finish_time - start_time;
-            return buildTrajectoryFromTree();
-        }
-    }
-    double finish_time = currentTimeMSec();
-    this->planningTime = finish_time - start_time;
-    return Trajectory();
+   double start_time = currentTimeMSec();
+   randomTree.appendNewStation(NULL, initialState);
+   for(uint i=0; i< MAX_RRT_STEP_TRY ; ++i)
+   {
+       if(RRTStep(arg1, max_len) == eReached)
+       {
+           this->planningResult = true;
+           double finish_time = currentTimeMSec();
+           this->planningTime = finish_time - start_time;
+           return buildTrajectoryFromRandomTree();
+           break;
+       }
+   }
+   return Trajectory();
 }
 
 Station PlanningProblem::RRTExtend(const Station &start, const Station &target, float extension_len)
@@ -446,22 +414,34 @@ Station PlanningProblem::RRTExtend(const Station &start, const Station &target, 
     return Station();
 }
 
-PlanningProblem::ExtendResult PlanningProblem::RRTStep(RandomTree &r_tree, float extension_len)
+PlanningProblem::ExtendResult PlanningProblem::RRTStep(float extension_len, float max_len)
 {
     ExtendResult result;
-    try {        
+    try {
         Station rand_st;
         float toss = uni_rand(0, 1);
         if(toss < GOAL_PROB)
             rand_st.set(goal.goal_point);
-        else {
-            Station temp = SampleStateUniform();
-            rand_st.set(temp);
+        else
+        {
+            if(max_len < INFINITY) {
+                Vector2D rand_point = randomSampleFromEllipse(initialState.getPosition().to2D(),
+                                                              goal.goal_point.getPosition().to2D(),
+                                                              max_len);
+                Station temp;
+                temp.setPosition(Vector3D(rand_point, uni_rand(-M_PI, M_PI)));
+                rand_st.set(temp);
+
+            }
+            else {
+                Station temp = SampleStateUniform();
+                rand_st.set(temp);
+            }
         }
 
         if(!rand_st.isValid())
             throw "can not sampled!";
-        RRTVertex* near_ver = r_tree.nearest(rand_st);
+        SpatialVertex* near_ver = randomTree.getNearestVertex(rand_st);
 
         //    if(near_ver->state.isValid())
         if(near_ver == NULL)
@@ -470,14 +450,14 @@ PlanningProblem::ExtendResult PlanningProblem::RRTStep(RandomTree &r_tree, float
         Station new_st = RRTExtend((near_ver->state), rand_st, extension_len);
         if(!new_st.isValid())
         {
-            result = Trapped;
+            result = eTrapped;
             throw "can not extend tree!";
         }
-        if(goal.minDistTo(new_st) < agent.radius())
-            result = Reached;
+        if(goal.minDistTo(new_st) < agent->radius() * 1.2)
+            result = eReached;
         else
-            result = Advanced;
-        r_tree.addNewVertex(near_ver, new_st);
+            result = eAdvanced;
+        randomTree.appendNewStation(near_ver, new_st);
 
     } catch (const char* msg)
     {
@@ -486,25 +466,22 @@ PlanningProblem::ExtendResult PlanningProblem::RRTStep(RandomTree &r_tree, float
     return result;
 }
 
-Trajectory PlanningProblem::buildTrajectoryFromTree()
+Trajectory PlanningProblem::buildTrajectoryFromRandomTree()
 {
     Trajectory temp_trajec;
 
     // build path (in backward direction)
-    RRTVertex* last_vertex = tree.nearest(goal.goal_point);
+    SpatialVertex* last_vertex = randomTree.getNearestVertex(goal.goal_point);
     temp_trajec.appendState(last_vertex->state);
-    last_vertex->child = NULL;
 
-    RRTVertex* parent = last_vertex->parent;
+    SpatialVertex* parent = last_vertex->parent;
     while (parent != NULL) {
         temp_trajec.prependState(parent->state);
-        parent->child = last_vertex;
         last_vertex = parent;
         parent = last_vertex->parent;
     }
 //        assert(last_vertex->state == this->initialState);
     return temp_trajec;
-
 
 }
 
@@ -532,7 +509,7 @@ void PlanningProblem::buildVelocityProfile()
 //        RRTVertex* parent = current_node->parent;
 //        if(parent == NULL) continue;
 //        float dist_to_parent = (current_node->state.position - parent->state.position).lenght2D();
-//        float min_reach_time = 2.2 * dist_to_parent / agent.velocity_limit.to2D().lenght();
+//        float min_reach_time = 2.2 * dist_to_parent / agent->velocity_limit.to2D().lenght();
 //        float rotate_val;
 //        float MDTG = goal.minDistTo(current_node->state); // min dist to goal
 //        if(MDTG > align_radius) {
@@ -542,7 +519,7 @@ void PlanningProblem::buildVelocityProfile()
 //                                        M_PI+current_node->state.velo.to2D().arctan(), M_PI+current_node->state.velo.to2D().arctan());
 //            float d_teta = (fabs(d_teta_a) < fabs(d_teta_b))? d_teta_a:d_teta_b;
 //            assert(fabs(d_teta) < M_PI);
-//            rotate_val = agent.velocity_limit.Teta() * min_reach_time * sin(d_teta/2);
+//            rotate_val = agent->velocity_limit.Teta() * min_reach_time * sin(d_teta/2);
 //            current_node->state.position.setTeta(parent->state.position.Teta() + rotate_val);
 //        }
 //        else { // in the align teta circle
@@ -571,7 +548,7 @@ void PlanningProblem::buildVelocityProfile()
 //        RRTVertex* node = trajec.getVertex(i);
 //        float MDTG = goal.minDistTo(node->state); // min dist to goal
 //        if(MDTG > align_radius) {
-////            node->state.velo = node->state.velo.dotProduct(agent.velocity_limit);
+////            node->state.velo = node->state.velo.dotProduct(agent->velocity_limit);
 //        }
 //        else { // in the align velocity circle
 //            float omega = node->state.velo.Teta();
@@ -588,7 +565,7 @@ void PlanningProblem::solveInvalidInitialState()
         Obstacle* ob = stat_obstacles[i];
         if(ob==NULL)  continue;
         if(hasCollision(initialState, *ob)) {
-            Vector2D diff_to_ob(initialState.getPosition().to2D() - Vector2D(ob->m_transform.p));
+            Vector2D diff_to_ob(initialState.getPosition().to2D() - Vector2D(ob->transform.p));
             diff_to_ob.normalize();
             Station new_station;
             new_station.setPosition(initialState.getPosition() + (diff_to_ob * ob->shape->m_radius).to3D());
@@ -611,8 +588,8 @@ void PlanningProblem::solveInvalidGoalState()
         Obstacle* ob = stat_obstacles[i];
         if(ob == NULL) continue;
         if(hasCollision(goal.goal_point, *ob)) {
-            Vector2D diff = goal.goal_point.getPosition().to2D() - Vector2D(ob->m_transform.p);
-            float displacement_ = agent.radius() + ob->shape->m_radius - diff.lenght();
+            Vector2D diff = goal.goal_point.getPosition().to2D() - Vector2D(ob->transform.p);
+            float displacement_ = agent->radius() + ob->shape->m_radius - diff.lenght();
             if(displacement_ > 0)
                 goal.goal_point.setPosition( goal.goal_point.getPosition() +
                                              (diff.normalized() * displacement_ * 1.1).to3D());
@@ -625,11 +602,11 @@ bool PlanningProblem::checkPlanValidity(Trajectory &plan, float tolerance_coeff)
 {
     if(plan.length() == 0)
         return false;
-    if(Station::euclideanDistance(plan.getStation(0), initialState) > tolerance_coeff* agent.radius())
+    if(Station::euclideanDistance(plan.getStation(0), initialState) > tolerance_coeff* agent->radius())
         return false;    
-    if(goal.minDistTo(plan.getLastStation()) > tolerance_coeff * agent.radius())
+    if(goal.minDistTo(plan.getLastStation()) > tolerance_coeff * agent->radius())
         return false;
-    if(Station::euclideanDistance(plan.getLastStation(), goal.goal_point) > tolerance_coeff * agent.radius() )
+    if(Station::euclideanDistance(plan.getLastStation(), goal.goal_point) > tolerance_coeff * agent->radius() )
         return false;
 //    for(int i=0; i<plan.length(); i++) {
 //        if(!CheckValidity(plan.getStation(i)))
@@ -643,17 +620,17 @@ bool PlanningProblem::checkPlanValidity(Trajectory &plan, float tolerance_coeff)
 //    return (B.getPosition() - A.getPosition()).lenght2D();
 //}
 
-bool PlanningProblem::hasCollision(Station &st, const ObstacleSet &ob_set)
+bool PlanningProblem::hasCollision(const Station &st, const ObstacleSet &ob_set)
 {
-    b2Transform st_ateTransform;
-    st_ateTransform.Set(st.getPosition().to2D().toB2vec2(), st.getPosition().Teta());
+    b2Transform stateTransform;
+    stateTransform.Set(st.getPosition().to2D().toB2vec2(), st.getPosition().Teta());
 
     for(unsigned int i=0; i<ob_set.size(); i++)
     {
         Obstacle* ob = ob_set[i];
         if(ob == NULL)
             continue;
-        bool result = b2TestOverlap(ob->shape, 0, agent.shape, 1, ob->m_transform, st_ateTransform);
+        bool result = b2TestOverlap(ob->shape, 0, agent->shape, 1, ob->transform, stateTransform);
         if(result)
         {
 //            std::cout << "collision with obstacle " << i << endl;
@@ -663,22 +640,22 @@ bool PlanningProblem::hasCollision(Station &st, const ObstacleSet &ob_set)
     return false;
 }
 
-bool PlanningProblem::hasCollision(Station &st, const Obstacle &ob)
+bool PlanningProblem::hasCollision(const Station &st, const Obstacle &ob)
 {
     b2Transform st_Transform;
     st_Transform.Set(st.getPosition().to2D().toB2vec2(), st.getPosition().Teta());
 
-    return b2TestOverlap(ob.shape, 0, agent.shape, 1, ob.m_transform, st_Transform);
+    return b2TestOverlap(ob.shape, 0, agent->shape, 1, ob.predictedTransform(0), st_Transform);
 }
 
-bool PlanningProblem::pathHasCollision(Station &from, Station &to, const ObstacleSet &ob_set)
+bool PlanningProblem::pathHasCollision(const Station &from, const Station &to, const ObstacleSet &ob_set)
 {
     b2PolygonShape road_from_to;
     Vector2D center((from.getPosition() + to.getPosition()).to2D() /2.0);
     Vector2D half_diff((to.getPosition() - from.getPosition()).to2D() /2.0);
     float safety_lateral_bound = -0.20;
-    road_from_to.SetAsBox(agent.radius() * (1 + safety_lateral_bound),
-                          half_diff.lenght() + agent.radius() * (1+safety_lateral_bound),
+    road_from_to.SetAsBox(agent->radius() * (1 + safety_lateral_bound),
+                          half_diff.lenght() + agent->radius() * (1+safety_lateral_bound),
                           center.toB2vec2(), M_PI_2 + half_diff.arctan());
 
     for(unsigned int i=0; i<ob_set.size(); i++)
@@ -686,7 +663,7 @@ bool PlanningProblem::pathHasCollision(Station &from, Station &to, const Obstacl
         Obstacle* ob = ob_set[i];
         if(ob == NULL)
             continue;
-        bool result = b2TestOverlap(ob->shape, 0, &road_from_to, 1, ob->m_transform, identity_trans);
+        bool result = b2TestOverlap(ob->shape, 0, &road_from_to, 1, ob->transform, identity_trans);
         if(result)
         {
 //            std::cout << "collision with obstacle " << i << endl;
@@ -702,12 +679,12 @@ bool PlanningProblem::pathHasCollision(Station &from, Station &to, const Obstacl
     Vector2D center((from.getPosition() + to.getPosition()).to2D() /2.0);
     Vector2D half_diff((to.getPosition() - from.getPosition()).to2D() /2.0);
     float safet_latera_bound = 0.1;
-    road_from_to.SetAsBox(agent.radius() * (1 + safet_latera_bound), half_diff.lenght() + agent.radius(),
+    road_from_to.SetAsBox(agent->radius() * (1 + safet_latera_bound), half_diff.lenght() + agent->radius(),
                           center.toB2vec2(), M_PI_2 + half_diff.arctan());
 
 //    if(ob == NULL)
 //        continue;
-    return b2TestOverlap(ob.shape, 0, &road_from_to, 1, ob.m_transform, identity_trans);
+    return b2TestOverlap(ob.shape, 0, &road_from_to, 1, ob.transform, identity_trans);
 }
 
 // this function returns -1 if two objects has collision
@@ -715,14 +692,14 @@ bool PlanningProblem::pathHasCollision(Station &from, Station &to, const Obstacl
 float PlanningProblem::distToObstacle(Station A, const Obstacle &ob, b2Vec2& A_point, b2Vec2& ob_point)
 {        
     b2DistanceProxy state_proxy, ob_proxy;
-    state_proxy.Set(agent.shape, 0);
+    state_proxy.Set(agent->shape, 0);
     ob_proxy.Set(ob.shape, 1);
     b2DistanceInput dist_in;
     dist_in.proxyA = state_proxy;
     dist_in.proxyB = ob_proxy;
     dist_in.transformA = b2Transform(A.getPosition().toB2vec2(),
                                     b2Rot(A.getPosition().Teta()));
-    dist_in.transformB = ob.m_transform;
+    dist_in.transformB = ob.transform;
     b2SimplexCache dist_cache;
     dist_cache.count = 0;
     b2DistanceOutput dis_out;
@@ -736,7 +713,8 @@ float PlanningProblem::distToObstacle(Station A, const Obstacle &ob, b2Vec2& A_p
 }
 
 
-Obstacle *PlanningProblem::nearestObstacle(Station A, const ObstacleSet &obset, float& dist, b2Vec2& A_point, b2Vec2& ob_point)
+Obstacle *PlanningProblem::nearestObstacle(const Station &A, const ObstacleSet &obset,
+                                           float& dist, b2Vec2& A_point, b2Vec2& ob_point)
 {
     Obstacle* res_ob = NULL;
     float min_dist = INFINITY;
@@ -751,69 +729,30 @@ Obstacle *PlanningProblem::nearestObstacle(Station A, const ObstacleSet &obset, 
     return res_ob;
 }
 
-bool PlanningProblem::CheckValidity(Station A)
+bool PlanningProblem::CheckValidity(const Station &A)
 {
-    if(hasCollision(A, this->stat_obstacles))
-        return false;
-    if(hasCollision(A, this->dyna_obstacles))
-        return false;
-    return true;
-}
-
-Station PlanningProblem::SampleState()
-{
-    if(search_diameter > 0) {
-        Ellipse el_1;
-        el_1.m_center1 = initialState.getPosition().to2D();
-        el_1.m_center2 = goal.goal_point.getPosition().to2D();
-        el_1.m_diameter = search_diameter;
-        return SampleStateInEllipse(el_1);
-    }
-    else
-        return SampleStateUniform();
+    return ( ! hasCollision(A, this->stat_obstacles) );
 }
 
 Station PlanningProblem::SampleStateUniform()
 {
-    float rt = uni_rand(0, M_2_PI);
-    Station temp_station;
+    Station sampled_station;
     for(int i=0; i < MAX_SAMPLING_TRY; ++i)
     {
-        float rx = uni_rand(actualBound.getDownLeft().X(), actualBound.getTopRight().X());
-        float ry = uni_rand(actualBound.getDownLeft().Y(), actualBound.getTopRight().Y());
-        temp_station.setPosition(Vector3D(rx, ry, rt));
-        if(CheckValidity(temp_station))
-            return temp_station;
+        Vector3D rand_pos = actualBound->getUniformSample();
+        sampled_station.setPosition(rand_pos);
+        if(CheckValidity(sampled_station))
+            return sampled_station;
     }
     return Station();
 }
 
-Station PlanningProblem::SampleStateInEllipse(const Ellipse &ell_)
-{
-    float rt = uni_rand(0, M_2_PI);
-    Station temp_station;
-    for(int i=0; i < MAX_SAMPLING_TRY; ++i)
-    {
-        float rnd_rad = uni_rand(0, 1);
-        float rnd_ang = uni_rand(0, 2 * M_PI);
-
-        Vector2D cntr_disp(rnd_rad* cos(rnd_ang), rnd_rad* sin(rnd_ang));
-        cntr_disp.rotate(ell_.orientation());
-
-        Vector2D pnt = ell_.mainCenter() + cntr_disp;
-        temp_station.setPosition(Vector3D(pnt, rt));
-        if(CheckValidity(temp_station))
-            return temp_station;
-    }
-    return Station();
-}
-
-void PlanningProblem::setPlanningAgent(PlanningAgent ag)
+void PlanningProblem::setPlanningAgent(PlanningAgent *ag)
 {
     this->agent = ag;
 }
 
-PlanningAgent PlanningProblem::getPlanningAgent() const
+PlanningAgent* PlanningProblem::getPlanningAgent() const
 {
     return this->agent;
 }
@@ -829,7 +768,6 @@ void PlanningProblem::computeCost(Trajectory &plan_)
         plan_.computeCost();
         plan_.cost.safety = 0;
         ObstacleSet desired_ob_set = stat_obstacles;
-        desired_ob_set.insert(desired_ob_set.end(), dyna_obstacles.begin(), dyna_obstacles.end());
         for(int i=0; i< plan_.length(); i++) {
             Station st = plan_.getStation(i);
             float min_dist = INFINITY;
@@ -839,7 +777,7 @@ void PlanningProblem::computeCost(Trajectory &plan_)
                 float dist_ = distToObstacle(st, *ob, tmpv1, tmpv2);
                 min_dist = min(min_dist, dist_);
             }
-            st.cost.min_ob_dist = min_dist;
+            st.cost.min_dist_to_obs = min_dist;
             plan_.EditStation(i, st);
             plan_.cost.safety += plan_.getStation(i).cost.safety_penalty();
         }
@@ -882,12 +820,12 @@ void PlanningProblem::setGoalPoint(Station st)
     this->goal.goal_point.set(st);
 }
 
-void PlanningProblem::setBound(FieldBound fb)
+void PlanningProblem::setBound(FieldBound* fb)
 {
     this->actualBound = fb;
 }
 
-FieldBound PlanningProblem::getBound() const
+FieldBound* PlanningProblem::getBound() const
 {
     return this->actualBound;
 }
@@ -902,44 +840,21 @@ ObstacleSet PlanningProblem::getStaticObstacles() const
     return this->stat_obstacles;
 }
 
-void PlanningProblem::setDynamicObstacles(ObstacleSet dy_obs)
+void PlanningProblem::clearObstacles()
 {
-    this->dyna_obstacles = dy_obs;
-}
-
-ObstacleSet PlanningProblem::getDynamicObstacles() const
-{
-    return this->dyna_obstacles;
-}
-
-void PlanningProblem::clearObstacles(bool dynamix, bool statix)
-{
-    if(statix) {
-        for(int i=stat_obstacles.size()-1; i>=0; i--)
-        {
-            Obstacle* ob = (Obstacle*)stat_obstacles[i];
-            if(ob != NULL)
-                delete ob;
-        }
-
-        this->stat_obstacles.clear();
+    for(int i=stat_obstacles.size()-1; i>=0; i--)
+    {
+        Obstacle* ob = (Obstacle*)stat_obstacles[i];
+        if(ob != NULL)
+            delete ob;
     }
 
-    if(dynamix) {
-        for(int i=dyna_obstacles.size()-1; i>=0; i--)
-        {
-            Obstacle* ob = (Obstacle*)dyna_obstacles[i];
-            if(ob != NULL)
-                delete ob;
-        }
-        this->dyna_obstacles.clear();
-    }
-
+    this->stat_obstacles.clear();
 }
 
-RandomTree& PlanningProblem::getTree()
+SpatialTree& PlanningProblem::getTree()
 {
-    return tree;
+    return randomTree;
 }
 
 Trajectory PlanningProblem::getTrajectory() const
@@ -959,24 +874,7 @@ Velocity PlanningProblem::getControl(uint i)
     return c;
 }
 
-Velocity PlanningProblem::getNextControl(Trajectory tr_)
-{
-    Velocity vel_;
-    if(checkPlanValidity(tr_)) {
-        Station next_st = tr_.getStation(1);
-        Vector3D delta_pos = next_st.getPosition() - initialState.getPosition();
-        double delta_orien = delta_pos.to2D().arctan() - initialState.getPosition().Teta();
-        delta_orien = continuousRadian(delta_orien, -M_PI);
-        Vector2D v_2d = Vector2D::unitVector(delta_orien);
-        v_2d = v_2d / (fabs(delta_orien) + 0.5);
-        vel_.set(v_2d.X(), v_2d.Y(), 0);
-    }
-    else
-        vel_.setZero();
-    return vel_;
-}
-
-Trajectory PlanningProblem::getPlan()
+Trajectory PlanningProblem::getBestPlan()
 {
     return bestPlan;
 }

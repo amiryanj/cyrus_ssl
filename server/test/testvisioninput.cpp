@@ -149,7 +149,7 @@ void TestInput::updateVisionInput()
 void TestInput::updateWorldModel()
 {
     static int counter = 0;
-    counter += 10;
+    counter += 5;
 
     for(int i=0; i<6; i++) {
         world->updateRobotState(SSLGame::getInstance()->ourColor(), i,

@@ -5,6 +5,7 @@
 #include "../definition/SSLRobot.h"
 #include "../transmitter/RobotCommandPacket.h"
 #include "../transmitter/commandtransmitter.h"
+#include "planner/planning/sslplanningagent.h"
 #include "sslrole.h"
 #include "sslagent.h"
 #include "sslgamepositions.h"
@@ -52,7 +53,7 @@ void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance, MoveType mo
                        FIELD_LENGTH_2 - ROBOT_RADIUS) );
     this->name = "Goto target";
     this->target = target;
-    planner.deactive();
+    planner.deactivate();
 
     Vector3D diff = target - this->Position();
     if(       ( fabs(diff.X())    < tolerance.X() )
@@ -156,14 +157,15 @@ void SSLSkill::goToPointWithPlanner(const Vector3D &target,
         {
             SSLRobot* rob_ = all_actual_robots[i];
             Obstacle* ob_  = allRobotsObstacles[i];
-            ob_->shape->m_radius = robot_obs_radius;
-            ob_->m_transform.Set(Vector2D(rob_->Position().X(), rob_->Position().Y()).toB2vec2(), rob_->Position().Teta());
+            ob_->setRadius(robot_obs_radius);
+            ob_->transform.Set(Vector2D(rob_->Position().X(), rob_->Position().Y()).toB2vec2(),
+                               rob_->Position().Teta());
             allObstacles.push_back(ob_);
         }
     }
 
     if(ball_obs_radius != 0) {
-        ballObstacle->shape->m_radius = ball_obs_radius;
+        ballObstacle->setRadius(ball_obs_radius);
         allObstacles.push_back(ballObstacle);
     }
 
@@ -174,6 +176,10 @@ void SSLSkill::goToPointWithPlanner(const Vector3D &target,
         planner.solve();
 
     int plan_lenght = planner.getTrajectory().length();
+    if(owner_agent->getID() == 1 )
+    {
+        this->avoid_rotate_deadline_time_ms = 0;
+    }
     if( plan_lenght >1 )   {
         Station subGoal = planner.getTrajectory().getStation(1);
         if(plan_lenght > 2)   {
@@ -184,8 +190,6 @@ void SSLSkill::goToPointWithPlanner(const Vector3D &target,
             this->goToSubGoal(subGoal.getPosition(), tolerance, move_type);
         }
     }
-
-
 }
 
 // this function is responsible for approaching the ball
@@ -218,7 +222,7 @@ void SSLSkill::goAndKick(const Vector2D kick_point,const  Vector2D kick_target, 
     }
 
     else {
-        planner.deactive();
+        planner.deactivate();
         this->name = "Kick ball";
         Vector2D diff_between_ball_and_target = (kick_point - kick_target);
         LineSegment behind_ball_line(kick_point,
@@ -292,7 +296,7 @@ void SSLSkill::goAndKick(const Vector2D kick_point,const  Vector2D kick_target, 
 void SSLSkill::goAndChip(double chipStrenghtNormal)
 {
     this->name = "Chip ball";
-    planner.deactive();
+    planner.deactivate();
 }
 
 void SSLSkill::goBehindBall(Vector2D ball_position)
@@ -531,32 +535,31 @@ void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
 
 void SSLSkill::initializePlanner()
 {
-    FieldBound bound;
-    bound.set(-1.1 * FIELD_LENGTH/2, 1.1 * FIELD_LENGTH/2,
-              -1.1 * FIELD_WIDTH /2, 1.1 * FIELD_WIDTH /2 );
+    RectangularFieldBound *bound = new RectangularFieldBound(-1.1 * FIELD_LENGTH_2,
+                                              1.1 * FIELD_LENGTH_2,
+                                             -1.1 * FIELD_WIDTH_2,
+                                              1.1 * FIELD_WIDTH_2 );
     planner.setBound(bound);
-    PlanningAgent planning_agent;
-    planning_agent.motionModel = MP::eOmniDirectional;
-    planning_agent.setRadius(ROBOT_RADIUS); // in milimeter
-    planning_agent.mass = 3.0; // kilo gram
-    planning_agent.velocity_limit.set(3000, 3000, M_PI * 1.2);
+
+    SSLPlanningAgent *planning_agent = new SSLPlanningAgent;
+    planning_agent->mass = 3.0; // kilo gram
     planner.setPlanningAgent(planning_agent);
 
     // initializing field obstacles for agent
     // ****************************************************************************************
     penaltyAreaObstacles.reserve(5);
     int z = ParameterManager::getInstance()->get<int>("general.game.our_side");
-    Obstacle* myPenaltyArea_C = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, 0),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
-    Obstacle* myPenaltyArea_T = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
-    Obstacle* myPenaltyArea_D = new Obstacle(Obstacle::eStatic, b2Vec2(z* FIELD_LENGTH/2, -FIELD_PENALTY_AREA_WIDTH/2),
-                                                    FIELD_PENALTY_AREA_RADIUS * 0.98);
+    Obstacle* myPenaltyArea_C = new Obstacle(Vector2D(z* FIELD_LENGTH_2, 0),
+                                             FIELD_PENALTY_AREA_RADIUS * 0.98, "our penalty - center");
+    Obstacle* myPenaltyArea_T = new Obstacle(Vector2D(z* FIELD_LENGTH_2, FIELD_PENALTY_AREA_WIDTH_2),
+                                             FIELD_PENALTY_AREA_RADIUS * 0.98, "our penalty - top");
+    Obstacle* myPenaltyArea_D = new Obstacle(Vector2D(z* FIELD_LENGTH_2, -FIELD_PENALTY_AREA_WIDTH_2),
+                                             FIELD_PENALTY_AREA_RADIUS * 0.98, "our penalty - down");
 
-    Obstacle* outFieldArea_R = new Obstacle(Obstacle::eStatic, b2Vec2(FIELD_LENGTH/2 + 300, 0),
-                                                                    150*2 ,  FIELD_WIDTH, 0);
-    Obstacle* outFieldArea_L = new Obstacle(Obstacle::eStatic, b2Vec2(-FIELD_LENGTH/2 - 300, 0),
-                                                                    150*2 ,  FIELD_WIDTH, 0);
+    Obstacle* outFieldArea_R = new Obstacle(Vector2D(FIELD_LENGTH_2 + 300, 0),
+                                            150 * 2 ,  FIELD_WIDTH, 0.0f, "right out");
+    Obstacle* outFieldArea_L = new Obstacle(Vector2D(-FIELD_LENGTH_2 - 300, 0),
+                                            150 * 2 ,  FIELD_WIDTH, 0.0f, "left out");
 
     myPenaltyArea_C->repulseStrenght = 1.5;
     myPenaltyArea_T->repulseStrenght = 1.5;
@@ -571,12 +574,13 @@ void SSLSkill::initializePlanner()
 
     allRobotsObstacles.reserve(MAX_ID_NUM * 2);
     for(unsigned int i=0; i< MAX_ID_NUM *2; i++) {
-        Obstacle* ob_ = new Obstacle(Obstacle::eRobot, b2Vec2(0, 0), ROBOT_RADIUS);
+        // TODO: set the id and color of the robot in obstacle detail field, will be useful
+        Obstacle* ob_ = new Obstacle(Vector2D(0, 0), ROBOT_RADIUS, "robot");
         ob_->repulseStrenght = 2.0;
         allRobotsObstacles.push_back(ob_);
     }
 
-    ballObstacle = new Obstacle(Obstacle::eBall, b2Vec2(0,0), BALL_RADIUS);
+    ballObstacle = new Obstacle(Vector2D(0, 0), BALL_RADIUS, "ball");
 }
 
 Vector3D SSLSkill::Position()
@@ -588,6 +592,6 @@ Vector3D SSLSkill::Position()
 void SSLSkill::updateObstacles()
 {
     SSLBall* actual_ball = world->mainBall();
-    ballObstacle->m_transform.Set(b2Vec2(actual_ball->Position().X(),
+    ballObstacle->transform.Set(b2Vec2(actual_ball->Position().X(),
                                          actual_ball->Position().Y()), 0);
 }

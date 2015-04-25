@@ -1,34 +1,25 @@
 #ifndef _PLANNINGROBOT_H
 #define _PLANNINGROBOT_H
 
-#include <Box2D/Collision/Shapes/b2CircleShape.h>
-#include <Box2D/Collision/Shapes/b2PolygonShape.h>
-#include "station.h"
-namespace MP {
+#include <Box2D/Collision/Shapes/b2Shape.h>
+class Vector3D;
+class Station;
 
-    enum AgentMotionModel {eOmniDirectional, eDifferentialWheel};
-}
+
 class PlanningAgent
 {
 
 public:
-    PlanningAgent(b2Shape::Type type = b2Shape::e_circle);
+    PlanningAgent() {}
+
+    float radius() {
+        return shape->m_radius;
+    }
 
     b2Shape *shape;
+    float mass;
 
-    Vector3D velocity_limit;
-    double max_accel;
-
-//    double max_vel;
-    double maxRotationRad; // radian
-    double mass;
-
-    MP::AgentMotionModel motionModel;
-
-    PlanningAgent& operator=(const PlanningAgent& other);
-
-    void setRadius(double rad);
-    float radius();
+    virtual Station &step(const Station &st, const Vector3D &global_control, float step_time_sec) = 0;
 
 private:
 

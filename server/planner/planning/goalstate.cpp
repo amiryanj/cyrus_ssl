@@ -18,7 +18,7 @@ GoalState &GoalState::operator =(GoalState other)
     return *this;
 }
 
-double GoalState::minDistTo(Station p)
+double GoalState::minDistTo(const Station &p)
 {
     Vector3D A(goal_point.getPosition() - tolerance.getPosition());
     Vector3D B(goal_point.getPosition() + tolerance.getPosition());

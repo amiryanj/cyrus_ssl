@@ -2,31 +2,35 @@
 #define OBSTACLE_H
 
 #include <Box2D/Collision/Shapes/b2Shape.h>
-#include <Box2D/Common/b2Math.h>
-#include <Box2D/Collision/Shapes/b2CircleShape.h>
-#include <Box2D/Collision/Shapes/b2PolygonShape.h>
-#include "../../shared/utility/vector3d.h"
-#include "../../shared/utility/vector2d.h"
 #include <vector>
+#include <string>
+
+#include "../../../shared/utility/vector2d.h"
 
 class Obstacle
 {
 public:
-    enum ObstacleType{ eBall, eRobot, eStatic};
-
-    Obstacle(ObstacleType type, b2Vec2 center, double radius);
-    Obstacle(ObstacleType type, b2Vec2 center, double width, double height, double orien);
-    ~Obstacle();
-
-    ObstacleType m_ObstacleType;
-    b2Transform m_transform;
-    void getOut();
+    Obstacle(Vector2D center, float radius, const char* details_ = 0);
+    Obstacle(Vector2D center, float width, float height, float orien = 0, const char *details_ = 0);
+    ~Obstacle() {
+        if(this->shape)
+            delete shape;
+        shape = NULL;
+    }
 
     b2Shape* shape;
 
-    float repulseStrenght;
-    bool dynamic;
+    void setRadius(float radius_) {
+        shape->m_radius = radius_;
+    }
 
+    b2Transform transform;
+    b2Transform predictedTransform(float time_step_sec) const;
+
+    float repulseStrenght;
+    Vector2D speed;
+
+    std::string detail_text;
 };
 
 typedef std::vector<Obstacle*> ObstacleSet;
