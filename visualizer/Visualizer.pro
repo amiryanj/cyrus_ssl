@@ -12,21 +12,22 @@ greaterThan(QT_MAJOR_VERSION, 4.9): QT += printsupport
 release: DESTDIR = $$PWD/../../release_cyrus/visualizer
 release: MOC_DIR = $$PWD/../../release_cyrus/visualizer/mocs
 release: OBJECTS_DIR = $$PWD/../../release_cyrus/visualizer/objs
+release: UI_DIR = $$PWD/../../release_cyrus/visualizer/ui
 
 debug: DESTDIR = $$PWD/../../debug_cyrus/visualizer
 debug: MOC_DIR = $$PWD/../../debug_cyrus/visualizer/mocs
 debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/visualizer/objs
+debug: UI_DIR = $$PWD/../../release_cyrus/visualizer/ui
 
 LIBS += -lprotobuf -lboost_system -lboost_filesystem
 
 TARGET = Visualizer
 TEMPLATE = app
 
-INCLUDEPATH += ../common \
-                ../common/thirdparty \
-                ../common/math \
-                ../common/tools \
-                ../common/protoc
+INCLUDEPATH += ../shared \
+                ../shared/utility \
+                ../shared/tools \
+                ../shared/proto
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -36,32 +37,30 @@ SOURCES += main.cpp\
     graphics/graphic_bot.cpp \
     robotstate.cpp \
     packetreceiver.cpp \
-    ../common/math/vector3d.cpp \
-    ../common/math/vector2d.cpp \
-    ../common/thirdparty/socket/netraw.cpp \
-    ../common/thirdparty/socket/IPPacket.cpp \
+    ../shared/utility/vector3d.cpp \
+    ../shared/utility/vector2d.cpp \
+    ../shared/tools/socket/netraw.cpp \
     packetparser.cpp \
     graphics/graphic_num.cpp \
     graphics/graphic_vec.cpp \
-    selectcolordialog.cpp \
     graphics/graphic_plan.cpp \
     graphics/graphic_circle.cpp \
     graphics/graphic_intersect.cpp \
     selectplotdialog.cpp \
     graphics/graphic_ball.cpp \
     robotpropertieswidget.cpp \
-    ../common/protoc/visualizer/cpp/ssl_world.pb.cc \
-    ../common/protoc/visualizer/cpp/ssl_visualizer.pb.cc \
-    ../common/protoc/visualizer/cpp/ssl_planner.pb.cc \
-    ../common/protoc/visualizer/cpp/ssl_decision.pb.cc \
-    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.cc \
-    ../common/math/sslmath.cpp \
+    ../shared/proto/visualizer/cpp/ssl_world.pb.cc \
+    ../shared/proto/visualizer/cpp/ssl_visualizer.pb.cc \
+    ../shared/proto/visualizer/cpp/ssl_planner.pb.cc \
+    ../shared/proto/visualizer/cpp/ssl_decision.pb.cc \
+    ../shared/proto/visualizer/cpp/ssl_analyzer.pb.cc \
+    ../shared/utility/generalmath.cpp \
     fieldview.cpp \
     ../server/paramater-manager/parametermanager.cpp \
     graphics/graphic_arc.cpp \
-    scatterplotwidget.cpp \
+    plot-manager/scatterplotwidget.cpp \
     plot-manager/plotmanagerwidget.cpp \
-    ../common/protoc/plotter/cpp/message_plotter.pb.cc
+    ../shared/proto/plotter/cpp/message_plotter.pb.cc
 
 HEADERS  += mainwindow.h \
     plot-manager/qcustomplot.h \
@@ -71,40 +70,38 @@ HEADERS  += mainwindow.h \
     Concepts.h \
     robotstate.h \
     packetreceiver.h \
-    ../common/math/vector2d.h \
-    ../common/math/vector3d.h \
-    ../common/thirdparty/socket/netraw.h \
-    ../common/thirdparty/socket/IPPacket.h \
+    ../shared/utility/vector2d.h \
+    ../shared/utility/vector3d.h \
+    ../shared/tools/socket/netraw.h \
+    ../shared/tools/socket/IPPacket.h \
     packetparser.h \
     graphics/graphic_num.h \
     graphics/graphic_vec.h \
-    selectcolordialog.h \
     graphics/graphic_plan.h \
     graphics/graphic_circle.h \
     graphics/graphic_intersect.h \
     selectplotdialog.h \
     graphics/graphic_ball.h \
     robotpropertieswidget.h \
-    ../common/protoc/visualizer/cpp/ssl_world.pb.h \
-    ../common/protoc/visualizer/cpp/ssl_visualizer.pb.h \
-    ../common/protoc/visualizer/cpp/ssl_planner.pb.h \
-    ../common/protoc/visualizer/cpp/ssl_decision.pb.h \
-    ../common/protoc/visualizer/cpp/ssl_analyzer.pb.h \
-    ../common/math/sslmath.h \
+    ../shared/proto/visualizer/cpp/ssl_world.pb.h \
+    ../shared/proto/visualizer/cpp/ssl_visualizer.pb.h \
+    ../shared/proto/visualizer/cpp/ssl_planner.pb.h \
+    ../shared/proto/visualizer/cpp/ssl_decision.pb.h \
+    ../shared/proto/visualizer/cpp/ssl_analyzer.pb.h \
+    ../shared/utility/generalmath.h \
     fieldview.h \
     ../server/paramater-manager/parametermanager.h \
     graphics/graphic_arc.h \
-    scatterplotwidget.h \
+    plot-manager/scatterplotwidget.h \
     plot-manager/plotmanagerwidget.h \
-    ../common/protoc/plotter/cpp/message_plotter.pb.h
+    ../shared/proto/plotter/cpp/message_plotter.pb.h
 
 FORMS    += mainwindow.ui \
     plot-manager/plotwidget.ui \
     fieldscene.ui \
-    selectcolordialog.ui \
     selectplotdialog.ui \
     robotpropertieswidget.ui \
-    scatterplotwidget.ui \
+    plot-manager/scatterplotwidget.ui \
     plot-manager/plotmanagerwidget.ui
 
 RESOURCES += \

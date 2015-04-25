@@ -2,8 +2,7 @@
 #define GRAPHIC_CIRCEL_H
 #include <QGraphicsItem>
 #include <QImage>
-#include "Concepts.h"
-#include "general.h"
+
 
 class CircleGraphicsItem : public QGraphicsItem
 {

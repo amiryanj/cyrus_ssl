@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QDebug>
+#include "../../shared/general.h"
 
 RobotGraphicsItem::RobotGraphicsItem(Qt::GlobalColor color, int id)
 {

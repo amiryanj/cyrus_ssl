@@ -11,10 +11,10 @@
 #include "graphics/graphic_intersect.h"
 #include "graphics/graphic_ball.h"
 #include "graphics/graphic_arc.h"
-#include "Concepts.h"
 #include "robotstate.h"
 #include <QWheelEvent>
 #include "fieldview.h"
+#include "../shared/general.h"
 
 namespace Ui {
 class FieldScene;

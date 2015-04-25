@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QMap>
 #include <QUdpSocket>
-#include "../common/protoc/plotter/cpp/message_plotter.pb.h"
+#include "../shared/proto/plotter/cpp/message_plotter.pb.h"
 
 namespace Ui {
 class PlotManagerWidget;

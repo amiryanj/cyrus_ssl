@@ -1,6 +1,6 @@
 #include "packetreceiver.h"
-#include "protoc/visualizer/cpp/ssl_visualizer.pb.h"
-#include "protoc/visualizer/cpp/ssl_world.pb.h"
+#include "../shared/proto/visualizer/cpp/ssl_visualizer.pb.h"
+#include "../shared/proto/visualizer/cpp/ssl_world.pb.h"
 #include <iostream>
 #include <sys/socket.h>
 #include <QDebug>

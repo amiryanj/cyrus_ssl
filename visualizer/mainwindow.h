@@ -12,7 +12,7 @@
 
 #include "robotpropertieswidget.h"
 #include "packetreceiver.h"
-#include "scatterplotwidget.h"
+#include "plot-manager/scatterplotwidget.h"
 
 class QTableWidgetItem;
 class QLabel;

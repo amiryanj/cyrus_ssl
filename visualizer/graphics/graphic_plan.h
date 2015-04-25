@@ -3,8 +3,6 @@
 #include <QGraphicsItem>
 #include <QImage>
 #include <QVector3D>
-#include "Concepts.h"
-#include "general.h"
 
 class PlanGraphicsItem : public QGraphicsItem
 {

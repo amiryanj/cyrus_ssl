@@ -2,7 +2,7 @@
 #include "ui_fieldscene.h"
 #include <QDebug>
 #include <QVector3D>
-#include "../common/math/sslmath.h"
+#include "../shared/utility/generalmath.h"
 
 FieldScene::FieldScene(Color our_color, QWidget *parent) :
     QWidget(parent)

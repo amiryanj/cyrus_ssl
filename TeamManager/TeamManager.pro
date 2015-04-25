@@ -13,8 +13,8 @@ LIBS += -lprotobuf
 TARGET = TeamManager
 TEMPLATE = app
 
-INCLUDEPATH += ../common \
-            ../common/protoc \
+INCLUDEPATH += ../shared \
+            ../shared/protoc \
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -22,13 +22,13 @@ SOURCES += main.cpp\
     watchfieldgraphics.cpp \
     udpsocket.cpp \
     cyrusserverpackethandler.cpp \
-    ../common/math/vector3d.cpp \
-    ../common/math/vector2d.cpp \
-    ../common/math/sslmath.cpp \
-    ../common/protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.cc \
-    ../common/protoc/vision/cpp/messages_robocup_ssl_refbox_log.pb.cc \
-    ../common/protoc/vision/cpp/messages_robocup_ssl_geometry.pb.cc \
-    ../common/protoc/vision/cpp/messages_robocup_ssl_detection.pb.cc
+    ../shared/utility/vector3d.cpp \
+    ../shared/utility/vector2d.cpp \
+    ../shared/utility/generalmath.cpp \
+    ../shared/proto/vision/cpp/messages_robocup_ssl_wrapper.pb.cc \
+    ../shared/proto/vision/cpp/messages_robocup_ssl_refbox_log.pb.cc \
+    ../shared/proto/vision/cpp/messages_robocup_ssl_geometry.pb.cc \
+    ../shared/proto/vision/cpp/messages_robocup_ssl_detection.pb.cc
 
 HEADERS  += mainwindow.h \
     fieldgraphicsview.h \
@@ -36,13 +36,13 @@ HEADERS  += mainwindow.h \
     general.h \
     udpsocket.h \
     cyrusserverpackethandler.h \
-    ../common/math/vector3d.h \
-    ../common/math/vector2d.h \
-    ../common/math/sslmath.h \
-    ../common/protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.h \
-    ../common/protoc/vision/cpp/messages_robocup_ssl_refbox_log.pb.h \
-    ../common/protoc/vision/cpp/messages_robocup_ssl_geometry.pb.h \
-    ../common/protoc/vision/cpp/messages_robocup_ssl_detection.pb.h
+    ../shared/utility/vector3d.h \
+    ../shared/utility/vector2d.h \
+    ../shared/utility/generalmath.h \
+    ../shared/proto/vision/cpp/messages_robocup_ssl_wrapper.pb.h \
+    ../shared/proto/vision/cpp/messages_robocup_ssl_refbox_log.pb.h \
+    ../shared/proto/vision/cpp/messages_robocup_ssl_geometry.pb.h \
+    ../shared/proto/vision/cpp/messages_robocup_ssl_detection.pb.h
 
 
 FORMS    += mainwindow.ui \
@@ -50,5 +50,3 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     icons.qrc
-
-OTHER_FILES +=

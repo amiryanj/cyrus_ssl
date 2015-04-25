@@ -2,8 +2,6 @@
 #define GRAPHIC_VEC_H
 #include <QGraphicsItem>
 #include <QImage>
-#include "Concepts.h"
-#include "general.h"
 
 class VectorGraphicsItem : public QGraphicsItem
 {

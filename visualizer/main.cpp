@@ -1,6 +1,5 @@
 #include <QApplication>
 #include "mainwindow.h"
-#include "selectcolordialog.h"
 #include "../server/paramater-manager/parametermanager.h"
 
 int main(int argc, char *argv[])

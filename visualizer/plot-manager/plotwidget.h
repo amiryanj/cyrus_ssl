@@ -2,7 +2,7 @@
 #define _PLOTWIDGET_H
 
 #include <QTimer>
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 
 namespace Ui {
 class PlotWidget;

@@ -14,7 +14,7 @@ namespace SSL {
     typedef Vector3D point3D;
 
 
-    enum Color {Yellow = 0, Blue = 1};
+    enum Color {Yellow = 0, Blue = 1, None = -1};
     enum Side {Left = -1, Right = 1};
 
     struct SSLObjectState {

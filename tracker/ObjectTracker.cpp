@@ -2,7 +2,7 @@
 #include "mainwindow.h"
 
 #include "../server/vision/SSLVision.h"
-#include "../common/general.h"
+#include "../shared/general.h"
 #include "../server/paramater-manager/parametermanager.h"
 #include "algorithm"
 //#include ""

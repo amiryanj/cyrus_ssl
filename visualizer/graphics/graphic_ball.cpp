@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QDebug>
+#include "../../shared/general.h"
 
 BallGraphicsItem::BallGraphicsItem(Qt::GlobalColor color)
 {

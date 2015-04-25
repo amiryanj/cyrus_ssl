@@ -1,5 +1,5 @@
 #include "cyrusserverpackethandler.h"
-#include "vision/cpp/messages_robocup_ssl_wrapper.pb.h"
+#include "../shared/proto/vision/cpp/messages_robocup_ssl_wrapper.pb.h"
 #include <iostream>
 
 CyrusServerPacketHandler::CyrusServerPacketHandler(QObject *parent)

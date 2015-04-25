@@ -6,10 +6,10 @@
 #include <QVector3D>
 #include <QVector>
 #include "robotstate.h"
-#include "protoc/visualizer/cpp/ssl_world.pb.h"
-#include "protoc/visualizer/cpp/ssl_analyzer.pb.h"
-#include "protoc/visualizer/cpp/ssl_decision.pb.h"
-#include "protoc/visualizer/cpp/ssl_planner.pb.h"
+#include "../shared/proto/visualizer/cpp/ssl_world.pb.h"
+#include "../shared/proto/visualizer/cpp/ssl_analyzer.pb.h"
+#include "../shared/proto/visualizer/cpp/ssl_decision.pb.h"
+#include "../shared/proto/visualizer/cpp/ssl_planner.pb.h"
 
 class PacketParser : public QObject
 {

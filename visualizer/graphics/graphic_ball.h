@@ -4,8 +4,6 @@
 #include <QImage>
 #include <QVector3D>
 #include <QVector2D>
-#include "Concepts.h"
-#include "general.h"
 #include <QQueue>
 #include <QVector>
 

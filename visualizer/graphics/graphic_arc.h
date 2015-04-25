@@ -2,8 +2,6 @@
 #define _GRAPHIC_ARC_H
 #include <QGraphicsItem>
 #include <QImage>
-#include "Concepts.h"
-#include "general.h"
 
 class ArcGraphicsItem : public QGraphicsItem
 {

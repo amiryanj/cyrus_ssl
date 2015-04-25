@@ -3,8 +3,6 @@
 #include <QGraphicsItem>
 #include <QImage>
 #include <QString>
-#include "Concepts.h"
-#include "general.h"
 
 class NumberGraphicsItem : public QGraphicsItem
 {

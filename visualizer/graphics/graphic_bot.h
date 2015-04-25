@@ -2,8 +2,6 @@
 #define GRAPHIC_BOT_H
 #include <QGraphicsItem>
 #include <QImage>
-#include "Concepts.h"
-#include "general.h"
 
 class RobotGraphicsItem : public QGraphicsItem
 {

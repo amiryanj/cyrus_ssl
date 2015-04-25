@@ -3,8 +3,6 @@
 
 #include <QGraphicsItem>
 #include <vector2d.h>
-#include "Concepts.h"
-#include "general.h"
 
 class IntersectGraphicsItem : public QGraphicsItem
 {

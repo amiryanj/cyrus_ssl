@@ -3,8 +3,8 @@
 
 #include "vector3d.h"
 #include "vector2d.h"
-#include "Concepts.h"
 #include <QString>
+#include "../shared/sslnamespace.h"
 
 
 struct RobotState
