@@ -2,8 +2,8 @@
 #define _SSLGAME_H
 
 #include "../general.h"
-#include "../../common/sslnamespace.h"
-#include "SSLListener.h"
+#include "../../shared/sslnamespace.h"
+#include "ssllistener.h"
 #include "../planner/planning/planningproblem.h"
 
 class SSLStrategyManager;

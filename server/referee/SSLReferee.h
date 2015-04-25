@@ -8,10 +8,10 @@
 #ifndef SSLREFEREE_H_
 #define SSLREFEREE_H_
 
-#include "../../common/protoc/referee/cpp/referee.pb.h"
-#include "../../common/thirdparty/socket/netraw.h"
-#include "../../common/thirdparty/socket/IPPacket.h"
-#include "../../common/tools/SSLListener.h"
+#include "../../shared/proto/referee/cpp/referee.pb.h"
+#include "../../shared/tools/socket/netraw.h"
+#include "../../shared/tools/socket/ippacket.h"
+#include "../../shared/tools/ssllistener.h"
 //#include <QtNetwork/QUdpSocket>
 
 using namespace Net;

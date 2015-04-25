@@ -1,8 +1,11 @@
-#include "sslmath.h"
+#include "generalmath.h"
 #include <cmath>
 #include <iostream>
 
-float SSL::continuousRadian(float angle, float start_ang) {
+#include <boost/date_time/posix_time/posix_time.hpp>
+using namespace boost::posix_time;
+
+float continuousRadian(float angle, float start_ang) {
     int counter = 0;
     if(fabs(angle) > 2* M_PI) {
         float c = angle/(2*M_PI);
@@ -36,7 +39,7 @@ float SSL::continuousRadian(float angle, float start_ang) {
 
 // compute the minimum rotation required to get a angel interval from a specific start angle
 // start and end angles can be equal
-float SSL::minimumRequiredRotationToReachAngleRange(float my_angle, float range_start, float range_end_) {
+float minimumRequiredRotationToReachAngleRange(float my_angle, float range_start, float range_end_) {
     if(range_start == -INFINITY || range_end_ == INFINITY)
         return 0;
 
@@ -59,22 +62,15 @@ float SSL::minimumRequiredRotationToReachAngleRange(float my_angle, float range_
     return t_s;
 }
 
-float SSL::uni_rand(float a, float b)
-{
-    float range = b - a;
-    float r = ((float)rand() / (float)RAND_MAX) * range;
-    return r + a;
-}
-
-double SSL::currentTimeMSec()
+double currentTimeMSec()
 {
     ptime t1(microsec_clock::universal_time());
-    time_duration td = t1.time_of_day();    
+    time_duration td = t1.time_of_day();
     double time =  (double) td.total_microseconds();
     return (time / 1000.0f);
 }
 
-float SSL::bound(float val_, float min_, float max_)
+float bound(float val_, float min_, float max_)
 {
     if(val_ < min_)
         return min_;
@@ -83,7 +79,9 @@ float SSL::bound(float val_, float min_, float max_)
     return val_;
 }
 
-float SSL::sigmoid(float val_, float min_, float max_)
+float sigmoid(float val_, float min_, float max_)
 {
     return min_ + (max_ - min_) * ((M_PI_2 + atan(val_))/M_PI);
 }
+
+

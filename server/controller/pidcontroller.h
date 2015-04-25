@@ -2,8 +2,8 @@
 #define PIDCONTROLLER_H
 
 #include <vector>
-#include "../../common/math/vector3d.h"
-#include "../../common/math/vector2d.h"
+#include "../../shared/utility/vector3d.h"
+#include "../../shared/utility/vector2d.h"
 
 #define MAX_HISTORY_SIZE  20
 using namespace std;

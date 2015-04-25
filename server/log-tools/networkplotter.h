@@ -1,9 +1,9 @@
 #ifndef _NETWORKPLOTTER_H
 #define _NETWORKPLOTTER_H
 
-#include "../../common/thirdparty/socket/netraw.h"
-#include "../../common/thirdparty/socket/IPPacket.h"
-#include "../../common/protoc/plotter/cpp/message_plotter.pb.h"
+#include "../../shared/tools/socket/netraw.h"
+#include "../../shared/tools/socket/ippacket.h"
+#include "../../shared/proto/plotter/cpp/message_plotter.pb.h"
 #include <boost/signals2/mutex.hpp>
 #include <vector>
 

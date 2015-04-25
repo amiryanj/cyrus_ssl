@@ -1,5 +1,5 @@
 #include "sidecleaner.h"
-#include "../../../common/math/linesegment.h"
+#include "../../../shared/utility/linesegment.h"
 #include "../../definition/SSLTeam.h"
 #include "../../definition/SSLRobot.h"
 #include "../sslskill.h"
@@ -25,7 +25,7 @@ void SideCleaner::run()
             op_robot_set.erase(op_robot_set.begin() + i);
             continue;
         }
-        if(SSL::sgn(op_robot->Position().Y()) != SSL::sgn(point_to_defend.Y()))
+        if(sgn(op_robot->Position().Y()) != sgn(point_to_defend.Y()))
             op_robot_set.erase(op_robot_set.begin() + i);
     }
     SSLRobot* op_risky_robot_ = analyzer->nearestToPoint(op_robot_set, point_to_defend, 0);

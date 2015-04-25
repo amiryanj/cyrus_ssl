@@ -234,7 +234,7 @@ void SSLSkill::goAndKick(const Vector2D kick_point,const  Vector2D kick_target, 
             controlSpeed(Vector3D(diff_to_target.to2D().normalized() * 0.2 * 3000, 0.0),
                          kickTheBall);
         }  else if(fabs(teta_diff) > M_PI / 10.0) {
-                rotate(0.12 * SSL::sgn(teta_diff));
+                rotate(0.12 * sgn(teta_diff));
         }
         else {
             this->kickTheBall = true;
@@ -351,7 +351,7 @@ void SSLSkill::fastMove(const Vector3D &current_pos,
 
         if(diff.lenght2D() < tolerance.lenght2D())
             if(fabs(diff.Teta()) < tolerance.Teta()) {
-                rotate(0.13 * SSL::sgn(diff.Teta()));
+                rotate(0.13 * sgn(diff.Teta()));
                 return;
             }
     }

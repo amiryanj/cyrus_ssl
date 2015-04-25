@@ -1,8 +1,8 @@
 #ifndef _TESTSKILLS_H
 #define _TESTSKILLS_H
 
-#include "../../common/tools/SSLListener.h"
-#include "../../math/vector3d.h"
+#include "../../shared/tools/ssllistener.h"
+#include "../../shared/utility/vector3d.h"
 #include "../soccer/sslagent.h"
 
 class TestSkills

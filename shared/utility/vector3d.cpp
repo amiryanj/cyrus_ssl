@@ -1,7 +1,7 @@
 #include "vector3d.h"
 #include "vector2d.h"
 #include <cmath>
-#include "sslmath.h"
+#include "generalmath.h"
 
 #ifdef _USE_QT_
 #include <QVector3D>
@@ -77,7 +77,7 @@ Vector3D Vector3D::operator +(const Vector3D &vector) const
 {
     Vector3D res;
     res.set(_x + vector._x, _y + vector._y, _teta + vector._teta);
-    res.setTeta(SSL::continuousRadian(res.Teta(), -M_PI));
+    res.setTeta(continuousRadian(res.Teta(), -M_PI));
     return res;
 }
 
@@ -85,7 +85,7 @@ Vector3D Vector3D::operator -(const Vector3D &vector) const
 {
     Vector3D res;
     res.set(_x - vector._x, _y - vector._y, _teta - vector._teta);
-    res.setTeta(SSL::continuousRadian(res.Teta(), -M_PI));
+    res.setTeta(continuousRadian(res.Teta(), -M_PI));
     return res;
 }
 
@@ -109,7 +109,7 @@ Vector3D &Vector3D::operator +=(const Vector3D &vector)
 Vector3D &Vector3D::operator -=(const Vector3D &vector)
 {
     _x -= vector._x; _y -= vector._y; _teta -= vector._teta;
-    _teta = SSL::continuousRadian(_teta, -M_PI);
+    _teta = continuousRadian(_teta, -M_PI);
     return *this;
 }
 

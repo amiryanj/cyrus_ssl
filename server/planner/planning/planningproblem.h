@@ -9,9 +9,9 @@
 #include "randomtree.h"
 #include "trajectory.h"
 #include "planningagent.h"
-#include "sslmath.h"
+#include "generalmath.h"
 #include "motionplan.h"
-#include "../../../common/math/ellipse.h"
+#include "../../../shared/utility/ellipse.h"
 
 #define MAX_TREE_SIZE 550
 #define MAX_SAMPLING_TRY 10

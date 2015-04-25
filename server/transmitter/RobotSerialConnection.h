@@ -8,9 +8,8 @@
 #ifndef SERIALCONNECTION_H_
 #define SERIALCONNECTION_H_
 
-#include "../thirdparty/serialib/serialib.h"
+#include "../tools/serialib/serialib.h"
 #include "../general.h"
-//#include "../../thirdparty/SSLException.h"
 #include "RobotCommandPacket.h"
 using namespace std;
 

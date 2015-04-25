@@ -1,7 +1,7 @@
 #ifndef _SSLNAMESPACE_H
 #define _SSLNAMESPACE_H
 
-#include "math/vector3d.h"
+#include "utility/vector3d.h"
 
 namespace SSL {
 

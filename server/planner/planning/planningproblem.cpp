@@ -1,10 +1,9 @@
 #include "planningproblem.h"
 #include <Box2D/Collision/b2Distance.h>
 #include <iostream>
-#include "../../../common/math/sslmath.h"
+#include "../../../shared/utility/generalmath.h"
+#include "../../../shared/utility/randomsampling.h"
 //#include "../GA/planningchromosom.h"
-
-using namespace SSL;
 
 PlanningProblem* PlanningProblem::instance = NULL;
 
@@ -184,7 +183,7 @@ Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set)
         float delta_orien;
         switch (agent.motionModel)   {
         case MP::eDifferentialWheel :
-            delta_orien = SSL::continuousRadian(total_force.arctan()
+            delta_orien = continuousRadian(total_force.arctan()
                                                       - current_station.getPosition().Teta(), -M_PI);
 
             new_pos += Vector2D::unitVector(current_station.getPosition().Teta()
@@ -194,7 +193,7 @@ Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set)
                                                                   + atan(delta_orien * 0.8), -M_PI )) ));
             break;
         case MP::eOmniDirectional :
-            delta_orien = SSL::continuousRadian(goal.goal_point.getPosition().Teta()
+            delta_orien = continuousRadian(goal.goal_point.getPosition().Teta()
                                                      - current_station.getPosition().Teta(), -M_PI);
 //            if (fabs(delta_orien) > (M_PI/8.0f)) {
 ////                new_pos += total_force.normalized() * extension_len * 0.2;
@@ -240,7 +239,7 @@ Trajectory PlanningProblem::PotentialFieldSolve(const ObstacleSet &ob_set)
 
 //        total_force += RRTDirectedForce(current_station, rrt_plan_) * params.RRTPathCoeff();
 
-//        float delta_orien = SSL::continuousRadian(total_force.arctan() - current_station.getPosition().Teta(), -M_PI);
+//        float delta_orien = continuousRadian(total_force.arctan() - current_station.getPosition().Teta(), -M_PI);
 //        float f_delta_orien = atan(delta_orien * 1.1);
 //        Vector2D new_pos(current_station.getPosition().to2D()
 //                         + Vector2D::unitVector(current_station.getPosition().Teta() + f_delta_orien/2.0) * extension_len);
@@ -255,7 +254,7 @@ Trajectory PlanningProblem::GRRTsolve()
 {
     this->planningResult = false;
     tree.clear();
-    float start_time = SSL::currentTimeMSec();
+    float start_time = currentTimeMSec();
     int tryExtensionCounter = 0;
     tree.addNewVertex(NULL, initialState);
 
@@ -299,7 +298,7 @@ Trajectory PlanningProblem::GRRTsolve()
 
     if(planningResult)
     {
-        float finish_time = SSL::currentTimeMSec();
+        float finish_time = currentTimeMSec();
         this->planningTime = finish_time - start_time;
 //        cout << "Greedy RRT Planning succeed in " << planningTime << "mili seconds" << endl;
         return buildTrajectoryFromTree();
@@ -312,7 +311,7 @@ Trajectory PlanningProblem::GRRTsolve()
 // *************************************************
 Trajectory PlanningProblem::RRTConnectSolve(double arg1)
 {
-    double start_time = SSL::currentTimeMSec();
+    double start_time = currentTimeMSec();
     tree.clear();
     backward_tree.clear();
     tree.addNewVertex(NULL, initialState);
@@ -346,12 +345,12 @@ Trajectory PlanningProblem::RRTConnectSolve(double arg1)
                     tree.addNewVertex(tree.lastAddedVertex(), on_back_tree_st);
                     back_near = back_near->parent;
                 }
-                planningTime = SSL::currentTimeMSec() - start_time;
+                planningTime = currentTimeMSec() - start_time;
                 return buildTrajectoryFromTree();
             }
         }
     }
-    planningTime = SSL::currentTimeMSec() - start_time;
+    planningTime = currentTimeMSec() - start_time;
     return Trajectory();
 }
 
@@ -412,19 +411,19 @@ Trajectory PlanningProblem::RRTsolve(float arg1)
 //    if(tree.count() > MAX_TREE_SIZE * 0.75)
         tree.clear();
 
-    double start_time = SSL::currentTimeMSec();
+    double start_time = currentTimeMSec();
     tree.addNewVertex(NULL, initialState);
     for(uint i=0; i< MAX_RRT_STEP_TRY ; ++i)
     {
         if(RRTStep(tree, arg1) == Reached)
         {
             this->planningResult = true;
-            double finish_time = SSL::currentTimeMSec();
+            double finish_time = currentTimeMSec();
             this->planningTime = finish_time - start_time;
             return buildTrajectoryFromTree();
         }
     }
-    double finish_time = SSL::currentTimeMSec();
+    double finish_time = currentTimeMSec();
     this->planningTime = finish_time - start_time;
     return Trajectory();
 }
@@ -435,7 +434,7 @@ Station PlanningProblem::RRTExtend(const Station &start, const Station &target, 
     diff_vec.normalize2D();
     diff_vec *= extension_len;
     float start_angle = start.getPosition().Teta();
-    start_angle = SSL::continuousRadian(start_angle, diff_vec.to2D().arctan() - M_PI);
+    start_angle = continuousRadian(start_angle, diff_vec.to2D().arctan() - M_PI);
     float rotate_angle = (diff_vec.to2D().arctan() - start_angle) / 1.5;
 
     diff_vec.setTeta(rotate_angle);

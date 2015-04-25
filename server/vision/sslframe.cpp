@@ -1,5 +1,5 @@
 #include "sslframe.h"
-#include "../../common/math/sslmath.h"
+#include "../../shared/utility/generalmath.h"
 
 SSLFrame::SSLFrame()
 {
@@ -24,7 +24,7 @@ void SSLFrame::set(const Vector3D &pose, const double &time, double conf)
 
 void SSLFrame::setToCurrentTimeMilliSec()
 {
-    timeStampMilliSec = SSL::currentTimeMSec();
+    timeStampMilliSec = currentTimeMSec();
 }
 
 SSLFrame &SSLFrame::operator =(const SSLFrame &other)

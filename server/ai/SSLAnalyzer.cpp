@@ -4,7 +4,7 @@
 #include "SSLWorldModel.h"
 #include "../definition/SSLRobot.h"
 #include "../definition/SSLBall.h"
-#include "../../common/math/linesegment.h"
+#include "../../shared/utility/linesegment.h"
 #include "../soccer/sslgamepositions.h"
 
 #include <utility>

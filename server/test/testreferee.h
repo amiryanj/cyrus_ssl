@@ -1,7 +1,7 @@
 #ifndef _TESTREFEREE_H
 #define _TESTREFEREE_H
 
-#include "../../common/tools/SSLListener.h"
+#include "../../shared/tools/ssllistener.h"
 
 class TestReferee : public SSLListener
 {

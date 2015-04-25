@@ -23,10 +23,10 @@ Vector3D Defender::expectedPosition()
         cntr = SSL::Position::ourGoalCenter();
         radius = FIELD_PENALTY_AREA_RADIUS * 1.1; Vector2D dist_vec = (risky_point - cntr).normalized() * (radius +ROBOT_RADIUS);
         if(m_defenderIndex == 2) {
-            dist_vec.rotate(SSL::sgn(risky_point.Y()) * ROBOT_RADIUS / radius);
+            dist_vec.rotate(sgn(risky_point.Y()) * ROBOT_RADIUS / radius);
         }
         else {
-            dist_vec.rotate(SSL::sgn(risky_point.Y()) * -1.0 * ROBOT_RADIUS / radius);
+            dist_vec.rotate(sgn(risky_point.Y()) * -1.0 * ROBOT_RADIUS / radius);
         }
         target = cntr + dist_vec;
     }
@@ -46,7 +46,7 @@ Vector3D Defender::expectedPosition()
 
         Vector2D dist_vec = (risky_point - cntr).normalized() * (radius +ROBOT_RADIUS);
         if(m_defenderIndex == 2) {
-            dist_vec.rotate(SSL::sgn(risky_point.Y()) * 2 * ROBOT_RADIUS / radius);
+            dist_vec.rotate(sgn(risky_point.Y()) * 2 * ROBOT_RADIUS / radius);
         }
         target = cntr + dist_vec;
     }

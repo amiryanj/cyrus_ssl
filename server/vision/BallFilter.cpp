@@ -4,7 +4,7 @@
 #include "../definition/SSLRobot.h"
 #include "../definition/SSLBall.h"
 #include "../paramater-manager/parametermanager.h"
-#include "../../common/math/sslmath.h"
+#include "../../shared/utility/generalmath.h"
 #include "../log-tools/networkplotter.h"
 
 #include <boost/accumulators/accumulators.hpp>
@@ -147,8 +147,8 @@ void BallFilter::executeAlphaBetaFilter()
 
 
     alphaBetaFilter.predict(last_delta_t_sec);
-    alphaBetaFilter.m_alfa = SSL::bound(1.0 - disp_error_, 0.1, 0.4);
-    alphaBetaFilter.m_beta = SSL::sigmoid(turn_error_ / M_PI_4 , 0.1, 0.3 );
+    alphaBetaFilter.m_alfa = bound(1.0 - disp_error_, 0.1, 0.4);
+    alphaBetaFilter.m_beta = sigmoid(turn_error_ / M_PI_4 , 0.1, 0.3 );
 
     if(m_rawVelocity.lenght() < 10000)
     {
@@ -166,11 +166,11 @@ void BallFilter::executeAlphaBetaFilter()
 
 void BallFilter::executeClusterFilter()
 {
-    int clusterSize = 4;
+    uint clusterSize = 4;
     const float dataCoefficient[] = { 1.00, 0.80, 0.65,
                                       0.50, 0.43, 0.37, 0.33 }; // sum = 1.0
     vector<Vector2D> clusterData;
-    int raw_data_index = 0;
+    uint raw_data_index = 0;
     float sum_coeff = 0;
     while(clusterData.size() < clusterSize)  {
         if(getRawData(raw_data_index).velocity.lenght() < 15000)  {
@@ -201,7 +201,7 @@ void BallFilter::executeClusterFilter()
         }
         if( max_index < 0 )
             break;
-        if((max_err) > 500*pow(2.0, (double)i))   {
+        if((max_err) > 500*pow(2.0, i))   {
             clusterData.erase( clusterData.begin() + max_index );
         }
         else {

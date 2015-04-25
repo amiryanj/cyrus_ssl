@@ -1,7 +1,7 @@
 #ifndef _FRAME_H
 #define _FRAME_H
 
-#include "../../common/math/vector3d.h"
+#include "../../shared/utility/vector3d.h"
 
 const static int CAMERA_FPS = 20;
 

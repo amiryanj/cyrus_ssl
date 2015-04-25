@@ -2,9 +2,9 @@
 #define _SSLGAMEPOSITIONS_H
 
 #include "../ai/SSLGame.h"
-#include "../../common/math/vector2d.h"
-#include "../../common/math/vector3d.h"
-#include "../../common/math/linesegment.h"
+#include "../../shared/utility/vector2d.h"
+#include "../../shared/utility/vector3d.h"
+#include "../../shared/utility/linesegment.h"
 
 
 namespace SSL {

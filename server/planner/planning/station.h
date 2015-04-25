@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include <iostream>
-#include "../../common/math/vector3d.h"
+#include "../../shared/utility/vector3d.h"
 
 typedef Vector3D Velocity;
 

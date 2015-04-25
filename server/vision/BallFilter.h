@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "sslframe.h"
 #include "alphabetafilter.h"
-#include "../../common/math/vector2d.h"
+#include "../../shared/utility/vector2d.h"
 #include "../definition/SSLBall.h"
 
 

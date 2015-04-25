@@ -1,7 +1,7 @@
 #ifndef ROBOTCOMMANDPACKET_H
 #define ROBOTCOMMANDPACKET_H
 
-#include "math/vector3d.h"
+#include "utility/vector3d.h"
 #include <cmath>
 
 struct RobotCommandPacket

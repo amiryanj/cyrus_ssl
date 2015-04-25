@@ -1,7 +1,7 @@
 #include "testreferee.h"
 #include "../paramater-manager/parametermanager.h"
 #include "../referee/SSLReferee.h"
-#include "../../common/protoc/referee/cpp/referee.pb.h"
+#include "../../shared/proto/referee/cpp/referee.pb.h"
 #include "../ai/SSLWorldModel.h"
 #include <string>
 

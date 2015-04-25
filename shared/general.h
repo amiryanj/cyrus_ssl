@@ -4,11 +4,8 @@
 // -------------- G L O B A L   I N C L U D E S ---------
 #include <iostream>
 #include <cmath>
-#include <string>
-#include <vector>
-#include "math/vector3d.h"
-#include "math/vector2d.h"
-//using namespace std;
+#include "utility/vector3d.h"
+#include "utility/vector2d.h"
 //-------------------------------------------------------
 
 

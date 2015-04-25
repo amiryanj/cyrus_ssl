@@ -1,7 +1,7 @@
 #ifndef _SSLROBOT_H
 #define _SSLROBOT_H
 
-#include "../../common/general.h"
+#include "../../shared/general.h"
 #include "SSLObject.h"
 #include "SSLTeam.h"
 

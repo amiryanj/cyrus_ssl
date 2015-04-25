@@ -5,8 +5,8 @@
 //#include <eigen3/Eigen/LU>
 //#include <eigen3/Eigen/Eigen>
 
-#include "../../common/math/vector3d.h"
-#include "../../common/sslnamespace.h"
+#include "../../shared/utility/vector3d.h"
+#include "../../shared/sslnamespace.h"
 
 using namespace SSL;
 

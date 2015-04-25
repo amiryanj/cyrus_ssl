@@ -2,6 +2,7 @@
 #define _Vector2D_H
 
 #include <iosfwd>
+#include <ostream>
 
 class Vector3D;
 class LineSegment;
@@ -79,6 +80,8 @@ public:
     static float angleBetween(const Vector2D& a, const Vector2D& b);
 
     bool operator <(const Vector2D &vector) const;
+
 };
 
+std::ostream& operator<< (std::ostream &out, Vector2D &p);
 #endif // _Vector2D_H

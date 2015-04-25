@@ -5,8 +5,8 @@
 #include <Box2D/Common/b2Math.h>
 #include <Box2D/Collision/Shapes/b2CircleShape.h>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
-#include "../../common/math/vector3d.h"
-#include "../../common/math/vector2d.h"
+#include "../../shared/utility/vector3d.h"
+#include "../../shared/utility/vector2d.h"
 #include <vector>
 
 class Obstacle

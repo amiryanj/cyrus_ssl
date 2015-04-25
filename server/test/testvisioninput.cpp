@@ -1,6 +1,6 @@
 #include "testvisioninput.h"
 #include "../vision/VisionFilter.h"
-#include "../../common/math/sslmath.h"
+#include "../../shared/utility/generalmath.h"
 #include "../paramater-manager/parametermanager.h"
 #include "../ai/SSLGame.h"
 
@@ -137,7 +137,7 @@ void TestInput::updateVisionInput()
 {
     static int frame_counter = 0;
     frame_counter ++;
-    double current_time = SSL::currentTimeMSec();
+    double current_time = currentTimeMSec();
     wrapper_packet.mutable_detection()->set_camera_id(5);
     wrapper_packet.mutable_detection()->set_t_capture(current_time);
     wrapper_packet.mutable_detection()->set_t_sent(current_time);

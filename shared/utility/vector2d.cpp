@@ -1,7 +1,7 @@
 #include "vector2d.h"
 #include "vector3d.h"
 #include "linesegment.h"
-#include "sslmath.h"
+#include "generalmath.h"
 #include <cmath>
 #include <ostream>
 
@@ -313,4 +313,9 @@ float Vector2D::X() const
 float Vector2D::Y() const
 {
     return this->_y;
+}
+
+std::ostream& operator<< (std::ostream &out, Vector2D &p)
+{
+    p.print(out);
 }

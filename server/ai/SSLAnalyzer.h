@@ -1,9 +1,9 @@
 #ifndef _ANALYZER_H
 #define _ANALYZER_H
 
-#include "../../common/general.h"
-#include "../../common/sslnamespace.h"
-#include "../../common/tools/SSLListener.h"
+#include "../../shared/general.h"
+#include "../../shared/sslnamespace.h"
+#include "../../shared/tools/ssllistener.h"
 #include <vector>
 #include <map>
 #include <algorithm>

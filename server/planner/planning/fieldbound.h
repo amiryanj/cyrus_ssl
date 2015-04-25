@@ -1,7 +1,7 @@
 #ifndef _FIELDBOUND_H
 #define _FIELDBOUND_H
 
-#include "../../common/math/vector2d.h"
+#include "../../shared/utility/vector2d.h"
 #include <cmath>
 
 class FieldBound

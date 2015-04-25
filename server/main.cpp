@@ -62,9 +62,9 @@ int main(int argc, char *argv[])
 //        vision->check(); // in thread 2
         analyzer->check();
         if((loopCounter % 10) ==0) {
-            double tic = SSL::currentTimeMSec();
+            double tic = currentTimeMSec();
             gameModule->check();
-            double toc = SSL::currentTimeMSec();
+            double toc = currentTimeMSec();
             double process_time = toc - tic;
 //            NetworkPlotter::getInstance()->buildAndSendPacket("Process Time", process_time);
 //            printf("Process Time = \t%f milli second\n", process_time);

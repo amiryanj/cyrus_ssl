@@ -1,5 +1,5 @@
 #include "RobotFilter.h"
-#include "../../common/math/sslmath.h"
+#include "../../shared/utility/generalmath.h"
 #include "../paramater-manager/parametermanager.h"
 
 using namespace std;
@@ -30,7 +30,7 @@ void RobotFilter::putNewFrame(const SSLFrame &fr)
     }
 
     hasUnprocessedData = true;
-    last_update_time_msec = SSL::currentTimeMSec();
+    last_update_time_msec = currentTimeMSec();
 
     SSLRobotState robot_;
     robot_.timeStamp_second = fr.timeStampMilliSec / 1000.0;
@@ -64,7 +64,7 @@ bool RobotFilter::isOnField()
 void RobotFilter::run()
 {
     // removing decayed frames
-    if((SSL::currentTimeMSec() - last_update_time_msec) > 5000.0) {
+    if((currentTimeMSec() - last_update_time_msec) > 5000.0) {
         rawData.clear();
     }
 
@@ -77,7 +77,7 @@ void RobotFilter::run()
         return;
 
 
-    int clusterSize = 6;
+    uint clusterSize = 6;
     const float dataCoefficient[] = { 0.19, 0.18, 0.17,
                                       0.13, 0.12, 0.11, 0.10 }; // sum = 1.0
     vector<SSLRobotState> clusterData;

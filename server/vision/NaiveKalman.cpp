@@ -1,5 +1,5 @@
 #include "NaiveKalman.h"
-#include "../../common/math/sslmath.h"
+#include "../../shared/utility/generalmath.h"
 #include "../paramater-manager/parametermanager.h"
 #include <cmath>
 

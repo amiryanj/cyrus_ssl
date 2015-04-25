@@ -1,8 +1,8 @@
 #ifndef _SSLWORLDMODEL_H_
 #define _SSLWORLDMODEL_H_
 
-#include "../../common/general.h"
-#include "../../common/sslnamespace.h"
+#include "../../shared/general.h"
+#include "../../shared/sslnamespace.h"
 #include "../referee/SSLReferee.h"
 
 class SSLTeam;

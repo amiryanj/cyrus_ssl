@@ -1,5 +1,5 @@
 #include "testskills.h"
-#include "../../common/math/vector3d.h"
+#include "../../shared/utility/vector3d.h"
 #include "../paramater-manager/parametermanager.h"
 #include "../ai/SSLGame.h"
 #include "../soccer/sslskill.h"

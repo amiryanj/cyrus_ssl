@@ -1,5 +1,5 @@
 #include "goalkeeper.h"
-#include "../../../common/math/linesegment.h"
+#include "../../../shared/utility/linesegment.h"
 #include "../../definition/SSLTeam.h"
 #include "../../definition/SSLRobot.h"
 #include "../sslskill.h"

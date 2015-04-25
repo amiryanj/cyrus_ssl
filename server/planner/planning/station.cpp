@@ -1,6 +1,6 @@
 #include "station.h"
 #include <vector2d.h>
-#include <sslmath.h>
+#include <generalmath.h>
 
 Station::Station(Vector3D position_)
 {
@@ -64,7 +64,7 @@ void Station::printToStream(std::ostream &stream)
 float Station::dubinDistance(const Station &from, const Station &to)
 {
     float angle = (to.getPosition().to2D() - from.getPosition().to2D()).arctan();
-    angle = SSL::continuousRadian(angle, from.getPosition().Teta() - M_PI);
+    angle = continuousRadian(angle, from.getPosition().Teta() - M_PI);
     if(fabs(angle - from.getPosition().Teta()) > M_PI / 4.0)
         return INFINITY;
     return euclideanDistance(from, to);

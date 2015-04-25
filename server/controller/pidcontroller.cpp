@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include <paramater-manager/parametermanager.h>
-#include "../../common/math/sslmath.h"
+#include "../../shared/utility/generalmath.h"
 
 PIDController::PIDController()
 {
@@ -47,20 +47,20 @@ Vector3D PIDController::getControl()
         control = lastDesired/max_speed; // normalize the variable [-1, 1]
         control += last_error * k_p;
 
-        double delta_time = (SSL::currentTimeMSec() - lastAppliedTime_ms)/1000.0;
+        double delta_time = (currentTimeMSec() - lastAppliedTime_ms)/1000.0;
         double max_increase_limit = 0.8 * delta_time; // about .05 per
 
         Vector3D control_diff = control - lastApplied;
         if(fabs(control.X()) > fabs(lastApplied.X())) {
             if(fabs(control_diff.X()) > max_increase_limit)
-                control.setX(lastApplied.X() + max_increase_limit * SSL::sgn(control_diff.X()));
+                control.setX(lastApplied.X() + max_increase_limit * sgn(control_diff.X()));
         }  else  {
                 // control.x doesnt change
         }
 
         if(fabs(control.Y()) > fabs(lastApplied.Y())) {
             if(fabs(control_diff.Y()) > max_increase_limit)
-                control.setY(lastApplied.Y() + max_increase_limit * SSL::sgn(control_diff.Y()));
+                control.setY(lastApplied.Y() + max_increase_limit * sgn(control_diff.Y()));
         }  else  {
                 // control.y doesnt change
         }
@@ -68,14 +68,14 @@ Vector3D PIDController::getControl()
         double max_omega_increase_limit = 0.7 * delta_time; // about .05 per
         if(fabs(control.Teta()) > fabs(lastApplied.Teta()))
             if(fabs(control_diff.Teta()) > max_omega_increase_limit)
-                control.setTeta(lastApplied.Teta() + max_omega_increase_limit * SSL::sgn(control_diff.Teta()));
+                control.setTeta(lastApplied.Teta() + max_omega_increase_limit * sgn(control_diff.Teta()));
 
         if(control.lenght2D() > 1)
             control.normalize2D();
         lastApplied = control;
 
         control.setTeta(lastDesired.Teta());
-        lastAppliedTime_ms = SSL::currentTimeMSec();
+        lastAppliedTime_ms = currentTimeMSec();
     }
     catch (const char* msg)  {
         cerr << "Exception: " << "PID COntroller: " << msg << endl;

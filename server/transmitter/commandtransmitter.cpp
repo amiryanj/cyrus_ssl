@@ -38,7 +38,7 @@ void CommandTransmitter::buildAndSendPacket(int id, Vector3D &vel, float kickPow
 {
     bool useNewRobotWheelAngles = true;
 
-    for(int i=0; i<OLD_ID_NUMS.size(); i++) {
+    for(uint i=0; i<OLD_ID_NUMS.size(); i++) {
         if(id == OLD_ID_NUMS[i]) {
             useNewRobotWheelAngles = false;
             break;

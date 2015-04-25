@@ -7,7 +7,7 @@
 
 #include "RobotSerialConnection.h"
 #include <stdio.h>
-#include "../../common/math/sslmath.h"
+#include "../../shared/utility/generalmath.h"
 #include "../log-tools/networkplotter.h"
 
 
@@ -49,7 +49,7 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
     byteArray[6] = ((packet.m_kickPower > 0)) * 85;
 
     printf( "(time=%.6f) Robot[%d] (m1=%d m2=%d m3=%d m4=%d) [Vx=%.4f, Vy=%.4f, Wz=%.4f] ",
-            SSL::currentTimeMSec()/1000.0,
+            currentTimeMSec()/1000.0,
             robotID,
             byteArray[2], byteArray[3],
             byteArray[4], byteArray[5],

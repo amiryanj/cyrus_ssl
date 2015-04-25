@@ -3,11 +3,11 @@
 
 #include <fstream>
 #include <boost/signals2/mutex.hpp>
-#include "../../common/general.h"
+#include "../../shared/general.h"
 #include "../ai/SSLWorldModel.h"
-#include "../../common/tools/SSLListener.h"
-#include "../../common/protoc/vision/cpp/messages_robocup_ssl_wrapper.pb.h"
-#include "../../common/protoc/vision/cpp/messages_robocup_ssl_detection.pb.h"
+#include "../../shared/tools/ssllistener.h"
+#include "../../shared/proto/vision/cpp/messages_robocup_ssl_wrapper.pb.h"
+#include "../../shared/proto/vision/cpp/messages_robocup_ssl_detection.pb.h"
 #include "RobotFilter.h"
 #include "BallFilter.h"
 #include "NaiveKalman.h"

@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <string>
-#include "../../common/sslnamespace.h"
-#include "../../common/general.h"
+#include "../../shared/sslnamespace.h"
+#include "../../shared/general.h"
 
 using namespace std;
 using namespace SSL;

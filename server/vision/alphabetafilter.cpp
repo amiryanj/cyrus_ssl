@@ -1,5 +1,5 @@
 #include "alphabetafilter.h"
-#include "../../common/math/sslmath.h"
+#include "../../shared/utility/generalmath.h"
 #include "../paramater-manager/parametermanager.h"
 #include <cmath>
 
@@ -27,23 +27,23 @@ void AlphaBetaFilter::observe(Vector3D new_pos, Vector3D new_vel, Vector3D new_a
         new_pos.setTeta(continuousRadian(new_pos.Teta(), -3 * M_PI_2));
 
     /// crop the results
-    m_observed.acc.set( SSL::bound(new_acc.X(),
+    m_observed.acc.set( bound(new_acc.X(),
                                   -max_acceleration_crop.X(),
                                    max_acceleration_crop.X()) ,
-                        SSL::bound(new_acc.Y(),
+                        bound(new_acc.Y(),
                                   -max_acceleration_crop.Y(),
                                    max_acceleration_crop.Y()) ,
-                        SSL::bound(new_acc.Teta(),
+                        bound(new_acc.Teta(),
                                   -max_acceleration_crop.Teta(),
                                    max_acceleration_crop.Teta()) );
 
-    m_observed.vel.set( SSL::bound(new_vel.X(),
+    m_observed.vel.set( bound(new_vel.X(),
                                   -max_speed_crop.X(),
                                    max_speed_crop.X()) ,
-                        SSL::bound(new_vel.Y(),
+                        bound(new_vel.Y(),
                                   -max_speed_crop.Y(),
                                    max_speed_crop.Y()) ,
-                        SSL::bound(new_vel.Teta(),
+                        bound(new_vel.Teta(),
                                   -max_speed_crop.Teta(),
                                    max_speed_crop.Teta()) );
 
@@ -75,23 +75,23 @@ SSLObjectState AlphaBetaFilter::filter()
     m_state.acc = m_predicted.acc * (1-m_gama) + m_observed.acc * m_gama;
 
     /// crop the results
-    m_state.acc.set( SSL::bound(m_state.acc.X(),
+    m_state.acc.set( bound(m_state.acc.X(),
                                 -max_acceleration_crop.X(),
                                  max_acceleration_crop.X()) ,
-                     SSL::bound(m_state.acc.Y(),
+                     bound(m_state.acc.Y(),
                                 -max_acceleration_crop.Y(),
                                  max_acceleration_crop.Y()) ,
-                     SSL::bound(m_state.acc.Teta(),
+                     bound(m_state.acc.Teta(),
                                 -max_acceleration_crop.Teta(),
                                  max_acceleration_crop.Teta()) );
 
-    m_state.vel.set( SSL::bound(m_state.vel.X(),
+    m_state.vel.set( bound(m_state.vel.X(),
                                 -max_speed_crop.X(),
                                  max_speed_crop.X()) ,
-                     SSL::bound(m_state.vel.Y(),
+                     bound(m_state.vel.Y(),
                                 -max_speed_crop.Y(),
                                  max_speed_crop.Y()) ,
-                     SSL::bound(m_state.vel.Teta(),
+                     bound(m_state.vel.Teta(),
                                 -max_speed_crop.Teta(),
                                  max_speed_crop.Teta()) );
 

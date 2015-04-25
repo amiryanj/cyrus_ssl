@@ -5,7 +5,7 @@
 #include "vector2d.h"
 #include "vector3d.h"
 #include "linesegment.h"
-#include "sslmath.h"
+#include "generalmath.h"
 #include "../soccer/sslgamepositions.h"
 #include "../log-tools/networkplotter.h"
 #include "../soccer/sslskill.h"

@@ -1,14 +1,14 @@
 #ifndef _GUIHANDLER_H
 #define _GUIHANDLER_H
 
-#include "SSLListener.h"
-#include "../../protoc/visualizer/cpp/ssl_visualizer.pb.h"
-#include "../../protoc/visualizer/cpp/ssl_world.pb.h"
+#include "ssllistener.h"
+#include "../../shared/proto/visualizer/cpp/ssl_visualizer.pb.h"
+#include "../../shared/proto/visualizer/cpp/ssl_world.pb.h"
 #include "../ai/SSLWorldModel.h"
 #include "../ai/SSLAnalyzer.h"
 #include "../ai/SSLGame.h"
-#include "../thirdparty/socket/netraw.h"
-#include "../thirdparty/socket/IPPacket.h"
+#include "../tools/socket/netraw.h"
+#include "../tools/socket/ippacket.h"
 #include <boost/signals2/mutex.hpp>
 
 using namespace google::protobuf;

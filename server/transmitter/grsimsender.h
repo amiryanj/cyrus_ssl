@@ -1,10 +1,11 @@
 #ifndef GRSIMSENDER_H
 #define GRSIMSENDER_H
 
-#include "../thirdparty/socket/netraw.h"
-#include "SSLListener.h"
+#include "../tools/socket/netraw.h"
+#include "ssllistener.h"
 #include "../general.h"
-#include "../../protoc/grSim/cpp/grSim_Packet.pb.h"
+#include "../../shared/proto/grsim/cpp/grSim_Commands.pb.h"
+#include "../../shared/proto/grsim/cpp/grSim_Packet.pb.h"
 #include "../ai/SSLWorldModel.h"
 #include "../ai/SSLGame.h"
 #include "RobotCommandPacket.h"
