@@ -10,7 +10,7 @@
 #include "../thirdparty/socket/netraw.h"
 #include "../thirdparty/socket/IPPacket.h"
 #include <boost/signals2/mutex.hpp>
-
+#include <QMutex>
 using namespace google::protobuf;
 
 //using namespace Net;
@@ -39,7 +39,7 @@ private:
 //    ssl_visualizer_packet visualizer_packet;
 //    ssl_world_packet world_packet;
 
-    boost::signals2::mutex mtx_;
+    QMutex mtx_;
 };
 
 #endif // _GUIHANDLER_H

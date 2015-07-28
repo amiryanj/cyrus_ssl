@@ -1,7 +1,7 @@
 #include "SSLVision.h"
 #include "VisionFilter.h"
 #include "../paramater-manager/parametermanager.h"
-
+#include <QtConcurrent>
 Net::UDP SSLVision::simple_socket;
 RoboCupSSLClient* SSLVision::client;
 
@@ -22,8 +22,8 @@ SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener(
 //    interface_.setAny();
 //    simple_socket.addMulticast(multi_, interface_);
 
-    pthread_create(&ssl_vision_thread, NULL, &check, NULL);
-
+   // pthread_create(&ssl_vision_thread, NULL, &check, NULL);
+    QtConcurrent::run(check,(void *)NULL);
 }
 
 SSLVision::~SSLVision()

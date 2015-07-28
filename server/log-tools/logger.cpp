@@ -30,6 +30,7 @@ Logger *Logger::getInstance()
 std::ofstream &Logger::operator[](int i)
 {
     mtx_.lock();
+
     if(files.find(i) == files.end())
     {
         char s[100];

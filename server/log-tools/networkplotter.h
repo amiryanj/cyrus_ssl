@@ -6,7 +6,7 @@
 #include "../../common/protoc/plotter/cpp/message_plotter.pb.h"
 #include <boost/signals2/mutex.hpp>
 #include <vector>
-
+#include <QMutex>
 class NetworkPlotter
 {
     NetworkPlotter();
@@ -26,7 +26,7 @@ private:
     bool openSocket(int port, string address);
 
 
-    boost::signals2::mutex mtx_;
+   QMutex mtx_;
     Net::UDP simple_socket;
 
     int port;

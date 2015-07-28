@@ -9,6 +9,7 @@
 #define SERIALCONNECTION_H_
 
 #include "../thirdparty/serialib/serialib.h"
+#include <QSerialPort>
 #include "../general.h"
 //#include "../../thirdparty/SSLException.h"
 #include "RobotCommandPacket.h"
@@ -20,7 +21,8 @@ public:
     void sendRobotData(int robotID, RobotCommandPacket &packet);
 	virtual ~RobotSerialConnection();
 private:
-    serialib serial;
+    //serialib serial;
+    QSerialPort* serial;
 };
 
 #endif /* SERIALCONNECTION_H_ */

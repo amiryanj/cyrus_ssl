@@ -9,7 +9,7 @@
 
 
         "vision_address" : "224.5.23.2",
-        "vision_port" : 10006,
+        "vision_port" : 10020,
 
         "grsim_vision_address":"224.5.23.2",
         "grsim_vision_port":10022,

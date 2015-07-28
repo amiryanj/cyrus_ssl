@@ -11,7 +11,7 @@
 #include "RobotFilter.h"
 #include "BallFilter.h"
 #include "NaiveKalman.h"
-
+#include <QMutex>
 const static int MAX_CAMERA_COUNT = 4;
 
 class VisionFilter : public SSLListener
@@ -35,7 +35,7 @@ private:
     float last_frame_time;
     float FPS;
 
-    boost::signals2::mutex mtx_;
+    QMutex mtx_;
 
 };
 

@@ -18,20 +18,21 @@ bool GRSimSender::openSocket(int port)
 
     connected = false;
     this->close();
-    if(!this->open(port, true, true))
-    {
-        cerr << "Unable to open UDP network port: "<< port << endl;
-        return false;
-    }
+//  //  this->open(port, true, true)
+//    if(!this->bind(port, QUdpSocket::ShareAddress))
+//    {
+//        cerr << "GRSIM Unable to open UDP network port: "<< port << endl;
+//      //  return false;
+//    }
 
-    Net::Address multiaddr, interface;
-    multiaddr.setHost(pm->get<string>("network.GRSIM_COMMAND_ADDRESS").c_str(), port);
-    interface.setAny();
-
-    if(!this->addMulticast(multiaddr, interface))
-    {
-        cerr << "Unable to setup UDP multicast, for grsim connection" << endl ;
-    }
+//    //Net::Address multiaddr, interface;
+//   // multiaddr.setHost(p.c_str(), port);
+//  //  interface.setAny();
+//    QHostAddress addr(QString(pm->get<string>("network.GRSIM_COMMAND_ADDRESS").c_str()));
+//    if(!this->joinMulticastGroup(addr))
+//    {
+//        cerr << "Unable to setup UDP multicast, for grsim connection" << endl ;
+//    }
     cout << "Grsim Sender UDP network successfully configured. Multicast address= " << port << endl;
     connected = true;
     return true;
@@ -82,10 +83,13 @@ void GRSimSender::sendPacket(int robotID, RobotCommandPacket rawPacket)
     {
         std::string s;
         grSimPacket.SerializeToString(&s);
-        Net::Address multiaddr;
-        multiaddr.setHost(pm->get<string>("network.GRSIM_COMMAND_ADDRESS").c_str(),
-                          pm->get<int>("network.GRSIM_COMMAND_PORT"));
-        this->send(s.c_str(), s.length(), multiaddr);
+       // Net::Address multiaddr;
+      //  multiaddr.setHost(pm->get<string>("network.GRSIM_COMMAND_ADDRESS").c_str(),
+                    //      pm->get<int>("network.GRSIM_COMMAND_PORT"));
+       QHostAddress adr(pm->get<string>("network.GRSIM_COMMAND_ADDRESS").c_str());
+        quint16 port =pm->get<int>("network.GRSIM_COMMAND_PORT");
+       this->writeDatagram(s.c_str(),s.length(),adr,port);
+        //this->send(s.c_str(), s.length(), multiaddr);
     }
 }
 

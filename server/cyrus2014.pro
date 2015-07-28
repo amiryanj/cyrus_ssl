@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-#QT       += core network
+QT       += core network serialport widgets concurrent
+
 #QT       -= gui
 
 LIBS += -lprotobuf -lboost_system -lboost_filesystem -lBox2D

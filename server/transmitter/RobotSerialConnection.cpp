@@ -10,11 +10,13 @@
 #include "../../common/math/sslmath.h"
 #include "../log-tools/networkplotter.h"
 
-
+#include <QSerialPort>
 RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)
 {    
+    serial = new QSerialPort(serialPortName);
     try {
-    if (serial.Open(serialPortName, baudrate) != 1)
+    if (!serial->open(QIODevice::WriteOnly))
+        serial->setBaudRate(baudrate);
             throw "failed to open serial device";
     }
     catch (const char* msg)  {
@@ -62,9 +64,9 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
     cout << endl;
 
     //transmit data to serial port
-    serial.Write(byteArray,7);
+    serial->write((const  char*)byteArray,7);
 }
 
 RobotSerialConnection::~RobotSerialConnection(){
-    serial.Close();
+    serial->close();
 }

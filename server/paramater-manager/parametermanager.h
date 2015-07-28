@@ -10,7 +10,7 @@
 #include <sstream>
 #include <iostream>
 #include <map>
-
+#include <QMutex>
 
 using namespace std;
 class ParameterManager
@@ -18,7 +18,7 @@ class ParameterManager
 private:
     static const string path;
     //IniParser parser;
-    boost::signals2::mutex mtx_;
+    QMutex mtx_;
     map< string , boost::property_tree::ptree> pts;
     boost::property_tree::ptree pt;
     static ParameterManager* instance;
