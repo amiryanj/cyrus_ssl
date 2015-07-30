@@ -77,7 +77,7 @@ Vector3D Vector3D::operator +(const Vector3D &vector) const
 {
     Vector3D res;
     res.set(_x + vector._x, _y + vector._y, _teta + vector._teta);
-    res.setTeta(continuousRadian(res.Teta(), -M_PI));
+//    res.setTeta(continuousRadian(res.Teta(), -M_PI));
     return res;
 }
 
@@ -85,7 +85,7 @@ Vector3D Vector3D::operator -(const Vector3D &vector) const
 {
     Vector3D res;
     res.set(_x - vector._x, _y - vector._y, _teta - vector._teta);
-    res.setTeta(continuousRadian(res.Teta(), -M_PI));
+//    res.setTeta(continuousRadian(res.Teta(), -M_PI));
     return res;
 }
 
@@ -109,7 +109,7 @@ Vector3D &Vector3D::operator +=(const Vector3D &vector)
 Vector3D &Vector3D::operator -=(const Vector3D &vector)
 {
     _x -= vector._x; _y -= vector._y; _teta -= vector._teta;
-    _teta = continuousRadian(_teta, -M_PI);
+//    _teta = continuousRadian(_teta, -M_PI);
     return *this;
 }
 
@@ -168,6 +168,12 @@ Vector2D Vector3D::getNormalized2D() const
     return __tmp.normalized();
 }
 
+Vector3D &Vector3D::standardizeTeta()
+{
+    _teta = continuousRadian(_teta, -M_PI);
+    return (*this);
+}
+
 Vector2D Vector3D::to2D() const
 {
     Vector2D v2d(this->X(), this->Y());
@@ -216,6 +222,11 @@ Vector3D Vector3D::dotProduct(Vector3D &b)
     Vector3D temp;
     temp.setX(this->_x * b._x);    temp.setY(this->_y * b._y);    temp.setTeta(this->_teta * b._teta);
     return temp;
+}
+
+void Vector3D::print(std::ostream &stream)
+{
+    stream << "X: " << _x << ", Y: " << _y << ", Teta: " << _teta << std::endl;
 }
 
 float Vector3D::vector2DMag(const Vector3D &vector)

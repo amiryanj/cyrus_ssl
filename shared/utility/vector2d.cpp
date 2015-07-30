@@ -253,7 +253,7 @@ QPointF Vector2D::toQpoint()
 
 void Vector2D::print(std::ostream &stream)
 {
-    stream << "X: " << _x << ", Y:" << _y << std::endl;
+    stream << "X: " << _x << ", Y: " << _y << std::endl;
 }
 
 float Vector2D::vectorMag(const Vector2D &vector)

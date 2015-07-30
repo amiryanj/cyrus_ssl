@@ -1,6 +1,8 @@
 #ifndef _Vector3D_H
 #define _Vector3D_H
 
+#include <ostream>
+
 class Vector2D;
 class QVector3D;
 class QVector2D;
@@ -37,6 +39,7 @@ public:
     Vector3D& setZero();
 
     Vector2D getNormalized2D() const;
+    Vector3D &standardizeTeta();
 
     Vector3D operator -() const;
     Vector3D operator +(const Vector3D &vector) const;
@@ -64,6 +67,8 @@ public:
 #endif
 
     Vector3D dotProduct(Vector3D &b);
+
+    void print(std::ostream &stream);
 
     static float vector2DMag(const Vector3D  &vector);
     static float distance2D(const Vector3D &a, const Vector3D &b);
