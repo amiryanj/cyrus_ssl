@@ -71,7 +71,7 @@ bool RoboCupSSLClient::receive(SSL_WrapperPacket & packet) {
   r = mc.recv(in_buffer,MaxDataGramSize,src);
   if (r>0) {
     fflush(stdout);
-    printf("packet size = %d\n", r);
+//    printf("packet size = %d\n", r);
     //decode packet:
     return packet.ParseFromArray(in_buffer,r);
   }

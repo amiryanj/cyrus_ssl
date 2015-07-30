@@ -1,5 +1,5 @@
-#ifndef COMMANDTRANSMITTER_H
-#define COMMANDTRANSMITTER_H
+#ifndef _COMMANDTRANSMITTER_H
+#define _COMMANDTRANSMITTER_H
 
 #include "ssllistener.h"
 #include "RobotCommandPacket.h"

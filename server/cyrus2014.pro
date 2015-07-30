@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-#QT       += core network
+QT       += core network
 #QT       -= gui
 
 LIBS += -lprotobuf -lboost_system -lboost_filesystem -lBox2D

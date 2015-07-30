@@ -122,16 +122,15 @@ void Defender::run()
     if(!analyzer->isPointWithinOurPenaltyArea(Ball_Position) && analyzer->isPointInOurSide(Ball_Position)) {
         if(analyzer->canKick(this->m_agent->robot)) {
             m_agent->skill->goAndKick(Ball_Position, SSL::Position::opponenetGoalFocalPointTop());
+            return;
         }
     }
-    else {
-        m_agent->skill->goToPointWithPlanner(expectedPosition(),
-                                             SSLSkill::defaultTolerance,
-                                             true,
-                                             0,
-                                             0,
-                                             SSLSkill::eFastMove);
-    }
+    m_agent->skill->goToPointWithPlanner(expectedPosition(),
+                                         SSLSkill::defaultTolerance,
+                                         true,
+                                         0,
+                                         0,
+                                         SSLSkill::eFastMove);
 
 
 //    float x = (float)(m_defenderCount + 1)/2.0;
