@@ -40,9 +40,9 @@ bool PlanningProblem::solve()
 //    else
     {  // normal way of solvgin motion planning problem
         ObstacleSet desired_ob_set = stat_obstacles;
-        Trajectory *apft_ = APFSolve(desired_ob_set, false);
-        Trajectory pt_ = PruneTrajectory(*apft_, desired_ob_set);
-        delete apft_;
+        Trajectory apft_ = APFSolve(desired_ob_set, false);
+        Trajectory pt_ = PruneTrajectory(apft_, desired_ob_set);
+//        delete apft_;
         trajec.copyFrom(pt_);
 //        if(!planningResult) {
 //            GRRTsolve();
@@ -115,17 +115,17 @@ vector<Vector2D> PlanningProblem::ObstacleForces(const Station &st, const Obstac
     float extension_len = agent->radius();
     for(uint i=0; i<ob_set.size(); i++) {
         const Obstacle* ob = ob_set[i];
-        b2Vec2 agent_colid_pnt, ob_colid_pnt;
-        float dist_to_ob = distToObstacle(st, *ob, agent_colid_pnt, ob_colid_pnt);
+        b2Vec2 agent_colid_pnt, ob_collid_pnt;
+        float dist_to_ob = distToObstacle(st, *ob, agent_colid_pnt, ob_collid_pnt);
         if(dist_to_ob > extension_len * 10)   // ignore it
             continue;
-        float repulse_strenght = min(extension_len /fabs(dist_to_ob), 1.099f);
         Vector2D ob_force;
+        float repulse_strenght_by_dist = min(extension_len /fabs(dist_to_ob), 1.099f);
         if(dist_to_ob < 0)  // in collision state
-            ob_force = (st.getPosition().to2D() - Vector2D(ob->predictedTransform(0).p))
-                                                                           .normalized() * repulse_strenght;
-
-        else ob_force = Vector2D(agent_colid_pnt - ob_colid_pnt).normalized() * repulse_strenght;
+            ob_force = (st.getPosition().to2D() - ob->CenterOfMass()).normalized();
+        else
+            ob_force = Vector2D(agent_colid_pnt - ob_collid_pnt).normalized();
+        ob_force *= ob->repulseStrenght * repulse_strenght_by_dist * 1.1;
         ob_force_list.push_back(ob_force);
     }
     return ob_force_list;
@@ -133,14 +133,23 @@ vector<Vector2D> PlanningProblem::ObstacleForces(const Station &st, const Obstac
 
 Vector2D PlanningProblem::PathDirectedForce(const Station &st, Trajectory &path_)
 {
-    if(path_.length() < 2)
-        return Vector2D(0, 0);
+    Station sub_goal = getNextStation(st, path_);
+
+    return (sub_goal.getPosition().to2D() - st.getPosition().to2D()).normalized() * 1.0;
+}
+
+Station PlanningProblem::getNextStation(const Station &st, Trajectory &path)
+{
+    if(path.isEmpty())
+        return this->goal.goal_point;
+    if(path.length() <= 2)
+        return path.getLastStation();
 
     float max_memberance = 0;
-    int nearest_segment = -1;
-    for(uint i=1; i<path_.length(); i++) { // it doesnt use the last segment (go towards goal on last segment)
-        Vector2D pnt_1 = path_.getStation(i-1).getPosition().to2D();
-        Vector2D pnt_2 = path_.getStation(i).getPosition().to2D();
+    int nearest_segment_index = -1;
+    for(uint i=1; i<path.length(); i++) { // it doesnt use the last segment (go towards goal on last segment)
+        Vector2D pnt_1 = path.getStation(i-1).getPosition().to2D();
+        Vector2D pnt_2 = path.getStation(i).getPosition().to2D();
 
         float dist_st_segment = (st.getPosition().to2D() - pnt_1).lenght() +
                                                 (st.getPosition().to2D() - pnt_2).lenght();
@@ -149,31 +158,27 @@ Vector2D PlanningProblem::PathDirectedForce(const Station &st, Trajectory &path_
         float segment_mem = segment_len /dist_st_segment;
         if(segment_mem > max_memberance) {
             max_memberance = segment_mem;
-            nearest_segment = i;
+            nearest_segment_index = i;
         }
     }
 
-    if(nearest_segment == path_.length()-1)
-        return (goal.goal_point.getPosition() - st.getPosition()).to2D().normalized();
-    return (path_.getStation(nearest_segment).getPosition() -
-                    path_.getStation(nearest_segment-1).getPosition()).to2D().normalized();
-
+    return path.getStation(nearest_segment_index);
 }
 
 Vector2D PlanningProblem::GoalAttractiveForce(const Station &st)
-{    
+{
     Vector2D diff_to_goal = (goal.goal_point.getPosition() - st.getPosition()).to2D();
-    double stren = tanh(diff_to_goal.lenght()/25.0) + 0.1;
+    double stren = 1.5 * tanh(diff_to_goal.lenght()/25.0) + 0.1;
     return diff_to_goal.normalized() * stren;
 }
 
-Trajectory *PlanningProblem::APFSolve(const ObstacleSet &ob_set, bool stop_when_collid)
+Trajectory PlanningProblem::APFSolve(const ObstacleSet &ob_set, bool stop_when_collid)
 {
     Trajectory empty_trajec;
     return RRT_APF_Solve(ob_set, empty_trajec, stop_when_collid);
 }
 
-Trajectory *PlanningProblem::RRT_APF_Solve(const ObstacleSet &ob_set,
+Trajectory PlanningProblem::RRT_APF_Solve(const ObstacleSet &ob_set,
                                            Trajectory &prior_plan,
                                            bool stop_when_collid)
 {
@@ -183,8 +188,7 @@ Trajectory *PlanningProblem::RRT_APF_Solve(const ObstacleSet &ob_set,
     for(int step = 1; step <= MAX_APF_STEP_TRY; step++) {
         // check reaching the goal state
         Station current_station = temp_trajec->getLastStation();
-        if( (goal.minDistTo(current_station) < agent->radius() * 1.5)
-               || !pathHasCollision(current_station, goal.goal_point, ob_set))
+        if( (goal.minDistTo(current_station) < agent->radius() * 1) )
         {
             temp_trajec->appendState(goal.goal_point);
             planningResult = true;
@@ -192,30 +196,41 @@ Trajectory *PlanningProblem::RRT_APF_Solve(const ObstacleSet &ob_set,
         }
 
         Vector2D total_force;
-        if(prior_plan.length() > 2)
-            total_force += PathDirectedForce(current_station, prior_plan);
-        else
+        if( !pathHasCollision(current_station, goal.goal_point, ob_set) ) {
+//            temp_trajec->appendState(goal.goal_point);
+//            planningResult = true;
+//            break;
             total_force += GoalAttractiveForce(current_station);
+        }
 
-        vector<Vector2D> ob_forces = ObstacleForces(current_station, ob_set);
-        for(uint i=0; i<ob_forces.size(); i++) {
-            float ob_repulsive_strenght = ((Obstacle*)(ob_set[i]))->repulseStrenght;
-            total_force += ob_forces[i] * ob_repulsive_strenght;
+//        else
+        {
+            Station next_goal = getNextStation(current_station, prior_plan);
+            total_force += PathDirectedForce(current_station, prior_plan);
+            vector<Vector2D> ob_forces = ObstacleForces(current_station, ob_set);
+            Vector2D ob_total_force;
+            for(uint i=0; i<ob_forces.size(); i++)  {
+                ob_total_force += ob_forces[i];
+            }
+            if(!pathHasCollision(current_station, next_goal, ob_set)) {
+                ob_total_force *= 0.2;
+            }
+            total_force += ob_total_force;
         }
 
         Station new_station;
         new_station = agent->step(current_station,
                                   (total_force.normalized()).to3D(),
-                                  0.10 /*100 mili sec*/);
+                                  0.080 /*sec*/);
+        temp_trajec->appendState(new_station);
         if(stop_when_collid) {
             if( !CheckValidity(new_station) ) {
                 planningResult = false;
                 break;
             }
         }
-        temp_trajec->appendState(new_station);
     }
-    return temp_trajec;
+    return *temp_trajec;
 }
 
 Trajectory PlanningProblem::GRRTsolve()
@@ -340,7 +355,11 @@ Trajectory PlanningProblem::PruneTrajectory(Trajectory &input_plan, const Obstac
         Station st_A = prunned_plan.getLastStation();
         Station st_B = input_plan.getStation(st_index +1);
         if(pathHasCollision(st_A, st_B, ob_set)) {
-            prunned_plan.appendState(input_plan.getStation(st_index));
+            Station new_inserted_st = input_plan.getStation(st_index);
+            float new_teta = (new_inserted_st.getPosition().to2D() -
+                              prunned_plan.getLastStation().getPosition().to2D()).arctan();
+            new_inserted_st.setPosition(Vector3D(new_inserted_st.getPosition().to2D(), new_teta));
+            prunned_plan.appendState(new_inserted_st);
         }
         st_index ++;
     }
@@ -407,7 +426,7 @@ Station PlanningProblem::RRTExtend(const Station &start, const Station &target, 
 
     diff_vec.setTeta(rotate_angle);
     Station temp_station;
-    temp_station.setPosition(diff_vec + start.getPosition());
+    temp_station.setPosition((diff_vec + start.getPosition()).standardizeTeta());
     bool valid = CheckValidity(temp_station);
     if(valid)
         return temp_station;
@@ -453,7 +472,7 @@ PlanningProblem::ExtendResult PlanningProblem::RRTStep(float extension_len, floa
             result = eTrapped;
             throw "can not extend tree!";
         }
-        if(goal.minDistTo(new_st) < agent->radius() * 1.2)
+        if(goal.minDistTo(new_st) < agent->radius() * 1)
             result = eReached;
         else
             result = eAdvanced;
@@ -779,7 +798,7 @@ void PlanningProblem::computeCost(Trajectory &plan_)
             }
             st.cost.min_dist_to_obs = min_dist;
             plan_.EditStation(i, st);
-            plan_.cost.safety += plan_.getStation(i).cost.safety_penalty();
+            plan_.cost.safety += plan_.getStation(i).cost.safety_penalty() / plan_.length();
         }
     }
 }

@@ -31,7 +31,7 @@ public:
 
     void EditStation(uint index, const Station &new_st);
 
-    Station& getStation(uint index) const;
+    Station getStation(uint index) const;
     Station getFirstStation() const;
     Station getLastStation() const;
     vector<Station> getAllStations();

@@ -32,12 +32,11 @@ void Trajectory::computeCost()
         Vector3D dist_i = m_states_vec[i].getPosition() - m_states_vec[i-1].getPosition();
         this->cost.length += dist_i.lenght2D();
 
-        float delta_teta = dist_i.Teta();
-        m_states_vec[i].cost.delta_heading = delta_teta;
+        float delta_teta = continuousRadian(dist_i.Teta(), -M_PI);
+//        m_states_vec[i].cost.delta_heading = delta_teta;
 
-        this->cost.smoothness += m_states_vec[i].cost.smooth_penalty();
+        this->cost.smoothness += pow( fabs(delta_teta) /(M_PI /8.0), 2.0 ) / this->length();
     }
-
 }
 
 void Trajectory::EditStation(uint index, const Station &new_st)
@@ -46,7 +45,7 @@ void Trajectory::EditStation(uint index, const Station &new_st)
     this->m_states_vec[index] = new_st;
 }
 
-Station &Trajectory::getStation(uint index) const
+Station Trajectory::getStation(uint index) const
 {
     Station st;
     if(index < m_states_vec.size()) {
@@ -84,6 +83,7 @@ void Trajectory::copyFrom(Trajectory &other)
 {
     m_states_vec.clear();
     for(int i=0; i<other.length(); i++) {
+//        other.getStation(i).getPosition().print(std::cout);
         Station st = other.getStation(i);
         this->appendState(st);
     }

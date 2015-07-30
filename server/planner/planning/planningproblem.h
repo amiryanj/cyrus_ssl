@@ -13,10 +13,10 @@
 #include "motionplan.h"
 #include "../../../shared/utility/ellipse.h"
 
-#define MAX_TREE_SIZE 550
+#define MAX_TREE_SIZE 1500
 #define MAX_SAMPLING_TRY 10
-#define MAX_STATION_CATCH_SIZE 50
-#define MAX_RRT_STEP_TRY 1200
+#define MAX_STATION_CATCH_SIZE 500
+#define MAX_RRT_STEP_TRY 1500
 #define MAX_APF_STEP_TRY 1000
 #define GOAL_PROB 0.25
 
@@ -80,13 +80,14 @@ public:
     Trajectory RRTConnectSolve(double arg1);
     Trajectory PruneTrajectory(Trajectory& input_plan, const ObstacleSet &ob_set);
 
-    Trajectory *APFSolve(const ObstacleSet& ob_set, bool stop_when_collid);
-    Trajectory *RRT_APF_Solve(const ObstacleSet& ob_set, Trajectory &prior_plan, bool stop_when_collid);
+    Trajectory APFSolve(const ObstacleSet& ob_set, bool stop_when_collid);
+    Trajectory RRT_APF_Solve(const ObstacleSet& ob_set, Trajectory &prior_plan, bool stop_when_collid);
 
     vector<Vector2D> ObstacleForces(const Station &st, const ObstacleSet &ob_set);
     Vector2D PathDirectedForce(const Station& st, Trajectory &path_);
     Vector2D GoalAttractiveForce(const Station& st);
 
+    Station getNextStation(const Station &st, Trajectory &path);
 
     bool planningResult;
     double planningTime;

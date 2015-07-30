@@ -1,5 +1,5 @@
-#ifndef OBSTACLE_H
-#define OBSTACLE_H
+#ifndef _OBSTACLE_H
+#define _OBSTACLE_H
 
 #include <Box2D/Collision/Shapes/b2Shape.h>
 #include <vector>
@@ -23,6 +23,8 @@ public:
     void setRadius(float radius_) {
         shape->m_radius = radius_;
     }
+
+    Vector2D CenterOfMass() const;
 
     b2Transform transform;
     b2Transform predictedTransform(float time_step_sec) const;
