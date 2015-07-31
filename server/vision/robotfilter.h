@@ -19,7 +19,7 @@ class RobotFilter //: public Kalman::EKFilter<double, 1>
     friend class MainWindow;
 public:
     RobotFilter();
-    void putNewFrame(const SSLFrame &fr);
+    void putNewFrame(const OneObjectFrame &fr);
     bool isEmpty();
     bool isOnField();
 
@@ -34,12 +34,9 @@ private:
     double last_delta_t_sec;
 
     Vector3D m_filteredPosition;
-    Vector3D m_filteredSpeed;
-    Vector3D m_medianFilteredSpeed;
+    Vector3D m_filteredVelocity;
 
     AlphaBetaFilter alphaBetaFilter;
-
-    int __medianFilterIndex;
 
     bool hasUnprocessedData;
 };

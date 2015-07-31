@@ -1,4 +1,4 @@
-#include "RobotFilter.h"
+#include "robotfilter.h"
 #include "../../shared/utility/generalmath.h"
 #include "../paramater-manager/parametermanager.h"
 
@@ -9,22 +9,18 @@ using namespace std;
 RobotFilter::RobotFilter()
 {    
     last_update_time_msec = 0;
-
     rawData.reserve(MAX_RAW_DATA_MEMORY + 1);
-    // rawSpeedList is set to zero by default
-    __medianFilterIndex = 0;
-
 }
 
 // insert new frame in the list and remove expired frames
-void RobotFilter::putNewFrame(const SSLFrame &fr)
+void RobotFilter::putNewFrame(const OneObjectFrame &fr)
 {
 
     // drop the balls in a new camera while the capture time
     // of last detected ball is not past more than 10 ms
     float default_fps = ParameterManager::getInstance()->get<float>("vision.default_frame_per_second");
     if( ( fr.camera_id != getRawData(0).camera_id)
-      && (fr.timeStampMilliSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
+      && (fr.timeStampMSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
     {
         return;
     }
@@ -33,7 +29,7 @@ void RobotFilter::putNewFrame(const SSLFrame &fr)
     last_update_time_msec = currentTimeMSec();
 
     SSLRobotState robot_;
-    robot_.timeStamp_second = fr.timeStampMilliSec / 1000.0;
+    robot_.timeStamp_second = fr.timeStampMSec / 1000.0;
     robot_.camera_id = fr.camera_id;
     robot_.position  = fr.position;
     if( !rawData.empty() ) {
@@ -123,10 +119,10 @@ void RobotFilter::run()
         meanVelocity += ((SSLRobotState)clusterData[i]).velocity / clusterSize;
         meanPosition += ((SSLRobotState)clusterData[i]).position / clusterSize;
     }
-    m_filteredSpeed     = meanVelocity;
+    m_filteredVelocity     = meanVelocity;
     m_filteredPosition  = meanPosition;
     float vision_delay = ParameterManager::getInstance()->get<double>("vision.vision_delay_ms") * 0.001;
-    if(m_filteredSpeed.lenght2D() > 600)
+    if(m_filteredVelocity.lenght2D() > 600)
         m_filteredPosition += meanVelocity * vision_delay * 1.0;
     m_filteredPosition.setTeta(getRawData(0).position.Teta());
                 //continuousRadian(m_filteredPosition.Teta(), -M_PI));

@@ -1,25 +1,28 @@
-#ifndef _FRAME_H
-#define _FRAME_H
+#ifndef _ONEOBJECTFRAME_H
+#define _ONEOBJECTFRAME_H
 
 #include "../../shared/utility/vector3d.h"
 
 const static int CAMERA_FPS = 20;
 
-struct SSLFrame
+struct OneObjectFrame
 {
-    SSLFrame();
-    SSLFrame(const Vector3D &pose, const double &time = -1, double conf = 0);
+    OneObjectFrame();
+    OneObjectFrame(const Vector3D &pose, const double &time = -1, double conf = 0);
     void set(const Vector3D &pose, const double &time = -1, double conf = 0);
 
     Vector3D position;
-    double timeStampMilliSec; // unit = second
+    Vector3D velocity;
+    Vector3D acceleration;
+
+    double timeStampMSec; // unit = second
     double confidence;
     short camera_id;
     long frame_number;
 
     void setToCurrentTimeMilliSec();
 
-    SSLFrame& operator =(const SSLFrame &other);
+    OneObjectFrame& operator =(const OneObjectFrame &other);
 
 };
 

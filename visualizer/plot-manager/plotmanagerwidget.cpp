@@ -39,6 +39,9 @@ PlotManagerWidget::~PlotManagerWidget()
 void PlotManagerWidget::newPlotMessage(const Plotter_Packet &packet)
 {
     QString value_name = packet.name().c_str();
+    const int values_size = packet.values_size();
+    const int legends_size = packet.legends_size();
+    packet.legends();
     if( !mPlotsMap.keys().contains(value_name) ) {
         PlotWidget* new_plot = 0;
         if( packet.values_size() > 0 )
@@ -125,4 +128,9 @@ void PlotManagerWidget::processPendingData()
     packet.ParseFromArray(receivedData.data(), receivedData.size());
 
     this->newPlotMessage(packet);
+}
+
+void PlotManagerWidget::plot(double value, const string &plot_name, const string &category)
+{
+
 }

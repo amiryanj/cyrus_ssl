@@ -8,9 +8,10 @@
 #include "../../shared/tools/ssllistener.h"
 #include "../../shared/proto/vision/cpp/messages_robocup_ssl_wrapper.pb.h"
 #include "../../shared/proto/vision/cpp/messages_robocup_ssl_detection.pb.h"
-#include "RobotFilter.h"
-#include "BallFilter.h"
-#include "NaiveKalman.h"
+#include "robotfilter.h"
+#include "ballfilter.h"
+#include "robotkalmanfilter.h"
+
 
 const static int MAX_CAMERA_COUNT = 4;
 
@@ -26,11 +27,21 @@ public:
     void check();
     void update(const SSL_WrapperPacket &packet);
 
+
+    //temp test function
+    Vector3D getUnderTestRobotFilteredVelocity();
+    Vector3D getUnderTestRobotFilteredPosition();
+
+    Vector3D getUnderTestRobotRawVelocity();
+    Vector3D getUnderTestRobotRawPosition();
+
+
     BallFilter *ballFilter;
 private:
     RobotFilter *robotFilter[NUM_TEAMS][MAX_ID_NUM];
     double cameraLastFrameTime[MAX_CAMERA_COUNT];
-    std::ofstream txtlogFile;
+
+    RobotKalmanFilter *robotFilter2[NUM_TEAMS][MAX_ID_NUM];
 
     float last_frame_time;
     float FPS;

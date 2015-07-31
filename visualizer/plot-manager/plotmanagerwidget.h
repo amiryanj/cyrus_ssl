@@ -19,10 +19,11 @@ class PlotManagerWidget : public QWidget
 public:
     explicit PlotManagerWidget(QWidget *parent = 0);
     ~PlotManagerWidget();
+    void newPlotMessage(const Plotter_Packet& packet);
 
 private slots:
     void processPendingData();
-    void newPlotMessage(const Plotter_Packet& packet);
+    void plot(double value, const std::string &plot_name, const std::string &category);
     void joinMulticastNetwork();
 
     void quitPlot(QString name);

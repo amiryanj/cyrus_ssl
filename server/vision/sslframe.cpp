@@ -1,17 +1,17 @@
 #include "sslframe.h"
 #include "../../shared/utility/generalmath.h"
 
-SSLFrame::SSLFrame()
+OneObjectFrame::OneObjectFrame()
 {
 }
 
 // default constructor
-SSLFrame::SSLFrame(const Vector3D &pose, const double &time, double conf)
+OneObjectFrame::OneObjectFrame(const Vector3D &pose, const double &time, double conf)
 {
     this->set(pose, time, conf);
 }
 
-void SSLFrame::set(const Vector3D &pose, const double &time, double conf)
+void OneObjectFrame::set(const Vector3D &pose, const double &time, double conf)
 {
     this->position = pose;
     this->confidence = conf;
@@ -19,17 +19,17 @@ void SSLFrame::set(const Vector3D &pose, const double &time, double conf)
     if(time == -1)
         setToCurrentTimeMilliSec();
     else
-        this->timeStampMilliSec = time;
+        this->timeStampMSec = time;
 }
 
-void SSLFrame::setToCurrentTimeMilliSec()
+void OneObjectFrame::setToCurrentTimeMilliSec()
 {
-    timeStampMilliSec = currentTimeMSec();
+    timeStampMSec = currentTimeMSec();
 }
 
-SSLFrame &SSLFrame::operator =(const SSLFrame &other)
+OneObjectFrame &OneObjectFrame::operator =(const OneObjectFrame &other)
 {
-    this->timeStampMilliSec = other.timeStampMilliSec;
+    this->timeStampMSec = other.timeStampMSec;
     this->camera_id = other.camera_id;
     this->confidence = other.confidence;
     this->position = other.position;

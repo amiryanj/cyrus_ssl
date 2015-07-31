@@ -23,10 +23,10 @@ class BallFilter
 public:
     BallFilter();
 
-    void initialize(const SSLFrame &initial_frame);
+    void initialize(const OneObjectFrame &initial_frame);
 
-    void putNewFrame(const SSLFrame &detected_ball);
-    void putNewFrameWithManyBalls(vector<SSLFrame> detected_balls);
+    void putNewFrame(const OneObjectFrame &detected_ball);
+    void putNewFrameWithManyBalls(vector<OneObjectFrame> detected_balls);
 
     // main method for updating state vectors
     void run();
@@ -41,7 +41,7 @@ protected:
 
     bool getBallStoppedState();
 
-    vector<SSLFrame> rawPositions;
+    vector<OneObjectFrame> rawPositions;
 
     Vector2D m_rawPosition;
     Vector2D m_displacement;

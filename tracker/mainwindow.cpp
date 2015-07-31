@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "../server/definition/SSLBall.h"
+#include "../shared/utility/generalmath.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -51,6 +52,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->plot_2->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot_2->xAxis2, SLOT(setRange(QCPRange)));
     connect(ui->plot_2->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot_2->yAxis2, SLOT(setRange(QCPRange)));
 
+
+    ui->tabWidget->hide();
+
+    PMW = new PlotManagerWidget(this);
+    ui->verticalLayout_pmw->addWidget(PMW);
+
+
     timer.setInterval(50);
     connect(&timer, SIGNAL(timeout()), this, SLOT(timerOVF()));
     timer.start();
@@ -63,60 +71,26 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::timerOVF()
-{
-    static double start_time;
-
+{    
     VisionFilter::getInstance()->check();
 
-//    double ball_err = SSLWorldModel::getInstance()->mainBall()->Speed().lenght();
+    Vector3D filtered_vel = VisionFilter::getInstance()->getUnderTestRobotFilteredVelocity() / 1000.0;
+    Vector3D filtered_pos = VisionFilter::getInstance()->getUnderTestRobotFilteredPosition() / 1000.0;
 
-    double ax_len = VisionFilter::getInstance()->ballFilter->m_acceleration.lenght();
-    double ax_arc = VisionFilter::getInstance()->ballFilter->m_acceleration.arctan();
+    Vector3D raw_vel = VisionFilter::getInstance()->getUnderTestRobotRawVelocity() / 1000.0;
+    Vector3D raw_pos = VisionFilter::getInstance()->getUnderTestRobotRawPosition() / 1000.0;
 
-    double alfa = VisionFilter::getInstance()->ballFilter->alphaBetaFilter.m_alfa;
-    double beta = VisionFilter::getInstance()->ballFilter->alphaBetaFilter.m_beta;
+    Plotter_Packet pp;
+    pp.set_name("Vel");
 
-    Vector2D clusteredSpeed__ = VisionFilter::getInstance()->robotFilter[SSL::Yellow][0]->m_filteredSpeed.to2D();
-//    qDebug() << "Ball Raw Acceleration = " << data_1;
-//             << "Ball Raw Displacement = " << ball_disp;
+    pp.add_values(filtered_vel.X());
+    pp.add_legends("filtered");
 
-    QVector<double> values;
-    values << clusteredSpeed__.X() << ax_len /1000000.0 << alfa;
-//    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-//    if(VisionFilter::getInstance()->cameraLastFrameTime[0] == 0) {
-//        start_time = key;
-//    }
-//    key -= start_time;
+    pp.add_values(raw_vel.X());
+    pp.add_legends("raw");
+    PMW->newPlotMessage(pp);
 
-    double key = VisionFilter::getInstance()->cameraLastFrameTime[0];
-    key-= ((int)key/1000) * 1000.0;
 
-    ui->plot_1->graph(0)->addData(key, values[0]);
-    ui->plot_1->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
-    ui->plot_1->replot();
-
-    if (key == 0)
-        return;
-
-    QVector<double> last_k_data_x;
-    QVector<double> last_k_data_y;
-    Vector2D speed = clusteredSpeed__; //VisionFilter::getInstance()->ballFilter->m_rawVelocity;
-    for(int i=0; i<4; i++) {
-        if( i >= VisionFilter::getInstance()->ballFilter->rawData.size() )
-            break;
-        Vector2D speed_ = VisionFilter::getInstance()->ballFilter->getRawData(i).velocity;
-    }
-    last_k_data_x.push_back(speed.X());
-    last_k_data_y.push_back(speed.Y());
-
-    ui->plot_2->graph(0)->addData(speed.X(), speed.Y());
-//    ui->plot_2->graph(1)->setData(last_k_data_x, last_k_data_y);
-
-//    ui->plot_2->graph(2)->clearData();
-//    Vector2D filteredSpeed = VisionFilter::getInstance()->ballFilter->m_filteredVelocity;
-//    ui->plot_2->graph(2)->addData( filteredSpeed.X(), filteredSpeed.Y() );
-
-    ui->plot_2->replot();
 }
 
 void MainWindow::on_actionPlayStop_toggled(bool arg1)

@@ -1,4 +1,4 @@
-#include "BallFilter.h"
+#include "ballfilter.h"
 
 #include "../ai/SSLWorldModel.h"
 #include "../definition/SSLRobot.h"
@@ -18,7 +18,7 @@ BallFilter::BallFilter()
     rawData.reserve(MAX_BALL_MEMORY + 1);
 }
 
-void BallFilter::initialize(const SSLFrame &initial_frame)
+void BallFilter::initialize(const OneObjectFrame &initial_frame)
 {
     float default_fps = ParameterManager::getInstance()->get<float>("vision.default_frame_per_second");
 
@@ -26,7 +26,7 @@ void BallFilter::initialize(const SSLFrame &initial_frame)
         for(int i=0; i< MAX_BALL_MEMORY; i++)  {
             SSLBallState ball_;
             ball_.camera_id = initial_frame.camera_id;
-            ball_.timeStamp_second = initial_frame.timeStampMilliSec /1000.0 - (i / default_fps); // avoid dividing by zero
+            ball_.timeStamp_second = initial_frame.timeStampMSec /1000.0 - (i / default_fps); // avoid dividing by zero
                                                                                // in following computations
             ball_.position = initial_frame.position.to2D();
             ball_.displacement = Vector2D(0.0, 0.0);
@@ -41,7 +41,7 @@ void BallFilter::initialize(const SSLFrame &initial_frame)
     }
 }
 
-void BallFilter::putNewFrame(const SSLFrame &detected_ball)
+void BallFilter::putNewFrame(const OneObjectFrame &detected_ball)
 {
     hasUnprocessedData = true;
 
@@ -49,13 +49,13 @@ void BallFilter::putNewFrame(const SSLFrame &detected_ball)
     // of last detected ball is not past more than 10 ms
     float default_fps = ParameterManager::getInstance()->get<float>("vision.default_frame_per_second");
     if( ( detected_ball.camera_id != getRawData(0).camera_id)
-      && (detected_ball.timeStampMilliSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
+      && (detected_ball.timeStampMSec/1000.0 - getRawData(0).timeStamp_second) < (0.6 * 1/default_fps))
     {
         return;
     }
 
     SSLBallState ball_;
-    ball_.timeStamp_second = detected_ball.timeStampMilliSec / 1000.0;
+    ball_.timeStamp_second = detected_ball.timeStampMSec / 1000.0;
     ball_.camera_id        = detected_ball.camera_id;
     ball_.position         = detected_ball.position.to2D();
     ball_.displacement     = (ball_.position - getRawData(0).position);
@@ -77,12 +77,12 @@ void BallFilter::putNewFrame(const SSLFrame &detected_ball)
     rawData.pop_back();
 }
 
-void BallFilter::putNewFrameWithManyBalls(vector<SSLFrame> detected_balls)
+void BallFilter::putNewFrameWithManyBalls(vector<OneObjectFrame> detected_balls)
 {
     double min_dist = INFINITY;
     int min_index = -1;
     for(uint i=0; i<detected_balls.size(); i++) {
-        double dist_i = (((SSLFrame)detected_balls[i]).position.to2D() - m_filteredPosition).lenght();
+        double dist_i = (((OneObjectFrame)detected_balls[i]).position.to2D() - m_filteredPosition).lenght();
         if(dist_i < min_dist) {
             min_dist = dist_i;
             min_index = i;

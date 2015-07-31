@@ -5,7 +5,8 @@
 #include <QTimer>
 #include "../server/ai/SSLWorldModel.h"
 #include "../server/vision/VisionFilter.h"
-#include "../server/vision/BallFilter.h"
+#include "../server/vision/ballfilter.h"
+#include "../visualizer/plot-manager/plotmanagerwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    PlotManagerWidget* PMW;
     QTimer timer;
 
 };

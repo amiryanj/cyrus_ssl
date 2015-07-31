@@ -4,10 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 TARGET = ObjectTracker
 TEMPLATE = app
+
+INCLUDEPATH += ../server \
+               ../shared \
+               ../visualizer
+
 
 release: DESTDIR = $$PWD/../../release_cyrus/tracker
 release: MOC_DIR = $$PWD/../../release_cyrus/tracker/mocs
@@ -24,9 +29,8 @@ SOURCES += \
     ObjectTracker.cpp \
     ../server/vision/VisionFilter.cpp \
     ../server/vision/SSLVision.cpp \
-    ../server/vision/RobotFilter.cpp \
-    ../server/vision/NaiveKalman.cpp \    
-    ../server/vision/BallFilter.cpp \
+    ../server/vision/robotfilter.cpp \
+    ../server/vision/ballfilter.cpp \
     ../server/ai/SSLWorldModel.cpp \
     ../server/definition/SSLBall.cpp \
     ../server/definition/SSLTeam.cpp \
@@ -45,15 +49,20 @@ SOURCES += \
     ../server/vision/sslframe.cpp \
     ../server/vision/alphabetafilter.cpp \
     ../server/log-tools/networkplotter.cpp \
-    ../shared/proto/plotter/cpp/message_plotter.pb.cc
+    ../shared/proto/plotter/cpp/message_plotter.pb.cc \
+    ../server/vision/robotkalmanfilter.cpp \
+    ../shared/tools/kalman-cpp/kalman.cpp \
+    ../server/vision/kalmanfilter.cpp \
+    ../visualizer/plot-manager/scatterplotwidget.cpp \
+    ../visualizer/plot-manager/qcustomplot.cpp \
+    ../visualizer/plot-manager/plotmanagerwidget.cpp
 
 HEADERS  += \
     mainwindow.h \
     ../server/vision/VisionFilter.h \
     ../server/vision/SSLVision.h \
-    ../server/vision/RobotFilter.h \
-    ../server/vision/NaiveKalman.h \    
-    ../server/vision/BallFilter.h \
+    ../server/vision/robotfilter.h \
+    ../server/vision/ballfilter.h \
     ../server/ai/SSLWorldModel.h \
     ../server/definition/SSLObject.h \
     ../server/definition/SSLBall.h \
@@ -76,10 +85,21 @@ HEADERS  += \
     ../server/vision/sslframe.h \
     ../server/vision/alphabetafilter.h \
     ../server/log-tools/networkplotter.h \
-    ../shared/proto/plotter/cpp/message_plotter.pb.h
+    ../shared/proto/plotter/cpp/message_plotter.pb.h \
+    ../server/vision/robotkalmanfilter.h \
+    ../shared/tools/kalman-cpp/kalman.hpp \
+    ../server/vision/kalmanfilter.h \
+    ../visualizer/plot-manager/scatterplotwidget.h \
+    ../visualizer/plot-manager/qcustomplot.h \
+    ../visualizer/plot-manager/plotmanagerwidget.h
 
 FORMS    += mainwindow.ui \
-    ../visualizer/plot-manager/plotwidget.ui
+    ../visualizer/plot-manager/plotwidget.ui \
+    ../visualizer/plot-manager/scatterplotwidget.ui \
+    ../visualizer/plot-manager/plotmanagerwidget.ui
 
 OTHER_FILES += \
     ../settings/*.json
+
+RESOURCES += \
+    ../visualizer/icons.qrc
