@@ -17,7 +17,7 @@ public:
 private:
     SSL_WrapperPacket wrapper_packet;
     SSL_DetectionRobot* our_robots[6];
-    SSL_DetectionRobot* opponent_robots[6];
+    SSL_DetectionRobot* opp_robots[6];
     SSL_DetectionBall* ball;
 };
 

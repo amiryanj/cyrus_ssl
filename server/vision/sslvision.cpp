@@ -1,5 +1,5 @@
-#include "SSLVision.h"
-#include "VisionFilter.h"
+#include "sslvision.h"
+#include "visionfilter.h"
 #include "../paramater-manager/parametermanager.h"
 
 #if QT_VERSION >= 0x050000
@@ -29,7 +29,7 @@ SSLVision::SSLVision(int port, const string address) // :UDP() // , SSLListener(
 //    simple_socket.addMulticast(multi_, interface_);
 
    // pthread_create(&ssl_vision_thread, NULL, &check, NULL);
-    QtConcurrent::run(check,(void *)NULL);
+    QtConcurrent::run(check, (void *)NULL);
 }
 
 SSLVision::~SSLVision()

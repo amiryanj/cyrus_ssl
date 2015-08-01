@@ -8,7 +8,7 @@
 #include "../../shared/tools/ssllistener.h"
 #include "../../shared/proto/vision/cpp/messages_robocup_ssl_wrapper.pb.h"
 #include "../../shared/proto/vision/cpp/messages_robocup_ssl_detection.pb.h"
-#include "robotfilter.h"
+#include "robotclusterfilter.h"
 #include "ballfilter.h"
 #include "robotkalmanfilter.h"
 #include <QMutex>
@@ -39,7 +39,7 @@ public:
 
     BallFilter *ballFilter;
 private:
-    RobotFilter *robotFilter[NUM_TEAMS][MAX_ID_NUM];
+    RobotClusterFilter *robotFilter[NUM_TEAMS][MAX_ID_NUM];
     double cameraLastFrameTime[MAX_CAMERA_COUNT];
 
     RobotKalmanFilter *robotFilter2[NUM_TEAMS][MAX_ID_NUM];

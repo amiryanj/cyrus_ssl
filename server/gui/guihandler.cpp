@@ -6,7 +6,7 @@
 #include "../soccer/sslstrategy.h"
 #include "../soccer/sslagent.h"
 #include "../soccer/sslrole.h"
-#include "../vision/VisionFilter.h"
+#include "../vision/visionfilter.h"
 
 GUIHandler* GUIHandler::instance = NULL;
 using namespace boost;

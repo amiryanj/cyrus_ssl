@@ -1,44 +1,34 @@
-#ifndef _ROBOTFILTER_H
-#define _ROBOTFILTER_H
+#ifndef __ROBOTFILTER_H
+#define __ROBOTFILTER_H
 
 #include <vector>
-#include <stdlib.h>
 #include "sslframe.h"
-#include "alphabetafilter.h"
-#include "../../shared/utility/vector3d.h"
-#include "../definition/SSLRobot.h"
+#include "paramater-manager/parametermanager.h"
 
-
-#define MAX_RAW_DATA_MEMORY 30
-#define MAX_ROBOT_MEDIAN_MEMORY 11
-#define ROBOT_SPEED_LIMIT_FILTER 7
-
-class RobotFilter //: public Kalman::EKFilter<double, 1>
+class RobotFilter
 {
-    friend class VisionFilter;
-    friend class MainWindow;
 public:
     RobotFilter();
-    void putNewFrame(const OneObjectFrame &fr);
-    bool isEmpty();
-    bool isOnField();
+
+    void putNewFrame(OneObjectFrame &fr);
+    bool isEmpty() const;
+    bool isOnField() const;
 
     // main method for updating state vectors
-    void run();
-
-private:
-    std::vector<SSLRobotState> rawData;
-    SSLRobotState& getRawData(uint i) {return rawData[i];}
-    Vector3D rawSpeedList[MAX_ROBOT_MEDIAN_MEMORY];
-    double last_update_time_msec;
-    double last_delta_t_sec;
-
+    virtual void run() = 0;
     Vector3D m_filteredPosition;
     Vector3D m_filteredVelocity;
 
-    AlphaBetaFilter alphaBetaFilter;
+    Vector3D m_rawPosition;
+    Vector3D m_rawVelocity;
 
     bool hasUnprocessedData;
+
+protected:
+    std::vector<OneObjectFrame> rawData;
+    double last_time_msec;
+    double last_dt_msec;
+
 };
 
-#endif // _ROBOTFILTER_H
+#endif // __ROBOTFILTER_H

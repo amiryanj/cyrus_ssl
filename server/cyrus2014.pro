@@ -42,7 +42,6 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    vision/SSLVision.cpp \    
     transmitter/RobotSerialConnection.cpp \
     ai/SSLWorldModel.cpp \
     definition/SSLTeam.cpp \
@@ -73,7 +72,6 @@ SOURCES += \
     soccer/roles/defender.cpp \
     soccer/roles/blocker.cpp \
     soccer/roles/activerole.cpp \
-    vision/VisionFilter.cpp \
     ../shared/proto/grsim/cpp/grsim_Replacement.pb.cc \
     ../shared/proto/grsim/cpp/grsim_Packet.pb.cc \
     ../shared/proto/grsim/cpp/grsim_Commands.pb.cc \
@@ -155,11 +153,13 @@ SOURCES += \
     ../shared/tools/kalman-cpp/kalman.cpp \
     vision/kalmanfilter.cpp \
     vision/robotkalmanfilter.cpp \
-    vision/robotfilter.cpp \
-    vision/ballfilter.cpp
+    vision/ballfilter.cpp \
+    vision/visionfilter.cpp \
+    vision/robotclusterfilter.cpp \
+    vision/sslvision.cpp \
+    vision/robotfilter.cpp
 
 HEADERS += \
-    vision/SSLVision.h \
     transmitter/RobotSerialConnection.h \
     ../shared/tools/serialib/serialib.h \
     ../shared/tools/socket/ippacket.h \
@@ -196,7 +196,6 @@ HEADERS += \
     soccer/roles/blocker.h \
     soccer/roles/activerole.h \
     controller/pidcontroller.h \    
-    vision/VisionFilter.h \
     ../shared/proto/grsim/cpp/grsim_Replacement.pb.h \
     ../shared/proto/grsim/cpp/grsim_Packet.pb.h \
     ../shared/proto/grsim/cpp/grsim_Commands.pb.h \
@@ -283,8 +282,11 @@ HEADERS += \
     ../shared/tools/kalman-cpp/kalman.hpp \
     vision/kalmanfilter.h \
     vision/robotkalmanfilter.h \
-    vision/robotfilter.h \
-    vision/ballfilter.h
+    vision/ballfilter.h \
+    vision/visionfilter.h \
+    vision/robotclusterfilter.h \
+    vision/sslvision.h \
+    vision/robotfilter.h
 
 OTHER_FILES += \            
     ../shared/proto/referee/proto/*.proto \

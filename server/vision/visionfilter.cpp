@@ -1,4 +1,4 @@
-#include "VisionFilter.h"
+#include "visionfilter.h"
 #include "../definition/SSLBall.h"
 #include "../paramater-manager/parametermanager.h"
 
@@ -16,7 +16,7 @@ VisionFilter::VisionFilter()
     // initializing filter objects
     for(int i=0; i<NUM_TEAMS; ++i)
         for(int j=0; j<MAX_ID_NUM; ++j) {
-            robotFilter[i][j] = new RobotFilter();
+            robotFilter[i][j] = new RobotClusterFilter();
             robotFilter2[i][j] = new RobotKalmanFilter();
         }
 

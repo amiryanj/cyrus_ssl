@@ -1,5 +1,5 @@
 #include "testvisioninput.h"
-#include "../vision/VisionFilter.h"
+#include "../vision/visionfilter.h"
 #include "../../shared/utility/generalmath.h"
 #include "../paramater-manager/parametermanager.h"
 #include "../ai/SSLGame.h"
@@ -15,12 +15,12 @@ TestInput::TestInput()
         our_robots[4] = wrapper_packet.mutable_detection()->add_robots_blue();
         our_robots[5] = wrapper_packet.mutable_detection()->add_robots_blue();
 
-        opponent_robots[0] = wrapper_packet.mutable_detection()->add_robots_yellow();
-        opponent_robots[1] = wrapper_packet.mutable_detection()->add_robots_yellow();
-        opponent_robots[2] = wrapper_packet.mutable_detection()->add_robots_yellow();
-        opponent_robots[3] = wrapper_packet.mutable_detection()->add_robots_yellow();
-        opponent_robots[4] = wrapper_packet.mutable_detection()->add_robots_yellow();
-        opponent_robots[5] = wrapper_packet.mutable_detection()->add_robots_yellow();
+        opp_robots[0] = wrapper_packet.mutable_detection()->add_robots_yellow();
+        opp_robots[1] = wrapper_packet.mutable_detection()->add_robots_yellow();
+        opp_robots[2] = wrapper_packet.mutable_detection()->add_robots_yellow();
+        opp_robots[3] = wrapper_packet.mutable_detection()->add_robots_yellow();
+        opp_robots[4] = wrapper_packet.mutable_detection()->add_robots_yellow();
+        opp_robots[5] = wrapper_packet.mutable_detection()->add_robots_yellow();
 
     } else {
         our_robots[0] = wrapper_packet.mutable_detection()->add_robots_yellow();
@@ -30,12 +30,12 @@ TestInput::TestInput()
         our_robots[4] = wrapper_packet.mutable_detection()->add_robots_yellow();
         our_robots[5] = wrapper_packet.mutable_detection()->add_robots_yellow();
 
-        opponent_robots[0] = wrapper_packet.mutable_detection()->add_robots_blue();
-        opponent_robots[1] = wrapper_packet.mutable_detection()->add_robots_blue();
-        opponent_robots[2] = wrapper_packet.mutable_detection()->add_robots_blue();
-        opponent_robots[3] = wrapper_packet.mutable_detection()->add_robots_blue();
-        opponent_robots[4] = wrapper_packet.mutable_detection()->add_robots_blue();
-        opponent_robots[5] = wrapper_packet.mutable_detection()->add_robots_blue();
+        opp_robots[0] = wrapper_packet.mutable_detection()->add_robots_blue();
+        opp_robots[1] = wrapper_packet.mutable_detection()->add_robots_blue();
+        opp_robots[2] = wrapper_packet.mutable_detection()->add_robots_blue();
+        opp_robots[3] = wrapper_packet.mutable_detection()->add_robots_blue();
+        opp_robots[4] = wrapper_packet.mutable_detection()->add_robots_blue();
+        opp_robots[5] = wrapper_packet.mutable_detection()->add_robots_blue();
     }
 
     our_robots[0]->set_robot_id(0);
@@ -82,47 +82,47 @@ TestInput::TestInput()
 
 
 // -------- Opponent Robots ----------
-    opponent_robots[0]->set_robot_id(0);
-    opponent_robots[0]->set_x(pm->get<float>("test_input.vision.opponent_team.0.x"));
-    opponent_robots[0]->set_y(pm->get<float>("test_input.vision.opponent_team.0.y"));
-    opponent_robots[0]->set_orientation(pm->get<float>("test_input.vision.opponent_team.0.orien"));
-    opponent_robots[0]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.0.v_x"));
-    opponent_robots[0]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.0.v_y"));
+    opp_robots[0]->set_robot_id(0);
+    opp_robots[0]->set_x(pm->get<float>("test_input.vision.opponent_team.0.x"));
+    opp_robots[0]->set_y(pm->get<float>("test_input.vision.opponent_team.0.y"));
+    opp_robots[0]->set_orientation(pm->get<float>("test_input.vision.opponent_team.0.orien"));
+    opp_robots[0]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.0.v_x"));
+    opp_robots[0]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.0.v_y"));
 
-    opponent_robots[1]->set_robot_id(1);
-    opponent_robots[1]->set_x(pm->get<float>("test_input.vision.opponent_team.1.x"));
-    opponent_robots[1]->set_y(pm->get<float>("test_input.vision.opponent_team.1.y"));
-    opponent_robots[1]->set_orientation(pm->get<float>("test_input.vision.opponent_team.1.orien"));
-    opponent_robots[1]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.1.v_x"));
-    opponent_robots[1]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.1.v_y"));
+    opp_robots[1]->set_robot_id(1);
+    opp_robots[1]->set_x(pm->get<float>("test_input.vision.opponent_team.1.x"));
+    opp_robots[1]->set_y(pm->get<float>("test_input.vision.opponent_team.1.y"));
+    opp_robots[1]->set_orientation(pm->get<float>("test_input.vision.opponent_team.1.orien"));
+    opp_robots[1]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.1.v_x"));
+    opp_robots[1]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.1.v_y"));
 
-    opponent_robots[2]->set_robot_id(2);
-    opponent_robots[2]->set_x(pm->get<float>("test_input.vision.opponent_team.2.x"));
-    opponent_robots[2]->set_y(pm->get<float>("test_input.vision.opponent_team.2.y"));
-    opponent_robots[2]->set_orientation(pm->get<float>("test_input.vision.opponent_team.2.orien"));
-    opponent_robots[2]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.2.v_x"));
-    opponent_robots[2]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.2.v_y"));
+    opp_robots[2]->set_robot_id(2);
+    opp_robots[2]->set_x(pm->get<float>("test_input.vision.opponent_team.2.x"));
+    opp_robots[2]->set_y(pm->get<float>("test_input.vision.opponent_team.2.y"));
+    opp_robots[2]->set_orientation(pm->get<float>("test_input.vision.opponent_team.2.orien"));
+    opp_robots[2]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.2.v_x"));
+    opp_robots[2]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.2.v_y"));
 
-    opponent_robots[3]->set_robot_id(3);
-    opponent_robots[3]->set_x(pm->get<float>("test_input.vision.opponent_team.3.x"));
-    opponent_robots[3]->set_y(pm->get<float>("test_input.vision.opponent_team.3.y"));
-    opponent_robots[3]->set_orientation(pm->get<float>("test_input.vision.opponent_team.3.orien"));
-    opponent_robots[3]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.3.v_x"));
-    opponent_robots[3]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.3.v_y"));
+    opp_robots[3]->set_robot_id(3);
+    opp_robots[3]->set_x(pm->get<float>("test_input.vision.opponent_team.3.x"));
+    opp_robots[3]->set_y(pm->get<float>("test_input.vision.opponent_team.3.y"));
+    opp_robots[3]->set_orientation(pm->get<float>("test_input.vision.opponent_team.3.orien"));
+    opp_robots[3]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.3.v_x"));
+    opp_robots[3]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.3.v_y"));
 
-    opponent_robots[4]->set_robot_id(4);
-    opponent_robots[4]->set_x(pm->get<float>("test_input.vision.opponent_team.4.x"));
-    opponent_robots[4]->set_y(pm->get<float>("test_input.vision.opponent_team.4.y"));
-    opponent_robots[4]->set_orientation(pm->get<float>("test_input.vision.opponent_team.4.orien"));
-    opponent_robots[4]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.4.v_x"));
-    opponent_robots[4]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.4.v_y"));
+    opp_robots[4]->set_robot_id(4);
+    opp_robots[4]->set_x(pm->get<float>("test_input.vision.opponent_team.4.x"));
+    opp_robots[4]->set_y(pm->get<float>("test_input.vision.opponent_team.4.y"));
+    opp_robots[4]->set_orientation(pm->get<float>("test_input.vision.opponent_team.4.orien"));
+    opp_robots[4]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.4.v_x"));
+    opp_robots[4]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.4.v_y"));
 
-    opponent_robots[5]->set_robot_id(5);
-    opponent_robots[5]->set_x(pm->get<float>("test_input.vision.opponent_team.5.x"));
-    opponent_robots[5]->set_y(pm->get<float>("test_input.vision.opponent_team.5.y"));
-    opponent_robots[5]->set_orientation(pm->get<float>("test_input.vision.opponent_team.5.orien"));
-    opponent_robots[5]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.5.v_x"));
-    opponent_robots[5]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.5.v_y"));
+    opp_robots[5]->set_robot_id(5);
+    opp_robots[5]->set_x(pm->get<float>("test_input.vision.opponent_team.5.x"));
+    opp_robots[5]->set_y(pm->get<float>("test_input.vision.opponent_team.5.y"));
+    opp_robots[5]->set_orientation(pm->get<float>("test_input.vision.opponent_team.5.orien"));
+    opp_robots[5]->set_pixel_x(pm->get<float>("test_input.vision.opponent_team.5.v_x"));
+    opp_robots[5]->set_pixel_y(pm->get<float>("test_input.vision.opponent_team.5.v_y"));
 
 
     ball = wrapper_packet.mutable_detection()->add_balls();
@@ -159,8 +159,8 @@ void TestInput::updateWorldModel()
     }
     for(int i=0; i<6; i++) {
         world->updateRobotState(SSLGame::getInstance()->opponentColor(), i,
-                               Vector3D(opponent_robots[i]->x(), opponent_robots[i]->y(), opponent_robots[i]->orientation()),
-                               Vector3D(opponent_robots[i]->pixel_x(), opponent_robots[i]->pixel_y(), 0),
+                               Vector3D(opp_robots[i]->x(), opp_robots[i]->y(), opp_robots[i]->orientation()),
+                               Vector3D(opp_robots[i]->pixel_x(), opp_robots[i]->pixel_y(), 0),
                                true);
     }
 

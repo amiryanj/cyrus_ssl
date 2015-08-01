@@ -3,8 +3,9 @@
 
 #include <time.h>
 
-#include "vision/SSLVision.h"
-#include "vision/VisionFilter.h"
+#include "vision/sslvision.h"
+#include "vision/robotclusterfilter.h"
+#include "vision/visionfilter.h"
 #include "referee/SSLReferee.h"
 #include "gui/guihandler.h"
 #include "transmitter/commandtransmitter.h"
