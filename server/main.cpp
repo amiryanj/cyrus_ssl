@@ -15,13 +15,13 @@
 #include "test/testmathfunctions.h"
 #include "log-tools/logger.h"
 #include "log-tools/networkplotter.h"
-
 #include "general.h"
-
+#include <QApplication>
 using namespace std;
 
 int main(int argc, char *argv[])
 {
+    QApplication app(argc,argv);
     cout << "Main is running ... " << endl;
 
     srand(time(0));
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
-    transmitter->type = CommandTransmitter::SERIAL;
+ //   transmitter->type = CommandTransmitter::SERIAL;
 
     TestInput* vision_tester = new TestInput();
     TestSkills* skill_tester = new TestSkills();
@@ -81,4 +81,5 @@ int main(int argc, char *argv[])
         }
         usleep(1000);
     }
+
 }

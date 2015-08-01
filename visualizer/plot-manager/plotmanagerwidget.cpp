@@ -15,7 +15,8 @@ PlotManagerWidget::PlotManagerWidget(QWidget *parent) :
     setsockopt(mSocket.socketDescriptor(), SOL_RAW, SO_REUSEADDR, &opt, sizeof(int));
     connect(&mSocket, SIGNAL(readyRead()), this, SLOT(processPendingData()));
 
-    mPort = ParameterManager::getInstance()->get<int>("network.plotter_port");
+//    mPort = ParameterManager::getInstance()->get<int>("network.plotter_port");
+    mPort = 4006;
     this->joinMulticastNetwork();
 
     // test
@@ -77,7 +78,6 @@ void PlotManagerWidget::newPlotMessage(const Plotter_Packet &packet)
 
 void PlotManagerWidget::joinMulticastNetwork()
 {
-
 #if QT_VERSION >= 0x050000
     if(mSocket.bind(QHostAddress::AnyIPv4, mPort, QUdpSocket::ShareAddress))
 #else

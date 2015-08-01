@@ -10,12 +10,18 @@
 #include "../../shared/utility/generalmath.h"
 #include "../log-tools/networkplotter.h"
 
-
 RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)
 {    
     try {
-    if (serial.Open(serialPortName, baudrate) != 1)
-            throw "failed to open serial device";
+#if QT_VERSION >= 0x050000
+        serial = new QSerialPort(serialPortName);
+        serial->setBaudRate(baudrate);
+        if (!serial->open(QIODevice::WriteOnly))
+#else
+        serial = new serialib;
+        if(!serial->Open(serialPortName, baudrate))
+#endif
+                throw "failed to open serial device";
     }
     catch (const char* msg)  {
         cerr << "Exception: " << "RobotSerialConnection" << msg << endl;
@@ -24,7 +30,8 @@ RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsign
 
 void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packet)
 {
-    unsigned char byteArray[7];
+    const static int packet_size = 7;
+    unsigned char byteArray[packet_size];
     //start byte
     byteArray[0] = '*';
 
@@ -62,9 +69,18 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
 //    cout << endl;
 
     //transmit data to serial port
-    serial.Write(byteArray,7);
+#if QT_VERSION >= 0x050000
+    serial->write(byteArray, packet_size);
+#else
+    serial->Write(byteArray, packet_size);
+#endif
 }
 
-RobotSerialConnection::~RobotSerialConnection(){
-    serial.Close();
+RobotSerialConnection::~RobotSerialConnection()
+{
+#if QT_VERSION >= 0x050000
+    serial->close();
+#else
+    serial->Close();
+#endif
 }

@@ -48,6 +48,7 @@ void Kalman::update(const Eigen::VectorXd& y) {
 
   if(!initialized)
     throw std::runtime_error("Filter is not initialized!");
+  observation = y;
 
   x_hat_new = A * x_hat;
   P = A*P*A.transpose() + Q;
@@ -57,6 +58,7 @@ void Kalman::update(const Eigen::VectorXd& y) {
   x_hat = x_hat_new;
 
   t += dt;
+  cout << "observation:  " << y.transpose() << endl;
   cout << "kalman state: " << x_hat.transpose() << endl;
 }
 

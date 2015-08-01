@@ -4,7 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core network
+QT      += core network
+greaterThan(QT_MAJOR_VERSION, 4.5): QT += widgets printsupport serialport concurrent
+
 #QT       -= gui
 
 LIBS += -lprotobuf -lboost_system -lboost_filesystem -lBox2D

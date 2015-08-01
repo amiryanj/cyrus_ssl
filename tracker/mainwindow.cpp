@@ -74,19 +74,26 @@ void MainWindow::timerOVF()
 {    
     VisionFilter::getInstance()->check();
 
-    Vector3D filtered_vel = VisionFilter::getInstance()->getUnderTestRobotFilteredVelocity() / 1000.0;
-    Vector3D filtered_pos = VisionFilter::getInstance()->getUnderTestRobotFilteredPosition() / 1000.0;
+    Vector3D filtered_vel = VisionFilter::getInstance()->getUnderTestRobotFilteredVelocity();
+    Vector3D filtered_pos = VisionFilter::getInstance()->getUnderTestRobotFilteredPosition();
 
-    Vector3D raw_vel = VisionFilter::getInstance()->getUnderTestRobotRawVelocity() / 1000.0;
-    Vector3D raw_pos = VisionFilter::getInstance()->getUnderTestRobotRawPosition() / 1000.0;
+    cout << "MainWindow: filtered_vel: " ;
+    filtered_vel.print(cout);
+
+    Vector3D raw_vel = VisionFilter::getInstance()->getUnderTestRobotRawVelocity();
+    Vector3D raw_pos = VisionFilter::getInstance()->getUnderTestRobotRawPosition();
+
+    cout << "MainWindow: raw_vel: " ;
+    raw_vel.print(cout);
+    cout << endl;
 
     Plotter_Packet pp;
     pp.set_name("Vel");
 
-    pp.add_values(filtered_vel.X());
+    pp.add_values(filtered_vel.Y());
     pp.add_legends("filtered");
 
-    pp.add_values(raw_vel.X());
+    pp.add_values(raw_vel.Y());
     pp.add_legends("raw");
     PMW->newPlotMessage(pp);
 

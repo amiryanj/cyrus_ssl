@@ -19,7 +19,7 @@
 */
 //========================================================================
 #include "robocup_ssl_client.h"
-
+#include <QNetworkInterface>
 RoboCupSSLClient::RoboCupSSLClient(int port,
                      string net_address,
                      string net_interface)
@@ -37,20 +37,32 @@ RoboCupSSLClient::~RoboCupSSLClient()
 }
 
 void RoboCupSSLClient::close() {
-  mc.close();
+  socket.close();
 }
 
 bool RoboCupSSLClient::open(bool blocking) {
   close();
-  if(!mc.open(_port,true,true,blocking)) {
+  //mc.open(_port,true,true,blocking);
+
+#if QT_VERSION >= 0x050000
+    if(socket.bind(QHostAddress::AnyIPv4, _port, QUdpSocket::ShareAddress))
+#else
+    if(socket.bind(QHostAddress::Any, _port, QUdpSocket::ShareAddress))
+#endif
+  {
     fprintf(stderr,"Unable to open UDP network port: %d\n",_port);
     fflush(stderr);
-    return(false);
+//    return(false);
   }
 
-  Net::Address multiaddr,interface;
-  multiaddr.setHost(_net_address.c_str(),_port);
-  if(_net_interface.length() > 0){
+  //Net::Address multiaddr,interface;
+  //QNetworkInterface multiaddr;
+  if(!socket.joinMulticastGroup(QHostAddress(QString(_net_address.c_str()))))
+  {
+      fprintf(stderr,"NEW Unable to setup UDP multicast\n");
+  }
+ // multiaddr.setHost(_net_address.c_str(),_port);
+ /* if(_net_interface.length() > 0){
     interface.setHost(_net_interface.c_str(),_port);
   }else{
     interface.setAny();
@@ -61,17 +73,20 @@ bool RoboCupSSLClient::open(bool blocking) {
     fflush(stderr);
     return(false);
   }
-
+*/
   return(true);
 }
 
 bool RoboCupSSLClient::receive(SSL_WrapperPacket & packet) {
   Net::Address src;
   int r=0;
-  r = mc.recv(in_buffer,MaxDataGramSize,src);
-  if (r>0) {
+ // r = mc.recv(in_buffer,MaxDataGramSize,src);
+  if (socket.hasPendingDatagrams()) {
+      QHostAddress adr(QString(_net_address.c_str()));
+      quint16 mport=_port;
+     r=socket.readDatagram(in_buffer,MaxDataGramSize);
     fflush(stdout);
-//    printf("packet size = %d\n", r);
+//    printf("n packet size = %d\n", r);
     //decode packet:
     return packet.ParseFromArray(in_buffer,r);
   }

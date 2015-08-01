@@ -11,10 +11,10 @@
 #include <map>
 #include <fstream>
 
-
+#include <QMutex>
 class Logger
 {
-    boost::signals2::mutex mtx_;
+    QMutex mtx_;
     static Logger* instance;
     static const std::string path;
     std::map < int , std::ofstream* > files;

@@ -11,6 +11,7 @@
 #include "robotfilter.h"
 #include "ballfilter.h"
 #include "robotkalmanfilter.h"
+#include <QMutex>
 
 
 const static int MAX_CAMERA_COUNT = 4;
@@ -46,7 +47,7 @@ private:
     float last_frame_time;
     float FPS;
 
-    boost::signals2::mutex mtx_;
+    QMutex mtx_;
 
 };
 

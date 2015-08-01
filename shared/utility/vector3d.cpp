@@ -226,7 +226,7 @@ Vector3D Vector3D::dotProduct(Vector3D &b)
 
 void Vector3D::print(std::ostream &stream)
 {
-    stream << "X: " << _x << ", Y: " << _y << ", Teta: " << _teta << std::endl;
+    stream << "VEC3D: " << _x << ", Y: " << _y << ", Teta: " << _teta << std::endl;
 }
 
 float Vector3D::vector2DMag(const Vector3D &vector)

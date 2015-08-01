@@ -61,11 +61,12 @@ bool RobotKalmanFilter::isOnField() const
 void RobotKalmanFilter::run()
 {
     try {
-        if(!hasUnprocessedData)
+        if(!hasUnprocessedData) {
             throw "No new data to be processed";
+        }
         if(rawData.empty())
         {
-//            throw "Filter is invoked without any data";
+            throw "Filter is invoked without any data";
         }
         else if(rawData.size() == 1) {
             KF.init();
@@ -79,6 +80,6 @@ void RobotKalmanFilter::run()
         hasUnprocessedData = false;
 
     } catch (const char* msg) {
-        cerr << "Error: Robot Kalman Filter: " << msg << endl;
+//        cerr << "Error: Robot Kalman Filter: " << msg << endl;
     }
 }

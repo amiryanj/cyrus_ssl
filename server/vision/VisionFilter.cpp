@@ -50,9 +50,10 @@ void VisionFilter::check()
 
         }
     }
-    robotFilter2[1][4]->run();
-    printf("robot[1][4] is on the field: ", 1, 4);
-    cout << robotFilter2[1][4]->isOnField() << endl;
+    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");   // position coefficient
+    robotFilter2[1][id]->run();
+//    printf("robot[1][4] is on the field: ", 1, id);
+//    cout << robotFilter2[1][id]->isOnField() << endl;
 
     ballFilter->run();
     world->updateBallState( 0, ballFilter->m_filteredPosition,
@@ -111,8 +112,10 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
                     frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
                     frame.confidence = Robot.confidence();
                     robotFilter[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
-                    robotFilter2[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
-                    cout << "Robot blue [" << i << "] detected" << endl;
+
+                    if(i == ParameterManager::getInstance()->get<int>("skills.under_test_robot"))
+                        robotFilter2[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
+//                    cout << "Robot blue [" << i << "] detected" << endl;
 
                 }
 
@@ -123,7 +126,7 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
                     frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
                     frame.confidence = Robot.confidence();
                     robotFilter[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
-                    robotFilter2[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
+//                    robotFilter2[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
                 }
 
             vector<OneObjectFrame> balls_vec;
@@ -180,11 +183,11 @@ Vector3D VisionFilter::getUnderTestRobotFilteredPosition()
 Vector3D VisionFilter::getUnderTestRobotRawVelocity()
 {
     int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");   // position coefficient
-    return robotFilter2[1][id]->m_rawPosition;
+    return robotFilter2[1][id]->m_rawVelocity;
 }
 
 Vector3D VisionFilter::getUnderTestRobotRawPosition()
 {
     int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");   // position coefficient
-    return robotFilter2[1][id]->m_rawVelocity;
+    return robotFilter2[1][id]->m_rawPosition;
 }

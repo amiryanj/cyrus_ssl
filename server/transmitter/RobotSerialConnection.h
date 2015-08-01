@@ -8,7 +8,13 @@
 #ifndef SERIALCONNECTION_H_
 #define SERIALCONNECTION_H_
 
+
+#if QT_VERSION >= 0x050000
+#include <QSerialPort>
+#else
 #include "../tools/serialib/serialib.h"
+#endif
+
 #include "../general.h"
 #include "RobotCommandPacket.h"
 using namespace std;
@@ -19,7 +25,11 @@ public:
     void sendRobotData(int robotID, RobotCommandPacket &packet);
 	virtual ~RobotSerialConnection();
 private:
-    serialib serial;
+#if QT_VERSION >= 0x050000
+    QSerialPort* serial;
+#else
+    serialib* serial;
+#endif
 };
 
 #endif /* SERIALCONNECTION_H_ */

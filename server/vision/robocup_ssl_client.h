@@ -21,6 +21,7 @@
 #ifndef ROBOCUP_SSL_CLIENT_H
 #define ROBOCUP_SSL_CLIENT_H
 #include <string>
+#include <QUdpSocket>
 //#include <QMutex>
 #include "../../shared/tools/socket/netraw.h"
 #include "../../shared/proto/vision/cpp/messages_robocup_ssl_detection.pb.h"
@@ -36,7 +37,7 @@ class RoboCupSSLClient{
 protected:
   static const int MaxDataGramSize = 65536;
   char * in_buffer;
-  Net::UDP mc; // multicast client
+  QUdpSocket socket; // multicast client
 //  QMutex mutex;
   int _port;
   string _net_address;

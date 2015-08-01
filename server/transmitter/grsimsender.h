@@ -9,8 +9,9 @@
 #include "../ai/SSLWorldModel.h"
 #include "../ai/SSLGame.h"
 #include "RobotCommandPacket.h"
+#include <QUdpSocket>
 
-class GRSimSender: public Net::UDP
+class GRSimSender: public QUdpSocket
 {
 public:
     GRSimSender(SSL::Color our_color);

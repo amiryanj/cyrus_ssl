@@ -25,42 +25,45 @@ KalmanFilter::KalmanFilter()
 //            0,     0,      0,     0,       0,      1;
 
 
+    const float q_sigma = 5.0 ;
     Eigen::MatrixXd Q(n, n); // Process noise covariance
     Q <<
          // variance of position data
-            0.05,   0,      0,      0,      0,      0,
-            0,      0.05,   0,      0,      0,      0,
-            0,      0,      0.05,   0,      0,      0,
+            q_sigma,0,      0,      0,      0,      0,
+            0,      q_sigma,0,      0,      0,      0,
+            0,      q_sigma,0.05,   0,      0,      0,
         // variance of velocity data
-            0,      0,      0,      0.5,    0,      0,
-            0,      0,      0,      0,      0.5,    0,
-            0,      0,      0,      0,      0,      0.5;
+            0,      0,      0,      q_sigma,0,      0,
+            0,      0,      0,      0,      q_sigma,0,
+            0,      0,      0,      0,      0,      q_sigma;
 
     Eigen::MatrixXd H(m, n); // Observation matrix
     H.setIdentity();
 
+    const float r_sigma = 5.0 ;
     Eigen::MatrixXd R(m, m); // Measurement noise covariance
     R <<
          // variance of position data
-            0.05,   0,      0,      0,      0,      0,
-            0,      0.05,   0,      0,      0,      0,
-            0,      0,      0.05,   0,      0,      0,
+            r_sigma,0,      0,      0,      0,      0,
+            0,      r_sigma,0,      0,      0,      0,
+            0,      0,      r_sigma,0,      0,      0,
         // variance of velocity data
-            0,      0,      0,      0.5,    0,      0,
-            0,      0,      0,      0,      0.5,    0,
-            0,      0,      0,      0,      0,      0.5;
+            0,      0,      0,      r_sigma,0,      0,
+            0,      0,      0,      0,      r_sigma,0,
+            0,      0,      0,      0,      0,      r_sigma;
 
+    const float p_sigma = 5.0 ;
     Eigen::MatrixXd P(n, n); // Estimate error covariance
     // Reasonable covariance matrices
     P <<
          // variance of position data
-            0.05,   0,      0,      0,      0,      0,
-            0,      0.05,   0,      0,      0,      0,
-            0,      0,      0.05,   0,      0,      0,
+            1,      0,      0,      0,      0,      0,
+            0,      1,      0,      0,      0,      0,
+            0,      0,      1,      0,      0,      0,
         // variance of velocity data
-            0,      0,      0,      0.5,    0,      0,
-            0,      0,      0,      0,      0.5,    0,
-            0,      0,      0,      0,      0,      0.5;
+            0,      0,      0,      1,      0,      0,
+            0,      0,      0,      0,      1,      0,
+            0,      0,      0,      0,      0,      1  ;
 
 
 //    std::cout << "A: \n" << A << std::endl;
@@ -108,5 +111,6 @@ Vector3D KalmanFilter::getFilteredVelocity() const
 {
     Eigen::VectorXd fp_ = k->state();
     Vector3D res(fp_[3], fp_[4], fp_[5]);
+//    res.print(cout);
     return res;
 }
