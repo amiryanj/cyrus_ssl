@@ -36,7 +36,7 @@ public:
     SSLReferee(int port, string address);
 	virtual ~SSLReferee();
     void check();
-    QUdpSocket simple_socket;
+    QUdpSocket socket;
 //    QUdpSocket qudp_socket;
 
     long packet_time_stamp;

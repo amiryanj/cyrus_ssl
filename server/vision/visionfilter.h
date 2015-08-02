@@ -39,10 +39,10 @@ public:
 
     BallFilter *ballFilter;
 private:
-    RobotClusterFilter *robotFilter[NUM_TEAMS][MAX_ID_NUM];
+    RobotClusterFilter *robotFilter_cluster[NUM_TEAMS][MAX_ID_NUM];
     double cameraLastFrameTime[MAX_CAMERA_COUNT];
 
-    RobotKalmanFilter *robotFilter2[NUM_TEAMS][MAX_ID_NUM];
+    RobotKalmanFilter *robotFilter_kalman[NUM_TEAMS][MAX_ID_NUM];
 
     float last_frame_time;
     float FPS;

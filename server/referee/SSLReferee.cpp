@@ -17,15 +17,15 @@ SSLReferee::SSLReferee(int port, string address) : SSLListener()
 
    // simple_socket.open(port, true, true);
 #if QT_VERSION >= 0x050000
-    simple_socket.bind(QHostAddress::AnyIPv4, port, QUdpSocket::ShareAddress);    
+    socket.bind(QHostAddress::AnyIPv4, port, QUdpSocket::ShareAddress);
 #else
-    simple_socket.bind(QHostAddress::Any, port, QUdpSocket::ShareAddress);
+    socket.bind(QHostAddress::Any, port, QUdpSocket::ShareAddress);
 #endif
+    socket.joinMulticastGroup(QHostAddress(QString(address.c_str())));
 //    Address multi_, interface_;
 //    multi_.setHost(address.c_str(), port);
 //    interface_.setAny();
 //    simple_socket.addMulticast(multi_, interface_);
-    simple_socket.joinMulticastGroup(QHostAddress(QString(address.c_str())));
     previous_command = SSL_Referee_Command_HALT;
     last_command = SSL_Referee_Command_HALT;
 }
@@ -40,9 +40,9 @@ void SSLReferee::check()
     //    while(qudp_socket.hasPendingDatagrams())
 
     Address sender_adress;
-    while(simple_socket.hasPendingDatagrams())
+    while(socket.hasPendingDatagrams())
     {
-        m_temp_packet.length = simple_socket.readDatagram(m_temp_packet.buffer, MAX_BUFFER_SIZE);//, sender_adress);
+        m_temp_packet.length = socket.readDatagram(m_temp_packet.buffer, MAX_BUFFER_SIZE);//, sender_adress);
         cout << "Referee-Packet received. Packet Lenght: [" << m_temp_packet.length << "]" << endl;
 
 //        m_temp_packet.length = qudp_socket.pendingDatagramSize();

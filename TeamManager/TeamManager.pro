@@ -13,10 +13,12 @@ LIBS += -lprotobuf
 release: DESTDIR = $$PWD/../../release_cyrus/team_manager
 release: MOC_DIR = $$PWD/../../release_cyrus/team_manager/mocs
 release: OBJECTS_DIR = $$PWD/../../release_cyrus/team_manager/objs
+release: UI_DIR = $$PWD/../../release_cyrus/team_manager/ui
 
 debug: DESTDIR = $$PWD/../../debug_cyrus/team_manager
 debug: MOC_DIR = $$PWD/../../debug_cyrus/team_manager/mocs
 debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/team_manager/objs
+debug: UI_DIR = $$PWD/../../debug_cyrus/team_manager/ui
 
 
 TARGET = TeamManager
@@ -42,7 +44,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     fieldgraphicsview.h \
     watchfieldgraphics.h \
-    general.h \
     udpsocket.h \
     cyrusserverpackethandler.h \
     ../shared/utility/vector3d.h \

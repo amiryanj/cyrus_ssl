@@ -27,8 +27,8 @@ LIBS += -lprotobuf -lboost_system -lboost_filesystem -lqcustomplot
 SOURCES += \
     mainwindow.cpp \
     ObjectTracker.cpp \
-    ../server/vision/VisionFilter.cpp \
-    ../server/vision/SSLVision.cpp \
+    ../server/vision/Visionfilter.cpp \
+    ../server/vision/sslvision.cpp \
     ../server/vision/robotfilter.cpp \
     ../server/vision/ballfilter.cpp \
     ../server/ai/SSLWorldModel.cpp \
@@ -55,12 +55,13 @@ SOURCES += \
     ../server/vision/kalmanfilter.cpp \
     ../visualizer/plot-manager/scatterplotwidget.cpp \
     ../visualizer/plot-manager/qcustomplot.cpp \
-    ../visualizer/plot-manager/plotmanagerwidget.cpp
+    ../visualizer/plot-manager/plotmanagerwidget.cpp \
+    ../server/vision/robotclusterfilter.cpp
 
 HEADERS  += \
     mainwindow.h \
-    ../server/vision/VisionFilter.h \
-    ../server/vision/SSLVision.h \
+    ../server/vision/visionfilter.h \
+    ../server/vision/sslvision.h \
     ../server/vision/robotfilter.h \
     ../server/vision/ballfilter.h \
     ../server/ai/SSLWorldModel.h \
@@ -91,7 +92,8 @@ HEADERS  += \
     ../server/vision/kalmanfilter.h \
     ../visualizer/plot-manager/scatterplotwidget.h \
     ../visualizer/plot-manager/qcustomplot.h \
-    ../visualizer/plot-manager/plotmanagerwidget.h
+    ../visualizer/plot-manager/plotmanagerwidget.h \
+    ../server/vision/robotclusterfilter.h
 
 FORMS    += mainwindow.ui \
     ../visualizer/plot-manager/plotwidget.ui \

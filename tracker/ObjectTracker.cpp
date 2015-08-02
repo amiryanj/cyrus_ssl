@@ -1,11 +1,10 @@
 #include <QtGui/QApplication>
 #include "mainwindow.h"
 
-#include "../server/vision/SSLVision.h"
 #include "../shared/general.h"
+#include "../server/vision/sslvision.h"
 #include "../server/paramater-manager/parametermanager.h"
 #include "algorithm"
-//#include ""
 
 int main(int argc, char *argv[])
 {

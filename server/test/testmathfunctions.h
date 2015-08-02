@@ -7,7 +7,7 @@
 #include "linesegment.h"
 #include "generalmath.h"
 #include "../soccer/sslgamepositions.h"
-#include "../log-tools/networkplotter.h"
+#include "../debug-tools/networkplotter.h"
 #include "../soccer/sslskill.h"
 #include <Box2D/Collision/b2Collision.h>
 #include <Box2D/Collision/b2Distance.h>

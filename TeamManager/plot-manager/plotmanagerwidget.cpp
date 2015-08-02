@@ -18,7 +18,7 @@ PlotManagerWidget::PlotManagerWidget(QWidget *parent) :
 //    mPort = ParameterManager::getInstance()->get<int>("network.plotter_port");
     mPort = 4002;
     address = "127.0.0.1";
-    this->joinMulticastNetwork();
+//    this->joinMulticastNetwork();
 
     // test
 //    Plotter_Packet test_packet;
@@ -40,7 +40,7 @@ PlotManagerWidget::~PlotManagerWidget()
 
 void PlotManagerWidget::newPlotMessage(const Plotter_Packet &packet)
 {
-    mtx.lock();
+//    mtx.lock();
     QString value_name = packet.name().c_str();
     const int values_size = packet.values_size();
     const int legends_size = packet.legends_size();
@@ -75,7 +75,7 @@ void PlotManagerWidget::newPlotMessage(const Plotter_Packet &packet)
             values.append( packet.values(i) );
         mPlotsMap[value_name]->addValue(key, values);
     }
-    mtx.unlock();
+//    mtx.unlock();
 }
 
 void PlotManagerWidget::joinMulticastNetwork()
@@ -132,7 +132,11 @@ void PlotManagerWidget::processPendingData()
     this->newPlotMessage(packet);
 }
 
-void PlotManagerWidget::plot(double value, const string &plot_name, const string &category)
+void PlotManagerWidget::plot(double value, const char * plot_name, const char * category)
 {
-
+    Plotter_Packet pp;
+    pp.add_values(value);
+    pp.add_legends(plot_name);
+    pp.set_name(category);
+    newPlotMessage(pp);
 }

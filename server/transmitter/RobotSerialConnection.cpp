@@ -8,7 +8,7 @@
 #include "RobotSerialConnection.h"
 #include <stdio.h>
 #include "../../shared/utility/generalmath.h"
-#include "../log-tools/networkplotter.h"
+#include "../debug-tools/networkplotter.h"
 
 RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)
 {    
@@ -55,19 +55,20 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
 //    		fabs(round(packet.m_kickPower * 255))
     byteArray[6] = ((packet.m_kickPower > 0)) * 85;
 
-//    printf( "(time=%.6f) Robot[%d] (m1=%d m2=%d m3=%d m4=%d) [Vx=%.4f, Vy=%.4f, Wz=%.4f] ",
-//            currentTimeMSec()/1000.0,
-//            robotID,
-//            byteArray[2], byteArray[3],
-//            byteArray[4], byteArray[5],
-//            packet.getVelocity().X(),
-//            packet.getVelocity().Y(),
-//            packet.getVelocity().Teta());
+    printf( "(time=%.6f) Robot[%d] (m1=%4d  m2=%4d  m3=%4d  m4=%4d) [Vx=%.4f, Vy=%.4f, Wz=%.4f] ",
+            currentTimeMSec()/1000.0,
+            robotID,
+            ((((byteArray[1] & 0x10)!=0)*2)-1)*byteArray[2],
+            ((((byteArray[1] & 0x20)!=0)*2)-1)*byteArray[3],
+            ((((byteArray[1] & 0x40)!=0)*2)-1)*byteArray[4],
+            ((((byteArray[1] & 0x80)!=0)*2)-1)*byteArray[5],
+            packet.getVelocity().X(),
+            packet.getVelocity().Y(),
+            packet.getVelocity().Teta());
 
 //    if(packet.m_kickPower > 0)
 //        printf("Kick Power: %.3f", packet.m_kickPower);
-//    cout << endl;
-
+    cout << endl;
     //transmit data to serial port
 #if QT_VERSION >= 0x050000
     serial->write(byteArray, packet_size);

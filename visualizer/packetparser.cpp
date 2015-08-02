@@ -30,6 +30,10 @@ void PacketParser::handleWorldPacket(ssl_world_packet p)
             robot_state.position = Vector3D(robot->position().x(), robot->position().y(), robot->position().teta());
             robot_state.velocity = Vector3D(robot->velocity().x(), robot->velocity().y(), robot->velocity().teta());
 
+            qDebug() << QString("Robot Yellow [%1] Position = [%2 , %3]").arg(i).
+                        arg(robot_state.position.X()).
+                        arg(robot_state.position.Y());
+
             emit newRobotState(robot_state);
         }
     }

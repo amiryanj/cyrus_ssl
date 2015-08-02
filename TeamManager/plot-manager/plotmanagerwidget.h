@@ -22,10 +22,12 @@ public:
     ~PlotManagerWidget();
     void newPlotMessage(const Plotter_Packet& packet);
 
+public slots:
+    void plot(double value, const char *plot_name, const char *category);
+    void joinMulticastNetwork();
+
 private slots:
     void processPendingData();
-    void plot(double value, const std::string &plot_name, const std::string &category);
-    void joinMulticastNetwork();
 
     void quitPlot(QString name);
     void setPlotMinimized(QString name, bool minimized);

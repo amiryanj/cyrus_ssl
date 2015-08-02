@@ -3,13 +3,15 @@
 #include <iostream>
 #include <paramater-manager/parametermanager.h>
 #include "../../shared/utility/generalmath.h"
+#include "../debug-tools/debugclient.h"
 
 PIDController::PIDController()
 {
     m_crop_control.set(.92, .97, .15 * M_PI);
 
     //  this->setParameters(0.0, 0.0, 0.0);
-    this->setParameters(0.4 /*Kp*/, 0.002 /*Ki*/, 0.0 /*Kd*/);
+    this->setParameters(0.5 /*Kp*/, 0.002 /*Ki*/, 0.0 /*Kd*/);
+    this->lastApplied.setZero();
 }
 
 void PIDController::setParameters(double kp, double ki, double kd)
@@ -29,6 +31,8 @@ void PIDController::setPoint(const Vector3D &desired, const Vector3D &actual)
     errorHistory.insert(errorHistory.begin(), last_error);
     if(errorHistory.size() > MAX_HISTORY_SIZE)
         errorHistory.pop_back();
+
+    Debugger::dbg()->print("PID Controller set point");
 }
 
 void PIDController::clearHistory()
@@ -47,8 +51,8 @@ Vector3D PIDController::getControl()
         control = lastDesired/max_speed; // normalize the variable [-1, 1]
         control += last_error * k_p;
 
-        double delta_time = (currentTimeMSec() - lastAppliedTime_ms)/1000.0;
-        double max_increase_limit = 0.8 * delta_time; // about .05 per
+        double delta_time = std::min((currentTimeMSec() - lastAppliedTime_ms)/1000.0, 0.1);
+        double max_increase_limit = 0.5 * delta_time; // about .05 per
 
         Vector3D control_diff = control - lastApplied;
         if(fabs(control.X()) > fabs(lastApplied.X())) {
@@ -65,7 +69,7 @@ Vector3D PIDController::getControl()
                 // control.y doesnt change
         }
 
-        double max_omega_increase_limit = 0.7 * delta_time; // about .05 per
+        double max_omega_increase_limit = 0.5 * delta_time; // about .05 per
         if(fabs(control.Teta()) > fabs(lastApplied.Teta()))
             if(fabs(control_diff.Teta()) > max_omega_increase_limit)
                 control.setTeta(lastApplied.Teta() + max_omega_increase_limit * sgn(control_diff.Teta()));

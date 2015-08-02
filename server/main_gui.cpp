@@ -2,7 +2,7 @@
 #include "ai/SSLAnalyzer.h"
 
 #include <time.h>
-
+#include "mainwindow.h"
 #include "vision/sslvision.h"
 #include "vision/robotclusterfilter.h"
 #include "vision/visionfilter.h"
@@ -14,26 +14,25 @@
 #include "test/testskills.h"
 #include "test/testreferee.h"
 #include "test/testmathfunctions.h"
-#include "log-tools/logger.h"
-#include "log-tools/networkplotter.h"
+#include "debug-tools/logger.h"
+#include "debug-tools/networkplotter.h"
+#include "debug-tools/debugclient.h"
+#include "debug-tools/builtindebug.h"
 #include "general.h"
+#include "transmitter/RobotCommandPacket.h"
 #include <QApplication>
 using namespace std;
 
-int main(int argc, char *argv[])
-{
-    QApplication app(argc,argv);
-    cout << "Main is running ... " << endl;
+MainWindow* mw = NULL;
+ParameterManager* pm;
 
-    srand(time(0));
-//    SSL::server_startup_time = currentTimeMSec();
-
-    ParameterManager* pm = ParameterManager::getInstance();
+void * run_server(void *)  {
+    cout << "Cyrus server is running ... " << endl;
 
     SSLReferee *referee = new SSLReferee(pm->get<int   >("network.REFEREE_PORT"),
                                          pm->get<string>("network.REFEREE_ADDRESS"));
 
-    SSLVision *vision = new SSLVision(pm->get<int   >("network.VISION_PORT"),
+    new SSLVision(pm->get<int   >("network.VISION_PORT"),
                                       pm->get<string>("network.VISION_ADDRESS"));
 
     VisionFilter *filter =  VisionFilter::getInstance();
@@ -69,9 +68,8 @@ int main(int argc, char *argv[])
             double process_time = toc - tic;
 //            NetworkPlotter::getInstance()->buildAndSendPacket("Process Time", process_time);
 //            printf("Process Time = \t%f milli second\n", process_time);
-
 //            transmitter->clear();
-//            skill_tester->testGotoPoint();
+            skill_tester->testGotoPoint();
 
             transmitter->check();
         }
@@ -80,7 +78,48 @@ int main(int argc, char *argv[])
             filter->check();
             gui->check();
         }
+        if(mw) {
+            if(!MainWindow::on) {
+                cout << "server turned off" << endl;
+                exit(1);
+            }
+        }
         usleep(1000);
     }
+}
+
+int main(int argc, char *argv[])
+{
+    QApplication app(argc,argv);
+    pm = ParameterManager::getInstance();
+
+    bool gui_enabled = false;
+    for(int i=0; i<argc; i++) {
+        char* option_i = argv[i];
+        if(strcmp(option_i, "--gui")) {
+            gui_enabled = true;
+        }
+        if(strcmp(option_i, "-g")) {
+            gui_enabled = true;
+        }
+    }
+
+    srand(time(0));
+
+    QtConcurrent::run(run_server, (void*)NULL);
+
+    gui_enabled = pm->get<bool>("general.GUI");
+    if(gui_enabled) {
+        mw = MainWindow::getInstance();
+        mw->show();
+    }
+
+    if(gui_enabled) {
+        Debugger::instance = new BuiltInDebug();
+    }
+
+    Debugger::dbg()->print("Hello");
+
+    return app.exec();
 
 }

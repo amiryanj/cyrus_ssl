@@ -1,10 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <QTimer>
+#include <QMainWindow>
 #include "../server/ai/SSLWorldModel.h"
-#include "../server/vision/VisionFilter.h"
+#include "../server/vision/visionfilter.h"
 #include "../server/vision/ballfilter.h"
 #include "../visualizer/plot-manager/plotmanagerwidget.h"
 

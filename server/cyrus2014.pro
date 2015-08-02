@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT      += core network
-greaterThan(QT_MAJOR_VERSION, 4.5): QT += widgets printsupport serialport concurrent
+greaterThan(QT_MAJOR_VERSION, 4.5): QT += serialport concurrent
 
 #QT       -= gui
 

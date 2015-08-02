@@ -5,7 +5,7 @@
 #include "../definition/SSLBall.h"
 #include "../paramater-manager/parametermanager.h"
 #include "../../shared/utility/generalmath.h"
-#include "../log-tools/networkplotter.h"
+#include "../debug-tools/networkplotter.h"
 
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics.hpp>
@@ -201,7 +201,7 @@ void BallFilter::executeClusterFilter()
         }
         if( max_index < 0 )
             break;
-        if((max_err) > 500*pow(2.0, i))   {
+        if((max_err) > 500*pow(2.0, (float)i))   {
             clusterData.erase( clusterData.begin() + max_index );
         }
         else {

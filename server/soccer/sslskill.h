@@ -39,6 +39,9 @@ public:
     void goToPoint(Vector2D target, const Vector2D &tolerance, MoveType move_type = eAutoMove);
     void goToPoint(Vector2D target, MoveType move_type = eAutoMove);
 
+    void goGlobalSpeed(Vector3D &inp, bool use_controller = true);
+    void goLocalSpeed(Vector3D &inp, bool use_controller = true);
+
     void goToSubGoal(const Vector3D &target, const Vector3D &tolerance, MoveType move_type);
 
     void goToPointWithPlanner( const Vector3D &target,
@@ -77,7 +80,7 @@ private:
     void fastMove(const Vector3D &current_pos, const Vector3D &target_pos, const Vector3D &tolerance);
 
 
-    void controlSpeed(const Vector3D &desired_speed, bool use_controller);
+    void controlSpeed(const Vector3D &desired_global_speed, bool use_controller, bool global_vel = true);
     void initializePlanner();
 
     SSLAgent* owner_agent;

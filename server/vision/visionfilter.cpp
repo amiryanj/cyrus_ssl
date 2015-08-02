@@ -1,6 +1,7 @@
 #include "visionfilter.h"
 #include "../definition/SSLBall.h"
 #include "../paramater-manager/parametermanager.h"
+#include "../debug-tools/debugclient.h"
 
 VisionFilter* VisionFilter::instance = NULL;
 
@@ -16,8 +17,8 @@ VisionFilter::VisionFilter()
     // initializing filter objects
     for(int i=0; i<NUM_TEAMS; ++i)
         for(int j=0; j<MAX_ID_NUM; ++j) {
-            robotFilter[i][j] = new RobotClusterFilter();
-            robotFilter2[i][j] = new RobotKalmanFilter();
+            robotFilter_cluster[i][j] = new RobotClusterFilter();
+            robotFilter_kalman[i][j] = new RobotKalmanFilter();
         }
 
     ballFilter = new BallFilter();
@@ -37,21 +38,21 @@ void VisionFilter::check()
     //    update World Model
     for( int tm = 0 ; tm < NUM_TEAMS; tm++ )   {
         for( int i = 0; i < MAX_ID_NUM; i++ )   {
-            robotFilter[tm][i]->run();
+            robotFilter_cluster[tm][i]->run();
             world->updateRobotState( (SSL::Color)tm, i ,
-                                     robotFilter[tm][i]->m_filteredPosition ,
-                                     robotFilter[tm][i]->m_filteredVelocity,
-                                     robotFilter[tm][i]->isOnField());
+                                     robotFilter_cluster[tm][i]->m_filteredPosition ,
+                                     robotFilter_cluster[tm][i]->m_filteredVelocity,
+                                     robotFilter_cluster[tm][i]->isOnField());
 
-            world->updateRobotState( (SSL::Color)tm, i ,
-                                     robotFilter2[tm][i]->m_filteredPosition ,
-                                     robotFilter2[tm][i]->m_filteredVelocity,
-                                     robotFilter2[tm][i]->isOnField());
+//            world->updateRobotState( (SSL::Color)tm, i ,
+//                                     robotFilter_kalman[tm][i]->m_filteredPosition ,
+//                                     robotFilter_kalman[tm][i]->m_filteredVelocity,
+//                                     robotFilter_kalman[tm][i]->isOnField());
 
         }
     }
-    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");   // position coefficient
-    robotFilter2[1][id]->run();
+    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");
+    robotFilter_kalman[1][id]->run();
 //    printf("robot[1][4] is on the field: ", 1, id);
 //    cout << robotFilter2[1][id]->isOnField() << endl;
 
@@ -59,6 +60,8 @@ void VisionFilter::check()
     world->updateBallState( 0, ballFilter->m_filteredPosition,
                                ballFilter->m_filteredVelocity,
                                ballFilter->m_acceleration );
+
+    Debugger::dbg()->plot(ballFilter->m_filteredPosition.X(), "Ball Vel X");
 
     mtx_.unlock();
 }
@@ -111,11 +114,10 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
                     SSL_DetectionRobot Robot = packet.detection().robots_blue(i);
                     frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
                     frame.confidence = Robot.confidence();
-                    robotFilter[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
+                    robotFilter_cluster[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
 
-                    if(i == ParameterManager::getInstance()->get<int>("skills.under_test_robot"))
-                        robotFilter2[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
-//                    cout << "Robot blue [" << i << "] detected" << endl;
+//                    if(i == ParameterManager::getInstance()->get<int>("skills.under_test_robot"))
+                        robotFilter_kalman[SSL::Blue][Robot.robot_id()]->putNewFrame(frame);
 
                 }
 
@@ -125,8 +127,9 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
                     SSL_DetectionRobot Robot = packet.detection().robots_yellow(i);
                     frame.position = Vector3D(Robot.x(), Robot.y(), Robot.orientation());
                     frame.confidence = Robot.confidence();
-                    robotFilter[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
-//                    robotFilter2[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
+                    robotFilter_cluster[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
+                    robotFilter_kalman[SSL::Yellow][Robot.robot_id()]->putNewFrame(frame);
+//                    cout << "Robot Yellow [" << i << "] detected" << endl;
                 }
 
             vector<OneObjectFrame> balls_vec;
@@ -170,24 +173,30 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
 
 Vector3D VisionFilter::getUnderTestRobotFilteredVelocity()
 {
-    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");   // position coefficient
-    return robotFilter2[1][id]->m_filteredVelocity;
+    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");
+    int color = ParameterManager::getInstance()->get<int>("general.game.our_color");
+    return robotFilter_cluster[color][id]->m_filteredVelocity;
+//    return robotFilter_kalman[color][id]->m_filteredVelocity;
 }
 
 Vector3D VisionFilter::getUnderTestRobotFilteredPosition()
 {
-    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");   // position coefficient
-    return robotFilter2[1][id]->m_filteredPosition;
+    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");
+    int color = ParameterManager::getInstance()->get<int>("general.game.our_color");
+    return robotFilter_cluster[color][id]->m_filteredPosition;
+//    return robotFilter_kalman[color][id]->m_filteredPosition;
 }
 
 Vector3D VisionFilter::getUnderTestRobotRawVelocity()
 {
-    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");   // position coefficient
-    return robotFilter2[1][id]->m_rawVelocity;
+    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");
+    int color = ParameterManager::getInstance()->get<int>("general.game.our_color");
+    return robotFilter_kalman[color][id]->m_rawVelocity;
 }
 
 Vector3D VisionFilter::getUnderTestRobotRawPosition()
 {
-    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");   // position coefficient
-    return robotFilter2[1][id]->m_rawPosition;
+    int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");
+    int color = ParameterManager::getInstance()->get<int>("general.game.our_color");
+    return robotFilter_kalman[color][id]->m_rawPosition;
 }

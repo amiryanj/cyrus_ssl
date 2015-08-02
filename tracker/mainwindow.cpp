@@ -77,26 +77,33 @@ void MainWindow::timerOVF()
     Vector3D filtered_vel = VisionFilter::getInstance()->getUnderTestRobotFilteredVelocity();
     Vector3D filtered_pos = VisionFilter::getInstance()->getUnderTestRobotFilteredPosition();
 
-    cout << "MainWindow: filtered_vel: " ;
-    filtered_vel.print(cout);
-
     Vector3D raw_vel = VisionFilter::getInstance()->getUnderTestRobotRawVelocity();
     Vector3D raw_pos = VisionFilter::getInstance()->getUnderTestRobotRawPosition();
 
-    cout << "MainWindow: raw_vel: " ;
-    raw_vel.print(cout);
-    cout << endl;
+    Plotter_Packet pp_vx;
+    pp_vx.set_name("Vel_x");
+    pp_vx.add_values(filtered_vel.X());
+    pp_vx.add_legends("filtered_x");
 
-    Plotter_Packet pp;
-    pp.set_name("Vel");
+    pp_vx.add_values(raw_vel.X());
+    pp_vx.add_legends("raw_x");
+    PMW->newPlotMessage(pp_vx);
 
-    pp.add_values(filtered_vel.Y());
-    pp.add_legends("filtered");
 
-    pp.add_values(raw_vel.Y());
-    pp.add_legends("raw");
-    PMW->newPlotMessage(pp);
+    Plotter_Packet pp_vy;
+    pp_vy.set_name("Vel_y");
+    pp_vy.add_values(filtered_vel.Y());
+    pp_vy.add_legends("filtered_y");
 
+    pp_vy.add_values(raw_vel.Y());
+    pp_vy.add_legends("raw_y");
+    PMW->newPlotMessage(pp_vy);
+
+    Plotter_Packet pp_teta;
+    pp_teta.set_name("Teta");
+    pp_teta.add_values(raw_pos.Teta());
+    pp_teta.add_legends("raw_teta");
+    PMW->newPlotMessage(pp_teta);
 
 }
 

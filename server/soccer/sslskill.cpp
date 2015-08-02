@@ -10,8 +10,8 @@
 #include "sslagent.h"
 #include "sslgamepositions.h"
 #include "../paramater-manager/parametermanager.h"
-#include "../log-tools/logger.h"
-#include "../log-tools/networkplotter.h"
+#include "../debug-tools/logger.h"
+#include "../debug-tools/networkplotter.h"
 
 Vector3D SSLSkill::defaultTolerance;
 Vector3D SSLSkill::accurateTolerance;
@@ -66,6 +66,7 @@ void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance, MoveType mo
     else {
         goToSubGoal(target, tolerance, move_type);
     }
+    NetworkPlotter::getInstance()->buildAndSendPacket("diff_to_target", diff.X());
 }
 
 void SSLSkill::goToPoint(Vector3D target, MoveType move_type)
@@ -82,6 +83,34 @@ void SSLSkill::goToPoint(Vector2D target, const Vector2D &tolerance, MoveType mo
 void SSLSkill::goToPoint(Vector2D target, MoveType move_type)
 {
     goToPoint(target, this->defaultTolerance.to2D(), move_type);
+}
+
+void SSLSkill::goGlobalSpeed(Vector3D &inp, bool use_controller)
+{
+    const float robot_linear_max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
+    float linear_vel_coeff = ParameterManager::getInstance()->get<double>("skills.linear_velocity_coeff");
+    linear_vel_coeff = bound(linear_vel_coeff, 0.1, 1);
+    float general_omega_coeff  = 0.7;
+    float omega = 0.0f;
+
+    Vector3D global_speed(inp.X() * linear_vel_coeff * robot_linear_max_speed,
+                          inp.Y() * linear_vel_coeff * robot_linear_max_speed,
+                          omega * general_omega_coeff);
+    controlSpeed(global_speed, use_controller, true);
+}
+
+void SSLSkill::goLocalSpeed(Vector3D &inp, bool use_controller)
+{
+    const float robot_linear_max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
+    float linear_vel_coeff = ParameterManager::getInstance()->get<double>("skills.linear_velocity_coeff");
+    linear_vel_coeff = bound(linear_vel_coeff, 0.1, 1);
+    float general_omega_coeff  = 0.7;
+    float omega = 0.0f;
+
+    Vector3D local_speed(inp.X() * linear_vel_coeff * robot_linear_max_speed,
+                          inp.Y() * linear_vel_coeff * robot_linear_max_speed,
+                          omega * general_omega_coeff);
+    controlSpeed(local_speed, use_controller , false);
 }
 
 void SSLSkill::goToSubGoal(const Vector3D &target, const Vector3D &tolerance, MoveType move_type)
@@ -335,7 +364,7 @@ void SSLSkill::fastMove(const Vector3D &current_pos,
     float omega = 0;
     float general_omega_coeff  = 0.7;
     if(diff.lenght2D() < 150) {
-        linear_vel_coeff = 1.5 * computeVelocityStrenghtbyDistance(diff.lenght2D(),
+        linear_vel_coeff = 1.2 * computeVelocityStrenghtbyDistance(diff.lenght2D(),
                                                         owner_agent->robot->physic.max_lin_vel_mmps);
         if ( fabs(diff.Teta()) > (2.0/3.0)*M_PI )  {
             omega = 0.32 * sgn(diff.Teta());
@@ -466,11 +495,11 @@ void SSLSkill::accurateMove(const Vector3D &current_pos, const Vector3D &target_
     const float robot_linear_max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
 
     diff.normalize2D();
-    Vector3D desired_gloabal_speed(diff.to2D().normalized().X() * linear_vel_strenght * robot_linear_max_speed,
+    Vector3D desired_global_speed(diff.to2D().normalized().X() * linear_vel_strenght * robot_linear_max_speed,
                                    diff.to2D().normalized().Y() * linear_vel_strenght * robot_linear_max_speed,
                                    0  );
 
-    controlSpeed(desired_gloabal_speed, true /*use controller*/);
+    controlSpeed(desired_global_speed, true /*use controller*/);
 }
 
 //void SSLSkill::rotateByDegree(float current_orien_deg, float rotation_deg, float omega)
@@ -492,44 +521,50 @@ void SSLSkill::rotate(float omega)
 }
 
 
-void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller)
+void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller, bool global_vel)
 {
-    Vector3D actual_speed = this->owner_agent->robot->Speed();
+    Vector3D actual_local_speed = this->owner_agent->robot->localSpeed();
+    Vector3D desired_local_speed = desired_speed;
     this->desiredGlobalSpeed = desired_speed;
+    if(global_vel) {
+        desired_local_speed.rotate(-1 * Position().Teta());
+    }
+    else {
+        desiredGlobalSpeed.rotate(Position().Teta());
+    }
 
+    Vector3D applied_local_speed;
     if(use_controller) {
-        controller.setPoint(desired_speed, actual_speed);
-        appliedGlobalSpeed = controller.getControl();
+        controller.setPoint(desired_local_speed, actual_local_speed);
+        applied_local_speed = controller.getControl();
     }
     else {
         float max_speed = owner_agent->robot->physic.max_lin_vel_mmps;
-        this->appliedGlobalSpeed = desiredGlobalSpeed ;
-        this->appliedGlobalSpeed.setX(this->appliedGlobalSpeed.X() / max_speed);
-        this->appliedGlobalSpeed.setY(this->appliedGlobalSpeed.Y() / max_speed);
+        applied_local_speed = desired_local_speed;
+        applied_local_speed.setX(applied_local_speed.X() / max_speed);
+        applied_local_speed.setY(applied_local_speed.Y() / max_speed);
     }
 
-    Vector3D appliedLocalSpeed = appliedGlobalSpeed ;
-    appliedLocalSpeed.rotate( -1 * Position().Teta());
-
-
     CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(),
-                                                          appliedLocalSpeed,
+                                                          applied_local_speed,
                                                           this->kickTheBall);
 
     if(owner_agent->getID() == ParameterManager::getInstance()->get<int>("skills.under_test_robot"))
     {
 //        NetworkPlotter::getInstance()->buildAndSendPacket("applied_strenght", desiredGlobalSpeed.Teta()*1000.0);
-        NetworkPlotter::getInstance()->buildAndSendPacket("Omega", desiredGlobalSpeed.Teta() * 100.0);
+//        NetworkPlotter::getInstance()->buildAndSendPacket("Omega", desiredGlobalSpeed.Teta() * 100.0);
 
         vector<double> speed_to_sent;
         vector<string> speed_labels;
-        speed_to_sent.push_back(desiredGlobalSpeed.lenght2D());
-        speed_labels.push_back("desire_len");
-        speed_to_sent.push_back(owner_agent->robot->Speed().lenght2D());
-        speed_labels.push_back("actual_len");
-        speed_to_sent.push_back(this->controller.lastApplied.lenght2D() * 1000.0);
-        speed_labels.push_back("applied_len");
-        NetworkPlotter::getInstance()->buildAndSendPacket("control_y", speed_to_sent, speed_labels);
+        speed_to_sent.push_back(desired_local_speed.X() + 0.1);
+        speed_labels.push_back("desire_");
+        speed_to_sent.push_back(actual_local_speed.X() + 0.1);
+        speed_labels.push_back("actual_");
+        speed_to_sent.push_back(applied_local_speed.X() * 3000 + 0.1);
+        speed_labels.push_back("applied_");
+        speed_to_sent.push_back(1000);
+        speed_labels.push_back("1000");
+        NetworkPlotter::getInstance()->buildAndSendPacket("control_x", speed_to_sent, speed_labels);
     }
 }
 

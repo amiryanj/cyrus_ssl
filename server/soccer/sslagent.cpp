@@ -37,7 +37,7 @@ int SSLAgent::getID() const
         return this->robot->id;
     }
     catch(const char* msg) {
-        cerr << "Exception: SSLAgent :" << msg << endl;
+//        cerr << "Exception: SSLAgent :" << msg << endl;
         return -1;
     }
 }
@@ -62,7 +62,7 @@ void SSLAgent::run()
     }
 
     catch(const char* msg) {
-        cerr << "Exception: SSLAgent :" << msg << endl;
+//        cerr << "Exception: SSLAgent :" << msg << endl;
     }
 
 }

@@ -1,5 +1,5 @@
 {
-    "vision_delay_ms": "200",
+    "vision_delay_ms": "100",
     "default_frame_per_second" : 60.0,
 
     "camera_0_filtered" : false,

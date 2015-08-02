@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "watchfieldgraphics.h"
+#include "plot-manager/plotmanagerwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,16 +21,20 @@ class MainWindow : public QMainWindow
 
     bool isMainToolBarPinned;
     
-public:
+    Ui::MainWindow *ui;
     explicit MainWindow(QWidget *parent = 0);
+    static MainWindow* instance;
+
+public:
+    static MainWindow* getInstance();
     ~MainWindow();
 
     void initGUI();
     void setupGUIConnections();
     
-private:
-    Ui::MainWindow *ui;
     WatchFieldGraphics *watchField;
+    PlotManagerWidget *PMW;
+    static bool on;
 
 private slots:
     void handleChoosingVisionSource();

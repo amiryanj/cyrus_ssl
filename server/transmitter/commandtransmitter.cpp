@@ -20,7 +20,8 @@ CommandTransmitter::CommandTransmitter()
         this->serial = new RobotSerialConnection(SERIAL_PORT, 38400);
         this->grsim = new GRSimSender(SSLGame::getInstance()->ourColor());
         grsim->openSocket();
-        this->type = GRSIM;  // default is grsim
+        this->type = SERIAL;  // default is grsim
+
     }
     catch (...) {
 

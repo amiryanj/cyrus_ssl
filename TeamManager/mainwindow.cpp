@@ -1,6 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+MainWindow* MainWindow::instance = NULL;
+bool MainWindow::on = false;
+
+MainWindow *MainWindow::getInstance()
+{
+    on = true;
+    if(instance == NULL)
+        instance = new MainWindow();
+    return instance;
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -36,6 +47,11 @@ void MainWindow::initGUI()
 
     watchField = new WatchFieldGraphics();
     ui->fieldContainerLayout->addWidget(watchField);
+
+    PMW = new PlotManagerWidget(this);
+    ui->plotterLayout->addWidget(PMW);
+//    ui->plotsContainerWg->layout()->addWidget(PMW);
+//    PMW->
 }
 
 void MainWindow::setupGUIConnections()
@@ -273,6 +289,8 @@ void MainWindow::handlePinMainToolBarBtn()
 
 void MainWindow::quitProgram()
 {
+    on = false;
     close();
+    exit(1);
 }
 
