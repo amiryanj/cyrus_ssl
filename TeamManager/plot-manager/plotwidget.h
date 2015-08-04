@@ -38,6 +38,7 @@ private:
     double mKey;
     QString plotName;
     bool connected;
+    bool freezed;
 
 private slots:
 //    void realtimeDataSlot();

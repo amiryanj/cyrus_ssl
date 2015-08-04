@@ -25,5 +25,5 @@
         "plotter_address":"127.0.0.1",
         "plotter_port":4002,
 
-        "plotter_enabled" : true
+        "plotter_enabled" : false
     }

@@ -36,18 +36,38 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
     byteArray[0] = '*';
 
     //robotID, motor spin and dribbler state
-    byteArray[1] = (unsigned char) ( (robotID + (
-            (packet.getWheelSpeed(1)> 0 ? 0:1) * 1 +
-            (packet.getWheelSpeed(2)> 0 ? 0:1) * 2 +
-            (packet.getWheelSpeed(3)> 0 ? 0:1) * 4 +
-            (packet.getWheelSpeed(4)> 0 ? 0:1) * 8) * 16)
-            & 0x000000FF);
+//    byteArray[1] = (unsigned char) ( (robotID + (
+//            (packet.getWheelSpeed(1)> 0 ? 0:1) * 1 +
+//            (packet.getWheelSpeed(2)> 0 ? 0:1) * 2 +
+//            (packet.getWheelSpeed(3)> 0 ? 0:1) * 4 +
+//            (packet.getWheelSpeed(4)> 0 ? 0:1) * 8) * 16)
+//            & 0x000000FF);
+
 
     //velocity bytes
-    for (int i = 1; i <= 4; i++)
-    {
-        byteArray[i + 1] = (unsigned char)( (int)(fabs(round(packet.getWheelSpeed(i)*255))) & 0x000000FF );
-    }
+//    for (int i = 1; i <= 4; i++)
+//    {
+//        byteArray[i + 1] = (unsigned char)( (int)(fabs(round(packet.getWheelSpeed(i)*255))) & 0x000000FF );
+//    }
+
+
+    Vector2D new_vel(packet.getVelocity().to2D());
+    new_vel.rotate(M_PI_2);
+
+    //robotID, motor spin and dribbler state
+    byteArray[1] = (unsigned char) ( (robotID +
+                   (
+                    (new_vel.X()> 0 ? 0:1) * 1
+                   +(new_vel.Y()< 0 ? 0:1) * 2
+                   +(packet.m_desiredTheta< 0 ? 0:1) * 4
+        //           +(packet.getWheelSpeed(4)> 0 ? 0:1) * 8
+                    ) * 16) & 0x000000FF);
+
+    byteArray[2] = (uchar)bound(abs(new_vel.X() * 255.0), 0, 255);
+    byteArray[3] = (uchar)bound(abs(new_vel.Y() * 255.0), 0, 255);
+    byteArray[4] = (uchar)bound(abs(packet.m_desiredTheta), 0, 180);
+//    byteArray[5] = 0;
+
 
     //kick power byte
     // old version
@@ -55,7 +75,18 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
 //    		fabs(round(packet.m_kickPower * 255))
     byteArray[6] = ((packet.m_kickPower > 0)) * 85;
 
-    printf( "(time=%.6f) Robot[%d] (m1=%4d  m2=%4d  m3=%4d  m4=%4d) [Vx=%.4f, Vy=%.4f, Wz=%.4f] ",
+//    printf( "(time=%.6f) Robot[%d] (m1=%4d  m2=%4d  m3=%4d  m4=%4d) [Vx=%.4f, Vy=%.4f, Wz=%.4f] ",
+//            currentTimeMSec()/1000.0,
+//            robotID,
+//            ((((byteArray[1] & 0x10)!=0)*2)-1)*byteArray[2],
+//            ((((byteArray[1] & 0x20)!=0)*2)-1)*byteArray[3],
+//            ((((byteArray[1] & 0x40)!=0)*2)-1)*byteArray[4],
+//            ((((byteArray[1] & 0x80)!=0)*2)-1)*byteArray[5],
+//            packet.getVelocity().X(),
+//            packet.getVelocity().Y(),
+//            packet.getVelocity().Teta());
+
+    printf( "(time=%.6f) Robot[%d] (Vx=%4d  Vy=%4d  Teta=%4d  P4=%4d) [Vx=%.4f, Vy=%.4f, Wz=%.4f] ",
             currentTimeMSec()/1000.0,
             robotID,
             ((((byteArray[1] & 0x10)!=0)*2)-1)*byteArray[2],

@@ -2,8 +2,10 @@
 #define BUILTINDEBUG_H
 
 #include "debugclient.h"
-#include "plot-manager/plotmanagerwidget.h"
+#include <vector>
+#include <QVector>
 #include <QObject>
+#include <QString>
 
 class BuiltInDebug : public QObject , public Debugger
 {
@@ -16,7 +18,11 @@ public:
     void print(const char *msg, std::string category = "general");
 
     void plot(double value, const char* name = "", const char* category = "general");
+    void plot(std::vector<double> values, std::vector<const char*> names, const char* category = "general");
+    void plot(Plotter_Packet packet);
     void plot(double value, double key, std::string name = "", std::string category = "general");
+
+    void updateWorldModel(RobotState &rs);
 
     void drawCircle();
     void drawLine();
@@ -24,10 +30,14 @@ public:
 
 
 signals:
-    void plotSignal(double value, const char* name, const char* category);
+    void plotSignal(double value, QString name, QString category);
+    void plotPacketSignal(Plotter_Packet p);
+    void updateRobotStateSignal(RobotState rs);
+//    void plotSignal(QVector<double> values, QStringList names, QString category);
 
 
 protected:
+    Plotter_Packet under_use_plotter_packet;
 
 
 };

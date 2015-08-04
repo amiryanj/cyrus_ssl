@@ -10,7 +10,10 @@ public:
     RobotCommandPacket();
     RobotCommandPacket(double v[], double m_kickPower = 0, bool m_isForceKick = false, bool m_isDribbler=false);
     RobotCommandPacket(Vector3D velocity, bool use_new_wheel_angles = true,
-                       double m_kickPower = 0, bool m_isForceKick = false, bool m_isDribbler = false);
+                       double kickPower = 0, bool isForceKick = false, bool isDribbler = false);
+
+    RobotCommandPacket(Vector2D vel, float desired_teta,
+                       double kickPower = true, bool isForceKick = 0, bool isDribbler = false );
     void reset();
     void setVelocity(const Vector3D &vel, bool use_new_wheel_angles = true);
     void setWheelVelocity(double v1, double v2, double v3, double v4);
@@ -19,7 +22,10 @@ public:
     bool m_isForceKick;
     bool m_isDribbler;
 
+    float m_desiredTheta; // new robots version
+
     bool byWheelSpeed;
+    bool byDesireTheta;
     Vector3D getVelocity() const;
     double getWheelSpeed(int i);
     double getWheelAngle(int i);

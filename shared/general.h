@@ -12,7 +12,7 @@
 #define SERIAL_PORT "/dev/ttyUSB0"
 #define SERIAL_BAUD 115200
 
-#define LARGE_SIZE_FIELD
+//#define LARGE_SIZE_FIELD
 
 #if defined(LARGE_SIZE_FIELD)
 

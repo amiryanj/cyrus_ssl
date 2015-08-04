@@ -14,13 +14,15 @@ LIBS += -lprotobuf -lboost_system -lboost_filesystem -lBox2D -lqcustomplot
 
 DEFINES += _USE_BOX2D_
 
-release: DESTDIR = $$PWD/../../release_cyrus/server_ui
-release: MOC_DIR = $$PWD/../../release_cyrus/server_ui/mocs
-release: OBJECTS_DIR = $$PWD/../../release_cyrus/server_ui/objs
+release: DESTDIR = $$PWD/../../release_cyrus/server_gui
+release: MOC_DIR = $$PWD/../../release_cyrus/server_gui/mocs
+release: OBJECTS_DIR = $$PWD/../../release_cyrus/server_gui/objs
+release: UI_DIR = $$PWD/../../release_cyrus/server_gui/ui
 
-debug: DESTDIR = $$PWD/../../debug_cyrus/server_ui
-debug: MOC_DIR = $$PWD/../../debug_cyrus/server_ui/mocs
-debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/server_ui/objs
+debug: DESTDIR = $$PWD/../../debug_cyrus/server_gui
+debug: MOC_DIR = $$PWD/../../debug_cyrus/server_gui/mocs
+debug: OBJECTS_DIR = $$PWD/../../debug_cyrus/server_gui/objs
+debug: UI_DIR = $$PWD/../../debug_cyrus/server_gui/ui
 
 TARGET = cyrus2015
 #CONFIG   += console
@@ -170,7 +172,16 @@ SOURCES += \
     ../TeamManager/plot-manager/scatterplotwidget.cpp \
     ../TeamManager/plot-manager/qcustomplot.cpp \
     ../TeamManager/plot-manager/plotwidget.cpp \
-    ../TeamManager/plot-manager/plotmanagerwidget.cpp
+    ../TeamManager/plot-manager/plotmanagerwidget.cpp \
+    ../TeamManager/graphics/graphic_vec.cpp \
+    ../TeamManager/graphics/graphic_plan.cpp \
+    ../TeamManager/graphics/graphic_num.cpp \
+    ../TeamManager/graphics/graphic_intersect.cpp \
+    ../TeamManager/graphics/graphic_circle.cpp \
+    ../TeamManager/graphics/graphic_bot.cpp \
+    ../TeamManager/graphics/graphic_ball.cpp \
+    ../TeamManager/graphics/graphic_arc.cpp \
+    ../TeamManager/robotstate.cpp
 
 HEADERS += \
     transmitter/RobotSerialConnection.h \
@@ -310,7 +321,16 @@ HEADERS += \
     ../TeamManager/plot-manager/scatterplotwidget.h \
     ../TeamManager/plot-manager/qcustomplot.h \
     ../TeamManager/plot-manager/plotwidget.h \
-    ../TeamManager/plot-manager/plotmanagerwidget.h
+    ../TeamManager/plot-manager/plotmanagerwidget.h \
+    ../TeamManager/graphics/graphic_vec.h \
+    ../TeamManager/graphics/graphic_plan.h \
+    ../TeamManager/graphics/graphic_num.h \
+    ../TeamManager/graphics/graphic_intersect.h \
+    ../TeamManager/graphics/graphic_circle.h \
+    ../TeamManager/graphics/graphic_bot.h \
+    ../TeamManager/graphics/graphic_ball.h \
+    ../TeamManager/graphics/graphic_arc.h \
+    ../TeamManager/robotstate.h
 
 OTHER_FILES += \            
     ../shared/proto/referee/proto/*.proto \

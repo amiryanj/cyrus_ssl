@@ -11,12 +11,12 @@
 
     "test_vel": 0.4 ,
 
-    "linear_velocity_coeff" : 0.4,
+    "linear_velocity_coeff" : 0.7,
     
     "large_radius_control" : 600,
     "small_radius_control" : 250,
 
-    "under_test_robot": 2
+    "under_test_robot": 0
 }
 
 

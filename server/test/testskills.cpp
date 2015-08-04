@@ -10,8 +10,8 @@
 
 TestSkills::TestSkills()
 {
-    target[0]= Vector3D(-600 ,1200, M_PI);
-    target[1]= Vector3D(3000,-1800, M_PI/2);
+    target[0]= Vector3D(-700, +1200, M_PI);
+    target[1]= Vector3D(-700, -1200, M_PI/2);
     //target[2]= Vector3D(-2000,+1500,0);
  //   target[3]= Vector3D(-500,+1500,-M_PI/2);
     targetIndex=0;
@@ -32,9 +32,9 @@ void TestSkills::testGotoPoint()
 
         agent->skill->goToPoint(target[targetIndex]);
         //  agent->skill->consiceMove(agent->robot->Position(), target[i], SSLSkill::defaultTolerance);
-//        Vector3D diff = agent->robot->Position() - target[targetIndex];
+        Vector3D diff = agent->robot->Position() - target[targetIndex];
 
-//        if(diff.lenght2D() < 50)
+//        if(diff.lenght2D() < 300)
         {
 //            targetIndex = (targetIndex+1)%2;
         }

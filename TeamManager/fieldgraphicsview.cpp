@@ -19,7 +19,7 @@ void FieldGraphicsView::wheelEvent(QWheelEvent *event)
 
 //    qDebug()<<numDegrees;
     QTransform t;
-    t.scale(numDegrees/1000.0, numDegrees/1000.0);
+    t.scale(numDegrees/100.0, numDegrees/100.0);
     this->setTransform(t);
 //    this->scale(numDegrees/10.0, numDegrees/10.0);
     emit mousewheel(numDegrees);

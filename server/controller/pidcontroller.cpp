@@ -32,7 +32,8 @@ void PIDController::setPoint(const Vector3D &desired, const Vector3D &actual)
     if(errorHistory.size() > MAX_HISTORY_SIZE)
         errorHistory.pop_back();
 
-    Debugger::dbg()->print("PID Controller set point");
+    //test
+//    Debugger::dbg()->print("PID Controller set point");
 }
 
 void PIDController::clearHistory()
@@ -52,7 +53,7 @@ Vector3D PIDController::getControl()
         control += last_error * k_p;
 
         double delta_time = std::min((currentTimeMSec() - lastAppliedTime_ms)/1000.0, 0.1);
-        double max_increase_limit = 0.5 * delta_time; // about .05 per
+        double max_increase_limit = 0.8 * delta_time; // about .05 per
 
         Vector3D control_diff = control - lastApplied;
         if(fabs(control.X()) > fabs(lastApplied.X())) {
@@ -69,7 +70,7 @@ Vector3D PIDController::getControl()
                 // control.y doesnt change
         }
 
-        double max_omega_increase_limit = 0.5 * delta_time; // about .05 per
+        double max_omega_increase_limit = 0.8 * delta_time; // about .05 per
         if(fabs(control.Teta()) > fabs(lastApplied.Teta()))
             if(fabs(control_diff.Teta()) > max_omega_increase_limit)
                 control.setTeta(lastApplied.Teta() + max_omega_increase_limit * sgn(control_diff.Teta()));

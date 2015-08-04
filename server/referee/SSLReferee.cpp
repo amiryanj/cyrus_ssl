@@ -43,7 +43,7 @@ void SSLReferee::check()
     while(socket.hasPendingDatagrams())
     {
         m_temp_packet.length = socket.readDatagram(m_temp_packet.buffer, MAX_BUFFER_SIZE);//, sender_adress);
-        cout << "Referee-Packet received. Packet Lenght: [" << m_temp_packet.length << "]" << endl;
+//        cout << "Referee-Packet received. Packet Lenght: [" << m_temp_packet.length << "]" << endl;
 
 //        m_temp_packet.length = qudp_socket.pendingDatagramSize();
 //        qudp_socket.readDatagram(m_temp_packet.buffer, m_temp_packet.length);
@@ -141,8 +141,8 @@ void SSLReferee::check()
             updateState();
         }
 
-        cout << "Referee-Packet received. Lenght: [" << this->m_temp_packet.length << "]"
-             << " command: "<< new_command << endl;
+//        cout << "Referee-Packet received. Lenght: [" << this->m_temp_packet.length << "]"
+//             << " command: "<< new_command << endl;
 
     }
 }

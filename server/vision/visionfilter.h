@@ -26,7 +26,7 @@ class VisionFilter : public SSLListener
 public:
     static VisionFilter* getInstance();
     void check();
-    void update(const SSL_WrapperPacket &packet);
+    void update(const SSL_WrapperPacket &p);
 
 
     //temp test function
@@ -47,7 +47,7 @@ private:
     float last_frame_time;
     float FPS;
 
-    QMutex mtx_;
+    static QMutex mtx_;
 
 };
 

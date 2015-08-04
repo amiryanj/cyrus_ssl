@@ -3,6 +3,8 @@
 #include "../paramater-manager/parametermanager.h"
 #include "../debug-tools/debugclient.h"
 
+QMutex VisionFilter::mtx_;
+
 VisionFilter* VisionFilter::instance = NULL;
 
 VisionFilter *VisionFilter::getInstance()
@@ -49,6 +51,17 @@ void VisionFilter::check()
 //                                     robotFilter_kalman[tm][i]->m_filteredVelocity,
 //                                     robotFilter_kalman[tm][i]->isOnField());
 
+            RobotState rs;
+            rs.ID = i;
+            rs.color = (SSL::Color)tm;
+            if(robotFilter_cluster[tm][i]->isOnField()) {
+                rs.position = robotFilter_cluster[tm][i]->m_filteredPosition;
+                rs.velocity = robotFilter_cluster[tm][i]->m_filteredVelocity;
+            } else {
+                rs.position.set(0, FIELD_WIDTH_2 * 1.2, 0);  // out of field
+                rs.position.set(0, 0, 0);  // out of field
+            }
+            Debugger::dbg()->updateWorldModel(rs);
         }
     }
     int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");
@@ -61,13 +74,15 @@ void VisionFilter::check()
                                ballFilter->m_filteredVelocity,
                                ballFilter->m_acceleration );
 
-    Debugger::dbg()->plot(ballFilter->m_filteredPosition.X(), "Ball Vel X");
+
+//    Debugger::dbg()->plot(ballFilter->m_filteredPosition.X(), "Ball Vel X");
 
     mtx_.unlock();
 }
 
 void VisionFilter::update(const SSL_WrapperPacket &packet)
 {
+//    QMutexLocker locker(&mtx_);
     mtx_.lock();
     try {
         if(packet.has_detection())
@@ -167,8 +182,8 @@ void VisionFilter::update(const SSL_WrapperPacket &packet)
     }
     catch (const char* msg) {
 //        cout << msg << endl;
+            mtx_.unlock();
     }
-    mtx_.unlock();
 }
 
 Vector3D VisionFilter::getUnderTestRobotFilteredVelocity()

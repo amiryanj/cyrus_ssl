@@ -61,6 +61,9 @@ bool RoboCupSSLClient::open(bool blocking) {
   {
       fprintf(stderr,"NEW Unable to setup UDP multicast\n");
   }
+  else {
+      fprintf(stderr,"SSLVision joined ... \n");
+  }
  // multiaddr.setHost(_net_address.c_str(),_port);
  /* if(_net_interface.length() > 0){
     interface.setHost(_net_interface.c_str(),_port);
@@ -84,8 +87,8 @@ bool RoboCupSSLClient::receive(SSL_WrapperPacket & packet) {
   if (socket.hasPendingDatagrams()) {
       QHostAddress adr(QString(_net_address.c_str()));
       quint16 mport=_port;
-     r=socket.readDatagram(in_buffer,MaxDataGramSize);
-    fflush(stdout);
+     r=socket.readDatagram(in_buffer, MaxDataGramSize);
+//    fflush(stdout);
 //    printf("n packet size = %d\n", r);
     //decode packet:
     return packet.ParseFromArray(in_buffer,r);

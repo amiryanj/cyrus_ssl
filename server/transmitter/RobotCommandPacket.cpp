@@ -20,6 +20,7 @@ RobotCommandPacket::RobotCommandPacket(double v[], double kickPower, bool isForc
     this->m_kickPower = kickPower;
     this->m_isForceKick = isForceKick;
     this->m_isDribbler = isDribbler;
+    this->byDesireTheta = false;
 }
 
 RobotCommandPacket::RobotCommandPacket(Vector3D velocity, bool use_new_wheel_angles,
@@ -32,11 +33,24 @@ RobotCommandPacket::RobotCommandPacket(Vector3D velocity, bool use_new_wheel_ang
     this->m_kickPower = kickPower;
     this->m_isForceKick = isForceKick;
     this->m_isDribbler = isDribbler;
+    this->byDesireTheta = false;
 
     this->setVelocity(velocity, use_new_wheel_angles);
 }
 
-void RobotCommandPacket::reset(){
+RobotCommandPacket::RobotCommandPacket(Vector2D vel, float desired_teta,
+                                       double kickPower, bool isForceKick, bool isDribbler)
+{
+    byDesireTheta = true;
+
+    this->m_velocity.set(vel.X(), vel.Y(), 0);
+    this->m_desiredTheta = desired_teta;
+    this->m_kickPower = kickPower;
+    this->m_isForceKick = isForceKick;
+    this->m_isDribbler = isDribbler;
+}
+
+void RobotCommandPacket::reset() {
     this->v[0] = 0;
     this->v[1] = 0;
     this->v[2] = 0;

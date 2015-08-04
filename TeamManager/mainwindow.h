@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSettings>
 #include "watchfieldgraphics.h"
 #include "plot-manager/plotmanagerwidget.h"
 
@@ -19,11 +20,12 @@ class MainWindow : public QMainWindow
     enum VisionSource {e_SourceSSLVision, e_SourceGRSim, e_SourceCyrus
                         , e_SourceLogFile}  chosenVisionSource;
 
-    bool isMainToolBarPinned;
-    
-    Ui::MainWindow *ui;
     explicit MainWindow(QWidget *parent = 0);
     static MainWindow* instance;
+
+    Ui::MainWindow *ui;
+    QSettings *ui_settings;
+    bool isMainToolBarPinned;
 
 public:
     static MainWindow* getInstance();

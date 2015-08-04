@@ -10,10 +10,12 @@ PlotManagerWidget::PlotManagerWidget(QWidget *parent) :
     mUi(new Ui::PlotManagerWidget)
 {
     mUi->setupUi(this);
+    qRegisterMetaType<Plotter_Packet>("Plotter_Packet");
 
     char opt=1;
     setsockopt(mSocket.socketDescriptor(), SOL_RAW, SO_REUSEADDR, &opt, sizeof(int));
     connect(&mSocket, SIGNAL(readyRead()), this, SLOT(processPendingData()));
+
 
 //    mPort = ParameterManager::getInstance()->get<int>("network.plotter_port");
     mPort = 4002;
@@ -38,7 +40,7 @@ PlotManagerWidget::~PlotManagerWidget()
     delete mUi;
 }
 
-void PlotManagerWidget::newPlotMessage(const Plotter_Packet &packet)
+void PlotManagerWidget::newPlotMessage(Plotter_Packet packet)
 {
 //    mtx.lock();
     QString value_name = packet.name().c_str();
@@ -132,11 +134,11 @@ void PlotManagerWidget::processPendingData()
     this->newPlotMessage(packet);
 }
 
-void PlotManagerWidget::plot(double value, const char * plot_name, const char * category)
+void PlotManagerWidget::plot(double value, QString plot_name, QString category)
 {
     Plotter_Packet pp;
     pp.add_values(value);
-    pp.add_legends(plot_name);
-    pp.set_name(category);
+    pp.add_legends(plot_name.toStdString().c_str());
+    pp.set_name(category.toStdString().c_str());
     newPlotMessage(pp);
 }

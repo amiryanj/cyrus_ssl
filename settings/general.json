@@ -15,6 +15,6 @@
     "goalkeeper_id"   : 0,
     "activeplayer_id" : 4,
 
-    "gui" : false
+    "gui" : true
 
 }

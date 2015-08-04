@@ -68,7 +68,7 @@ MainWindow::MainWindow(Color our_color, Side our_side, QWidget *parent) :
     ui->actionShow_Targets->setChecked(true);
     ui->actionConnect_Server->setChecked(true);
 
-    ui_settings = new QSettings("../../cyrus2014/settings/ui_settings.ini", QSettings::IniFormat, this);
+    ui_settings = new QSettings("../../cyrus2014/settings/visualizer_ui_settings.ini", QSettings::IniFormat, this);
     ui->splitter_1->restoreState(ui_settings->value("splitter_1").toByteArray());
     ui->splitter_2->restoreState(ui_settings->value("splitter_2").toByteArray());
     ui->splitter_3->restoreState(ui_settings->value("splitter_3").toByteArray());

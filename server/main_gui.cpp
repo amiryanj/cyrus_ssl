@@ -91,18 +91,44 @@ void * run_server(void *)  {
 int main(int argc, char *argv[])
 {
     QApplication app(argc,argv);
+    app.setApplicationName("Cyrus SSL");
+    app.setOrganizationName("Shahid Beheshti Computer Engineering Department");
+    app.setOrganizationDomain("http://robocup.sbu.ac.ir");
+
     pm = ParameterManager::getInstance();
 
-    bool gui_enabled = false;
+    bool gui_enabled = true;
+    bool server_enabled = false;
     for(int i=0; i<argc; i++) {
         char* option_i = argv[i];
-        if(strcmp(option_i, "--gui")) {
+        if(!strcmp(option_i, "--help")) {
+            //print help notes
+            exit(1);
+        }
+
+        if(!strcmp(option_i, "--about")) {
+            cout << "Application: " << app.applicationName().toStdString().c_str() << endl;
+            cout << "Oganization: " << app.organizationName().toStdString().c_str() << endl;
+            cout << "Web: " << app.organizationDomain().toStdString().c_str() << endl;
+            exit(1);
+        }
+
+        if(!strcmp(option_i, "--gui")) {
             gui_enabled = true;
         }
-        if(strcmp(option_i, "-g")) {
+        if(!strcmp(option_i, "-g")) {
             gui_enabled = true;
+        }
+
+
+        if(!strcmp(option_i, "--wserver")) {
+            server_enabled = false;
+        }
+        if(!strcmp(option_i, "-ws")) {
+            server_enabled = false;
         }
     }
+
 
     srand(time(0));
 
@@ -116,9 +142,9 @@ int main(int argc, char *argv[])
 
     if(gui_enabled) {
         Debugger::instance = new BuiltInDebug();
+        Debugger::dbg()->print("Debugger is running ... ");
     }
 
-    Debugger::dbg()->print("Hello");
 
     return app.exec();
 

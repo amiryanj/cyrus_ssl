@@ -8,7 +8,7 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
     ui->setupUi(this);
 
     // Add Drag, Zoom and ... capabilities
-    ui->myPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    ui->myPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectItems);
 
     // make bottom and left axes transfer their ranges to top and right axes:
     connect(ui->myPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->myPlot->xAxis2, SLOT(setRange(QCPRange)));
@@ -42,6 +42,7 @@ PlotWidget::PlotWidget(int numGraphs, QWidget *parent) :
         ui->myPlot->graph(2*i+1)->setScatterStyle(QCPScatterStyle::ssDisc);
     }
     connected = true;
+    freezed = false;
 }
 
 void PlotWidget::setName(QString name)
@@ -71,13 +72,19 @@ void PlotWidget::addValue(double key, QVector<double> val)
           ui->myPlot->graph(2*i)->removeDataBefore(key-120);  // delete memory after 2 minutes
           ui->myPlot->graph(2*i+1)->clearData();
           ui->myPlot->graph(2*i+1)->addData(key, val[i]);
-          if(val[i] > ui->myPlot->yAxis->range().upper)
-              ui->myPlot->yAxis->setRangeUpper(val[i]);
-          if(val[i] < ui->myPlot->yAxis->range().lower)
-              ui->myPlot->yAxis->setRangeLower(val[i]);
+
+//          double upper_bound = qMax(val[i] , ui->myPlot->yAxis->range().upper) * 2.0;
+//          double lower_bound = qMin(val[i] , ui->myPlot->yAxis->range().lower) * 2.0;
+
+//          ui->myPlot->yAxis->setRangeUpper(upper_bound);
+//          ui->myPlot->yAxis->setRangeLower(lower_bound);
+
+//          ui->myPlot->yAxis->setRangeUpper(-3000);
+//          ui->myPlot->yAxis->setRangeLower(3000);
     }
     // make key axis range scroll with the data (at a constant range size of 8):
-    ui->myPlot->xAxis->setRange(key+4, 20, Qt::AlignRight);
+    if(!freezed)
+        ui->myPlot->xAxis->setRange(key+4, 20, Qt::AlignRight);
     ui->myPlot->replot();
 
     // calculate frames per second:
@@ -230,5 +237,6 @@ void PlotWidget::on_minimizeButton_clicked(bool checked)
 
 void PlotWidget::on_pauseButton_clicked(bool checked)
 {
-    this->connected = !checked;
+    freezed = !checked;
+//    this->connected = !checked;
 }

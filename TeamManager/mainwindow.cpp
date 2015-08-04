@@ -19,6 +19,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setupGUIConnections();
     initGUI();
+    ui_settings = new QSettings("../../cyrus2014/settings/team_manager_ui_settings.ini", QSettings::IniFormat, this);
+    ui_settings->sync();
+    //  Info: "Cyrus Robotics", "Cyrus Team Manager", this
+
+    ui->splitter_1->restoreState(ui_settings->value("splitter_1").toByteArray());
+    ui->splitter_2->restoreState(ui_settings->value("splitter_2").toByteArray());
+//    ui->splitter_3->restoreState(ui_settings->value("splitter_3").toByteArray());
+
+    resize( ui_settings->value("mainwindow_size").toSize() );
+    restoreState( ui_settings->value("mainwindow_state").toByteArray() );
+    isMainToolBarPinned = ui_settings->value("main_toolbar_pinned").toBool();
+
+    // trick
+    isMainToolBarPinned = !isMainToolBarPinned;
+    handlePinMainToolBarBtn();
+
 }
 
 MainWindow::~MainWindow()
@@ -43,7 +59,6 @@ void MainWindow::initGUI()
     this->showNormal();
     this->showMaximized();
 
-    isMainToolBarPinned =  true;
 
     watchField = new WatchFieldGraphics();
     ui->fieldContainerLayout->addWidget(watchField);
@@ -289,6 +304,15 @@ void MainWindow::handlePinMainToolBarBtn()
 
 void MainWindow::quitProgram()
 {
+    ui_settings->setValue("mainwindow_size", this->size());
+    ui_settings->setValue("mainwindow_state", this->saveState());
+    ui_settings->setValue("main_toolbar_pinned", isMainToolBarPinned);
+
+    ui_settings->setValue("splitter_1", ui->splitter_1->saveState());
+    ui_settings->setValue("splitter_2", ui->splitter_2->saveState());
+    ui_settings->sync();
+//    ui_settings->setValue("splitter_3", ui->splitter_3->saveState());
+
     on = false;
     close();
     exit(1);

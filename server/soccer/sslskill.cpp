@@ -12,6 +12,7 @@
 #include "../paramater-manager/parametermanager.h"
 #include "../debug-tools/logger.h"
 #include "../debug-tools/networkplotter.h"
+#include "../debug-tools/builtindebug.h"
 
 Vector3D SSLSkill::defaultTolerance;
 Vector3D SSLSkill::accurateTolerance;
@@ -410,7 +411,7 @@ void SSLSkill::slowMove(const Vector3D &current_pos, const Vector3D &target_pos,
     if(speed_coeff > 0)
         linear_vel_strenght = speed_coeff;
     else {
-        linear_vel_strenght = 1.4 * computeVelocityStrenghtbyDistance(diff.lenght2D(),
+        linear_vel_strenght = 1 * computeVelocityStrenghtbyDistance(diff.lenght2D(),
                                                         owner_agent->robot->physic.max_lin_vel_mmps);
     }
 
@@ -551,20 +552,33 @@ void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller, 
 
     if(owner_agent->getID() == ParameterManager::getInstance()->get<int>("skills.under_test_robot"))
     {
+        Plotter_Packet p;
+        p.set_name("SSL Skill");
+        p.add_values(actual_local_speed.X());
+        p.add_legends("actual_speed_x");
+
+        p.add_values(desired_local_speed.X());
+        p.add_legends("desired_speed_x");
+
+        p.add_values(applied_local_speed.X() * 3000);
+        p.add_legends("applied_speed_x");
+
+        Debugger::dbg()->plot(p);
+
 //        NetworkPlotter::getInstance()->buildAndSendPacket("applied_strenght", desiredGlobalSpeed.Teta()*1000.0);
 //        NetworkPlotter::getInstance()->buildAndSendPacket("Omega", desiredGlobalSpeed.Teta() * 100.0);
 
-        vector<double> speed_to_sent;
-        vector<string> speed_labels;
-        speed_to_sent.push_back(desired_local_speed.X() + 0.1);
-        speed_labels.push_back("desire_");
-        speed_to_sent.push_back(actual_local_speed.X() + 0.1);
-        speed_labels.push_back("actual_");
-        speed_to_sent.push_back(applied_local_speed.X() * 3000 + 0.1);
-        speed_labels.push_back("applied_");
-        speed_to_sent.push_back(1000);
-        speed_labels.push_back("1000");
-        NetworkPlotter::getInstance()->buildAndSendPacket("control_x", speed_to_sent, speed_labels);
+//        vector<double> speed_to_sent;
+//        vector<string> speed_labels;
+//        speed_to_sent.push_back(desired_local_speed.X() + 0.1);
+//        speed_labels.push_back("desire_");
+//        speed_to_sent.push_back(actual_local_speed.X() + 0.1);
+//        speed_labels.push_back("actual_");
+//        speed_to_sent.push_back(applied_local_speed.X() * 3000 + 0.1);
+//        speed_labels.push_back("applied_");
+//        speed_to_sent.push_back(1000);
+//        speed_labels.push_back("1000");
+//        NetworkPlotter::getInstance()->buildAndSendPacket("control_x", speed_to_sent, speed_labels);
     }
 }
 

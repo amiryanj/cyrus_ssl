@@ -20,10 +20,10 @@ class PlotManagerWidget : public QWidget
 public:
     explicit PlotManagerWidget(QWidget *parent = 0);
     ~PlotManagerWidget();
-    void newPlotMessage(const Plotter_Packet& packet);
 
 public slots:
-    void plot(double value, const char *plot_name, const char *category);
+    void plot(double value, QString plot_name, QString category);
+    void newPlotMessage(Plotter_Packet packet);
     void joinMulticastNetwork();
 
 private slots:
