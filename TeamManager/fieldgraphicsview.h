@@ -9,10 +9,14 @@ class FieldGraphicsView : public QGraphicsView
 public:
     explicit FieldGraphicsView(QGraphicsScene* scene = NULL, QWidget * parent=0);
 
-    void wheelEvent(QWheelEvent *event);
 
-signals:
-    void mousewheel(float );
+private slots:
+    void wheelEvent(QWheelEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+
+private:
+    QPointF mouseLastPosition;
 
 };
 
