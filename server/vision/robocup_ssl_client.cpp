@@ -80,19 +80,13 @@ bool RoboCupSSLClient::open(bool blocking) {
   return(true);
 }
 
-bool RoboCupSSLClient::receive(SSL_WrapperPacket & packet) {
-  Net::Address src;
-  int r=0;
- // r = mc.recv(in_buffer,MaxDataGramSize,src);
-  if (socket.hasPendingDatagrams()) {
-      QHostAddress adr(QString(_net_address.c_str()));
-      quint16 mport=_port;
-     r=socket.readDatagram(in_buffer, MaxDataGramSize);
-//    fflush(stdout);
-//    printf("n packet size = %d\n", r);
-    //decode packet:
-    return packet.ParseFromArray(in_buffer,r);
-  }
-  return false;
+bool RoboCupSSLClient::receive(SSL_WrapperPacket & packet, int msec) {
+    int r = 0;
+    //  if (socket.hasPendingDatagrams()) {
+    if(socket.waitForReadyRead(msec)) {
+        r=socket.readDatagram(in_buffer, MaxDataGramSize);
+        return packet.ParseFromArray(in_buffer, r);
+    }
+    return false;
 }
 

@@ -1,7 +1,6 @@
 *~
 # settings temporal files
-ui_settings.ini
-general.json
+*.ini
 
 # C++ objects and libs
 

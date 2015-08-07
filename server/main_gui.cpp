@@ -32,7 +32,7 @@ void * run_server(void *)  {
     SSLReferee *referee = new SSLReferee(pm->get<int   >("network.REFEREE_PORT"),
                                          pm->get<string>("network.REFEREE_ADDRESS"));
 
-    new SSLVision(pm->get<int   >("network.VISION_PORT"),
+    SSLVision *vision = new SSLVision(pm->get<int   >("network.VISION_PORT"),
                                       pm->get<string>("network.VISION_ADDRESS"));
 
     VisionFilter *filter =  VisionFilter::getInstance();
@@ -55,13 +55,29 @@ void * run_server(void *)  {
     long loopCounter = 0;
     while ( true )
     {
+        if(mw) {
+            if(MainWindow::turn_off) {
+                cout << "server turned off" << endl;
+                exit(1);
+            }
+            if(MainWindow::idle_server) {
+                sleep(1);
+                continue;
+            }
+            SSLVision::setIdle(MainWindow::idle_vision);
+        }
+        if(loopCounter % 5 == 0)   {
+//            vision_tester->updateWorldModel();
+            filter->check();
+            gui->check();
+        }
         loopCounter ++;
         referee->check();
 //        referee_tester->check();
 
 //        vision->check(); // in thread 2
-        analyzer->check();
         if((loopCounter % 10) ==0) {
+            analyzer->check();
             double tic = currentTimeMSec();
             gameModule->check();
             double toc = currentTimeMSec();
@@ -72,17 +88,6 @@ void * run_server(void *)  {
             skill_tester->testGotoPoint();
 
             transmitter->check();
-        }
-        if(loopCounter % 5 == 0)   {
-//            vision_tester->updateWorldModel();
-            filter->check();
-            gui->check();
-        }
-        if(mw) {
-            if(!MainWindow::on) {
-                cout << "server turned off" << endl;
-                exit(1);
-            }
         }
         usleep(1000);
     }

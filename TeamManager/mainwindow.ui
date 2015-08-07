@@ -1104,6 +1104,8 @@ p, li { white-space: pre-wrap; }
    <addaction name="actionQuit"/>
    <addaction name="actionMaximize"/>
    <addaction name="actionMinimize"/>
+   <addaction name="actionIdle_Server"/>
+   <addaction name="actionIdle_Vision"/>
   </widget>
   <action name="actionWatch">
    <property name="checkable">
@@ -1173,6 +1175,36 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>minimize</string>
+   </property>
+  </action>
+  <action name="actionIdle_Server">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/oxygen/arrow-right.png</normaloff>:/icons/oxygen/arrow-right.png</iconset>
+   </property>
+   <property name="text">
+    <string>Idle Server</string>
+   </property>
+  </action>
+  <action name="actionIdle_Vision">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/oxygen/layer-visible-on.png</normaloff>:/icons/oxygen/layer-visible-on.png</iconset>
+   </property>
+   <property name="text">
+    <string>Idle Vision</string>
    </property>
   </action>
  </widget>

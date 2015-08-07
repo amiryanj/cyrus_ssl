@@ -12,7 +12,7 @@ public:
     RobotKalmanFilter();
 
     // main method for updating state vectors
-    void run();
+    bool run();
 protected:
     KalmanFilter KF;
 };

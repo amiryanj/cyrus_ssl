@@ -35,12 +35,13 @@ VisionFilter::~VisionFilter()
 
 void VisionFilter::check()
 {
-    mtx_.lock();
+    QMutexLocker locker(&mtx_);
 
     //    update World Model
     for( int tm = 0 ; tm < NUM_TEAMS; tm++ )   {
         for( int i = 0; i < MAX_ID_NUM; i++ )   {
-            robotFilter_cluster[tm][i]->run();
+            if( !robotFilter_cluster[tm][i]->run() )
+                continue;
             world->updateRobotState( (SSL::Color)tm, i ,
                                      robotFilter_cluster[tm][i]->m_filteredPosition ,
                                      robotFilter_cluster[tm][i]->m_filteredVelocity,
@@ -51,9 +52,7 @@ void VisionFilter::check()
 //                                     robotFilter_kalman[tm][i]->m_filteredVelocity,
 //                                     robotFilter_kalman[tm][i]->isOnField());
 
-            RobotState rs;
-            rs.ID = i;
-            rs.color = (SSL::Color)tm;
+            RobotState rs((SSL::Color)tm, i);
             if(robotFilter_cluster[tm][i]->isOnField()) {
                 rs.position = robotFilter_cluster[tm][i]->m_filteredPosition;
                 rs.velocity = robotFilter_cluster[tm][i]->m_filteredVelocity;
@@ -62,6 +61,7 @@ void VisionFilter::check()
                 rs.position.set(0, 0, 0);  // out of field
             }
             Debugger::dbg()->updateWorldModel(rs);
+
         }
     }
     int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");
@@ -77,13 +77,11 @@ void VisionFilter::check()
 
 //    Debugger::dbg()->plot(ballFilter->m_filteredPosition.X(), "Ball Vel X");
 
-    mtx_.unlock();
 }
 
 void VisionFilter::update(const SSL_WrapperPacket &packet)
 {
-//    QMutexLocker locker(&mtx_);
-    mtx_.lock();
+    QMutexLocker locker(&mtx_);
     try {
         if(packet.has_detection())
         {

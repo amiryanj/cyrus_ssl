@@ -1,9 +1,12 @@
-#ifndef __ROBOTFILTER_H
-#define __ROBOTFILTER_H
+#ifndef _ROBOTFILTER_H
+#define _ROBOTFILTER_H
 
 #include <vector>
 #include "sslframe.h"
 #include "paramater-manager/parametermanager.h"
+
+#define MAX_RAW_DATA_MEMORY 30
+#define ROBOT_SPEED_LIMIT_FILTER 7
 
 class RobotFilter
 {
@@ -15,7 +18,7 @@ public:
     bool isOnField() const;
 
     // main method for updating state vectors
-    virtual void run() = 0;
+    virtual bool run() = 0;
     Vector3D m_filteredPosition;
     Vector3D m_filteredVelocity;
 
@@ -26,9 +29,11 @@ public:
 
 protected:
     std::vector<OneObjectFrame> rawData;
-    double last_time_msec;
+    OneObjectFrame& getRawData(uint i) {return rawData[i];}
+    double last_update_time_msec;
     double last_dt_msec;
+    double last_run_time_msec;
 
 };
 
-#endif // __ROBOTFILTER_H
+#endif // _ROBOTFILTER_H

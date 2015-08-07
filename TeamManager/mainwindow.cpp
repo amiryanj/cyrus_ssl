@@ -2,11 +2,13 @@
 #include "ui_mainwindow.h"
 
 MainWindow* MainWindow::instance = NULL;
-bool MainWindow::on = false;
+bool MainWindow::turn_off = false;
+bool MainWindow::idle_server = false;
+bool MainWindow::idle_vision = false;
 
 MainWindow *MainWindow::getInstance()
 {
-    on = true;
+    turn_off = false;
     if(instance == NULL)
         instance = new MainWindow();
     return instance;
@@ -313,8 +315,19 @@ void MainWindow::quitProgram()
     ui_settings->sync();
 //    ui_settings->setValue("splitter_3", ui->splitter_3->saveState());
 
-    on = false;
+    turn_off = true;
     close();
     exit(1);
 }
 
+
+void MainWindow::on_actionIdle_Server_toggled(bool arg1)
+{
+    idle_server = !arg1;
+}
+
+
+void MainWindow::on_actionIdle_Vision_toggled(bool arg1)
+{
+    idle_vision = !arg1;
+}

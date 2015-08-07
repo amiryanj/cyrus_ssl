@@ -36,7 +36,9 @@ public:
     
     WatchFieldGraphics *watchField;
     PlotManagerWidget *PMW;
-    static bool on;
+    static bool turn_off;
+    static bool idle_server;
+    static bool idle_vision;
 
 private slots:
     void handleChoosingVisionSource();
@@ -50,6 +52,8 @@ private slots:
 
     void quitProgram();
 
+    void on_actionIdle_Server_toggled(bool arg1);
+    void on_actionIdle_Vision_toggled(bool arg1);
 };
 
 #endif // MAINWINDOW_H

@@ -4,12 +4,12 @@
 RobotKalmanFilter::RobotKalmanFilter()
 {
     KF.init();
-    last_time_msec = currentTimeMSec();
+    last_update_time_msec = currentTimeMSec();
     last_dt_msec = 1.0;
     hasUnprocessedData = false;
 }
 
-void RobotKalmanFilter::run()
+bool RobotKalmanFilter::run()
 {
     try {
         if(!hasUnprocessedData) {
@@ -29,8 +29,10 @@ void RobotKalmanFilter::run()
             m_filteredVelocity = KF.getFilteredVelocity();
         }
         hasUnprocessedData = false;
+        return true;
 
     } catch (const char* msg) {
 //        cerr << "Error: Robot Kalman Filter: " << msg << endl;
+        return false;
     }
 }
