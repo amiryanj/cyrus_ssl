@@ -34,6 +34,19 @@ WatchFieldGraphics::WatchFieldGraphics(QWidget *parent) :
             updateRobotState(rs_);
         }
 
+    ball = new CircleGraphicsItem(22, QColor(255,120,0));
+    scene.addItem(ball);
+    ball->setZValue(7);
+
+    ballVel = new VectorGraphicsItem(Qt::cyan);
+    ballVel->setParentItem(ball);
+    ballVel->setZValue(8);
+
+    ballTail = new BallGraphicsItem(Qt::red);
+    scene.addItem(ballTail);
+    ballTail->setZValue(9);
+
+
     drawBounds();    
 }
 
@@ -96,14 +109,16 @@ void WatchFieldGraphics::drawBounds()
 void WatchFieldGraphics::updateRobotState(const RobotState &st)
 {
     int team = (int)st.color;
-    int id = st.ID;
-    if(team >=2 || id >= MAX_ID_NUM)
+    if(team >=2 || st.ID >= MAX_ID_NUM)
     {
         qDebug() << "invalid robot state";
         return;
     }
-    robot[team][id]->setPos(st.position.X(), -st.position.Y()); // ok
-    robot[team][id]->setRotation(-st.position.Teta() * 180.0/M_PI); // ok
+    robot[team][st.ID]->setPos(st.position.X(), -st.position.Y()); // ok
+    robot[team][st.ID]->setRotation(-st.position.Teta() * 180.0/M_PI); // ok
+
+    number[team][st.ID]->setPos(st.position.X(), -st.position.Y());
+
 
 //    robotActualVel[team][id]->setEnd(20*st.velocity.X(), -20*st.velocity.Y());
 
@@ -113,7 +128,14 @@ void WatchFieldGraphics::updateRobotState(const RobotState &st)
 //    if(st.color == ourColor) {
 //        desiredVel[id]->setPos(st.position.X(), -st.position.Y());
 //        appliedVel[id]->setPos(st.position.X(), -st.position.Y());
-//    }
-    number[team][id]->setPos(st.position.X(), -st.position.Y());
+    //    }
 
+}
+
+void WatchFieldGraphics::updateBallState(const BallState &st)
+{
+//    qDebug()<<"ball position : "<< st.position.X() << st.position.Y();
+    ball->setPos(st.position.X(), -st.position.Y());
+    ballVel->setEnd(st.velocity.X(), -st.velocity.Y());
+    ballTail->setNewPosition(QVector2D(st.position.X(), st.position.Y()));
 }

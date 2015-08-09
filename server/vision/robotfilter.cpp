@@ -3,13 +3,15 @@
 
 RobotFilter::RobotFilter()
 {
+    last_update_time_msec = 0;
+    rawData.reserve(MAX_RAW_DATA_MEMORY + 1);
 }
 
 void RobotFilter::putNewFrame(OneObjectFrame &fr)
 {
     try {
         hasUnprocessedData = true;
-        last_time_msec = currentTimeMSec();
+        last_update_time_msec = currentTimeMSec();
 
         if( rawData.empty() ) {
             fr.velocity.setZero();
@@ -46,6 +48,6 @@ bool RobotFilter::isEmpty() const
 
 bool RobotFilter::isOnField() const
 {
-    double dt = currentTimeMSec() - last_time_msec ;
+    double dt = currentTimeMSec() - last_update_time_msec ;
     return (dt < 2000);
 }

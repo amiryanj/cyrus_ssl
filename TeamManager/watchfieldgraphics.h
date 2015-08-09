@@ -34,7 +34,7 @@ public slots:
     void drawBounds();
 
     void updateRobotState(const RobotState& st);
-//    void updateBallState(const BallState &st);
+    void updateBallState(const BallState &st);
 //    void updateRobotPlan(int id, QVector<RobotState> path, QVector3D desired_vel, QVector3D applied_vel);
 //    void updateZoom(int zoom);
 //    void updateCurrentStrategy(QString name, QMap<int, QString> robot_roles);

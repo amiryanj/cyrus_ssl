@@ -67,7 +67,7 @@ void SSLSkill::goToPoint(Vector3D target, const Vector3D &tolerance, MoveType mo
     else {
         goToSubGoal(target, tolerance, move_type);
     }
-    NetworkPlotter::getInstance()->buildAndSendPacket("diff_to_target", diff.X());
+    //NetworkPlotter::getInstance()->buildAndSendPacket("diff_to_target", diff.X());
 }
 
 void SSLSkill::goToPoint(Vector3D target, MoveType move_type)
