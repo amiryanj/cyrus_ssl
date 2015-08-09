@@ -33,6 +33,7 @@ public:
     virtual void plot(double value, double key, std::string name = "", std::string category = "general") {}
 
     virtual void updateWorldModel(RobotState &rs)  {}
+    virtual void updateWorldModel(BallState &bs) {}
 
     virtual void scatter(double x, double y, std::string name = "", std::string category = "general") {}
     virtual void scatter(const Vector2D& data, std::string name = "", std::string category = "general") {}

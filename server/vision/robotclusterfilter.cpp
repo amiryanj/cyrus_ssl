@@ -130,7 +130,7 @@ bool RobotClusterFilter::run()
 
         return true;
     } catch (const char* msg) {
-        cout << "Warning: Robot Cluster Filter: " << msg << endl;
+//        cout << "Warning: Robot Cluster Filter: " << msg << endl;
     }
 }
 

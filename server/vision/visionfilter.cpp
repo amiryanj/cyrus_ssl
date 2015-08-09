@@ -62,6 +62,7 @@ void VisionFilter::check()
             }
             Debugger::dbg()->updateWorldModel(rs);
 
+
         }
     }
     int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");
@@ -74,6 +75,10 @@ void VisionFilter::check()
                                ballFilter->m_filteredVelocity,
                                ballFilter->m_acceleration );
 
+    BallState bs(0);
+    bs.position = ballFilter->m_filteredPosition;
+    bs.velocity = ballFilter->m_filteredVelocity;
+    Debugger::dbg()->updateWorldModel(bs);
 
 //    Debugger::dbg()->plot(ballFilter->m_filteredPosition.X(), "Ball Vel X");
 

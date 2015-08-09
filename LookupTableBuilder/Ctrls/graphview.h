@@ -23,9 +23,10 @@ public:
     int getW();
     int getH();
     void setWH(int w, int h);
+    void setWH(QRect& r);
 
     void setSelectedGraph(int);
-    void addGraph();
+    Graph *addGraph();
     void removeGraphs();
 
     void redraw();

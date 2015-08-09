@@ -63,12 +63,13 @@ void GraphView::redraw(){
     }
 }
 
-void GraphView::addGraph() {
+Graph* GraphView::addGraph() {
     Graph* g = new Graph();
     g->addPoint(0, 0);
     g->addPoint(mScene->width(), 0);
     mGraphList->append(g);
     this->redraw();
+    return g;
 }
 
 void GraphView::removeGraphs()
@@ -124,13 +125,26 @@ int GraphView::getH(){
 }
 
 void GraphView::setWH(int w, int h){
+    w*= 1.1;
+    h*= 1.1;
+
     this->w = w;
     this->h = h;
+
+    QRect r(0, -h/2, w, h);
+    setWH(r);
+}
+
+void GraphView::setWH(QRect &r)
+{
+    this->w = r.width();
+    this->h = r.height();
 
     if(mScene)
         delete mScene;
 
-    mScene = new ClickableScene(QRect(0, -h/2, w, h));
+    mScene = new ClickableScene(r);
+
     this->setScene(mScene);
     mScene->setBackgroundBrush(Qt::gray);
 
