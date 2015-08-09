@@ -102,10 +102,11 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
     cout << endl;
     //transmit data to serial port
 #if QT_VERSION >= 0x050000
-    serial->write(byteArray, packet_size);
+    serial->write((const char *)byteArray, packet_size);
 #else
     serial->Write(byteArray, packet_size);
 #endif
+    //serial->flush();
 }
 
 RobotSerialConnection::~RobotSerialConnection()

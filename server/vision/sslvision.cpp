@@ -3,7 +3,7 @@
 #include "../paramater-manager/parametermanager.h"
 
 #if QT_VERSION >= 0x050000
-#include <Qtconcurrent>
+#include <QtConcurrent>
 #else
 #include <QtCore>
 #endif
@@ -53,6 +53,7 @@ void* SSLVision::check(void *)
                 VisionFilter::getInstance()->check();
             }
         }
+        QThread::currentThread()->msleep(1);
     }
 //    Address sender_adress;
 //    while(true)

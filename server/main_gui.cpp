@@ -76,7 +76,7 @@ void * run_server(void *)  {
         if(loopCounter % 5 == 0)   {
 //            vision_tester->updateWorldModel();
             filter->check();
-            gui->check();
+         //   gui->check();
         }
         if(mw) {
             if(!MainWindow::on) {
