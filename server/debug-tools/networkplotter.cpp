@@ -96,6 +96,7 @@ bool NetworkPlotter::openSocket(int port, string address)
 void *NetworkPlotter::sendPackets(void*)
 {
     while(true) {
+
         mtx_.lock();
         if(packets.empty()) {
 //            cout << "no packet..." << endl;

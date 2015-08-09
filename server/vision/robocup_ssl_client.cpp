@@ -19,6 +19,7 @@
 */
 //========================================================================
 #include "robocup_ssl_client.h"
+#include <QtGlobal>
 #include <QNetworkInterface>
 #include <iostream>
 
@@ -48,9 +49,9 @@ bool RoboCupSSLClient::open(bool blocking) {
   //mc.open(_port,true,true,blocking);
 
 #if QT_VERSION >= 0x050000
-    if(socket.bind(QHostAddress::AnyIPv4, _port, QUdpSocket::ShareAddress))
+    if(socket.bind(QHostAddress::AnyIPv4, _port,  QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint));
 #else
-    if(socket.bind(QHostAddress::Any, _port, QUdpSocket::ShareAddress))
+    if(socket.bind(QHostAddress::Any, _port, QUdpSocket::ShareAddress));
 #endif
   {
     fprintf(stderr,"Unable to open UDP network port: %d\n",_port);
@@ -60,13 +61,18 @@ bool RoboCupSSLClient::open(bool blocking) {
 
   //Net::Address multiaddr, interface;
   //QNetworkInterface multiaddr;
-  if(!socket.joinMulticastGroup(QHostAddress(QString(_net_address.c_str()))))
-  {
-      fprintf(stderr,"NEW Unable to setup UDP multicast\n");
-  }
-  else {
+    QHostAddress m_groupAddress(QString(_net_address.c_str()));
+    foreach (const QNetworkInterface& iface, QNetworkInterface::allInterfaces()) {
+        socket.joinMulticastGroup(m_groupAddress, iface);
+    }
+
+  //if(!socket.joinMulticastGroup(QHostAddress())
+ // {
+   //   fprintf(stderr,"NEW Unable to setup UDP multicast\n");
+  //}
+ // else {
       fprintf(stderr,"SSLVision joined ... \n");
-  }
+//  }
  // multiaddr.setHost(_net_address.c_str(),_port);
  /* if(_net_interface.length() > 0){
     interface.setHost(_net_interface.c_str(),_port);
