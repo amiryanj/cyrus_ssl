@@ -7,11 +7,17 @@
 FileController::FileController(QObject *parent) :
         QObject(parent)
 {
+    myFile.setFileName("");
 }
 
 void FileController::setFile(QString file_name)
 {
     myFile.setFileName(file_name);
+}
+
+QString FileController::getFileName()
+{
+    return myFile.fileName();
 }
 
 bool FileController::readFile(QList<QVector2D> &data)
@@ -36,10 +42,19 @@ bool FileController::readFile(QList<QVector2D> &data)
 
 void FileController::appenPair(qreal x, qreal y)
 {
+    myFile.close();
     if(myFile.open(QIODevice::WriteOnly | QIODevice::Append)) {
         QTextStream stream(&myFile);
         stream << x << ", " << y << endl;
         myFile.flush();
+        myFile.close();
+    }
+}
+
+void FileController::clearFile()
+{
+    myFile.close();
+    if(myFile.open(QIODevice::Truncate | QIODevice::WriteOnly)) {
         myFile.close();
     }
 }

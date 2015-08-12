@@ -132,7 +132,7 @@ bool RobotClusterFilter::run()
     } catch (const char* msg) {
 
         //cout << "Warning: Robot Cluster Filter: " << msg << endl;
-          Debugger::dbg()->print(msg,"Warning");
+//          Debugger::dbg()->print(msg,"Warning");
     }
 }
 

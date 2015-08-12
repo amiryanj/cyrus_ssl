@@ -21,6 +21,7 @@
 #include "general.h"
 #include "transmitter/RobotCommandPacket.h"
 #include <QApplication>
+#include "paramater-manager/lookuptableloader.h"
 using namespace std;
 
 MainWindow* mw = NULL;
@@ -85,7 +86,8 @@ void * run_server(void *)  {
 //            NetworkPlotter::getInstance()->buildAndSendPacket("Process Time", process_time);
 //            printf("Process Time = \t%f milli second\n", process_time);
 //            transmitter->clear();
-            skill_tester->testGotoPoint();
+//            skill_tester->testGotoPoint();
+            skill_tester->testKickBall();
 
             transmitter->check();
         }

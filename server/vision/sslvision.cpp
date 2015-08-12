@@ -48,7 +48,7 @@ void* SSLVision::check(void *)
                 VisionFilter::getInstance()->check();
             }
         }
-        QThread::currentThread()->msleep(1);
+//        QThread::currentThread()->msleep(1);
     }
     return 0;
 }

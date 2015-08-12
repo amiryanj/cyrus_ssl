@@ -54,7 +54,7 @@ bool testAimedPointfRobot()  {
 void testVelocityStrenght() {
     for (int i=0; i<1000; i++) {
         float result = SSLSkill::computeVelocityStrenghtbyDistance((double)i, 3000);
-        NetworkPlotter::getInstance()->buildAndSendPacket("velocity coeff", result);
+//        NetworkPlotter::getInstance()->buildAndSendPacket("velocity coeff", result);
         usleep(3000);
     }
     exit(1);

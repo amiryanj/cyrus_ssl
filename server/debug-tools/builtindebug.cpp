@@ -15,9 +15,16 @@ BuiltInDebug::BuiltInDebug() : QObject()
 
     connect(this, SIGNAL(updateRobotStateSignal(RobotState)),
             MainWindow::getInstance()->watchField, SLOT(updateRobotState(RobotState)));
+
     connect(this , SIGNAL(newMessageSignal(const char*,QString)),
             MainWindow::getInstance()->MSG,SLOT(newMessage(const char*,QString)));
+
+    connect(this, SIGNAL(updateBallStateSignal(BallState)),
+            MainWindow::getInstance()->watchField, SLOT(updateBallState(BallState)));
+
+
     qRegisterMetaType<RobotState>("RobotState");
+    qRegisterMetaType<BallState>("BallState");
 
 }
 
@@ -65,6 +72,11 @@ void BuiltInDebug::plot(double value, double key, std::string name, std::string 
 void BuiltInDebug::updateWorldModel(RobotState &rs)
 {
     emit updateRobotStateSignal(rs);
+}
+
+void BuiltInDebug::updateWorldModel(BallState &bs)
+{
+    emit updateBallStateSignal(bs);
 }
 
 void BuiltInDebug::drawCircle()

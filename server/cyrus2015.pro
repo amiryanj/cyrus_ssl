@@ -182,7 +182,9 @@ SOURCES += \
     ../TeamManager/graphics/graphic_ball.cpp \
     ../TeamManager/graphics/graphic_arc.cpp \
     ../TeamManager/robotstate.cpp \
-    ../TeamManager/messengerwidget.cpp
+    ../TeamManager/messengerwidget.cpp \ 
+    paramater-manager/lookuptableloader.cpp
+
 
 HEADERS += \
     transmitter/RobotSerialConnection.h \
@@ -332,7 +334,11 @@ HEADERS += \
     ../TeamManager/graphics/graphic_ball.h \
     ../TeamManager/graphics/graphic_arc.h \
     ../TeamManager/robotstate.h \
+<<<<<<< HEAD
     ../TeamManager/messengerwidget.h
+=======
+    paramater-manager/lookuptableloader.h
+>>>>>>> 6c9f95c46d752bc02c2c0ff8a2b2323dcab6e30f
 
 OTHER_FILES += \            
     ../shared/proto/referee/proto/*.proto \

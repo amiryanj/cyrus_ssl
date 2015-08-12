@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "Ctrls/graphview.h"
+#include "../Controller/filecontroller.h"
 
 namespace Ui {
     class DesignDialog;
@@ -21,17 +22,21 @@ private:
     QWidget* parentW;
 
     GraphView* graphView;
+    QString fileName;
+
+    QString currentFolder;
 
 private slots:
-    void on_btnBack_clicked();
-    virtual void reject();
+    void save();
+    void reject();
 
-    void on_btnSave1_clicked();
     void on_txtH_returnPressed();
     void on_txtW_returnPressed();
-    void on_btnReset_clicked();
-    void on_btnSave2_clicked();
-    void on_loadBtn_clicked();
+    void on_openBtn_clicked();
+    void on_saveButton_clicked();
+    void on_saveAsBtn_clicked();
+    void on_quitBtn_clicked();
+    void on_resetBtn_clicked();
 };
 
 #endif // DESIGNDIALOG_H

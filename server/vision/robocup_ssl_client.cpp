@@ -21,6 +21,9 @@
 #include "robocup_ssl_client.h"
 #include <QtGlobal>
 #include <QNetworkInterface>
+#include <iostream>
+
+using namespace std;
 RoboCupSSLClient::RoboCupSSLClient(int port,
                      string net_address,
                      string net_interface)
@@ -56,7 +59,7 @@ bool RoboCupSSLClient::open(bool blocking) {
 //    return(false);
   }
 
-  //Net::Address multiaddr,interface;
+  //Net::Address multiaddr, interface;
   //QNetworkInterface multiaddr;
     QHostAddress m_groupAddress(QString(_net_address.c_str()));
     foreach (const QNetworkInterface& iface, QNetworkInterface::allInterfaces()) {
@@ -91,8 +94,8 @@ bool RoboCupSSLClient::receive(SSL_WrapperPacket & packet, int msec) {
     //  if (socket.hasPendingDatagrams()) {
     if(socket.waitForReadyRead(msec)) {
         r=socket.readDatagram(in_buffer, MaxDataGramSize);
+        cout << "Vision packet received: Size <<" << r << endl;
         return packet.ParseFromArray(in_buffer, r);
     }
     return false;
 }
-

@@ -66,8 +66,6 @@ void BallFilter::putNewFrame(const OneObjectFrame &detected_ball)
 
     rawData.insert(rawData.begin(), ball_);
 
- //   NetworkPlotter::getInstance()->buildAndSendPacket("Raw Ball Speed", ball_.velocity.lenght());
-
     m_rawPosition  = getRawData(0).position;
     m_displacement = getRawData(0).displacement;
     m_rawVelocity  = getRawData(0).velocity;
@@ -161,7 +159,6 @@ void BallFilter::executeAlphaBetaFilter()
     this->m_filteredPosition = filter_result.pos.to2D();
     this->m_filteredVelocity = filter_result.vel.to2D();   
 
-   // NetworkPlotter::getInstance()->buildAndSendPacket("ball speed", m_filteredVelocity.lenght());
 }
 
 void BallFilter::executeClusterFilter()

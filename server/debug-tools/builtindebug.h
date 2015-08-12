@@ -23,6 +23,7 @@ public:
     void plot(double value, double key, std::string name = "", std::string category = "general");
 
     void updateWorldModel(RobotState &rs);
+    void updateWorldModel(BallState &bs);
 
     void drawCircle();
     void drawLine();
@@ -34,6 +35,8 @@ signals:
     void plotPacketSignal(Plotter_Packet p);
     void updateRobotStateSignal(RobotState rs);
     void newMessageSignal(const char *msg , QString category);
+    void updateBallStateSignal(BallState bs);
+
 //    void plotSignal(QVector<double> values, QStringList names, QString category);
 
 
