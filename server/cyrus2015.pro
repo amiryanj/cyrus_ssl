@@ -182,8 +182,7 @@ SOURCES += \
     ../TeamManager/graphics/graphic_ball.cpp \
     ../TeamManager/graphics/graphic_arc.cpp \
     ../TeamManager/robotstate.cpp \
-    ../TeamManager/messengerwidget.cpp \
-    ../TeamManager/messengerwidgetthread.cpp
+    ../TeamManager/messengerwidget.cpp
 
 HEADERS += \
     transmitter/RobotSerialConnection.h \
@@ -333,8 +332,7 @@ HEADERS += \
     ../TeamManager/graphics/graphic_ball.h \
     ../TeamManager/graphics/graphic_arc.h \
     ../TeamManager/robotstate.h \
-    ../TeamManager/messengerwidget.h \
-    ../TeamManager/messengerwidgetthread.h
+    ../TeamManager/messengerwidget.h
 
 OTHER_FILES += \            
     ../shared/proto/referee/proto/*.proto \
