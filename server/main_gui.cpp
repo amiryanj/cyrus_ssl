@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 
     srand(time(0));
 
-    QtConcurrent::run(run_server, (void*)NULL);
+
 
     gui_enabled = pm->get<bool>("general.GUI");
     if(gui_enabled) {
@@ -149,6 +149,7 @@ int main(int argc, char *argv[])
         Debugger::instance = new BuiltInDebug();
         Debugger::dbg()->print("Debugger is running ... ");
     }
+    QtConcurrent::run(run_server, (void*)NULL);
 
 
     return app.exec();
