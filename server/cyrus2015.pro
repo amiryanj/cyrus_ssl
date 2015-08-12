@@ -334,11 +334,10 @@ HEADERS += \
     ../TeamManager/graphics/graphic_ball.h \
     ../TeamManager/graphics/graphic_arc.h \
     ../TeamManager/robotstate.h \
-<<<<<<< HEAD
-    ../TeamManager/messengerwidget.h
-=======
+    ../TeamManager/messengerwidget.h \
+
     paramater-manager/lookuptableloader.h
->>>>>>> 6c9f95c46d752bc02c2c0ff8a2b2323dcab6e30f
+
 
 OTHER_FILES += \            
     ../shared/proto/referee/proto/*.proto \
