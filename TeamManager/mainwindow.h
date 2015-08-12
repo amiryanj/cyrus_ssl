@@ -6,7 +6,7 @@
 #include "watchfieldgraphics.h"
 #include "plot-manager/plotmanagerwidget.h"
 #include "messengerwidget.h"
-#include "messengerwidgetthread.h"
+
 namespace Ui {
 class MainWindow;
 }
