@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QThread>
 
 MainWindow* MainWindow::instance = NULL;
 bool MainWindow::turn_off = false;
@@ -67,8 +68,10 @@ void MainWindow::initGUI()
 
     PMW = new PlotManagerWidget(this);
     ui->plotterLayout->addWidget(PMW);
-//    ui->plotsContainerWg->layout()->addWidget(PMW);
-//    PMW->
+
+    MSG =new  MessengerWidget();
+    ui->messengerLayout->addWidget((MSG));
+
 }
 
 void MainWindow::setupGUIConnections()

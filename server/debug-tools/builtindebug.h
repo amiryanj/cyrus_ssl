@@ -34,7 +34,9 @@ signals:
     void plotSignal(double value, QString name, QString category);
     void plotPacketSignal(Plotter_Packet p);
     void updateRobotStateSignal(RobotState rs);
+    void newMessageSignal(const char *msg , QString category);
     void updateBallStateSignal(BallState bs);
+
 //    void plotSignal(QVector<double> values, QStringList names, QString category);
 
 

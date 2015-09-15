@@ -106,7 +106,7 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
 #else
     serial->Write(byteArray, packet_size);
 #endif
-    //serial->flush();
+    serial->flush();
 }
 
 RobotSerialConnection::~RobotSerialConnection()

@@ -1,7 +1,7 @@
 #include "robotclusterfilter.h"
 #include "../../shared/utility/generalmath.h"
 #include "../paramater-manager/parametermanager.h"
-
+#include "../debug-tools/debugclient.h"
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics.hpp>
 using namespace boost;
@@ -130,7 +130,9 @@ bool RobotClusterFilter::run()
 
         return true;
     } catch (const char* msg) {
-//        cout << "Warning: Robot Cluster Filter: " << msg << endl;
+
+        //cout << "Warning: Robot Cluster Filter: " << msg << endl;
+//          Debugger::dbg()->print(msg,"Warning");
     }
 }
 

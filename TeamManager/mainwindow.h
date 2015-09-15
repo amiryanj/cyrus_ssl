@@ -5,6 +5,7 @@
 #include <QSettings>
 #include "watchfieldgraphics.h"
 #include "plot-manager/plotmanagerwidget.h"
+#include "messengerwidget.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,6 +37,8 @@ public:
     
     WatchFieldGraphics *watchField;
     PlotManagerWidget *PMW;
+    MessengerWidget * MSG;
+
     static bool turn_off;
     static bool idle_server;
     static bool idle_vision;
