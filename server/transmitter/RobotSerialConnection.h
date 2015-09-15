@@ -8,8 +8,8 @@
 #ifndef SERIALCONNECTION_H_
 #define SERIALCONNECTION_H_
 
-#include <QtGlobal>
 #if QT_VERSION >= 0x050000
+#include <QtGlobal>
 #include <QSerialPort>
 #else
 #include "../tools/serialib/serialib.h"

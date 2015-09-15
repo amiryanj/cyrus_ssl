@@ -8,7 +8,7 @@
 #include "RobotSerialConnection.h"
 #include <stdio.h>
 #include "../../shared/utility/generalmath.h"
-#include "../debug-tools/networkplotter.h"
+//#include "../debug-tools/networkplotter.h"
 
 RobotSerialConnection::RobotSerialConnection(const char * serialPortName, unsigned int baudrate)
 {    
@@ -63,9 +63,9 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
         //           +(packet.getWheelSpeed(4)> 0 ? 0:1) * 8
                     ) * 16) & 0x000000FF);
 
-    byteArray[2] = (uchar)bound(abs(new_vel.X() * 255.0), 0, 255);
-    byteArray[3] = (uchar)bound(abs(new_vel.Y() * 255.0), 0, 255);
-    byteArray[4] = (uchar)bound(abs(packet.m_desiredTheta), 0, 180);
+    byteArray[2] = (unsigned char)bound(abs(new_vel.X() * 255.0), 0, 255);
+    byteArray[3] = (unsigned char)bound(abs(new_vel.Y() * 255.0), 0, 255);
+    byteArray[4] = (unsigned char)bound(abs(packet.m_desiredTheta), 0, 180);
 //    byteArray[5] = 0;
 
 
@@ -103,10 +103,10 @@ void RobotSerialConnection::sendRobotData(int robotID, RobotCommandPacket &packe
     //transmit data to serial port
 #if QT_VERSION >= 0x050000
     serial->write((const char *)byteArray, packet_size);
+    serial->flush();
 #else
     serial->Write(byteArray, packet_size);
 #endif
-    serial->flush();
 }
 
 RobotSerialConnection::~RobotSerialConnection()

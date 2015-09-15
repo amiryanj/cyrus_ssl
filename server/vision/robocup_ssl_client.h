@@ -50,7 +50,7 @@ public:
     ~RoboCupSSLClient();
     bool open(bool blocking=false);
     void close();
-    bool receive(SSL_WrapperPacket & packet, int msec = 1000);
+    bool receive(SSL_WrapperPacket & packet, int msec = 3000);
 
 };
 

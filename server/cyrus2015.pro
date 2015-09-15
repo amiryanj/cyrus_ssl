@@ -335,7 +335,6 @@ HEADERS += \
     ../TeamManager/graphics/graphic_arc.h \
     ../TeamManager/robotstate.h \
     ../TeamManager/messengerwidget.h \
-
     paramater-manager/lookuptableloader.h
 
 
