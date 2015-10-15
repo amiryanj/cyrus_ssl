@@ -93,3 +93,15 @@ void TestSkills::testKickBall()
         //        agent->skill->goToPoint(target_ball_kick);
     }
 }
+
+void TestSkills::testAccurateStop()
+{
+    SSLGame::getInstance()->setEnabled(false);
+    agent = SSLGame::getInstance()->getAgent(ParameterManager::getInstance()->
+                                             get<int>("skills.under_test_robot"));
+    if( agent !=0 && !agent->isNull() )  {
+        Vector3D target_ball_defense(0,0,0);
+
+        agent->skill->goToPoint(target_ball_defense);
+    }
+}

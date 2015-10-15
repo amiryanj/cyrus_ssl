@@ -33,6 +33,7 @@ OneObjectFrame &OneObjectFrame::operator =(const OneObjectFrame &other)
     this->camera_id = other.camera_id;
     this->confidence = other.confidence;
     this->position = other.position;
+    this->velocity = other.velocity;
 
     return (*this);
 }

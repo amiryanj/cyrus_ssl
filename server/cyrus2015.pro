@@ -183,7 +183,8 @@ SOURCES += \
     ../TeamManager/graphics/graphic_arc.cpp \
     ../TeamManager/robotstate.cpp \
     ../TeamManager/messengerwidget.cpp \ 
-    paramater-manager/lookuptableloader.cpp
+    paramater-manager/lookuptableloader.cpp \
+    controller/prcontroller.cpp
 
 
 HEADERS += \
@@ -335,6 +336,7 @@ HEADERS += \
     ../TeamManager/graphics/graphic_arc.h \
     ../TeamManager/robotstate.h \
     ../TeamManager/messengerwidget.h \
+    controller/prcontroller.h
 
     paramater-manager/lookuptableloader.h
 

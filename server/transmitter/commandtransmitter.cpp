@@ -47,7 +47,7 @@ void CommandTransmitter::buildAndSendPacket(int id, Vector3D &vel, float kickPow
     }
 
     RobotCommandPacket pkt(vel, useNewRobotWheelAngles, kickPower);
-
+    pkt.byWheelSpeed=true;
     this->send(id, pkt);
 }
 

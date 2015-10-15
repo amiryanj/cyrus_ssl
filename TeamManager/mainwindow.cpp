@@ -45,6 +45,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+    quitProgram();
+}
+
 void MainWindow::initGUI()
 {
     ui->chooseTeamColorBlueRB->setChecked(true);
@@ -320,7 +325,7 @@ void MainWindow::quitProgram()
 
     turn_off = true;
     close();
-    exit(1);
+    exit(0);
 }
 
 

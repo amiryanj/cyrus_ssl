@@ -15,7 +15,7 @@
 #include "../planner/planning/planningproblem.h"
 #include "../controller/pidcontroller.h"
 #include "../paramater-manager/lookuptableloader.h"
-
+#include"../controller/prcontroller.h"
 
 class SSLAgent;
 class Vector2D;
@@ -45,7 +45,7 @@ public:
     void goLocalSpeed(Vector3D &inp, bool use_controller = true);
 
     void goToSubGoal(const Vector3D &target, const Vector3D &tolerance, MoveType move_type);
-
+    void gotoPointwithPRController(Vector3D target);
     void gotoPointWithLookupTable(Vector3D target);
 
     void goToPointWithPlanner( const Vector3D &target,
@@ -108,7 +108,7 @@ private:
     bool kickTheBall;
 
     LookupTableLoader lookup_tabler;
-
+    PRController PRC;
 
 
 };

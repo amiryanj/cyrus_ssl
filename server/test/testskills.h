@@ -15,6 +15,7 @@ public:
     void testGotoPoint();
     void testGotoBallDefense();
     void testKickBall();
+    void testAccurateStop();
 
     SSLAgent* agent;
 

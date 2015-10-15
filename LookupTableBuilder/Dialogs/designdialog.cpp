@@ -70,8 +70,8 @@ void DesignDialog::on_openBtn_clicked()
         double min_y=0, max_y=0;
         for(int i=0; i<read_data.size(); i++) {
             g->addPoint(read_data[i].x(), read_data[i].y());
-            max_x = qMax(read_data[i].x(), max_x);
-            max_y = qMax(read_data[i].y(), max_y);
+            max_x = qMax((double)read_data[i].x(), max_x);
+            max_y = qMax((double)read_data[i].y(), max_y);
         }
         QRect r(0, -max_y, (max_x-min_x), 2*(max_y-min_y));
         graphView->setWH(r);

@@ -58,8 +58,8 @@ void Kalman::update(const Eigen::VectorXd& y) {
   x_hat = x_hat_new;
 
   t += dt;
-  cout << "observation:  " << y.transpose() << endl;
-  cout << "kalman state: " << x_hat.transpose() << endl;
+//  cout << "observation:  " << y.transpose() << endl;
+//  cout << "kalman state: " << x_hat.transpose() << endl;
 }
 
 void Kalman::update(const Eigen::VectorXd& y, double dt, const Eigen::MatrixXd A) {

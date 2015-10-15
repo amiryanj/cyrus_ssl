@@ -21,7 +21,7 @@ SSLSkill::SSLSkill(SSLAgent *parent)
 {
     ParameterManager* pm = ParameterManager::getInstance();
 
-    lookup_tabler.setFileName("../../cyrus2014/settings/table2.csv");
+    lookup_tabler.setFileName("../../cyrus2014/settings/table2.tbl");
     lookup_tabler.load();
     lookup_tabler.setScale(10, 0.01);
 
@@ -120,6 +120,7 @@ void SSLSkill::goLocalSpeed(Vector3D &inp, bool use_controller)
 
 void SSLSkill::goToSubGoal(const Vector3D &target, const Vector3D &tolerance, MoveType move_type)
 {
+
     gotoPointWithLookupTable(target);
     return;
 
@@ -157,17 +158,43 @@ void SSLSkill::goToSubGoal(const Vector3D &target, const Vector3D &tolerance, Mo
 
 }
 
-void SSLSkill::gotoPointWithLookupTable(Vector3D target)
+void SSLSkill::gotoPointwithPRController(Vector3D target)
 {
     this->target = target;
     Vector3D myPoition = this->Position();
 
+    float Robot_Speed =
+    this->owner_agent->robot->Speed().lenght2D();
+    cout<<"THIS ROBOT S SPEED IS "<<Robot_Speed<<endl;
+
+    Vector3D diff = target - myPoition;
+    double speed = PRC.CalculateVelocity(target,myPoition,Robot_Speed);
+    //    float linear_vel_coeff = ParameterManager::getInstance()->get<double>("skills.linear_velocity_coeff");
+    //    speed *= linear_vel_coeff;
+
+    diff.normalize2D();
+
+    diff.setX(diff.X() * speed);
+    diff.setY(diff.Y() * speed);
+
+    controlSpeed(diff, true);
+
+}
+
+void SSLSkill::gotoPointWithLookupTable(Vector3D target)
+{
+//    gotoPointwithPRController(target);
+//    return;
+    this->target = target;
+    Vector3D myPoition = this->Position();
+    std::cout<<"My speed "<<this->owner_agent->robot->localSpeed().lenght2D()<<std::endl;
     Vector3D diff = target - myPoition;
     double speed = lookup_tabler.getValue(diff.lenght2D());
     //    float linear_vel_coeff = ParameterManager::getInstance()->get<double>("skills.linear_velocity_coeff");
     //    speed *= linear_vel_coeff;
-    speed *= 3000;
-
+  //  speed *= 3000;
+   speed *=3000 ;
+ //   speed = 3000;
     diff.normalize2D();
 
     diff.setX(diff.X() * speed);
@@ -290,26 +317,29 @@ void SSLSkill::goAndKick(const Vector2D kick_point,const  Vector2D kick_target, 
 
 
 
-        if(this->Position().to2D().distToLine(behind_ball_line) > 40.0)
-        {
-            target = Vector3D(behind_ball_line.nearestPointFrom(this->Position().to2D()), 0);
-            Vector3D diff_to_target = target - this->Position();
-            controlSpeed(Vector3D(diff_to_target.to2D().normalized() * 0.2 * 3000, 0.0),
-                         kickTheBall);
-        }
+        target = Vector3D(kick_point, 0);
+
+        gotoPointWithLookupTable(target);
+        this->kickTheBall = true;
+
+//        if(this->Position().to2D().distToLine(behind_ball_line) > 40.0)
+//        {
+//            target = Vector3D(behind_ball_line.nearestPointFrom(this->Position().to2D()), 0);
+//            Vector3D diff_to_target = target - this->Position();
+//            controlSpeed(Vector3D(diff_to_target.to2D().normalized() * 0.2 * 3000, 0.0),
+//                         kickTheBall);
+//        }
 //        else if(fabs(teta_diff) > M_PI / 30.0) {
 //            cout << "Rotate" << endl;
 //            rotate(0.12 * sgn(teta_diff));
 //        }
-        else {
-            target = Vector3D(kick_point, 0);
-            gotoPointWithLookupTable(target);
-            this->kickTheBall = true;
+//        else
+//        {
 //            Vector3D forward_speed(.4, 0, 0);
 //            forward_speed.rotate(this->Position().Teta());
 //            cout << "Go Forward" << endl;
 //            controlSpeed(forward_speed * 3000, true);
-        }
+//        }
 
 
     }
@@ -579,7 +609,7 @@ void SSLSkill::controlSpeed(const Vector3D& desired_speed, bool use_controller, 
         applied_local_speed.setX(applied_local_speed.X() / max_speed);
         applied_local_speed.setY(applied_local_speed.Y() / max_speed);
     }
-
+    applied_local_speed.setTeta(0);
     CommandTransmitter::getInstance()->buildAndSendPacket(owner_agent->getID(),
                                                           applied_local_speed,
                                                           this->kickTheBall);

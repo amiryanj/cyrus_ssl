@@ -44,7 +44,7 @@ void * run_server(void *)  {
     GUIHandler *gui = GUIHandler::getInstance();
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
- //   transmitter->type = CommandTransmitter::SERIAL;
+  //  transmitter->type = CommandTransmitter::GRSIM;
 
     TestInput* vision_tester = new TestInput();
     TestSkills* skill_tester = new TestSkills();
@@ -70,7 +70,7 @@ void * run_server(void *)  {
         if(loopCounter % 5 == 0)   {
 //            vision_tester->updateWorldModel();
             filter->check();
-            gui->check();
+           // gui->check();
         }
         loopCounter ++;
         referee->check();
@@ -88,7 +88,7 @@ void * run_server(void *)  {
 //            transmitter->clear();
 //            skill_tester->testGotoPoint();
             skill_tester->testKickBall();
-
+//                skill_tester->testAccurateStop();
             transmitter->check();
         }
         usleep(1000);
