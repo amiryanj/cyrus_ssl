@@ -22,6 +22,7 @@
 #include <QtGlobal>
 #include <QNetworkInterface>
 #include <iostream>
+#include <unistd.h>
 
 using namespace std;
 RoboCupSSLClient::RoboCupSSLClient(int port,
@@ -91,11 +92,16 @@ bool RoboCupSSLClient::open(bool blocking) {
 
 bool RoboCupSSLClient::receive(SSL_WrapperPacket & packet, int msec) {
     int r = 0;
+
     //  if (socket.hasPendingDatagrams()) {
     if(socket.waitForReadyRead(msec)) {
         r=socket.readDatagram(in_buffer, MaxDataGramSize);
       //  cout << "Vision packet received: Size <<" << r << endl;
         return packet.ParseFromArray(in_buffer, r);
+
     }
+    else
+        usleep(10000);
+
     return false;
 }
