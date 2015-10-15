@@ -8,83 +8,296 @@ public final class SslAnalyzer {
   }
   public interface ssl_analyzer_packetOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required uint32 nearest_blue_id = 1;
+    /**
+     * <code>required uint32 nearest_blue_id = 1;</code>
+     */
     boolean hasNearestBlueId();
+    /**
+     * <code>required uint32 nearest_blue_id = 1;</code>
+     */
     int getNearestBlueId();
-    
+
     // required uint32 nearest_yellow_id = 2;
+    /**
+     * <code>required uint32 nearest_yellow_id = 2;</code>
+     */
     boolean hasNearestYellowId();
+    /**
+     * <code>required uint32 nearest_yellow_id = 2;</code>
+     */
     int getNearestYellowId();
-    
+
     // required .ssl_analyzer_packet.Color possessor_team = 3;
+    /**
+     * <code>required .ssl_analyzer_packet.Color possessor_team = 3;</code>
+     */
     boolean hasPossessorTeam();
+    /**
+     * <code>required .ssl_analyzer_packet.Color possessor_team = 3;</code>
+     */
     SslAnalyzer.ssl_analyzer_packet.Color getPossessorTeam();
-    
+
     // required bool nearest_can_kick = 4;
+    /**
+     * <code>required bool nearest_can_kick = 4;</code>
+     */
     boolean hasNearestCanKick();
+    /**
+     * <code>required bool nearest_can_kick = 4;</code>
+     */
     boolean getNearestCanKick();
-    
+
     // required bool is_game_running = 5;
+    /**
+     * <code>required bool is_game_running = 5;</code>
+     */
     boolean hasIsGameRunning();
+    /**
+     * <code>required bool is_game_running = 5;</code>
+     */
     boolean getIsGameRunning();
-    
+
     // repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     java.util.List<SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime> 
         getIntersectsList();
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime getIntersects(int index);
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     int getIntersectsCount();
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     java.util.List<? extends SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder> 
         getIntersectsOrBuilderList();
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder getIntersectsOrBuilder(
         int index);
-    
-    // optional string comment = 7;
+
+    // required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
+    /**
+     * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+     */
+    boolean hasBallIntersectionWithOurGoal();
+    /**
+     * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+     */
+    SslAnalyzer.ssl_analyzer_packet.point_2d getBallIntersectionWithOurGoal();
+    /**
+     * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+     */
+    SslAnalyzer.ssl_analyzer_packet.point_2dOrBuilder getBallIntersectionWithOurGoalOrBuilder();
+
+    // optional string comment = 8;
+    /**
+     * <code>optional string comment = 8;</code>
+     */
     boolean hasComment();
-    String getComment();
+    /**
+     * <code>optional string comment = 8;</code>
+     */
+    java.lang.String getComment();
+    /**
+     * <code>optional string comment = 8;</code>
+     */
+    com.google.protobuf.ByteString
+        getCommentBytes();
   }
+  /**
+   * Protobuf type {@code ssl_analyzer_packet}
+   */
   public static final class ssl_analyzer_packet extends
       com.google.protobuf.GeneratedMessage
       implements ssl_analyzer_packetOrBuilder {
     // Use ssl_analyzer_packet.newBuilder() to construct.
-    private ssl_analyzer_packet(Builder builder) {
+    private ssl_analyzer_packet(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private ssl_analyzer_packet(boolean noInit) {}
-    
+    private ssl_analyzer_packet(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final ssl_analyzer_packet defaultInstance;
     public static ssl_analyzer_packet getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public ssl_analyzer_packet getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ssl_analyzer_packet(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              nearestBlueId_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              nearestYellowId_ = input.readUInt32();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+              SslAnalyzer.ssl_analyzer_packet.Color value = SslAnalyzer.ssl_analyzer_packet.Color.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                possessorTeam_ = value;
+              }
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              nearestCanKick_ = input.readBool();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              isGameRunning_ = input.readBool();
+              break;
+            }
+            case 50: {
+              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+                intersects_ = new java.util.ArrayList<SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime>();
+                mutable_bitField0_ |= 0x00000020;
+              }
+              intersects_.add(input.readMessage(SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.PARSER, extensionRegistry));
+              break;
+            }
+            case 58: {
+              SslAnalyzer.ssl_analyzer_packet.point_2d.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000020) == 0x00000020)) {
+                subBuilder = ballIntersectionWithOurGoal_.toBuilder();
+              }
+              ballIntersectionWithOurGoal_ = input.readMessage(SslAnalyzer.ssl_analyzer_packet.point_2d.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(ballIntersectionWithOurGoal_);
+                ballIntersectionWithOurGoal_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000020;
+              break;
+            }
+            case 66: {
+              bitField0_ |= 0x00000040;
+              comment_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+          intersects_ = java.util.Collections.unmodifiableList(intersects_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslAnalyzer.internal_static_ssl_analyzer_packet_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslAnalyzer.internal_static_ssl_analyzer_packet_fieldAccessorTable;
+      return SslAnalyzer.internal_static_ssl_analyzer_packet_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslAnalyzer.ssl_analyzer_packet.class, SslAnalyzer.ssl_analyzer_packet.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<ssl_analyzer_packet> PARSER =
+        new com.google.protobuf.AbstractParser<ssl_analyzer_packet>() {
+      public ssl_analyzer_packet parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ssl_analyzer_packet(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ssl_analyzer_packet> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code ssl_analyzer_packet.Color}
+     */
     public enum Color
         implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>none = -1;</code>
+       */
       none(0, -1),
+      /**
+       * <code>yellow = 0;</code>
+       */
       yellow(1, 0),
+      /**
+       * <code>blue = 1;</code>
+       */
       blue(2, 1),
       ;
-      
+
+      /**
+       * <code>none = -1;</code>
+       */
       public static final int none_VALUE = -1;
+      /**
+       * <code>yellow = 0;</code>
+       */
       public static final int yellow_VALUE = 0;
+      /**
+       * <code>blue = 1;</code>
+       */
       public static final int blue_VALUE = 1;
-      
-      
+
+
       public final int getNumber() { return value; }
-      
+
       public static Color valueOf(int value) {
         switch (value) {
           case -1: return none;
@@ -93,7 +306,7 @@ public final class SslAnalyzer {
           default: return null;
         }
       }
-      
+
       public static com.google.protobuf.Internal.EnumLiteMap<Color>
           internalGetValueMap() {
         return internalValueMap;
@@ -105,7 +318,7 @@ public final class SslAnalyzer {
                 return Color.valueOf(number);
               }
             };
-      
+
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
         return getDescriptor().getValues().get(index);
@@ -118,11 +331,9 @@ public final class SslAnalyzer {
           getDescriptor() {
         return SslAnalyzer.ssl_analyzer_packet.getDescriptor().getEnumTypes().get(0);
       }
-      
-      private static final Color[] VALUES = {
-        none, yellow, blue, 
-      };
-      
+
+      private static final Color[] VALUES = values();
+
       public static Color valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
@@ -131,474 +342,119 @@ public final class SslAnalyzer {
         }
         return VALUES[desc.getIndex()];
       }
-      
+
       private final int index;
       private final int value;
-      
+
       private Color(int index, int value) {
         this.index = index;
         this.value = value;
       }
-      
+
       // @@protoc_insertion_point(enum_scope:ssl_analyzer_packet.Color)
     }
-    
+
     public interface RobotIntersectTimeOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
-      
+
       // required .ssl_analyzer_packet.Color color = 1;
+      /**
+       * <code>required .ssl_analyzer_packet.Color color = 1;</code>
+       */
       boolean hasColor();
+      /**
+       * <code>required .ssl_analyzer_packet.Color color = 1;</code>
+       */
       SslAnalyzer.ssl_analyzer_packet.Color getColor();
-      
+
       // required uint32 id = 2;
+      /**
+       * <code>required uint32 id = 2;</code>
+       */
       boolean hasId();
+      /**
+       * <code>required uint32 id = 2;</code>
+       */
       int getId();
-      
+
       // required float time = 3;
+      /**
+       * <code>required float time = 3;</code>
+       */
       boolean hasTime();
+      /**
+       * <code>required float time = 3;</code>
+       */
       float getTime();
-      
+
       // required float intersect_x = 4;
+      /**
+       * <code>required float intersect_x = 4;</code>
+       */
       boolean hasIntersectX();
+      /**
+       * <code>required float intersect_x = 4;</code>
+       */
       float getIntersectX();
-      
+
       // required float intersect_y = 5;
+      /**
+       * <code>required float intersect_y = 5;</code>
+       */
       boolean hasIntersectY();
+      /**
+       * <code>required float intersect_y = 5;</code>
+       */
       float getIntersectY();
     }
+    /**
+     * Protobuf type {@code ssl_analyzer_packet.RobotIntersectTime}
+     */
     public static final class RobotIntersectTime extends
         com.google.protobuf.GeneratedMessage
         implements RobotIntersectTimeOrBuilder {
       // Use RobotIntersectTime.newBuilder() to construct.
-      private RobotIntersectTime(Builder builder) {
+      private RobotIntersectTime(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
         super(builder);
+        this.unknownFields = builder.getUnknownFields();
       }
-      private RobotIntersectTime(boolean noInit) {}
-      
+      private RobotIntersectTime(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
       private static final RobotIntersectTime defaultInstance;
       public static RobotIntersectTime getDefaultInstance() {
         return defaultInstance;
       }
-      
+
       public RobotIntersectTime getDefaultInstanceForType() {
         return defaultInstance;
       }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_fieldAccessorTable;
-      }
-      
-      private int bitField0_;
-      // required .ssl_analyzer_packet.Color color = 1;
-      public static final int COLOR_FIELD_NUMBER = 1;
-      private SslAnalyzer.ssl_analyzer_packet.Color color_;
-      public boolean hasColor() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public SslAnalyzer.ssl_analyzer_packet.Color getColor() {
-        return color_;
-      }
-      
-      // required uint32 id = 2;
-      public static final int ID_FIELD_NUMBER = 2;
-      private int id_;
-      public boolean hasId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public int getId() {
-        return id_;
-      }
-      
-      // required float time = 3;
-      public static final int TIME_FIELD_NUMBER = 3;
-      private float time_;
-      public boolean hasTime() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public float getTime() {
-        return time_;
-      }
-      
-      // required float intersect_x = 4;
-      public static final int INTERSECT_X_FIELD_NUMBER = 4;
-      private float intersectX_;
-      public boolean hasIntersectX() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
-      public float getIntersectX() {
-        return intersectX_;
-      }
-      
-      // required float intersect_y = 5;
-      public static final int INTERSECT_Y_FIELD_NUMBER = 5;
-      private float intersectY_;
-      public boolean hasIntersectY() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
-      }
-      public float getIntersectY() {
-        return intersectY_;
-      }
-      
-      private void initFields() {
-        color_ = SslAnalyzer.ssl_analyzer_packet.Color.none;
-        id_ = 0;
-        time_ = 0F;
-        intersectX_ = 0F;
-        intersectY_ = 0F;
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        if (!hasColor()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasId()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasTime()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasIntersectX()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasIntersectY()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeEnum(1, color_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeUInt32(2, id_);
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeFloat(3, time_);
-        }
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeFloat(4, intersectX_);
-        }
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
-          output.writeFloat(5, intersectY_);
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(1, color_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeUInt32Size(2, id_);
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(3, time_);
-        }
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(4, intersectX_);
-        }
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(5, intersectY_);
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
       @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
       }
-      
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
+      private RobotIntersectTime(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_fieldAccessorTable;
-        }
-        
-        // Construct using SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          color_ = SslAnalyzer.ssl_analyzer_packet.Color.none;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          id_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000002);
-          time_ = 0F;
-          bitField0_ = (bitField0_ & ~0x00000004);
-          intersectX_ = 0F;
-          bitField0_ = (bitField0_ & ~0x00000008);
-          intersectY_ = 0F;
-          bitField0_ = (bitField0_ & ~0x00000010);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.getDescriptor();
-        }
-        
-        public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime getDefaultInstanceForType() {
-          return SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.getDefaultInstance();
-        }
-        
-        public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime build() {
-          SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime buildPartial() {
-          SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime result = new SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.color_ = color_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.id_ = id_;
-          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-            to_bitField0_ |= 0x00000004;
-          }
-          result.time_ = time_;
-          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-            to_bitField0_ |= 0x00000008;
-          }
-          result.intersectX_ = intersectX_;
-          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-            to_bitField0_ |= 0x00000010;
-          }
-          result.intersectY_ = intersectY_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime) {
-            return mergeFrom((SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime other) {
-          if (other == SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.getDefaultInstance()) return this;
-          if (other.hasColor()) {
-            setColor(other.getColor());
-          }
-          if (other.hasId()) {
-            setId(other.getId());
-          }
-          if (other.hasTime()) {
-            setTime(other.getTime());
-          }
-          if (other.hasIntersectX()) {
-            setIntersectX(other.getIntersectX());
-          }
-          if (other.hasIntersectY()) {
-            setIntersectY(other.getIntersectY());
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          if (!hasColor()) {
-            
-            return false;
-          }
-          if (!hasId()) {
-            
-            return false;
-          }
-          if (!hasTime()) {
-            
-            return false;
-          }
-          if (!hasIntersectX()) {
-            
-            return false;
-          }
-          if (!hasIntersectY()) {
-            
-            return false;
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
             int tag = input.readTag();
             switch (tag) {
               case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
+                break;
               default: {
                 if (!parseUnknownField(input, unknownFields,
                                        extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
+                  done = true;
                 }
                 break;
               }
@@ -635,18 +491,476 @@ public final class SslAnalyzer {
               }
             }
           }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
         }
-        
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.class, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder.class);
+      }
+
+      public static com.google.protobuf.Parser<RobotIntersectTime> PARSER =
+          new com.google.protobuf.AbstractParser<RobotIntersectTime>() {
+        public RobotIntersectTime parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new RobotIntersectTime(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<RobotIntersectTime> getParserForType() {
+        return PARSER;
+      }
+
+      private int bitField0_;
+      // required .ssl_analyzer_packet.Color color = 1;
+      public static final int COLOR_FIELD_NUMBER = 1;
+      private SslAnalyzer.ssl_analyzer_packet.Color color_;
+      /**
+       * <code>required .ssl_analyzer_packet.Color color = 1;</code>
+       */
+      public boolean hasColor() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .ssl_analyzer_packet.Color color = 1;</code>
+       */
+      public SslAnalyzer.ssl_analyzer_packet.Color getColor() {
+        return color_;
+      }
+
+      // required uint32 id = 2;
+      public static final int ID_FIELD_NUMBER = 2;
+      private int id_;
+      /**
+       * <code>required uint32 id = 2;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required uint32 id = 2;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+
+      // required float time = 3;
+      public static final int TIME_FIELD_NUMBER = 3;
+      private float time_;
+      /**
+       * <code>required float time = 3;</code>
+       */
+      public boolean hasTime() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required float time = 3;</code>
+       */
+      public float getTime() {
+        return time_;
+      }
+
+      // required float intersect_x = 4;
+      public static final int INTERSECT_X_FIELD_NUMBER = 4;
+      private float intersectX_;
+      /**
+       * <code>required float intersect_x = 4;</code>
+       */
+      public boolean hasIntersectX() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required float intersect_x = 4;</code>
+       */
+      public float getIntersectX() {
+        return intersectX_;
+      }
+
+      // required float intersect_y = 5;
+      public static final int INTERSECT_Y_FIELD_NUMBER = 5;
+      private float intersectY_;
+      /**
+       * <code>required float intersect_y = 5;</code>
+       */
+      public boolean hasIntersectY() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required float intersect_y = 5;</code>
+       */
+      public float getIntersectY() {
+        return intersectY_;
+      }
+
+      private void initFields() {
+        color_ = SslAnalyzer.ssl_analyzer_packet.Color.none;
+        id_ = 0;
+        time_ = 0F;
+        intersectX_ = 0F;
+        intersectY_ = 0F;
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+
+        if (!hasColor()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasId()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasTime()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasIntersectX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasIntersectY()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeEnum(1, color_.getNumber());
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeUInt32(2, id_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeFloat(3, time_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeFloat(4, intersectX_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeFloat(5, intersectY_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(1, color_.getNumber());
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(2, id_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(3, time_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(4, intersectX_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(5, intersectY_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code ssl_analyzer_packet.RobotIntersectTime}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.class, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder.class);
+        }
+
+        // Construct using SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+
+        public Builder clear() {
+          super.clear();
+          color_ = SslAnalyzer.ssl_analyzer_packet.Color.none;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          id_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          time_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          intersectX_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000008);
+          intersectY_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000010);
+          return this;
+        }
+
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return SslAnalyzer.internal_static_ssl_analyzer_packet_RobotIntersectTime_descriptor;
+        }
+
+        public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime getDefaultInstanceForType() {
+          return SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.getDefaultInstance();
+        }
+
+        public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime build() {
+          SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime buildPartial() {
+          SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime result = new SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.color_ = color_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.id_ = id_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.time_ = time_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.intersectX_ = intersectX_;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          result.intersectY_ = intersectY_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime) {
+            return mergeFrom((SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime other) {
+          if (other == SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.getDefaultInstance()) return this;
+          if (other.hasColor()) {
+            setColor(other.getColor());
+          }
+          if (other.hasId()) {
+            setId(other.getId());
+          }
+          if (other.hasTime()) {
+            setTime(other.getTime());
+          }
+          if (other.hasIntersectX()) {
+            setIntersectX(other.getIntersectX());
+          }
+          if (other.hasIntersectY()) {
+            setIntersectY(other.getIntersectY());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          if (!hasColor()) {
+            
+            return false;
+          }
+          if (!hasId()) {
+            
+            return false;
+          }
+          if (!hasTime()) {
+            
+            return false;
+          }
+          if (!hasIntersectX()) {
+            
+            return false;
+          }
+          if (!hasIntersectY()) {
+            
+            return false;
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
         private int bitField0_;
-        
+
         // required .ssl_analyzer_packet.Color color = 1;
         private SslAnalyzer.ssl_analyzer_packet.Color color_ = SslAnalyzer.ssl_analyzer_packet.Color.none;
+        /**
+         * <code>required .ssl_analyzer_packet.Color color = 1;</code>
+         */
         public boolean hasColor() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
+        /**
+         * <code>required .ssl_analyzer_packet.Color color = 1;</code>
+         */
         public SslAnalyzer.ssl_analyzer_packet.Color getColor() {
           return color_;
         }
+        /**
+         * <code>required .ssl_analyzer_packet.Color color = 1;</code>
+         */
         public Builder setColor(SslAnalyzer.ssl_analyzer_packet.Color value) {
           if (value == null) {
             throw new NullPointerException();
@@ -656,212 +970,834 @@ public final class SslAnalyzer {
           onChanged();
           return this;
         }
+        /**
+         * <code>required .ssl_analyzer_packet.Color color = 1;</code>
+         */
         public Builder clearColor() {
           bitField0_ = (bitField0_ & ~0x00000001);
           color_ = SslAnalyzer.ssl_analyzer_packet.Color.none;
           onChanged();
           return this;
         }
-        
+
         // required uint32 id = 2;
         private int id_ ;
+        /**
+         * <code>required uint32 id = 2;</code>
+         */
         public boolean hasId() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
+        /**
+         * <code>required uint32 id = 2;</code>
+         */
         public int getId() {
           return id_;
         }
+        /**
+         * <code>required uint32 id = 2;</code>
+         */
         public Builder setId(int value) {
           bitField0_ |= 0x00000002;
           id_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required uint32 id = 2;</code>
+         */
         public Builder clearId() {
           bitField0_ = (bitField0_ & ~0x00000002);
           id_ = 0;
           onChanged();
           return this;
         }
-        
+
         // required float time = 3;
         private float time_ ;
+        /**
+         * <code>required float time = 3;</code>
+         */
         public boolean hasTime() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
+        /**
+         * <code>required float time = 3;</code>
+         */
         public float getTime() {
           return time_;
         }
+        /**
+         * <code>required float time = 3;</code>
+         */
         public Builder setTime(float value) {
           bitField0_ |= 0x00000004;
           time_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required float time = 3;</code>
+         */
         public Builder clearTime() {
           bitField0_ = (bitField0_ & ~0x00000004);
           time_ = 0F;
           onChanged();
           return this;
         }
-        
+
         // required float intersect_x = 4;
         private float intersectX_ ;
+        /**
+         * <code>required float intersect_x = 4;</code>
+         */
         public boolean hasIntersectX() {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
+        /**
+         * <code>required float intersect_x = 4;</code>
+         */
         public float getIntersectX() {
           return intersectX_;
         }
+        /**
+         * <code>required float intersect_x = 4;</code>
+         */
         public Builder setIntersectX(float value) {
           bitField0_ |= 0x00000008;
           intersectX_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required float intersect_x = 4;</code>
+         */
         public Builder clearIntersectX() {
           bitField0_ = (bitField0_ & ~0x00000008);
           intersectX_ = 0F;
           onChanged();
           return this;
         }
-        
+
         // required float intersect_y = 5;
         private float intersectY_ ;
+        /**
+         * <code>required float intersect_y = 5;</code>
+         */
         public boolean hasIntersectY() {
           return ((bitField0_ & 0x00000010) == 0x00000010);
         }
+        /**
+         * <code>required float intersect_y = 5;</code>
+         */
         public float getIntersectY() {
           return intersectY_;
         }
+        /**
+         * <code>required float intersect_y = 5;</code>
+         */
         public Builder setIntersectY(float value) {
           bitField0_ |= 0x00000010;
           intersectY_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required float intersect_y = 5;</code>
+         */
         public Builder clearIntersectY() {
           bitField0_ = (bitField0_ & ~0x00000010);
           intersectY_ = 0F;
           onChanged();
           return this;
         }
-        
+
         // @@protoc_insertion_point(builder_scope:ssl_analyzer_packet.RobotIntersectTime)
       }
-      
+
       static {
         defaultInstance = new RobotIntersectTime(true);
         defaultInstance.initFields();
       }
-      
+
       // @@protoc_insertion_point(class_scope:ssl_analyzer_packet.RobotIntersectTime)
     }
-    
+
+    public interface point_2dOrBuilder
+        extends com.google.protobuf.MessageOrBuilder {
+
+      // required float x = 1;
+      /**
+       * <code>required float x = 1;</code>
+       */
+      boolean hasX();
+      /**
+       * <code>required float x = 1;</code>
+       */
+      float getX();
+
+      // required float y = 2;
+      /**
+       * <code>required float y = 2;</code>
+       */
+      boolean hasY();
+      /**
+       * <code>required float y = 2;</code>
+       */
+      float getY();
+    }
+    /**
+     * Protobuf type {@code ssl_analyzer_packet.point_2d}
+     */
+    public static final class point_2d extends
+        com.google.protobuf.GeneratedMessage
+        implements point_2dOrBuilder {
+      // Use point_2d.newBuilder() to construct.
+      private point_2d(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+        super(builder);
+        this.unknownFields = builder.getUnknownFields();
+      }
+      private point_2d(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+      private static final point_2d defaultInstance;
+      public static point_2d getDefaultInstance() {
+        return defaultInstance;
+      }
+
+      public point_2d getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
+      }
+      private point_2d(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 13: {
+                bitField0_ |= 0x00000001;
+                x_ = input.readFloat();
+                break;
+              }
+              case 21: {
+                bitField0_ |= 0x00000002;
+                y_ = input.readFloat();
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return SslAnalyzer.internal_static_ssl_analyzer_packet_point_2d_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return SslAnalyzer.internal_static_ssl_analyzer_packet_point_2d_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslAnalyzer.ssl_analyzer_packet.point_2d.class, SslAnalyzer.ssl_analyzer_packet.point_2d.Builder.class);
+      }
+
+      public static com.google.protobuf.Parser<point_2d> PARSER =
+          new com.google.protobuf.AbstractParser<point_2d>() {
+        public point_2d parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new point_2d(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<point_2d> getParserForType() {
+        return PARSER;
+      }
+
+      private int bitField0_;
+      // required float x = 1;
+      public static final int X_FIELD_NUMBER = 1;
+      private float x_;
+      /**
+       * <code>required float x = 1;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required float x = 1;</code>
+       */
+      public float getX() {
+        return x_;
+      }
+
+      // required float y = 2;
+      public static final int Y_FIELD_NUMBER = 2;
+      private float y_;
+      /**
+       * <code>required float y = 2;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required float y = 2;</code>
+       */
+      public float getY() {
+        return y_;
+      }
+
+      private void initFields() {
+        x_ = 0F;
+        y_ = 0F;
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+
+        if (!hasX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasY()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeFloat(1, x_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeFloat(2, y_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(1, x_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeFloatSize(2, y_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static SslAnalyzer.ssl_analyzer_packet.point_2d parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(SslAnalyzer.ssl_analyzer_packet.point_2d prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code ssl_analyzer_packet.point_2d}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements SslAnalyzer.ssl_analyzer_packet.point_2dOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return SslAnalyzer.internal_static_ssl_analyzer_packet_point_2d_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return SslAnalyzer.internal_static_ssl_analyzer_packet_point_2d_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  SslAnalyzer.ssl_analyzer_packet.point_2d.class, SslAnalyzer.ssl_analyzer_packet.point_2d.Builder.class);
+        }
+
+        // Construct using SslAnalyzer.ssl_analyzer_packet.point_2d.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+
+        public Builder clear() {
+          super.clear();
+          x_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          y_ = 0F;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          return this;
+        }
+
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return SslAnalyzer.internal_static_ssl_analyzer_packet_point_2d_descriptor;
+        }
+
+        public SslAnalyzer.ssl_analyzer_packet.point_2d getDefaultInstanceForType() {
+          return SslAnalyzer.ssl_analyzer_packet.point_2d.getDefaultInstance();
+        }
+
+        public SslAnalyzer.ssl_analyzer_packet.point_2d build() {
+          SslAnalyzer.ssl_analyzer_packet.point_2d result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public SslAnalyzer.ssl_analyzer_packet.point_2d buildPartial() {
+          SslAnalyzer.ssl_analyzer_packet.point_2d result = new SslAnalyzer.ssl_analyzer_packet.point_2d(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.x_ = x_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.y_ = y_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof SslAnalyzer.ssl_analyzer_packet.point_2d) {
+            return mergeFrom((SslAnalyzer.ssl_analyzer_packet.point_2d)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(SslAnalyzer.ssl_analyzer_packet.point_2d other) {
+          if (other == SslAnalyzer.ssl_analyzer_packet.point_2d.getDefaultInstance()) return this;
+          if (other.hasX()) {
+            setX(other.getX());
+          }
+          if (other.hasY()) {
+            setY(other.getY());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          if (!hasX()) {
+            
+            return false;
+          }
+          if (!hasY()) {
+            
+            return false;
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          SslAnalyzer.ssl_analyzer_packet.point_2d parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (SslAnalyzer.ssl_analyzer_packet.point_2d) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        // required float x = 1;
+        private float x_ ;
+        /**
+         * <code>required float x = 1;</code>
+         */
+        public boolean hasX() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>required float x = 1;</code>
+         */
+        public float getX() {
+          return x_;
+        }
+        /**
+         * <code>required float x = 1;</code>
+         */
+        public Builder setX(float value) {
+          bitField0_ |= 0x00000001;
+          x_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required float x = 1;</code>
+         */
+        public Builder clearX() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          x_ = 0F;
+          onChanged();
+          return this;
+        }
+
+        // required float y = 2;
+        private float y_ ;
+        /**
+         * <code>required float y = 2;</code>
+         */
+        public boolean hasY() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        /**
+         * <code>required float y = 2;</code>
+         */
+        public float getY() {
+          return y_;
+        }
+        /**
+         * <code>required float y = 2;</code>
+         */
+        public Builder setY(float value) {
+          bitField0_ |= 0x00000002;
+          y_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required float y = 2;</code>
+         */
+        public Builder clearY() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          y_ = 0F;
+          onChanged();
+          return this;
+        }
+
+        // @@protoc_insertion_point(builder_scope:ssl_analyzer_packet.point_2d)
+      }
+
+      static {
+        defaultInstance = new point_2d(true);
+        defaultInstance.initFields();
+      }
+
+      // @@protoc_insertion_point(class_scope:ssl_analyzer_packet.point_2d)
+    }
+
     private int bitField0_;
     // required uint32 nearest_blue_id = 1;
     public static final int NEAREST_BLUE_ID_FIELD_NUMBER = 1;
     private int nearestBlueId_;
+    /**
+     * <code>required uint32 nearest_blue_id = 1;</code>
+     */
     public boolean hasNearestBlueId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>required uint32 nearest_blue_id = 1;</code>
+     */
     public int getNearestBlueId() {
       return nearestBlueId_;
     }
-    
+
     // required uint32 nearest_yellow_id = 2;
     public static final int NEAREST_YELLOW_ID_FIELD_NUMBER = 2;
     private int nearestYellowId_;
+    /**
+     * <code>required uint32 nearest_yellow_id = 2;</code>
+     */
     public boolean hasNearestYellowId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
+    /**
+     * <code>required uint32 nearest_yellow_id = 2;</code>
+     */
     public int getNearestYellowId() {
       return nearestYellowId_;
     }
-    
+
     // required .ssl_analyzer_packet.Color possessor_team = 3;
     public static final int POSSESSOR_TEAM_FIELD_NUMBER = 3;
     private SslAnalyzer.ssl_analyzer_packet.Color possessorTeam_;
+    /**
+     * <code>required .ssl_analyzer_packet.Color possessor_team = 3;</code>
+     */
     public boolean hasPossessorTeam() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
+    /**
+     * <code>required .ssl_analyzer_packet.Color possessor_team = 3;</code>
+     */
     public SslAnalyzer.ssl_analyzer_packet.Color getPossessorTeam() {
       return possessorTeam_;
     }
-    
+
     // required bool nearest_can_kick = 4;
     public static final int NEAREST_CAN_KICK_FIELD_NUMBER = 4;
     private boolean nearestCanKick_;
+    /**
+     * <code>required bool nearest_can_kick = 4;</code>
+     */
     public boolean hasNearestCanKick() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
+    /**
+     * <code>required bool nearest_can_kick = 4;</code>
+     */
     public boolean getNearestCanKick() {
       return nearestCanKick_;
     }
-    
+
     // required bool is_game_running = 5;
     public static final int IS_GAME_RUNNING_FIELD_NUMBER = 5;
     private boolean isGameRunning_;
+    /**
+     * <code>required bool is_game_running = 5;</code>
+     */
     public boolean hasIsGameRunning() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
+    /**
+     * <code>required bool is_game_running = 5;</code>
+     */
     public boolean getIsGameRunning() {
       return isGameRunning_;
     }
-    
+
     // repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;
     public static final int INTERSECTS_FIELD_NUMBER = 6;
     private java.util.List<SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime> intersects_;
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     public java.util.List<SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime> getIntersectsList() {
       return intersects_;
     }
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     public java.util.List<? extends SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder> 
         getIntersectsOrBuilderList() {
       return intersects_;
     }
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     public int getIntersectsCount() {
       return intersects_.size();
     }
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime getIntersects(int index) {
       return intersects_.get(index);
     }
+    /**
+     * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+     */
     public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder getIntersectsOrBuilder(
         int index) {
       return intersects_.get(index);
     }
-    
-    // optional string comment = 7;
-    public static final int COMMENT_FIELD_NUMBER = 7;
-    private java.lang.Object comment_;
-    public boolean hasComment() {
+
+    // required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
+    public static final int BALLINTERSECTIONWITHOURGOAL_FIELD_NUMBER = 7;
+    private SslAnalyzer.ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal_;
+    /**
+     * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+     */
+    public boolean hasBallIntersectionWithOurGoal() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
-    public String getComment() {
+    /**
+     * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+     */
+    public SslAnalyzer.ssl_analyzer_packet.point_2d getBallIntersectionWithOurGoal() {
+      return ballIntersectionWithOurGoal_;
+    }
+    /**
+     * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+     */
+    public SslAnalyzer.ssl_analyzer_packet.point_2dOrBuilder getBallIntersectionWithOurGoalOrBuilder() {
+      return ballIntersectionWithOurGoal_;
+    }
+
+    // optional string comment = 8;
+    public static final int COMMENT_FIELD_NUMBER = 8;
+    private java.lang.Object comment_;
+    /**
+     * <code>optional string comment = 8;</code>
+     */
+    public boolean hasComment() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional string comment = 8;</code>
+     */
+    public java.lang.String getComment() {
       java.lang.Object ref = comment_;
-      if (ref instanceof String) {
-        return (String) ref;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
           comment_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getCommentBytes() {
+    /**
+     * <code>optional string comment = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCommentBytes() {
       java.lang.Object ref = comment_;
-      if (ref instanceof String) {
+      if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
         comment_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-    
+
     private void initFields() {
       nearestBlueId_ = 0;
       nearestYellowId_ = 0;
@@ -869,13 +1805,14 @@ public final class SslAnalyzer {
       nearestCanKick_ = false;
       isGameRunning_ = false;
       intersects_ = java.util.Collections.emptyList();
+      ballIntersectionWithOurGoal_ = SslAnalyzer.ssl_analyzer_packet.point_2d.getDefaultInstance();
       comment_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasNearestBlueId()) {
         memoizedIsInitialized = 0;
         return false;
@@ -896,16 +1833,24 @@ public final class SslAnalyzer {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasBallIntersectionWithOurGoal()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       for (int i = 0; i < getIntersectsCount(); i++) {
         if (!getIntersects(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
       }
+      if (!getBallIntersectionWithOurGoal().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -928,16 +1873,19 @@ public final class SslAnalyzer {
         output.writeMessage(6, intersects_.get(i));
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeBytes(7, getCommentBytes());
+        output.writeMessage(7, ballIntersectionWithOurGoal_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeBytes(8, getCommentBytes());
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -965,100 +1913,93 @@ public final class SslAnalyzer {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(7, getCommentBytes());
+          .computeMessageSize(7, ballIntersectionWithOurGoal_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(8, getCommentBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslAnalyzer.ssl_analyzer_packet parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslAnalyzer.ssl_analyzer_packet parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslAnalyzer.ssl_analyzer_packet prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ssl_analyzer_packet}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslAnalyzer.ssl_analyzer_packetOrBuilder {
@@ -1066,30 +2007,34 @@ public final class SslAnalyzer {
           getDescriptor() {
         return SslAnalyzer.internal_static_ssl_analyzer_packet_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslAnalyzer.internal_static_ssl_analyzer_packet_fieldAccessorTable;
+        return SslAnalyzer.internal_static_ssl_analyzer_packet_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslAnalyzer.ssl_analyzer_packet.class, SslAnalyzer.ssl_analyzer_packet.Builder.class);
       }
-      
+
       // Construct using SslAnalyzer.ssl_analyzer_packet.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getIntersectsFieldBuilder();
+          getBallIntersectionWithOurGoalFieldBuilder();
         }
       }
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         nearestBlueId_ = 0;
@@ -1108,24 +2053,30 @@ public final class SslAnalyzer {
         } else {
           intersectsBuilder_.clear();
         }
-        comment_ = "";
+        if (ballIntersectionWithOurGoalBuilder_ == null) {
+          ballIntersectionWithOurGoal_ = SslAnalyzer.ssl_analyzer_packet.point_2d.getDefaultInstance();
+        } else {
+          ballIntersectionWithOurGoalBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000040);
+        comment_ = "";
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslAnalyzer.ssl_analyzer_packet.getDescriptor();
+        return SslAnalyzer.internal_static_ssl_analyzer_packet_descriptor;
       }
-      
+
       public SslAnalyzer.ssl_analyzer_packet getDefaultInstanceForType() {
         return SslAnalyzer.ssl_analyzer_packet.getDefaultInstance();
       }
-      
+
       public SslAnalyzer.ssl_analyzer_packet build() {
         SslAnalyzer.ssl_analyzer_packet result = buildPartial();
         if (!result.isInitialized()) {
@@ -1133,17 +2084,7 @@ public final class SslAnalyzer {
         }
         return result;
       }
-      
-      private SslAnalyzer.ssl_analyzer_packet buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslAnalyzer.ssl_analyzer_packet result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslAnalyzer.ssl_analyzer_packet buildPartial() {
         SslAnalyzer.ssl_analyzer_packet result = new SslAnalyzer.ssl_analyzer_packet(this);
         int from_bitField0_ = bitField0_;
@@ -1180,12 +2121,20 @@ public final class SslAnalyzer {
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000020;
         }
+        if (ballIntersectionWithOurGoalBuilder_ == null) {
+          result.ballIntersectionWithOurGoal_ = ballIntersectionWithOurGoal_;
+        } else {
+          result.ballIntersectionWithOurGoal_ = ballIntersectionWithOurGoalBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000040;
+        }
         result.comment_ = comment_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslAnalyzer.ssl_analyzer_packet) {
           return mergeFrom((SslAnalyzer.ssl_analyzer_packet)other);
@@ -1194,7 +2143,7 @@ public final class SslAnalyzer {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslAnalyzer.ssl_analyzer_packet other) {
         if (other == SslAnalyzer.ssl_analyzer_packet.getDefaultInstance()) return this;
         if (other.hasNearestBlueId()) {
@@ -1238,13 +2187,18 @@ public final class SslAnalyzer {
             }
           }
         }
+        if (other.hasBallIntersectionWithOurGoal()) {
+          mergeBallIntersectionWithOurGoal(other.getBallIntersectionWithOurGoal());
+        }
         if (other.hasComment()) {
-          setComment(other.getComment());
+          bitField0_ |= 0x00000080;
+          comment_ = other.comment_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasNearestBlueId()) {
           
@@ -1266,136 +2220,125 @@ public final class SslAnalyzer {
           
           return false;
         }
+        if (!hasBallIntersectionWithOurGoal()) {
+          
+          return false;
+        }
         for (int i = 0; i < getIntersectsCount(); i++) {
           if (!getIntersects(i).isInitialized()) {
             
             return false;
           }
         }
+        if (!getBallIntersectionWithOurGoal().isInitialized()) {
+          
+          return false;
+        }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 8: {
-              bitField0_ |= 0x00000001;
-              nearestBlueId_ = input.readUInt32();
-              break;
-            }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              nearestYellowId_ = input.readUInt32();
-              break;
-            }
-            case 24: {
-              int rawValue = input.readEnum();
-              SslAnalyzer.ssl_analyzer_packet.Color value = SslAnalyzer.ssl_analyzer_packet.Color.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(3, rawValue);
-              } else {
-                bitField0_ |= 0x00000004;
-                possessorTeam_ = value;
-              }
-              break;
-            }
-            case 32: {
-              bitField0_ |= 0x00000008;
-              nearestCanKick_ = input.readBool();
-              break;
-            }
-            case 40: {
-              bitField0_ |= 0x00000010;
-              isGameRunning_ = input.readBool();
-              break;
-            }
-            case 50: {
-              SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder subBuilder = SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addIntersects(subBuilder.buildPartial());
-              break;
-            }
-            case 58: {
-              bitField0_ |= 0x00000040;
-              comment_ = input.readBytes();
-              break;
-            }
+        SslAnalyzer.ssl_analyzer_packet parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslAnalyzer.ssl_analyzer_packet) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // required uint32 nearest_blue_id = 1;
       private int nearestBlueId_ ;
+      /**
+       * <code>required uint32 nearest_blue_id = 1;</code>
+       */
       public boolean hasNearestBlueId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required uint32 nearest_blue_id = 1;</code>
+       */
       public int getNearestBlueId() {
         return nearestBlueId_;
       }
+      /**
+       * <code>required uint32 nearest_blue_id = 1;</code>
+       */
       public Builder setNearestBlueId(int value) {
         bitField0_ |= 0x00000001;
         nearestBlueId_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 nearest_blue_id = 1;</code>
+       */
       public Builder clearNearestBlueId() {
         bitField0_ = (bitField0_ & ~0x00000001);
         nearestBlueId_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint32 nearest_yellow_id = 2;
       private int nearestYellowId_ ;
+      /**
+       * <code>required uint32 nearest_yellow_id = 2;</code>
+       */
       public boolean hasNearestYellowId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required uint32 nearest_yellow_id = 2;</code>
+       */
       public int getNearestYellowId() {
         return nearestYellowId_;
       }
+      /**
+       * <code>required uint32 nearest_yellow_id = 2;</code>
+       */
       public Builder setNearestYellowId(int value) {
         bitField0_ |= 0x00000002;
         nearestYellowId_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 nearest_yellow_id = 2;</code>
+       */
       public Builder clearNearestYellowId() {
         bitField0_ = (bitField0_ & ~0x00000002);
         nearestYellowId_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required .ssl_analyzer_packet.Color possessor_team = 3;
       private SslAnalyzer.ssl_analyzer_packet.Color possessorTeam_ = SslAnalyzer.ssl_analyzer_packet.Color.none;
+      /**
+       * <code>required .ssl_analyzer_packet.Color possessor_team = 3;</code>
+       */
       public boolean hasPossessorTeam() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
+      /**
+       * <code>required .ssl_analyzer_packet.Color possessor_team = 3;</code>
+       */
       public SslAnalyzer.ssl_analyzer_packet.Color getPossessorTeam() {
         return possessorTeam_;
       }
+      /**
+       * <code>required .ssl_analyzer_packet.Color possessor_team = 3;</code>
+       */
       public Builder setPossessorTeam(SslAnalyzer.ssl_analyzer_packet.Color value) {
         if (value == null) {
           throw new NullPointerException();
@@ -1405,55 +2348,82 @@ public final class SslAnalyzer {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .ssl_analyzer_packet.Color possessor_team = 3;</code>
+       */
       public Builder clearPossessorTeam() {
         bitField0_ = (bitField0_ & ~0x00000004);
         possessorTeam_ = SslAnalyzer.ssl_analyzer_packet.Color.none;
         onChanged();
         return this;
       }
-      
+
       // required bool nearest_can_kick = 4;
       private boolean nearestCanKick_ ;
+      /**
+       * <code>required bool nearest_can_kick = 4;</code>
+       */
       public boolean hasNearestCanKick() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
+      /**
+       * <code>required bool nearest_can_kick = 4;</code>
+       */
       public boolean getNearestCanKick() {
         return nearestCanKick_;
       }
+      /**
+       * <code>required bool nearest_can_kick = 4;</code>
+       */
       public Builder setNearestCanKick(boolean value) {
         bitField0_ |= 0x00000008;
         nearestCanKick_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required bool nearest_can_kick = 4;</code>
+       */
       public Builder clearNearestCanKick() {
         bitField0_ = (bitField0_ & ~0x00000008);
         nearestCanKick_ = false;
         onChanged();
         return this;
       }
-      
+
       // required bool is_game_running = 5;
       private boolean isGameRunning_ ;
+      /**
+       * <code>required bool is_game_running = 5;</code>
+       */
       public boolean hasIsGameRunning() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
+      /**
+       * <code>required bool is_game_running = 5;</code>
+       */
       public boolean getIsGameRunning() {
         return isGameRunning_;
       }
+      /**
+       * <code>required bool is_game_running = 5;</code>
+       */
       public Builder setIsGameRunning(boolean value) {
         bitField0_ |= 0x00000010;
         isGameRunning_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required bool is_game_running = 5;</code>
+       */
       public Builder clearIsGameRunning() {
         bitField0_ = (bitField0_ & ~0x00000010);
         isGameRunning_ = false;
         onChanged();
         return this;
       }
-      
+
       // repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;
       private java.util.List<SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime> intersects_ =
         java.util.Collections.emptyList();
@@ -1463,10 +2433,13 @@ public final class SslAnalyzer {
           bitField0_ |= 0x00000020;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder> intersectsBuilder_;
-      
+
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public java.util.List<SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime> getIntersectsList() {
         if (intersectsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(intersects_);
@@ -1474,6 +2447,9 @@ public final class SslAnalyzer {
           return intersectsBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public int getIntersectsCount() {
         if (intersectsBuilder_ == null) {
           return intersects_.size();
@@ -1481,6 +2457,9 @@ public final class SslAnalyzer {
           return intersectsBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime getIntersects(int index) {
         if (intersectsBuilder_ == null) {
           return intersects_.get(index);
@@ -1488,6 +2467,9 @@ public final class SslAnalyzer {
           return intersectsBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder setIntersects(
           int index, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime value) {
         if (intersectsBuilder_ == null) {
@@ -1502,6 +2484,9 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder setIntersects(
           int index, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder builderForValue) {
         if (intersectsBuilder_ == null) {
@@ -1513,6 +2498,9 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder addIntersects(SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime value) {
         if (intersectsBuilder_ == null) {
           if (value == null) {
@@ -1526,6 +2514,9 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder addIntersects(
           int index, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime value) {
         if (intersectsBuilder_ == null) {
@@ -1540,6 +2531,9 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder addIntersects(
           SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder builderForValue) {
         if (intersectsBuilder_ == null) {
@@ -1551,6 +2545,9 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder addIntersects(
           int index, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder builderForValue) {
         if (intersectsBuilder_ == null) {
@@ -1562,6 +2559,9 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder addAllIntersects(
           java.lang.Iterable<? extends SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime> values) {
         if (intersectsBuilder_ == null) {
@@ -1573,6 +2573,9 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder clearIntersects() {
         if (intersectsBuilder_ == null) {
           intersects_ = java.util.Collections.emptyList();
@@ -1583,6 +2586,9 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public Builder removeIntersects(int index) {
         if (intersectsBuilder_ == null) {
           ensureIntersectsIsMutable();
@@ -1593,10 +2599,16 @@ public final class SslAnalyzer {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder getIntersectsBuilder(
           int index) {
         return getIntersectsFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder getIntersectsOrBuilder(
           int index) {
         if (intersectsBuilder_ == null) {
@@ -1604,6 +2616,9 @@ public final class SslAnalyzer {
           return intersectsBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public java.util.List<? extends SslAnalyzer.ssl_analyzer_packet.RobotIntersectTimeOrBuilder> 
            getIntersectsOrBuilderList() {
         if (intersectsBuilder_ != null) {
@@ -1612,15 +2627,24 @@ public final class SslAnalyzer {
           return java.util.Collections.unmodifiableList(intersects_);
         }
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder addIntersectsBuilder() {
         return getIntersectsFieldBuilder().addBuilder(
             SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.getDefaultInstance());
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder addIntersectsBuilder(
           int index) {
         return getIntersectsFieldBuilder().addBuilder(
             index, SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.getDefaultInstance());
       }
+      /**
+       * <code>repeated .ssl_analyzer_packet.RobotIntersectTime intersects = 6;</code>
+       */
       public java.util.List<SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder> 
            getIntersectsBuilderList() {
         return getIntersectsFieldBuilder().getBuilderList();
@@ -1639,54 +2663,209 @@ public final class SslAnalyzer {
         }
         return intersectsBuilder_;
       }
-      
-      // optional string comment = 7;
-      private java.lang.Object comment_ = "";
-      public boolean hasComment() {
+
+      // required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;
+      private SslAnalyzer.ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal_ = SslAnalyzer.ssl_analyzer_packet.point_2d.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          SslAnalyzer.ssl_analyzer_packet.point_2d, SslAnalyzer.ssl_analyzer_packet.point_2d.Builder, SslAnalyzer.ssl_analyzer_packet.point_2dOrBuilder> ballIntersectionWithOurGoalBuilder_;
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      public boolean hasBallIntersectionWithOurGoal() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
-      public String getComment() {
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      public SslAnalyzer.ssl_analyzer_packet.point_2d getBallIntersectionWithOurGoal() {
+        if (ballIntersectionWithOurGoalBuilder_ == null) {
+          return ballIntersectionWithOurGoal_;
+        } else {
+          return ballIntersectionWithOurGoalBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      public Builder setBallIntersectionWithOurGoal(SslAnalyzer.ssl_analyzer_packet.point_2d value) {
+        if (ballIntersectionWithOurGoalBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ballIntersectionWithOurGoal_ = value;
+          onChanged();
+        } else {
+          ballIntersectionWithOurGoalBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      public Builder setBallIntersectionWithOurGoal(
+          SslAnalyzer.ssl_analyzer_packet.point_2d.Builder builderForValue) {
+        if (ballIntersectionWithOurGoalBuilder_ == null) {
+          ballIntersectionWithOurGoal_ = builderForValue.build();
+          onChanged();
+        } else {
+          ballIntersectionWithOurGoalBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      public Builder mergeBallIntersectionWithOurGoal(SslAnalyzer.ssl_analyzer_packet.point_2d value) {
+        if (ballIntersectionWithOurGoalBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) == 0x00000040) &&
+              ballIntersectionWithOurGoal_ != SslAnalyzer.ssl_analyzer_packet.point_2d.getDefaultInstance()) {
+            ballIntersectionWithOurGoal_ =
+              SslAnalyzer.ssl_analyzer_packet.point_2d.newBuilder(ballIntersectionWithOurGoal_).mergeFrom(value).buildPartial();
+          } else {
+            ballIntersectionWithOurGoal_ = value;
+          }
+          onChanged();
+        } else {
+          ballIntersectionWithOurGoalBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      public Builder clearBallIntersectionWithOurGoal() {
+        if (ballIntersectionWithOurGoalBuilder_ == null) {
+          ballIntersectionWithOurGoal_ = SslAnalyzer.ssl_analyzer_packet.point_2d.getDefaultInstance();
+          onChanged();
+        } else {
+          ballIntersectionWithOurGoalBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000040);
+        return this;
+      }
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      public SslAnalyzer.ssl_analyzer_packet.point_2d.Builder getBallIntersectionWithOurGoalBuilder() {
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return getBallIntersectionWithOurGoalFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      public SslAnalyzer.ssl_analyzer_packet.point_2dOrBuilder getBallIntersectionWithOurGoalOrBuilder() {
+        if (ballIntersectionWithOurGoalBuilder_ != null) {
+          return ballIntersectionWithOurGoalBuilder_.getMessageOrBuilder();
+        } else {
+          return ballIntersectionWithOurGoal_;
+        }
+      }
+      /**
+       * <code>required .ssl_analyzer_packet.point_2d ballIntersectionWithOurGoal = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          SslAnalyzer.ssl_analyzer_packet.point_2d, SslAnalyzer.ssl_analyzer_packet.point_2d.Builder, SslAnalyzer.ssl_analyzer_packet.point_2dOrBuilder> 
+          getBallIntersectionWithOurGoalFieldBuilder() {
+        if (ballIntersectionWithOurGoalBuilder_ == null) {
+          ballIntersectionWithOurGoalBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              SslAnalyzer.ssl_analyzer_packet.point_2d, SslAnalyzer.ssl_analyzer_packet.point_2d.Builder, SslAnalyzer.ssl_analyzer_packet.point_2dOrBuilder>(
+                  ballIntersectionWithOurGoal_,
+                  getParentForChildren(),
+                  isClean());
+          ballIntersectionWithOurGoal_ = null;
+        }
+        return ballIntersectionWithOurGoalBuilder_;
+      }
+
+      // optional string comment = 8;
+      private java.lang.Object comment_ = "";
+      /**
+       * <code>optional string comment = 8;</code>
+       */
+      public boolean hasComment() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>optional string comment = 8;</code>
+       */
+      public java.lang.String getComment() {
         java.lang.Object ref = comment_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           comment_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setComment(String value) {
+      /**
+       * <code>optional string comment = 8;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCommentBytes() {
+        java.lang.Object ref = comment_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          comment_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string comment = 8;</code>
+       */
+      public Builder setComment(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000040;
+  bitField0_ |= 0x00000080;
         comment_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string comment = 8;</code>
+       */
       public Builder clearComment() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         comment_ = getDefaultInstance().getComment();
         onChanged();
         return this;
       }
-      void setComment(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000040;
+      /**
+       * <code>optional string comment = 8;</code>
+       */
+      public Builder setCommentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000080;
         comment_ = value;
         onChanged();
+        return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:ssl_analyzer_packet)
     }
-    
+
     static {
       defaultInstance = new ssl_analyzer_packet(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:ssl_analyzer_packet)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_ssl_analyzer_packet_descriptor;
   private static
@@ -1697,7 +2876,12 @@ public final class SslAnalyzer {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ssl_analyzer_packet_RobotIntersectTime_fieldAccessorTable;
-  
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_ssl_analyzer_packet_point_2d_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ssl_analyzer_packet_point_2d_fieldAccessorTable;
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -1706,18 +2890,21 @@ public final class SslAnalyzer {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022ssl_analyzer.proto\"\266\003\n\023ssl_analyzer_pa" +
+      "\n\022ssl_analyzer.proto\"\234\004\n\023ssl_analyzer_pa" +
       "cket\022\027\n\017nearest_blue_id\030\001 \002(\r\022\031\n\021nearest" +
       "_yellow_id\030\002 \002(\r\0222\n\016possessor_team\030\003 \002(\016" +
       "2\032.ssl_analyzer_packet.Color\022\030\n\020nearest_" +
       "can_kick\030\004 \002(\010\022\027\n\017is_game_running\030\005 \002(\010\022" +
       ";\n\nintersects\030\006 \003(\0132\'.ssl_analyzer_packe" +
-      "t.RobotIntersectTime\022\017\n\007comment\030\007 \001(\t\032\203\001" +
-      "\n\022RobotIntersectTime\022)\n\005color\030\001 \002(\0162\032.ss" +
-      "l_analyzer_packet.Color\022\n\n\002id\030\002 \002(\r\022\014\n\004t" +
-      "ime\030\003 \002(\002\022\023\n\013intersect_x\030\004 \002(\002\022\023\n\013inters",
-      "ect_y\030\005 \002(\002\"0\n\005Color\022\021\n\004none\020\377\377\377\377\377\377\377\377\377\001\022" +
-      "\n\n\006yellow\020\000\022\010\n\004blue\020\001"
+      "t.RobotIntersectTime\022B\n\033ballIntersection" +
+      "WithOurGoal\030\007 \002(\0132\035.ssl_analyzer_packet." +
+      "point_2d\022\017\n\007comment\030\010 \001(\t\032\203\001\n\022RobotInter" +
+      "sectTime\022)\n\005color\030\001 \002(\0162\032.ssl_analyzer_p",
+      "acket.Color\022\n\n\002id\030\002 \002(\r\022\014\n\004time\030\003 \002(\002\022\023\n" +
+      "\013intersect_x\030\004 \002(\002\022\023\n\013intersect_y\030\005 \002(\002\032" +
+      " \n\010point_2d\022\t\n\001x\030\001 \002(\002\022\t\n\001y\030\002 \002(\002\"0\n\005Col" +
+      "or\022\021\n\004none\020\377\377\377\377\377\377\377\377\377\001\022\n\n\006yellow\020\000\022\010\n\004blu" +
+      "e\020\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1729,17 +2916,19 @@ public final class SslAnalyzer {
           internal_static_ssl_analyzer_packet_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_analyzer_packet_descriptor,
-              new java.lang.String[] { "NearestBlueId", "NearestYellowId", "PossessorTeam", "NearestCanKick", "IsGameRunning", "Intersects", "Comment", },
-              SslAnalyzer.ssl_analyzer_packet.class,
-              SslAnalyzer.ssl_analyzer_packet.Builder.class);
+              new java.lang.String[] { "NearestBlueId", "NearestYellowId", "PossessorTeam", "NearestCanKick", "IsGameRunning", "Intersects", "BallIntersectionWithOurGoal", "Comment", });
           internal_static_ssl_analyzer_packet_RobotIntersectTime_descriptor =
             internal_static_ssl_analyzer_packet_descriptor.getNestedTypes().get(0);
           internal_static_ssl_analyzer_packet_RobotIntersectTime_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_analyzer_packet_RobotIntersectTime_descriptor,
-              new java.lang.String[] { "Color", "Id", "Time", "IntersectX", "IntersectY", },
-              SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.class,
-              SslAnalyzer.ssl_analyzer_packet.RobotIntersectTime.Builder.class);
+              new java.lang.String[] { "Color", "Id", "Time", "IntersectX", "IntersectY", });
+          internal_static_ssl_analyzer_packet_point_2d_descriptor =
+            internal_static_ssl_analyzer_packet_descriptor.getNestedTypes().get(1);
+          internal_static_ssl_analyzer_packet_point_2d_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_ssl_analyzer_packet_point_2d_descriptor,
+              new java.lang.String[] { "X", "Y", });
           return null;
         }
       };
@@ -1748,6 +2937,6 @@ public final class SslAnalyzer {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }

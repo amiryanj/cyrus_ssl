@@ -8,73 +8,242 @@ public final class SslDecision {
   }
   public interface ssl_decision_packetOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required .ssl_decision_packet.Color our_color = 1;
+    /**
+     * <code>required .ssl_decision_packet.Color our_color = 1;</code>
+     */
     boolean hasOurColor();
+    /**
+     * <code>required .ssl_decision_packet.Color our_color = 1;</code>
+     */
     SslDecision.ssl_decision_packet.Color getOurColor();
-    
+
     // required .ssl_decision_packet.Side our_side = 2;
+    /**
+     * <code>required .ssl_decision_packet.Side our_side = 2;</code>
+     */
     boolean hasOurSide();
+    /**
+     * <code>required .ssl_decision_packet.Side our_side = 2;</code>
+     */
     SslDecision.ssl_decision_packet.Side getOurSide();
-    
+
     // required string strategy_name = 3;
+    /**
+     * <code>required string strategy_name = 3;</code>
+     */
     boolean hasStrategyName();
-    String getStrategyName();
-    
+    /**
+     * <code>required string strategy_name = 3;</code>
+     */
+    java.lang.String getStrategyName();
+    /**
+     * <code>required string strategy_name = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getStrategyNameBytes();
+
     // repeated .ssl_decision_packet.Robot_Role robot_roles = 4;
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     java.util.List<SslDecision.ssl_decision_packet.Robot_Role> 
         getRobotRolesList();
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     SslDecision.ssl_decision_packet.Robot_Role getRobotRoles(int index);
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     int getRobotRolesCount();
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     java.util.List<? extends SslDecision.ssl_decision_packet.Robot_RoleOrBuilder> 
         getRobotRolesOrBuilderList();
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     SslDecision.ssl_decision_packet.Robot_RoleOrBuilder getRobotRolesOrBuilder(
         int index);
-    
+
     // optional string comment = 5;
+    /**
+     * <code>optional string comment = 5;</code>
+     */
     boolean hasComment();
-    String getComment();
+    /**
+     * <code>optional string comment = 5;</code>
+     */
+    java.lang.String getComment();
+    /**
+     * <code>optional string comment = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getCommentBytes();
   }
+  /**
+   * Protobuf type {@code ssl_decision_packet}
+   */
   public static final class ssl_decision_packet extends
       com.google.protobuf.GeneratedMessage
       implements ssl_decision_packetOrBuilder {
     // Use ssl_decision_packet.newBuilder() to construct.
-    private ssl_decision_packet(Builder builder) {
+    private ssl_decision_packet(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private ssl_decision_packet(boolean noInit) {}
-    
+    private ssl_decision_packet(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final ssl_decision_packet defaultInstance;
     public static ssl_decision_packet getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public ssl_decision_packet getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ssl_decision_packet(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              SslDecision.ssl_decision_packet.Color value = SslDecision.ssl_decision_packet.Color.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                ourColor_ = value;
+              }
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+              SslDecision.ssl_decision_packet.Side value = SslDecision.ssl_decision_packet.Side.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                ourSide_ = value;
+              }
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              strategyName_ = input.readBytes();
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                robotRoles_ = new java.util.ArrayList<SslDecision.ssl_decision_packet.Robot_Role>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              robotRoles_.add(input.readMessage(SslDecision.ssl_decision_packet.Robot_Role.PARSER, extensionRegistry));
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000008;
+              comment_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          robotRoles_ = java.util.Collections.unmodifiableList(robotRoles_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return SslDecision.internal_static_ssl_decision_packet_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return SslDecision.internal_static_ssl_decision_packet_fieldAccessorTable;
+      return SslDecision.internal_static_ssl_decision_packet_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              SslDecision.ssl_decision_packet.class, SslDecision.ssl_decision_packet.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<ssl_decision_packet> PARSER =
+        new com.google.protobuf.AbstractParser<ssl_decision_packet>() {
+      public ssl_decision_packet parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ssl_decision_packet(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ssl_decision_packet> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code ssl_decision_packet.Color}
+     */
     public enum Color
         implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>blue = 0;</code>
+       */
       blue(0, 0),
+      /**
+       * <code>yellow = 1;</code>
+       */
       yellow(1, 1),
       ;
-      
+
+      /**
+       * <code>blue = 0;</code>
+       */
       public static final int blue_VALUE = 0;
+      /**
+       * <code>yellow = 1;</code>
+       */
       public static final int yellow_VALUE = 1;
-      
-      
+
+
       public final int getNumber() { return value; }
-      
+
       public static Color valueOf(int value) {
         switch (value) {
           case 0: return blue;
@@ -82,7 +251,7 @@ public final class SslDecision {
           default: return null;
         }
       }
-      
+
       public static com.google.protobuf.Internal.EnumLiteMap<Color>
           internalGetValueMap() {
         return internalValueMap;
@@ -94,7 +263,7 @@ public final class SslDecision {
                 return Color.valueOf(number);
               }
             };
-      
+
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
         return getDescriptor().getValues().get(index);
@@ -107,11 +276,9 @@ public final class SslDecision {
           getDescriptor() {
         return SslDecision.ssl_decision_packet.getDescriptor().getEnumTypes().get(0);
       }
-      
-      private static final Color[] VALUES = {
-        blue, yellow, 
-      };
-      
+
+      private static final Color[] VALUES = values();
+
       public static Color valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
@@ -120,30 +287,45 @@ public final class SslDecision {
         }
         return VALUES[desc.getIndex()];
       }
-      
+
       private final int index;
       private final int value;
-      
+
       private Color(int index, int value) {
         this.index = index;
         this.value = value;
       }
-      
+
       // @@protoc_insertion_point(enum_scope:ssl_decision_packet.Color)
     }
-    
+
+    /**
+     * Protobuf enum {@code ssl_decision_packet.Side}
+     */
     public enum Side
         implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>left = -1;</code>
+       */
       left(0, -1),
+      /**
+       * <code>right = 1;</code>
+       */
       right(1, 1),
       ;
-      
+
+      /**
+       * <code>left = -1;</code>
+       */
       public static final int left_VALUE = -1;
+      /**
+       * <code>right = 1;</code>
+       */
       public static final int right_VALUE = 1;
-      
-      
+
+
       public final int getNumber() { return value; }
-      
+
       public static Side valueOf(int value) {
         switch (value) {
           case -1: return left;
@@ -151,7 +333,7 @@ public final class SslDecision {
           default: return null;
         }
       }
-      
+
       public static com.google.protobuf.Internal.EnumLiteMap<Side>
           internalGetValueMap() {
         return internalValueMap;
@@ -163,7 +345,7 @@ public final class SslDecision {
                 return Side.valueOf(number);
               }
             };
-      
+
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
         return getDescriptor().getValues().get(index);
@@ -176,11 +358,9 @@ public final class SslDecision {
           getDescriptor() {
         return SslDecision.ssl_decision_packet.getDescriptor().getEnumTypes().get(1);
       }
-      
-      private static final Side[] VALUES = {
-        left, right, 
-      };
-      
+
+      private static final Side[] VALUES = values();
+
       public static Side valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
@@ -189,440 +369,109 @@ public final class SslDecision {
         }
         return VALUES[desc.getIndex()];
       }
-      
+
       private final int index;
       private final int value;
-      
+
       private Side(int index, int value) {
         this.index = index;
         this.value = value;
       }
-      
+
       // @@protoc_insertion_point(enum_scope:ssl_decision_packet.Side)
     }
-    
+
     public interface Robot_RoleOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
-      
+
       // required uint32 robot_id = 1;
+      /**
+       * <code>required uint32 robot_id = 1;</code>
+       */
       boolean hasRobotId();
+      /**
+       * <code>required uint32 robot_id = 1;</code>
+       */
       int getRobotId();
-      
+
       // required string current_role = 2;
+      /**
+       * <code>required string current_role = 2;</code>
+       */
       boolean hasCurrentRole();
-      String getCurrentRole();
-      
+      /**
+       * <code>required string current_role = 2;</code>
+       */
+      java.lang.String getCurrentRole();
+      /**
+       * <code>required string current_role = 2;</code>
+       */
+      com.google.protobuf.ByteString
+          getCurrentRoleBytes();
+
       // required string current_skill = 3;
+      /**
+       * <code>required string current_skill = 3;</code>
+       */
       boolean hasCurrentSkill();
-      String getCurrentSkill();
+      /**
+       * <code>required string current_skill = 3;</code>
+       */
+      java.lang.String getCurrentSkill();
+      /**
+       * <code>required string current_skill = 3;</code>
+       */
+      com.google.protobuf.ByteString
+          getCurrentSkillBytes();
     }
+    /**
+     * Protobuf type {@code ssl_decision_packet.Robot_Role}
+     */
     public static final class Robot_Role extends
         com.google.protobuf.GeneratedMessage
         implements Robot_RoleOrBuilder {
       // Use Robot_Role.newBuilder() to construct.
-      private Robot_Role(Builder builder) {
+      private Robot_Role(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
         super(builder);
+        this.unknownFields = builder.getUnknownFields();
       }
-      private Robot_Role(boolean noInit) {}
-      
+      private Robot_Role(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
       private static final Robot_Role defaultInstance;
       public static Robot_Role getDefaultInstance() {
         return defaultInstance;
       }
-      
+
       public Robot_Role getDefaultInstanceForType() {
         return defaultInstance;
       }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return SslDecision.internal_static_ssl_decision_packet_Robot_Role_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return SslDecision.internal_static_ssl_decision_packet_Robot_Role_fieldAccessorTable;
-      }
-      
-      private int bitField0_;
-      // required uint32 robot_id = 1;
-      public static final int ROBOT_ID_FIELD_NUMBER = 1;
-      private int robotId_;
-      public boolean hasRobotId() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public int getRobotId() {
-        return robotId_;
-      }
-      
-      // required string current_role = 2;
-      public static final int CURRENT_ROLE_FIELD_NUMBER = 2;
-      private java.lang.Object currentRole_;
-      public boolean hasCurrentRole() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public String getCurrentRole() {
-        java.lang.Object ref = currentRole_;
-        if (ref instanceof String) {
-          return (String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-            currentRole_ = s;
-          }
-          return s;
-        }
-      }
-      private com.google.protobuf.ByteString getCurrentRoleBytes() {
-        java.lang.Object ref = currentRole_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-          currentRole_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      
-      // required string current_skill = 3;
-      public static final int CURRENT_SKILL_FIELD_NUMBER = 3;
-      private java.lang.Object currentSkill_;
-      public boolean hasCurrentSkill() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public String getCurrentSkill() {
-        java.lang.Object ref = currentSkill_;
-        if (ref instanceof String) {
-          return (String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-            currentSkill_ = s;
-          }
-          return s;
-        }
-      }
-      private com.google.protobuf.ByteString getCurrentSkillBytes() {
-        java.lang.Object ref = currentSkill_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-          currentSkill_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      
-      private void initFields() {
-        robotId_ = 0;
-        currentRole_ = "";
-        currentSkill_ = "";
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        if (!hasRobotId()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasCurrentRole()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasCurrentSkill()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeUInt32(1, robotId_);
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeBytes(2, getCurrentRoleBytes());
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeBytes(3, getCurrentSkillBytes());
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeUInt32Size(1, robotId_);
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, getCurrentRoleBytes());
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(3, getCurrentSkillBytes());
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
       @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
       }
-      
-      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
+      private Robot_Role(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(SslDecision.ssl_decision_packet.Robot_Role prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements SslDecision.ssl_decision_packet.Robot_RoleOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return SslDecision.internal_static_ssl_decision_packet_Robot_Role_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return SslDecision.internal_static_ssl_decision_packet_Robot_Role_fieldAccessorTable;
-        }
-        
-        // Construct using SslDecision.ssl_decision_packet.Robot_Role.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          robotId_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          currentRole_ = "";
-          bitField0_ = (bitField0_ & ~0x00000002);
-          currentSkill_ = "";
-          bitField0_ = (bitField0_ & ~0x00000004);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return SslDecision.ssl_decision_packet.Robot_Role.getDescriptor();
-        }
-        
-        public SslDecision.ssl_decision_packet.Robot_Role getDefaultInstanceForType() {
-          return SslDecision.ssl_decision_packet.Robot_Role.getDefaultInstance();
-        }
-        
-        public SslDecision.ssl_decision_packet.Robot_Role build() {
-          SslDecision.ssl_decision_packet.Robot_Role result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private SslDecision.ssl_decision_packet.Robot_Role buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          SslDecision.ssl_decision_packet.Robot_Role result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public SslDecision.ssl_decision_packet.Robot_Role buildPartial() {
-          SslDecision.ssl_decision_packet.Robot_Role result = new SslDecision.ssl_decision_packet.Robot_Role(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.robotId_ = robotId_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.currentRole_ = currentRole_;
-          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-            to_bitField0_ |= 0x00000004;
-          }
-          result.currentSkill_ = currentSkill_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof SslDecision.ssl_decision_packet.Robot_Role) {
-            return mergeFrom((SslDecision.ssl_decision_packet.Robot_Role)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(SslDecision.ssl_decision_packet.Robot_Role other) {
-          if (other == SslDecision.ssl_decision_packet.Robot_Role.getDefaultInstance()) return this;
-          if (other.hasRobotId()) {
-            setRobotId(other.getRobotId());
-          }
-          if (other.hasCurrentRole()) {
-            setCurrentRole(other.getCurrentRole());
-          }
-          if (other.hasCurrentSkill()) {
-            setCurrentSkill(other.getCurrentSkill());
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          if (!hasRobotId()) {
-            
-            return false;
-          }
-          if (!hasCurrentRole()) {
-            
-            return false;
-          }
-          if (!hasCurrentSkill()) {
-            
-            return false;
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
             int tag = input.readTag();
             switch (tag) {
               case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
+                break;
               default: {
                 if (!parseUnknownField(input, unknownFields,
                                        extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
+                  done = true;
                 }
                 break;
               }
@@ -643,47 +492,511 @@ public final class SslDecision {
               }
             }
           }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
         }
-        
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return SslDecision.internal_static_ssl_decision_packet_Robot_Role_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return SslDecision.internal_static_ssl_decision_packet_Robot_Role_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslDecision.ssl_decision_packet.Robot_Role.class, SslDecision.ssl_decision_packet.Robot_Role.Builder.class);
+      }
+
+      public static com.google.protobuf.Parser<Robot_Role> PARSER =
+          new com.google.protobuf.AbstractParser<Robot_Role>() {
+        public Robot_Role parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Robot_Role(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Robot_Role> getParserForType() {
+        return PARSER;
+      }
+
+      private int bitField0_;
+      // required uint32 robot_id = 1;
+      public static final int ROBOT_ID_FIELD_NUMBER = 1;
+      private int robotId_;
+      /**
+       * <code>required uint32 robot_id = 1;</code>
+       */
+      public boolean hasRobotId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required uint32 robot_id = 1;</code>
+       */
+      public int getRobotId() {
+        return robotId_;
+      }
+
+      // required string current_role = 2;
+      public static final int CURRENT_ROLE_FIELD_NUMBER = 2;
+      private java.lang.Object currentRole_;
+      /**
+       * <code>required string current_role = 2;</code>
+       */
+      public boolean hasCurrentRole() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string current_role = 2;</code>
+       */
+      public java.lang.String getCurrentRole() {
+        java.lang.Object ref = currentRole_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            currentRole_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>required string current_role = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCurrentRoleBytes() {
+        java.lang.Object ref = currentRole_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          currentRole_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      // required string current_skill = 3;
+      public static final int CURRENT_SKILL_FIELD_NUMBER = 3;
+      private java.lang.Object currentSkill_;
+      /**
+       * <code>required string current_skill = 3;</code>
+       */
+      public boolean hasCurrentSkill() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required string current_skill = 3;</code>
+       */
+      public java.lang.String getCurrentSkill() {
+        java.lang.Object ref = currentSkill_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            currentSkill_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>required string current_skill = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCurrentSkillBytes() {
+        java.lang.Object ref = currentSkill_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          currentSkill_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      private void initFields() {
+        robotId_ = 0;
+        currentRole_ = "";
+        currentSkill_ = "";
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+
+        if (!hasRobotId()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasCurrentRole()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasCurrentSkill()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeUInt32(1, robotId_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeBytes(2, getCurrentRoleBytes());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeBytes(3, getCurrentSkillBytes());
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32Size(1, robotId_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(2, getCurrentRoleBytes());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(3, getCurrentSkillBytes());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+
+      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static SslDecision.ssl_decision_packet.Robot_Role parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(SslDecision.ssl_decision_packet.Robot_Role prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code ssl_decision_packet.Robot_Role}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements SslDecision.ssl_decision_packet.Robot_RoleOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return SslDecision.internal_static_ssl_decision_packet_Robot_Role_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return SslDecision.internal_static_ssl_decision_packet_Robot_Role_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  SslDecision.ssl_decision_packet.Robot_Role.class, SslDecision.ssl_decision_packet.Robot_Role.Builder.class);
+        }
+
+        // Construct using SslDecision.ssl_decision_packet.Robot_Role.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+
+        public Builder clear() {
+          super.clear();
+          robotId_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          currentRole_ = "";
+          bitField0_ = (bitField0_ & ~0x00000002);
+          currentSkill_ = "";
+          bitField0_ = (bitField0_ & ~0x00000004);
+          return this;
+        }
+
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return SslDecision.internal_static_ssl_decision_packet_Robot_Role_descriptor;
+        }
+
+        public SslDecision.ssl_decision_packet.Robot_Role getDefaultInstanceForType() {
+          return SslDecision.ssl_decision_packet.Robot_Role.getDefaultInstance();
+        }
+
+        public SslDecision.ssl_decision_packet.Robot_Role build() {
+          SslDecision.ssl_decision_packet.Robot_Role result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public SslDecision.ssl_decision_packet.Robot_Role buildPartial() {
+          SslDecision.ssl_decision_packet.Robot_Role result = new SslDecision.ssl_decision_packet.Robot_Role(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.robotId_ = robotId_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.currentRole_ = currentRole_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.currentSkill_ = currentSkill_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof SslDecision.ssl_decision_packet.Robot_Role) {
+            return mergeFrom((SslDecision.ssl_decision_packet.Robot_Role)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(SslDecision.ssl_decision_packet.Robot_Role other) {
+          if (other == SslDecision.ssl_decision_packet.Robot_Role.getDefaultInstance()) return this;
+          if (other.hasRobotId()) {
+            setRobotId(other.getRobotId());
+          }
+          if (other.hasCurrentRole()) {
+            bitField0_ |= 0x00000002;
+            currentRole_ = other.currentRole_;
+            onChanged();
+          }
+          if (other.hasCurrentSkill()) {
+            bitField0_ |= 0x00000004;
+            currentSkill_ = other.currentSkill_;
+            onChanged();
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          if (!hasRobotId()) {
+            
+            return false;
+          }
+          if (!hasCurrentRole()) {
+            
+            return false;
+          }
+          if (!hasCurrentSkill()) {
+            
+            return false;
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          SslDecision.ssl_decision_packet.Robot_Role parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (SslDecision.ssl_decision_packet.Robot_Role) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
         private int bitField0_;
-        
+
         // required uint32 robot_id = 1;
         private int robotId_ ;
+        /**
+         * <code>required uint32 robot_id = 1;</code>
+         */
         public boolean hasRobotId() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
+        /**
+         * <code>required uint32 robot_id = 1;</code>
+         */
         public int getRobotId() {
           return robotId_;
         }
+        /**
+         * <code>required uint32 robot_id = 1;</code>
+         */
         public Builder setRobotId(int value) {
           bitField0_ |= 0x00000001;
           robotId_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required uint32 robot_id = 1;</code>
+         */
         public Builder clearRobotId() {
           bitField0_ = (bitField0_ & ~0x00000001);
           robotId_ = 0;
           onChanged();
           return this;
         }
-        
+
         // required string current_role = 2;
         private java.lang.Object currentRole_ = "";
+        /**
+         * <code>required string current_role = 2;</code>
+         */
         public boolean hasCurrentRole() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
-        public String getCurrentRole() {
+        /**
+         * <code>required string current_role = 2;</code>
+         */
+        public java.lang.String getCurrentRole() {
           java.lang.Object ref = currentRole_;
-          if (!(ref instanceof String)) {
-            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          if (!(ref instanceof java.lang.String)) {
+            java.lang.String s = ((com.google.protobuf.ByteString) ref)
+                .toStringUtf8();
             currentRole_ = s;
             return s;
           } else {
-            return (String) ref;
+            return (java.lang.String) ref;
           }
         }
-        public Builder setCurrentRole(String value) {
+        /**
+         * <code>required string current_role = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+            getCurrentRoleBytes() {
+          java.lang.Object ref = currentRole_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            currentRole_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>required string current_role = 2;</code>
+         */
+        public Builder setCurrentRole(
+            java.lang.String value) {
           if (value == null) {
     throw new NullPointerException();
   }
@@ -692,34 +1005,72 @@ public final class SslDecision {
           onChanged();
           return this;
         }
+        /**
+         * <code>required string current_role = 2;</code>
+         */
         public Builder clearCurrentRole() {
           bitField0_ = (bitField0_ & ~0x00000002);
           currentRole_ = getDefaultInstance().getCurrentRole();
           onChanged();
           return this;
         }
-        void setCurrentRole(com.google.protobuf.ByteString value) {
-          bitField0_ |= 0x00000002;
+        /**
+         * <code>required string current_role = 2;</code>
+         */
+        public Builder setCurrentRoleBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
           currentRole_ = value;
           onChanged();
+          return this;
         }
-        
+
         // required string current_skill = 3;
         private java.lang.Object currentSkill_ = "";
+        /**
+         * <code>required string current_skill = 3;</code>
+         */
         public boolean hasCurrentSkill() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
-        public String getCurrentSkill() {
+        /**
+         * <code>required string current_skill = 3;</code>
+         */
+        public java.lang.String getCurrentSkill() {
           java.lang.Object ref = currentSkill_;
-          if (!(ref instanceof String)) {
-            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          if (!(ref instanceof java.lang.String)) {
+            java.lang.String s = ((com.google.protobuf.ByteString) ref)
+                .toStringUtf8();
             currentSkill_ = s;
             return s;
           } else {
-            return (String) ref;
+            return (java.lang.String) ref;
           }
         }
-        public Builder setCurrentSkill(String value) {
+        /**
+         * <code>required string current_skill = 3;</code>
+         */
+        public com.google.protobuf.ByteString
+            getCurrentSkillBytes() {
+          java.lang.Object ref = currentSkill_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            currentSkill_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>required string current_skill = 3;</code>
+         */
+        public Builder setCurrentSkill(
+            java.lang.String value) {
           if (value == null) {
     throw new NullPointerException();
   }
@@ -728,135 +1079,195 @@ public final class SslDecision {
           onChanged();
           return this;
         }
+        /**
+         * <code>required string current_skill = 3;</code>
+         */
         public Builder clearCurrentSkill() {
           bitField0_ = (bitField0_ & ~0x00000004);
           currentSkill_ = getDefaultInstance().getCurrentSkill();
           onChanged();
           return this;
         }
-        void setCurrentSkill(com.google.protobuf.ByteString value) {
-          bitField0_ |= 0x00000004;
+        /**
+         * <code>required string current_skill = 3;</code>
+         */
+        public Builder setCurrentSkillBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
           currentSkill_ = value;
           onChanged();
+          return this;
         }
-        
+
         // @@protoc_insertion_point(builder_scope:ssl_decision_packet.Robot_Role)
       }
-      
+
       static {
         defaultInstance = new Robot_Role(true);
         defaultInstance.initFields();
       }
-      
+
       // @@protoc_insertion_point(class_scope:ssl_decision_packet.Robot_Role)
     }
-    
+
     private int bitField0_;
     // required .ssl_decision_packet.Color our_color = 1;
     public static final int OUR_COLOR_FIELD_NUMBER = 1;
     private SslDecision.ssl_decision_packet.Color ourColor_;
+    /**
+     * <code>required .ssl_decision_packet.Color our_color = 1;</code>
+     */
     public boolean hasOurColor() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>required .ssl_decision_packet.Color our_color = 1;</code>
+     */
     public SslDecision.ssl_decision_packet.Color getOurColor() {
       return ourColor_;
     }
-    
+
     // required .ssl_decision_packet.Side our_side = 2;
     public static final int OUR_SIDE_FIELD_NUMBER = 2;
     private SslDecision.ssl_decision_packet.Side ourSide_;
+    /**
+     * <code>required .ssl_decision_packet.Side our_side = 2;</code>
+     */
     public boolean hasOurSide() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
+    /**
+     * <code>required .ssl_decision_packet.Side our_side = 2;</code>
+     */
     public SslDecision.ssl_decision_packet.Side getOurSide() {
       return ourSide_;
     }
-    
+
     // required string strategy_name = 3;
     public static final int STRATEGY_NAME_FIELD_NUMBER = 3;
     private java.lang.Object strategyName_;
+    /**
+     * <code>required string strategy_name = 3;</code>
+     */
     public boolean hasStrategyName() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public String getStrategyName() {
+    /**
+     * <code>required string strategy_name = 3;</code>
+     */
+    public java.lang.String getStrategyName() {
       java.lang.Object ref = strategyName_;
-      if (ref instanceof String) {
-        return (String) ref;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
           strategyName_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getStrategyNameBytes() {
+    /**
+     * <code>required string strategy_name = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStrategyNameBytes() {
       java.lang.Object ref = strategyName_;
-      if (ref instanceof String) {
+      if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
         strategyName_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-    
+
     // repeated .ssl_decision_packet.Robot_Role robot_roles = 4;
     public static final int ROBOT_ROLES_FIELD_NUMBER = 4;
     private java.util.List<SslDecision.ssl_decision_packet.Robot_Role> robotRoles_;
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     public java.util.List<SslDecision.ssl_decision_packet.Robot_Role> getRobotRolesList() {
       return robotRoles_;
     }
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     public java.util.List<? extends SslDecision.ssl_decision_packet.Robot_RoleOrBuilder> 
         getRobotRolesOrBuilderList() {
       return robotRoles_;
     }
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     public int getRobotRolesCount() {
       return robotRoles_.size();
     }
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     public SslDecision.ssl_decision_packet.Robot_Role getRobotRoles(int index) {
       return robotRoles_.get(index);
     }
+    /**
+     * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+     */
     public SslDecision.ssl_decision_packet.Robot_RoleOrBuilder getRobotRolesOrBuilder(
         int index) {
       return robotRoles_.get(index);
     }
-    
+
     // optional string comment = 5;
     public static final int COMMENT_FIELD_NUMBER = 5;
     private java.lang.Object comment_;
+    /**
+     * <code>optional string comment = 5;</code>
+     */
     public boolean hasComment() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    public String getComment() {
+    /**
+     * <code>optional string comment = 5;</code>
+     */
+    public java.lang.String getComment() {
       java.lang.Object ref = comment_;
-      if (ref instanceof String) {
-        return (String) ref;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
           comment_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getCommentBytes() {
+    /**
+     * <code>optional string comment = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCommentBytes() {
       java.lang.Object ref = comment_;
-      if (ref instanceof String) {
+      if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
         comment_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-    
+
     private void initFields() {
       ourColor_ = SslDecision.ssl_decision_packet.Color.blue;
       ourSide_ = SslDecision.ssl_decision_packet.Side.left;
@@ -868,7 +1279,7 @@ public final class SslDecision {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasOurColor()) {
         memoizedIsInitialized = 0;
         return false;
@@ -890,7 +1301,7 @@ public final class SslDecision {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -911,12 +1322,12 @@ public final class SslDecision {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -942,94 +1353,83 @@ public final class SslDecision {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static SslDecision.ssl_decision_packet parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslDecision.ssl_decision_packet parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslDecision.ssl_decision_packet parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static SslDecision.ssl_decision_packet parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static SslDecision.ssl_decision_packet parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslDecision.ssl_decision_packet parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static SslDecision.ssl_decision_packet parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static SslDecision.ssl_decision_packet parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static SslDecision.ssl_decision_packet parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static SslDecision.ssl_decision_packet parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(SslDecision.ssl_decision_packet prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ssl_decision_packet}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements SslDecision.ssl_decision_packetOrBuilder {
@@ -1037,18 +1437,21 @@ public final class SslDecision {
           getDescriptor() {
         return SslDecision.internal_static_ssl_decision_packet_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return SslDecision.internal_static_ssl_decision_packet_fieldAccessorTable;
+        return SslDecision.internal_static_ssl_decision_packet_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                SslDecision.ssl_decision_packet.class, SslDecision.ssl_decision_packet.Builder.class);
       }
-      
+
       // Construct using SslDecision.ssl_decision_packet.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1060,7 +1463,7 @@ public final class SslDecision {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         ourColor_ = SslDecision.ssl_decision_packet.Color.blue;
@@ -1079,20 +1482,20 @@ public final class SslDecision {
         bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return SslDecision.ssl_decision_packet.getDescriptor();
+        return SslDecision.internal_static_ssl_decision_packet_descriptor;
       }
-      
+
       public SslDecision.ssl_decision_packet getDefaultInstanceForType() {
         return SslDecision.ssl_decision_packet.getDefaultInstance();
       }
-      
+
       public SslDecision.ssl_decision_packet build() {
         SslDecision.ssl_decision_packet result = buildPartial();
         if (!result.isInitialized()) {
@@ -1100,17 +1503,7 @@ public final class SslDecision {
         }
         return result;
       }
-      
-      private SslDecision.ssl_decision_packet buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        SslDecision.ssl_decision_packet result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public SslDecision.ssl_decision_packet buildPartial() {
         SslDecision.ssl_decision_packet result = new SslDecision.ssl_decision_packet(this);
         int from_bitField0_ = bitField0_;
@@ -1144,7 +1537,7 @@ public final class SslDecision {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof SslDecision.ssl_decision_packet) {
           return mergeFrom((SslDecision.ssl_decision_packet)other);
@@ -1153,7 +1546,7 @@ public final class SslDecision {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(SslDecision.ssl_decision_packet other) {
         if (other == SslDecision.ssl_decision_packet.getDefaultInstance()) return this;
         if (other.hasOurColor()) {
@@ -1163,7 +1556,9 @@ public final class SslDecision {
           setOurSide(other.getOurSide());
         }
         if (other.hasStrategyName()) {
-          setStrategyName(other.getStrategyName());
+          bitField0_ |= 0x00000004;
+          strategyName_ = other.strategyName_;
+          onChanged();
         }
         if (robotRolesBuilder_ == null) {
           if (!other.robotRoles_.isEmpty()) {
@@ -1192,12 +1587,14 @@ public final class SslDecision {
           }
         }
         if (other.hasComment()) {
-          setComment(other.getComment());
+          bitField0_ |= 0x00000010;
+          comment_ = other.comment_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasOurColor()) {
           
@@ -1219,82 +1616,43 @@ public final class SslDecision {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 8: {
-              int rawValue = input.readEnum();
-              SslDecision.ssl_decision_packet.Color value = SslDecision.ssl_decision_packet.Color.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                bitField0_ |= 0x00000001;
-                ourColor_ = value;
-              }
-              break;
-            }
-            case 16: {
-              int rawValue = input.readEnum();
-              SslDecision.ssl_decision_packet.Side value = SslDecision.ssl_decision_packet.Side.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(2, rawValue);
-              } else {
-                bitField0_ |= 0x00000002;
-                ourSide_ = value;
-              }
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
-              strategyName_ = input.readBytes();
-              break;
-            }
-            case 34: {
-              SslDecision.ssl_decision_packet.Robot_Role.Builder subBuilder = SslDecision.ssl_decision_packet.Robot_Role.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addRobotRoles(subBuilder.buildPartial());
-              break;
-            }
-            case 42: {
-              bitField0_ |= 0x00000010;
-              comment_ = input.readBytes();
-              break;
-            }
+        SslDecision.ssl_decision_packet parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (SslDecision.ssl_decision_packet) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // required .ssl_decision_packet.Color our_color = 1;
       private SslDecision.ssl_decision_packet.Color ourColor_ = SslDecision.ssl_decision_packet.Color.blue;
+      /**
+       * <code>required .ssl_decision_packet.Color our_color = 1;</code>
+       */
       public boolean hasOurColor() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required .ssl_decision_packet.Color our_color = 1;</code>
+       */
       public SslDecision.ssl_decision_packet.Color getOurColor() {
         return ourColor_;
       }
+      /**
+       * <code>required .ssl_decision_packet.Color our_color = 1;</code>
+       */
       public Builder setOurColor(SslDecision.ssl_decision_packet.Color value) {
         if (value == null) {
           throw new NullPointerException();
@@ -1304,21 +1662,33 @@ public final class SslDecision {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .ssl_decision_packet.Color our_color = 1;</code>
+       */
       public Builder clearOurColor() {
         bitField0_ = (bitField0_ & ~0x00000001);
         ourColor_ = SslDecision.ssl_decision_packet.Color.blue;
         onChanged();
         return this;
       }
-      
+
       // required .ssl_decision_packet.Side our_side = 2;
       private SslDecision.ssl_decision_packet.Side ourSide_ = SslDecision.ssl_decision_packet.Side.left;
+      /**
+       * <code>required .ssl_decision_packet.Side our_side = 2;</code>
+       */
       public boolean hasOurSide() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required .ssl_decision_packet.Side our_side = 2;</code>
+       */
       public SslDecision.ssl_decision_packet.Side getOurSide() {
         return ourSide_;
       }
+      /**
+       * <code>required .ssl_decision_packet.Side our_side = 2;</code>
+       */
       public Builder setOurSide(SslDecision.ssl_decision_packet.Side value) {
         if (value == null) {
           throw new NullPointerException();
@@ -1328,29 +1698,59 @@ public final class SslDecision {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .ssl_decision_packet.Side our_side = 2;</code>
+       */
       public Builder clearOurSide() {
         bitField0_ = (bitField0_ & ~0x00000002);
         ourSide_ = SslDecision.ssl_decision_packet.Side.left;
         onChanged();
         return this;
       }
-      
+
       // required string strategy_name = 3;
       private java.lang.Object strategyName_ = "";
+      /**
+       * <code>required string strategy_name = 3;</code>
+       */
       public boolean hasStrategyName() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public String getStrategyName() {
+      /**
+       * <code>required string strategy_name = 3;</code>
+       */
+      public java.lang.String getStrategyName() {
         java.lang.Object ref = strategyName_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           strategyName_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setStrategyName(String value) {
+      /**
+       * <code>required string strategy_name = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getStrategyNameBytes() {
+        java.lang.Object ref = strategyName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          strategyName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string strategy_name = 3;</code>
+       */
+      public Builder setStrategyName(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1359,18 +1759,29 @@ public final class SslDecision {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string strategy_name = 3;</code>
+       */
       public Builder clearStrategyName() {
         bitField0_ = (bitField0_ & ~0x00000004);
         strategyName_ = getDefaultInstance().getStrategyName();
         onChanged();
         return this;
       }
-      void setStrategyName(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000004;
+      /**
+       * <code>required string strategy_name = 3;</code>
+       */
+      public Builder setStrategyNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
         strategyName_ = value;
         onChanged();
+        return this;
       }
-      
+
       // repeated .ssl_decision_packet.Robot_Role robot_roles = 4;
       private java.util.List<SslDecision.ssl_decision_packet.Robot_Role> robotRoles_ =
         java.util.Collections.emptyList();
@@ -1380,10 +1791,13 @@ public final class SslDecision {
           bitField0_ |= 0x00000008;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           SslDecision.ssl_decision_packet.Robot_Role, SslDecision.ssl_decision_packet.Robot_Role.Builder, SslDecision.ssl_decision_packet.Robot_RoleOrBuilder> robotRolesBuilder_;
-      
+
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public java.util.List<SslDecision.ssl_decision_packet.Robot_Role> getRobotRolesList() {
         if (robotRolesBuilder_ == null) {
           return java.util.Collections.unmodifiableList(robotRoles_);
@@ -1391,6 +1805,9 @@ public final class SslDecision {
           return robotRolesBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public int getRobotRolesCount() {
         if (robotRolesBuilder_ == null) {
           return robotRoles_.size();
@@ -1398,6 +1815,9 @@ public final class SslDecision {
           return robotRolesBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public SslDecision.ssl_decision_packet.Robot_Role getRobotRoles(int index) {
         if (robotRolesBuilder_ == null) {
           return robotRoles_.get(index);
@@ -1405,6 +1825,9 @@ public final class SslDecision {
           return robotRolesBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder setRobotRoles(
           int index, SslDecision.ssl_decision_packet.Robot_Role value) {
         if (robotRolesBuilder_ == null) {
@@ -1419,6 +1842,9 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder setRobotRoles(
           int index, SslDecision.ssl_decision_packet.Robot_Role.Builder builderForValue) {
         if (robotRolesBuilder_ == null) {
@@ -1430,6 +1856,9 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder addRobotRoles(SslDecision.ssl_decision_packet.Robot_Role value) {
         if (robotRolesBuilder_ == null) {
           if (value == null) {
@@ -1443,6 +1872,9 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder addRobotRoles(
           int index, SslDecision.ssl_decision_packet.Robot_Role value) {
         if (robotRolesBuilder_ == null) {
@@ -1457,6 +1889,9 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder addRobotRoles(
           SslDecision.ssl_decision_packet.Robot_Role.Builder builderForValue) {
         if (robotRolesBuilder_ == null) {
@@ -1468,6 +1903,9 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder addRobotRoles(
           int index, SslDecision.ssl_decision_packet.Robot_Role.Builder builderForValue) {
         if (robotRolesBuilder_ == null) {
@@ -1479,6 +1917,9 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder addAllRobotRoles(
           java.lang.Iterable<? extends SslDecision.ssl_decision_packet.Robot_Role> values) {
         if (robotRolesBuilder_ == null) {
@@ -1490,6 +1931,9 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder clearRobotRoles() {
         if (robotRolesBuilder_ == null) {
           robotRoles_ = java.util.Collections.emptyList();
@@ -1500,6 +1944,9 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public Builder removeRobotRoles(int index) {
         if (robotRolesBuilder_ == null) {
           ensureRobotRolesIsMutable();
@@ -1510,10 +1957,16 @@ public final class SslDecision {
         }
         return this;
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public SslDecision.ssl_decision_packet.Robot_Role.Builder getRobotRolesBuilder(
           int index) {
         return getRobotRolesFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public SslDecision.ssl_decision_packet.Robot_RoleOrBuilder getRobotRolesOrBuilder(
           int index) {
         if (robotRolesBuilder_ == null) {
@@ -1521,6 +1974,9 @@ public final class SslDecision {
           return robotRolesBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public java.util.List<? extends SslDecision.ssl_decision_packet.Robot_RoleOrBuilder> 
            getRobotRolesOrBuilderList() {
         if (robotRolesBuilder_ != null) {
@@ -1529,15 +1985,24 @@ public final class SslDecision {
           return java.util.Collections.unmodifiableList(robotRoles_);
         }
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public SslDecision.ssl_decision_packet.Robot_Role.Builder addRobotRolesBuilder() {
         return getRobotRolesFieldBuilder().addBuilder(
             SslDecision.ssl_decision_packet.Robot_Role.getDefaultInstance());
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public SslDecision.ssl_decision_packet.Robot_Role.Builder addRobotRolesBuilder(
           int index) {
         return getRobotRolesFieldBuilder().addBuilder(
             index, SslDecision.ssl_decision_packet.Robot_Role.getDefaultInstance());
       }
+      /**
+       * <code>repeated .ssl_decision_packet.Robot_Role robot_roles = 4;</code>
+       */
       public java.util.List<SslDecision.ssl_decision_packet.Robot_Role.Builder> 
            getRobotRolesBuilderList() {
         return getRobotRolesFieldBuilder().getBuilderList();
@@ -1556,23 +2021,50 @@ public final class SslDecision {
         }
         return robotRolesBuilder_;
       }
-      
+
       // optional string comment = 5;
       private java.lang.Object comment_ = "";
+      /**
+       * <code>optional string comment = 5;</code>
+       */
       public boolean hasComment() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public String getComment() {
+      /**
+       * <code>optional string comment = 5;</code>
+       */
+      public java.lang.String getComment() {
         java.lang.Object ref = comment_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           comment_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setComment(String value) {
+      /**
+       * <code>optional string comment = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCommentBytes() {
+        java.lang.Object ref = comment_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          comment_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string comment = 5;</code>
+       */
+      public Builder setComment(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1581,29 +2073,40 @@ public final class SslDecision {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string comment = 5;</code>
+       */
       public Builder clearComment() {
         bitField0_ = (bitField0_ & ~0x00000010);
         comment_ = getDefaultInstance().getComment();
         onChanged();
         return this;
       }
-      void setComment(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000010;
+      /**
+       * <code>optional string comment = 5;</code>
+       */
+      public Builder setCommentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
         comment_ = value;
         onChanged();
+        return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:ssl_decision_packet)
     }
-    
+
     static {
       defaultInstance = new ssl_decision_packet(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:ssl_decision_packet)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_ssl_decision_packet_descriptor;
   private static
@@ -1614,7 +2117,7 @@ public final class SslDecision {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ssl_decision_packet_Robot_Role_fieldAccessorTable;
-  
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -1644,17 +2147,13 @@ public final class SslDecision {
           internal_static_ssl_decision_packet_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_decision_packet_descriptor,
-              new java.lang.String[] { "OurColor", "OurSide", "StrategyName", "RobotRoles", "Comment", },
-              SslDecision.ssl_decision_packet.class,
-              SslDecision.ssl_decision_packet.Builder.class);
+              new java.lang.String[] { "OurColor", "OurSide", "StrategyName", "RobotRoles", "Comment", });
           internal_static_ssl_decision_packet_Robot_Role_descriptor =
             internal_static_ssl_decision_packet_descriptor.getNestedTypes().get(0);
           internal_static_ssl_decision_packet_Robot_Role_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ssl_decision_packet_Robot_Role_descriptor,
-              new java.lang.String[] { "RobotId", "CurrentRole", "CurrentSkill", },
-              SslDecision.ssl_decision_packet.Robot_Role.class,
-              SslDecision.ssl_decision_packet.Robot_Role.Builder.class);
+              new java.lang.String[] { "RobotId", "CurrentRole", "CurrentSkill", });
           return null;
         }
       };
@@ -1663,6 +2162,6 @@ public final class SslDecision {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }
