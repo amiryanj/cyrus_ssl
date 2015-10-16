@@ -114,6 +114,7 @@ void WatchFieldGraphics::updateRobotState(const RobotState &st)
         qDebug() << "invalid robot state";
         return;
     }
+
     robot[team][st.ID]->setPos(st.position.X(), -st.position.Y()); // ok
     robot[team][st.ID]->setRotation(-st.position.Teta() * 180.0/M_PI); // ok
 

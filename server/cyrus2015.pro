@@ -59,7 +59,6 @@ SOURCES += \
     ai/SSLAnalyzer.cpp \
     soccer/sslagent.cpp \
     soccer/sslstrategy.cpp \
-    gui/guihandler.cpp \    
     transmitter/grsimsender.cpp \    
     transmitter/commandtransmitter.cpp \
     referee/SSLReferee.cpp \    
@@ -183,7 +182,8 @@ SOURCES += \
     ../TeamManager/graphics/graphic_arc.cpp \
     ../TeamManager/robotstate.cpp \
     ../TeamManager/messengerwidget.cpp \ 
-    paramater-manager/lookuptableloader.cpp
+    paramater-manager/lookuptableloader.cpp \
+    paramater-manager/skillparameters.cpp
 
 
 HEADERS += \
@@ -206,7 +206,6 @@ HEADERS += \
     ai/SSLAnalyzer.h \
     soccer/sslagent.h \
     soccer/sslstrategy.h \
-    gui/guihandler.h \
     transmitter/grsimsender.h \
     transmitter/commandtransmitter.h \
     ../shared/utility/generalmath.h \
@@ -335,7 +334,8 @@ HEADERS += \
     ../TeamManager/graphics/graphic_arc.h \
     ../TeamManager/robotstate.h \
     ../TeamManager/messengerwidget.h \
-    paramater-manager/lookuptableloader.h
+    paramater-manager/lookuptableloader.h \
+    paramater-manager/skillparameters.h
 
 
 OTHER_FILES += \            

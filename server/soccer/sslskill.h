@@ -15,6 +15,7 @@
 #include "../planner/planning/planningproblem.h"
 #include "../controller/pidcontroller.h"
 #include "../paramater-manager/lookuptableloader.h"
+#include "../vartypes/VarTypesBase.h"
 
 
 class SSLAgent;
@@ -24,6 +25,8 @@ class Vector3D;
 class SSLWorldModel;
 class SSLAnalyzer;
 class SSLGame;
+
+using namespace VarTypes;
 
 class SSLSkill {
     

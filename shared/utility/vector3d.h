@@ -56,8 +56,8 @@ public:
 
 #ifdef _USE_BOX2D_
     Vector3D(b2Vec3 vec);
-    b2Vec3 toB2vec3();
-    b2Vec2 toB2vec2();
+    b2Vec3 toB2vec3() const;
+    b2Vec2 toB2vec2() const;
 #endif
 
 #ifdef _USE_QT_
@@ -66,9 +66,9 @@ public:
     QVector2D toQvec2D();
 #endif
 
-    Vector3D dotProduct(Vector3D &b);
+    Vector3D dotProduct(Vector3D &b) const;
 
-    void print(std::ostream &stream);
+    void print(std::ostream &stream) const;
 
     static float vector2DMag(const Vector3D  &vector);
     static float distance2D(const Vector3D &a, const Vector3D &b);

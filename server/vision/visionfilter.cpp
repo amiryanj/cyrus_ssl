@@ -57,12 +57,10 @@ void VisionFilter::check()
                 rs.position = robotFilter_cluster[tm][i]->m_filteredPosition;
                 rs.velocity = robotFilter_cluster[tm][i]->m_filteredVelocity;
             } else {
-                rs.position.set(0, FIELD_WIDTH_2 * 1.2, 0);  // out of field
-                rs.position.set(0, 0, 0);  // out of field
+                rs.position.set((tm-0.5)*(i+1)* 5 * ROBOT_RADIUS, FIELD_WIDTH_2 * 1.2, tm*M_PI);  // out of field
+                rs.velocity.set(0, 0, 0);
             }
             Debugger::dbg()->updateWorldModel(rs);
-
-
         }
     }
     int id = ParameterManager::getInstance()->get<int>("skills.under_test_robot");

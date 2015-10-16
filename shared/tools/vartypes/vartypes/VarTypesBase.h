@@ -45,29 +45,29 @@ namespace VarTypes {
         ~VarTypesBase() { save(); }
 
         VarTreeModel& getParametersTree() {
-            return this->parameters_tree_model;
+            return this->m_parameters_tree_model;
         }
 
         void setSettingsFile(const std::string &_name) {
-            setting_file = _name;
+            m_setting_file = _name;
         }
 
         void load() {
-            world = VarXML::read(world, setting_file);
-            parameters_tree_model.setRootItems(world);
+            m_world = VarXML::read(m_world, m_setting_file);
+            m_parameters_tree_model.setRootItems(m_world);
         }
 
         void save() {
-            VarXML::write(world, setting_file);
+            VarXML::write(m_world, m_setting_file);
           #ifdef DEBUG_ME
             std::cout << "Setting file [" << setting_file << "] stored." << std::endl;
           #endif
         }
 
     protected:
-        std::string setting_file;
-        std::vector<VarPtr> world; // our list of toplevel node(s)
-        VarTreeModel parameters_tree_model;
+        std::string m_setting_file;
+        std::vector<VarPtr> m_world; // our list of toplevel node(s)
+        VarTreeModel m_parameters_tree_model;
     };
 };
 

@@ -41,8 +41,6 @@ void * run_server(void *)  {
     SSLGame *gameModule = SSLGame::getInstance((Color)pm->get<int>("general.game.our_color"),
                                                (Side )pm->get<int>("general.game.our_side"));
 
-    GUIHandler *gui = GUIHandler::getInstance();
-
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
  //   transmitter->type = CommandTransmitter::SERIAL;
 
@@ -70,7 +68,6 @@ void * run_server(void *)  {
         if(loopCounter % 5 == 0)   {
 //            vision_tester->updateWorldModel();
             filter->check();
-            gui->check();
         }
         loopCounter ++;
         referee->check();

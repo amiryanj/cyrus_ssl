@@ -188,12 +188,12 @@ Vector3D::Vector3D(b2Vec3 vec)
     _teta = vec.z;
 }
 
-b2Vec3 Vector3D::toB2vec3()
+b2Vec3 Vector3D::toB2vec3() const
 {
     return b2Vec3(this->_x, this->_y, this->_teta);
 }
 
-b2Vec2 Vector3D::toB2vec2()
+b2Vec2 Vector3D::toB2vec2() const
 {
     return b2Vec2(this->_x, this->_y);
 }
@@ -217,14 +217,14 @@ QVector2D Vector3D::toQvec2D()
 }
 #endif
 
-Vector3D Vector3D::dotProduct(Vector3D &b)
+Vector3D Vector3D::dotProduct(Vector3D &b) const
 {
     Vector3D temp;
     temp.setX(this->_x * b._x);    temp.setY(this->_y * b._y);    temp.setTeta(this->_teta * b._teta);
     return temp;
 }
 
-void Vector3D::print(std::ostream &stream)
+void Vector3D::print(std::ostream &stream) const
 {
     stream << "VEC3D: " << _x << ", Y: " << _y << ", Teta: " << _teta << std::endl;
 }
