@@ -31,7 +31,7 @@ class MainWindow : public QMainWindow
 public:
     static MainWindow* getInstance();
     ~MainWindow();
-
+    void closeEvent(QCloseEvent* e);
     void initGUI();
     void setupGUIConnections();
     

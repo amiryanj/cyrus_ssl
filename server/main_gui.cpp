@@ -42,7 +42,7 @@ void * run_server(void *)  {
                                                (Side )pm->get<int>("general.game.our_side"));
 
     CommandTransmitter* transmitter = CommandTransmitter::getInstance();
- //   transmitter->type = CommandTransmitter::SERIAL;
+  //  transmitter->type = CommandTransmitter::GRSIM;
 
     TestInput* vision_tester = new TestInput();
     TestSkills* skill_tester = new TestSkills();
@@ -85,7 +85,7 @@ void * run_server(void *)  {
 //            transmitter->clear();
 //            skill_tester->testGotoPoint();
             skill_tester->testKickBall();
-
+//                skill_tester->testAccurateStop();
             transmitter->check();
         }
         usleep(1000);

@@ -183,7 +183,8 @@ SOURCES += \
     ../TeamManager/robotstate.cpp \
     ../TeamManager/messengerwidget.cpp \ 
     paramater-manager/lookuptableloader.cpp \
-    paramater-manager/skillparameters.cpp
+    paramater-manager/skillparameters.cpp \
+    controller/prcontroller.cpp
 
 
 HEADERS += \
@@ -335,7 +336,8 @@ HEADERS += \
     ../TeamManager/robotstate.h \
     ../TeamManager/messengerwidget.h \
     paramater-manager/lookuptableloader.h \
-    paramater-manager/skillparameters.h
+    paramater-manager/skillparameters.h \
+    controller/prcontroller.h
 
 
 OTHER_FILES += \            
