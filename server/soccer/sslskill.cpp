@@ -13,6 +13,7 @@
 #include "../debug-tools/logger.h"
 #include "../debug-tools/networkplotter.h"
 #include "../debug-tools/builtindebug.h"
+#include "../paramater-manager/skillparameters.h"
 
 Vector3D SSLSkill::defaultTolerance;
 Vector3D SSLSkill::accurateTolerance;
@@ -38,6 +39,10 @@ SSLSkill::SSLSkill(SSLAgent *parent)
     avoid_rotate_deadline_time_ms = 0;
 
     initializePlanner();
+
+    // test
+    int test_var = SkillParameters::getInstance()->int_var_test->get();
+    cout << "test_var: " << test_var << endl;
 }
 
 void SSLSkill::halt()

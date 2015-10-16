@@ -21,16 +21,7 @@
     <property name="spacing">
      <number>1</number>
     </property>
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
+    <property name="margin">
      <number>0</number>
     </property>
     <item>
@@ -39,16 +30,7 @@
        <property name="spacing">
         <number>1</number>
        </property>
-       <property name="leftMargin">
-        <number>1</number>
-       </property>
-       <property name="topMargin">
-        <number>1</number>
-       </property>
-       <property name="rightMargin">
-        <number>1</number>
-       </property>
-       <property name="bottomMargin">
+       <property name="margin">
         <number>1</number>
        </property>
        <item>
@@ -88,16 +70,7 @@
               <property name="spacing">
                <number>1</number>
               </property>
-              <property name="leftMargin">
-               <number>2</number>
-              </property>
-              <property name="topMargin">
-               <number>2</number>
-              </property>
-              <property name="rightMargin">
-               <number>2</number>
-              </property>
-              <property name="bottomMargin">
+              <property name="margin">
                <number>2</number>
               </property>
               <item>
@@ -147,16 +120,7 @@
                  <property name="spacing">
                   <number>1</number>
                  </property>
-                 <property name="leftMargin">
-                  <number>1</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>1</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>1</number>
-                 </property>
-                 <property name="bottomMargin">
+                 <property name="margin">
                   <number>1</number>
                  </property>
                  <item>
@@ -931,16 +895,7 @@
          <property name="spacing">
           <number>1</number>
          </property>
-         <property name="leftMargin">
-          <number>1</number>
-         </property>
-         <property name="topMargin">
-          <number>1</number>
-         </property>
-         <property name="rightMargin">
-          <number>1</number>
-         </property>
-         <property name="bottomMargin">
+         <property name="margin">
           <number>1</number>
          </property>
          <item>
@@ -953,16 +908,7 @@
              <property name="spacing">
               <number>0</number>
              </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
+             <property name="margin">
               <number>0</number>
              </property>
              <item>
@@ -974,13 +920,13 @@
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="localRefereeBoxContainterWg" native="true">
+           <widget class="QWidget" name="rightPanelContainerWg" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_13">
              <property name="spacing">
               <number>1</number>
              </property>
              <property name="leftMargin">
-              <number>1</number>
+              <number>4</number>
              </property>
              <property name="topMargin">
               <number>1</number>
@@ -992,37 +938,7 @@
               <number>1</number>
              </property>
              <item>
-              <widget class="QTextEdit" name="textEdit_2">
-               <property name="html">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu';&quot;&gt;refereebox container&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-           <widget class="QWidget" name="messageDisplayingContainerWg" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_14">
-             <property name="spacing">
-              <number>1</number>
-             </property>
-             <property name="leftMargin">
-              <number>1</number>
-             </property>
-             <property name="topMargin">
-              <number>1</number>
-             </property>
-             <property name="rightMargin">
-              <number>1</number>
-             </property>
-             <property name="bottomMargin">
-              <number>1</number>
-             </property>
-             <item>
-              <layout class="QVBoxLayout" name="messengerLayout"/>
+              <widget class="QTabWidget" name="rightPanelTW"/>
              </item>
             </layout>
            </widget>
@@ -1117,16 +1033,7 @@ p, li { white-space: pre-wrap; }
       </widget>
       <widget class="QWidget" name="plotsContainerWg" native="true">
        <layout class="QHBoxLayout" name="plotterLayout">
-        <property name="leftMargin">
-         <number>1</number>
-        </property>
-        <property name="topMargin">
-         <number>1</number>
-        </property>
-        <property name="rightMargin">
-         <number>1</number>
-        </property>
-        <property name="bottomMargin">
+        <property name="margin">
          <number>1</number>
         </property>
        </layout>
@@ -1179,6 +1086,7 @@ p, li { white-space: pre-wrap; }
    <addaction name="actionMinimize"/>
    <addaction name="actionIdle_Server"/>
    <addaction name="actionIdle_Vision"/>
+   <addaction name="actionFunction_Designer"/>
   </widget>
   <action name="actionWatch">
    <property name="checkable">
@@ -1278,6 +1186,15 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Idle Vision</string>
+   </property>
+  </action>
+  <action name="actionFunction_Designer">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/oxygen/x-shape-connection.png</normaloff>:/icons/oxygen/x-shape-connection.png</iconset>
+   </property>
+   <property name="text">
+    <string>Function Designer</string>
    </property>
   </action>
  </widget>

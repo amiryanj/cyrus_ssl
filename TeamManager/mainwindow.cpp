@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QThread>
+//#include <QThread>
+#include "paramater-manager/skillparameters.h"
+#include "../LookupTableBuilder/Dialogs/designdialog.h"
 
 MainWindow* MainWindow::instance = NULL;
 bool MainWindow::turn_off = false;
@@ -37,7 +39,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // trick
     isMainToolBarPinned = !isMainToolBarPinned;
     handlePinMainToolBarBtn();
-
 }
 
 MainWindow::~MainWindow()
@@ -47,6 +48,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *e)
 {
+    SkillParameters::getInstance()->save();
     quitProgram();
 }
 
@@ -74,8 +76,14 @@ void MainWindow::initGUI()
     PMW = new PlotManagerWidget(this);
     ui->plotterLayout->addWidget(PMW);
 
-    MSG =new  MessengerWidget();
-    ui->messengerLayout->addWidget((MSG));
+    MSG = new  MessengerWidget();
+    ui->rightPanelTW->addTab(MSG, "Debuger");
+
+    parametersTreeView = new VarTreeView();
+    ui->rightPanelTW->addTab(parametersTreeView, "Settings");
+
+    VarTreeModel& model = SkillParameters::getInstance()->getParametersTree();
+    parametersTreeView->setModel(&model);
 
 }
 
@@ -241,8 +249,8 @@ void MainWindow::setCurrentTabTo(MainWindow::MainTab tab_)
 
         ui->mainWidgetsSW->setCurrentWidget(ui->fieldMainWidget_1_2);
         ui->fieldContainerWg->show();
-        ui->messageDisplayingContainerWg->show();
-        ui->localRefereeBoxContainterWg->hide();
+//        ui->messageDisplayingContainerWg->show();
+        ui->rightPanelContainerWg->show();
 
         ui->plotsContainerWg->hide();        
         break;
@@ -253,8 +261,8 @@ void MainWindow::setCurrentTabTo(MainWindow::MainTab tab_)
 
         ui->mainWidgetsSW->setCurrentWidget(ui->fieldMainWidget_1_2);
         ui->fieldContainerWg->show();
-        ui->messageDisplayingContainerWg->hide();
-        ui->localRefereeBoxContainterWg->show();
+//        ui->messageDisplayingContainerWg->hide();
+        ui->rightPanelContainerWg->hide();
 
         ui->plotsContainerWg->show();
         break;
@@ -334,8 +342,13 @@ void MainWindow::on_actionIdle_Server_toggled(bool arg1)
     idle_server = !arg1;
 }
 
-
 void MainWindow::on_actionIdle_Vision_toggled(bool arg1)
 {
     idle_vision = !arg1;
+}
+
+void MainWindow::on_actionFunction_Designer_triggered()
+{
+    static DesignDialog *d = new DesignDialog(this);
+    d->exec();
 }

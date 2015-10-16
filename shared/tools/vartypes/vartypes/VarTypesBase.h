@@ -22,6 +22,8 @@
 #ifndef VARTYPESBASE_H
 #define VARTYPESBASE_H
 
+#define DEBUG_ME
+
 #include "VarTreeModel.h"
 #include "VarTypes.h"
 #include "VarXML.h"
@@ -60,7 +62,7 @@ namespace VarTypes {
         void save() {
             VarXML::write(m_world, m_setting_file);
           #ifdef DEBUG_ME
-            std::cout << "Setting file [" << setting_file << "] stored." << std::endl;
+            std::cout << "Setting file [" << m_setting_file << "] stored." << std::endl;
           #endif
         }
 
@@ -69,6 +71,6 @@ namespace VarTypes {
         std::vector<VarPtr> m_world; // our list of toplevel node(s)
         VarTreeModel m_parameters_tree_model;
     };
-};
+}
 
 #endif // VARTYPESBASE_H

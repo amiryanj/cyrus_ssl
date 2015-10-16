@@ -25,12 +25,13 @@ debug: UI_DIR = $$PWD/../../debug_cyrus/lookup_table_builder/ui
 
 
 
-SOURCES += main.cpp\
+SOURCES +=\
     Controller/filecontroller.cpp \
     Dialogs/designdialog.cpp \
     Logic/graph.cpp \
     Ctrls/graphview.cpp \
-    Ctrls/clickablescene.cpp
+    Ctrls/clickablescene.cpp \
+    main.cpp
 
 HEADERS  += \
     Controller/filecontroller.h \

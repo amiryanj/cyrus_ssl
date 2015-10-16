@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include <iostream>
 #include "plot-manager/plotmanagerwidget.h"
+#include <sstream>
 
 using namespace std;
 
@@ -22,7 +23,6 @@ BuiltInDebug::BuiltInDebug() : QObject()
     connect(this, SIGNAL(updateBallStateSignal(BallState)),
             MainWindow::getInstance()->watchField, SLOT(updateBallState(BallState)));
 
-
     qRegisterMetaType<RobotState>("RobotState");
     qRegisterMetaType<BallState>("BallState");
 
@@ -30,7 +30,12 @@ BuiltInDebug::BuiltInDebug() : QObject()
 
 void BuiltInDebug::print(const char *msg, double time, std::string category)
 {
-    cout << "[" << category << "] " << "(" << time << "): " << msg << endl;
+    ostringstream ss;
+    ss << msg << "  " << time;
+    const char * m = ss.str().c_str();
+    emit newMessageSignal(m, QString::fromStdString(category));
+
+    //    cout << "[" << category << "] " << "(" << time << "): " << msg << endl;
 }
 
 void BuiltInDebug::print(const char *msg, std::string category)
@@ -60,13 +65,18 @@ void BuiltInDebug::plot(Plotter_Packet packet)
 
 void BuiltInDebug::plot(vector<double> values, vector<const char*> names, const char *category)
 {
-//    QVector<double> values_qvec;
-//    values_qvec.insert(values.begin(), values.size(), );
-//    emit plotSignal(values_qvec, );
+    Plotter_Packet p;
+    for(uint i=0; i<values.size(); i++) {
+        p.add_values(values[i]);
+        p.add_legends(names[i]);
+    }
+    p.set_name(category);
+    emit plotPacketSignal(p);
 }
 
 void BuiltInDebug::plot(double value, double key, std::string name, std::string category)
 {
+
 }
 
 void BuiltInDebug::updateWorldModel(RobotState &rs)

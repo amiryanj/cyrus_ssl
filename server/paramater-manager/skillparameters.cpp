@@ -12,7 +12,7 @@ SkillParameters::SkillParameters()
     parameterList->addChild(VarDoublePtr(double_var_test));
 
     m_world.push_back(parameterList);
-    setSettingsFile("../cyrus2014/settings/skillparameters.xml");
+    setSettingsFile("../../cyrus2014/settings/skillparameters.xml");
     load();
 }
 

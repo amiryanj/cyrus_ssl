@@ -1,5 +1,5 @@
-#ifndef SKILLPARAMETERS_H
-#define SKILLPARAMETERS_H
+#ifndef _SKILLPARAMETERS_H
+#define _SKILLPARAMETERS_H
 
 #include "../vartypes/VarTypesBase.h"
 
@@ -18,4 +18,4 @@ public:
     VarDouble* double_var_test;
 };
 
-#endif // SKILLPARAMETERS_H
+#endif // _SKILLPARAMETERS_H

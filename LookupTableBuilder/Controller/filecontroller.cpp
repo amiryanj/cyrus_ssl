@@ -40,7 +40,7 @@ bool FileController::readFile(QList<QVector2D> &data)
     return false;
 }
 
-void FileController::appenPair(qreal x, qreal y)
+void FileController::appendPair(qreal x, qreal y)
 {
     myFile.close();
     if(myFile.open(QIODevice::WriteOnly | QIODevice::Append)) {

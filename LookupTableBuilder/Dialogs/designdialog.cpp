@@ -118,7 +118,7 @@ void DesignDialog::save()
     for(int i=0; i<graph_list.size(); i++) {
         for(int j=0; j<graph_list[i]->getSize(); j++) {
             QVector2D pnt = graph_list[i]->getPoint(j);
-            fc.appenPair(pnt.x(), pnt.y());
+            fc.appendPair(pnt.x(), pnt.y());
         }
     }
 
@@ -130,7 +130,7 @@ void DesignDialog::save()
         qreal x_end = graph_list[i]->getPoint(graph_list[i]->getSize() - 1).x();
         for ( int x=x_start; x<x_end; x+= x_step ) {
             QVector2D pnt = graph_list[i]->getFunctionAtX(x);
-            fc.appenPair(pnt.x(), pnt.y());
+            fc.appendPair(pnt.x(), pnt.y());
         }
     }
 
@@ -145,5 +145,5 @@ void DesignDialog::on_resetBtn_clicked()
 
 void DesignDialog::on_quitBtn_clicked()
 {
-    exit(1);
+    this->accept();
 }

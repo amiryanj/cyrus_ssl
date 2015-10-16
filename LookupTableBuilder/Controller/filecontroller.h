@@ -16,7 +16,7 @@ public:
     QString getFileName();
     bool readFile(QList<QVector2D> &data);
 
-    void appenPair(qreal x, qreal y);
+    void appendPair(qreal x, qreal y);
     void clearFile();
 //    void saveRawData(QString fileName, QList<Graph*>& list, int w, int h);
 //    void saveSteppedData(QString fileName, QList<Graph>& list, int stepMilli, int w, int h);

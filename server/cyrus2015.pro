@@ -10,6 +10,8 @@ greaterThan(QT_MAJOR_VERSION, 4.9): QT += serialport concurrent
 
 #QT       -= gui
 
+include('../LookupTableBuilder/lookuptablebuilder.pri')
+
 LIBS += -lprotobuf -lboost_system -lboost_filesystem -lBox2D -lqcustomplot
 
 DEFINES += _USE_BOX2D_
@@ -185,7 +187,6 @@ SOURCES += \
     paramater-manager/lookuptableloader.cpp \
     paramater-manager/skillparameters.cpp \
     controller/prcontroller.cpp
-
 
 HEADERS += \
     transmitter/RobotSerialConnection.h \

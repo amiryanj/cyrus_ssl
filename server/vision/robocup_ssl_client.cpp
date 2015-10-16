@@ -52,7 +52,7 @@ bool RoboCupSSLClient::open(bool blocking) {
 #if QT_VERSION >= 0x050000
     if(socket.bind(QHostAddress::AnyIPv4, _port,  QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint));
 #else
-    if(socket.bind(QHostAddress::Any, _port, QUdpSocket::ShareAddress));
+    if(socket.bind(QHostAddress::Any, _port, QUdpSocket::ReuseAddressHint));
 #endif
   {
     fprintf(stderr,"Unable to open UDP network port: %d\n",_port);

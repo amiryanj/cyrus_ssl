@@ -3,9 +3,13 @@
 
 #include <QMainWindow>
 #include <QSettings>
+#include <QTreeView>
+#include "vartypes/VarTreeView.h"
 #include "watchfieldgraphics.h"
 #include "plot-manager/plotmanagerwidget.h"
 #include "messengerwidget.h"
+
+using namespace VarTypes;
 
 namespace Ui {
 class MainWindow;
@@ -38,6 +42,7 @@ public:
     WatchFieldGraphics *watchField;
     PlotManagerWidget *PMW;
     MessengerWidget * MSG;
+    VarTreeView *parametersTreeView;
 
     static bool turn_off;
     static bool idle_server;
@@ -57,6 +62,7 @@ private slots:
 
     void on_actionIdle_Server_toggled(bool arg1);
     void on_actionIdle_Vision_toggled(bool arg1);
+    void on_actionFunction_Designer_triggered();
 };
 
 #endif // MAINWINDOW_H
