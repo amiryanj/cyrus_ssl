@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VarXML>
+	<Var name="Skill Parameters" type="list">
+		<Var name="Int Var Test" type="int" minval="0" maxval="1000">
+			15
+		</Var>
+		<Var name="Double Var Test" type="double" minval="0.000000" maxval="1.000000">
+			0.000000
+		</Var>
+	</Var>
+</VarXML>

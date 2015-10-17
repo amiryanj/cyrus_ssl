@@ -1,6 +1,7 @@
 *~
 # settings temporal files
 *.ini
+*.xml
 
 # C++ objects and libs
 

@@ -23,8 +23,6 @@
 #include "VarType.h"
 #include "VarShortVal.h"
 #include <QSlider>
-// FIXME: remove this include after implementing QSlider
-#include <QSpinBox>
 
 namespace VarTypes {
   /*!
@@ -121,6 +119,7 @@ namespace VarTypes {
         setMin(min_val);
         setMax(max_val);
         setDefault(default_val);
+        _flags |= VARTYPE_FLAG_PERSISTENT;
       }
 
       virtual ~VarShort() {}
@@ -190,28 +189,30 @@ namespace VarTypes {
       public:
       virtual QWidget * createEditor(const VarItemDelegate * delegate, QWidget *parent, const QStyleOptionViewItem &option) {
         //TODO: hookup editor changes on press-enter and on spin:
-        (void)delegate;
-        (void)parent;
+//        (void)delegate;
+//        (void)parent;
         (void)option;
         QSlider * w = new QSlider(Qt::Horizontal, parent);
         w->setRange(getMin(), getMax());
-        //connect(w,SIGNAL(sliderMoved(int)), (const QObject *)delegate, SLOT(editorChangeEvent()));
+        connect(w,SIGNAL(sliderMoved(int)), (const QObject *)delegate, SLOT(editorChangeEvent()));
         //uncomment the following line for instantaneous updates:
-        //connect((const QObject *)w,SIGNAL(valueChanged ( short )),(const QObject *)delegate,SLOT(editorChangeEvent()));
+//        connect((const QObject *)w, SIGNAL(valueChanged ( short )),(const QObject *)delegate,SLOT(editorChangeEvent()));
         return w;
       }
 
       virtual void setEditorData(const VarItemDelegate * delegate, QWidget *editor) const {
         (void)delegate;
         QSlider * slider=(QSlider *) editor;
-        slider->setRange(getMin(), getMax());
+//        slider->setRange(getMin(), getMax());
         slider->setValue(getShort());
+        slider->setToolTip(QString("Value: %1").arg(getShort()));
       }
 
       virtual void setModelData(const VarItemDelegate * delegate, QWidget *editor) {
         (void)delegate;
         QSlider * slider =(QSlider *) editor;
         if (setShort(slider->value()) ) mvcEditCompleted();
+        slider->setToolTip(QString("Value: %1").arg(getShort()));
       }
     };
 

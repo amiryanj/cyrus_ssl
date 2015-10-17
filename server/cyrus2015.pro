@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4.9): QT += serialport concurrent
 #QT       -= gui
 
 include('../LookupTableBuilder/lookuptablebuilder.pri')
+include('../shared/tools/vartypes/vartypes.pri')
 
 LIBS += -lprotobuf -lboost_system -lboost_filesystem -lBox2D -lqcustomplot
 
@@ -37,12 +38,7 @@ INCLUDEPATH += \
             ../shared \
             ../shared/utility \
             ../shared/proto \
-            ../shared/tools \
-            ../shared/tools/vartypes/vartypes \
-            ../shared/tools/vartypes/vartypes/gui \
-            ../shared/tools/vartypes/vartypes/primitives \
-            ../shared/tools/vartypes/vartypes/xml
-
+            ../shared/tools
 
 TEMPLATE = app
 
@@ -119,41 +115,7 @@ SOURCES += \
     ../shared/utility/generalmath.cpp \
     planner/planning/sslplanningagent.cpp \
     planner/planning/spatialtree.cpp \
-    planner/planning/rectangularfieldbound.cpp \
-    ../shared/tools/vartypes/vartypes/VarXML.cpp \
-    ../shared/tools/vartypes/vartypes/VarTypesInstance.cpp \
-    ../shared/tools/vartypes/vartypes/VarTypesFactory.cpp \
-    ../shared/tools/vartypes/vartypes/VarTypesBase.cpp \
-    ../shared/tools/vartypes/vartypes/VarTypes.cpp \
-    ../shared/tools/vartypes/vartypes/VarNotifier.cpp \
-    ../shared/tools/vartypes/vartypes/VarBase64.cpp \
-    ../shared/tools/vartypes/vartypes/gui/VarTreeViewOptions.cpp \
-    ../shared/tools/vartypes/vartypes/gui/VarTreeView.cpp \
-    ../shared/tools/vartypes/vartypes/gui/VarTreeModel.cpp \
-    ../shared/tools/vartypes/vartypes/gui/VarItemDelegate.cpp \
-    ../shared/tools/vartypes/vartypes/gui/VarItem.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarVal.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarType.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarTrigger.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarStringVal.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarStringEnum.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarString.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarShortVal.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarShort.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarSelection.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarQWidget.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarProtoBufferVal.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarProtoBuffer.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarList.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarIntVal.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarInt.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarExternal.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarDoubleVal.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarDouble.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarBoolVal.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarBool.cpp \
-    ../shared/tools/vartypes/vartypes/primitives/VarBlob.cpp \
-    ../shared/tools/vartypes/vartypes/xml/xmlParser.cpp \
+    planner/planning/rectangularfieldbound.cpp \    
     ../shared/tools/kalman-cpp/kalman.cpp \
     vision/kalmanfilter.cpp \
     vision/robotkalmanfilter.cpp \
@@ -271,42 +233,7 @@ HEADERS += \
     planner/planning/sslplanningagent.h \
     planner/planning/spatialvertex.h \
     planner/planning/spatialtree.h \
-    planner/planning/rectangularfieldbound.h \
-    ../shared/tools/vartypes/vartypes/VarXML.h \
-    ../shared/tools/vartypes/vartypes/VarTypesInstance.h \
-    ../shared/tools/vartypes/vartypes/VarTypesFactory.h \
-    ../shared/tools/vartypes/vartypes/VarTypesBase.h \
-    ../shared/tools/vartypes/vartypes/VarTypes.h \
-    ../shared/tools/vartypes/vartypes/VarNotifier.h \
-    ../shared/tools/vartypes/vartypes/VarBase64.h \
-    ../shared/tools/vartypes/vartypes/DllDefines.h \
-    ../shared/tools/vartypes/vartypes/gui/VarTreeViewOptions.h \
-    ../shared/tools/vartypes/vartypes/gui/VarTreeView.h \
-    ../shared/tools/vartypes/vartypes/gui/VarTreeModel.h \
-    ../shared/tools/vartypes/vartypes/gui/VarItemDelegate.h \
-    ../shared/tools/vartypes/vartypes/gui/VarItem.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarVal.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarType.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarTrigger.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarStringVal.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarStringEnum.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarString.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarShortVal.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarShort.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarSelection.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarQWidget.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarProtoBufferVal.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarProtoBuffer.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarList.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarIntVal.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarInt.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarExternal.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarDoubleVal.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarDouble.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarBoolVal.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarBool.h \
-    ../shared/tools/vartypes/vartypes/primitives/VarBlob.h \
-    ../shared/tools/vartypes/vartypes/xml/xmlParser.h \
+    planner/planning/rectangularfieldbound.h \    
     ../shared/tools/kalman-cpp/kalman.hpp \
     vision/kalmanfilter.h \
     vision/robotkalmanfilter.h \
