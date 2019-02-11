@@ -34,6 +34,7 @@ a graphical access to edit server codes and parameters, and also a gui interface
 * Sina Mohammadzadeh
 * Mahdi Aali
 * Pouya Payandeh
+* Farzad Sharbafian
 * Bardia Nadimi
 * Navid Nouri
 * Amir Fardin Nafisi
