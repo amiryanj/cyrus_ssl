@@ -10,10 +10,11 @@ The following libraries are needed for running the code:
 3. protobuf = 2.5.0
 4. qcustomplot = 1.0.1
 
-you can install them through apt-get command of ubuntu terminal:
+you can simply use this command in linux terminal:
 
     $ sudo apt-get install libprotobuf-dev libboost-all-dev libbox2d-dev libqcustomplot-dev
-    The current version is compatible with both qt4 and qt5.
+
+The current version is compatible with both qt4 and qt5.
 
 ## Modules
 The package contains 3 submodules:
