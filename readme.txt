@@ -1,4 +1,7 @@
-Cyrus-2015
+##Cyrus-2015
+Source code for Cyrus Small-size soccer robot team
+
+## Installation
 --------------------------------------------------------
 The following libraries are needed for running the code:
 
@@ -6,9 +9,11 @@ The following libraries are needed for running the code:
 2. boost >= 1.55.0
 3. protobuf = 2.5.0
 4. qcustomplot = 1.0.1
+
 you can install them through apt-get command of ubuntu terminal:
-# sudo apt-get install libprotobuf-dev libboost-all-dev libbox2d-dev libqcustomplot-dev
-The current version is compatible with both qt4 and qt5.
+
+    $ sudo apt-get install libprotobuf-dev libboost-all-dev libbox2d-dev libqcustomplot-dev
+    The current version is compatible with both qt4 and qt5.
 
 The software has 3 submodules:
 1. server : which is a terminal program (without gui) in src subdirectory
